@@ -12,7 +12,7 @@ permalink: /privacy/
 
 # プライバシーポリシー
 
-最終更新日: 2026-06-10
+最終更新日: 2026-08-12
 
 ## 1. はじめに
 Channel Timeline Viewer（以下「本アプリ」）は、チャンネルの投稿動画を公開日順（古い順）に整理し、
@@ -38,6 +38,15 @@ Channel Timeline Viewer（以下「本アプリ」）は、チャンネルの投
 
 本アプリは、動画のダウンロード、広告の回避、スクレイピング、バックグラウンド再生、独自プレイヤーでの再生を
 **一切行いません**。
+
+### 再生時に読み込むページについて
+公式の埋め込みプレイヤーを正しく表示するため、再生画面では当方が GitHub Pages 上で公開している
+静的ページ（`https://kataming.github.io/ChannelTimelineViewer/player.html`）を読み込み、その中に
+公式プレイヤーを埋め込みます。このページは公式プレイヤーを表示するだけの静的な HTML であり、
+**利用者の情報を収集・記録・送信しません**（アクセス解析やトラッキングは行っていません）。
+なお、ページの配信元である GitHub 社には、一般的な Web アクセスと同様に通信記録（IPアドレス等）が
+残る場合があります。GitHub の取り扱いについては同社のプライバシーに関する声明をご確認ください。
+- GitHub プライバシーに関する声明: https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement
 
 YouTube/Google の取り扱いについては、各社のポリシー・規約をご確認ください。
 - Google プライバシーポリシー: https://policies.google.com/privacy

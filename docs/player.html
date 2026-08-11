@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<!--
+  YouTube 公式埋め込みプレイヤーを表示するための中継ページ。
+
+  【なぜ必要か】
+  YouTube は 2025 年後半以降、埋め込みプレイヤーのホストを HTTP Referer で厳格に検証する
+  ようになった。iOS の WKWebView は自前の HTML を loadHTMLString で読み込んだ場合も、
+  埋め込みURLを直接開いた場合も、YouTube が求める形の Referer を送らないため、
+      「この動画は再生できません（エラーコード 152-4）」
+      「Error 153 - Video player configuration error」
+  となって再生できない（動画側は embeddable=true で制限なしであることを確認済み）。
+  Capacitor / React Native / Flutter など他の WebView でも同じ事象が報告されている。
+
+  そこで、実在する HTTPS オリジン（GitHub Pages）に置いたこのページを WKWebView で開き、
+  ここから公式プレイヤーを埋め込む。Referer が https://kataming.github.io/... になるため
+  YouTube の検証を通る。
+
+  【やっていないこと】
+  動画のダウンロード・独自プレイヤーでの再生・広告回避・再生の改変は一切していない。
+  表示しているのは YouTube 公式の IFrame Player そのもの。
+
+  【使い方】
+    player.html?v=<videoId>&autoplay=1
+  再生状態は window.webkit.messageHandlers.ytHandler 経由でネイティブ側へ通知する
+  （アプリ内で開かれた場合のみ。ブラウザで開いた場合は何もしない）。
+-->
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<!-- ここが肝。Referer を送らない/絞りすぎる設定だと YouTube が 153 を返す -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Player</title>
+<style>
+  * { margin: 0; padding: 0; }
+  html, body { background: #000; height: 100%; overflow: hidden; }
+  #player { position: absolute; inset: 0; width: 100%; height: 100%; }
+  #msg {
+    position: absolute; inset: 0; display: none;
+    align-items: center; justify-content: center; text-align: center;
+    color: #ddd; font: 14px/1.6 -apple-system, system-ui, sans-serif; padding: 16px;
+  }
+</style>
+</head>
+<body>
+<div id="player"></div>
+<div id="msg"></div>
+<script>
+  var params = new URLSearchParams(location.search);
+  var videoId = (params.get('v') || '').replace(/[^A-Za-z0-9_-]/g, '');
+  var autoplay = params.get('autoplay') === '1' ? 1 : 0;
+
+  function post(msg) {
+    if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.ytHandler) {
+      window.webkit.messageHandlers.ytHandler.postMessage(msg);
+    }
+  }
+
+  function showMessage(text) {
+    var el = document.getElementById('msg');
+    el.textContent = text;
+    el.style.display = 'flex';
+  }
+
+  if (!videoId) {
+    showMessage('動画が指定されていません。');
+  } else {
+    var tag = document.createElement('script');
+    tag.src = 'https://www.youtube.com/iframe_api';
+    tag.onerror = function () {
+      post({ event: 'error', code: -3 });
+      showMessage('プレイヤーを読み込めませんでした。通信環境を確認してください。');
+    };
+    document.head.appendChild(tag);
+  }
+
+  var player;
+  function onYouTubeIframeAPIReady() {
+    player = new YT.Player('player', {
+      width: '100%', height: '100%',
+      videoId: videoId,
+      playerVars: {
+        playsinline: 1,
+        rel: 0,
+        autoplay: autoplay,
+        // このページのオリジン。Referer と併せて YouTube 側の検証に使われる。
+        origin: location.origin
+      },
+      events: {
+        onReady: function () { post({ event: 'ready' }); },
+        onStateChange: function (e) { post({ event: 'state', state: e.data }); },
+        onError: function (e) {
+          post({ event: 'error', code: e.data });
+          showMessage('この動画は再生できませんでした（コード ' + e.data + '）。' +
+                      '「YouTubeで開く」からご覧ください。');
+        }
+      }
+    });
+  }
+
+  // iframe に referrerpolicy を付ける（IFrame API が生成した後に設定する）。
+  var applyReferrerPolicy = setInterval(function () {
+    var f = document.querySelector('#player iframe, iframe');
+    if (f) {
+      f.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+      f.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture; fullscreen');
+      clearInterval(applyReferrerPolicy);
+    }
+  }, 200);
+
+  // 外部から動画を差し替えるためのAPI（アプリ側が evaluateJavaScript で呼ぶ）
+  function loadVideo(id) { if (player && player.loadVideoById) { player.loadVideoById(id); } }
+  function cueVideo(id) { if (player && player.cueVideoById) { player.cueVideoById(id); } }
+</script>
+</body>
+</html>

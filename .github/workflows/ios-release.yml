@@ -33,7 +33,9 @@ on:
 jobs:
   release:
     name: Archive & Upload
-    runs-on: macos-14
+    # Apple は App Store へのアップロードに iOS 26 SDK 以降(Xcode 26+)を必須化している。
+    # macos-14(Xcode 16.2 / iOS 18.2 SDK)では 409 SDK version issue で弾かれるため新しいイメージを使う。
+    runs-on: macos-26
 
     env:
       PROJECT: ChannelTimelineViewer.xcodeproj
@@ -53,8 +55,23 @@ jobs:
 
       - name: Show toolchain
         run: |
+          ls -d /Applications/Xcode*.app || true
           xcodebuild -version
           swift --version
+          xcodebuild -showsdks | grep -i iphoneos || true
+
+      # SDK が古いままだとアーカイブまで通ってからアップロードで 409 になり時間を無駄にするので、
+      # ここで先に落とす。
+      - name: Verify iOS SDK version (App Store 要件)
+        run: |
+          set -euo pipefail
+          SDK=$(xcrun --sdk iphoneos --show-sdk-version)
+          echo "iOS SDK: $SDK"
+          MAJOR=${SDK%%.*}
+          if [ "$MAJOR" -lt 26 ]; then
+            echo "::error::iOS SDK $SDK は App Store の要件(26 以降)を満たしません。ランナーイメージ / Xcode を更新してください。"
+            exit 1
+          fi
 
       - name: Verify required secrets
         env:

@@ -36,6 +36,8 @@ final class ScreenshotUITests: XCTestCase {
     override func setUpWithError() throws {
         // 1カットの失敗で以降を諦めない
         continueAfterFailure = true
+        // 入力が届いているかログで確認できるようにする（既定値に落ちていないか）
+        print("[screenshots] channel=\(channelURL) watchedCount=\(watchedCount)")
         app = XCUIApplication()
         app.launch()
     }

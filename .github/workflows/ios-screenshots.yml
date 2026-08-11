@@ -98,14 +98,18 @@ jobs:
           WATCHED_COUNT: ${{ inputs.watched_count }}
         run: |
           set -o pipefail
+          # TEST_RUNNER_ 付きの値は「xcodebuild の環境変数」として渡すと、接頭辞を外して
+          # テストランナーのプロセス環境に入る。ビルド設定(KEY=VALUE 引数)として渡しても
+          # テスト実行時には届かないので注意。
+          export TEST_RUNNER_SCREENSHOT_CHANNEL_URL="$CHANNEL_URL"
+          export TEST_RUNNER_SCREENSHOT_WATCHED_COUNT="$WATCHED_COUNT"
+          echo "撮影チャンネル: $TEST_RUNNER_SCREENSHOT_CHANNEL_URL / 視聴済みにする本数: $TEST_RUNNER_SCREENSHOT_WATCHED_COUNT"
           xcodebuild \
             -project "$PROJECT" \
             -scheme "$SCHEME" \
             -configuration Debug \
             -destination "platform=iOS Simulator,name=$SIM_NAME" \
             -resultBundlePath "$RESULT_PATH" \
-            TEST_RUNNER_SCREENSHOT_CHANNEL_URL="$CHANNEL_URL" \
-            TEST_RUNNER_SCREENSHOT_WATCHED_COUNT="$WATCHED_COUNT" \
             CODE_SIGNING_ALLOWED=NO \
             test
 

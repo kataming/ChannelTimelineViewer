@@ -2,14 +2,9 @@ import SwiftUI
 import WebKit
 
 /// 埋め込みページのオリジン。
-///
-/// YouTube の埋め込みプレイヤーは、読み込み元のオリジン（リファラ）が正しくないと
-/// 「この動画は再生できません（エラーコード 152-x / 153-x）」で再生を拒否する。
-/// `loadHTMLString(_:baseURL:)` だけではオリジンが伝わらないことがあるため、
-/// IFrame API の `origin` パラメータでも明示する。
 private let embedOrigin = "https://www.youtube.com"
 
-/// YouTube IFrame Player API のプレイヤー状態。
+/// YouTube プレイヤーの状態。
 enum YouTubePlayerState: Int {
     case unstarted = -1
     case ended = 0
@@ -19,15 +14,30 @@ enum YouTubePlayerState: Int {
     case cued = 5
 }
 
-/// 公式の YouTube IFrame Player API を WKWebView で表示する。
+/// YouTube 公式の埋め込みプレイヤー（IFrame Player）を WKWebView で表示する。
 /// 動画ファイルの直接再生・ダウンロードは行わず、公式プレイヤーをそのまま埋め込む。
+///
+/// ## なぜ公式の埋め込みURLを直接開くのか
+///
+/// 以前は自前の HTML を `loadHTMLString(_:baseURL:)` で読み込み、その中で IFrame Player API
+/// (`YT.Player`) を使っていた。しかしこの方法では WKWebView が持つページのオリジンが
+/// YouTube 側に正しく伝わらず、
+///   「この動画は再生できません（エラーコード 152-4）」
+///   「Error 153 - Video player configuration error」
+/// で再生を拒否された（動画側は embeddable=true で制限なしであることを Data API で確認済み）。
+/// `origin` パラメータを足しても、宣言したオリジンと実際のオリジンが食い違うだけで解決しない。
+///
+/// そこで `https://www.youtube.com/embed/<videoId>` を **そのまま開く**方式にした。
+/// ページ自体が youtube.com なのでオリジンの問題が原理的に発生しない。
+/// 表示されるのは変わらず公式プレイヤーで、ダウンロード・独自再生・広告回避は一切行わない。
+///
+/// 再生終了の検知だけは IFrame API のコールバックが使えないため、埋め込みページ内の
+/// 再生要素の `ended` イベントを購読して代替する（再生の制御・改変はしない）。
 struct YouTubePlayerWebView: UIViewRepresentable {
     let videoId: String
-    /// 初回読み込み後に自動再生するか。false の場合は cue のみ（自動再生しない）。
+    /// 初回読み込み後に自動再生するか。
     var autoplayOnLoad: Bool = false
     var onStateChange: ((YouTubePlayerState) -> Void)? = nil
-    /// 埋め込みプレイヤーがエラーを返した時に呼ばれる（IFrame API のエラーコード）。
-    var onError: ((Int) -> Void)? = nil
 
     func makeCoordinator() -> Coordinator { Coordinator(self) }
 
@@ -47,38 +57,46 @@ struct YouTubePlayerWebView: UIViewRepresentable {
         webView.navigationDelegate = context.coordinator
 
         context.coordinator.webView = webView
-        context.coordinator.loadedVideoId = videoId
-        webView.loadHTMLString(Self.html(videoId: videoId),
-                               baseURL: URL(string: embedOrigin))
+        context.coordinator.load(videoId: videoId)
         return webView
     }
 
     func updateUIView(_ webView: WKWebView, context: Context) {
-        // videoId が変わったときだけ差し替える。
+        // videoId が変わったときだけ読み直す。
         guard context.coordinator.loadedVideoId != videoId else { return }
-        context.coordinator.loadedVideoId = videoId
-
-        if context.coordinator.usesDirectEmbed {
-            // フォールバック中は埋め込みURLごと読み直す
-            context.coordinator.loadDirectEmbed(videoId: videoId)
-            return
-        }
-        let fn = autoplayOnLoad ? "loadVideo" : "cueVideo"
-        webView.evaluateJavaScript("\(fn)('\(Self.escape(videoId))');", completionHandler: nil)
+        context.coordinator.load(videoId: videoId)
     }
 
     static func dismantleUIView(_ webView: WKWebView, coordinator: Coordinator) {
         webView.configuration.userContentController.removeScriptMessageHandler(forName: "ytHandler")
     }
 
+    /// 埋め込みURLを組み立てる。
+    static func embedURL(videoId: String, autoplay: Bool) -> URL? {
+        var comps = URLComponents(string: "\(embedOrigin)/embed/\(escape(videoId))")
+        comps?.queryItems = [
+            URLQueryItem(name: "playsinline", value: "1"),   // 全画面に飛ばさず埋め込みのまま再生
+            URLQueryItem(name: "rel", value: "0"),           // 関連動画を同チャンネルに限定
+            URLQueryItem(name: "modestbranding", value: "1"),
+            URLQueryItem(name: "autoplay", value: autoplay ? "1" : "0"),
+        ]
+        return comps?.url
+    }
+
     final class Coordinator: NSObject, WKScriptMessageHandler, WKNavigationDelegate {
         let parent: YouTubePlayerWebView
         weak var webView: WKWebView?
-        var loadedVideoId: String?
-        /// IFrame API 経由の埋め込みが失敗し、埋め込みURLを直接開く方式に切り替えたか。
-        private(set) var usesDirectEmbed = false
+        private(set) var loadedVideoId: String?
 
         init(_ parent: YouTubePlayerWebView) { self.parent = parent }
+
+        func load(videoId: String) {
+            loadedVideoId = videoId
+            guard let url = YouTubePlayerWebView.embedURL(
+                videoId: videoId, autoplay: parent.autoplayOnLoad
+            ) else { return }
+            webView?.load(URLRequest(url: url))
+        }
 
         func userContentController(_ userContentController: WKUserContentController,
                                    didReceive message: WKScriptMessage) {
@@ -93,45 +111,18 @@ struct YouTubePlayerWebView: UIViewRepresentable {
                 }
             case "ended":
                 parent.onStateChange?(.ended)
-            case "error":
-                let code = body["code"] as? Int ?? -1
-                parent.onError?(code)
-                // オリジン起因（152/153 系）で再生を拒否されることがあるため、
-                // 埋め込みURLを直接開く方式に切り替えて再試行する。
-                if !usesDirectEmbed, let id = loadedVideoId {
-                    loadDirectEmbed(videoId: id)
-                }
             default:
                 break
             }
         }
 
-        /// 公式の埋め込みURLをそのまま開く（ページ自体が youtube.com なのでオリジン問題が起きない）。
-        /// 再生は変わらず公式プレイヤー。ダウンロードや独自再生は行わない。
-        func loadDirectEmbed(videoId: String) {
-            usesDirectEmbed = true
-            loadedVideoId = videoId
-            var comps = URLComponents(string: "\(embedOrigin)/embed/\(videoId)")
-            comps?.queryItems = [
-                URLQueryItem(name: "playsinline", value: "1"),
-                URLQueryItem(name: "rel", value: "0"),
-                URLQueryItem(name: "modestbranding", value: "1"),
-                URLQueryItem(name: "autoplay", value: parent.autoplayOnLoad ? "1" : "0"),
-            ]
-            guard let url = comps?.url else { return }
-            webView?.load(URLRequest(url: url))
-        }
-
         func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-            // 直接埋め込み方式では IFrame API のコールバックが使えないので、
-            // 再生要素の 'ended' を拾って「次の動画」の案内に使う。
-            guard usesDirectEmbed else { return }
-            webView.evaluateJavaScript(Self.endedHookJS, completionHandler: nil)
+            webView.evaluateJavaScript(Self.stateHookJS, completionHandler: nil)
         }
 
-        /// 埋め込みページ内の再生要素の終了を検知して Swift 側へ通知するスクリプト。
-        /// 再生の制御・改変はしない（終了イベントを購読するだけ）。
-        private static let endedHookJS = """
+        /// 埋め込みページ内の再生要素の状態を Swift 側へ通知するスクリプト。
+        /// 再生の制御・改変はせず、イベントを購読するだけ。
+        private static let stateHookJS = """
         (function () {
           function post(msg) {
             if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.ytHandler) {
@@ -153,70 +144,8 @@ struct YouTubePlayerWebView: UIViewRepresentable {
         """
     }
 
-    /// videoId に紛れ込みうる引用符等を最低限エスケープする。
+    /// videoId に紛れ込みうる記号を最低限取り除く。
     private static func escape(_ s: String) -> String {
-        s.replacingOccurrences(of: "\\", with: "")
-         .replacingOccurrences(of: "'", with: "")
-    }
-
-    private static func html(videoId: String) -> String {
-        """
-        <!DOCTYPE html>
-        <html>
-        <head>
-        <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-        <style>
-          * { margin: 0; padding: 0; }
-          html, body { background: #000; height: 100%; overflow: hidden; }
-          #player { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-        </style>
-        </head>
-        <body>
-        <div id="player"></div>
-        <script src="https://www.youtube.com/iframe_api"></script>
-        <script>
-          var player;
-          var pendingId = '\(escape(videoId))';
-          function onYouTubeIframeAPIReady() {
-            player = new YT.Player('player', {
-              width: '100%', height: '100%',
-              videoId: pendingId,
-              playerVars: {
-                playsinline: 1, rel: 0, modestbranding: 1, fs: 1,
-                // オリジンを明示しないと埋め込みが拒否されることがある（エラー 152/153 系）
-                origin: '\(embedOrigin)',
-                enablejsapi: 1
-              },
-              events: {
-                'onReady': onReady,
-                'onStateChange': onStateChange,
-                'onError': onError
-              }
-            });
-          }
-          var ready = false;
-          function onReady() { ready = true; }
-          function onStateChange(e) { ready = true; post({ event: 'state', state: e.data }); }
-          function onError(e) { post({ event: 'error', code: e.data }); }
-
-          // IFrame API が読み込めない / 埋め込みページ内で拒否された場合、onError すら
-          // 呼ばれないことがある。一定時間 ready にならなければ失敗とみなして通知する
-          // （Swift 側が埋め込みURL直接読み込みに切り替える）。
-          setTimeout(function () {
-            if (!ready) { post({ event: 'error', code: -2 }); }
-          }, 8000);
-          function post(msg) {
-            if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.ytHandler) {
-              window.webkit.messageHandlers.ytHandler.postMessage(msg);
-            }
-          }
-          function loadVideo(id) { if (player && player.loadVideoById) { player.loadVideoById(id); } }
-          function cueVideo(id) { if (player && player.cueVideoById) { player.cueVideoById(id); } }
-          function playVideo() { if (player && player.playVideo) { player.playVideo(); } }
-          function pauseVideo() { if (player && player.pauseVideo) { player.pauseVideo(); } }
-        </script>
-        </body>
-        </html>
-        """
+        s.filter { $0.isLetter || $0.isNumber || $0 == "-" || $0 == "_" }
     }
 }

@@ -6,6 +6,12 @@ youtubeapikey.txt
 *apikey*.txt
 *api_key*.txt
 *.secret
+# 署名アセット（配布証明書の秘密鍵 / .p12 / ASC APIキー / プロファイル）は絶対にコミットしない
+build/signing/
+*.p12
+*.p8
+*.mobileprovision
+*.key.pem
 # ローカルの企画・差別化メモ（公開リポジトリに含めない）
 docs/差別化.txt
 

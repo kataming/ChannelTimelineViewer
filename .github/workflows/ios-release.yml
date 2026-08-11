@@ -1,0 +1,253 @@
+name: iOS Release
+
+# 目的: 署名付きの Release アーカイブを作り、.ipa を書き出して App Store Connect にアップロードする。
+# Mac を持っていなくても、GitHub の macOS ランナー上でここまで完結させるためのワークフロー。
+#
+# 前提(いずれも scripts/asc_setup_signing.py が登録する Secrets):
+#   ASC_KEY_ID                  App Store Connect API の Key ID
+#   ASC_ISSUER_ID               同 Issuer ID
+#   ASC_PRIVATE_KEY             同 .p8 の中身
+#   BUILD_CERT_P12_BASE64       Apple Distribution 証明書 + 秘密鍵 (.p12) の base64
+#   BUILD_CERT_PASSWORD         その .p12 のパスワード
+#   PROVISIONING_PROFILE_BASE64 App Store 用プロビジョニングプロファイルの base64
+#   PROVISIONING_PROFILE_NAME   同プロファイル名
+#   YOUTUBE_API_KEY             本番の YouTube Data API v3 キー(アプリに同梱される)
+
+on:
+  workflow_dispatch:
+    inputs:
+      marketing_version:
+        description: '表示バージョン (例 1.0)。空なら project.yml の値を使う'
+        required: false
+        default: ''
+      build_number:
+        description: 'ビルド番号。空なら GitHub の実行番号を使う'
+        required: false
+        default: ''
+      upload:
+        description: 'App Store Connect にアップロードする'
+        type: boolean
+        required: false
+        default: true
+
+jobs:
+  release:
+    name: Archive & Upload
+    runs-on: macos-14
+
+    env:
+      PROJECT: ChannelTimelineViewer.xcodeproj
+      SCHEME: ChannelTimelineViewer
+      BUNDLE_ID: com.deskflowlabs.channeltimelineviewer
+      ARCHIVE_PATH: build/ChannelTimelineViewer.xcarchive
+      EXPORT_DIR: build/export
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Select Xcode (latest stable)
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - name: Show toolchain
+        run: |
+          xcodebuild -version
+          swift --version
+
+      - name: Verify required secrets
+        env:
+          CERT: ${{ secrets.BUILD_CERT_P12_BASE64 }}
+          CERT_PWD: ${{ secrets.BUILD_CERT_PASSWORD }}
+          PROFILE: ${{ secrets.PROVISIONING_PROFILE_BASE64 }}
+          PROFILE_NAME: ${{ secrets.PROVISIONING_PROFILE_NAME }}
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          ASC_PRIVATE_KEY: ${{ secrets.ASC_PRIVATE_KEY }}
+          YT_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+        run: |
+          missing=""
+          for v in CERT CERT_PWD PROFILE PROFILE_NAME ASC_KEY_ID ASC_ISSUER_ID ASC_PRIVATE_KEY YT_KEY; do
+            if [ -z "${!v}" ]; then missing="$missing $v"; fi
+          done
+          if [ -n "$missing" ]; then
+            echo "必要な Secret が未設定です:$missing"
+            echo "scripts/asc_setup_signing.py を実行して登録してください（YOUTUBE_API_KEY は手動）。"
+            exit 1
+          fi
+          echo "必要な Secret はすべて設定済み"
+
+      - name: Import signing certificate into a temporary keychain
+        env:
+          CERT_P12_BASE64: ${{ secrets.BUILD_CERT_P12_BASE64 }}
+          CERT_PASSWORD: ${{ secrets.BUILD_CERT_PASSWORD }}
+        run: |
+          set -euo pipefail
+          KEYCHAIN_PATH="$RUNNER_TEMP/build.keychain-db"
+          KEYCHAIN_PASSWORD="$(uuidgen)"
+          echo "KEYCHAIN_PATH=$KEYCHAIN_PATH" >> "$GITHUB_ENV"
+
+          echo "$CERT_P12_BASE64" | base64 --decode > "$RUNNER_TEMP/cert.p12"
+
+          security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          security set-keychain-settings -lut 21600 "$KEYCHAIN_PATH"
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          security import "$RUNNER_TEMP/cert.p12" -k "$KEYCHAIN_PATH" \
+            -P "$CERT_PASSWORD" -A -f pkcs12
+          security set-key-partition-list -S apple-tool:,apple:,codesign: \
+            -s -k "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH" > /dev/null
+          security list-keychain -d user -s "$KEYCHAIN_PATH" login.keychain-db
+
+          rm -f "$RUNNER_TEMP/cert.p12"
+          echo "インポート済みの署名 ID:"
+          security find-identity -v -p codesigning "$KEYCHAIN_PATH"
+
+      - name: Install provisioning profile
+        env:
+          PROFILE_BASE64: ${{ secrets.PROVISIONING_PROFILE_BASE64 }}
+        run: |
+          set -euo pipefail
+          PROFILE_DIR="$HOME/Library/MobileDevice/Provisioning Profiles"
+          mkdir -p "$PROFILE_DIR"
+          echo "$PROFILE_BASE64" | base64 --decode > "$RUNNER_TEMP/profile.mobileprovision"
+
+          # UUID を取り出してファイル名に使う（Xcode が探す形式）
+          security cms -D -i "$RUNNER_TEMP/profile.mobileprovision" > "$RUNNER_TEMP/profile.plist"
+          UUID=$(/usr/libexec/PlistBuddy -c "Print :UUID" "$RUNNER_TEMP/profile.plist")
+          NAME=$(/usr/libexec/PlistBuddy -c "Print :Name" "$RUNNER_TEMP/profile.plist")
+          cp "$RUNNER_TEMP/profile.mobileprovision" "$PROFILE_DIR/$UUID.mobileprovision"
+          echo "PROFILE_UUID=$UUID" >> "$GITHUB_ENV"
+          echo "インストール: $NAME ($UUID)"
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Apply version numbers
+        env:
+          IN_MARKETING: ${{ inputs.marketing_version }}
+          IN_BUILD: ${{ inputs.build_number }}
+        run: |
+          set -euo pipefail
+          BUILD_NUMBER="${IN_BUILD:-$GITHUB_RUN_NUMBER}"
+          echo "BUILD_NUMBER=$BUILD_NUMBER" >> "$GITHUB_ENV"
+          if [ -n "$IN_MARKETING" ]; then
+            echo "MARKETING_OVERRIDE=$IN_MARKETING" >> "$GITHUB_ENV"
+          fi
+          echo "ビルド番号: $BUILD_NUMBER / 表示バージョン: ${IN_MARKETING:-（project.yml の値）}"
+
+      - name: Generate Xcode project
+        run: xcodegen generate
+
+      - name: Prepare Config.plist (production)
+        env:
+          YT_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+        run: |
+          set -euo pipefail
+          cp Resources/Config.example.plist Resources/Config.plist
+          /usr/libexec/PlistBuddy -c "Set :YOUTUBE_API_KEY $YT_KEY" Resources/Config.plist
+          /usr/libexec/PlistBuddy -c "Set :PRIVACY_POLICY_URL https://kataming.github.io/ChannelTimelineViewer/privacy/" \
+            Resources/Config.plist
+          # ※ キー値はログに出さない（雛形の値のままでないことだけ確認する）
+          if /usr/libexec/PlistBuddy -c "Print :YOUTUBE_API_KEY" Resources/Config.plist | grep -q "YOUR_API_KEY_HERE"; then
+            echo "YOUTUBE_API_KEY が雛形のままです"; exit 1
+          fi
+          echo "Config.plist を作成しました（値は非表示）"
+
+      - name: Archive (Release, manual signing)
+        env:
+          PROFILE_NAME: ${{ secrets.PROVISIONING_PROFILE_NAME }}
+        run: |
+          set -euo pipefail
+          EXTRA=""
+          if [ -n "${MARKETING_OVERRIDE:-}" ]; then
+            EXTRA="MARKETING_VERSION=$MARKETING_OVERRIDE"
+          fi
+          xcodebuild \
+            -project "$PROJECT" \
+            -scheme "$SCHEME" \
+            -configuration Release \
+            -destination 'generic/platform=iOS' \
+            -archivePath "$ARCHIVE_PATH" \
+            OTHER_CODE_SIGN_FLAGS="--keychain $KEYCHAIN_PATH" \
+            CODE_SIGN_STYLE=Manual \
+            CODE_SIGN_IDENTITY="Apple Distribution" \
+            PROVISIONING_PROFILE_SPECIFIER="$PROFILE_NAME" \
+            CURRENT_PROJECT_VERSION="$BUILD_NUMBER" \
+            $EXTRA \
+            archive
+
+      - name: Write ExportOptions.plist
+        env:
+          PROFILE_NAME: ${{ secrets.PROVISIONING_PROFILE_NAME }}
+        run: |
+          set -euo pipefail
+          mkdir -p build
+          PB=/usr/libexec/PlistBuddy
+          OPTS=build/ExportOptions.plist
+          rm -f "$OPTS"
+          # PlistBuddy はキー区切りが ':' なので、ドットを含む Bundle ID をそのまま書ける
+          $PB -c "Add :method string app-store-connect" "$OPTS"
+          $PB -c "Add :teamID string 893UUWYHB8" "$OPTS"
+          $PB -c "Add :signingStyle string manual" "$OPTS"
+          $PB -c "Add :uploadSymbols bool true" "$OPTS"
+          $PB -c "Add :destination string export" "$OPTS"
+          $PB -c "Add :provisioningProfiles dict" "$OPTS"
+          $PB -c "Add :provisioningProfiles:$BUNDLE_ID string $PROFILE_NAME" "$OPTS"
+          $PB -c "Print" "$OPTS"
+
+      - name: Export .ipa
+        run: |
+          set -euo pipefail
+          export_ipa() {
+            xcodebuild -exportArchive \
+              -archivePath "$ARCHIVE_PATH" \
+              -exportPath "$EXPORT_DIR" \
+              -exportOptionsPlist build/ExportOptions.plist \
+              OTHER_CODE_SIGN_FLAGS="--keychain $KEYCHAIN_PATH"
+          }
+          if ! export_ipa; then
+            # 古い Xcode(15.3 未満) は method=app-store-connect を受け付けないため app-store で再試行
+            echo "app-store-connect での書き出しに失敗。method=app-store で再試行します。"
+            /usr/libexec/PlistBuddy -c "Set :method app-store" build/ExportOptions.plist
+            export_ipa
+          fi
+          ls -lh "$EXPORT_DIR"
+
+      - name: Upload to App Store Connect
+        if: ${{ inputs.upload }}
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          ASC_PRIVATE_KEY: ${{ secrets.ASC_PRIVATE_KEY }}
+        run: |
+          set -euo pipefail
+          # altool は ~/private_keys/AuthKey_<KEYID>.p8 を探す
+          mkdir -p "$HOME/private_keys"
+          printf '%s' "$ASC_PRIVATE_KEY" > "$HOME/private_keys/AuthKey_${ASC_KEY_ID}.p8"
+          chmod 600 "$HOME/private_keys/AuthKey_${ASC_KEY_ID}.p8"
+
+          IPA=$(ls "$EXPORT_DIR"/*.ipa | head -n 1)
+          echo "アップロード対象: $IPA"
+
+          xcrun altool --validate-app -f "$IPA" -t ios \
+            --apiKey "$ASC_KEY_ID" --apiIssuer "$ASC_ISSUER_ID"
+          xcrun altool --upload-app -f "$IPA" -t ios \
+            --apiKey "$ASC_KEY_ID" --apiIssuer "$ASC_ISSUER_ID"
+
+          rm -f "$HOME/private_keys/AuthKey_${ASC_KEY_ID}.p8"
+          echo "アップロード完了。App Store Connect の TestFlight タブで処理完了を待ってください。"
+
+      - name: Upload .ipa as workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ChannelTimelineViewer-ipa
+          path: ${{ env.EXPORT_DIR }}/*.ipa
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Clean up keychain
+        if: always()
+        run: |
+          security delete-keychain "$KEYCHAIN_PATH" || true
+          rm -f "$HOME/Library/MobileDevice/Provisioning Profiles/${PROFILE_UUID:-none}.mobileprovision" || true

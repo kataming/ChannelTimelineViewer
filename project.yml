@@ -57,6 +57,21 @@ targets:
         GENERATE_INFOPLIST_FILE: YES
         PRODUCT_BUNDLE_IDENTIFIER: com.deskflowlabs.channeltimelineviewer.tests
 
+  # App Store 用スクリーンショットを撮るためだけの UI テスト。
+  # 実 API とネットワークを使うので、通常の CI(ChannelTimelineViewer スキーム)では実行しない。
+  ChannelTimelineViewerUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - UITests
+    dependencies:
+      - target: ChannelTimelineViewer
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        PRODUCT_BUNDLE_IDENTIFIER: com.deskflowlabs.channeltimelineviewer.uitests
+        TEST_TARGET_NAME: ChannelTimelineViewer
+
 schemes:
   ChannelTimelineViewer:
     build:
@@ -66,3 +81,13 @@ schemes:
     test:
       targets:
         - ChannelTimelineViewerTests
+
+  # スクリーンショット撮影専用スキーム（通常 CI とは分離）
+  Screenshots:
+    build:
+      targets:
+        ChannelTimelineViewer: all
+        ChannelTimelineViewerUITests: [test]
+    test:
+      targets:
+        - ChannelTimelineViewerUITests

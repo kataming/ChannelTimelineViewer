@@ -28,6 +28,7 @@ struct VideoListView: View {
                     } label: {
                         Image(systemName: "line.3.horizontal.decrease.circle")
                     }
+                    .accessibilityLabel("並び替えと表示")
                 }
             }
             .task {

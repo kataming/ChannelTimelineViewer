@@ -1,0 +1,165 @@
+name: iOS Screenshots
+
+# 目的: App Store 提出用のスクリーンショットを、シミュレーター上の UI テストで自動撮影する。
+# Mac を持っていなくても、撮影〜取り出しまで GitHub Actions 上で完結する。
+#
+# 撮影内容は UITests/ScreenshotUITests.swift 参照（ホーム/一覧/フィルター/再生+メモ/進捗/About）。
+# 生成物は workflow artifact 'app-store-screenshots' としてダウンロードできる。
+
+on:
+  workflow_dispatch:
+    inputs:
+      channel_url:
+        description: '撮影に使うチャンネルURL'
+        required: false
+        default: 'https://www.youtube.com/@NASA'
+      device:
+        description: 'シミュレーター名（空なら最新の iPhone Pro Max を自動選択）'
+        required: false
+        default: ''
+      watched_count:
+        description: '進捗バーに数字を出すため視聴済みにする本数'
+        required: false
+        default: '3'
+
+jobs:
+  screenshots:
+    name: Capture screenshots
+    runs-on: macos-26
+
+    env:
+      PROJECT: ChannelTimelineViewer.xcodeproj
+      SCHEME: Screenshots
+      RESULT_PATH: build/Screenshots.xcresult
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Select Xcode (latest stable)
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - name: Show toolchain
+        run: |
+          xcodebuild -version
+          xcrun --sdk iphonesimulator --show-sdk-version
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Generate Xcode project
+        run: xcodegen generate
+
+      - name: Prepare Config.plist
+        env:
+          YT_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+        run: |
+          set -euo pipefail
+          if [ -z "$YT_KEY" ]; then
+            echo "::error::YOUTUBE_API_KEY が未設定です。実データが無いとスクショが撮れません。"
+            exit 1
+          fi
+          cp Resources/Config.example.plist Resources/Config.plist
+          /usr/libexec/PlistBuddy -c "Set :YOUTUBE_API_KEY $YT_KEY" Resources/Config.plist
+          /usr/libexec/PlistBuddy -c "Set :PRIVACY_POLICY_URL https://kataming.github.io/ChannelTimelineViewer/privacy/" \
+            Resources/Config.plist
+          echo "Config.plist を作成しました（値は非表示）"
+
+      - name: Pick simulator
+        env:
+          IN_DEVICE: ${{ inputs.device }}
+        run: |
+          set -euo pipefail
+          if [ -n "$IN_DEVICE" ]; then
+            NAME="$IN_DEVICE"
+          else
+            # App Store の 6.9 インチ枠に合う最新の Pro Max を選ぶ
+            NAME=$(xcrun simctl list devices available -j \
+              | jq -r '[.devices[][] | select(.name | test("^iPhone .*Pro Max$")) | .name] | unique | last')
+          fi
+          if [ -z "$NAME" ] || [ "$NAME" = "null" ]; then
+            echo "::error::利用可能な iPhone Pro Max シミュレーターが見つかりません"
+            xcrun simctl list devices available
+            exit 1
+          fi
+          echo "SIM_NAME=$NAME" >> "$GITHUB_ENV"
+          echo "使用するシミュレーター: $NAME"
+
+      - name: Run screenshot UI tests
+        env:
+          CHANNEL_URL: ${{ inputs.channel_url }}
+          WATCHED_COUNT: ${{ inputs.watched_count }}
+        run: |
+          set -o pipefail
+          xcodebuild \
+            -project "$PROJECT" \
+            -scheme "$SCHEME" \
+            -configuration Debug \
+            -destination "platform=iOS Simulator,name=$SIM_NAME" \
+            -resultBundlePath "$RESULT_PATH" \
+            TEST_RUNNER_SCREENSHOT_CHANNEL_URL="$CHANNEL_URL" \
+            TEST_RUNNER_SCREENSHOT_WATCHED_COUNT="$WATCHED_COUNT" \
+            CODE_SIGNING_ALLOWED=NO \
+            test
+
+      - name: Export screenshots from xcresult
+        if: always()
+        env:
+          CHANNEL_URL: ${{ inputs.channel_url }}
+        run: |
+          set -euo pipefail
+          OUT=screenshots
+          RAW=build/attachments
+          mkdir -p "$OUT"
+          if [ ! -d "$RESULT_PATH" ]; then
+            echo "::warning::xcresult がありません。テストが起動前に失敗した可能性があります。"
+            exit 0
+          fi
+          xcrun xcresulttool export attachments \
+            --path "$RESULT_PATH" --output-path "$RAW" || \
+          xcrun xcresulttool export attachments \
+            --path "$RESULT_PATH" --output-path "$RAW" --legacy
+
+          # manifest.json の suggestedHumanReadableName を使って人間が読める名前に付け替える
+          if [ -f "$RAW/manifest.json" ]; then
+            jq -r '.[].attachments[]
+                   | select(.suggestedHumanReadableName != null)
+                   | "\(.exportedFileName)\t\(.suggestedHumanReadableName)"' \
+              "$RAW/manifest.json" \
+            | while IFS=$'\t' read -r src name; do
+                [ -f "$RAW/$src" ] || continue
+                cp "$RAW/$src" "$OUT/${name}.png"
+              done
+          fi
+
+          # 名前付けに失敗した場合でも中身は残す
+          if [ -z "$(ls -A "$OUT" 2>/dev/null)" ]; then
+            echo "::warning::名前付けできなかったため、生の添付ファイルをそのまま出力します。"
+            cp "$RAW"/* "$OUT"/ 2>/dev/null || true
+          fi
+
+          echo "撮影結果:"
+          ls -lh "$OUT"
+          for f in "$OUT"/*.png; do
+            [ -f "$f" ] || continue
+            echo "  $(basename "$f") : $(sips -g pixelWidth -g pixelHeight "$f" | awk '/pixel/{printf "%s ", $2}')"
+          done
+
+      - name: Upload screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-store-screenshots
+          path: screenshots/
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Upload xcresult (デバッグ用)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots-xcresult
+          path: ${{ env.RESULT_PATH }}
+          retention-days: 7

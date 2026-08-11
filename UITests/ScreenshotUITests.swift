@@ -64,7 +64,8 @@ final class ScreenshotUITests: XCTestCase {
         }
 
         // 2) スクロールビューを下に払う（interactive dismissal）
-        app.swipeDown()
+        let scroll = app.scrollViews.firstMatch
+        if scroll.exists { scroll.swipeDown() } else { app.swipeDown() }
         if app.keyboards.count == 0 { return }
 
         // 3) ナビゲーションバーをタップ
@@ -177,23 +178,36 @@ final class ScreenshotUITests: XCTestCase {
         Thread.sleep(forTimeInterval: 0.8)
     }
 
+    /// 再生画面を撮る。
+    ///
+    /// メモを入力した直後はキーボードが出たままになりやすく（SwiftUI の TextEditor は
+    /// 確実に閉じる手段が無い）、ストア用の画像として使えない。そこで
+    /// 「入力 → 一度戻る → 開き直す」ことでキーボードの無い状態を作る。
+    /// メモは videoId ごとに自動保存されるので、開き直しても内容は残る。
     private func capturePlayerScreen() {
-        // 一覧の適当な動画を開く（0,1 は進捗ヘッダー/次に見る行）
-        let row = app.cells.element(boundBy: 3)
+        let rowIndex = 3  // 0,1 は進捗ヘッダー/次に見る行
+
+        // 1回目: メモを入力するだけ
+        let row = app.cells.element(boundBy: rowIndex)
         guard row.exists && row.isHittable else { return }
         row.tap()
-
-        // 埋め込みプレイヤーの読み込み待ち
         _ = app.buttons["視聴済みにする"].waitForExistence(timeout: 40)
-        Thread.sleep(forTimeInterval: 8)
 
-        // メモ欄にサンプルを入力（学習用途が伝わるように）
         let memo = app.textViews.firstMatch
         if memo.exists && memo.isHittable {
             memo.tap()
             memo.typeText("導入回。用語の定義をここまでで押さえる。次回から実践パート。")
+            Thread.sleep(forTimeInterval: 0.8)
             dismissKeyboard()
         }
+        goBack()
+
+        // 2回目: キーボードの無い状態で、プレイヤーの読み込みを待って撮る
+        let row2 = app.cells.element(boundBy: rowIndex)
+        guard row2.exists && row2.isHittable else { return }
+        row2.tap()
+        _ = app.buttons["視聴済みにする"].waitForExistence(timeout: 40)
+        Thread.sleep(forTimeInterval: 10)  // 埋め込みプレイヤーの読み込み待ち
         capture("04-player-with-memo")
 
         goBack()

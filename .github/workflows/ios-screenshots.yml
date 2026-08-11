@@ -12,15 +12,17 @@ on:
       channel_url:
         description: '撮影に使うチャンネルURL'
         required: false
-        default: 'https://www.youtube.com/@NASA'
+        # 動画本数が数千あるチャンネルだと進捗が「3 / 5,000本（0%）」になり見栄えが悪い。
+        # 学習・シリーズ視聴という位置づけにも合う、本数が手頃な教育系チャンネルを既定にする。
+        default: 'https://www.youtube.com/@3blue1brown'
       device:
         description: 'シミュレーター名（空なら最新の iPhone Pro Max を自動選択）'
         required: false
         default: ''
       watched_count:
-        description: '進捗バーに数字を出すため視聴済みにする本数'
+        description: '進捗バーに数字を出すため視聴済みにする本数（1本あたり約15秒かかる）'
         required: false
-        default: '3'
+        default: '12'
 
 jobs:
   screenshots:
@@ -133,7 +135,9 @@ jobs:
               "$RAW/manifest.json" \
             | while IFS=$'\t' read -r src name; do
                 [ -f "$RAW/$src" ] || continue
-                cp "$RAW/$src" "$OUT/${name}.png"
+                # 添付名に .png が含まれる場合があるので二重拡張子にしない
+                base="${name%.png}"
+                cp "$RAW/$src" "$OUT/${base}.png"
               done
           fi
 

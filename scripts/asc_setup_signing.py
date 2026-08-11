@@ -126,9 +126,12 @@ def build_p12(key, cert_der: bytes, password: str, friendly_name: str) -> bytes:
 
 # --- GitHub Secrets -----------------------------------------------------------
 def set_secret(repo: str, name: str, value: str) -> None:
-    """gh secret set を stdin 経由で実行する(値をコマンドライン/ログに出さない)。"""
+    """gh secret set を stdin 経由で実行する(値をコマンドライン/ログに出さない)。
+
+    gh は --body を省略すると標準入力から値を読む。
+    """
     proc = subprocess.run(
-        ["gh", "secret", "set", name, "-R", repo, "--body-file", "-"],
+        ["gh", "secret", "set", name, "-R", repo],
         input=value.encode("utf-8"),
         capture_output=True,
     )
@@ -137,6 +140,45 @@ def set_secret(repo: str, name: str, value: str) -> None:
             f"[gh secret set 失敗] {name}\n{proc.stderr.decode('utf-8', errors='replace')}"
         )
     print(f"  ✓ Secret 登録: {name}")
+
+
+def resume_from_local(args) -> None:
+    """Apple 側の資産は作成済みという前提で、.p12 を作り直して Secret 登録だけ行う。"""
+    key_path = args.out_dir / "distribution.key.pem"
+    cer_path = args.out_dir / "distribution.cer"
+    prof_path = args.out_dir / "profile.mobileprovision"
+    for pth in (key_path, cer_path, prof_path):
+        if not pth.exists():
+            raise SystemExit(
+                f"再開に必要なファイルがありません: {pth}\n"
+                "--resume-from-local を使わずに通常実行してください(証明書が再発行されます)。"
+            )
+
+    key = serialization.load_pem_private_key(key_path.read_bytes(), password=None)
+    cert_der = cer_path.read_bytes()
+
+    p12_password = secrets.token_urlsafe(24)
+    p12_bytes = build_p12(
+        key, cert_der, p12_password, "Channel Timeline Viewer Distribution"
+    )
+    (args.out_dir / "distribution.p12").write_bytes(p12_bytes)
+    # パスワードを控えておく(build/ は .gitignore 済み)。紛失しても .p12 は作り直せる。
+    (args.out_dir / "p12-password.txt").write_text(p12_password, encoding="utf-8")
+    print("既存の秘密鍵・証明書から .p12 を作り直しました")
+
+    profile_b64 = base64.b64encode(prof_path.read_bytes()).decode("ascii")
+
+    print(f"\nGitHub Secrets に登録しています ({args.repo})…")
+    set_secret(args.repo, "ASC_KEY_ID", args.key_id)
+    set_secret(args.repo, "ASC_ISSUER_ID", args.issuer_id)
+    set_secret(args.repo, "ASC_PRIVATE_KEY", args.p8.read_text(encoding="utf-8"))
+    set_secret(
+        args.repo, "BUILD_CERT_P12_BASE64", base64.b64encode(p12_bytes).decode("ascii")
+    )
+    set_secret(args.repo, "BUILD_CERT_PASSWORD", p12_password)
+    set_secret(args.repo, "PROVISIONING_PROFILE_BASE64", profile_b64)
+    set_secret(args.repo, "PROVISIONING_PROFILE_NAME", args.profile_name)
+    print("\n完了。gh secret list で確認できます。")
 
 
 # --- メイン -------------------------------------------------------------------
@@ -157,14 +199,22 @@ def main() -> None:
         help="既存の証明書/Bundle ID/プロファイルを表示するだけで、作成も Secret 登録もしない",
     )
     p.add_argument(
-        "--reuse-cert-id",
-        default=None,
-        help="既存の証明書を使う場合の certificate id(秘密鍵が手元にある時のみ有効)",
+        "--resume-from-local",
+        action="store_true",
+        help=(
+            "Apple 側の証明書/プロファイルは作成済みで、Secret 登録だけやり直す場合に使う。"
+            "out_dir の distribution.key.pem / distribution.cer / profile.mobileprovision から"
+            ".p12 を作り直して登録する(証明書を二重発行しない)"
+        ),
     )
     args = p.parse_args()
 
     if not args.p8.exists():
         raise SystemExit(f"p8 ファイルが見つかりません: {args.p8}")
+
+    if args.resume_from_local:
+        resume_from_local(args)
+        return
 
     token = make_token(args.key_id, args.issuer_id, args.p8)
     print("App Store Connect API に接続しています…")
@@ -255,6 +305,7 @@ def main() -> None:
         key, cert_der, p12_password, "Channel Timeline Viewer Distribution"
     )
     (args.out_dir / "distribution.p12").write_bytes(p12_bytes)
+    (args.out_dir / "p12-password.txt").write_text(p12_password, encoding="utf-8")
     print("  ✓ .p12 を作成(build/signing/distribution.p12)")
 
     # 6) プロビジョニングプロファイルを作成

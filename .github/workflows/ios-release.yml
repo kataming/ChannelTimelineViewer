@@ -67,8 +67,14 @@ jobs:
           ASC_PRIVATE_KEY: ${{ secrets.ASC_PRIVATE_KEY }}
           YT_KEY: ${{ secrets.YOUTUBE_API_KEY }}
         run: |
+          required="CERT CERT_PWD PROFILE PROFILE_NAME ASC_KEY_ID ASC_ISSUER_ID ASC_PRIVATE_KEY"
+          # 本番アップロード時のみ、実 API キーを必須にする
+          # （upload=false のドライランは署名・アーカイブの確認が目的なのでダミーキーで通す）
+          if [ "${{ inputs.upload }}" = "true" ]; then
+            required="$required YT_KEY"
+          fi
           missing=""
-          for v in CERT CERT_PWD PROFILE PROFILE_NAME ASC_KEY_ID ASC_ISSUER_ID ASC_PRIVATE_KEY YT_KEY; do
+          for v in $required; do
             if [ -z "${!v}" ]; then missing="$missing $v"; fi
           done
           if [ -n "$missing" ]; then
@@ -145,14 +151,20 @@ jobs:
         run: |
           set -euo pipefail
           cp Resources/Config.example.plist Resources/Config.plist
-          /usr/libexec/PlistBuddy -c "Set :YOUTUBE_API_KEY $YT_KEY" Resources/Config.plist
+          if [ -n "$YT_KEY" ]; then
+            /usr/libexec/PlistBuddy -c "Set :YOUTUBE_API_KEY $YT_KEY" Resources/Config.plist
+            echo "本番 API キーを設定しました（値は非表示）"
+          else
+            # ここに来るのは upload=false のドライランのみ（上の検証ステップで担保）
+            /usr/libexec/PlistBuddy -c "Set :YOUTUBE_API_KEY CI_DUMMY_KEY_FOR_ARCHIVE" Resources/Config.plist
+            echo "::warning::YOUTUBE_API_KEY 未設定のためダミーキーで作成しました。このビルドは提出に使えません。"
+          fi
           /usr/libexec/PlistBuddy -c "Set :PRIVACY_POLICY_URL https://kataming.github.io/ChannelTimelineViewer/privacy/" \
             Resources/Config.plist
-          # ※ キー値はログに出さない（雛形の値のままでないことだけ確認する）
+          # 雛形の値が残っていないことだけ確認する（キー値そのものはログに出さない）
           if /usr/libexec/PlistBuddy -c "Print :YOUTUBE_API_KEY" Resources/Config.plist | grep -q "YOUR_API_KEY_HERE"; then
             echo "YOUTUBE_API_KEY が雛形のままです"; exit 1
           fi
-          echo "Config.plist を作成しました（値は非表示）"
 
       - name: Archive (Release, manual signing)
         env:

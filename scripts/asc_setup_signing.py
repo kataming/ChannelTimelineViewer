@@ -112,15 +112,26 @@ def generate_key_and_csr(common_name: str, country: str = "JP"):
 
 
 def build_p12(key, cert_der: bytes, password: str, friendly_name: str) -> bytes:
+    """macOS の `security import` が読める形式で .p12 を作る。
+
+    cryptography の既定(BestAvailableEncryption)は AES-256 + HMAC-SHA256 の新しい
+    PKCS#12 を作るが、macOS の security コマンドはこれを解釈できず
+    「MAC verification failed during PKCS12 import (wrong password?)」で失敗する。
+    そのため 3DES + HMAC-SHA1 の旧形式を明示的に指定する。
+    """
     cert = x509.load_der_x509_certificate(cert_der)
+    encryption = (
+        serialization.PrivateFormat.PKCS12.encryption_builder()
+        .key_cert_algorithm(pkcs12.PBES.PBESv1SHA1And3KeyTripleDESCBC)
+        .hmac_hash(hashes.SHA1())
+        .build(password.encode("utf-8"))
+    )
     return pkcs12.serialize_key_and_certificates(
         name=friendly_name.encode("utf-8"),
         key=key,
         cert=cert,
         cas=None,
-        encryption_algorithm=serialization.BestAvailableEncryption(
-            password.encode("utf-8")
-        ),
+        encryption_algorithm=encryption,
     )
 
 

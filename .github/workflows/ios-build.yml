@@ -36,9 +36,9 @@ jobs:
       - name: Install XcodeGen
         run: brew install xcodegen
 
-      - name: Generate Xcode project
-        run: xcodegen generate
-
+      # ⚠️ 順序に注意: Config.plist は xcodegen generate より前に作る。
+      # XcodeGen は生成時点で存在するファイルだけをリソースに登録するため、
+      # 後から作るとアプリバンドルに含まれず、実行時にAPIキーを読めない。
       - name: Prepare Config.plist
         env:
           YT_KEY: ${{ secrets.YOUTUBE_API_KEY }}
@@ -52,6 +52,9 @@ jobs:
             /usr/libexec/PlistBuddy -c "Set :YOUTUBE_API_KEY CI_DUMMY_KEY_FOR_BUILD" Resources/Config.plist
           fi
           # ※ キー値はログに出さない(Print しない)
+
+      - name: Generate Xcode project
+        run: xcodegen generate
 
       - name: Show available simulators (デバッグ用)
         run: xcrun simctl list devices available | sed -n '1,60p'

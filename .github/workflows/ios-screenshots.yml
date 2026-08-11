@@ -49,9 +49,9 @@ jobs:
       - name: Install XcodeGen
         run: brew install xcodegen
 
-      - name: Generate Xcode project
-        run: xcodegen generate
-
+      # ⚠️ 順序に注意: Config.plist は xcodegen generate より前に作る。
+      # XcodeGen は生成時点で存在するファイルだけをリソースに登録するため、
+      # 後から作るとアプリバンドルに含まれず「APIキーが設定されていません」になる。
       - name: Prepare Config.plist
         env:
           YT_KEY: ${{ secrets.YOUTUBE_API_KEY }}
@@ -66,6 +66,9 @@ jobs:
           /usr/libexec/PlistBuddy -c "Set :PRIVACY_POLICY_URL https://kataming.github.io/ChannelTimelineViewer/privacy/" \
             Resources/Config.plist
           echo "Config.plist を作成しました（値は非表示）"
+
+      - name: Generate Xcode project
+        run: xcodegen generate
 
       - name: Pick simulator
         env:

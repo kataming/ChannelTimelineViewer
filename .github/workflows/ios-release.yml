@@ -159,9 +159,9 @@ jobs:
           fi
           echo "ビルド番号: $BUILD_NUMBER / 表示バージョン: ${IN_MARKETING:-（project.yml の値）}"
 
-      - name: Generate Xcode project
-        run: xcodegen generate
-
+      # ⚠️ 順序に注意: Config.plist は xcodegen generate より前に作る。
+      # XcodeGen は生成時点で存在するファイルだけをリソースとして登録するため、
+      # 後から作るとアプリバンドルに含まれず「APIキーが設定されていません」になる。
       - name: Prepare Config.plist (production)
         env:
           YT_KEY: ${{ secrets.YOUTUBE_API_KEY }}
@@ -182,6 +182,9 @@ jobs:
           if /usr/libexec/PlistBuddy -c "Print :YOUTUBE_API_KEY" Resources/Config.plist | grep -q "YOUR_API_KEY_HERE"; then
             echo "YOUTUBE_API_KEY が雛形のままです"; exit 1
           fi
+
+      - name: Generate Xcode project
+        run: xcodegen generate
 
       - name: Archive (Release, manual signing)
         env:
@@ -242,6 +245,36 @@ jobs:
             export_ipa
           fi
           ls -lh "$EXPORT_DIR"
+
+      # 「アーカイブは通ったが中身が壊れている」を検出する。
+      # 実際に Config.plist がバンドルされず、APIキーを読めない .ipa をアップロードした事故がある。
+      - name: Verify .ipa contents
+        run: |
+          set -euo pipefail
+          IPA=$(ls "$EXPORT_DIR"/*.ipa | head -n 1)
+          rm -rf build/ipa-check
+          mkdir -p build/ipa-check
+          unzip -q "$IPA" -d build/ipa-check
+          APP=$(ls -d build/ipa-check/Payload/*.app | head -n 1)
+          echo "アプリバンドルの内容:"
+          ls "$APP"
+
+          if [ ! -f "$APP/Config.plist" ]; then
+            echo "::error::Config.plist がアプリバンドルに含まれていません（APIキーを読めないビルドです）"
+            exit 1
+          fi
+          if /usr/libexec/PlistBuddy -c "Print :YOUTUBE_API_KEY" "$APP/Config.plist" \
+             | grep -qE "YOUR_API_KEY_HERE|CI_DUMMY_KEY_FOR_ARCHIVE"; then
+            if [ "${{ inputs.upload }}" = "true" ]; then
+              echo "::error::バンドル内の YOUTUBE_API_KEY がダミー/雛形のままです"
+              exit 1
+            fi
+            echo "::warning::ダミーキーのビルドです（ドライランのため続行）"
+          fi
+          if ! ls "$APP"/AppIcon*.png >/dev/null 2>&1; then
+            echo "::warning::アプリアイコンがバンドルに見つかりません"
+          fi
+          echo "✓ Config.plist / アイコンを確認しました"
 
       - name: Upload to App Store Connect
         if: ${{ inputs.upload }}

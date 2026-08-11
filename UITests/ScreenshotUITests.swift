@@ -104,13 +104,20 @@ final class ScreenshotUITests: XCTestCase {
         capture("00-input-typed")   // 予備。うまく撮れていれば使わない
         urlField.typeText("\n")
 
-        // 一覧が出るまで待つ（チャンネル解決 + ページネーションで時間がかかる）
-        let progressLabel = app.staticTexts["進捗"]
-        guard progressLabel.waitForExistence(timeout: 180) else {
+        // 一覧が出るまで待つ（チャンネル解決 + ページネーションで時間がかかる）。
+        //
+        // ここで app.staticTexts["進捗"] を待つと、一覧の行数が多い時に
+        // 「Failed to get matching snapshots: Timed out while evaluating UI query」で落ちる。
+        // ナビゲーションバーは要素数が少なく安価に評価できるので、タイトルの変化で判定する。
+        let navBar = app.navigationBars.firstMatch
+        let changed = NSPredicate(format: "identifier != %@ AND identifier != ''", "Channel Timeline")
+        let reached = expectation(for: changed, evaluatedWith: navBar, handler: nil)
+        guard XCTWaiter().wait(for: [reached], timeout: 240) == .completed else {
             capture("ERROR-fetch-failed")
             XCTFail("動画一覧を取得できませんでした（APIキー/ネットワーク/チャンネルURLを確認）")
             return
         }
+        Thread.sleep(forTimeInterval: 2.0)  // 一覧の描画待ち
 
         // --- 何本かを視聴済みにして、進捗バーに数字を出す ---
         markSomeVideosAsWatched()

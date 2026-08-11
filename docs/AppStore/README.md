@@ -30,7 +30,7 @@
 
 ## 提出前に変更が必要な設定（`project.yml`）
 
-- `PRODUCT_BUNDLE_IDENTIFIER`: `com.example.channeltimelineviewer` → 自分の逆ドメインに変更
+- ~~`PRODUCT_BUNDLE_IDENTIFIER`~~: `com.deskflowlabs.channeltimelineviewer` に設定済み
 - `DEVELOPMENT_TEAM`: 自分の Apple Developer Team ID を設定
 - `MARKETING_VERSION` / `CURRENT_PROJECT_VERSION`: リリースに合わせて更新
 - 変更後 `xcodegen generate` で `.xcodeproj` を再生成

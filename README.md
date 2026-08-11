@@ -269,8 +269,8 @@ python tools/verify_youtube_api.py "https://www.youtube.com/@ハンドル"
 提出前に必要な主な設定:
 
 - **アプリ名（表示名）**: `Channel Timeline Viewer`（`project.yml` の `INFOPLIST_KEY_CFBundleDisplayName`）
-- **Bundle ID**: `com.example.channeltimelineviewer` → **自分の Apple Developer の逆ドメインに変更**
-- **DEVELOPMENT_TEAM**: `project.yml` に自分の Team ID を設定
+- **Bundle ID**: `com.deskflowlabs.channeltimelineviewer`（App Store Connect 登録済み・設定済み）
+- **DEVELOPMENT_TEAM**: `project.yml` に自分の Team ID を設定（未設定）
 - **プライバシーポリシーURL**: `Resources/Config.plist` の `PRIVACY_POLICY_URL` に設定（アプリ内「ⓘ」画面に表示）。
   App Store Connect 側にも同じURLを登録する。
 
@@ -296,12 +296,13 @@ GitHub Pages（`main` ブランチの `/docs` フォルダ）で公開。`docs/*
 
 > 現状は署名なし。以下は **加入後**に行う。コードは差し替えだけで移行できる形にしてある。
 
-1. **Apple Developer Program 加入**（年額 約$99）
+1. ~~**Apple Developer Program 加入**（年額 約$99）~~ ✅ 完了
 2. **名称・ID を本番値に**（`project.yml`、詳細は [`docs/app-store-preparation.md`](docs/app-store-preparation.md)）
-   - `DEVELOPMENT_TEAM` に自分の Team ID（10桁）
-   - `PRODUCT_BUNDLE_IDENTIFIER` の `com.example` を自分の逆ドメインに
+   - `DEVELOPMENT_TEAM` に自分の Team ID（10桁） ← **未設定**
+   - ~~`PRODUCT_BUNDLE_IDENTIFIER`~~ ✅ `com.deskflowlabs.channeltimelineviewer` に設定済み
    - 変更後 `xcodegen generate`
-3. **アプリアイコン 1024px** を `Resources/Assets.xcassets/AppIcon.appiconset/` に配置
+3. ~~**アプリアイコン 1024px**~~ ✅ `Resources/Assets.xcassets/AppIcon.appiconset/AppIcon-1024.png` 配置済み
+   （`scripts/generate_app_icon.py` で生成。差し替える場合は同スクリプトを編集して再実行）
 4. **本番 `Config.plist`** を作成（`YOUTUBE_API_KEY` 実キー＋`PRIVACY_POLICY_URL`）
 5. **App Store Connect でアプリ作成**（Bundle ID を一致させる）→ プライバシーポリシーURL・年齢区分等を設定
 6. **Xcode でアーカイブ**：Product → Archive（署名は Automatic signing 推奨）

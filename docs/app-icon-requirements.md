@@ -30,8 +30,17 @@
 - Sketch / Figma / Affinity Designer / Canva 等で 1024×1024・透過なしで書き出し
 - アイコン各サイズ生成が必要な場合も、iOS は 1024 単一指定で自動対応（追加サイズ不要）
 
+## 現在のアイコン（作成済み）
+
+`scripts/generate_app_icon.py`（Pillow）で生成し、`Resources/Assets.xcassets/AppIcon.appiconset/AppIcon-1024.png`
+に配置済み。デザインを変えたい場合は同スクリプトの座標・配色を編集して `python scripts/generate_app_icon.py` を再実行する。
+
+- モチーフ：タイムライン上に並ぶ3枚の動画フレーム（視聴済み＝ティール／現在地＝白／未視聴＝くすんだ青）＋
+  チェック付きノード＋下部の進捗バー＝「公開日順に並べて進捗を管理する」というアプリの中身をそのまま表現
+- 配色：ネイビー〜ティールのグラデーション（**赤は不使用**）
+
 ## チェック
-- [ ] 1024×1024・PNG・透過なし・角丸なし
-- [ ] YouTube ロゴ/赤再生ボタン/「Tube」文字を使っていない
-- [ ] `AppIcon.appiconset/Contents.json` に filename 設定済み
-- [ ] Xcode でアイコン表示・警告なし
+- [x] 1024×1024・PNG・透過なし（RGB モードで保存）・角丸なし
+- [x] YouTube ロゴ/赤再生ボタン/「Tube」文字を使っていない
+- [x] `AppIcon.appiconset/Contents.json` に filename 設定済み
+- [ ] Xcode でアイコン表示・警告なし（Mac/CI でのビルド時に確認）

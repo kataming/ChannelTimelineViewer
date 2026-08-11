@@ -3,16 +3,17 @@
 配信・提出の前に確認する項目です。チェックが付くまで提出しないでください。
 
 ## アプリ識別・署名
-- [ ] `PRODUCT_BUNDLE_IDENTIFIER` を自分の逆ドメインに変更した（`com.example.*` のままにしない）
+- [x] `PRODUCT_BUNDLE_IDENTIFIER` を `com.deskflowlabs.channeltimelineviewer` に設定した
 - [ ] `DEVELOPMENT_TEAM` に自分の Team ID を設定した
-- [ ] App Store Connect に同じ Bundle ID のアプリを作成した
+- [x] App Store Connect に同じ Bundle ID のアプリを作成した
 - [ ] 署名（Automatic signing 推奨）でアーカイブできる
 - [ ] `MARKETING_VERSION`（表示バージョン）と `CURRENT_PROJECT_VERSION`（ビルド番号）を設定した
 
 ## 表示・名称
 - [ ] 表示名が `Channel Timeline Viewer`（YouTube/Tube を連想させない）
-- [ ] **アプリアイコンの実画像を追加した**（`Resources/Assets.xcassets/AppIcon.appiconset/` に 1024×1024 PNG。
-      `Contents.json` の `"filename"` に画像名を設定。YouTube ロゴ等の商標を使わないオリジナル）
+- [x] **アプリアイコンの実画像を追加した**（`AppIcon.appiconset/AppIcon-1024.png` = 1024×1024 PNG・透過なし・
+      `Contents.json` に `"filename"` 設定済み。`scripts/generate_app_icon.py` で生成したオリジナル。
+      タイムライン/チェック/進捗バーのモチーフで、YouTube ロゴ・赤い再生ボタン・赤主体の配色を使っていない）
 - [ ] スクリーンショットに公式ロゴの不正使用や「公式」と誤認させる表現がない
 
 ## プライバシーマニフェスト（必須・追加済み）

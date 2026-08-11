@@ -14,7 +14,7 @@
 | プロジェクト/ターゲット/モジュール/スキーム名 | `ChannelTimelineViewer` | `project.yml` の `name:` / `targets:` |
 | **表示名（ホーム画面・App Store）** | `Channel Timeline Viewer` | `project.yml` → `INFOPLIST_KEY_CFBundleDisplayName` |
 | 製品名（.app名） | `ChannelTimelineViewer` | ターゲット名と同一（PRODUCT_NAME未指定＝ターゲット名） |
-| **Bundle ID** | `com.example.channeltimelineviewer`（仮） | `project.yml` → `PRODUCT_BUNDLE_IDENTIFIER` |
+| **Bundle ID** | `com.deskflowlabs.channeltimelineviewer`（App Store Connect 登録済み） | `project.yml` → `PRODUCT_BUNDLE_IDENTIFIER` |
 | Team ID | （未設定・空） | `project.yml` → `DEVELOPMENT_TEAM` |
 | バージョン | `1.0`（build `1`） | `project.yml` → `MARKETING_VERSION` / `CURRENT_PROJECT_VERSION` |
 | デプロイ先 | iOS 17.0 / iPhone のみ | `project.yml` |
@@ -34,7 +34,7 @@ targets:
   ChannelTimelineViewer:
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.<自分のドメイン>.channeltimelineviewer  # ← com.example を置換
+        PRODUCT_BUNDLE_IDENTIFIER: com.deskflowlabs.channeltimelineviewer  # ← 設定済み
 ```
 
 - Team ID の確認場所：https://developer.apple.com/account → 「Membership details」→ Team ID（10桁）

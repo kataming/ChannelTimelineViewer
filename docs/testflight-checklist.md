@@ -6,9 +6,10 @@
 
 ## A. 配信前（ビルド準備）
 - [ ] `project.yml` の `DEVELOPMENT_TEAM` に自分の Team ID（10桁）を設定
-- [ ] `PRODUCT_BUNDLE_IDENTIFIER` の `com.example` を自分の逆ドメインに変更
+- [x] `PRODUCT_BUNDLE_IDENTIFIER` を `com.deskflowlabs.channeltimelineviewer` に設定済み
 - [ ] `xcodegen generate` で `.xcodeproj` を再生成
-- [ ] アプリアイコン 1024px を `Resources/Assets.xcassets/AppIcon.appiconset/` に配置
+- [x] アプリアイコン 1024px を `Resources/Assets.xcassets/AppIcon.appiconset/AppIcon-1024.png` に配置済み
+      （`scripts/generate_app_icon.py` で生成・再生成可能）
 - [ ] `Resources/Config.plist` に**本番** `YOUTUBE_API_KEY` と `PRIVACY_POLICY_URL` を設定（Git管理しない）
 - [ ] APIキーに本番制限を設定（[`youtube-api-key-production-settings.md`](youtube-api-key-production-settings.md)）
 - [ ] `MARKETING_VERSION` / `CURRENT_PROJECT_VERSION` を設定

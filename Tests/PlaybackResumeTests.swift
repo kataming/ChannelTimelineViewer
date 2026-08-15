@@ -152,17 +152,27 @@ final class PlaybackResumeTests: XCTestCase {
 
     // MARK: - 終了時の自動再生
 
+    /// 実際のプレイヤーは「再生開始 → 終了」の順に通知してくる。
+    private func playThrough(_ vm: PlayerViewModel) {
+        vm.handleState(.playing)
+        vm.handleState(.ended)
+    }
+
     func testAutoPlaysNextWhenEnabled() {
         let positions = PlaybackPositionStore(defaults: makeDefaults("pos"))
         let settings = PlaybackSettingsStore(defaults: makeDefaults("settings"))
         let videos = makeVideos(3)
         let vm = makeViewModel(videos: videos, positionStore: positions, settings: settings)
 
-        vm.handleState(.ended)
+        playThrough(vm)
 
         XCTAssertEqual(vm.currentIndex, 1, "続けて次の動画を再生する")
         XCTAssertTrue(vm.didAutoAdvance)
         XCTAssertFalse(vm.showEndedSuggestion)
+
+        // 次の動画も最後まで見れば、さらに次へ進む。
+        playThrough(vm)
+        XCTAssertEqual(vm.currentIndex, 2)
     }
 
     func testShowsSuggestionInsteadWhenAutoPlayDisabled() {
@@ -172,7 +182,7 @@ final class PlaybackResumeTests: XCTestCase {
         let videos = makeVideos(3)
         let vm = makeViewModel(videos: videos, positionStore: positions, settings: settings)
 
-        vm.handleState(.ended)
+        playThrough(vm)
 
         XCTAssertEqual(vm.currentIndex, 0, "自動では進まない")
         XCTAssertTrue(vm.showEndedSuggestion, "「次の動画を再生」ボタンを出す")
@@ -184,7 +194,7 @@ final class PlaybackResumeTests: XCTestCase {
         let videos = makeVideos(2)
         let vm = makeViewModel(videos: videos, startIndex: 1, positionStore: positions, settings: settings)
 
-        vm.handleState(.ended)
+        playThrough(vm)
 
         XCTAssertEqual(vm.currentIndex, 1)
         XCTAssertFalse(vm.showEndedSuggestion, "最後の動画では次を提示しない")
@@ -200,22 +210,38 @@ final class PlaybackResumeTests: XCTestCase {
         let vm = PlayerViewModel(videos: videos, startIndex: 0, watchStore: watch,
                                  positionStore: positions, settings: settings)
 
-        vm.handleState(.ended)
+        playThrough(vm)
 
         XCTAssertTrue(watch.isWatched(videos[0].id))
         XCTAssertNil(positions.position(for: videos[0].id), "見終わったら次は最初から")
     }
 
-    func testDuplicateEndedEventsAdvanceOnlyOnce() {
+    /// 自動送りの直後に、前の動画の「終了」通知が遅れて届いても1本しか進まないこと。
+    /// （これを取りこぼすと動画が1本飛ばされる）
+    func testStaleEndedEventAfterAutoAdvanceIsIgnored() {
         let positions = PlaybackPositionStore(defaults: makeDefaults("pos"))
         let settings = PlaybackSettingsStore(defaults: makeDefaults("settings"))
         let videos = makeVideos(4)
         let vm = makeViewModel(videos: videos, positionStore: positions, settings: settings)
 
+        vm.handleState(.playing)
         vm.handleState(.ended)
-        vm.handleState(.ended)   // 同じ動画の終了通知が重複して届いた場合
+        vm.handleState(.ended)   // 切り替え直後に遅れて届いた通知
 
         XCTAssertEqual(vm.currentIndex, 1, "1本だけ進む")
+        XCTAssertFalse(vm.isCurrentWatched(), "再生していない動画を視聴済みにしない")
+    }
+
+    func testEndedBeforePlaybackStartsIsIgnored() {
+        let positions = PlaybackPositionStore(defaults: makeDefaults("pos"))
+        let settings = PlaybackSettingsStore(defaults: makeDefaults("settings"))
+        let videos = makeVideos(3)
+        let vm = makeViewModel(videos: videos, positionStore: positions, settings: settings)
+
+        vm.handleState(.ended)   // まだ一度も再生されていない
+
+        XCTAssertEqual(vm.currentIndex, 0)
+        XCTAssertFalse(vm.showEndedSuggestion)
     }
 
     // MARK: - 表示用

@@ -19,6 +19,10 @@ final class PlayerViewModel: ObservableObject {
     private let settings: PlaybackSettingsStore
     /// 同じ動画の「終了」を二重に処理しないための記録。
     private var endedHandledVideoId: String?
+    /// いま表示している動画が実際に再生され始めたか。
+    /// 動画を切り替えた直後に、前の動画の「終了」通知が遅れて届くことがあるため、
+    /// 再生が始まっていない動画の終了通知は無視する（＝1本飛ばしを防ぐ）。
+    private var hasStartedCurrentVideo = false
 
     init(videos: [VideoItem],
          startIndex: Int,
@@ -68,6 +72,7 @@ final class PlayerViewModel: ObservableObject {
         showEndedSuggestion = false
         didAutoAdvance = autoAdvanced
         seekRequest = nil
+        hasStartedCurrentVideo = false
         startSecondsForCurrent = Self.resumeSeconds(
             for: currentVideo, positionStore: positionStore, settings: settings
         )
@@ -81,6 +86,7 @@ final class PlayerViewModel: ObservableObject {
         didAutoAdvance = false
         // 最初から見直した場合は、もう一度終了時の処理を行えるようにする。
         endedHandledVideoId = nil
+        hasStartedCurrentVideo = true
         seekRequest = YouTubePlayerWebView.SeekRequest(seconds: 0)
     }
 
@@ -101,7 +107,12 @@ final class PlayerViewModel: ObservableObject {
     /// IFrame Player の状態変化を受け取る。
     func handleState(_ state: YouTubePlayerState) {
         playerState = state
+        if state == .playing {
+            hasStartedCurrentVideo = true
+        }
         guard state == .ended, let video = currentVideo else { return }
+        // まだ再生が始まっていない＝前の動画の終了通知が遅れて届いたとみなして無視する。
+        guard hasStartedCurrentVideo else { return }
         // 同じ動画の終了通知が重複して届くことがあるので一度だけ処理する。
         guard endedHandledVideoId != video.id else { return }
         endedHandledVideoId = video.id

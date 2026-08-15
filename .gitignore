@@ -38,3 +38,7 @@ xcuserdata/
 # 構築時の内部やり取り・Claude 用ローカル文脈（公開リポジトリに含めない）
 CLAUDE.md
 docs/構築チャット履歴.md
+
+# Python のキャッシュ
+__pycache__/
+*.pyc

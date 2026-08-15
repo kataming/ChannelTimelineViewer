@@ -28,6 +28,8 @@ iPhone 向けの **「チャンネル動画の時系列視聴・進捗管理ア�
 
 ### 基本（MVP）
 - チャンネルURL入力（`@handle` / `/channel/UC...` / `/c/name` / `/user/name`）
+- **共有シート対応（Share Extension）**：YouTube アプリ / Safari の共有ボタンから
+  「Channel Timeline Viewer」を選ぶだけでチャンネルを開ける（後述）
 - チャンネル解決 → アップロード動画一覧の取得（ページネーション対応）
 - **publishedAt 昇順（古い順）** での一覧表示、古い順 / 新しい順の切り替え
 - サムネイル・タイトル・公開日・視聴済みマーク付きリスト
@@ -45,6 +47,49 @@ iPhone 向けの **「チャンネル動画の時系列視聴・進捗管理ア�
 
 > データはすべて端末内（UserDefaults）に保存します。将来 SwiftData へ移行しやすいよう、
 > 保存処理は `WatchHistoryStore` / `FavoriteChannelStore` / `ChannelProgressStore` / `VideoMemoStore` に分離しています。
+
+---
+
+## 共有シートから開く（Share Extension）
+
+チャンネルURLを手で入力しなくても、**YouTube アプリや Safari の共有ボタン**から直接開けます。
+
+### 使い方
+
+1. YouTube アプリ（または Safari）でチャンネル、または動画のページを開く
+2. **共有** ボタンをタップ
+3. 共有先の一覧から **Channel Timeline Viewer** をタップ
+4. Channel Timeline Viewer が起動し、共有されたURLを解析して動画一覧（古い順）を開く
+   - チャンネルURL（`@handle` / `/channel/UC...` / `/c/name` / `/user/name`）→ そのチャンネルの一覧
+   - 動画URL（`watch?v=...` / `youtu.be/...` / `/shorts/...` / `/live/...`）→ **その動画を投稿した
+     チャンネル**を `videos.list` で特定して一覧を開く
+5. 開いたチャンネルはこれまでどおり「最近使ったチャンネル」に保存され、進捗管理の対象になる
+
+> 共有シートに **Channel Timeline Viewer が見当たらない場合**：共有シートを一番右まで
+> スクロールして **「その他」／「アクションを編集…」** をタップし、Channel Timeline Viewer の
+> スイッチをオンにしてください（初回のみ必要なことがあります）。並べ替えて上位に固定もできます。
+
+### 仕組みと制約（重要）
+
+- Share Extension は**受け取ったURLをメインアプリへ渡すだけ**です。
+  `channeltimelineviewer://share?url=<共有されたURL>` でメインアプリを開きます。
+- **Extension 側では YouTube API を呼びません。** APIキーの管理・API 取得・エラー表示・画面遷移は
+  すべてメインアプリ側に集約しています（キーを複数バンドルに配らないため）。
+- 受け取れるのは **`public.url`（URL）と `public.plain-text`（テキスト）** の両方です。
+  YouTube アプリは URL ではなく「動画タイトル + URL」のテキストとして共有してくることがあるため、
+  テキストからも YouTube の URL を抽出します（`Services/SharedLinkParser.swift`）。
+- YouTube 以外のURLは受け取っても無視します（誤爆防止）。
+- 従来どおりの**手入力の導線もそのまま使えます**。
+
+関連ファイル:
+
+| ファイル | 役割 |
+| --- | --- |
+| `ShareExtension/ShareViewController.swift` | 共有されたURL/テキストを取り出してメインアプリを開く |
+| `ShareExtension/Info.plist` | 共有シートに出す条件（`NSExtensionActivationRule`）と表示名 |
+| `Services/SharedLinkParser.swift` | URL抽出・カスタムURLの組み立て（アプリ／拡張の両方に同梱） |
+| `Services/SharedLinkRouter.swift` | メインアプリ側の受け口（`onOpenURL` → 画面へ） |
+| `App/Info.plist` | カスタムURLスキーム `channeltimelineviewer` の定義 |
 
 ---
 
@@ -176,17 +221,27 @@ git push -u origin main
 
 ```
 ChannelTimelineViewer/
-  App/        ChannelTimelineViewerApp.swift
+  App/        ChannelTimelineViewerApp.swift / Info.plist（カスタムURLスキーム）
   Models/     Channel.swift / VideoItem.swift / WatchHistory.swift
   Services/   ConfigLoader / YouTubeAPIError / ChannelResolver /
-              YouTubeAPIClient / WatchHistoryStore / FavoriteChannelStore
+              YouTubeAPIClient / WatchHistoryStore / FavoriteChannelStore /
+              SharedLinkParser / SharedLinkRouter（共有シート用）
   ViewModels/ ChannelInputViewModel / VideoListViewModel / PlayerViewModel
   Views/      ChannelInputView / FavoriteChannelsView / VideoListView /
               PlayerView / YouTubePlayerWebView
+  ShareExtension/ ShareViewController.swift / Info.plist（共有シート拡張）
   Resources/  Config.example.plist（Config.plist は各自作成）
-  Tests/      ChannelResolverTests / VideoSortTests / WatchHistoryStoreTests
+  Tests/      ChannelResolverTests / SharedLinkParserTests / VideoChannelLookupTests /
+              VideoSortTests / WatchHistoryStoreTests
   project.yml（XcodeGen 用）
 ```
+
+ターゲット構成:
+
+| ターゲット | Bundle ID | 役割 |
+| --- | --- | --- |
+| `ChannelTimelineViewer` | `com.deskflowlabs.channeltimelineviewer` | アプリ本体 |
+| `ChannelTimelineViewerShareExtension` | `com.deskflowlabs.channeltimelineviewer.shareextension` | 共有シート（URLを本体へ渡すだけ） |
 
 技術スタック: Swift / SwiftUI / MVVM / async-await / WKWebView / YouTube Data API v3 / UserDefaults。
 
@@ -212,6 +267,11 @@ ChannelTimelineViewer/
 - カスタムURL（`/c/name` や `/name`）は `search.list`（100 units）で channelId を解決するため、
   ヒット精度は YouTube 検索に依存します。`@handle` / `/channel/UC...` が最も確実です。
 - IFrame の `ended` イベントが取得できない場合は、「次へ」ボタンで手動遷移してください。
+- 共有シートに拡張が出てくるのは、**アプリを1回起動した後**になることがあります。また、共有先の一覧に
+  出ない場合は「その他」からオンにする必要があります（iOS の仕様）。
+- 共有されたURLに**非ASCII文字**（日本語のカスタムURL等）が含まれる場合は解析できません。
+  その場合は従来どおりURLを手入力してください。
+- 動画URLからチャンネルを開く場合、非公開・削除済みの動画では投稿チャンネルを特定できません。
 
 ---
 

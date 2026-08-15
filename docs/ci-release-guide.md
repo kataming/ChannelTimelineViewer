@@ -6,6 +6,7 @@
 | 使うもの | 役割 |
 |---|---|
 | [`scripts/asc_setup_signing.py`](../scripts/asc_setup_signing.py) | 配布証明書とプロビジョニングプロファイルを App Store Connect API 経由で作成し、GitHub Secrets に登録（**1回だけ**） |
+| [`scripts/asc_add_extension_signing.py`](../scripts/asc_add_extension_signing.py) | **共有シート（Share Extension）用**の Bundle ID とプロファイルを作成し、Secrets に登録（**1回だけ**） |
 | [`.github/workflows/ios-release.yml`](../.github/workflows/ios-release.yml) | Release アーカイブ → `.ipa` 書き出し → App Store Connect へアップロード（**毎回**） |
 
 ---
@@ -56,13 +57,42 @@ python scripts/asc_setup_signing.py \
 |---|---|
 | `ASC_KEY_ID` / `ASC_ISSUER_ID` / `ASC_PRIVATE_KEY` | ASC API キー（アップロード認証に使用） |
 | `BUILD_CERT_P12_BASE64` / `BUILD_CERT_PASSWORD` | 配布証明書（.p12） |
-| `PROVISIONING_PROFILE_BASE64` / `PROVISIONING_PROFILE_NAME` | プロビジョニングプロファイル |
+| `PROVISIONING_PROFILE_BASE64` / `PROVISIONING_PROFILE_NAME` | プロビジョニングプロファイル（アプリ本体） |
+| `PROVISIONING_PROFILE_EXT_BASE64` / `PROVISIONING_PROFILE_EXT_NAME` | 同（共有シート拡張。Step 2.5 で登録） |
 
 生成物は `build/signing/`（`.gitignore` 済み）にも保存されます。**証明書の秘密鍵はここにしか無い**ため、
 別マシンでも使う場合はバックアップしてください（無くしても証明書を再発行すれば復旧できます）。
 
 > Apple Distribution 証明書は**同時に持てる数に上限**（通常3枚）があります。使わなくなった証明書は
 > Certificates, Identifiers & Profiles で失効させてください。
+
+## Step 2.5（自動・1回だけ）共有シート（Share Extension）用の署名を用意する
+
+共有シート拡張は**アプリ本体とは別の Bundle ID**（`com.deskflowlabs.channeltimelineviewer.shareextension`）を
+持つため、**専用のプロビジョニングプロファイルが必要**です。これが無いと `iOS Release` は
+「必要な Secret が未設定です」で止まります（＝共有シートに出ないビルドが混ざらないようにしています）。
+
+```bash
+# まず確認だけ
+python scripts/asc_add_extension_signing.py \
+  --key-id <キーID> --issuer-id <Issuer ID> \
+  --p8 "C:/path/to/AuthKey_XXXXXXXXXX.p8" --dry-run
+
+# 本実行（Bundle ID 登録 + プロファイル作成 + Secrets 登録）
+python scripts/asc_add_extension_signing.py \
+  --key-id <キーID> --issuer-id <Issuer ID> \
+  --p8 "C:/path/to/AuthKey_XXXXXXXXXX.p8"
+```
+
+やること:
+
+1. `com.deskflowlabs.channeltimelineviewer.shareextension` の Bundle ID を確認し、無ければ登録
+2. 有効な Apple Distribution 証明書を取得（Step 2 で作ったもの）
+3. 拡張用の App Store プロファイルを作成
+4. `PROVISIONING_PROFILE_EXT_BASE64` / `PROVISIONING_PROFILE_EXT_NAME` を Secrets に登録
+
+> 証明書を作り直した場合（Step 2 の再実行）は、このスクリプトも**再実行**してください。
+> 新しい証明書を含むプロファイルに更新されます。
 
 ## Step 3（人手・1回だけ）本番の YouTube API キーを Secret に入れる
 
@@ -119,7 +149,10 @@ keychain を削除。`.ipa` は workflow artifact としても 14 日間保存�
 
 | 症状 | 対処 |
 |---|---|
-| `必要な Secret が未設定です` | Step 2・3 を実行。`gh secret list -R kataming/ChannelTimelineViewer` で確認 |
+| `必要な Secret が未設定です` | Step 2・2.5・3 を実行。`gh secret list -R kataming/ChannelTimelineViewer` で確認 |
+| `PROVISIONING_PROFILE_EXT_BASE64 が ... 用ではありません` | Step 2.5 を再実行（拡張の Bundle ID 用プロファイルを作り直す） |
+| `Share Extension (.appex) が .ipa に含まれていません` | `project.yml` の `ChannelTimelineViewerShareExtension` ターゲットと本体の `dependencies` を確認 |
+| TestFlight 版で共有シートに出ない | 共有シートを右端までスクロール →「その他」→ Channel Timeline Viewer をオン。それでも出ない場合はアプリを一度起動してから再試行 |
 | `No signing certificate "Apple Distribution" found` | 証明書の期限切れ or 別証明書。Step 2 を再実行して作り直す |
 | `Provisioning profile ... doesn't match` | Bundle ID 不一致。`project.yml` と ASC の登録値を照合 |
 | `The bundle version must be higher than...` | ビルド番号の重複。`-f build_number=<大きい値>` で再実行 |

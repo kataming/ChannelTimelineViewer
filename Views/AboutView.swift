@@ -30,6 +30,12 @@ struct AboutView: View {
                     disclaimerRow("バックグラウンド再生は行いません。")
                 }
 
+                Section("共有シートから開く") {
+                    Text("YouTube アプリや Safari の共有ボタンから「\(appName)」を選ぶと、共有されたチャンネル・動画のURLからそのチャンネルの動画一覧を開けます。共有機能はURLを受け取るだけで、外部への送信は行いません。共有先に表示されない場合は、共有シートの「その他」から本アプリをオンにしてください。")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                }
+
                 Section("データの取得と再生について") {
                     Text("動画一覧の取得には YouTube Data API v3 を使用します。再生は YouTube 公式プレイヤーをそのまま埋め込んで表示します。スクレイピングや独自プレイヤーでの再生は行いません。")
                         .font(.footnote)

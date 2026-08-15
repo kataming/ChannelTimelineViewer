@@ -23,18 +23,29 @@ targets:
     type: application
     platform: iOS
     sources:
-      - App
+      # Info.plist は INFOPLIST_FILE で使うだけなので、リソースとしてコピーしない
+      - path: App
+        excludes:
+          - Info.plist
       - Models
       - Services
       - ViewModels
       - Views
       - path: Resources
         # Config.plist / Config.example.plist などをバンドルリソースとして含める
+    dependencies:
+      # 共有シート（Share Extension）。アプリに埋め込まれて一緒に配布される。
+      - target: ChannelTimelineViewerShareExtension
+        embed: true
     settings:
       base:
         GENERATE_INFOPLIST_FILE: YES
+        # 生成される Info.plist に App/Info.plist の内容（カスタムURLスキーム）をマージする。
+        INFOPLIST_FILE: App/Info.plist
         # App Store Connect に登録済みの Bundle ID と一致させること
         PRODUCT_BUNDLE_IDENTIFIER: com.deskflowlabs.channeltimelineviewer
+        # 署名時に使うプロファイル名。CI から CTV_PROFILE_APP で渡す（未指定なら空＝署名なしビルド）。
+        PROVISIONING_PROFILE_SPECIFIER: "$(CTV_PROFILE_APP)"
         TARGETED_DEVICE_FAMILY: "1"          # iPhone のみ
         # アセットカタログ(Resources/Assets.xcassets)のアイコン/アクセントカラーを使用
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
@@ -44,6 +55,28 @@ targets:
         INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
         INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait
         INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
+
+  # 共有シート（YouTube アプリ / Safari から共有された URL の受け口）。
+  # ここでは YouTube API を呼ばず、URL をカスタムURLスキームでメインアプリへ渡すだけ。
+  ChannelTimelineViewerShareExtension:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: ShareExtension
+        excludes:
+          - Info.plist
+      # URL 解析ロジックはメインアプリと共有する（純粋な Foundation 処理のみ）。
+      - path: Services/SharedLinkParser.swift
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: NO
+        INFOPLIST_FILE: ShareExtension/Info.plist
+        PRODUCT_BUNDLE_IDENTIFIER: com.deskflowlabs.channeltimelineviewer.shareextension
+        TARGETED_DEVICE_FAMILY: "1"          # iPhone のみ（アプリ本体と一致させる）
+        # アプリに埋め込むので単体ではインストールしない
+        SKIP_INSTALL: YES
+        # 署名時に使うプロファイル名。CI から CTV_PROFILE_EXT で渡す。
+        PROVISIONING_PROFILE_SPECIFIER: "$(CTV_PROFILE_EXT)"
 
   ChannelTimelineViewerTests:
     type: bundle.unit-test

@@ -62,6 +62,11 @@ struct PlayerView: View {
         }
         .navigationTitle("再生")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                moreMenu
+            }
+        }
         // 「最後に開いた動画」を記録（続きから見る用）。
         .task { recordOpened() }
         .onChange(of: viewModel.currentIndex) { _, _ in recordOpened() }
@@ -92,7 +97,8 @@ struct PlayerView: View {
                 endedSuggestion(next)
             }
 
-            playbackSettings
+            // 主操作：再生中に「このまま次へ進むか」を選べるようにする（常時表示）。
+            autoPlayControl
 
             controls(for: video)
 
@@ -146,25 +152,63 @@ struct PlayerView: View {
         }
     }
 
-    /// 再生の挙動（自動再生・続きから）の切り替え。
-    private var playbackSettings: some View {
-        VStack(alignment: .leading, spacing: 8) {
+    /// 主操作：終了後に次へ進むかどうかを、**再生中に**選べるようにする（既定オフ）。
+    /// ユーザーが明示的にオンにした場合だけ、一覧の次の動画へ進む。
+    private var autoPlayControl: some View {
+        VStack(alignment: .leading, spacing: 6) {
             Toggle(isOn: $settings.autoPlayNext) {
-                Label("終了したら次を自動再生", systemImage: "forward.end.alt.fill")
-                    .font(.subheadline)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(settings.autoPlayNext ? "自動再生オン：終了後に次の動画へ"
+                                               : "自動再生オフ：終了後に停止")
+                        .font(.subheadline.bold())
+                    Text(settings.autoPlayNext
+                         ? "この一覧の次の動画だけを続けて再生します"
+                         : "終了したら「次の動画を再生」ボタンを表示します")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
             }
-            Toggle(isOn: $settings.resumeFromLastPosition) {
-                Label("続きから再生する", systemImage: "clock.arrow.circlepath")
-                    .font(.subheadline)
-            }
-            Text("自動再生をオフにすると、終了時に「次の動画を再生」ボタンを表示します。"
-                 + "どちらの設定でもバックグラウンド再生は行いません（アプリを閉じると停止します）。")
-                .font(.caption2)
-                .foregroundStyle(.tertiary)
+            .tint(.green)
+            .accessibilityLabel("終了したら次を自動再生")
         }
         .padding(12)
         .background(Color(.secondarySystemBackground))
         .clipShape(RoundedRectangle(cornerRadius: 12))
+    }
+
+    /// 補助操作（詳細メニュー）。視聴済みの手動切り替えや「続きから再生」の設定はここに置く。
+    @ViewBuilder
+    private var moreMenu: some View {
+        if let video = viewModel.currentVideo {
+            Menu {
+                let watched = watchStore.isWatched(video.id)
+                Button {
+                    watchStore.toggleWatched(video.id)
+                } label: {
+                    Label(watched ? "視聴済みを解除" : "視聴済みにする",
+                          systemImage: watched ? "checkmark.circle.fill" : "checkmark.circle")
+                }
+
+                Toggle(isOn: $settings.resumeFromLastPosition) {
+                    Label("続きから再生する", systemImage: "clock.arrow.circlepath")
+                }
+
+                Button {
+                    viewModel.restartFromBeginning()
+                } label: {
+                    Label("最初から再生", systemImage: "gobackward")
+                }
+
+                Button {
+                    if let url = video.watchURL { openURL(url) }
+                } label: {
+                    Label("YouTubeで開く", systemImage: "play.rectangle.fill")
+                }
+            } label: {
+                Image(systemName: "ellipsis.circle")
+            }
+            .accessibilityLabel("その他の操作")
+        }
     }
 
     private func endedSuggestion(_ next: VideoItem) -> some View {
@@ -176,22 +220,13 @@ struct PlayerView: View {
                 RemoteThumbnail(url: next.thumbnailURL, width: 88, height: 50)
                 Text(next.title).font(.subheadline).lineLimit(2)
             }
-            HStack(spacing: 12) {
-                Button {
-                    viewModel.goNext()
-                } label: {
-                    Label("次の動画を再生", systemImage: "play.fill")
-                }
-                .buttonStyle(.borderedProminent)
-
-                Button {
-                    settings.autoPlayNext = true
-                    viewModel.goNext()
-                } label: {
-                    Label("自動再生をオン", systemImage: "forward.end.alt.fill")
-                }
-                .buttonStyle(.bordered)
+            Button {
+                viewModel.goNext()
+            } label: {
+                Label("次の動画を再生", systemImage: "play.fill")
+                    .frame(maxWidth: .infinity)
             }
+            .buttonStyle(.borderedProminent)
         }
         .padding()
         .background(Color(.secondarySystemBackground))
@@ -219,16 +254,14 @@ struct PlayerView: View {
             }
             .buttonStyle(.bordered)
 
-            let watched = watchStore.isWatched(video.id)
-            Button {
-                watchStore.toggleWatched(video.id)
-            } label: {
-                Label(watched ? "視聴済みを解除" : "視聴済みにする",
-                      systemImage: watched ? "checkmark.circle.fill" : "checkmark.circle")
-                    .frame(maxWidth: .infinity)
+            // 視聴済みは「終了時に自動で付く」ため、ここでは状態表示だけにする。
+            // 手動の切り替えは右上の「…」メニュー、または動画一覧のスワイプから行う。
+            if watchStore.isWatched(video.id) {
+                Label("視聴済み", systemImage: "checkmark.circle.fill")
+                    .font(.caption)
+                    .foregroundStyle(.green)
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
-            .buttonStyle(.borderedProminent)
-            .tint(watched ? .green : .accentColor)
 
             Button {
                 if let url = video.watchURL { openURL(url) }

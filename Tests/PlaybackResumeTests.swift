@@ -67,21 +67,31 @@ final class PlaybackResumeTests: XCTestCase {
 
     // MARK: - 設定
 
-    func testSettingsDefaultToOn() {
+    func testAutoPlayIsOffByDefaultAndResumeIsOn() {
         let settings = PlaybackSettingsStore(defaults: makeDefaults("settings"))
-        XCTAssertTrue(settings.resumeFromLastPosition, "既定は「続きから再生」オン")
-        XCTAssertTrue(settings.autoPlayNext, "既定は「自動で次を再生」オン")
+        XCTAssertFalse(settings.autoPlayNext, "自動再生は任意機能なので既定オフ")
+        XCTAssertTrue(settings.resumeFromLastPosition, "続きから再生は既定オン")
     }
 
     func testSettingsPersist() {
         let defaults = makeDefaults("settings")
         let settings = PlaybackSettingsStore(defaults: defaults)
-        settings.autoPlayNext = false
+        settings.autoPlayNext = true
         settings.resumeFromLastPosition = false
 
         let reloaded = PlaybackSettingsStore(defaults: defaults)
-        XCTAssertFalse(reloaded.autoPlayNext)
+        XCTAssertTrue(reloaded.autoPlayNext, "ユーザーがオンにした設定は保持する")
         XCTAssertFalse(reloaded.resumeFromLastPosition)
+    }
+
+    /// 未操作の端末には値が保存されず、アップデートで勝手にオンにならないこと。
+    func testUntouchedSettingIsNotPersistedAndStaysOff() {
+        let defaults = makeDefaults("settings")
+        _ = PlaybackSettingsStore(defaults: defaults)   // 生成しただけ（ユーザー操作なし）
+
+        XCTAssertNil(defaults.object(forKey: "setting_autoplay_next_v1"),
+                     "既定値は保存しない（あとで既定を変えても上書きしない）")
+        XCTAssertFalse(PlaybackSettingsStore(defaults: defaults).autoPlayNext)
     }
 
     // MARK: - 続きから再生
@@ -158,9 +168,11 @@ final class PlaybackResumeTests: XCTestCase {
         vm.handleState(.ended)
     }
 
-    func testAutoPlaysNextWhenEnabled() {
+    /// ユーザーが明示的にオンにした場合だけ、終了後に次へ進む。
+    func testAutoPlaysNextOnlyWhenUserTurnsItOn() {
         let positions = PlaybackPositionStore(defaults: makeDefaults("pos"))
         let settings = PlaybackSettingsStore(defaults: makeDefaults("settings"))
+        settings.autoPlayNext = true        // ユーザーが再生画面のトグルでオンにした
         let videos = makeVideos(3)
         let vm = makeViewModel(videos: videos, positionStore: positions, settings: settings)
 
@@ -175,10 +187,11 @@ final class PlaybackResumeTests: XCTestCase {
         XCTAssertEqual(vm.currentIndex, 2)
     }
 
-    func testShowsSuggestionInsteadWhenAutoPlayDisabled() {
+    /// 既定（オフ）のままなら、終了後は停止して手動ボタンを出す。
+    func testStopsAndShowsManualButtonByDefault() {
         let positions = PlaybackPositionStore(defaults: makeDefaults("pos"))
         let settings = PlaybackSettingsStore(defaults: makeDefaults("settings"))
-        settings.autoPlayNext = false
+        XCTAssertFalse(settings.autoPlayNext, "既定オフのまま検証する")
         let videos = makeVideos(3)
         let vm = makeViewModel(videos: videos, positionStore: positions, settings: settings)
 
@@ -191,6 +204,7 @@ final class PlaybackResumeTests: XCTestCase {
     func testDoesNotAdvancePastTheLastVideo() {
         let positions = PlaybackPositionStore(defaults: makeDefaults("pos"))
         let settings = PlaybackSettingsStore(defaults: makeDefaults("settings"))
+        settings.autoPlayNext = true
         let videos = makeVideos(2)
         let vm = makeViewModel(videos: videos, startIndex: 1, positionStore: positions, settings: settings)
 
@@ -221,15 +235,20 @@ final class PlaybackResumeTests: XCTestCase {
     func testStaleEndedEventAfterAutoAdvanceIsIgnored() {
         let positions = PlaybackPositionStore(defaults: makeDefaults("pos"))
         let settings = PlaybackSettingsStore(defaults: makeDefaults("settings"))
+        settings.autoPlayNext = true
+        let watch = WatchHistoryStore(defaults: makeDefaults("watch"))
         let videos = makeVideos(4)
-        let vm = makeViewModel(videos: videos, positionStore: positions, settings: settings)
+        let vm = PlayerViewModel(videos: videos, startIndex: 0, watchStore: watch,
+                                 positionStore: positions, settings: settings)
 
         vm.handleState(.playing)
         vm.handleState(.ended)
         vm.handleState(.ended)   // 切り替え直後に遅れて届いた通知
 
         XCTAssertEqual(vm.currentIndex, 1, "1本だけ進む")
-        XCTAssertFalse(vm.isCurrentWatched(), "再生していない動画を視聴済みにしない")
+        XCTAssertTrue(watch.isWatched(videos[0].id), "実際に見た動画だけ視聴済みになる")
+        XCTAssertFalse(watch.isWatched(videos[1].id), "再生していない動画に視聴済みが付かない")
+        XCTAssertFalse(watch.isWatched(videos[2].id))
     }
 
     func testEndedBeforePlaybackStartsIsIgnored() {

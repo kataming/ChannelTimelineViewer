@@ -96,6 +96,17 @@ struct VideoListView: View {
                     } label: {
                         VideoRow(video: video, watched: watchStore.isWatched(video.id))
                     }
+                    // 視聴済みの手動切り替えはここ（スワイプ）と再生画面の「…」メニューから行う。
+                    .swipeActions(edge: .leading, allowsFullSwipe: true) {
+                        let watched = watchStore.isWatched(video.id)
+                        Button {
+                            watchStore.toggleWatched(video.id)
+                        } label: {
+                            Label(watched ? "未視聴に戻す" : "視聴済み",
+                                  systemImage: watched ? "arrow.uturn.backward" : "checkmark.circle.fill")
+                        }
+                        .tint(watched ? .gray : .green)
+                    }
                 }
             } header: {
                 Text("\(visible.count)本表示 / 全\(totalCount)本")

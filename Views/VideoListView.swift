@@ -3,6 +3,8 @@ import SwiftUI
 struct VideoListView: View {
     @EnvironmentObject private var watchStore: WatchHistoryStore
     @EnvironmentObject private var progressStore: ChannelProgressStore
+    @EnvironmentObject private var positionStore: PlaybackPositionStore
+    @EnvironmentObject private var playbackSettings: PlaybackSettingsStore
     @StateObject private var viewModel: VideoListViewModel
 
     init(channel: Channel) {
@@ -87,7 +89,10 @@ struct VideoListView: View {
                 ForEach(Array(visible.enumerated()), id: \.element.id) { index, video in
                     NavigationLink {
                         PlayerView(videos: visible, startIndex: index,
-                                   watchStore: watchStore, channelId: viewModel.channel.id)
+                                   watchStore: watchStore,
+                                   positionStore: positionStore,
+                                   settings: playbackSettings,
+                                   channelId: viewModel.channel.id)
                     } label: {
                         VideoRow(video: video, watched: watchStore.isWatched(video.id))
                     }
@@ -134,7 +139,10 @@ struct VideoListView: View {
             let isResume = progressStore.progress(for: viewModel.channel.id)?.lastOpenedVideoId == target.id
             NavigationLink {
                 PlayerView(videos: oldest, startIndex: index,
-                           watchStore: watchStore, channelId: viewModel.channel.id)
+                           watchStore: watchStore,
+                           positionStore: positionStore,
+                           settings: playbackSettings,
+                           channelId: viewModel.channel.id)
             } label: {
                 HStack(spacing: 12) {
                     RemoteThumbnail(url: target.thumbnailURL, width: 88, height: 50)

@@ -42,6 +42,12 @@ struct AboutView: View {
                         .foregroundStyle(.secondary)
                 }
 
+                Section("自動再生と続きから再生") {
+                    Text("再生が終わると、いま開いているチャンネル一覧の次の動画を続けて再生します（再生画面のトグルでオフにできます）。進むのは一覧の中の次の動画だけで、関連動画へ勝手に移動することはありません。また、動画ごとの再生位置を端末内に保存し、次に開いたときは続きから再生します（オフにすると常に最初から再生します）。バックグラウンド再生は行わないため、アプリを閉じると再生も止まります。")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                }
+
                 if let url = ConfigLoader.privacyPolicyURL() {
                     Section {
                         Button {

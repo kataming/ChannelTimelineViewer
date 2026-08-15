@@ -5,6 +5,7 @@ struct PlayerView: View {
     @EnvironmentObject private var watchStore: WatchHistoryStore
     @EnvironmentObject private var progressStore: ChannelProgressStore
     @EnvironmentObject private var memoStore: VideoMemoStore
+    @EnvironmentObject private var settings: PlaybackSettingsStore
     @StateObject private var viewModel: PlayerViewModel
     @Environment(\.openURL) private var openURL
     private let channelId: String
@@ -17,10 +18,19 @@ struct PlayerView: View {
         )
     }
 
-    init(videos: [VideoItem], startIndex: Int, watchStore: WatchHistoryStore, channelId: String) {
+    init(videos: [VideoItem],
+         startIndex: Int,
+         watchStore: WatchHistoryStore,
+         positionStore: PlaybackPositionStore,
+         settings: PlaybackSettingsStore,
+         channelId: String) {
         self.channelId = channelId
         _viewModel = StateObject(
-            wrappedValue: PlayerViewModel(videos: videos, startIndex: startIndex, watchStore: watchStore)
+            wrappedValue: PlayerViewModel(videos: videos,
+                                          startIndex: startIndex,
+                                          watchStore: watchStore,
+                                          positionStore: positionStore,
+                                          settings: settings)
         )
     }
 
@@ -31,7 +41,12 @@ struct PlayerView: View {
                     YouTubePlayerWebView(
                         videoId: video.id,
                         autoplayOnLoad: true,
-                        onStateChange: { state in viewModel.handleState(state) }
+                        startSeconds: viewModel.startSecondsForCurrent,
+                        seekRequest: viewModel.seekRequest,
+                        onStateChange: { state in viewModel.handleState(state) },
+                        onTimeUpdate: { id, seconds, duration in
+                            viewModel.handleTimeUpdate(videoId: id, seconds: seconds, duration: duration)
+                        }
                     )
                     .aspectRatio(16.0 / 9.0, contentMode: .fit)
                     .frame(maxWidth: .infinity)
@@ -65,9 +80,19 @@ struct PlayerView: View {
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
 
+            if viewModel.didAutoAdvance {
+                Label("自動再生で次の動画に進みました", systemImage: "forward.end.alt.fill")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+
+            resumeNotice
+
             if viewModel.showEndedSuggestion, let next = viewModel.nextVideo {
                 endedSuggestion(next)
             }
+
+            playbackSettings
 
             controls(for: video)
 
@@ -102,6 +127,46 @@ struct PlayerView: View {
         }
     }
 
+    /// 「続きから再生中」の案内と、最初から見直すためのボタン。
+    @ViewBuilder
+    private var resumeNotice: some View {
+        if viewModel.isResumingFromSavedPosition {
+            HStack(spacing: 8) {
+                Label("前回の続き（\(PlaybackPosition.timeString(viewModel.startSecondsForCurrent))）から再生中",
+                      systemImage: "clock.arrow.circlepath")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                Spacer(minLength: 4)
+                Button("最初から") {
+                    viewModel.restartFromBeginning()
+                }
+                .font(.caption)
+                .buttonStyle(.bordered)
+            }
+        }
+    }
+
+    /// 再生の挙動（自動再生・続きから）の切り替え。
+    private var playbackSettings: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Toggle(isOn: $settings.autoPlayNext) {
+                Label("終了したら次を自動再生", systemImage: "forward.end.alt.fill")
+                    .font(.subheadline)
+            }
+            Toggle(isOn: $settings.resumeFromLastPosition) {
+                Label("続きから再生する", systemImage: "clock.arrow.circlepath")
+                    .font(.subheadline)
+            }
+            Text("自動再生をオフにすると、終了時に「次の動画を再生」ボタンを表示します。"
+                 + "どちらの設定でもバックグラウンド再生は行いません（アプリを閉じると停止します）。")
+                .font(.caption2)
+                .foregroundStyle(.tertiary)
+        }
+        .padding(12)
+        .background(Color(.secondarySystemBackground))
+        .clipShape(RoundedRectangle(cornerRadius: 12))
+    }
+
     private func endedSuggestion(_ next: VideoItem) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("再生が終了しました。次の動画:")
@@ -111,12 +176,22 @@ struct PlayerView: View {
                 RemoteThumbnail(url: next.thumbnailURL, width: 88, height: 50)
                 Text(next.title).font(.subheadline).lineLimit(2)
             }
-            Button {
-                viewModel.goNext()
-            } label: {
-                Label("次の動画を再生", systemImage: "play.fill")
+            HStack(spacing: 12) {
+                Button {
+                    viewModel.goNext()
+                } label: {
+                    Label("次の動画を再生", systemImage: "play.fill")
+                }
+                .buttonStyle(.borderedProminent)
+
+                Button {
+                    settings.autoPlayNext = true
+                    viewModel.goNext()
+                } label: {
+                    Label("自動再生をオン", systemImage: "forward.end.alt.fill")
+                }
+                .buttonStyle(.bordered)
             }
-            .buttonStyle(.borderedProminent)
         }
         .padding()
         .background(Color(.secondarySystemBackground))

@@ -14,9 +14,9 @@
 - [ ] APIキーに本番制限を設定（[`youtube-api-key-production-settings.md`](youtube-api-key-production-settings.md)）
 - [ ] `MARKETING_VERSION` / `CURRENT_PROJECT_VERSION` を設定
 - [ ] GitHub Actions の CI が green（コンパイル＋ユニットテスト）
-- [ ] **共有シート（Share Extension）用の署名を用意した**
-      （`python scripts/asc_add_extension_signing.py` → `PROVISIONING_PROFILE_EXT_*` を Secrets に登録。
-      手順は [`ci-release-guide.md`](ci-release-guide.md) Step 2.5）
+- [x] 共有シート（Share Extension）用の署名は **`iOS Release` が自動で用意**する
+      （ASC API キーから Bundle ID / プロファイルを作成・再利用。事前作業は不要。
+      固定したい場合のみ [`ci-release-guide.md`](ci-release-guide.md) Step 2.5）
 - [ ] `iOS Build` のログで「Share Extension is embedded in the app bundle」が成功している
       （`.app/PlugIns/*.appex` とカスタムURLスキーム `channeltimelineviewer` の確認）
 

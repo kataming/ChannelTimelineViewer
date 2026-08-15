@@ -79,6 +79,43 @@ def create_bundle_id(token: str, identifier: str, name: str) -> str:
     return res["data"]["id"]
 
 
+def find_reusable_profile(token: str, bundle_identifier: str, cert_ids: set[str]) -> dict | None:
+    """指定 Bundle ID 用の、有効でいま使える配布プロファイルを1つ返す（無ければ None）。
+
+    CI から毎回実行するため、使い回せるものがあれば作り直さない
+    （実行のたびにプロファイルが増えていくのを防ぐ）。
+    証明書が入れ替わっている場合は使えないので、含まれる証明書もチェックする。
+    """
+    # ※ fields[profiles] で属性を絞ると relationships まで落ちることがあるので指定しない。
+    res = api(token, "GET", "/v1/profiles?limit=200&include=bundleId")
+    # include で返る bundleIds の id -> identifier を作る
+    identifiers = {
+        item["id"]: item["attributes"].get("identifier")
+        for item in res.get("included", [])
+        if item.get("type") == "bundleIds"
+    }
+    candidates = []
+    for prof in res.get("data", []):
+        attrs = prof["attributes"]
+        if attrs.get("profileType") != PROFILE_TYPE:
+            continue
+        if attrs.get("profileState") != "ACTIVE":
+            continue
+        rel = prof.get("relationships", {}).get("bundleId", {}).get("data") or {}
+        if identifiers.get(rel.get("id")) != bundle_identifier:
+            continue
+        candidates.append(prof)
+
+    for prof in sorted(
+        candidates, key=lambda p: p["attributes"].get("expirationDate") or "", reverse=True
+    ):
+        linked = api(token, "GET", f"/v1/profiles/{prof['id']}/certificates?limit=200")
+        linked_ids = {c["id"] for c in linked.get("data", [])}
+        if linked_ids & cert_ids:
+            return prof
+    return None
+
+
 def valid_distribution_certificates(token: str) -> list[dict]:
     """期限内の配布証明書を新しい順に返す。"""
     res = api(token, "GET", "/v1/certificates?limit=200")
@@ -99,6 +136,71 @@ def valid_distribution_certificates(token: str) -> list[dict]:
     return certs
 
 
+def create_profile(token: str, name: str, bundle_res_id: str, cert_ids: list[str]) -> dict:
+    prof = api(
+        token,
+        "POST",
+        "/v1/profiles",
+        {
+            "data": {
+                "type": "profiles",
+                "attributes": {"name": name, "profileType": PROFILE_TYPE},
+                "relationships": {
+                    "bundleId": {"data": {"type": "bundleIds", "id": bundle_res_id}},
+                    # CI の keychain に入る証明書がどれでも通るよう、有効な配布証明書をすべて含める
+                    "certificates": {
+                        "data": [{"type": "certificates", "id": cid} for cid in cert_ids]
+                    },
+                },
+            }
+        },
+    )
+    return prof["data"]
+
+
+def run_ci(args) -> None:
+    """CI から呼ぶ: Bundle ID とプロファイルを用意し、ファイルに書き出すだけ。
+
+    GitHub Secrets への登録は行わない（Actions の GITHUB_TOKEN では Secret を書けないため）。
+    リリースのたびに実行されるので、**使えるプロファイルがあれば作り直さない**。
+    """
+    if not args.out or not args.name_out:
+        raise SystemExit("--ci には --out と --name-out が必要です")
+
+    token = make_token(args.key_id, args.issuer_id, args.p8)
+
+    ext_res_id = find_bundle_id(token, args.bundle_id)
+    if ext_res_id is None:
+        print(f"Bundle ID を登録します: {args.bundle_id}")
+        ext_res_id = create_bundle_id(token, args.bundle_id, args.bundle_name)
+        print(f"  ✓ 登録しました (id={ext_res_id})")
+    else:
+        print(f"Bundle ID は登録済み: {args.bundle_id}")
+
+    certs = valid_distribution_certificates(token)
+    if not certs:
+        raise SystemExit("有効な配布証明書がありません（scripts/asc_setup_signing.py を実行してください）")
+    cert_ids = [c["id"] for c in certs]
+
+    reusable = find_reusable_profile(token, args.bundle_id, set(cert_ids))
+    if reusable is not None:
+        data = reusable
+        print(f"既存プロファイルを再利用します: {data['attributes'].get('name')}")
+    else:
+        stamp = _dt.datetime.now().strftime("%Y%m%d%H%M%S")
+        name = f"{args.profile_name} {stamp}"
+        print(f"プロファイルを作成します: {name}")
+        data = create_profile(token, name, ext_res_id, cert_ids)
+
+    attrs = data["attributes"]
+    args.out.parent.mkdir(parents=True, exist_ok=True)
+    args.out.write_bytes(base64.b64decode(attrs["profileContent"]))
+    args.name_out.write_text(attrs.get("name", ""), encoding="utf-8")
+    print(
+        f"  ✓ {attrs.get('name')} (UUID {attrs.get('uuid')}, 期限 {attrs.get('expirationDate')})"
+    )
+
+
 def main() -> None:
     p = argparse.ArgumentParser()
     p.add_argument("--key-id", required=True, help="App Store Connect API の Key ID")
@@ -114,10 +216,24 @@ def main() -> None:
         action="store_true",
         help="現状の確認だけを行い、作成・Secret 登録はしない",
     )
+    p.add_argument(
+        "--ci",
+        action="store_true",
+        help=(
+            "CI(GitHub Actions)から実行するモード。gh secret set は行わず、"
+            "使えるプロファイルがあれば再利用して --out / --name-out に書き出す"
+        ),
+    )
+    p.add_argument("--out", type=Path, help="--ci: プロファイル(.mobileprovision)の出力先")
+    p.add_argument("--name-out", type=Path, help="--ci: プロファイル名の出力先")
     args = p.parse_args()
 
     if not args.p8.exists():
         raise SystemExit(f"p8 ファイルが見つかりません: {args.p8}")
+
+    if args.ci:
+        run_ci(args)
+        return
 
     token = make_token(args.key_id, args.issuer_id, args.p8)
     print("App Store Connect API に接続しています…")
@@ -168,25 +284,8 @@ def main() -> None:
     profile_name = args.profile_name if not same_name else f"{args.profile_name} {stamp}"
 
     print("\nShare Extension 用プロビジョニングプロファイルを作成しています…")
-    prof = api(
-        token,
-        "POST",
-        "/v1/profiles",
-        {
-            "data": {
-                "type": "profiles",
-                "attributes": {"name": profile_name, "profileType": PROFILE_TYPE},
-                "relationships": {
-                    "bundleId": {"data": {"type": "bundleIds", "id": ext_res_id}},
-                    # CI の keychain に入る証明書がどれでも通るよう、有効な配布証明書をすべて含める
-                    "certificates": {
-                        "data": [{"type": "certificates", "id": c["id"]} for c in certs]
-                    },
-                },
-            }
-        },
-    )
-    attrs = prof["data"]["attributes"]
+    prof_data = create_profile(token, profile_name, ext_res_id, [c["id"] for c in certs])
+    attrs = prof_data["attributes"]
     profile_b64 = attrs["profileContent"]  # 既に base64
     args.out_dir.mkdir(parents=True, exist_ok=True)
     out_path = args.out_dir / "profile-shareextension.mobileprovision"

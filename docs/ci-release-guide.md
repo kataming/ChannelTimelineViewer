@@ -58,7 +58,7 @@ python scripts/asc_setup_signing.py \
 | `ASC_KEY_ID` / `ASC_ISSUER_ID` / `ASC_PRIVATE_KEY` | ASC API キー（アップロード認証に使用） |
 | `BUILD_CERT_P12_BASE64` / `BUILD_CERT_PASSWORD` | 配布証明書（.p12） |
 | `PROVISIONING_PROFILE_BASE64` / `PROVISIONING_PROFILE_NAME` | プロビジョニングプロファイル（アプリ本体） |
-| `PROVISIONING_PROFILE_EXT_BASE64` / `PROVISIONING_PROFILE_EXT_NAME` | 同（共有シート拡張。Step 2.5 で登録） |
+| `PROVISIONING_PROFILE_EXT_BASE64` / `PROVISIONING_PROFILE_EXT_NAME` | （任意）共有シート拡張用。未登録ならワークフローが自動作成 |
 
 生成物は `build/signing/`（`.gitignore` 済み）にも保存されます。**証明書の秘密鍵はここにしか無い**ため、
 別マシンでも使う場合はバックアップしてください（無くしても証明書を再発行すれば復旧できます）。
@@ -66,11 +66,18 @@ python scripts/asc_setup_signing.py \
 > Apple Distribution 証明書は**同時に持てる数に上限**（通常3枚）があります。使わなくなった証明書は
 > Certificates, Identifiers & Profiles で失効させてください。
 
-## Step 2.5（自動・1回だけ）共有シート（Share Extension）用の署名を用意する
+## Step 2.5（通常は不要）共有シート（Share Extension）用の署名
 
 共有シート拡張は**アプリ本体とは別の Bundle ID**（`com.deskflowlabs.channeltimelineviewer.shareextension`）を
-持つため、**専用のプロビジョニングプロファイルが必要**です。これが無いと `iOS Release` は
-「必要な Secret が未設定です」で止まります（＝共有シートに出ないビルドが混ざらないようにしています）。
+持つため、**専用のプロビジョニングプロファイルが必要**です。
+
+> ✅ **通常この手順は不要です。** `iOS Release` ワークフローが、Step 2 で登録済みの
+> App Store Connect API キーを使って、拡張用の Bundle ID とプロファイルを**実行時に自動で作成・再利用**します
+> （`scripts/asc_add_extension_signing.py --ci`）。手元に `.p8` を用意する必要はありません。
+
+固定のプロファイルを使いたい場合（監査上、事前に作っておきたい等）だけ、次を実行して
+`PROVISIONING_PROFILE_EXT_BASE64` / `PROVISIONING_PROFILE_EXT_NAME` を登録してください。
+登録されていれば、ワークフローは自動作成せずそちらを使います。
 
 ```bash
 # まず確認だけ

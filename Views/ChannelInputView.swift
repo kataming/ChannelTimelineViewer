@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ChannelInputView: View {
     @EnvironmentObject private var favoriteStore: FavoriteChannelStore
+    @EnvironmentObject private var sharedLinkRouter: SharedLinkRouter
     @StateObject private var viewModel = ChannelInputViewModel()
     @State private var showAbout = false
 
@@ -39,7 +40,9 @@ struct ChannelInputView: View {
                 } header: {
                     Text("チャンネルURL")
                 } footer: {
-                    Text("例: https://www.youtube.com/@handle, /channel/UC..., /c/name, /user/name")
+                    Text("例: https://www.youtube.com/@handle, /channel/UC..., /c/name, /user/name\n"
+                         + "YouTube アプリや Safari の共有ボタンから「Channel Timeline Viewer」を選ぶと、"
+                         + "チャンネルURL・動画URLのどちらからでもこの画面を経由して一覧を開けます。")
                 }
 
                 if let error = viewModel.errorMessage {
@@ -80,10 +83,23 @@ struct ChannelInputView: View {
             .sheet(isPresented: $showAbout) {
                 AboutView()
             }
+            // 共有シートから起動された場合（コールドスタート／起動済みのどちらも）に処理する。
+            .onAppear { consumeSharedLinkIfNeeded() }
+            .onChange(of: sharedLinkRouter.receivedCount) { _, _ in
+                consumeSharedLinkIfNeeded()
+            }
         }
     }
 
     private func startFetch() {
         Task { await viewModel.fetch(favoriteStore: favoriteStore) }
+    }
+
+    /// 共有された YouTube URL があれば取り込んで一覧を開く。
+    private func consumeSharedLinkIfNeeded() {
+        Task { @MainActor in
+            guard let link = sharedLinkRouter.consume() else { return }
+            await viewModel.openSharedLink(link, favoriteStore: favoriteStore)
+        }
     }
 }

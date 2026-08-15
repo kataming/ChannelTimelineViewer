@@ -39,9 +39,26 @@ struct YouTubePlayerWebView: UIViewRepresentable {
     let videoId: String
     /// 初回読み込み後に自動再生するか。
     var autoplayOnLoad: Bool = false
+    /// 再生開始位置（秒）。「続きから再生」で使う。0 なら最初から。
+    var startSeconds: Double = 0
+    /// 再生位置の移動要求（「最初から再生」など）。id が変わったときだけ実行する。
+    var seekRequest: SeekRequest? = nil
     var onStateChange: ((YouTubePlayerState) -> Void)? = nil
+    /// 再生位置の通知（videoId, 現在位置秒, 動画の長さ秒）。
+    var onTimeUpdate: ((String, Double, Double) -> Void)? = nil
     /// 再生できなかった場合に呼ばれる（IFrame API のエラーコード）。
     var onError: ((Int) -> Void)? = nil
+
+    /// シーク要求。同じ位置へ再度移動できるよう毎回新しい id を持つ。
+    struct SeekRequest: Equatable {
+        let id: UUID
+        let seconds: Double
+
+        init(seconds: Double) {
+            self.id = UUID()
+            self.seconds = seconds
+        }
+    }
 
     func makeCoordinator() -> Coordinator { Coordinator(self) }
 
@@ -60,14 +77,23 @@ struct YouTubePlayerWebView: UIViewRepresentable {
         webView.backgroundColor = .black
 
         context.coordinator.webView = webView
-        context.coordinator.load(videoId: videoId)
+        context.coordinator.load(videoId: videoId, start: startSeconds)
         return webView
     }
 
     func updateUIView(_ webView: WKWebView, context: Context) {
+        // 最新のクロージャ・設定値を Coordinator に反映する。
+        context.coordinator.parent = self
+
         // videoId が変わったときだけ差し替える。ページ再読み込みは不要。
-        guard context.coordinator.loadedVideoId != videoId else { return }
-        context.coordinator.change(videoId: videoId, autoplay: autoplayOnLoad)
+        if context.coordinator.loadedVideoId != videoId {
+            context.coordinator.change(videoId: videoId, autoplay: autoplayOnLoad, start: startSeconds)
+            return
+        }
+        // 「最初から再生」などのシーク要求。
+        if let request = seekRequest, context.coordinator.handledSeekId != request.id {
+            context.coordinator.seek(request)
+        }
     }
 
     static func dismantleUIView(_ webView: WKWebView, coordinator: Coordinator) {
@@ -75,39 +101,58 @@ struct YouTubePlayerWebView: UIViewRepresentable {
     }
 
     /// 中継ページの URL を組み立てる。
-    static func pageURL(videoId: String, autoplay: Bool) -> URL? {
+    static func pageURL(videoId: String, autoplay: Bool, start: Double = 0) -> URL? {
         var comps = URLComponents(string: playerPageURL)
-        comps?.queryItems = [
+        var items = [
             URLQueryItem(name: "v", value: sanitize(videoId)),
             URLQueryItem(name: "autoplay", value: autoplay ? "1" : "0"),
         ]
+        if let seconds = startQueryValue(start) {
+            items.append(URLQueryItem(name: "start", value: seconds))
+        }
+        comps?.queryItems = items
         return comps?.url
     }
 
+    /// 開始位置を秒（整数）の文字列にする。0 以下・不正値は付けない。
+    static func startQueryValue(_ start: Double) -> String? {
+        guard start.isFinite, start >= 1 else { return nil }
+        return String(Int(start))
+    }
+
     final class Coordinator: NSObject, WKScriptMessageHandler {
-        let parent: YouTubePlayerWebView
+        var parent: YouTubePlayerWebView
         weak var webView: WKWebView?
         private(set) var loadedVideoId: String?
+        private(set) var handledSeekId: UUID?
 
         init(_ parent: YouTubePlayerWebView) { self.parent = parent }
 
-        func load(videoId: String) {
+        func load(videoId: String, start: Double = 0) {
             loadedVideoId = videoId
             guard let url = YouTubePlayerWebView.pageURL(
-                videoId: videoId, autoplay: parent.autoplayOnLoad
+                videoId: videoId, autoplay: parent.autoplayOnLoad, start: start
             ) else { return }
             webView?.load(URLRequest(url: url))
         }
 
         /// ページを読み直さずに動画だけ差し替える。
-        func change(videoId: String, autoplay: Bool) {
+        func change(videoId: String, autoplay: Bool, start: Double = 0) {
             loadedVideoId = videoId
             let id = YouTubePlayerWebView.sanitize(videoId)
             let fn = autoplay ? "loadVideo" : "cueVideo"
-            webView?.evaluateJavaScript("\(fn)('\(id)');") { [weak self] _, error in
+            let seconds = max(0, start.isFinite ? start : 0)
+            webView?.evaluateJavaScript("\(fn)('\(id)', \(Int(seconds)));") { [weak self] _, error in
                 // ページがまだ読めていない等で失敗したら読み直す
-                if error != nil { self?.load(videoId: videoId) }
+                if error != nil { self?.load(videoId: videoId, start: seconds) }
             }
+        }
+
+        /// 再生位置を移動する（「最初から再生」など）。
+        func seek(_ request: SeekRequest) {
+            handledSeekId = request.id
+            let seconds = max(0, request.seconds.isFinite ? request.seconds : 0)
+            webView?.evaluateJavaScript("seekTo(\(Int(seconds)));", completionHandler: nil)
         }
 
         func userContentController(_ userContentController: WKUserContentController,
@@ -123,6 +168,13 @@ struct YouTubePlayerWebView: UIViewRepresentable {
                 }
             case "ended":
                 parent.onStateChange?(.ended)
+            case "time":
+                // どの動画の位置かを取り違えないよう、videoId 付きで受け取る。
+                if let id = body["v"] as? String,
+                   let seconds = (body["t"] as? Double) ?? (body["t"] as? NSNumber)?.doubleValue {
+                    let duration = (body["d"] as? Double) ?? (body["d"] as? NSNumber)?.doubleValue ?? 0
+                    parent.onTimeUpdate?(id, seconds, duration)
+                }
             case "error":
                 parent.onError?(body["code"] as? Int ?? -1)
             default:

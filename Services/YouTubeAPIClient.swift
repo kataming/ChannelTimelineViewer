@@ -41,7 +41,35 @@ final class YouTubeAPIClient {
         case .customName(let name):
             let channelId = try await searchChannelId(byName: name)
             return try await fetchChannel(query: [("id", channelId)])
+        case .video(let videoId):
+            // 共有された動画URL → videos.list で投稿チャンネルを特定してから解決する（quota 1）。
+            let channelId = try await fetchChannelId(forVideoId: videoId)
+            return try await fetchChannel(query: [("id", channelId)])
         }
+    }
+
+    /// videoId からその動画を投稿したチャンネルの channelId を取得する（videos.list / quota 1）。
+    func fetchChannelId(forVideoId videoId: String) async throws -> String {
+        guard ChannelResolver.isVideoId(videoId) else {
+            throw YouTubeAPIError.invalidVideoURL
+        }
+        let data = try await getData("videos", query: [("part", "snippet"), ("id", videoId)])
+        return try Self.channelId(fromVideosListJSON: data)
+    }
+
+    /// videos.list のレスポンス JSON から channelId を取り出す（ネットワーク非依存＝テスト可能）。
+    static func channelId(fromVideosListJSON data: Data) throws -> String {
+        let response: VideoListResponse
+        do {
+            response = try JSONDecoder().decode(VideoListResponse.self, from: data)
+        } catch {
+            throw YouTubeAPIError.decodingError
+        }
+        guard let channelId = response.items.first?.snippet?.channelId,
+              !channelId.isEmpty else {
+            throw YouTubeAPIError.videoNotFound
+        }
+        return channelId
     }
 
     /// channelId から uploads プレイリストIDを取得する。
@@ -129,8 +157,18 @@ final class YouTubeAPIClient {
         return id
     }
 
-    /// 共通のGETリクエスト。エラーを YouTubeAPIError にマップする。
+    /// 共通のGETリクエスト（デコードまで行う）。
     private func get<T: Decodable>(_ path: String, query: [(String, String)]) async throws -> T {
+        let data = try await getData(path, query: query)
+        do {
+            return try JSONDecoder().decode(T.self, from: data)
+        } catch {
+            throw YouTubeAPIError.decodingError
+        }
+    }
+
+    /// 共通のGETリクエスト（生データ）。エラーを YouTubeAPIError にマップする。
+    private func getData(_ path: String, query: [(String, String)]) async throws -> Data {
         let key = try apiKey()
         var comps = URLComponents(string: "\(baseURL)/\(path)")!
         comps.queryItems = query.map { URLQueryItem(name: $0.0, value: $0.1) }
@@ -164,11 +202,7 @@ final class YouTubeAPIClient {
             throw YouTubeAPIError.networkError
         }
 
-        do {
-            return try JSONDecoder().decode(T.self, from: data)
-        } catch {
-            throw YouTubeAPIError.decodingError
-        }
+        return data
     }
 }
 
@@ -209,6 +243,20 @@ private struct ChannelListResponse: Decodable {
     }
     struct RelatedPlaylists: Decodable {
         let uploads: String?
+    }
+}
+
+/// videos.list（共有された動画URL → 投稿チャンネルの特定）用。
+private struct VideoListResponse: Decodable {
+    let items: [Item]
+    struct Item: Decodable {
+        let id: String?
+        let snippet: Snippet?
+    }
+    struct Snippet: Decodable {
+        let channelId: String?
+        let channelTitle: String?
+        let title: String?
     }
 }
 

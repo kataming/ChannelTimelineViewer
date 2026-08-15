@@ -47,6 +47,18 @@ final class ChannelInputViewModel: ObservableObject {
         }
     }
 
+    /// 共有シートから受け取った YouTube URL を開く。
+    /// チャンネルURLならそのチャンネル、動画URLなら videoId → channelId を解決して同じ一覧画面へ遷移する。
+    func openSharedLink(_ link: String, favoriteStore: FavoriteChannelStore) async {
+        urlText = link
+        // すでに一覧を開いている場合でも、共有された別チャンネルへ確実に切り替える。
+        if resolvedChannel != nil {
+            resolvedChannel = nil
+            await Task.yield()
+        }
+        await fetch(favoriteStore: favoriteStore)
+    }
+
     /// お気に入りから直接開く。
     func open(_ favorite: FavoriteChannel, favoriteStore: FavoriteChannelStore) {
         favoriteStore.upsert(favorite.asChannel)

@@ -20,9 +20,17 @@
   表示しているのは YouTube 公式の IFrame Player そのもの。
 
   【使い方】
-    player.html?v=<videoId>&autoplay=1
+    player.html?v=<videoId>&autoplay=1&start=<秒>
   再生状態は window.webkit.messageHandlers.ytHandler 経由でネイティブ側へ通知する
   （アプリ内で開かれた場合のみ。ブラウザで開いた場合は何もしない）。
+
+  start は「続きから再生」用の開始位置（秒）。公式プレイヤーの startSeconds に渡すだけで、
+  再生位置の保存はアプリ側（端末内）で行う。再生位置は
+      { event: 'time', v: <videoId>, t: <現在位置秒>, d: <長さ秒> }
+  として通知する（どの動画の位置かを取り違えないよう videoId を必ず添える）。
+
+  ※ このページは公開済みアプリからも読み込まれるため、変更は**後方互換**にすること。
+     （古いアプリは start を送らず、time イベントを無視するだけで従来どおり動く）
 -->
 <html lang="ja">
 <head>
@@ -49,6 +57,10 @@
   var params = new URLSearchParams(location.search);
   var videoId = (params.get('v') || '').replace(/[^A-Za-z0-9_-]/g, '');
   var autoplay = params.get('autoplay') === '1' ? 1 : 0;
+  // 続きから再生の開始位置（秒）。数値以外・負値は 0 に丸める。
+  var startAt = Math.max(0, parseInt(params.get('start') || '0', 10) || 0);
+  // 現在プレイヤーに載っている動画ID（再生位置の通知に添える）。
+  var currentId = videoId;
 
   function post(msg) {
     if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.ytHandler) {
@@ -83,12 +95,17 @@
         playsinline: 1,
         rel: 0,
         autoplay: autoplay,
+        start: startAt,
         // このページのオリジン。Referer と併せて YouTube 側の検証に使われる。
         origin: location.origin
       },
       events: {
         onReady: function () { post({ event: 'ready' }); },
-        onStateChange: function (e) { post({ event: 'state', state: e.data }); },
+        onStateChange: function (e) {
+          post({ event: 'state', state: e.data });
+          // 一時停止・終了のタイミングでも位置を通知する（取りこぼし防止）。
+          if (e.data === 2 || e.data === 0) { postTime(); }
+        },
         onError: function (e) {
           post({ event: 'error', code: e.data });
           showMessage('この動画は再生できませんでした（コード ' + e.data + '）。' +
@@ -108,9 +125,40 @@
     }
   }, 200);
 
+  // 現在の再生位置をアプリへ通知する（「続きから再生」用。保存はアプリ側の端末内のみ）。
+  function postTime() {
+    if (!player || !player.getCurrentTime) { return; }
+    var t = player.getCurrentTime() || 0;
+    var d = (player.getDuration && player.getDuration()) || 0;
+    if (t > 0) { post({ event: 'time', v: currentId, t: t, d: d }); }
+  }
+
+  // 再生中は定期的に通知（5秒ごと）。停止中は何もしない。
+  setInterval(function () {
+    if (player && player.getPlayerState && player.getPlayerState() === 1) { postTime(); }
+  }, 5000);
+
+  // 画面を離れるときにも最後の位置を残す。
+  window.addEventListener('pagehide', postTime);
+
   // 外部から動画を差し替えるためのAPI（アプリ側が evaluateJavaScript で呼ぶ）
-  function loadVideo(id) { if (player && player.loadVideoById) { player.loadVideoById(id); } }
-  function cueVideo(id) { if (player && player.cueVideoById) { player.cueVideoById(id); } }
+  // 第2引数 start は「続きから再生」の開始位置（秒）。省略時は 0（＝最初から）。
+  function loadVideo(id, start) {
+    if (!player || !player.loadVideoById) { return; }
+    postTime();                       // 切り替え前に「今の動画」の位置を残す
+    currentId = id;
+    player.loadVideoById({ videoId: id, startSeconds: Math.max(0, start || 0) });
+  }
+  function cueVideo(id, start) {
+    if (!player || !player.cueVideoById) { return; }
+    postTime();
+    currentId = id;
+    player.cueVideoById({ videoId: id, startSeconds: Math.max(0, start || 0) });
+  }
+  // 「最初から再生」などで位置を移動する。
+  function seekTo(seconds) {
+    if (player && player.seekTo) { player.seekTo(Math.max(0, seconds || 0), true); }
+  }
 </script>
 </body>
 </html>

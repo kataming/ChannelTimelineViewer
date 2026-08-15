@@ -56,6 +56,17 @@ jobs:
       - name: Generate Xcode project
         run: xcodegen generate
 
+      # 共有シート(Share Extension)がターゲットとして生成されているかを確認する。
+      # ここが欠けると「共有シートにアプリが出ない」ビルドが黙って出来上がる。
+      - name: Verify Share Extension target exists
+        run: |
+          set -o pipefail
+          xcodebuild -project "$PROJECT" -list
+          if ! xcodebuild -project "$PROJECT" -list | grep -q "ChannelTimelineViewerShareExtension"; then
+            echo "::error::Share Extension ターゲットがプロジェクトに含まれていません(project.yml を確認)"
+            exit 1
+          fi
+
       - name: Show available simulators (デバッグ用)
         run: xcrun simctl list devices available | sed -n '1,60p'
 
@@ -72,6 +83,40 @@ jobs:
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO \
             clean build
+
+      # 共有シート拡張がアプリバンドルに埋め込まれているか（PlugIns/*.appex）を確認する。
+      - name: Verify Share Extension is embedded in the app bundle
+        run: |
+          set -o pipefail
+          APP=$(find ~/Library/Developer/Xcode/DerivedData -type d -name "ChannelTimelineViewer.app" \
+            -path "*Debug-iphonesimulator*" | head -n 1)
+          if [ -z "$APP" ]; then
+            echo "::warning::ビルド成果物(.app)が見つかりませんでした。埋め込み確認をスキップします。"
+            exit 0
+          fi
+          echo "アプリバンドル: $APP"
+          ls "$APP/PlugIns" || true
+          if ! ls "$APP"/PlugIns/*.appex >/dev/null 2>&1; then
+            echo "::error::Share Extension (.appex) がアプリに埋め込まれていません"
+            exit 1
+          fi
+          APPEX=$(ls -d "$APP"/PlugIns/*.appex | head -n 1)
+          /usr/libexec/PlistBuddy -c "Print :NSExtension:NSExtensionPointIdentifier" "$APPEX/Info.plist"
+          /usr/libexec/PlistBuddy -c "Print :NSExtension:NSExtensionAttributes:NSExtensionActivationRule" "$APPEX/Info.plist"
+
+          # メインアプリ側: カスタムURLスキーム（拡張からアプリを開くのに必須）と
+          # 生成された Info.plist の値（表示名）が両方入っていること = マージが効いていること
+          if ! /usr/libexec/PlistBuddy -c "Print :CFBundleURLTypes" "$APP/Info.plist" \
+               | grep -q "channeltimelineviewer"; then
+            echo "::error::カスタムURLスキーム channeltimelineviewer がアプリの Info.plist にありません"
+            echo "（App/Info.plist と GENERATE_INFOPLIST_FILE のマージを確認してください）"
+            exit 1
+          fi
+          if ! /usr/libexec/PlistBuddy -c "Print :CFBundleDisplayName" "$APP/Info.plist" >/dev/null 2>&1; then
+            echo "::error::CFBundleDisplayName が失われています（INFOPLIST_KEY_* のマージを確認）"
+            exit 1
+          fi
+          echo "✓ 共有シート拡張とカスタムURLスキームを確認しました"
 
       # 可能ならユニットテストも実行。シミュレーター名はランナー/Xcodeで変わるため、
       # 実在する iPhone シミュレーターの UDID を動的に選んで使う（堅牢化）。

@@ -4,6 +4,9 @@
 
 ## アプリ識別・署名
 - [x] `PRODUCT_BUNDLE_IDENTIFIER` を `com.deskflowlabs.channeltimelineviewer` に設定した
+- [x] 共有シート拡張の Bundle ID を `com.deskflowlabs.channeltimelineviewer.shareextension` に設定した
+- [ ] 拡張用の Bundle ID / プロビジョニングプロファイルを作成した
+      （`python scripts/asc_add_extension_signing.py`）
 - [ ] `DEVELOPMENT_TEAM` に自分の Team ID を設定した
 - [x] App Store Connect に同じ Bundle ID のアプリを作成した
 - [ ] 署名（Automatic signing 推奨）でアーカイブできる
@@ -24,6 +27,10 @@
 - [ ] `PRIVACY_POLICY_URL` を設定し、アプリ内「ⓘ」画面にリンクが出る
 - [ ] アプリ内「ⓘ このアプリについて」に3つの注意事項が表示される
 - [ ] チャンネル取得 → 古い順表示 → 再生 → 前後移動 → 視聴済み → お気に入り が一通り動く
+- [ ] **共有シートに Channel Timeline Viewer が出る**（YouTube アプリ / Safari）。
+      出ない場合は共有先の「その他」からオンにできる
+- [ ] 共有したチャンネルURL / 動画URL のどちらからでも動画一覧が開く
+      （詳細手順は [`../testflight-checklist.md`](../testflight-checklist.md) の「C-2」）
 
 ## ポリシー順守（禁止実装が無いこと）
 - [ ] 動画ダウンロードなし

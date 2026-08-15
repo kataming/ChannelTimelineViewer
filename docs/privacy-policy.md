@@ -52,6 +52,16 @@ YouTube/Google の取り扱いについては、各社のポリシー・規約�
 - Google プライバシーポリシー: https://policies.google.com/privacy
 - YouTube 利用規約: https://www.youtube.com/t/terms
 
+### 共有シート（他アプリからの共有）について
+本アプリは iOS の共有シート機能（Share Extension）を提供します。YouTube アプリや Safari から
+共有された **URL（またはURLを含むテキスト）だけ**を受け取り、本アプリ内でそのチャンネルの動画一覧を
+開くために使用します。
+
+- 受け取った URL は**外部に送信しません**（本アプリ内で解析し、公式 API へのチャンネル/動画の
+  問い合わせにのみ使用します）。
+- 共有シート側の機能は URL を本アプリへ渡すだけで、通信・保存・解析は行いません。
+- 共有された URL が YouTube のものでない場合は何も行いません。
+
 ## 4. トラッキング
 本アプリは広告識別子（IDFA）を用いたトラッキングを行いません（App Tracking Transparency 不使用）。
 

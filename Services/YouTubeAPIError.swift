@@ -4,6 +4,8 @@ import Foundation
 enum YouTubeAPIError: LocalizedError, Equatable {
     case invalidURL
     case invalidChannelURL
+    case invalidVideoURL
+    case videoNotFound
     case channelNotFound
     case uploadsPlaylistNotFound
     case apiKeyMissing
@@ -18,6 +20,10 @@ enum YouTubeAPIError: LocalizedError, Equatable {
             return "URLが正しくありません"
         case .invalidChannelURL:
             return "YouTubeチャンネルのURLとして認識できませんでした"
+        case .invalidVideoURL:
+            return "YouTube動画のURLとして認識できませんでした"
+        case .videoNotFound:
+            return "この動画のチャンネルを特定できませんでした"
         case .channelNotFound:
             return "チャンネルが見つかりませんでした"
         case .uploadsPlaylistNotFound:

@@ -46,8 +46,10 @@ final class ShareViewController: UIViewController {
         if opened {
             complete()
         } else {
-            // まれに拡張機能からのアプリ起動が許可されないことがある。手動で開いてもらう案内を出す。
-            showFailure("アプリを自動で開けませんでした。\nChannel Timeline Viewer を開いて、URL を貼り付けてください。")
+            // まれに拡張機能からのアプリ起動が許可されないことがある。
+            // その場合でも手作業に戻れるよう、URL をコピーして案内する。
+            UIPasteboard.general.string = link
+            showFailure("アプリを自動で開けませんでした。\nURL をコピーしたので、Channel Timeline Viewer を開いて貼り付けてください。")
         }
     }
 

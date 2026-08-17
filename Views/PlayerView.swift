@@ -8,10 +8,8 @@ struct PlayerView: View {
     @EnvironmentObject private var settings: PlaybackSettingsStore
     @StateObject private var viewModel: PlayerViewModel
     @Environment(\.openURL) private var openURL
-    /// 再生設定（画質・速度・字幕）のシートを表示中か。
+    /// 再生設定（速度・字幕）のシートを表示中か。
     @State private var showPlaybackOptions = false
-    /// プレイヤーを上下いっぱいに広げているか（公式プレイヤーの設定メニューを開くとき用）。
-    @State private var isPlayerExpanded = false
     private let channelId: String
 
     /// 動画ごとのメモを直接読み書きする Binding（入力即保存・日本語OK）。
@@ -41,55 +39,46 @@ struct PlayerView: View {
     var body: some View {
         Group {
             if let video = viewModel.currentVideo {
-                // 公式プレイヤーの設定メニュー（画質・速度・字幕）はプレイヤーの内部に描画されるため、
-                // 16:9 の枠のままだと下が切れて操作できない。
-                // 「上下いっぱい」に広げると、その中に設定メニューが収まって最後まで操作できる。
-                // 幅は変えず高さだけを変える。同じ WebView を使い続けるので再生は途切れない。
-                GeometryReader { geo in
-                    VStack(spacing: 0) {
-                        YouTubePlayerWebView(
-                            videoId: video.id,
-                            autoplayOnLoad: true,
-                            startSeconds: viewModel.startSecondsForCurrent,
-                            command: viewModel.command,
-                            onStateChange: { state in viewModel.handleState(state) },
-                            onTimeUpdate: { id, seconds, duration in
-                                viewModel.handleTimeUpdate(videoId: id, seconds: seconds, duration: duration)
-                            },
-                            onOptions: { options in viewModel.handleOptions(options) }
-                        )
-                        .frame(width: geo.size.width, height: playerHeight(in: geo.size))
-                        .background(Color.black)
+                // プレイヤーは常に 16:9。大きさは変えない（レイアウトが崩れるため）。
+                // 公式プレイヤーの設定メニューはプレイヤーの下端から上へ伸びるので、
+                // このサイズのままでも「速度／字幕／その他のオプション」は収まる。
+                VStack(spacing: 0) {
+                    YouTubePlayerWebView(
+                        videoId: video.id,
+                        autoplayOnLoad: true,
+                        startSeconds: viewModel.startSecondsForCurrent,
+                        command: viewModel.command,
+                        onStateChange: { state in viewModel.handleState(state) },
+                        onTimeUpdate: { id, seconds, duration in
+                            viewModel.handleTimeUpdate(videoId: id, seconds: seconds, duration: duration)
+                        },
+                        onOptions: { options in viewModel.handleOptions(options) }
+                    )
+                    .aspectRatio(16.0 / 9.0, contentMode: .fit)
+                    .frame(maxWidth: .infinity)
+                    .background(Color.black)
 
-                        if !isPlayerExpanded {
-                            ScrollView {
-                                details(for: video)
-                            }
-                        }
+                    ScrollView {
+                        details(for: video)
                     }
                 }
             } else {
                 ContentUnavailableView("動画がありません", systemImage: "film")
             }
         }
-        .navigationTitle(isPlayerExpanded ? "" : "再生")
+        .navigationTitle("再生")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                expandToggleButton
+                Button {
+                    showPlaybackOptions = true
+                } label: {
+                    Image(systemName: "slider.horizontal.3")
+                }
+                .accessibilityLabel("再生設定")
             }
-            if !isPlayerExpanded {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        showPlaybackOptions = true
-                    } label: {
-                        Image(systemName: "slider.horizontal.3")
-                    }
-                    .accessibilityLabel("再生設定")
-                }
-                ToolbarItem(placement: .topBarTrailing) {
-                    moreMenu
-                }
+            ToolbarItem(placement: .topBarTrailing) {
+                moreMenu
             }
         }
         .sheet(isPresented: $showPlaybackOptions) {
@@ -103,25 +92,6 @@ struct PlayerView: View {
     private func recordOpened() {
         guard let video = viewModel.currentVideo else { return }
         progressStore.recordOpened(channelId: channelId, videoId: video.id)
-    }
-
-    /// プレイヤーの高さ。広げているときは上下いっぱい、通常は 16:9。幅は常に画面幅。
-    private func playerHeight(in size: CGSize) -> CGFloat {
-        isPlayerExpanded ? size.height : size.width * 9.0 / 16.0
-    }
-
-    /// 上下いっぱい ⇄ 通常サイズ の切り替え。
-    private var expandToggleButton: some View {
-        Button {
-            withAnimation(.easeInOut(duration: 0.2)) {
-                isPlayerExpanded.toggle()
-            }
-        } label: {
-            Image(systemName: isPlayerExpanded
-                  ? "arrow.down.right.and.arrow.up.left"
-                  : "arrow.up.left.and.arrow.down.right")
-        }
-        .accessibilityLabel(isPlayerExpanded ? "プレイヤーを元のサイズに戻す" : "プレイヤーを上下いっぱいに広げる")
     }
 
 
@@ -313,27 +283,8 @@ struct PlayerView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
 
-            // 設定への入口は2つ用意している（build 15 で比較中）。
-            //  A) 右上の拡大ボタンで上下いっぱいに広げ、公式プレイヤーの設定メニューを使う
-            //  B) ここからアプリ側のシート（速度・字幕）を開く
-            HStack(spacing: 8) {
-                Button {
-                    withAnimation(.easeInOut(duration: 0.2)) { isPlayerExpanded = true }
-                } label: {
-                    Label("拡大して設定", systemImage: "arrow.up.left.and.arrow.down.right")
-                        .frame(maxWidth: .infinity)
-                }
-                .buttonStyle(.bordered)
-
-                Button {
-                    showPlaybackOptions = true
-                } label: {
-                    Label("速度・字幕", systemImage: "slider.horizontal.3")
-                        .frame(maxWidth: .infinity)
-                }
-                .buttonStyle(.bordered)
-            }
-
+            // 再生設定（速度・字幕）は右上のアイコンから開く。
+            // よく使う操作ではないので、ここには常時表示しない。
             Button {
                 if let url = video.watchURL { openURL(url) }
             } label: {

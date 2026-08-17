@@ -11,6 +11,7 @@ struct PlayerView: View {
     @Environment(\.openURL) private var openURL
     /// 再生設定（速度・字幕）のシートを表示中か。
     @State private var showPlaybackOptions = false
+    @Environment(\.scenePhase) private var scenePhase
     /// いま再生しているチャンネル（画面上部に名前を出す）。
     private let channel: Channel
 
@@ -95,11 +96,29 @@ struct PlayerView: View {
         // 「最後に開いた動画」を記録（続きから見る用）。
         .task { recordOpened() }
         .onChange(of: viewModel.currentIndex) { _, _ in recordOpened() }
+        // 再生中だけ画面の自動ロックを止める（置いたまま見ていて消えるのを防ぐ）。
+        // バックグラウンド再生ではないので、アプリを離れれば再生は止まる。
+        .onChange(of: viewModel.playerState) { _, state in
+            updateScreenSleep(for: state)
+        }
+        .onChange(of: scenePhase) { _, phase in
+            // 前面に戻ってきたときだけ点けたままにする。
+            updateScreenSleep(for: phase == .active ? viewModel.playerState : .paused)
+        }
+        .onDisappear {
+            ScreenSleepController.shared.setKeepScreenOn(false)
+        }
     }
 
     private func recordOpened() {
         guard let video = viewModel.currentVideo else { return }
         progressStore.recordOpened(channelId: channel.id, videoId: video.id)
+    }
+
+    private func updateScreenSleep(for state: YouTubePlayerState) {
+        ScreenSleepController.shared.setKeepScreenOn(
+            ScreenSleepController.shouldKeepScreenOn(for: state)
+        )
     }
 
     /// リピートの切り替え（オフ → 1本 → 全体 → オフ）。

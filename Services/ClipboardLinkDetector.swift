@@ -18,7 +18,7 @@ protocol PasteboardProviding {
 /// 「共有されたURLを開く」ボタンをワンタップで出す。
 ///
 /// - 中身の読み取りはユーザーがボタンを押したときだけ行う（勝手に読まない）。
-/// - 表示判定には `detectPatterns` を使うため、ペーストの確認ダイアログは出ない。
+/// - 表示判定は「URL が入っているか」だけを見るので、ペーストの確認ダイアログは出ない。
 @MainActor
 final class ClipboardLinkDetector: ObservableObject {
     /// クリップボードに URL らしきものがあるか（ボタンの表示判定にだけ使う）。
@@ -60,16 +60,12 @@ final class ClipboardLinkDetector: ObservableObject {
 }
 
 #if canImport(UIKit)
-/// 実機用。`detectPatterns` は中身を露出しないので確認ダイアログが出ない。
+/// 実機用。
+/// `hasURLs` は**中身を露出しない**判定なので、iOS のペースト確認（「〜からペーストしました」）は出ない。
+/// 実際に読むのは `readString()`＝ユーザーがボタンを押したときだけ。
 struct SystemPasteboard: PasteboardProviding {
     func containsProbableURL() async -> Bool {
-        guard UIPasteboard.general.hasStrings else { return false }
-        do {
-            let patterns = try await UIPasteboard.general.detectPatterns(for: [.probableWebURL])
-            return patterns.contains(.probableWebURL)
-        } catch {
-            return false
-        }
+        UIPasteboard.general.hasURLs
     }
 
     func readString() -> String? {

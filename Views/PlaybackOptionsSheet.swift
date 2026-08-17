@@ -80,6 +80,8 @@ struct PlaybackOptionsSheet: View {
             }
             .navigationTitle("再生設定")
             .navigationBarTitleDisplayMode(.inline)
+            // 字幕トラックは再生開始から少し遅れて用意されるので、開くたびに取り直す。
+            .task { viewModel.refreshOptions() }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("完了") { dismiss() }

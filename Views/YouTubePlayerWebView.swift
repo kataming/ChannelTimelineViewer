@@ -58,6 +58,8 @@ struct YouTubePlayerWebView: UIViewRepresentable {
             case playbackRate(Double)
             /// nil で字幕オフ。
             case captionTrack(String?)
+            /// 選べる速度・字幕トラックを取り直す（設定画面を開いたとき用）。
+            case refreshOptions
         }
         let id: UUID
         let kind: Kind
@@ -82,6 +84,8 @@ struct YouTubePlayerWebView: UIViewRepresentable {
                 guard let code, !code.isEmpty else { return "setCaptionTrack('');" }
                 let safe = code.filter { $0.isASCII && ($0.isLetter || $0.isNumber || $0 == "-" || $0 == "_") }
                 return "setCaptionTrack('\(safe)');"
+            case .refreshOptions:
+                return "postOptions();"
             }
         }
     }

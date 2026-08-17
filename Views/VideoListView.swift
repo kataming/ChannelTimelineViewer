@@ -124,7 +124,7 @@ struct VideoListView: View {
                                    watchStore: watchStore,
                                    positionStore: positionStore,
                                    settings: playbackSettings,
-                                   channelId: viewModel.channel.id)
+                                   channel: viewModel.channel)
                     } label: {
                         VideoRow(video: video, watched: watchStore.isWatched(video.id))
                     }
@@ -190,7 +190,7 @@ struct VideoListView: View {
                            watchStore: watchStore,
                            positionStore: positionStore,
                            settings: playbackSettings,
-                           channelId: viewModel.channel.id)
+                           channel: viewModel.channel)
             } label: {
                 HStack(spacing: 12) {
                     RemoteThumbnail(url: target.thumbnailURL, width: 88, height: 50)

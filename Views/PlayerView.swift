@@ -10,7 +10,8 @@ struct PlayerView: View {
     @Environment(\.openURL) private var openURL
     /// 再生設定（速度・字幕）のシートを表示中か。
     @State private var showPlaybackOptions = false
-    private let channelId: String
+    /// いま再生しているチャンネル（画面上部に名前を出す）。
+    private let channel: Channel
 
     /// 動画ごとのメモを直接読み書きする Binding（入力即保存・日本語OK）。
     private func memoBinding(for videoId: String) -> Binding<String> {
@@ -25,8 +26,8 @@ struct PlayerView: View {
          watchStore: WatchHistoryStore,
          positionStore: PlaybackPositionStore,
          settings: PlaybackSettingsStore,
-         channelId: String) {
-        self.channelId = channelId
+         channel: Channel) {
+        self.channel = channel
         _viewModel = StateObject(
             wrappedValue: PlayerViewModel(videos: videos,
                                           startIndex: startIndex,
@@ -66,7 +67,8 @@ struct PlayerView: View {
                 ContentUnavailableView("動画がありません", systemImage: "film")
             }
         }
-        .navigationTitle("再生")
+        // いまどのチャンネルを見ているかが分かるように、画面上部にチャンネル名を出す。
+        .navigationTitle(channel.title)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
@@ -91,7 +93,7 @@ struct PlayerView: View {
 
     private func recordOpened() {
         guard let video = viewModel.currentVideo else { return }
-        progressStore.recordOpened(channelId: channelId, videoId: video.id)
+        progressStore.recordOpened(channelId: channel.id, videoId: video.id)
     }
 
 
@@ -99,10 +101,15 @@ struct PlayerView: View {
     private func details(for video: VideoItem) -> some View {
         VStack(alignment: .leading, spacing: 12) {
             Text(video.title).font(.headline)
+            // どのチャンネルを見ているか（上部のタイトルは長いと省略されるため、ここにも出す）
+            Label(channel.title, systemImage: "play.square.stack")
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+                .lineLimit(2)
             // 公開日と、一覧の中での位置（例: 2026年2月27日（1,034 / 3,500））
             Text("\(video.publishedAt.formatted(date: .long, time: .omitted))"
                  + "（\(viewModel.positionText)）")
-                .font(.subheadline)
+                .font(.caption)
                 .foregroundStyle(.secondary)
 
             if viewModel.didAutoAdvance {

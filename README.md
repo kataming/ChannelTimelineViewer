@@ -63,7 +63,10 @@ iPhone 向けの **「チャンネル動画の時系列視聴・進捗管理ア�
 
 1. YouTube アプリ（または Safari）でチャンネル、または動画のページを開く
 2. **共有** ボタンをタップ
-3. 共有先の一覧から **Channel Timeline Viewer** をタップ（URLを受け取ります）
+3. 次のどちらかをタップ（URLを受け取ります）
+   - アプリのアイコンが並ぶ行の **Channel Timeline Viewer**
+   - 下にスクロールしたアクション一覧の **「Channel Timelineで開く」**
+     （「Braveで開く」などが並ぶ枠。**「その他」を開かなくても届きます**）
 4. **通知を許可している場合**：すぐに通知が出るので**タップするだけ**でそのチャンネルが開きます
    **許可していない場合**：Channel Timeline Viewer を開くと最初の画面に
    **「共有されたURLを開く」** が出るのでタップ
@@ -276,7 +279,12 @@ ChannelTimelineViewer/
 | ターゲット | Bundle ID | 役割 |
 | --- | --- | --- |
 | `ChannelTimelineViewer` | `com.deskflowlabs.channeltimelineviewer` | アプリ本体 |
-| `ChannelTimelineViewerShareExtension` | `com.deskflowlabs.channeltimelineviewer.shareextension` | 共有シート（URLを本体へ渡すだけ） |
+| `ChannelTimelineViewerShareExtension` | `…​.shareextension` | 共有シートの**アプリ一覧**に出る（URLを本体へ渡すだけ） |
+| `ChannelTimelineViewerOpenExtension` | `…​.openextension` | 共有シート下部の**アクション一覧**に「Channel Timelineで開く」として出る |
+
+2つの拡張は `ExtensionShared/HandoffViewController.swift` を共有していて、中身は同じ受け渡し処理です。
+アクション一覧（「Braveで開く」などが並ぶ枠）は**「その他」を開かなくても見える位置**なので、
+アプリ一覧で埋もれてしまう場合の入口として用意しています。
 
 技術スタック: Swift / SwiftUI / MVVM / async-await / WKWebView / YouTube Data API v3 / UserDefaults。
 

@@ -47,6 +47,7 @@ jobs:
       SCHEME: ChannelTimelineViewer
       BUNDLE_ID: com.deskflowlabs.channeltimelineviewer
       EXT_BUNDLE_ID: com.deskflowlabs.channeltimelineviewer.shareextension
+      OPEN_BUNDLE_ID: com.deskflowlabs.channeltimelineviewer.openextension
       ARCHIVE_PATH: build/ChannelTimelineViewer.xcarchive
       EXPORT_DIR: build/export
 
@@ -141,10 +142,10 @@ jobs:
           echo "インポート済みの署名 ID:"
           security find-identity -v -p codesigning "$KEYCHAIN_PATH"
 
-      # 共有シート拡張は本体と別 Bundle ID のため、専用プロファイルが要る。
+      # 拡張は本体と別 Bundle ID のため、拡張ごとに専用プロファイルが要る。
       # Secret が未登録なら、既に登録済みの ASC API キーを使ってこの場で作成/再利用する
       # （手作業を挟まずに TestFlight まで到達できるようにするため）。
-      - name: Prepare share extension provisioning profile (ASC API)
+      - name: Prepare extension provisioning profiles (ASC API)
         env:
           PROFILE_EXT_BASE64: ${{ secrets.PROVISIONING_PROFILE_EXT_BASE64 }}
           PROFILE_EXT_NAME: ${{ secrets.PROVISIONING_PROFILE_EXT_NAME }}
@@ -153,27 +154,38 @@ jobs:
           ASC_PRIVATE_KEY: ${{ secrets.ASC_PRIVATE_KEY }}
         run: |
           set -euo pipefail
-          if [ -n "$PROFILE_EXT_BASE64" ] && [ -n "$PROFILE_EXT_NAME" ]; then
-            echo "$PROFILE_EXT_BASE64" | base64 --decode > "$RUNNER_TEMP/ext-source.mobileprovision"
-            printf '%s' "$PROFILE_EXT_NAME" > "$RUNNER_TEMP/ext-name.txt"
-            echo "Secret のプロファイルを使用します"
-            exit 0
-          fi
-
           python3 -m pip install --quiet --disable-pip-version-check \
             --break-system-packages pyjwt cryptography
           P8="$RUNNER_TEMP/asc.p8"
           printf '%s' "$ASC_PRIVATE_KEY" > "$P8"
           chmod 600 "$P8"
+
+          # 共有シート（アプリ一覧）用。Secret があればそちらを優先する。
+          if [ -n "$PROFILE_EXT_BASE64" ] && [ -n "$PROFILE_EXT_NAME" ]; then
+            echo "$PROFILE_EXT_BASE64" | base64 --decode > "$RUNNER_TEMP/ext-source.mobileprovision"
+            echo "共有シート拡張は Secret のプロファイルを使用します"
+          else
+            python3 scripts/asc_add_extension_signing.py --ci \
+              --key-id "$ASC_KEY_ID" --issuer-id "$ASC_ISSUER_ID" --p8 "$P8" \
+              --bundle-id "$EXT_BUNDLE_ID" \
+              --profile-name "ChannelTimelineViewer ShareExtension App Store" \
+              --out "$RUNNER_TEMP/ext-source.mobileprovision" \
+              --name-out "$RUNNER_TEMP/ext-name.txt"
+          fi
+
+          # アクション一覧（「Channel Timelineで開く」）用。
           python3 scripts/asc_add_extension_signing.py --ci \
             --key-id "$ASC_KEY_ID" --issuer-id "$ASC_ISSUER_ID" --p8 "$P8" \
-            --bundle-id "$EXT_BUNDLE_ID" \
-            --out "$RUNNER_TEMP/ext-source.mobileprovision" \
-            --name-out "$RUNNER_TEMP/ext-name.txt"
+            --bundle-id "$OPEN_BUNDLE_ID" \
+            --bundle-name "Channel Timeline Viewer Open Extension" \
+            --profile-name "ChannelTimelineViewer OpenExtension App Store" \
+            --out "$RUNNER_TEMP/open-source.mobileprovision" \
+            --name-out "$RUNNER_TEMP/open-name.txt"
+
           rm -f "$P8"
 
-      # アプリ本体と Share Extension で別々のプロファイルが必要（Bundle ID ごとに1つ）。
-      - name: Install provisioning profiles (app + share extension)
+      # アプリ本体と各拡張で別々のプロファイルが必要（Bundle ID ごとに1つ）。
+      - name: Install provisioning profiles (app + extensions)
         env:
           PROFILE_BASE64: ${{ secrets.PROVISIONING_PROFILE_BASE64 }}
         run: |
@@ -181,6 +193,7 @@ jobs:
           PROFILE_DIR="$HOME/Library/MobileDevice/Provisioning Profiles"
           mkdir -p "$PROFILE_DIR"
           PROFILE_EXT_BASE64=$(base64 < "$RUNNER_TEMP/ext-source.mobileprovision" | tr -d '\n')
+          PROFILE_OPEN_BASE64=$(base64 < "$RUNNER_TEMP/open-source.mobileprovision" | tr -d '\n')
 
           install_profile() {
             local b64="$1" label="$2" out="$RUNNER_TEMP/$2.mobileprovision"
@@ -198,17 +211,27 @@ jobs:
 
           UUID_APP=$(install_profile "$PROFILE_BASE64" app | tail -n 1)
           UUID_EXT=$(install_profile "$PROFILE_EXT_BASE64" ext | tail -n 1)
+          UUID_OPEN=$(install_profile "$PROFILE_OPEN_BASE64" open | tail -n 1)
           echo "PROFILE_UUID=$UUID_APP" >> "$GITHUB_ENV"
           echo "PROFILE_EXT_UUID=$UUID_EXT" >> "$GITHUB_ENV"
+          echo "PROFILE_OPEN_UUID=$UUID_OPEN" >> "$GITHUB_ENV"
 
-          # 拡張用プロファイルが本当に .shareextension 用かを確認する（取り違え防止）
-          if ! /usr/libexec/PlistBuddy -c "Print :Entitlements:application-identifier" "$RUNNER_TEMP/ext.plist" \
-               | grep -q "$EXT_BUNDLE_ID"; then
-            echo "::error::拡張用プロファイルが $EXT_BUNDLE_ID 用ではありません"
-            exit 1
-          fi
+          # 各プロファイルが本当に対象の Bundle ID 用かを確認する（取り違え防止）
+          check_profile() {
+            local label="$1" expected="$2"
+            if ! /usr/libexec/PlistBuddy -c "Print :Entitlements:application-identifier" \
+                 "$RUNNER_TEMP/$label.plist" | grep -q "$expected"; then
+              echo "::error::プロファイル($label)が $expected 用ではありません"
+              exit 1
+            fi
+          }
+          check_profile ext "$EXT_BUNDLE_ID"
+          check_profile open "$OPEN_BUNDLE_ID"
+
           # プロファイル名は署名時の指定に使うので、実体から取り直して確定させる
           echo "PROFILE_EXT_NAME=$(/usr/libexec/PlistBuddy -c "Print :Name" "$RUNNER_TEMP/ext.plist")" \
+            >> "$GITHUB_ENV"
+          echo "PROFILE_OPEN_NAME=$(/usr/libexec/PlistBuddy -c "Print :Name" "$RUNNER_TEMP/open.plist")" \
             >> "$GITHUB_ENV"
 
       - name: Install XcodeGen
@@ -279,23 +302,26 @@ jobs:
             CODE_SIGN_IDENTITY="Apple Distribution" \
             CTV_PROFILE_APP="$PROFILE_NAME" \
             CTV_PROFILE_EXT="$PROFILE_EXT_NAME" \
+            CTV_PROFILE_OPEN="$PROFILE_OPEN_NAME" \
             CURRENT_PROJECT_VERSION="$BUILD_NUMBER" \
             $EXTRA \
             archive
 
-      # アーカイブ内に共有シート拡張が入っているかを、書き出し前に確認する。
-      - name: Verify Share Extension in archive
+      # アーカイブ内に2つの拡張が入っているかを、書き出し前に確認する。
+      - name: Verify extensions in archive
         run: |
           set -euo pipefail
           APP=$(ls -d "$ARCHIVE_PATH"/Products/Applications/*.app | head -n 1)
-          if ! ls "$APP"/PlugIns/*.appex >/dev/null 2>&1; then
-            echo "::error::アーカイブに Share Extension (.appex) が含まれていません"
+          COUNT=$(ls -d "$APP"/PlugIns/*.appex 2>/dev/null | wc -l | tr -d ' ')
+          if [ "$COUNT" -lt 2 ]; then
+            echo "::error::アーカイブの拡張が $COUNT 個です（共有シート用とアクション用の2つが必要）"
             exit 1
           fi
-          APPEX=$(ls -d "$APP"/PlugIns/*.appex | head -n 1)
-          echo "拡張: $APPEX"
-          /usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$APPEX/Info.plist"
-          /usr/libexec/PlistBuddy -c "Print :NSExtension:NSExtensionPointIdentifier" "$APPEX/Info.plist"
+          for APPEX in "$APP"/PlugIns/*.appex; do
+            echo "拡張: $(basename "$APPEX")"
+            /usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$APPEX/Info.plist"
+            /usr/libexec/PlistBuddy -c "Print :NSExtension:NSExtensionPointIdentifier" "$APPEX/Info.plist"
+          done
 
       - name: Write ExportOptions.plist
         env:
@@ -314,8 +340,9 @@ jobs:
           $PB -c "Add :destination string export" "$OPTS"
           $PB -c "Add :provisioningProfiles dict" "$OPTS"
           $PB -c "Add :provisioningProfiles:$BUNDLE_ID string $PROFILE_NAME" "$OPTS"
-          # Share Extension の Bundle ID も必ず含める（欠けると書き出しが失敗する）
+          # 各拡張の Bundle ID も必ず含める（欠けると書き出しが失敗する）
           $PB -c "Add :provisioningProfiles:$EXT_BUNDLE_ID string $PROFILE_EXT_NAME" "$OPTS"
+          $PB -c "Add :provisioningProfiles:$OPEN_BUNDLE_ID string $PROFILE_OPEN_NAME" "$OPTS"
           $PB -c "Print" "$OPTS"
 
       - name: Export .ipa
@@ -365,28 +392,34 @@ jobs:
             echo "::warning::アプリアイコンがバンドルに見つかりません"
           fi
 
-          # 共有シート(Share Extension)が .ipa に含まれ、共有シートに出る設定になっているか
-          if ! ls "$APP"/PlugIns/*.appex >/dev/null 2>&1; then
-            echo "::error::Share Extension (.appex) が .ipa に含まれていません（共有シートに出ないビルドです）"
-            exit 1
-          fi
-          APPEX=$(ls -d "$APP"/PlugIns/*.appex | head -n 1)
-          EXT_ID=$(/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$APPEX/Info.plist")
-          POINT=$(/usr/libexec/PlistBuddy -c "Print :NSExtension:NSExtensionPointIdentifier" "$APPEX/Info.plist")
-          echo "Share Extension: $EXT_ID / $POINT"
-          if [ "$EXT_ID" != "$EXT_BUNDLE_ID" ]; then
-            echo "::error::拡張の Bundle ID が想定と違います（$EXT_ID != $EXT_BUNDLE_ID）"
-            exit 1
-          fi
-          if [ "$POINT" != "com.apple.share-services" ]; then
-            echo "::error::拡張が共有シート用(com.apple.share-services)ではありません"
-            exit 1
-          fi
-          # アプリ本体と拡張のバージョンが一致していないとアップロードで弾かれる
+          # 2つの拡張（共有シートのアプリ一覧 / 下部のアクション一覧）が .ipa に含まれているか
           APP_VER=$(/usr/libexec/PlistBuddy -c "Print :CFBundleVersion" "$APP/Info.plist")
-          EXT_VER=$(/usr/libexec/PlistBuddy -c "Print :CFBundleVersion" "$APPEX/Info.plist")
-          if [ "$APP_VER" != "$EXT_VER" ]; then
-            echo "::error::ビルド番号が不一致です（アプリ $APP_VER / 拡張 $EXT_VER）"
+          found_share=0
+          found_open=0
+          for APPEX in "$APP"/PlugIns/*.appex; do
+            [ -e "$APPEX" ] || continue
+            EXT_ID=$(/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$APPEX/Info.plist")
+            POINT=$(/usr/libexec/PlistBuddy -c "Print :NSExtension:NSExtensionPointIdentifier" "$APPEX/Info.plist")
+            EXT_VER=$(/usr/libexec/PlistBuddy -c "Print :CFBundleVersion" "$APPEX/Info.plist")
+            echo "拡張: $EXT_ID / $POINT"
+            # アプリ本体と拡張のバージョンが一致していないとアップロードで弾かれる
+            if [ "$APP_VER" != "$EXT_VER" ]; then
+              echo "::error::ビルド番号が不一致です（アプリ $APP_VER / $EXT_ID $EXT_VER）"
+              exit 1
+            fi
+            if [ "$EXT_ID" = "$EXT_BUNDLE_ID" ] && [ "$POINT" = "com.apple.share-services" ]; then
+              found_share=1
+            fi
+            if [ "$EXT_ID" = "$OPEN_BUNDLE_ID" ] && [ "$POINT" = "com.apple.ui-services" ]; then
+              found_open=1
+            fi
+          done
+          if [ "$found_share" != "1" ]; then
+            echo "::error::共有シート用の拡張($EXT_BUNDLE_ID / com.apple.share-services)が見つかりません"
+            exit 1
+          fi
+          if [ "$found_open" != "1" ]; then
+            echo "::error::アクション用の拡張($OPEN_BUNDLE_ID / com.apple.ui-services)が見つかりません"
             exit 1
           fi
           # メインアプリがカスタムURLスキームを持っているか（拡張からの起動に必須）
@@ -395,7 +428,7 @@ jobs:
             echo "::error::カスタムURLスキーム channeltimelineviewer が Info.plist にありません"
             exit 1
           fi
-          echo "✓ Config.plist / アイコン / Share Extension / URLスキームを確認しました"
+          echo "✓ Config.plist / アイコン / 拡張2つ / URLスキームを確認しました"
 
       - name: Upload to App Store Connect
         if: ${{ inputs.upload }}
@@ -435,3 +468,4 @@ jobs:
           security delete-keychain "$KEYCHAIN_PATH" || true
           rm -f "$HOME/Library/MobileDevice/Provisioning Profiles/${PROFILE_UUID:-none}.mobileprovision" || true
           rm -f "$HOME/Library/MobileDevice/Provisioning Profiles/${PROFILE_EXT_UUID:-none}.mobileprovision" || true
+          rm -f "$HOME/Library/MobileDevice/Provisioning Profiles/${PROFILE_OPEN_UUID:-none}.mobileprovision" || true

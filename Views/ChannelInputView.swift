@@ -189,6 +189,11 @@ struct ChannelInputView: View {
                              + "4. 「Channel Timeline Viewer」の左の「＋」を押す\n"
                              + "5. 「よく使う項目」の中でドラッグして一番上へ →「完了」")
                             .font(.caption)
+                        Text("なお、共有シートを下にスクロールしたアクション一覧"
+                             + "（「Braveで開く」などが並ぶ枠）にも「Channel Timelineで開く」があります。"
+                             + "こちらは「その他」を開かなくても届きます。")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
                     }
                     .padding(.vertical, 4)
                 } label: {

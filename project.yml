@@ -37,6 +37,9 @@ targets:
       # 共有シート（Share Extension）。アプリに埋め込まれて一緒に配布される。
       - target: ChannelTimelineViewerShareExtension
         embed: true
+      # 共有シート下部のアクション一覧（「Channel Timelineで開く」）。
+      - target: ChannelTimelineViewerOpenExtension
+        embed: true
     settings:
       base:
         GENERATE_INFOPLIST_FILE: YES
@@ -62,9 +65,8 @@ targets:
     type: app-extension
     platform: iOS
     sources:
-      - path: ShareExtension
-        excludes:
-          - Info.plist
+      # 受け渡し処理は2つの拡張で共有する。
+      - path: ExtensionShared
       # URL 解析・通知の組み立てはメインアプリと共有する（Foundation / UserNotifications のみ）。
       - path: Services/SharedLinkParser.swift
       - path: Services/SharedLinkNotifier.swift
@@ -78,6 +80,25 @@ targets:
         SKIP_INSTALL: YES
         # 署名時に使うプロファイル名。CI から CTV_PROFILE_EXT で渡す。
         PROVISIONING_PROFILE_SPECIFIER: "$(CTV_PROFILE_EXT)"
+
+  # 共有シート下部の「アクション」一覧に出る拡張（「Channel Timelineで開く」）。
+  # アプリ一覧の「その他」を開かなくても届く位置に出すために用意している。
+  # 中身は Share Extension と同じ受け渡し処理（ExtensionShared）。
+  ChannelTimelineViewerOpenExtension:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: ExtensionShared
+      - path: Services/SharedLinkParser.swift
+      - path: Services/SharedLinkNotifier.swift
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: NO
+        INFOPLIST_FILE: OpenExtension/Info.plist
+        PRODUCT_BUNDLE_IDENTIFIER: com.deskflowlabs.channeltimelineviewer.openextension
+        TARGETED_DEVICE_FAMILY: "1"
+        SKIP_INSTALL: YES
+        PROVISIONING_PROFILE_SPECIFIER: "$(CTV_PROFILE_OPEN)"
 
   ChannelTimelineViewerTests:
     type: bundle.unit-test

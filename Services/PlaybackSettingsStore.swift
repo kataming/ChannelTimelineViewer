@@ -1,5 +1,25 @@
 import Foundation
 
+/// 繰り返し再生の種類。
+enum RepeatMode: String, CaseIterable, Identifiable, Codable {
+    /// 繰り返さない（既定）。
+    case off
+    /// いま再生している動画を繰り返す。
+    case one
+    /// 一覧の最後まで行ったら先頭に戻る（自動再生がオンのときに働く）。
+    case all
+
+    var id: String { rawValue }
+
+    var label: String {
+        switch self {
+        case .off: return "オフ"
+        case .one: return "1本"
+        case .all: return "全体"
+        }
+    }
+}
+
 /// 再生に関するユーザー設定（端末内に保存）。
 ///
 /// - `resumeFromLastPosition`: 前回停止した位置から再生する（**既定オン**）
@@ -17,6 +37,8 @@ final class PlaybackSettingsStore: ObservableObject {
     private let defaults: UserDefaults
     private let resumeKey = "setting_resume_from_last_position_v1"
     private let autoPlayNextKey = "setting_autoplay_next_v1"
+    private let repeatModeKey = "setting_repeat_mode_v1"
+    private let unwatchedOnlyKey = "setting_play_unwatched_only_v1"
 
     /// 続きから再生する（オフなら常に最初から）。
     @Published var resumeFromLastPosition: Bool {
@@ -28,11 +50,24 @@ final class PlaybackSettingsStore: ObservableObject {
         didSet { defaults.set(autoPlayNext, forKey: autoPlayNextKey) }
     }
 
+    /// 繰り返し再生（既定オフ）。
+    @Published var repeatMode: RepeatMode {
+        didSet { defaults.set(repeatMode.rawValue, forKey: repeatModeKey) }
+    }
+
+    /// 自動再生で進むとき、未視聴の動画だけを再生する（既定オフ）。
+    @Published var playUnwatchedOnly: Bool {
+        didSet { defaults.set(playUnwatchedOnly, forKey: unwatchedOnlyKey) }
+    }
+
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
         // 続きから再生は既定オン。
         self.resumeFromLastPosition = defaults.object(forKey: resumeKey) as? Bool ?? true
         // 自動再生は既定オフ。ユーザーが明示的にオンにした場合のみ true が保存されている。
         self.autoPlayNext = defaults.object(forKey: autoPlayNextKey) as? Bool ?? false
+        self.repeatMode = (defaults.string(forKey: repeatModeKey))
+            .flatMap(RepeatMode.init(rawValue:)) ?? .off
+        self.playUnwatchedOnly = defaults.object(forKey: unwatchedOnlyKey) as? Bool ?? false
     }
 }

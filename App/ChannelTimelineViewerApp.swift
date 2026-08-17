@@ -4,6 +4,8 @@ import SwiftUI
 struct ChannelTimelineViewerApp: App {
     // アプリ全体で共有するローカルストア。
     @StateObject private var watchHistoryStore = WatchHistoryStore()
+    // 「見るつもりがない」動画の印。自動再生で飛ばす。
+    @StateObject private var skippedVideoStore = SkippedVideoStore()
     @StateObject private var favoriteStore = FavoriteChannelStore()
     @StateObject private var progressStore = ChannelProgressStore()
     @StateObject private var memoStore = VideoMemoStore()
@@ -24,6 +26,7 @@ struct ChannelTimelineViewerApp: App {
         WindowGroup {
             ChannelInputView()
                 .environmentObject(watchHistoryStore)
+                .environmentObject(skippedVideoStore)
                 .environmentObject(favoriteStore)
                 .environmentObject(progressStore)
                 .environmentObject(memoStore)

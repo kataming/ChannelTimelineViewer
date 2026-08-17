@@ -30,6 +30,7 @@ final class PlaybackResumeTests: XCTestCase {
         PlayerViewModel(videos: videos,
                         startIndex: startIndex,
                         watchStore: WatchHistoryStore(defaults: makeDefaults("watch")),
+                        skipStore: SkippedVideoStore(defaults: makeDefaults("skip")),
                         positionStore: positionStore,
                         settings: settings)
     }
@@ -222,6 +223,7 @@ final class PlaybackResumeTests: XCTestCase {
         let videos = makeVideos(2)
         positions.record(videoId: videos[0].id, seconds: 100, duration: 600)
         let vm = PlayerViewModel(videos: videos, startIndex: 0, watchStore: watch,
+                                 skipStore: SkippedVideoStore(defaults: makeDefaults("skip")),
                                  positionStore: positions, settings: settings)
 
         playThrough(vm)
@@ -239,6 +241,7 @@ final class PlaybackResumeTests: XCTestCase {
         let watch = WatchHistoryStore(defaults: makeDefaults("watch"))
         let videos = makeVideos(4)
         let vm = PlayerViewModel(videos: videos, startIndex: 0, watchStore: watch,
+                                 skipStore: SkippedVideoStore(defaults: makeDefaults("skip")),
                                  positionStore: positions, settings: settings)
 
         vm.handleState(.playing)

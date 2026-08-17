@@ -56,14 +56,20 @@ final class VideoListViewModel: ObservableObject {
     }
 
     /// 「次に見る」動画：公開日が最も古い未視聴動画。
-    func nextUnwatched(isWatched: (String) -> Bool) -> VideoItem? {
-        videos.sortedByPublishedDate(ascending: true).first { !isWatched($0.id) }
+    /// スキップ指定の動画は「見るつもりがない」ものなので候補から外す。
+    func nextUnwatched(isWatched: (String) -> Bool,
+                       isSkipped: (String) -> Bool = { _ in false }) -> VideoItem? {
+        videos.sortedByPublishedDate(ascending: true)
+            .first { !isWatched($0.id) && !isSkipped($0.id) }
     }
 
     /// 「次に見る」動画が、古い順全体で何本目か（1始まり）。表示用。
-    func nextUnwatchedPosition(isWatched: (String) -> Bool) -> Int? {
+    func nextUnwatchedPosition(isWatched: (String) -> Bool,
+                               isSkipped: (String) -> Bool = { _ in false }) -> Int? {
         let ascending = videos.sortedByPublishedDate(ascending: true)
-        guard let idx = ascending.firstIndex(where: { !isWatched($0.id) }) else { return nil }
+        guard let idx = ascending.firstIndex(where: { !isWatched($0.id) && !isSkipped($0.id) }) else {
+            return nil
+        }
         return idx + 1
     }
 

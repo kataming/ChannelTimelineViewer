@@ -4,6 +4,7 @@ struct ChannelInputView: View {
     @EnvironmentObject private var favoriteStore: FavoriteChannelStore
     @EnvironmentObject private var sharedLinkRouter: SharedLinkRouter
     @EnvironmentObject private var clipboardDetector: ClipboardLinkDetector
+    @EnvironmentObject private var notificationPermission: NotificationPermission
     @StateObject private var viewModel = ChannelInputViewModel()
     @State private var showAbout = false
     @State private var clipboardMessage: String?
@@ -44,6 +45,8 @@ struct ChannelInputView: View {
                             .foregroundStyle(.secondary)
                     }
                 }
+
+                oneTapShareSection
 
                 Section {
                     HStack(spacing: 8) {
@@ -134,7 +137,9 @@ struct ChannelInputView: View {
                 }
             }
             .sheet(isPresented: $showAbout) {
+                // シートにも明示的に渡しておく（環境の引き継ぎに依存しない）。
                 AboutView()
+                    .environmentObject(notificationPermission)
             }
             // 共有シートから起動された場合（コールドスタート／起動済みのどちらも）に処理する。
             .onAppear { consumeSharedLinkIfNeeded() }
@@ -148,6 +153,33 @@ struct ChannelInputView: View {
         Task { await viewModel.fetch(favoriteStore: favoriteStore) }
     }
 
+    /// 共有シートからワンタップで開けるようにする案内。
+    /// 共有を一度でも使った人にだけ、まだ許可していない場合に出す（初回起動から出さない）。
+    @ViewBuilder
+    private var oneTapShareSection: some View {
+        if sharedLinkRouter.hasUsedShareHandoff, !notificationPermission.isEnabled {
+            Section {
+                if notificationPermission.canAsk {
+                    Button {
+                        Task { await notificationPermission.request() }
+                    } label: {
+                        Label("共有シートからワンタップで開けるようにする", systemImage: "bell.badge")
+                    }
+                } else if notificationPermission.isDenied {
+                    Button {
+                        notificationPermission.openSettings()
+                    } label: {
+                        Label("設定アプリで通知を許可する", systemImage: "gear")
+                    }
+                }
+            } footer: {
+                Text("iOS の仕様で、共有シートからアプリを直接起動することはできません。"
+                     + "通知を許可すると、共有した直後に通知が出て、タップするだけでそのチャンネルを開けます。"
+                     + "使うのは共有した直後のこの通知だけで、お知らせや宣伝の通知は送りません。")
+            }
+        }
+    }
+
     /// クリップボードにある共有URLを開く（ボタンを押したときだけ中身を読む）。
     private func openFromClipboard() {
         clipboardMessage = nil
@@ -155,6 +187,7 @@ struct ChannelInputView: View {
             clipboardMessage = "クリップボードに YouTube のURLが見つかりませんでした。URLを貼り付けて取得してください。"
             return
         }
+        sharedLinkRouter.markShareHandoffUsed()
         Task { @MainActor in
             await viewModel.openSharedLink(link, favoriteStore: favoriteStore)
         }

@@ -5,6 +5,7 @@ import SwiftUI
 struct AboutView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.openURL) private var openURL
+    @EnvironmentObject private var notificationPermission: NotificationPermission
 
     private var appName: String {
         (Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String)
@@ -37,6 +38,29 @@ struct AboutView: View {
                     Text("受け取ったあと本アプリを開くと、最初の画面に「共有されたURLを開く」が表示されます。iOS の仕様上、共有シートからアプリを直接起動することはできないため、この形にしています。")
                         .font(.footnote)
                         .foregroundStyle(.secondary)
+                }
+
+                Section("共有シートからワンタップで開く") {
+                    Text("通知を許可すると、共有した直後に通知が出て、タップするだけでそのチャンネルを開けます。使うのは共有した直後のこの通知だけで、お知らせ・宣伝の通知は送りません（サーバーからのプッシュ通知も使いません）。許可しない場合は、アプリを開いて「共有されたURLを開く」から表示できます。")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                    if notificationPermission.isEnabled {
+                        Label("通知は許可済みです", systemImage: "checkmark.circle.fill")
+                            .font(.footnote)
+                            .foregroundStyle(.green)
+                    } else if notificationPermission.canAsk {
+                        Button {
+                            Task { await notificationPermission.request() }
+                        } label: {
+                            Label("通知を許可する", systemImage: "bell.badge")
+                        }
+                    } else {
+                        Button {
+                            notificationPermission.openSettings()
+                        } label: {
+                            Label("設定アプリで通知を許可する", systemImage: "gear")
+                        }
+                    }
                 }
 
                 Section("共有シートで上位に表示するには") {

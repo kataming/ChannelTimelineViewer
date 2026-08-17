@@ -43,7 +43,7 @@ final class PlayerViewModel: ObservableObject {
     init(videos: [VideoItem],
          startIndex: Int,
          watchStore: WatchHistoryStore,
-         skipStore: SkippedVideoStore = SkippedVideoStore(),
+         skipStore: SkippedVideoStore,
          positionStore: PlaybackPositionStore,
          settings: PlaybackSettingsStore) {
         self.videos = videos

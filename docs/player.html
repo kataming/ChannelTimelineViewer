@@ -105,18 +105,19 @@
       events: {
         onReady: function () {
           post({ event: 'ready' });
-          disableCaptionsByDefault();
+          watchCaptionsForDefaultOff();
           postOptions();
         },
         onPlaybackRateChange: function () { postOptions(); },
         onStateChange: function (e) {
           post({ event: 'state', state: e.data });
-          // 字幕モジュールは再生開始後に読み込まれるので、ここでもう一度オフにする。
+          // 字幕モジュールは再生開始後に読み込まれるので、ここから数秒間見張る。
           if (e.data === 1) {
-            disableCaptionsByDefault();
+            watchCaptionsForDefaultOff();
             postOptions();
             // 字幕トラック一覧は少し遅れて用意されるので、もう一度だけ取り直す。
             setTimeout(postOptions, 1500);
+            setTimeout(postOptions, 4000);
           }
           // 一時停止・終了のタイミングでも位置を通知する（取りこぼし防止）。
           if (e.data === 2 || e.data === 0) { postTime(); }
@@ -147,16 +148,52 @@
   // 「選択中の字幕トラックを無し」にするだけで、**字幕ボタン自体は残す**
   // （モジュールを unload すると字幕を出せなくなるので、そこまではしない）。
   // 動画を切り替えるたびに既定オフへ戻す。
-  var captionsHandled = false;
-  function disableCaptionsByDefault() {
-    if (!player || captionsHandled || !player.setOption) { return; }
+  // ユーザーが自分で字幕トラックを選んだら、以後は既定オフの処理をしない。
+  var captionUserChoice = false;
+  var captionTimer = null;
+
+  // いま字幕が出ているか（トラックが選ばれているか）。
+  function captionsAreOn() {
+    if (!player || !player.getOption) { return false; }
+    try {
+      var track = player.getOption('captions', 'track');
+      return !!(track && track.languageCode);
+    } catch (e) {
+      return false;
+    }
+  }
+
+  // 字幕が出ていたら消す。既にオフなら何もしない。
+  function forceCaptionsOff() {
+    if (!player || !player.setOption || captionUserChoice) { return false; }
+    if (!captionsAreOn()) { return false; }
     try {
       player.setOption('captions', 'track', {});   // HTML5 プレイヤー
       player.setOption('cc', 'track', {});         // 旧モジュール名
-      captionsHandled = true;
+      return true;
     } catch (e) {
-      // 失敗しても再生には影響しないので握りつぶす
+      return false;
     }
+  }
+
+  // ⚠️ 字幕モジュールは再生開始から数秒遅れて読み込まれ、そこで端末やアカウントの
+  //    既定に従って字幕がオンになる。読み込み前に setOption を呼んでも**何も起きない**
+  //    （例外も出ない）ため、一度呼んだだけでは既定オフにできない。
+  //    そこで数秒間だけ見張り、字幕が出てきたら消す。
+  function watchCaptionsForDefaultOff() {
+    if (captionUserChoice) { return; }
+    if (captionTimer) { clearInterval(captionTimer); }
+    var ticks = 0;
+    var turnedOff = 0;
+    captionTimer = setInterval(function () {
+      ticks++;
+      if (forceCaptionsOff()) { turnedOff++; }
+      // 約7秒見張る。2回消したらそれ以上は追いかけない（ユーザー操作を邪魔しないため）。
+      if (captionUserChoice || turnedOff >= 2 || ticks > 12) {
+        clearInterval(captionTimer);
+        captionTimer = null;
+      }
+    }, 600);
   }
 
   // 公式プレイヤーの設定メニューは iframe の中に描画されるため、小さな枠に埋め込むと
@@ -201,11 +238,12 @@
       if (code) {
         if (player.loadModule) { player.loadModule('captions'); }
         player.setOption('captions', 'track', { languageCode: code });
+        // ユーザーが自分で字幕を出したので、以後は既定オフの処理で消さない。
+        captionUserChoice = true;
+        if (captionTimer) { clearInterval(captionTimer); captionTimer = null; }
       } else {
         player.setOption('captions', 'track', {});
       }
-      // ユーザーが自分で選んだので、既定オフの処理で上書きしない。
-      captionsHandled = true;
     } catch (e) {}
     postOptions();
   }
@@ -232,15 +270,15 @@
     if (!player || !player.loadVideoById) { return; }
     postTime();                       // 切り替え前に「今の動画」の位置を残す
     currentId = id;
-    captionsHandled = false;          // 次の動画でも字幕は既定オフから
     player.loadVideoById({ videoId: id, startSeconds: Math.max(0, start || 0) });
+    watchCaptionsForDefaultOff();     // 次の動画でも字幕は既定オフから
   }
   function cueVideo(id, start) {
     if (!player || !player.cueVideoById) { return; }
     postTime();
     currentId = id;
-    captionsHandled = false;
     player.cueVideoById({ videoId: id, startSeconds: Math.max(0, start || 0) });
+    watchCaptionsForDefaultOff();
   }
   // 「最初から再生」などで位置を移動する。
   function seekTo(seconds) {

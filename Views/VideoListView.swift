@@ -27,6 +27,20 @@ struct VideoListView: View {
                                 Text(f.rawValue).tag(f)
                             }
                         }
+                        Divider()
+                        Button {
+                            Task { await viewModel.checkForNewVideos() }
+                        } label: {
+                            Label("新着を確認", systemImage: "arrow.clockwise")
+                        }
+                        Button {
+                            Task {
+                                await viewModel.reloadAll()
+                                updateProgress()
+                            }
+                        } label: {
+                            Label("すべて再読み込み", systemImage: "arrow.triangle.2.circlepath")
+                        }
                     } label: {
                         Image(systemName: "line.3.horizontal.decrease.circle")
                     }
@@ -78,11 +92,29 @@ struct VideoListView: View {
         watchStore.watchedVideoCount(in: viewModel.videos.map(\.id))
     }
 
+    /// 保存済みの一覧を使っていることが分かる小さな表示。
+    @ViewBuilder
+    private var updateStatusRow: some View {
+        if viewModel.isCheckingForNew {
+            HStack(spacing: 6) {
+                ProgressView().controlSize(.mini)
+                Text("新着を確認中…")
+            }
+            .font(.caption2)
+            .foregroundStyle(.secondary)
+        } else if let updatedAt = viewModel.lastUpdatedAt {
+            Text("保存済みの一覧を表示中（最終更新 \(updatedAt.formatted(date: .abbreviated, time: .shortened))）")
+                .font(.caption2)
+                .foregroundStyle(.tertiary)
+        }
+    }
+
     private var list: some View {
         List {
             Section {
                 progressHeader
                 nextToWatchRow
+                updateStatusRow
             }
 
             Section {
@@ -113,6 +145,11 @@ struct VideoListView: View {
             }
         }
         .listStyle(.plain)
+        // 引き下げで新着だけを取りに行く（全件は取り直さない）。
+        .refreshable {
+            await viewModel.checkForNewVideos()
+            updateProgress()
+        }
     }
 
     @ViewBuilder

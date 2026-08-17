@@ -97,6 +97,39 @@ final class YouTubeAPIClient {
         return all.sortedByPublishedDate(ascending: true)
     }
 
+    /// 既に持っている動画に当たるまで、新しい順にページを取得して**新着だけ**返す。
+    ///
+    /// uploads プレイリストは新しい順に返るため、既知の動画に当たった時点で
+    /// それ以降はすべて既知とみなせる。本数の多いチャンネルを毎回全件取り直さずに済む。
+    ///
+    /// - Returns: 新着（新しい順）と、既知の動画に到達したかどうか。
+    ///   到達しなかった場合は差分が大きい（久しぶりに開いた等）ので、呼び出し側で全件取得に切り替える。
+    func fetchNewVideos(playlistId: String,
+                        knownVideoIds: Set<String>,
+                        maxPages: Int = 5) async throws -> (videos: [VideoItem], reachedKnown: Bool) {
+        var newItems: [VideoItem] = []
+        var token: String?
+        var page = 0
+        var reachedKnown = false
+
+        repeat {
+            let result = try await fetchVideosPage(playlistId: playlistId, pageToken: token)
+            for item in result.items {
+                if knownVideoIds.contains(item.id) {
+                    reachedKnown = true
+                    break
+                }
+                newItems.append(item)
+            }
+            if reachedKnown { break }
+            token = result.nextPageToken
+            page += 1
+        } while token != nil && page < maxPages
+
+        // 最後まで見ても既知に当たらなかった＝そもそも全部が新しい（＝全件取得すべき）。
+        return (newItems, reachedKnown || token == nil)
+    }
+
     /// uploads プレイリストの1ページ分を取得する。
     func fetchVideosPage(playlistId: String, pageToken: String?) async throws -> VideoPage {
         var query: [(String, String)] = [

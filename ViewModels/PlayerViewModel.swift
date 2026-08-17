@@ -188,6 +188,24 @@ final class PlayerViewModel: ObservableObject {
         command = YouTubePlayerWebView.PlayerCommand(.captionTrack(code))
     }
 
+    /// 設定画面を開いたときに、選べる速度・字幕トラックを取り直す。
+    /// （字幕トラックは再生開始から少し遅れて用意されるため）
+    func refreshOptions() {
+        command = YouTubePlayerWebView.PlayerCommand(.refreshOptions)
+    }
+
+    /// 再生画面に出す「速度 1倍・字幕 オフ」のような現在の状態。
+    var optionsSummary: String {
+        let rate = Self.rateLabel(options.rate)
+        let caption: String
+        if let code = options.activeCaption {
+            caption = options.captions.first(where: { $0.code == code })?.name ?? code
+        } else {
+            caption = "オフ"
+        }
+        return "速度 \(rate)・字幕 \(caption)"
+    }
+
     /// 選べる再生速度。プレイヤーから届く前は一般的な候補を出す。
     var availableRates: [Double] {
         options.rates.isEmpty ? [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2] : options.rates

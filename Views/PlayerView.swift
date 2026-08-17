@@ -283,8 +283,25 @@ struct PlayerView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
 
-            // 再生設定（速度・字幕）は右上のアイコンから開く。
-            // よく使う操作ではないので、ここには常時表示しない。
+            // 再生設定はプレイヤー外（アプリ側の画面）で行う。
+            // 現在の状態を出しつつ、タップで設定シートを開く。
+            Button {
+                showPlaybackOptions = true
+            } label: {
+                HStack {
+                    Label("再生設定", systemImage: "slider.horizontal.3")
+                    Spacer()
+                    Text(viewModel.optionsSummary)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                    Image(systemName: "chevron.right")
+                        .font(.caption)
+                        .foregroundStyle(.tertiary)
+                }
+                .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.bordered)
+
             Button {
                 if let url = video.watchURL { openURL(url) }
             } label: {

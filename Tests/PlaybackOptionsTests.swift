@@ -116,6 +116,27 @@ final class PlaybackOptionsTests: XCTestCase {
         XCTAssertEqual(YouTubePlayerWebView.PlayerCommand(.playbackRate(0)).javaScript, "setRate(0.25);")
     }
 
+    func testRefreshOptionsSendsCommand() {
+        let vm = makeViewModel()
+        vm.refreshOptions()
+        XCTAssertEqual(vm.command?.javaScript, "postOptions();")
+    }
+
+    // MARK: - 再生画面に出す状態表示
+
+    func testSummaryShowsRateAndCaptionState() {
+        let vm = makeViewModel()
+        XCTAssertEqual(vm.optionsSummary, "速度 1倍・字幕 オフ")
+
+        vm.handleOptions(YouTubePlayerWebView.parseOptions([
+            "rates": [1, 1.5],
+            "rate": 1.5,
+            "captions": [["code": "ja", "name": "日本語（自動生成）"]],
+            "activeCaption": "ja",
+        ]))
+        XCTAssertEqual(vm.optionsSummary, "速度 1.5倍・字幕 日本語（自動生成）")
+    }
+
     /// 操作要求は毎回別の id を持ち、同じ操作を繰り返せること。
     func testCommandsAreDistinguishable() {
         let vm = makeViewModel()

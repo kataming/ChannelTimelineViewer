@@ -16,7 +16,10 @@ final class ShareViewController: UIViewController {
     private let titleLabel = UILabel()
     private let statusLabel = UILabel()
     private let indicator = UIActivityIndicatorView(style: .medium)
+    private let allowButton = UIButton(type: .system)
     private let closeButton = UIButton(type: .system)
+    /// 受け取った YouTube URL（通知を許可したあとに使う）。
+    private var pendingLink: String?
 
     // MARK: - ライフサイクル
 
@@ -49,6 +52,7 @@ final class ShareViewController: UIViewController {
         //   2) 未許可 → クリップボード経由（アプリを開くと「共有されたURLを開く」が出る）
         // の順にフォールバックする。どちらの場合もクリップボードには入れておく。
         UIPasteboard.general.string = link
+        pendingLink = link
         statusLabel.text = "Channel Timeline Viewer に受け渡しています…"
 
         if await open(appURL) {
@@ -62,8 +66,42 @@ final class ShareViewController: UIViewController {
             return
         }
 
-        showHandoff("URL を受け取りました。\nChannel Timeline Viewer を開くと、"
-                    + "「共有されたURLを開く」からこのチャンネルを表示できます。")
+        // まだ通知を許可していない場合は、ここで許可すればワンタップで開けるようになる。
+        let status = await UNUserNotificationCenter.current().notificationSettings().authorizationStatus
+        if status == .notDetermined {
+            showAuthorizationOffer()
+        } else {
+            showHandoff("URL を受け取りました。\nChannel Timeline Viewer を開くと、"
+                        + "「共有されたURLを開く」からこのチャンネルを表示できます。")
+        }
+    }
+
+    /// 「通知を許可すると、ここからそのまま開けます」の案内を出す。
+    private func showAuthorizationOffer() {
+        indicator.stopAnimating()
+        statusLabel.text = "URL を受け取りました。\n"
+            + "通知を許可すると、この直後に出る通知をタップするだけで開けます。\n"
+            + "（許可しない場合は、アプリを開いて「共有されたURLを開く」から表示できます）"
+        allowButton.isHidden = false
+        closeButton.isHidden = false
+    }
+
+    /// 通知を許可 → その場で通知を出す。通知をタップするとアプリが開く。
+    @objc private func allowTapped() {
+        allowButton.isEnabled = false
+        indicator.startAnimating()
+        statusLabel.text = "通知を準備しています…"
+        Task {
+            let granted = (try? await UNUserNotificationCenter.current()
+                .requestAuthorization(options: [.alert])) ?? false
+            if granted, let link = pendingLink, await postNotification(for: link) {
+                complete()
+            } else {
+                allowButton.isHidden = true
+                showHandoff("URL を受け取りました。\nChannel Timeline Viewer を開くと、"
+                            + "「共有されたURLを開く」からこのチャンネルを表示できます。")
+            }
+        }
     }
 
     /// 通知を許可済みなら、タップでアプリを開けるローカル通知を出す。
@@ -162,6 +200,7 @@ final class ShareViewController: UIViewController {
     private func showHandoff(_ message: String) {
         indicator.stopAnimating()
         statusLabel.text = message
+        allowButton.isHidden = true
         closeButton.setTitle("閉じる", for: .normal)
         closeButton.isHidden = false
     }
@@ -169,6 +208,7 @@ final class ShareViewController: UIViewController {
     private func showFailure(_ message: String) {
         indicator.stopAnimating()
         statusLabel.text = message
+        allowButton.isHidden = true
         closeButton.isHidden = false
     }
 
@@ -197,13 +237,19 @@ final class ShareViewController: UIViewController {
         statusLabel.textAlignment = .center
         statusLabel.numberOfLines = 0
 
+        allowButton.setTitle("通知を許可して開く", for: .normal)
+        allowButton.titleLabel?.font = .preferredFont(forTextStyle: .headline)
+        allowButton.addTarget(self, action: #selector(allowTapped), for: .touchUpInside)
+        allowButton.isHidden = true
+
         closeButton.setTitle("閉じる", for: .normal)
         closeButton.addTarget(self, action: #selector(closeTapped), for: .touchUpInside)
         closeButton.isHidden = true
 
         indicator.startAnimating()
 
-        let stack = UIStackView(arrangedSubviews: [titleLabel, indicator, statusLabel, closeButton])
+        let stack = UIStackView(
+            arrangedSubviews: [titleLabel, indicator, statusLabel, allowButton, closeButton])
         stack.axis = .vertical
         stack.spacing = 12
         stack.alignment = .fill

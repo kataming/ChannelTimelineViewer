@@ -14,16 +14,25 @@ final class SharedLinkRouter: ObservableObject {
     /// 直近に共有リンクを受け取った回数。同じ URL を続けて共有した場合も検知できるようにする。
     @Published private(set) var receivedCount: Int = 0
 
-    /// 共有シートからの受け渡しを一度でも使ったか（通知許可の案内を出すかの判断に使う）。
-    var hasUsedShareHandoff: Bool {
-        defaults.bool(forKey: Self.usedHandoffKey)
-    }
+    /// 共有シートからの受け渡しを一度でも使ったか（案内を出すかの判断に使う）。
+    @Published private(set) var hasUsedShareHandoff: Bool
+    /// 共有を速くする案内を閉じたか。
+    @Published private(set) var hasDismissedShareTips: Bool
 
     private static let usedHandoffKey = "has_used_share_handoff_v1"
+    private static let dismissedTipsKey = "share_tips_dismissed_v1"
     private let defaults: UserDefaults
 
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
+        self.hasUsedShareHandoff = defaults.bool(forKey: Self.usedHandoffKey)
+        self.hasDismissedShareTips = defaults.bool(forKey: Self.dismissedTipsKey)
+    }
+
+    /// 案内を閉じる（次からは表示しない）。
+    func dismissShareTips() {
+        hasDismissedShareTips = true
+        defaults.set(true, forKey: Self.dismissedTipsKey)
     }
 
     /// カスタム URL を受け取る（`onOpenURL` から呼ぶ）。処理できた場合のみ true。
@@ -47,11 +56,13 @@ final class SharedLinkRouter: ObservableObject {
     private func accept(_ link: String) {
         pendingLink = link
         receivedCount += 1
-        defaults.set(true, forKey: Self.usedHandoffKey)
+        markShareHandoffUsed()
     }
 
     /// 共有経由で開いたことを記録する（クリップボードから開いた場合など）。
     func markShareHandoffUsed() {
+        guard !hasUsedShareHandoff else { return }
+        hasUsedShareHandoff = true
         defaults.set(true, forKey: Self.usedHandoffKey)
     }
 

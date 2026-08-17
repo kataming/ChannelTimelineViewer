@@ -62,10 +62,12 @@ jobs:
         run: |
           set -o pipefail
           xcodebuild -project "$PROJECT" -list
-          if ! xcodebuild -project "$PROJECT" -list | grep -q "ChannelTimelineViewerShareExtension"; then
-            echo "::error::Share Extension ターゲットがプロジェクトに含まれていません(project.yml を確認)"
-            exit 1
-          fi
+          for TARGET in ChannelTimelineViewerShareExtension ChannelTimelineViewerOpenExtension; do
+            if ! xcodebuild -project "$PROJECT" -list | grep -q "$TARGET"; then
+              echo "::error::$TARGET がプロジェクトに含まれていません(project.yml を確認)"
+              exit 1
+            fi
+          done
 
       - name: Show available simulators (デバッグ用)
         run: xcrun simctl list devices available | sed -n '1,60p'
@@ -96,13 +98,24 @@ jobs:
           fi
           echo "アプリバンドル: $APP"
           ls "$APP/PlugIns" || true
-          if ! ls "$APP"/PlugIns/*.appex >/dev/null 2>&1; then
-            echo "::error::Share Extension (.appex) がアプリに埋め込まれていません"
+          COUNT=$(ls -d "$APP"/PlugIns/*.appex 2>/dev/null | wc -l | tr -d ' ')
+          if [ "$COUNT" -lt 2 ]; then
+            echo "::error::拡張が $COUNT 個です（共有シート用とアクション用の2つが埋め込まれるはず）"
             exit 1
           fi
-          APPEX=$(ls -d "$APP"/PlugIns/*.appex | head -n 1)
-          /usr/libexec/PlistBuddy -c "Print :NSExtension:NSExtensionPointIdentifier" "$APPEX/Info.plist"
-          /usr/libexec/PlistBuddy -c "Print :NSExtension:NSExtensionAttributes:NSExtensionActivationRule" "$APPEX/Info.plist"
+          POINTS=""
+          for APPEX in "$APP"/PlugIns/*.appex; do
+            POINT=$(/usr/libexec/PlistBuddy -c "Print :NSExtension:NSExtensionPointIdentifier" "$APPEX/Info.plist")
+            echo "$(basename "$APPEX"): $POINT"
+            /usr/libexec/PlistBuddy -c "Print :NSExtension:NSExtensionAttributes:NSExtensionActivationRule" "$APPEX/Info.plist"
+            POINTS="$POINTS $POINT"
+          done
+          for EXPECTED in com.apple.share-services com.apple.ui-services; do
+            case "$POINTS" in
+              *"$EXPECTED"*) ;;
+              *) echo "::error::拡張ポイント $EXPECTED が見つかりません"; exit 1 ;;
+            esac
+          done
 
           # メインアプリ側: カスタムURLスキーム（拡張からアプリを開くのに必須）と
           # 生成された Info.plist の値（表示名）が両方入っていること = マージが効いていること

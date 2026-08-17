@@ -4,8 +4,9 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<!-- 共有シート下部のアクション一覧に出る名前（「Braveで開く」等と同じ枠） -->
 	<key>CFBundleDisplayName</key>
-	<string>Channel Timeline Viewer</string>
+	<string>Channel Timelineで開く</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -16,7 +17,7 @@
 	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
-	<!-- ホストアプリとバージョンを一致させる（不一致だと App Store Connect へのアップロードで弾かれる） -->
+	<!-- ホストアプリとバージョンを一致させる（不一致だとアップロードで弾かれる） -->
 	<key>CFBundleShortVersionString</key>
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleVersion</key>
@@ -26,11 +27,8 @@
 		<key>NSExtensionAttributes</key>
 		<dict>
 			<!--
-			  共有シートに出す条件。
-			  - NSExtensionActivationSupportsWebURLWithMaxCount: http/https の URL（public.url）1件
-			  - NSExtensionActivationSupportsText: プレーンテキスト（public.plain-text）
-			  YouTube アプリは URL ではなく「タイトル + URL」のテキストを渡してくることがあるため、
-			  両方を受け付ける。URL が YouTube のものかどうかは ShareViewController 側で判定する。
+			  出す条件は Share Extension と同じ（http/https の URL、またはテキスト）。
+			  YouTube アプリは URL ではなく「タイトル + URL」のテキストを渡すことがある。
 			-->
 			<key>NSExtensionActivationRule</key>
 			<dict>
@@ -40,8 +38,9 @@
 				<true/>
 			</dict>
 		</dict>
+		<!-- 共有シート下部の「アクション」一覧に出すための拡張ポイント -->
 		<key>NSExtensionPointIdentifier</key>
-		<string>com.apple.share-services</string>
+		<string>com.apple.ui-services</string>
 		<key>NSExtensionPrincipalClass</key>
 		<string>$(PRODUCT_MODULE_NAME).HandoffViewController</string>
 	</dict>

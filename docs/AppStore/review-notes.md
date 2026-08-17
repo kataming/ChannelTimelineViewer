@@ -33,8 +33,12 @@ YouTube の代替アプリではありません。
   次に同じ動画を開いたときに公式プレイヤーの `startSeconds` に渡します。動画データは保存しません。
 - 再生画面の「…」メニューからオフにでき、「最初から再生」で頭出しもできます。
 
-## 共有シート（Share Extension）について
+## 共有シート（Share Extension / Action Extension）について
 - 目的: チャンネルURLの手入力を不要にするための入力補助です。
+- 拡張は2つありますが、**中身は同じ受け渡し処理**で、出る場所だけが異なります。
+  - Share Extension（`com.apple.share-services`）: 共有シートのアプリ一覧
+  - Action Extension（`com.apple.ui-services`）: 共有シート下部のアクション一覧
+    （「Channel Timelineで開く」。「その他」を開かずに届く位置に出すため）
 - 拡張が行うのは **共有された URL / テキストから YouTube の URL を取り出し、
   カスタムURLスキーム（`channeltimelineviewer://share?url=...`）でメインアプリを開くことだけ**です。
 - 拡張はネットワーク通信を行いません（YouTube API も呼びません）。API 取得・表示はすべてメインアプリ側です。

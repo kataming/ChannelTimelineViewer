@@ -64,6 +64,9 @@ struct AboutView: View {
                 }
 
                 Section("共有シートで上位に表示するには") {
+                    Text("共有シートには2か所から入れます。アプリのアイコンが並ぶ行の「\(appName)」と、下にスクロールしたアクション一覧の「Channel Timelineで開く」です。後者は「その他」を開かなくても届きます。")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
                     Text("共有先の並び順は iOS が決めるため、アプリ側から指定できません。次の手順で「よく使う項目」に固定すると、常に上位に表示されます。")
                         .font(.footnote)
                         .foregroundStyle(.secondary)

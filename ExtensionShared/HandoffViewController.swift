@@ -3,14 +3,19 @@ import UniformTypeIdentifiers
 import UserNotifications
 
 /// 共有シート（YouTube アプリ / Safari など）から YouTube の URL を受け取り、
-/// メインアプリ（Channel Timeline Viewer）をカスタム URL で開くだけの Share Extension。
+/// メインアプリ（Channel Timeline Viewer）へ受け渡すだけの拡張。
+///
+/// **2つの拡張ターゲットで共有している**:
+/// - 共有シートのアプリ一覧に出る Share Extension（`com.apple.share-services`）
+/// - 共有シート下部のアクション一覧に出る Action Extension（`com.apple.ui-services`）
+///   ＝「Channel Timelineで開く」。「その他」を開かずに届く位置に出すためのもの。
 ///
 /// 方針（審査・保守の都合で意図的に最小限）:
 /// - **YouTube Data API は呼ばない**（API キーの管理・エラー処理はメインアプリに集約）
 /// - **スクレイピング・ダウンロード・再生は一切しない**（URL を受け渡すだけ）
 /// - 受け取れるのは `public.url` と `public.plain-text`。YouTube アプリが URL ではなく
 ///   「タイトル + URL」のテキストとして共有してくる場合にも対応する。
-final class ShareViewController: UIViewController {
+final class HandoffViewController: UIViewController {
 
     private let card = UIView()
     private let titleLabel = UILabel()

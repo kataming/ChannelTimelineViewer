@@ -263,7 +263,7 @@ struct PlayerView: View {
                     viewModel.goPrevious()
                 }
                 // 「最初へ」などを押し間違えたとき、移動前の動画・再生位置に戻る。
-                navButton("戻る", "arrow.uturn.backward", enabled: viewModel.canGoBack) {
+                navButton("戻す", "arrow.uturn.backward", enabled: viewModel.canGoBack) {
                     viewModel.goBack()
                 }
                 navButton("次へ", "forward.fill", enabled: viewModel.canGoNext) {

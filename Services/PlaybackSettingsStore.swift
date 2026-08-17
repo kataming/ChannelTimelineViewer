@@ -28,14 +28,16 @@ enum RepeatMode: String, CaseIterable, Identifiable, Codable {
         }
     }
 
-    /// 状態が一目で分かるアイコン（オフは輪郭だけ、オンは塗りつぶし）。
-    var symbolName: String {
-        switch self {
-        case .off: return "repeat.circle"
-        case .one: return "repeat.1.circle.fill"
-        case .all: return "repeat.circle.fill"
-        }
+    /// リピートが働いている状態か（バッジを塗りつぶすかの判断に使う）。
+    var isActive: Bool { self != .off }
+
+    /// バッジの中に描くリピート記号。
+    var glyphSymbolName: String {
+        self == .one ? "repeat.1" : "repeat"
     }
+
+    /// 記号の中央に「ALL」を重ねるか。
+    var showsAllLabel: Bool { self == .all }
 
     /// 読み上げ・説明用。
     var accessibilityDescription: String {

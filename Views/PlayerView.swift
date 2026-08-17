@@ -108,10 +108,10 @@ struct PlayerView: View {
         Button {
             settings.repeatMode = settings.repeatMode.next
         } label: {
-            Image(systemName: settings.repeatMode.symbolName)
-                .foregroundStyle(settings.repeatMode == .off ? AnyShapeStyle(.secondary)
-                                                             : AnyShapeStyle(Color.green))
+            RepeatModeBadge(mode: settings.repeatMode)
         }
+        // バッジの色をツールバーの着色で上書きされないようにする。
+        .buttonStyle(.plain)
         .accessibilityLabel(settings.repeatMode.accessibilityDescription)
         .accessibilityHint("タップでリピートを切り替えます")
     }

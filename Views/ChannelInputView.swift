@@ -153,29 +153,59 @@ struct ChannelInputView: View {
         Task { await viewModel.fetch(favoriteStore: favoriteStore) }
     }
 
-    /// 共有シートからワンタップで開けるようにする案内。
-    /// 共有を一度でも使った人にだけ、まだ許可していない場合に出す（初回起動から出さない）。
+    /// 共有をもっと速く使うための案内（通知の許可と、共有シート先頭への固定）。
+    /// 共有を一度でも使った人にだけ出し、「閉じる」で以後は表示しない。
     @ViewBuilder
     private var oneTapShareSection: some View {
-        if sharedLinkRouter.hasUsedShareHandoff, !notificationPermission.isEnabled {
+        if sharedLinkRouter.hasUsedShareHandoff, !sharedLinkRouter.hasDismissedShareTips {
             Section {
                 if notificationPermission.canAsk {
                     Button {
                         Task { await notificationPermission.request() }
                     } label: {
-                        Label("共有シートからワンタップで開けるようにする", systemImage: "bell.badge")
+                        Label("① 通知を許可してワンタップで開く", systemImage: "bell.badge")
                     }
                 } else if notificationPermission.isDenied {
                     Button {
                         notificationPermission.openSettings()
                     } label: {
-                        Label("設定アプリで通知を許可する", systemImage: "gear")
+                        Label("① 設定アプリで通知を許可する", systemImage: "gear")
                     }
+                } else {
+                    Label("① 通知は許可済み（共有すると通知から開けます）", systemImage: "checkmark.circle.fill")
+                        .font(.subheadline)
+                        .foregroundStyle(.green)
                 }
+
+                DisclosureGroup {
+                    VStack(alignment: .leading, spacing: 6) {
+                        Text("共有先の並び順は iOS が決めるため、アプリからは指定できません。"
+                             + "次の手順で「よく使う項目」に登録すると、常に先頭付近に出ます。")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                        Text("1. 共有ボタンを押す\n"
+                             + "2. アプリのアイコンが並ぶ行を右端までスクロール →「その他」\n"
+                             + "3. 右上の「編集」をタップ\n"
+                             + "4. 「Channel Timeline Viewer」の左の「＋」を押す\n"
+                             + "5. 「よく使う項目」の中でドラッグして一番上へ →「完了」")
+                            .font(.caption)
+                    }
+                    .padding(.vertical, 4)
+                } label: {
+                    Label("② 共有シートの先頭に固定する", systemImage: "pin")
+                }
+
+                Button("この案内を閉じる") {
+                    sharedLinkRouter.dismissShareTips()
+                }
+                .font(.footnote)
+            } header: {
+                Text("共有をもっと速く")
             } footer: {
                 Text("iOS の仕様で、共有シートからアプリを直接起動することはできません。"
-                     + "通知を許可すると、共有した直後に通知が出て、タップするだけでそのチャンネルを開けます。"
-                     + "使うのは共有した直後のこの通知だけで、お知らせや宣伝の通知は送りません。")
+                     + "通知を許可すると、共有した直後に出る通知をタップするだけで開けます。"
+                     + "使うのは共有した直後のこの通知だけで、お知らせや宣伝の通知は送りません。"
+                     + "（この案内は「ⓘ」からいつでも確認できます）")
             }
         }
     }

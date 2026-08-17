@@ -58,6 +58,28 @@ final class SharedLinkNotifierTests: XCTestCase {
         XCTAssertTrue(router.hasUsedShareHandoff, "共有経由で開いたことを記録する")
     }
 
+    /// 共有を速くする案内は、共有を使ったあとに出て、閉じたら二度と出ないこと。
+    @MainActor
+    func testShareTipsAppearAfterFirstHandoffAndCanBeDismissed() {
+        let suite = "test.router.\(UUID().uuidString)"
+        let defaults = UserDefaults(suiteName: suite)!
+        defaults.removePersistentDomain(forName: suite)
+        let router = SharedLinkRouter(defaults: defaults)
+
+        XCTAssertFalse(router.hasUsedShareHandoff, "初回起動では案内を出さない")
+        router.markShareHandoffUsed()
+        XCTAssertTrue(router.hasUsedShareHandoff)
+        XCTAssertFalse(router.hasDismissedShareTips)
+
+        router.dismissShareTips()
+        XCTAssertTrue(router.hasDismissedShareTips)
+
+        // アプリを再起動しても状態が残る
+        let reloaded = SharedLinkRouter(defaults: defaults)
+        XCTAssertTrue(reloaded.hasUsedShareHandoff)
+        XCTAssertTrue(reloaded.hasDismissedShareTips)
+    }
+
     @MainActor
     func testRouterRejectsNonYouTubeLink() {
         let suite = "test.router.\(UUID().uuidString)"

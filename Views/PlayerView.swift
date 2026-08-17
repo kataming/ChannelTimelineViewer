@@ -10,8 +10,6 @@ struct PlayerView: View {
     @Environment(\.openURL) private var openURL
     /// 再生設定（速度・字幕）のシートを表示中か。
     @State private var showPlaybackOptions = false
-    /// 公式プレイヤーの設定メニューが収まる高さまで、プレイヤーを一時的に広げているか。
-    @State private var isPlayerTallForMenu = false
     private let channelId: String
 
     /// 動画ごとのメモを直接読み書きする Binding（入力即保存・日本語OK）。
@@ -41,28 +39,27 @@ struct PlayerView: View {
     var body: some View {
         Group {
             if let video = viewModel.currentVideo {
-                // 通常は 16:9 のまま（レイアウトは崩さない）。
-                // 公式プレイヤーの設定メニューは**プレイヤーの中**に描かれるので、
-                // 設定を開くときだけ「速度／字幕／その他のオプション」が収まる高さに広げる。
-                GeometryReader { geo in
-                    VStack(spacing: 0) {
-                        YouTubePlayerWebView(
-                            videoId: video.id,
-                            autoplayOnLoad: true,
-                            startSeconds: viewModel.startSecondsForCurrent,
-                            command: viewModel.command,
-                            onStateChange: { state in viewModel.handleState(state) },
-                            onTimeUpdate: { id, seconds, duration in
-                                viewModel.handleTimeUpdate(videoId: id, seconds: seconds, duration: duration)
-                            },
-                            onOptions: { options in viewModel.handleOptions(options) }
-                        )
-                        .frame(width: geo.size.width, height: playerHeight(in: geo.size))
-                        .background(Color.black)
+                // プレイヤーは常に 16:9。大きさは変えない（レイアウトが崩れるため）。
+                // 公式プレイヤーの設定メニューはプレイヤーの下端から上へ伸びるので、
+                // このサイズのままでも「速度／字幕／その他のオプション」は収まる。
+                VStack(spacing: 0) {
+                    YouTubePlayerWebView(
+                        videoId: video.id,
+                        autoplayOnLoad: true,
+                        startSeconds: viewModel.startSecondsForCurrent,
+                        command: viewModel.command,
+                        onStateChange: { state in viewModel.handleState(state) },
+                        onTimeUpdate: { id, seconds, duration in
+                            viewModel.handleTimeUpdate(videoId: id, seconds: seconds, duration: duration)
+                        },
+                        onOptions: { options in viewModel.handleOptions(options) }
+                    )
+                    .aspectRatio(16.0 / 9.0, contentMode: .fit)
+                    .frame(maxWidth: .infinity)
+                    .background(Color.black)
 
-                        ScrollView {
-                            details(for: video)
-                        }
+                    ScrollView {
+                        details(for: video)
                     }
                 }
             } else {
@@ -72,9 +69,6 @@ struct PlayerView: View {
         .navigationTitle("再生")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                menuHeightToggle
-            }
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
                     showPlaybackOptions = true
@@ -100,33 +94,6 @@ struct PlayerView: View {
         progressStore.recordOpened(channelId: channelId, videoId: video.id)
     }
 
-    /// 設定メニュー（速度／字幕／その他のオプション）が収まる高さの目安。
-    /// 画面いっぱいには広げない。メニューが入るぶんだけ。
-    private static let menuFriendlyHeight: CGFloat = 400
-
-    /// プレイヤーの高さ。通常は 16:9、設定を開くときだけメニューが収まる高さにする。
-    private func playerHeight(in size: CGSize) -> CGFloat {
-        let standard = size.width * 9.0 / 16.0
-        guard isPlayerTallForMenu else { return standard }
-        // 画面からはみ出さない範囲で、メニューが収まる高さまで。
-        return min(max(standard, Self.menuFriendlyHeight), size.height)
-    }
-
-    /// 設定メニューを開くための高さ切り替え。
-    private var menuHeightToggle: some View {
-        Button {
-            withAnimation(.easeInOut(duration: 0.2)) {
-                isPlayerTallForMenu.toggle()
-            }
-        } label: {
-            Image(systemName: isPlayerTallForMenu
-                  ? "rectangle.compress.vertical"
-                  : "rectangle.expand.vertical")
-        }
-        .accessibilityLabel(isPlayerTallForMenu
-                            ? "プレイヤーの高さを元に戻す"
-                            : "設定メニューが入る高さに広げる")
-    }
 
     @ViewBuilder
     private func details(for video: VideoItem) -> some View {

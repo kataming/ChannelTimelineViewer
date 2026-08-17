@@ -67,6 +67,20 @@ final class PlaybackModeTests: XCTestCase {
         XCTAssertTrue(reloaded.playUnwatchedOnly)
     }
 
+    /// 右上のアイコンを押すたびに オフ → 1本 → 全体 → オフ と回ること。
+    func testRepeatModeCyclesThroughAllStates() {
+        XCTAssertEqual(RepeatMode.off.next, .one)
+        XCTAssertEqual(RepeatMode.one.next, .all)
+        XCTAssertEqual(RepeatMode.all.next, .off)
+    }
+
+    /// オフのときもアイコンを出す（状態が見て分かるようにする）。
+    func testRepeatModeHasDistinctSymbols() {
+        let symbols = RepeatMode.allCases.map(\.symbolName)
+        XCTAssertEqual(Set(symbols).count, RepeatMode.allCases.count, "状態ごとに別のアイコン")
+        XCTAssertFalse(RepeatMode.off.symbolName.isEmpty, "オフでもアイコンを表示する")
+    }
+
     // MARK: - ① リピート
 
     /// 1本リピートは、自動再生の設定に関わらず同じ動画を繰り返す。

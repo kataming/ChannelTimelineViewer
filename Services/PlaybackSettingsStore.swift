@@ -18,6 +18,33 @@ enum RepeatMode: String, CaseIterable, Identifiable, Codable {
         case .all: return "全体"
         }
     }
+
+    /// ボタンを押したときの次の状態（オフ → 1本 → 全体 → オフ）。
+    var next: RepeatMode {
+        switch self {
+        case .off: return .one
+        case .one: return .all
+        case .all: return .off
+        }
+    }
+
+    /// 状態が一目で分かるアイコン（オフは輪郭だけ、オンは塗りつぶし）。
+    var symbolName: String {
+        switch self {
+        case .off: return "repeat.circle"
+        case .one: return "repeat.1.circle.fill"
+        case .all: return "repeat.circle.fill"
+        }
+    }
+
+    /// 読み上げ・説明用。
+    var accessibilityDescription: String {
+        switch self {
+        case .off: return "リピートオフ"
+        case .one: return "1本リピート"
+        case .all: return "全体リピート"
+        }
+    }
 }
 
 /// 再生に関するユーザー設定（端末内に保存）。

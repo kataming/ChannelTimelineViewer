@@ -75,6 +75,9 @@ struct PlayerView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
+                repeatToggleButton
+            }
+            ToolbarItem(placement: .topBarTrailing) {
                 Button {
                     showPlaybackOptions = true
                 } label: {
@@ -97,6 +100,20 @@ struct PlayerView: View {
     private func recordOpened() {
         guard let video = viewModel.currentVideo else { return }
         progressStore.recordOpened(channelId: channel.id, videoId: video.id)
+    }
+
+    /// リピートの切り替え（オフ → 1本 → 全体 → オフ）。
+    /// オフのときもアイコンは出したままにして、いまどの状態かが分かるようにする。
+    private var repeatToggleButton: some View {
+        Button {
+            settings.repeatMode = settings.repeatMode.next
+        } label: {
+            Image(systemName: settings.repeatMode.symbolName)
+                .foregroundStyle(settings.repeatMode == .off ? AnyShapeStyle(.secondary)
+                                                             : AnyShapeStyle(Color.green))
+        }
+        .accessibilityLabel(settings.repeatMode.accessibilityDescription)
+        .accessibilityHint("タップでリピートを切り替えます")
     }
 
 
@@ -203,21 +220,7 @@ struct PlayerView: View {
 
             Divider()
 
-            // リピート（1本 / 全体）。1本リピートは自動再生の設定に関わらず働く。
-            HStack {
-                Label("リピート", systemImage: "repeat")
-                    .font(.subheadline)
-                Spacer()
-                Picker("リピート", selection: $settings.repeatMode) {
-                    ForEach(RepeatMode.allCases) { mode in
-                        Text(mode.label).tag(mode)
-                    }
-                }
-                .pickerStyle(.segmented)
-                .frame(maxWidth: 200)
-                .labelsHidden()
-            }
-
+            // リピートは画面右上のアイコンで切り替える（ここには置かない）。
             Toggle(isOn: $settings.playUnwatchedOnly) {
                 Text("未視聴のみ再生")
                     .font(.subheadline)

@@ -31,9 +31,20 @@ struct AboutView: View {
                 }
 
                 Section("共有シートから開く") {
-                    Text("YouTube アプリや Safari の共有ボタンから「\(appName)」を選ぶと、共有されたチャンネル・動画のURLからそのチャンネルの動画一覧を開けます。共有機能はURLを受け取るだけで、外部への送信は行いません。共有先に表示されない場合は、共有シートの「その他」から本アプリをオンにしてください。")
+                    Text("YouTube アプリや Safari の共有ボタンから「\(appName)」を選ぶと、共有されたチャンネル・動画のURLを受け取ります。共有機能はURLを受け取るだけで、外部への送信は行いません。")
                         .font(.footnote)
                         .foregroundStyle(.secondary)
+                    Text("受け取ったあと本アプリを開くと、最初の画面に「共有されたURLを開く」が表示されます。iOS の仕様上、共有シートからアプリを直接起動することはできないため、この形にしています。")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                }
+
+                Section("共有シートで上位に表示するには") {
+                    Text("共有先の並び順は iOS が決めるため、アプリ側から指定できません。次の手順で「よく使う項目」に固定すると、常に上位に表示されます。")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                    Text("① 共有ボタンを押す → アプリのアイコンが並ぶ行を右端までスクロール → 「その他」\n② 右上の「編集」をタップ\n③ 「\(appName)」の左の「＋」で「よく使う項目」に追加\n④ 並べ替えて上位に移動 → 「完了」")
+                        .font(.footnote)
                 }
 
                 Section("データの取得と再生について") {

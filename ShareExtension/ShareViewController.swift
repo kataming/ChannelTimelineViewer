@@ -41,15 +41,18 @@ final class ShareViewController: UIViewController {
             return
         }
 
-        statusLabel.text = "Channel Timeline Viewer を開いています…"
-        let opened = await open(appURL)
-        if opened {
+        // iOS では、共有シート拡張からアプリを直接開くことは許可されていない
+        // （`NSExtensionContext.open` が使えるのは Today / iMessage 拡張のみ）。
+        // 環境によっては通る場合があるので一応試し、駄目ならクリップボード経由で渡す。
+        // メインアプリは起動時にクリップボードを見て「共有されたURLを開く」を出す。
+        UIPasteboard.general.string = link
+        statusLabel.text = "Channel Timeline Viewer に受け渡しています…"
+
+        if await open(appURL) {
             complete()
         } else {
-            // まれに拡張機能からのアプリ起動が許可されないことがある。
-            // その場合でも手作業に戻れるよう、URL をコピーして案内する。
-            UIPasteboard.general.string = link
-            showFailure("アプリを自動で開けませんでした。\nURL をコピーしたので、Channel Timeline Viewer を開いて貼り付けてください。")
+            showHandoff("URL を受け取りました。\nChannel Timeline Viewer を開くと、"
+                        + "「共有されたURLを開く」からこのチャンネルを表示できます。")
         }
     }
 
@@ -125,6 +128,14 @@ final class ShareViewController: UIViewController {
 
     private func complete() {
         extensionContext?.completeRequest(returningItems: [], completionHandler: nil)
+    }
+
+    /// 失敗ではなく「受け渡し完了」の案内（アプリを開けば続きができる）。
+    private func showHandoff(_ message: String) {
+        indicator.stopAnimating()
+        statusLabel.text = message
+        closeButton.setTitle("閉じる", for: .normal)
+        closeButton.isHidden = false
     }
 
     private func showFailure(_ message: String) {

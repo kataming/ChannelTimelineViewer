@@ -58,6 +58,28 @@ final class FavoriteChannelStoreTests: XCTestCase {
         XCTAssertEqual(store.favorites.map(\.id), ["b", "c"])
     }
 
+    /// 「最近使ったチャンネル」から1件消したとき、
+    /// 消えるのはチャンネルと進捗キャッシュだけで、視聴済み（動画単位）の記録は残ること。
+    func testRemovingFavoriteKeepsWatchHistory() {
+        let favorites = FavoriteChannelStore(defaults: makeDefaults())
+        let progress = ChannelProgressStore(defaults: makeDefaults())
+        let watch = WatchHistoryStore(defaults: makeDefaults())
+
+        favorites.upsert(channel("c1", "Ch1"))
+        progress.updateCounts(channelId: "c1", totalVideoCount: 10, watchedVideoCount: 3)
+        watch.markWatched("v1")
+        watch.markWatched("v2")
+
+        // 画面側の削除処理と同じ組み合わせ
+        favorites.remove("c1")
+        progress.remove("c1")
+
+        XCTAssertTrue(favorites.favorites.isEmpty)
+        XCTAssertNil(progress.progress(for: "c1"))
+        XCTAssertTrue(watch.isWatched("v1"), "視聴済みは残る（開き直せば進捗も戻る）")
+        XCTAssertTrue(watch.isWatched("v2"))
+    }
+
     func testPersistenceAcrossInstances() {
         let defaults = makeDefaults()
         let s1 = FavoriteChannelStore(defaults: defaults)

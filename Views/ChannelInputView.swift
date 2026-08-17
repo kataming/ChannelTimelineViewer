@@ -46,12 +46,26 @@ struct ChannelInputView: View {
                 }
 
                 Section {
-                    TextField("https://www.youtube.com/@handle", text: $viewModel.urlText)
-                        .textInputAutocapitalization(.never)
-                        .autocorrectionDisabled()
-                        .keyboardType(.URL)
-                        .submitLabel(.go)
-                        .onSubmit { startFetch() }
+                    HStack(spacing: 8) {
+                        TextField("https://www.youtube.com/@handle", text: $viewModel.urlText)
+                            .textInputAutocapitalization(.never)
+                            .autocorrectionDisabled()
+                            .keyboardType(.URL)
+                            .submitLabel(.go)
+                            .onSubmit { startFetch() }
+
+                        if !viewModel.urlText.isEmpty {
+                            Button {
+                                viewModel.urlText = ""
+                                viewModel.errorMessage = nil
+                            } label: {
+                                Image(systemName: "xmark.circle.fill")
+                                    .foregroundStyle(.secondary)
+                            }
+                            .buttonStyle(.plain)
+                            .accessibilityLabel("入力を消去")
+                        }
+                    }
 
                     Button(action: startFetch) {
                         HStack {
@@ -79,10 +93,22 @@ struct ChannelInputView: View {
                 }
 
                 if !favoriteStore.favorites.isEmpty {
-                    Section("最近使ったチャンネル") {
+                    Section {
                         FavoriteChannelsView { favorite in
                             viewModel.open(favorite, favoriteStore: favoriteStore)
                         }
+                    } header: {
+                        HStack {
+                            Text("最近使ったチャンネル")
+                            Spacer()
+                            Label("左スワイプで削除", systemImage: "arrow.left")
+                                .font(.caption2)
+                                .foregroundStyle(.secondary)
+                                .textCase(nil)
+                        }
+                    } footer: {
+                        Text("行を左にスワイプすると、その1件だけを削除できます。"
+                             + "視聴済みの記録は残るので、開き直せば進捗も戻ります。")
                     }
                 }
 

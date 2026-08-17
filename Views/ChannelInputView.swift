@@ -80,9 +80,10 @@ struct ChannelInputView: View {
                 } header: {
                     Text("チャンネルURL")
                 } footer: {
-                    Text("例: https://www.youtube.com/@handle, /channel/UC..., /c/name, /user/name\n"
-                         + "YouTube アプリや Safari の共有ボタンから「Channel Timeline Viewer」を選ぶと、"
-                         + "チャンネルURL・動画URLのどちらからでもこの画面を経由して一覧を開けます。")
+                    // 入力例はプレースホルダで示しているので、ここでは繰り返さない。
+                    Text("YouTube アプリや Safari で共有 →「Channel Timeline Viewer」を選ぶと、"
+                         + "この画面に「共有されたURLを開く」が表示されます。"
+                         + "チャンネル・動画のどちらのURLでも開けます。")
                 }
 
                 if let error = viewModel.errorMessage {

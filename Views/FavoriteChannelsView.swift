@@ -60,13 +60,27 @@ struct FavoriteChannelsView: View {
                     }
                 }
             }
+            // 1件ずつ消す導線（左スワイプ）。分かるように Section の footer で案内している。
+            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                Button(role: .destructive) {
+                    remove(favorite)
+                } label: {
+                    Label("削除", systemImage: "trash")
+                }
+            }
         }
         .onDelete { offsets in
-            // チャンネル削除時は進捗も一緒に削除する。
-            let ids = offsets.map { favoriteStore.favorites[$0].id }
-            favoriteStore.removeAtOffsets(offsets)
-            ids.forEach { progressStore.remove($0) }
+            // 編集モード（EditButton）からの削除。
+            let targets = offsets.map { favoriteStore.favorites[$0] }
+            targets.forEach { remove($0) }
         }
+    }
+
+    /// 一覧から1件消す。視聴済みの記録（動画単位）は残し、チャンネルの進捗キャッシュだけ消す。
+    /// 同じチャンネルを開き直せば、視聴済みから進捗は再計算される。
+    private func remove(_ favorite: FavoriteChannel) {
+        favoriteStore.remove(favorite.id)
+        progressStore.remove(favorite.id)
     }
 
     @ViewBuilder

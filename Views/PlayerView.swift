@@ -46,39 +46,53 @@ struct PlayerView: View {
                 // 「上下いっぱい」に広げると、その中に設定メニューが収まって最後まで操作できる。
                 // 幅は変えず高さだけを変える。同じ WebView を使い続けるので再生は途切れない。
                 GeometryReader { geo in
-                    VStack(spacing: 0) {
-                        YouTubePlayerWebView(
-                            videoId: video.id,
-                            autoplayOnLoad: true,
-                            startSeconds: viewModel.startSecondsForCurrent,
-                            command: viewModel.command,
-                            onStateChange: { state in viewModel.handleState(state) },
-                            onTimeUpdate: { id, seconds, duration in
-                                viewModel.handleTimeUpdate(videoId: id, seconds: seconds, duration: duration)
-                            },
-                            onOptions: { options in viewModel.handleOptions(options) }
-                        )
-                        .frame(width: geo.size.width, height: playerHeight(in: geo.size))
-                        .background(Color.black)
+                    ZStack(alignment: .topLeading) {
+                        VStack(spacing: 0) {
+                            YouTubePlayerWebView(
+                                videoId: video.id,
+                                autoplayOnLoad: true,
+                                startSeconds: viewModel.startSecondsForCurrent,
+                                command: viewModel.command,
+                                onStateChange: { state in viewModel.handleState(state) },
+                                onTimeUpdate: { id, seconds, duration in
+                                    viewModel.handleTimeUpdate(videoId: id, seconds: seconds, duration: duration)
+                                },
+                                onOptions: { options in viewModel.handleOptions(options) }
+                            )
+                            .frame(width: geo.size.width, height: playerHeight(in: geo.size))
+                            .background(Color.black)
 
-                        if !isPlayerExpanded {
-                            ScrollView {
-                                details(for: video)
+                            if !isPlayerExpanded {
+                                ScrollView {
+                                    details(for: video)
+                                }
                             }
+                        }
+
+                        // 広げている間はナビゲーションバーも隠すので、戻る手段をここに重ねる。
+                        if isPlayerExpanded {
+                            collapseButton
+                                .padding(.leading, 10)
+                                .padding(.top, 6)
                         }
                     }
                 }
+                // 広げるときは下の余白（ホームインジケータ領域）まで使って高さを稼ぐ。
+                // 上端は残す（ここを潰すと公式プレイヤーの歯車が時計と重なって押しにくくなる）。
+                .ignoresSafeArea(edges: isPlayerExpanded ? .bottom : [])
             } else {
                 ContentUnavailableView("動画がありません", systemImage: "film")
             }
         }
         .navigationTitle(isPlayerExpanded ? "" : "再生")
         .navigationBarTitleDisplayMode(.inline)
+        // 広げている間はナビゲーションバーも隠して、その分の高さもプレイヤーに回す。
+        .toolbar(isPlayerExpanded ? .hidden : .visible, for: .navigationBar)
         .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                expandToggleButton
-            }
             if !isPlayerExpanded {
+                ToolbarItem(placement: .topBarTrailing) {
+                    expandToggleButton
+                }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         showPlaybackOptions = true
@@ -110,18 +124,32 @@ struct PlayerView: View {
         isPlayerExpanded ? size.height : size.width * 9.0 / 16.0
     }
 
-    /// 上下いっぱい ⇄ 通常サイズ の切り替え。
+    /// 通常サイズ → 上下いっぱい。
     private var expandToggleButton: some View {
         Button {
             withAnimation(.easeInOut(duration: 0.2)) {
-                isPlayerExpanded.toggle()
+                isPlayerExpanded = true
             }
         } label: {
-            Image(systemName: isPlayerExpanded
-                  ? "arrow.down.right.and.arrow.up.left"
-                  : "arrow.up.left.and.arrow.down.right")
+            Image(systemName: "arrow.up.left.and.arrow.down.right")
         }
-        .accessibilityLabel(isPlayerExpanded ? "プレイヤーを元のサイズに戻す" : "プレイヤーを上下いっぱいに広げる")
+        .accessibilityLabel("プレイヤーを上下いっぱいに広げる")
+    }
+
+    /// 広げた状態から元に戻す（ナビゲーションバーを隠しているのでプレイヤーに重ねて置く）。
+    private var collapseButton: some View {
+        Button {
+            withAnimation(.easeInOut(duration: 0.2)) {
+                isPlayerExpanded = false
+            }
+        } label: {
+            Image(systemName: "arrow.down.right.and.arrow.up.left")
+                .font(.subheadline.bold())
+                .foregroundStyle(.white)
+                .padding(9)
+                .background(Color.black.opacity(0.55), in: Circle())
+        }
+        .accessibilityLabel("プレイヤーを元のサイズに戻す")
     }
 
 

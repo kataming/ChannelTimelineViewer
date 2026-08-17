@@ -41,23 +41,62 @@ struct YouTubePlayerWebView: UIViewRepresentable {
     var autoplayOnLoad: Bool = false
     /// 再生開始位置（秒）。「続きから再生」で使う。0 なら最初から。
     var startSeconds: Double = 0
-    /// 再生位置の移動要求（「最初から再生」など）。id が変わったときだけ実行する。
-    var seekRequest: SeekRequest? = nil
+    /// プレイヤーへの操作要求（頭出し・再生速度・字幕）。id が変わったときだけ実行する。
+    var command: PlayerCommand? = nil
     var onStateChange: ((YouTubePlayerState) -> Void)? = nil
     /// 再生位置の通知（videoId, 現在位置秒, 動画の長さ秒）。
     var onTimeUpdate: ((String, Double, Double) -> Void)? = nil
+    /// 選べる再生速度・字幕トラックなどの通知（アプリ側の設定画面で使う）。
+    var onOptions: ((PlayerOptions) -> Void)? = nil
     /// 再生できなかった場合に呼ばれる（IFrame API のエラーコード）。
     var onError: ((Int) -> Void)? = nil
 
-    /// シーク要求。同じ位置へ再度移動できるよう毎回新しい id を持つ。
-    struct SeekRequest: Equatable {
-        let id: UUID
-        let seconds: Double
-
-        init(seconds: Double) {
-            self.id = UUID()
-            self.seconds = seconds
+    /// プレイヤーへの操作要求。同じ操作を繰り返せるよう毎回新しい id を持つ。
+    struct PlayerCommand: Equatable {
+        enum Kind: Equatable {
+            case seek(Double)
+            case playbackRate(Double)
+            /// nil で字幕オフ。
+            case captionTrack(String?)
         }
+        let id: UUID
+        let kind: Kind
+
+        init(_ kind: Kind) {
+            self.id = UUID()
+            self.kind = kind
+        }
+
+        /// 頭出し（0秒へ）。
+        static func seek(seconds: Double) -> PlayerCommand { PlayerCommand(.seek(seconds)) }
+
+        /// 中継ページで実行する JavaScript。値は数値・英数字のみに正規化して埋め込む。
+        var javaScript: String {
+            switch kind {
+            case .seek(let seconds):
+                return "seekTo(\(Int(max(0, seconds.isFinite ? seconds : 0))));"
+            case .playbackRate(let rate):
+                let safe = min(max(rate.isFinite ? rate : 1, 0.25), 4)
+                return String(format: "setRate(%.2f);", safe)
+            case .captionTrack(let code):
+                guard let code, !code.isEmpty else { return "setCaptionTrack('');" }
+                let safe = code.filter { $0.isASCII && ($0.isLetter || $0.isNumber || $0 == "-" || $0 == "_") }
+                return "setCaptionTrack('\(safe)');"
+            }
+        }
+    }
+
+    /// プレイヤーから受け取った、アプリ側の設定画面に出す情報。
+    struct PlayerOptions: Equatable {
+        struct CaptionTrack: Equatable, Identifiable {
+            let code: String
+            let name: String
+            var id: String { code }
+        }
+        var rates: [Double] = []
+        var rate: Double = 1
+        var captions: [CaptionTrack] = []
+        var activeCaption: String?
     }
 
     func makeCoordinator() -> Coordinator { Coordinator(self) }
@@ -93,9 +132,9 @@ struct YouTubePlayerWebView: UIViewRepresentable {
             context.coordinator.change(videoId: videoId, autoplay: autoplayOnLoad, start: startSeconds)
             return
         }
-        // 「最初から再生」などのシーク要求。
-        if let request = seekRequest, context.coordinator.handledSeekId != request.id {
-            context.coordinator.seek(request)
+        // 「最初から再生」「再生速度」「字幕」などの操作要求。
+        if let command, context.coordinator.handledCommandId != command.id {
+            context.coordinator.run(command)
         }
     }
 
@@ -127,7 +166,7 @@ struct YouTubePlayerWebView: UIViewRepresentable {
         var parent: YouTubePlayerWebView
         weak var webView: WKWebView?
         private(set) var loadedVideoId: String?
-        private(set) var handledSeekId: UUID?
+        private(set) var handledCommandId: UUID?
 
         init(_ parent: YouTubePlayerWebView) { self.parent = parent }
 
@@ -151,11 +190,10 @@ struct YouTubePlayerWebView: UIViewRepresentable {
             }
         }
 
-        /// 再生位置を移動する（「最初から再生」など）。
-        func seek(_ request: SeekRequest) {
-            handledSeekId = request.id
-            let seconds = max(0, request.seconds.isFinite ? request.seconds : 0)
-            webView?.evaluateJavaScript("seekTo(\(Int(seconds)));", completionHandler: nil)
+        /// プレイヤーを操作する（頭出し・再生速度・字幕）。
+        func run(_ command: PlayerCommand) {
+            handledCommandId = command.id
+            webView?.evaluateJavaScript(command.javaScript, completionHandler: nil)
         }
 
         func userContentController(_ userContentController: WKUserContentController,
@@ -178,12 +216,38 @@ struct YouTubePlayerWebView: UIViewRepresentable {
                     let duration = (body["d"] as? Double) ?? (body["d"] as? NSNumber)?.doubleValue ?? 0
                     parent.onTimeUpdate?(id, seconds, duration)
                 }
+            case "options":
+                parent.onOptions?(YouTubePlayerWebView.parseOptions(body))
             case "error":
                 parent.onError?(body["code"] as? Int ?? -1)
             default:
                 break
             }
         }
+    }
+
+    /// 中継ページから届いた options メッセージを解釈する（ネットワーク非依存＝テスト可能）。
+    static func parseOptions(_ body: [String: Any]) -> PlayerOptions {
+        var options = PlayerOptions()
+        if let rates = body["rates"] as? [Any] {
+            options.rates = rates.compactMap { ($0 as? NSNumber)?.doubleValue ?? $0 as? Double }
+                .filter { $0.isFinite && $0 > 0 }
+        }
+        if let rate = (body["rate"] as? NSNumber)?.doubleValue ?? body["rate"] as? Double,
+           rate.isFinite, rate > 0 {
+            options.rate = rate
+        }
+        if let captions = body["captions"] as? [[String: Any]] {
+            options.captions = captions.compactMap { item in
+                guard let code = item["code"] as? String, !code.isEmpty else { return nil }
+                let name = (item["name"] as? String).flatMap { $0.isEmpty ? nil : $0 } ?? code
+                return PlayerOptions.CaptionTrack(code: code, name: name)
+            }
+        }
+        if let active = body["activeCaption"] as? String, !active.isEmpty {
+            options.activeCaption = active
+        }
+        return options
     }
 
     /// videoId に紛れ込みうる記号を取り除く。

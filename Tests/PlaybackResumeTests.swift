@@ -130,7 +130,7 @@ final class PlaybackResumeTests: XCTestCase {
 
         XCTAssertEqual(vm.startSecondsForCurrent, 0)
         XCTAssertNil(positions.position(for: videos[0].id))
-        XCTAssertEqual(vm.seekRequest?.seconds, 0, "プレイヤーに先頭へ戻る要求を出す")
+        XCTAssertEqual(vm.command?.kind, .seek(0), "プレイヤーに先頭へ戻る要求を出す")
     }
 
     func testMovingToNextUsesThatVideosSavedPosition() {

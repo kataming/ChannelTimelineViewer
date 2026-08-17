@@ -106,11 +106,18 @@
         onReady: function () {
           post({ event: 'ready' });
           disableCaptionsByDefault();
+          postOptions();
         },
+        onPlaybackRateChange: function () { postOptions(); },
         onStateChange: function (e) {
           post({ event: 'state', state: e.data });
           // 字幕モジュールは再生開始後に読み込まれるので、ここでもう一度オフにする。
-          if (e.data === 1) { disableCaptionsByDefault(); }
+          if (e.data === 1) {
+            disableCaptionsByDefault();
+            postOptions();
+            // 字幕トラック一覧は少し遅れて用意されるので、もう一度だけ取り直す。
+            setTimeout(postOptions, 1500);
+          }
           // 一時停止・終了のタイミングでも位置を通知する（取りこぼし防止）。
           if (e.data === 2 || e.data === 0) { postTime(); }
         },
@@ -150,6 +157,57 @@
     } catch (e) {
       // 失敗しても再生には影響しないので握りつぶす
     }
+  }
+
+  // 公式プレイヤーの設定メニューは iframe の中に描画されるため、小さな枠に埋め込むと
+  // 下が切れて操作できない。そこでアプリ側の画面から操作できるよう、
+  // 「選べる再生速度・現在の速度・字幕トラック一覧」を通知し、変更用の関数を公開する。
+  // 使うのは公式 IFrame Player API のみで、プレイヤーの見た目は変更しない。
+  function postOptions() {
+    if (!player) { return; }
+    var rates = [];
+    var rate = 1;
+    var tracks = [];
+    var active = null;
+    try { rates = player.getAvailablePlaybackRates() || []; } catch (e) {}
+    try { rate = player.getPlaybackRate() || 1; } catch (e) {}
+    try {
+      var list = player.getOption('captions', 'tracklist') || [];
+      for (var i = 0; i < list.length; i++) {
+        var t = list[i] || {};
+        tracks.push({
+          code: t.languageCode || '',
+          name: t.displayName || t.languageName || t.languageCode || ''
+        });
+      }
+      var current = player.getOption('captions', 'track');
+      if (current && current.languageCode) { active = current.languageCode; }
+    } catch (e) {}
+    post({ event: 'options', rates: rates, rate: rate, captions: tracks, activeCaption: active });
+  }
+
+  // 再生速度を変える（アプリの設定画面から呼ぶ）。
+  function setRate(r) {
+    if (player && player.setPlaybackRate) {
+      player.setPlaybackRate(Number(r) || 1);
+      postOptions();
+    }
+  }
+
+  // 字幕トラックを選ぶ。code が空なら字幕オフ。
+  function setCaptionTrack(code) {
+    if (!player || !player.setOption) { return; }
+    try {
+      if (code) {
+        if (player.loadModule) { player.loadModule('captions'); }
+        player.setOption('captions', 'track', { languageCode: code });
+      } else {
+        player.setOption('captions', 'track', {});
+      }
+      // ユーザーが自分で選んだので、既定オフの処理で上書きしない。
+      captionsHandled = true;
+    } catch (e) {}
+    postOptions();
   }
 
   // 現在の再生位置をアプリへ通知する（「続きから再生」用。保存はアプリ側の端末内のみ）。

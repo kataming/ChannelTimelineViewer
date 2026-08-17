@@ -8,8 +8,8 @@ struct PlayerView: View {
     @EnvironmentObject private var settings: PlaybackSettingsStore
     @StateObject private var viewModel: PlayerViewModel
     @Environment(\.openURL) private var openURL
-    /// プレイヤーを画面いっぱいに広げているか（公式プレイヤーの設定メニューを開くとき用）。
-    @State private var isPlayerExpanded = false
+    /// 再生設定（画質・速度・字幕）のシートを表示中か。
+    @State private var showPlaybackOptions = false
     private let channelId: String
 
     /// 動画ごとのメモを直接読み書きする Binding（入力即保存・日本語OK）。
@@ -39,42 +39,49 @@ struct PlayerView: View {
     var body: some View {
         Group {
             if let video = viewModel.currentVideo {
-                // プレイヤーの高さだけを切り替える（同じ WebView を使い続けるので再生は途切れない）。
-                GeometryReader { geo in
-                    VStack(spacing: 0) {
-                        YouTubePlayerWebView(
-                            videoId: video.id,
-                            autoplayOnLoad: true,
-                            startSeconds: viewModel.startSecondsForCurrent,
-                            seekRequest: viewModel.seekRequest,
-                            onStateChange: { state in viewModel.handleState(state) },
-                            onTimeUpdate: { id, seconds, duration in
-                                viewModel.handleTimeUpdate(videoId: id, seconds: seconds, duration: duration)
-                            }
-                        )
-                        .frame(width: geo.size.width, height: playerHeight(in: geo.size))
-                        .background(Color.black)
+                VStack(spacing: 0) {
+                    // プレイヤーの大きさは変えない（UI が崩れるため）。
+                    // 画質・速度・字幕はプレイヤー外の設定画面から操作する。
+                    YouTubePlayerWebView(
+                        videoId: video.id,
+                        autoplayOnLoad: true,
+                        startSeconds: viewModel.startSecondsForCurrent,
+                        command: viewModel.command,
+                        onStateChange: { state in viewModel.handleState(state) },
+                        onTimeUpdate: { id, seconds, duration in
+                            viewModel.handleTimeUpdate(videoId: id, seconds: seconds, duration: duration)
+                        },
+                        onOptions: { options in viewModel.handleOptions(options) }
+                    )
+                    .aspectRatio(16.0 / 9.0, contentMode: .fit)
+                    .frame(maxWidth: .infinity)
+                    .background(Color.black)
 
-                        if !isPlayerExpanded {
-                            ScrollView {
-                                details(for: video)
-                            }
-                        }
+                    ScrollView {
+                        details(for: video)
                     }
                 }
             } else {
                 ContentUnavailableView("動画がありません", systemImage: "film")
             }
         }
-        .navigationTitle(isPlayerExpanded ? "" : "再生")
+        .navigationTitle("再生")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                expandToggleButton
+                Button {
+                    showPlaybackOptions = true
+                } label: {
+                    Image(systemName: "slider.horizontal.3")
+                }
+                .accessibilityLabel("再生設定")
             }
             ToolbarItem(placement: .topBarTrailing) {
                 moreMenu
             }
+        }
+        .sheet(isPresented: $showPlaybackOptions) {
+            PlaybackOptionsSheet(viewModel: viewModel)
         }
         // 「最後に開いた動画」を記録（続きから見る用）。
         .task { recordOpened() }
@@ -86,27 +93,6 @@ struct PlayerView: View {
         progressStore.recordOpened(channelId: channelId, videoId: video.id)
     }
 
-    /// プレイヤーの高さ。拡大時は画面いっぱい、通常時は 16:9。
-    ///
-    /// 公式プレイヤーの設定メニュー（画質・速度・字幕など）は**プレイヤーの中に**描画されるため、
-    /// 16:9 の小さな枠のままだと下が切れて読めない。拡大すると画面の高さいっぱいになり、
-    /// ブラウザで見るときと同じように設定を最後まで表示・操作できる。
-    private func playerHeight(in size: CGSize) -> CGFloat {
-        isPlayerExpanded ? size.height : size.width * 9.0 / 16.0
-    }
-
-    private var expandToggleButton: some View {
-        Button {
-            withAnimation(.easeInOut(duration: 0.2)) {
-                isPlayerExpanded.toggle()
-            }
-        } label: {
-            Image(systemName: isPlayerExpanded
-                  ? "arrow.down.right.and.arrow.up.left"
-                  : "arrow.up.left.and.arrow.down.right")
-        }
-        .accessibilityLabel(isPlayerExpanded ? "プレイヤーを元のサイズに戻す" : "プレイヤーを拡大")
-    }
 
     @ViewBuilder
     private func details(for video: VideoItem) -> some View {
@@ -296,13 +282,12 @@ struct PlayerView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
 
-            // 公式プレイヤーの設定（画質・速度・字幕など）はプレイヤーの中に開くため、
-            // 16:9 のままだと下が切れる。拡大すると画面いっぱいで操作できる。
+            // 公式プレイヤーの設定メニューはプレイヤー内に開いて枠で切れてしまうため、
+            // 同じ操作をアプリ側の画面（プレイヤー外）から行えるようにしている。
             Button {
-                withAnimation(.easeInOut(duration: 0.2)) { isPlayerExpanded = true }
+                showPlaybackOptions = true
             } label: {
-                Label("プレイヤーを拡大（画質・速度・字幕の設定用）",
-                      systemImage: "arrow.up.left.and.arrow.down.right")
+                Label("再生設定（速度・字幕）", systemImage: "slider.horizontal.3")
                     .frame(maxWidth: .infinity)
             }
             .buttonStyle(.bordered)

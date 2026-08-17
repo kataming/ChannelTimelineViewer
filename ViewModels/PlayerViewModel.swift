@@ -8,8 +8,10 @@ final class PlayerViewModel: ObservableObject {
     @Published var showEndedSuggestion = false
     /// 現在の動画をどの位置から再生し始めたか（秒）。0 なら最初から。
     @Published private(set) var startSecondsForCurrent: Double = 0
-    /// 「最初から再生」などの位置移動要求。View が WebView に渡す。
-    @Published private(set) var seekRequest: YouTubePlayerWebView.SeekRequest?
+    /// プレイヤーへの操作要求（頭出し・再生速度・字幕）。View が WebView に渡す。
+    @Published private(set) var command: YouTubePlayerWebView.PlayerCommand?
+    /// プレイヤーから受け取った、設定画面に出す情報（選べる速度・字幕トラック）。
+    @Published private(set) var options = YouTubePlayerWebView.PlayerOptions()
     /// 自動再生で次の動画へ切り替えた直後かどうか（画面表示用）。
     @Published private(set) var didAutoAdvance = false
     /// 「戻る」（直前の移動を取り消す）が使えるか。
@@ -138,7 +140,7 @@ final class PlayerViewModel: ObservableObject {
         currentIndex = index
         showEndedSuggestion = false
         didAutoAdvance = autoAdvanced
-        seekRequest = nil
+        command = nil
         hasStartedCurrentVideo = false
         startSecondsForCurrent = startSeconds ?? Self.resumeSeconds(
             for: currentVideo, positionStore: positionStore, settings: settings
@@ -164,7 +166,40 @@ final class PlayerViewModel: ObservableObject {
         // 最初から見直した場合は、もう一度終了時の処理を行えるようにする。
         endedHandledVideoId = nil
         hasStartedCurrentVideo = true
-        seekRequest = YouTubePlayerWebView.SeekRequest(seconds: 0)
+        command = .seek(seconds: 0)
+    }
+
+    // MARK: - 再生設定（プレイヤー外の設定画面から操作する）
+
+    /// プレイヤーから届いた選択肢（速度・字幕）を反映する。
+    func handleOptions(_ options: YouTubePlayerWebView.PlayerOptions) {
+        self.options = options
+    }
+
+    /// 再生速度を変える。
+    func setPlaybackRate(_ rate: Double) {
+        options.rate = rate
+        command = YouTubePlayerWebView.PlayerCommand(.playbackRate(rate))
+    }
+
+    /// 字幕トラックを選ぶ（nil でオフ）。
+    func setCaptionTrack(_ code: String?) {
+        options.activeCaption = code
+        command = YouTubePlayerWebView.PlayerCommand(.captionTrack(code))
+    }
+
+    /// 選べる再生速度。プレイヤーから届く前は一般的な候補を出す。
+    var availableRates: [Double] {
+        options.rates.isEmpty ? [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2] : options.rates
+    }
+
+    /// 「1.5倍」のような表示。
+    static func rateLabel(_ rate: Double) -> String {
+        if rate == rate.rounded() {
+            return "\(Int(rate))倍"
+        }
+        return String(format: "%.2f", rate)
+            .replacingOccurrences(of: "0$", with: "", options: .regularExpression) + "倍"
     }
 
     // MARK: - 視聴済み

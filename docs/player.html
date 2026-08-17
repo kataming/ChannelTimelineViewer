@@ -96,13 +96,21 @@
         rel: 0,
         autoplay: autoplay,
         start: startAt,
+        // 字幕は既定でオフにする（端末/アカウント側の設定で自動的に出ることがあるため）。
+        // プレイヤーの字幕ボタンはそのまま残るので、見たいときはユーザーが出せる。
+        cc_load_policy: 0,
         // このページのオリジン。Referer と併せて YouTube 側の検証に使われる。
         origin: location.origin
       },
       events: {
-        onReady: function () { post({ event: 'ready' }); },
+        onReady: function () {
+          post({ event: 'ready' });
+          disableCaptionsByDefault();
+        },
         onStateChange: function (e) {
           post({ event: 'state', state: e.data });
+          // 字幕モジュールは再生開始後に読み込まれるので、ここでもう一度オフにする。
+          if (e.data === 1) { disableCaptionsByDefault(); }
           // 一時停止・終了のタイミングでも位置を通知する（取りこぼし防止）。
           if (e.data === 2 || e.data === 0) { postTime(); }
         },
@@ -124,6 +132,25 @@
       clearInterval(applyReferrerPolicy);
     }
   }, 200);
+
+  // 字幕を既定でオフにする。
+  //
+  // 端末の「字幕とキャプション」設定や YouTube アカウント側の設定によっては、
+  // 何もしなくても字幕が出た状態で始まる。ここでは公式プレイヤーの API で
+  // 「選択中の字幕トラックを無し」にするだけで、**字幕ボタン自体は残す**
+  // （モジュールを unload すると字幕を出せなくなるので、そこまではしない）。
+  // 動画を切り替えるたびに既定オフへ戻す。
+  var captionsHandled = false;
+  function disableCaptionsByDefault() {
+    if (!player || captionsHandled || !player.setOption) { return; }
+    try {
+      player.setOption('captions', 'track', {});   // HTML5 プレイヤー
+      player.setOption('cc', 'track', {});         // 旧モジュール名
+      captionsHandled = true;
+    } catch (e) {
+      // 失敗しても再生には影響しないので握りつぶす
+    }
+  }
 
   // 現在の再生位置をアプリへ通知する（「続きから再生」用。保存はアプリ側の端末内のみ）。
   function postTime() {
@@ -147,12 +174,14 @@
     if (!player || !player.loadVideoById) { return; }
     postTime();                       // 切り替え前に「今の動画」の位置を残す
     currentId = id;
+    captionsHandled = false;          // 次の動画でも字幕は既定オフから
     player.loadVideoById({ videoId: id, startSeconds: Math.max(0, start || 0) });
   }
   function cueVideo(id, start) {
     if (!player || !player.cueVideoById) { return; }
     postTime();
     currentId = id;
+    captionsHandled = false;
     player.cueVideoById({ videoId: id, startSeconds: Math.max(0, start || 0) });
   }
   // 「最初から再生」などで位置を移動する。

@@ -1,5 +1,6 @@
 import UIKit
 import UniformTypeIdentifiers
+import UserNotifications
 
 /// 共有シート（YouTube アプリ / Safari など）から YouTube の URL を受け取り、
 /// メインアプリ（Channel Timeline Viewer）をカスタム URL で開くだけの Share Extension。
@@ -43,16 +44,43 @@ final class ShareViewController: UIViewController {
 
         // iOS では、共有シート拡張からアプリを直接開くことは許可されていない
         // （`NSExtensionContext.open` が使えるのは Today / iMessage 拡張のみ）。
-        // 環境によっては通る場合があるので一応試し、駄目ならクリップボード経由で渡す。
-        // メインアプリは起動時にクリップボードを見て「共有されたURLを開く」を出す。
+        // 環境によっては通る場合があるので一応試し、駄目なら
+        //   1) 通知を許可済み → ローカル通知（タップでアプリが開く）
+        //   2) 未許可 → クリップボード経由（アプリを開くと「共有されたURLを開く」が出る）
+        // の順にフォールバックする。どちらの場合もクリップボードには入れておく。
         UIPasteboard.general.string = link
         statusLabel.text = "Channel Timeline Viewer に受け渡しています…"
 
         if await open(appURL) {
             complete()
-        } else {
-            showHandoff("URL を受け取りました。\nChannel Timeline Viewer を開くと、"
-                        + "「共有されたURLを開く」からこのチャンネルを表示できます。")
+            return
+        }
+
+        if await postNotification(for: link) {
+            // 通知バナーがすぐ出るので、共有シートは閉じてしまう方が分かりやすい。
+            complete()
+            return
+        }
+
+        showHandoff("URL を受け取りました。\nChannel Timeline Viewer を開くと、"
+                    + "「共有されたURLを開く」からこのチャンネルを表示できます。")
+    }
+
+    /// 通知を許可済みなら、タップでアプリを開けるローカル通知を出す。
+    /// 未許可のときは**許可を求めず**（拡張から尋ねない）、false を返す。
+    private func postNotification(for link: String) async -> Bool {
+        let center = UNUserNotificationCenter.current()
+        let settings = await center.notificationSettings()
+        let authorized = settings.authorizationStatus == .authorized
+            || settings.authorizationStatus == .provisional
+        guard authorized, let request = SharedLinkNotifier.makeRequest(for: link) else {
+            return false
+        }
+        do {
+            try await center.add(request)
+            return true
+        } catch {
+            return false
         }
     }
 

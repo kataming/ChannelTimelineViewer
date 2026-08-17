@@ -65,8 +65,9 @@ targets:
       - path: ShareExtension
         excludes:
           - Info.plist
-      # URL 解析ロジックはメインアプリと共有する（純粋な Foundation 処理のみ）。
+      # URL 解析・通知の組み立てはメインアプリと共有する（Foundation / UserNotifications のみ）。
       - path: Services/SharedLinkParser.swift
+      - path: Services/SharedLinkNotifier.swift
     settings:
       base:
         GENERATE_INFOPLIST_FILE: NO

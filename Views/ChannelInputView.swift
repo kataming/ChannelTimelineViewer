@@ -3,8 +3,10 @@ import SwiftUI
 struct ChannelInputView: View {
     @EnvironmentObject private var favoriteStore: FavoriteChannelStore
     @EnvironmentObject private var sharedLinkRouter: SharedLinkRouter
+    @EnvironmentObject private var clipboardDetector: ClipboardLinkDetector
     @StateObject private var viewModel = ChannelInputViewModel()
     @State private var showAbout = false
+    @State private var clipboardMessage: String?
 
     var body: some View {
         NavigationStack {
@@ -14,6 +16,30 @@ struct ChannelInputView: View {
                         Label("APIキーが設定されていません", systemImage: "exclamationmark.triangle.fill")
                             .foregroundStyle(.orange)
                         Text("Config.plist に YOUTUBE_API_KEY を設定してください。設定方法は README を参照してください。")
+                            .font(.footnote)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+
+                // 共有シートから受け取った URL は、iOS の仕様でアプリを直接開けないため
+                // クリップボード経由で渡ってくる。ここでワンタップで開けるようにする。
+                if clipboardDetector.hasCandidate {
+                    Section {
+                        Button {
+                            openFromClipboard()
+                        } label: {
+                            Label("共有されたURLを開く", systemImage: "doc.on.clipboard")
+                                .font(.body.bold())
+                        }
+                        Text("共有シートで受け取ったURLがクリップボードにあります。")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+
+                if let clipboardMessage {
+                    Section {
+                        Label(clipboardMessage, systemImage: "info.circle")
                             .font(.footnote)
                             .foregroundStyle(.secondary)
                     }
@@ -93,6 +119,18 @@ struct ChannelInputView: View {
 
     private func startFetch() {
         Task { await viewModel.fetch(favoriteStore: favoriteStore) }
+    }
+
+    /// クリップボードにある共有URLを開く（ボタンを押したときだけ中身を読む）。
+    private func openFromClipboard() {
+        clipboardMessage = nil
+        guard let link = clipboardDetector.takeYouTubeLink() else {
+            clipboardMessage = "クリップボードに YouTube のURLが見つかりませんでした。URLを貼り付けて取得してください。"
+            return
+        }
+        Task { @MainActor in
+            await viewModel.openSharedLink(link, favoriteStore: favoriteStore)
+        }
     }
 
     /// 共有された YouTube URL があれば取り込んで一覧を開く。

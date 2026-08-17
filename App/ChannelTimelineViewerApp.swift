@@ -12,6 +12,9 @@ struct ChannelTimelineViewerApp: App {
     @StateObject private var playbackSettings = PlaybackSettingsStore()
     // 共有シート（Share Extension）から渡された YouTube URL の受け口。
     @StateObject private var sharedLinkRouter = SharedLinkRouter()
+    // 共有シートから直接アプリを開けない iOS 仕様のため、クリップボード経由でも拾えるようにする。
+    @StateObject private var clipboardDetector = ClipboardLinkDetector()
+    @Environment(\.scenePhase) private var scenePhase
 
     var body: some Scene {
         WindowGroup {
@@ -23,9 +26,16 @@ struct ChannelTimelineViewerApp: App {
                 .environmentObject(positionStore)
                 .environmentObject(playbackSettings)
                 .environmentObject(sharedLinkRouter)
+                .environmentObject(clipboardDetector)
                 .onOpenURL { url in
                     // channeltimelineviewer://share?url=... 以外は無視する。
                     sharedLinkRouter.handle(url)
+                }
+                // 共有してからアプリに戻ってきたタイミングで、クリップボードの URL を拾えるようにする。
+                .task { await clipboardDetector.refresh() }
+                .onChange(of: scenePhase) { _, phase in
+                    guard phase == .active else { return }
+                    Task { await clipboardDetector.refresh() }
                 }
         }
     }

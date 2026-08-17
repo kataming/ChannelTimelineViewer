@@ -2,6 +2,7 @@ import SwiftUI
 
 struct VideoListView: View {
     @EnvironmentObject private var watchStore: WatchHistoryStore
+    @EnvironmentObject private var skipStore: SkippedVideoStore
     @EnvironmentObject private var progressStore: ChannelProgressStore
     @EnvironmentObject private var positionStore: PlaybackPositionStore
     @EnvironmentObject private var playbackSettings: PlaybackSettingsStore
@@ -122,11 +123,14 @@ struct VideoListView: View {
                     NavigationLink {
                         PlayerView(videos: visible, startIndex: index,
                                    watchStore: watchStore,
+                                   skipStore: skipStore,
                                    positionStore: positionStore,
                                    settings: playbackSettings,
                                    channel: viewModel.channel)
                     } label: {
-                        VideoRow(video: video, watched: watchStore.isWatched(video.id))
+                        VideoRow(video: video,
+                                 watched: watchStore.isWatched(video.id),
+                                 skipped: skipStore.isSkipped(video.id))
                     }
                     // 視聴済みの手動切り替えはここ（スワイプ）と再生画面の「…」メニューから行う。
                     .swipeActions(edge: .leading, allowsFullSwipe: true) {
@@ -138,6 +142,17 @@ struct VideoListView: View {
                                   systemImage: watched ? "arrow.uturn.backward" : "checkmark.circle.fill")
                         }
                         .tint(watched ? .gray : .green)
+                    }
+                    // スキップ指定（自動再生で飛ばす）。
+                    .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                        let skipped = skipStore.isSkipped(video.id)
+                        Button {
+                            skipStore.toggleSkipped(video.id)
+                        } label: {
+                            Label(skipped ? "スキップ解除" : "スキップ",
+                                  systemImage: skipped ? "arrow.uturn.backward" : "forward.end.circle.fill")
+                        }
+                        .tint(skipped ? .gray : .orange)
                     }
                 }
             } header: {
@@ -176,7 +191,8 @@ struct VideoListView: View {
            let v = viewModel.videos.first(where: { $0.id == lastId }) {
             return v
         }
-        return viewModel.nextUnwatched(isWatched: watchStore.isWatched)
+        return viewModel.nextUnwatched(isWatched: watchStore.isWatched,
+                                       isSkipped: skipStore.isSkipped)
     }
 
     @ViewBuilder
@@ -188,6 +204,7 @@ struct VideoListView: View {
             NavigationLink {
                 PlayerView(videos: oldest, startIndex: index,
                            watchStore: watchStore,
+                           skipStore: skipStore,
                            positionStore: positionStore,
                            settings: playbackSettings,
                            channel: viewModel.channel)
@@ -213,6 +230,8 @@ struct VideoListView: View {
 private struct VideoRow: View {
     let video: VideoItem
     let watched: Bool
+    /// 自動再生で飛ばす指定。視聴済みとは別の状態。
+    var skipped: Bool = false
 
     var body: some View {
         HStack(spacing: 12) {
@@ -226,9 +245,18 @@ private struct VideoRow: View {
                     .foregroundStyle(.secondary)
             }
             Spacer(minLength: 4)
-            if watched {
-                Image(systemName: "checkmark.circle.fill")
-                    .foregroundStyle(.green)
+            // 上が視聴済み（緑）、下がスキップ（オレンジ）。
+            VStack(spacing: 4) {
+                if watched {
+                    Image(systemName: "checkmark.circle.fill")
+                        .foregroundStyle(.green)
+                        .accessibilityLabel("視聴済み")
+                }
+                if skipped {
+                    Image(systemName: "checkmark.circle.fill")
+                        .foregroundStyle(.orange)
+                        .accessibilityLabel("スキップ")
+                }
             }
         }
         .padding(.vertical, 4)

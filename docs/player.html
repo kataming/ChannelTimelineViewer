@@ -284,6 +284,13 @@
   function seekTo(seconds) {
     if (player && player.seekTo) { player.seekTo(Math.max(0, seconds || 0), true); }
   }
+
+  // 1本リピート用。先頭に戻してそのまま再生し直す。
+  function replayVideo() {
+    if (!player || !player.seekTo) { return; }
+    player.seekTo(0, true);
+    if (player.playVideo) { player.playVideo(); }
+  }
 </script>
 </body>
 </html>

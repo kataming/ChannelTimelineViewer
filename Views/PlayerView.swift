@@ -6,6 +6,7 @@ struct PlayerView: View {
     @EnvironmentObject private var progressStore: ChannelProgressStore
     @EnvironmentObject private var memoStore: VideoMemoStore
     @EnvironmentObject private var settings: PlaybackSettingsStore
+    @EnvironmentObject private var skipStore: SkippedVideoStore
     @StateObject private var viewModel: PlayerViewModel
     @Environment(\.openURL) private var openURL
     /// 再生設定（速度・字幕）のシートを表示中か。
@@ -24,6 +25,7 @@ struct PlayerView: View {
     init(videos: [VideoItem],
          startIndex: Int,
          watchStore: WatchHistoryStore,
+         skipStore: SkippedVideoStore,
          positionStore: PlaybackPositionStore,
          settings: PlaybackSettingsStore,
          channel: Channel) {
@@ -32,6 +34,7 @@ struct PlayerView: View {
             wrappedValue: PlayerViewModel(videos: videos,
                                           startIndex: startIndex,
                                           watchStore: watchStore,
+                                          skipStore: skipStore,
                                           positionStore: positionStore,
                                           settings: settings)
         )
@@ -182,7 +185,7 @@ struct PlayerView: View {
     /// 主操作：終了後に次へ進むかどうかを、**再生中に**選べるようにする（既定オフ）。
     /// ユーザーが明示的にオンにした場合だけ、一覧の次の動画へ進む。
     private var autoPlayControl: some View {
-        VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .leading, spacing: 10) {
             Toggle(isOn: $settings.autoPlayNext) {
                 VStack(alignment: .leading, spacing: 2) {
                     Text(settings.autoPlayNext ? "自動再生オン：終了後に次の動画へ"
@@ -197,10 +200,53 @@ struct PlayerView: View {
             }
             .tint(.green)
             .accessibilityLabel("終了したら次を自動再生")
+
+            Divider()
+
+            // リピート（1本 / 全体）。1本リピートは自動再生の設定に関わらず働く。
+            HStack {
+                Label("リピート", systemImage: "repeat")
+                    .font(.subheadline)
+                Spacer()
+                Picker("リピート", selection: $settings.repeatMode) {
+                    ForEach(RepeatMode.allCases) { mode in
+                        Text(mode.label).tag(mode)
+                    }
+                }
+                .pickerStyle(.segmented)
+                .frame(maxWidth: 200)
+                .labelsHidden()
+            }
+
+            Toggle(isOn: $settings.playUnwatchedOnly) {
+                Text("未視聴のみ再生")
+                    .font(.subheadline)
+            }
+            .tint(.green)
+
+            Text(playbackModeCaption)
+                .font(.caption2)
+                .foregroundStyle(.tertiary)
         }
         .padding(12)
         .background(Color(.secondarySystemBackground))
         .clipShape(RoundedRectangle(cornerRadius: 12))
+    }
+
+    private var playbackModeCaption: String {
+        var lines = ["スキップにした動画は自動再生で飛ばします。"]
+        if settings.playUnwatchedOnly {
+            lines.append("視聴済みの動画も飛ばして、未視聴だけを再生します。")
+        }
+        switch settings.repeatMode {
+        case .off:
+            break
+        case .one:
+            lines.append("いまの動画を繰り返し再生します。")
+        case .all:
+            lines.append("一覧の最後まで行ったら先頭に戻ります（自動再生オンのとき）。")
+        }
+        return lines.joined()
     }
 
     /// 補助操作（詳細メニュー）。視聴済みの手動切り替えや「続きから再生」の設定はここに置く。
@@ -214,6 +260,14 @@ struct PlayerView: View {
                 } label: {
                     Label(watched ? "視聴済みを解除" : "視聴済みにする",
                           systemImage: watched ? "checkmark.circle.fill" : "checkmark.circle")
+                }
+
+                let skipped = skipStore.isSkipped(video.id)
+                Button {
+                    skipStore.toggleSkipped(video.id)
+                } label: {
+                    Label(skipped ? "スキップを解除" : "スキップにする",
+                          systemImage: skipped ? "forward.end.circle.fill" : "forward.end.circle")
                 }
 
                 Toggle(isOn: $settings.resumeFromLastPosition) {
@@ -283,32 +337,21 @@ struct PlayerView: View {
 
             // 視聴済みは「終了時に自動で付く」ため、ここでは状態表示だけにする。
             // 手動の切り替えは右上の「…」メニュー、または動画一覧のスワイプから行う。
-            if watchStore.isWatched(video.id) {
-                Label("視聴済み", systemImage: "checkmark.circle.fill")
-                    .font(.caption)
-                    .foregroundStyle(.green)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-            }
-
-            // 再生設定はプレイヤー外（アプリ側の画面）で行う。
-            // 現在の状態を出しつつ、タップで設定シートを開く。
-            Button {
-                showPlaybackOptions = true
-            } label: {
-                HStack {
-                    Label("再生設定", systemImage: "slider.horizontal.3")
-                    Spacer()
-                    Text(viewModel.optionsSummary)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                    Image(systemName: "chevron.right")
-                        .font(.caption)
-                        .foregroundStyle(.tertiary)
+            VStack(alignment: .leading, spacing: 4) {
+                if watchStore.isWatched(video.id) {
+                    Label("視聴済み", systemImage: "checkmark.circle.fill")
+                        .foregroundStyle(.green)
                 }
-                .frame(maxWidth: .infinity)
+                if skipStore.isSkipped(video.id) {
+                    Label("スキップ（自動再生で飛ばします）", systemImage: "checkmark.circle.fill")
+                        .foregroundStyle(.orange)
+                }
             }
-            .buttonStyle(.bordered)
+            .font(.caption)
+            .frame(maxWidth: .infinity, alignment: .leading)
 
+            // 再生設定（速度・字幕）は画面右上のアイコンから開く。
+            // ここには置かない（上と重複してノイズになるため）。
             Button {
                 if let url = video.watchURL { openURL(url) }
             } label: {

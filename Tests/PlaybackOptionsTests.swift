@@ -21,6 +21,7 @@ final class PlaybackOptionsTests: XCTestCase {
         return PlayerViewModel(videos: videos,
                                startIndex: 0,
                                watchStore: WatchHistoryStore(defaults: makeDefaults("watch")),
+                               skipStore: SkippedVideoStore(defaults: makeDefaults("skip")),
                                positionStore: PlaybackPositionStore(defaults: makeDefaults("pos")),
                                settings: PlaybackSettingsStore(defaults: makeDefaults("settings")))
     }

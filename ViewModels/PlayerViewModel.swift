@@ -19,6 +19,7 @@ final class PlayerViewModel: ObservableObject {
 
     let videos: [VideoItem]
     private let watchStore: WatchHistoryStore
+    private let skipStore: SkippedVideoStore
     private let positionStore: PlaybackPositionStore
     private let settings: PlaybackSettingsStore
     /// 同じ動画の「終了」を二重に処理しないための記録。
@@ -42,6 +43,7 @@ final class PlayerViewModel: ObservableObject {
     init(videos: [VideoItem],
          startIndex: Int,
          watchStore: WatchHistoryStore,
+         skipStore: SkippedVideoStore = SkippedVideoStore(),
          positionStore: PlaybackPositionStore,
          settings: PlaybackSettingsStore) {
         self.videos = videos
@@ -51,6 +53,7 @@ final class PlayerViewModel: ObservableObject {
             self.currentIndex = max(0, min(startIndex, videos.count - 1))
         }
         self.watchStore = watchStore
+        self.skipStore = skipStore
         self.positionStore = positionStore
         self.settings = settings
         self.startSecondsForCurrent = Self.resumeSeconds(
@@ -220,7 +223,7 @@ final class PlayerViewModel: ObservableObject {
             .replacingOccurrences(of: "0$", with: "", options: .regularExpression) + "倍"
     }
 
-    // MARK: - 視聴済み
+    // MARK: - 視聴済み / スキップ
 
     func markCurrentWatched() {
         guard let video = currentVideo else { return }
@@ -230,6 +233,48 @@ final class PlayerViewModel: ObservableObject {
     func isCurrentWatched() -> Bool {
         guard let video = currentVideo else { return false }
         return watchStore.isWatched(video.id)
+    }
+
+    func isCurrentSkipped() -> Bool {
+        guard let video = currentVideo else { return false }
+        return skipStore.isSkipped(video.id)
+    }
+
+    /// いま見ている動画のスキップ指定を切り替える。
+    func toggleCurrentSkipped() {
+        guard let video = currentVideo else { return }
+        skipStore.toggleSkipped(video.id)
+        objectWillChange.send()
+    }
+
+    // MARK: - 次に再生する動画の決め方
+
+    /// 自動再生で再生してよい動画か。
+    /// スキップ指定は常に除外し、「未視聴のみ再生」がオンなら視聴済みも除外する。
+    private func isPlayableForAutoAdvance(_ video: VideoItem) -> Bool {
+        if skipStore.isSkipped(video.id) { return false }
+        if settings.playUnwatchedOnly, watchStore.isWatched(video.id) { return false }
+        return true
+    }
+
+    /// 自動再生で次に進む先。無ければ nil（そこで停止する）。
+    func nextIndexForAutoAdvance() -> Int? {
+        guard !videos.isEmpty else { return nil }
+
+        var index = currentIndex + 1
+        while index < videos.count {
+            if isPlayableForAutoAdvance(videos[index]) { return index }
+            index += 1
+        }
+
+        // 全体リピートなら先頭に戻って探す（いま見ている動画の手前まで）。
+        guard settings.repeatMode == .all else { return nil }
+        index = 0
+        while index < currentIndex {
+            if isPlayableForAutoAdvance(videos[index]) { return index }
+            index += 1
+        }
+        return nil
     }
 
     // MARK: - プレイヤーからの通知
@@ -251,9 +296,18 @@ final class PlayerViewModel: ObservableObject {
         markCurrentWatched()
         positionStore.clear(videoId: video.id)
 
-        if settings.autoPlayNext, canGoNext {
-            // 一覧の次の動画へ続けて再生する（設定でオフにできる）。
-            move(to: currentIndex + 1, autoAdvanced: true)
+        // 1本リピートは自動再生の設定に関わらず、同じ動画を繰り返す。
+        if settings.repeatMode == .one {
+            endedHandledVideoId = nil        // 次の終了もまた処理する
+            hasStartedCurrentVideo = false   // 再生開始の通知を待つ
+            showEndedSuggestion = false
+            command = YouTubePlayerWebView.PlayerCommand(.replay)
+            return
+        }
+
+        if settings.autoPlayNext, let next = nextIndexForAutoAdvance() {
+            // 一覧の次の動画へ続けて再生する（スキップ指定と「未視聴のみ」を考慮）。
+            move(to: next, autoAdvanced: true)
         } else {
             showEndedSuggestion = canGoNext
         }

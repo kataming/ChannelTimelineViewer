@@ -60,6 +60,8 @@ struct YouTubePlayerWebView: UIViewRepresentable {
             case captionTrack(String?)
             /// 選べる速度・字幕トラックを取り直す（設定画面を開いたとき用）。
             case refreshOptions
+            /// 先頭に戻して再生し直す（1本リピート用）。
+            case replay
         }
         let id: UUID
         let kind: Kind
@@ -86,6 +88,8 @@ struct YouTubePlayerWebView: UIViewRepresentable {
                 return "setCaptionTrack('\(safe)');"
             case .refreshOptions:
                 return "postOptions();"
+            case .replay:
+                return "replayVideo();"
             }
         }
     }

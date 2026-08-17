@@ -263,7 +263,98 @@ final class PlaybackResumeTests: XCTestCase {
         XCTAssertFalse(vm.showEndedSuggestion)
     }
 
+    // MARK: - 移動（最初へ / 最後へ / 戻る）
+
+    func testGoFirstAndGoLast() {
+        let positions = PlaybackPositionStore(defaults: makeDefaults("pos"))
+        let settings = PlaybackSettingsStore(defaults: makeDefaults("settings"))
+        let videos = makeVideos(10)
+        let vm = makeViewModel(videos: videos, startIndex: 4, positionStore: positions, settings: settings)
+
+        vm.goLast()
+        XCTAssertEqual(vm.currentIndex, 9)
+        XCTAssertFalse(vm.canGoNext)
+
+        vm.goFirst()
+        XCTAssertEqual(vm.currentIndex, 0)
+        XCTAssertFalse(vm.canGoPrevious)
+    }
+
+    /// 「最初へ」を押し間違えても、「戻る」で元の動画・再生位置に復帰できること。
+    func testGoBackRestoresPreviousVideoAndPosition() {
+        let positions = PlaybackPositionStore(defaults: makeDefaults("pos"))
+        let settings = PlaybackSettingsStore(defaults: makeDefaults("settings"))
+        let videos = makeVideos(10)
+        let vm = makeViewModel(videos: videos, startIndex: 4, positionStore: positions, settings: settings)
+
+        XCTAssertFalse(vm.canGoBack, "まだ移動していないので戻れない")
+
+        // 5本目を 8分20秒まで見ている状態
+        vm.handleState(.playing)
+        vm.handleTimeUpdate(videoId: videos[4].id, seconds: 500, duration: 1800)
+
+        vm.goFirst()   // 押し間違え
+        XCTAssertEqual(vm.currentIndex, 0)
+        XCTAssertTrue(vm.canGoBack)
+
+        vm.goBack()
+        XCTAssertEqual(vm.currentIndex, 4, "元の動画に戻る")
+        XCTAssertEqual(vm.startSecondsForCurrent, 500, "元の再生位置から再開する")
+        XCTAssertFalse(vm.canGoBack, "履歴を使い切ったら無効になる")
+    }
+
+    /// 続きから再生をオフにしていても、「戻る」なら元の位置に戻ること。
+    func testGoBackRestoresPositionEvenWhenResumeDisabled() {
+        let positions = PlaybackPositionStore(defaults: makeDefaults("pos"))
+        let settings = PlaybackSettingsStore(defaults: makeDefaults("settings"))
+        settings.resumeFromLastPosition = false
+        let videos = makeVideos(5)
+        let vm = makeViewModel(videos: videos, startIndex: 1, positionStore: positions, settings: settings)
+
+        vm.handleState(.playing)
+        vm.handleTimeUpdate(videoId: videos[1].id, seconds: 300, duration: 1200)
+        vm.goNext()
+        XCTAssertEqual(vm.startSecondsForCurrent, 0, "通常の移動では最初から")
+
+        vm.goBack()
+        XCTAssertEqual(vm.currentIndex, 1)
+        XCTAssertEqual(vm.startSecondsForCurrent, 300)
+    }
+
+    func testGoBackWalksThroughMultipleMoves() {
+        let positions = PlaybackPositionStore(defaults: makeDefaults("pos"))
+        let settings = PlaybackSettingsStore(defaults: makeDefaults("settings"))
+        let videos = makeVideos(10)
+        let vm = makeViewModel(videos: videos, startIndex: 3, positionStore: positions, settings: settings)
+
+        vm.goNext()    // 4
+        vm.goLast()    // 9
+        vm.goFirst()   // 0
+
+        vm.goBack()
+        XCTAssertEqual(vm.currentIndex, 9)
+        vm.goBack()
+        XCTAssertEqual(vm.currentIndex, 4)
+        vm.goBack()
+        XCTAssertEqual(vm.currentIndex, 3)
+        XCTAssertFalse(vm.canGoBack)
+        vm.goBack()
+        XCTAssertEqual(vm.currentIndex, 3, "履歴が空なら何も起きない")
+    }
+
     // MARK: - 表示用
+
+    func testPositionTextShowsCurrentAndTotalWithSeparators() {
+        let positions = PlaybackPositionStore(defaults: makeDefaults("pos"))
+        let settings = PlaybackSettingsStore(defaults: makeDefaults("settings"))
+        let videos = makeVideos(3_500)
+        let vm = makeViewModel(videos: videos, startIndex: 1_033,
+                               positionStore: positions, settings: settings)
+
+        XCTAssertEqual(vm.currentPosition, 1_034)
+        XCTAssertEqual(vm.totalCount, 3_500)
+        XCTAssertEqual(vm.positionText, "1,034 / 3,500")
+    }
 
     func testTimeString() {
         XCTAssertEqual(PlaybackPosition.timeString(0), "0:00")

@@ -70,6 +70,9 @@ struct YouTubePlayerWebView: UIViewRepresentable {
         config.userContentController = controller
         config.allowsInlineMediaPlayback = true
         config.mediaTypesRequiringUserActionForPlayback = []
+        // 公式プレイヤーの全画面ボタンを機能させる（既定では WKWebView 内の全画面は無効）。
+        // 設定メニューや字幕の表示領域を確保するのにも効く。
+        config.preferences.isElementFullscreenEnabled = true
 
         let webView = WKWebView(frame: .zero, configuration: config)
         webView.scrollView.isScrollEnabled = false

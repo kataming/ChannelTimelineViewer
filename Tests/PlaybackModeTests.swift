@@ -74,11 +74,19 @@ final class PlaybackModeTests: XCTestCase {
         XCTAssertEqual(RepeatMode.all.next, .off)
     }
 
-    /// オフのときもアイコンを出す（状態が見て分かるようにする）。
-    func testRepeatModeHasDistinctSymbols() {
-        let symbols = RepeatMode.allCases.map(\.symbolName)
-        XCTAssertEqual(Set(symbols).count, RepeatMode.allCases.count, "状態ごとに別のアイコン")
-        XCTAssertFalse(RepeatMode.off.symbolName.isEmpty, "オフでもアイコンを表示する")
+    /// 3状態がバッジで見分けられること（オフ＝枠線のみ、1本＝1入り、全体＝ALL入り）。
+    func testRepeatModeBadgeAppearance() {
+        XCTAssertFalse(RepeatMode.off.isActive, "オフは塗りつぶさない（枠線だけ）")
+        XCTAssertTrue(RepeatMode.one.isActive)
+        XCTAssertTrue(RepeatMode.all.isActive)
+
+        XCTAssertEqual(RepeatMode.one.glyphSymbolName, "repeat.1", "1本は数字入りの記号")
+        XCTAssertEqual(RepeatMode.off.glyphSymbolName, "repeat")
+        XCTAssertEqual(RepeatMode.all.glyphSymbolName, "repeat")
+
+        XCTAssertTrue(RepeatMode.all.showsAllLabel, "全体は ALL を重ねる")
+        XCTAssertFalse(RepeatMode.one.showsAllLabel)
+        XCTAssertFalse(RepeatMode.off.showsAllLabel)
     }
 
     // MARK: - ① リピート

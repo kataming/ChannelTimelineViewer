@@ -144,7 +144,7 @@ final class ScreenshotUITests: XCTestCase {
     /// 一覧を上端まで戻す（スワイプでずれた状態から行を選ぶと画面外で押せないため）。
     private func scrollListToTop() {
         for _ in 0..<3 {
-            let progress = app.staticTexts[L("progress.title")]
+            let progress = app.cells.element(boundBy: 0).staticTexts[L("progress.title")]
             if progress.exists && progress.isHittable { return }
             app.swipeDown()
             Thread.sleep(forTimeInterval: 0.4)
@@ -235,7 +235,11 @@ final class ScreenshotUITests: XCTestCase {
         }
         // タイトルが変わるのは「チャンネルが解決できた」時点で、動画一覧はまだ取得中のことがある。
         // 本数の多いチャンネル（数千本）だと数分かかるので、取得完了の合図＝進捗ヘッダーを待つ。
-        let progressHeader = app.staticTexts[L("progress.title")]
+        // 問い合わせは狭い範囲に限る。app.staticTexts[...] のような全体検索は、
+        // 5,000行の一覧ではツリーの走査が終わらず
+        // 「Failed to get matching snapshots」で落ちるため使わない。
+        // 進捗ヘッダーは一覧の先頭セルにあるので、そのセルの中だけを見る。
+        let progressHeader = app.cells.element(boundBy: 0).staticTexts[L("progress.title")]
         if !progressHeader.waitForExistence(timeout: 420) {
             capture("ERROR-list-not-loaded")
             XCTFail("動画一覧の取得が終わりませんでした（本数が多すぎる/通信エラーの可能性）")

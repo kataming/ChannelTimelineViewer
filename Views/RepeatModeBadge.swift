@@ -26,6 +26,8 @@ struct RepeatModeBadge: View {
     var glyphWeight: Font.Weight = .light
     /// 中央の文字の大きさ（バッジに対する割合）。
     var labelRatio: CGFloat = 0.26
+    /// 中央の文字の下地で矢印の線を切り抜くか（文字と線が重なるのを防ぐ）。
+    var usesKnockout: Bool = false
 
     private var cornerRadius: CGFloat { size * 0.27 }
     /// 記号は横に広い（幅は文字サイズの約1.4倍）ので、枠に収まるよう小さめにする。
@@ -69,6 +71,9 @@ struct RepeatModeBadge: View {
                 Text(label)
                     .font(.system(size: labelSize, weight: .heavy))
                     .foregroundStyle(inkColor)
+                    .padding(.horizontal, size * 0.03)
+                    .frame(height: usesKnockout ? labelSize * 0.95 : nil)
+                    .background(usesKnockout ? fillColor : .clear)
             }
         }
     }

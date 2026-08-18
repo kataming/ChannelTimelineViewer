@@ -11,18 +11,38 @@ import SwiftUI
 
 // MARK: - 仕上がり確認用のシート
 
+/// 継ぎ目と文字の重なりの処理を見比べる。
+struct Finish {
+    let name: String
+    let gap: CGFloat
+    let knockout: Bool
+}
+
+let finishes: [Finish] = [
+    Finish(name: "案A: いま（上下に離す・切り抜きなし）", gap: 0.06, knockout: false),
+    Finish(name: "案B: 離さない・文字の下地で切り抜く", gap: 0.0, knockout: true),
+    Finish(name: "案C: 離す＋切り抜く", gap: 0.06, knockout: true),
+]
+
 struct RepeatBadgeSheet: View {
     let dark: Bool
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text(dark ? "ダークモード" : "ライトモード").font(.headline)
-            HStack(alignment: .top, spacing: 28) {
-                ForEach(RepeatMode.allCases) { mode in
-                    VStack(spacing: 10) {
-                        RepeatModeBadge(mode: mode)               // 実寸
-                        RepeatModeBadge(mode: mode, size: 88)     // 拡大
-                        Text(mode.label).font(.caption)
+            ForEach(finishes, id: \.name) { finish in
+                VStack(alignment: .leading, spacing: 6) {
+                    Text(finish.name).font(.caption).foregroundStyle(.secondary)
+                    HStack(alignment: .top, spacing: 28) {
+                        ForEach(RepeatMode.allCases) { mode in
+                            VStack(spacing: 10) {
+                                RepeatModeBadge(mode: mode, arrowGap: finish.gap,
+                                                usesKnockout: finish.knockout)
+                                RepeatModeBadge(mode: mode, size: 88, arrowGap: finish.gap,
+                                                usesKnockout: finish.knockout)
+                                Text(mode.label).font(.caption)
+                            }
+                        }
                     }
                 }
             }

@@ -74,5 +74,7 @@
   "supportURL": "https://channeltimeline.jewelrysunflower.com/{lang}/support/",
   "marketingURL": "https://channeltimeline.jewelrysunflower.com/{lang}/",
   "privacyPolicyURL": "https://channeltimeline.jewelrysunflower.com/{lang}/privacy/",
-  "_urlComment": "{lang} は言語ごとのスラッグ（ja/en/zh/es/de/fr/ko）に置き換える。scripts が自動で行う。"
+  "_urlComment": "{lang} は言語ごとのスラッグ（ja/en/zh/es/de/fr/ko）に置き換える。scripts が自動で行う。",
+  "copyright": "2026 JEWELRY SUNFLOWER, K.K.",
+  "_copyrightComment": "App Store Connect の「著作権」欄（バージョン単位・言語共通）。年 + 権利者名。© は不要。"
 }

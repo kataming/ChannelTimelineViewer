@@ -303,6 +303,15 @@ def push(client: Client, bundle_id: str, version_string: str) -> int:
     print(f"バージョン {version['attributes']['versionString']} "
           f"（{version['attributes'].get('appStoreState')}）に反映します")
 
+    # 「著作権」欄はバージョン単位（言語共通）。未入力だと提出できない。
+    copyright_text = data.get("copyright")
+    if copyright_text and version["attributes"].get("copyright") != copyright_text:
+        print(f"  著作権: {copyright_text}")
+        client.write("PATCH", f"/v1/appStoreVersions/{version_id}", {
+            "data": {"type": "appStoreVersions", "id": version_id,
+                     "attributes": {"copyright": copyright_text}}
+        })
+
     existing = localizations(client, f"/v1/appStoreVersions/{version_id}/appStoreVersionLocalizations")
     for lang, locale in LOCALE_MAP.items():
         attributes = {
@@ -683,8 +692,11 @@ def diagnose(client: Client, bundle_id: str) -> int:
         return 0
     va = version["attributes"]
     print(f"  {va.get('versionString')}: {va.get('appStoreState')} / 公開方法 {va.get('releaseType')}")
+    print(f"  著作権: {va.get('copyright') or '未入力'}")
 
     checks = []
+    if not va.get("copyright"):
+        checks.append("著作権が未入力")
     locs = localizations(
         client, f"/v1/appStoreVersions/{version['id']}/appStoreVersionLocalizations")
     primary = app["attributes"].get("primaryLocale")

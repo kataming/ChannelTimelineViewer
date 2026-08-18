@@ -41,3 +41,35 @@ App Store は **iPhone 6.7インチ（または 6.9インチ）**のスクショ
 - [ ] 解像度が App Store 要件に一致（対象端末で撮影）
 - [ ] キャプションが「学習・時系列・進捗」訴求で、公式誤認・ロゴ使用がない
 - [ ] 個人情報や実APIキーが画面に写り込んでいない
+
+---
+
+## 6. 言語別の自動撮影（GitHub Actions）
+
+`.github/workflows/ios-screenshots.yml` を **Run workflow** で実行すると、シミュレーター上の UI テストで
+撮影して artifact に出力します。多言語対応にともない、**言語ごとに1ジョブ**走ります。
+
+| 入力 | 既定 | 意味 |
+| --- | --- | --- |
+| `channel_url` | `https://www.youtube.com/@3blue1brown` | 撮影に使うチャンネル |
+| `device` | 空（最新の iPhone Pro Max を自動選択） | シミュレーター名 |
+| `watched_count` | `12` | 進捗バーに数字を出すため視聴済みにする本数（1本 約15秒） |
+| `languages` | `en,ja,zh-Hans,es,de,fr,ko` | 撮影する言語。必要なぶんだけに絞れる |
+
+成果物は `app-store-screenshots-<言語>`（例 `app-store-screenshots-ja`）としてダウンロードできます。
+UI テストは翻訳キー（`Localization/strings.json`）から画面の文字を引くので、言語を足しても壊れません。
+
+### ⚠️ 再生画面（04）だけは実機で撮り直す
+
+GitHub Actions のランナーはデータセンターのIPから接続するため、埋め込みプレイヤーに
+**「ログインして bot ではないことを確認してください」** という YouTube 側の確認画面が出ます
+（アプリの不具合ではなく、YouTube のアクセス元判定によるもの）。この状態の画像はストアに使えません。
+
+- 01・02・03・05・06 は CI の画像をそのまま使えます。
+- **04（再生画面＋メモ）は、実機（TestFlight 版）でスクリーンショットを撮って差し替えてください。**
+  実機なら通常どおり再生されます。撮る内容は CI の 04 と同じ構図（プレイヤー＋タイトル＋移動ボタン＋メモ）。
+
+### 撮影後
+
+- サイズが 6.9 インチ（1320×2868）等の要件を満たしているか確認する。
+- キャプションを重ねる場合は [`AppStore/screenshot-captions.md`](AppStore/screenshot-captions.md)（7言語）を使う。

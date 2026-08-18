@@ -1,0 +1,54 @@
+---
+import { path, t } from '../i18n/index.js';
+import { APP_NAME } from '../config.js';
+import LangSelect from './LangSelect.astro';
+
+const { lang, page = '' } = Astro.props;
+const copy = t(lang);
+const home = path(lang);
+---
+
+<header class="site-header">
+  <div class="wrap bar">
+    <a class="brand" href={home}>{APP_NAME}</a>
+    <nav>
+      <a href={`${home}#features`}>{copy.nav.features}</a>
+      <a href={`${home}#how`}>{copy.nav.how}</a>
+      <a href={`${home}#faq`}>{copy.nav.faq}</a>
+      <a href={path(lang, 'support')}>{copy.nav.support}</a>
+      <LangSelect lang={lang} page={page} />
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-height: 60px;
+    flex-wrap: wrap;
+  }
+  .brand { font-weight: 700; text-decoration: none; }
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+    font-size: 0.92rem;
+  }
+  nav a { color: var(--muted); text-decoration: none; }
+  nav a:hover { color: var(--text); }
+  @media (max-width: 640px) {
+    nav a:not(:last-child) { display: none; }
+  }
+</style>

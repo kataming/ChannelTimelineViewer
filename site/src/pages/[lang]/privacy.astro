@@ -1,0 +1,48 @@
+---
+import Base from '../../layouts/Base.astro';
+import { codes, langOf, t } from '../../i18n/index.js';
+import { SUPPORT_EMAIL } from '../../config.js';
+
+export function getStaticPaths() {
+  return codes.map((code) => ({ params: { lang: langOf(code).slug }, props: { code } }));
+}
+
+const { code } = Astro.props;
+const copy = t(code);
+const p = copy.privacy;
+// 本文中の URL はそのまま読めるようにリンクへ変換する。
+const linkify = (line) => line.split(/(https?:\/\/[^\s]+)/g);
+---
+
+<Base lang={code} page="privacy" title={`${p.title} — Channel Timeline Viewer`} description={p.description}>
+  <section>
+    <div class="wrap prose">
+      <h1>{p.title}</h1>
+      <p class="muted">{p.updated}</p>
+
+      {p.sections.map((section) => (
+        <>
+          <h2>{section.title}</h2>
+          {section.body.map((line) => (
+            <p>
+              {linkify(line).map((part) =>
+                /^https?:\/\//.test(part)
+                  ? <a href={part} rel="noopener">{part}</a>
+                  : part
+              )}
+            </p>
+          ))}
+        </>
+      ))}
+      <p><a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a></p>
+
+      <hr />
+      <p class="fine">{p.trademark}</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  hr { border: 0; border-top: 1px solid var(--line); margin: 32px 0 18px; }
+  .fine { color: var(--muted); font-size: 0.82rem; }
+</style>

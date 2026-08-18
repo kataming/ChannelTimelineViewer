@@ -1,0 +1,35 @@
+---
+import Base from '../../layouts/Base.astro';
+import { codes, langOf, t, path } from '../../i18n/index.js';
+import { SUPPORT_EMAIL, REPOSITORY_URL } from '../../config.js';
+
+export function getStaticPaths() {
+  return codes.map((code) => ({ params: { lang: langOf(code).slug }, props: { code } }));
+}
+
+const { code } = Astro.props;
+const copy = t(code);
+const s = copy.support;
+---
+
+<Base lang={code} page="support" title={`${s.title} — Channel Timeline Viewer`} description={s.description}>
+  <section>
+    <div class="wrap prose">
+      <h1>{s.title}</h1>
+      <p class="lede">{s.intro}</p>
+
+      <h2>{s.faqTitle}</h2>
+      {s.faq.map((item) => (
+        <details>
+          <summary>{item.q}</summary>
+          <p>{item.a}</p>
+        </details>
+      ))}
+
+      <h2>{s.contactTitle}</h2>
+      <p>{s.contactBody} <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a></p>
+      <p class="muted">{s.responseTitle}: {s.responseBody}</p>
+      <p><a href={REPOSITORY_URL} rel="noopener">{copy.footer.source}</a> · <a href={path(code, 'privacy')}>{copy.nav.privacy}</a></p>
+    </div>
+  </section>
+</Base>

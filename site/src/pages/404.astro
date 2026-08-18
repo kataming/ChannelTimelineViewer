@@ -1,0 +1,16 @@
+---
+import Base from '../layouts/Base.astro';
+import { t, path, DEFAULT_CODE } from '../i18n/index.js';
+
+const copy = t(DEFAULT_CODE);
+---
+
+<Base lang={DEFAULT_CODE} page="" title="Not found — Channel Timeline Viewer" description={copy.notFound.body}>
+  <section>
+    <div class="wrap prose">
+      <h1>{copy.notFound.title}</h1>
+      <p class="lede">{copy.notFound.body}</p>
+      <p><a class="btn" href={path(DEFAULT_CODE)}>{copy.notFound.cta}</a></p>
+    </div>
+  </section>
+</Base>

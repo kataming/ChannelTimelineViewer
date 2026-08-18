@@ -1,0 +1,108 @@
+---
+import Base from '../../layouts/Base.astro';
+import { codes, langOf, t, path } from '../../i18n/index.js';
+import { APP_STORE_URL } from '../../config.js';
+
+export function getStaticPaths() {
+  return codes.map((code) => ({ params: { lang: langOf(code).slug }, props: { code } }));
+}
+
+const { code } = Astro.props;
+const copy = t(code);
+const hasStore = Boolean(APP_STORE_URL);
+---
+
+<Base lang={code} page="" title={copy.meta.title} description={copy.meta.description}>
+  <section class="hero">
+    <div class="wrap">
+      <p class="badge">{copy.hero.badge}</p>
+      <h1>{copy.hero.title}</h1>
+      <p class="lede">{copy.hero.subtitle}</p>
+      <p class="cta">
+        {hasStore ? (
+          <a class="btn" href={APP_STORE_URL} rel="noopener">{copy.hero.cta}</a>
+        ) : (
+          <span class="btn" aria-disabled="true">{copy.hero.ctaPending}</span>
+        )}
+      </p>
+      <p class="muted small">{copy.hero.ctaNote}</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>{copy.problem.title}</h2>
+      <p class="lede">{copy.problem.body}</p>
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="wrap">
+      <h2>{copy.featuresTitle}</h2>
+      <div class="grid">
+        {copy.features.map((f) => (
+          <article class="card">
+            <h3>{f.title}</h3>
+            <p>{f.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="wrap">
+      <h2>{copy.howTitle}</h2>
+      <div class="grid steps">
+        {copy.how.map((s) => (
+          <article class="card">
+            <h3>{s.title}</h3>
+            <p>{s.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="notes">
+    <div class="wrap">
+      <h2>{copy.notesTitle}</h2>
+      <ul class="plain">
+        {copy.notes.map((n) => <li>{n}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <h2>{copy.faqTitle}</h2>
+      {copy.faq.map((item) => (
+        <details>
+          <summary>{item.q}</summary>
+          <p>{item.a}</p>
+        </details>
+      ))}
+      <p class="more">
+        <a href={path(code, 'support')}>{copy.nav.support}</a>
+        {' · '}
+        <a href={path(code, 'privacy')}>{copy.nav.privacy}</a>
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero { padding: 72px 0 56px; }
+  .badge {
+    display: inline-block;
+    font-size: 0.8rem;
+    color: var(--muted);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 4px 12px;
+    margin: 0 0 18px;
+  }
+  .cta { margin: 26px 0 8px; }
+  .small { font-size: 0.85rem; }
+  .more { margin-top: 22px; font-size: 0.92rem; }
+</style>

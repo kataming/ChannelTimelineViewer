@@ -1,0 +1,49 @@
+---
+// ルート（/）は言語別ページへの入口。ブラウザの言語で振り分け、
+// JavaScript が無い場合や未対応言語のときは英語版へ送る。
+import { languages, path, DEFAULT_CODE } from '../i18n/index.js';
+import { SITE_URL } from '../config.js';
+
+const fallback = path(DEFAULT_CODE);
+const map = Object.fromEntries(languages.map((l) => [l.htmlLang.toLowerCase(), path(l.code)]));
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Channel Timeline Viewer</title>
+    <link rel="canonical" href={SITE_URL + fallback} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta http-equiv="refresh" content={`0; url=${fallback}`} />
+    {languages.map((l) => (
+      <link rel="alternate" hreflang={l.htmlLang} href={SITE_URL + path(l.code)} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={SITE_URL + fallback} />
+    <script is:inline define:vars={{ map, fallback }}>
+      (function () {
+        var wanted = (navigator.languages || [navigator.language || 'en']).map(function (l) {
+          return String(l).toLowerCase();
+        });
+        for (var i = 0; i < wanted.length; i++) {
+          var full = wanted[i];
+          var base = full.split('-')[0];
+          var hit = map[full] || map[base] || (base === 'zh' ? map['zh-hans'] : null);
+          if (hit) { location.replace(hit); return; }
+        }
+        location.replace(fallback);
+      })();
+    </script>
+  </head>
+  <body>
+    <p style="font-family: system-ui; padding: 24px;">
+      <a href={fallback}>Channel Timeline Viewer</a>
+    </p>
+    <ul style="font-family: system-ui; padding: 0 24px;">
+      {languages.map((l) => (
+        <li><a href={path(l.code)} hreflang={l.htmlLang}>{l.label}</a></li>
+      ))}
+    </ul>
+  </body>
+</html>

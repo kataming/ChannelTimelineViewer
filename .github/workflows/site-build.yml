@@ -1,0 +1,38 @@
+name: Site Build
+
+# 公式サイト（site/・Astro）のビルドと点検。アプリのビルドとは独立している。
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'site/**'
+      - '.github/workflows/site-build.yml'
+  pull_request:
+    paths:
+      - 'site/**'
+      - '.github/workflows/site-build.yml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: site
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+
+      - name: 依存関係をインストール
+        run: npm ci
+
+      - name: ビルド
+        run: npm run build
+
+      - name: 出力を点検（言語・hreflang・翻訳漏れ）
+        run: npm run check

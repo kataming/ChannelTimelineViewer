@@ -1,0 +1,24 @@
+---
+// 言語切替。JavaScript が無くても動くよう、単なるリンクの集合にしている。
+import { languages, path } from '../i18n/index.js';
+
+const { lang, page = '' } = Astro.props;
+---
+
+<div class="langs">
+  {languages.map((l) => (
+    <a
+      href={path(l.code, page)}
+      hreflang={l.htmlLang}
+      lang={l.htmlLang}
+      aria-current={l.code === lang ? 'true' : undefined}
+    >{l.label}</a>
+  ))}
+</div>
+
+<style>
+  .langs { display: flex; gap: 10px; flex-wrap: wrap; font-size: 0.85rem; }
+  .langs a { color: var(--muted); text-decoration: none; }
+  .langs a[aria-current='true'] { color: var(--text); font-weight: 700; }
+  .langs a:hover { color: var(--text); }
+</style>

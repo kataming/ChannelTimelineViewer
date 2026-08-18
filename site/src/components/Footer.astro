@@ -1,0 +1,35 @@
+---
+import { path } from '../i18n/index.js';
+import { APP_NAME } from '../config.js';
+import LangSelect from './LangSelect.astro';
+
+const { lang, page = '', repository, copy } = Astro.props;
+const year = 2026;
+---
+
+<footer>
+  <div class="wrap">
+    <p class="tagline">{APP_NAME} — {copy.footer.tagline}</p>
+    <nav>
+      <a href={path(lang, 'support')}>{copy.nav.support}</a>
+      <a href={path(lang, 'privacy')}>{copy.nav.privacy}</a>
+      <a href={repository} rel="noopener">{copy.footer.source}</a>
+    </nav>
+    <div class="langs-row">
+      <span class="muted">{copy.footer.language}</span>
+      <LangSelect lang={lang} page={page} />
+    </div>
+    <p class="fine">{copy.footer.trademark}</p>
+    <p class="fine">© {year} Deskflow Labs</p>
+  </div>
+</footer>
+
+<style>
+  footer { border-top: 1px solid var(--line); padding: 40px 0 56px; }
+  .tagline { font-weight: 600; }
+  nav { display: flex; gap: 18px; flex-wrap: wrap; font-size: 0.92rem; margin-bottom: 14px; }
+  nav a { color: var(--muted); text-decoration: none; }
+  nav a:hover { color: var(--text); }
+  .langs-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; font-size: 0.85rem; }
+  .fine { color: var(--muted); font-size: 0.8rem; max-width: 80ch; }
+</style>

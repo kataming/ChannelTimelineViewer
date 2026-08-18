@@ -1,0 +1,141 @@
+---
+// 全ページ共通の枠。<head>（canonical / hreflang / OGP）とスタイルをここに集約する。
+import { languages, langOf, path, t } from '../i18n/index.js';
+import { SITE_URL, APP_NAME, REPOSITORY_URL } from '../config.js';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const { lang, page = '', title, description } = Astro.props;
+const L = langOf(lang);
+const copy = t(lang);
+const canonical = SITE_URL + path(lang, page);
+---
+
+<!doctype html>
+<html lang={L.htmlLang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    {/* 言語ごとの別URLを検索エンジンに伝える。 */}
+    {languages.map((l) => (
+      <link rel="alternate" hreflang={l.htmlLang} href={SITE_URL + path(l.code, page)} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={SITE_URL + path('en', page)} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={APP_NAME} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={L.ogLocale} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <style is:global>
+      :root {
+        --bg: #0d1117;
+        --bg-soft: #151b23;
+        --line: #26303d;
+        --text: #e7edf5;
+        --muted: #9fb0c4;
+        --accent: #35c46a;
+        --accent-ink: #06210f;
+        --radius: 14px;
+        --max: 1040px;
+      }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg: #ffffff;
+          --bg-soft: #f4f7fb;
+          --line: #dfe6ee;
+          --text: #14212e;
+          --muted: #5a6b7d;
+          --accent: #17914a;
+          --accent-ink: #ffffff;
+        }
+      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans",
+          "Noto Sans JP", "Noto Sans KR", "Noto Sans SC", Roboto, sans-serif;
+        line-height: 1.75;
+        -webkit-font-smoothing: antialiased;
+      }
+      .wrap { max-width: var(--max); margin: 0 auto; padding: 0 20px; }
+      a { color: inherit; }
+      h1, h2, h3 { line-height: 1.3; letter-spacing: -0.01em; }
+      h1 { font-size: clamp(1.9rem, 4.6vw, 3rem); margin: 0 0 16px; }
+      h2 { font-size: clamp(1.35rem, 2.6vw, 1.85rem); margin: 0 0 20px; }
+      h3 { font-size: 1.05rem; margin: 0 0 6px; }
+      p { margin: 0 0 14px; }
+      section { padding: 56px 0; border-top: 1px solid var(--line); }
+      section:first-of-type { border-top: 0; }
+      .muted { color: var(--muted); }
+      .grid {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      }
+      .card {
+        background: var(--bg-soft);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 20px;
+      }
+      .card p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+      .btn {
+        display: inline-block;
+        background: var(--accent);
+        color: var(--accent-ink);
+        font-weight: 700;
+        text-decoration: none;
+        padding: 13px 26px;
+        border-radius: 999px;
+      }
+      .btn[aria-disabled='true'] { background: var(--bg-soft); color: var(--muted); border: 1px solid var(--line); }
+      .lede { font-size: 1.1rem; color: var(--muted); max-width: 62ch; }
+      ul.plain { list-style: none; padding: 0; margin: 0; }
+      ul.plain li { padding: 10px 0; border-bottom: 1px solid var(--line); color: var(--muted); }
+      ul.plain li:last-child { border-bottom: 0; }
+      .prose { max-width: 74ch; }
+      .prose h2 { font-size: 1.2rem; margin: 32px 0 10px; }
+      .prose p { color: var(--muted); }
+      .steps { counter-reset: step; }
+      .steps .card::before {
+        counter-increment: step;
+        content: counter(step);
+        display: inline-flex;
+        width: 26px; height: 26px;
+        align-items: center; justify-content: center;
+        border-radius: 50%;
+        background: var(--accent); color: var(--accent-ink);
+        font-weight: 700; font-size: 0.85rem;
+        margin-bottom: 10px;
+      }
+      details {
+        border-bottom: 1px solid var(--line);
+        padding: 14px 0;
+      }
+      details summary { cursor: pointer; font-weight: 600; }
+      details p { margin: 10px 0 0; color: var(--muted); }
+      .skip { position: absolute; left: -9999px; }
+      .skip:focus { left: 12px; top: 12px; background: var(--bg-soft); padding: 8px 12px; border-radius: 8px; }
+    </style>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <Header lang={lang} page={page} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer lang={lang} page={page} repository={REPOSITORY_URL} copy={copy} />
+  </body>
+</html>

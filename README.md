@@ -261,6 +261,39 @@ git push -u origin main
 
 ---
 
+## 多言語対応（7言語）
+
+アプリ内の文言は **日本語 / 英語 / 簡体中文 / スペイン語 / ドイツ語 / フランス語 / 韓国語** に対応しています。
+端末の言語設定に合わせて自動で切り替わります（未対応言語の端末では英語）。
+
+- 翻訳の原本: [`Localization/strings.json`](Localization/strings.json)（1ファイルに全言語）
+- 生成: `python scripts/build_localizations.py`
+  → `Localization/{lang}.lproj/Localizable.strings` と、共有シートのアクション名用の
+  `Localization-OpenExtension/{lang}.lproj/InfoPlist.strings` を書き出す
+- 確認: `python scripts/build_localizations.py --check`（未翻訳があれば失敗）
+- 取りこぼし確認: `python scripts/find_untranslated_strings.py`（Swift 内に残った日本語リテラルを一覧表示）
+
+文言を足すときは **strings.json に7言語ぶん書いてから** 生成し、Swift 側は
+`Text("キー名")` または `String(localized: "キー名")` を使います（画面に直接日本語を書かない）。
+
+App Store の各言語のメタデータは [`docs/AppStore/metadata/`](docs/AppStore/metadata/)
+（原本は [`docs/AppStore/metadata.json`](docs/AppStore/metadata.json)、
+`python scripts/build_store_metadata.py` で生成・文字数検証）。
+
+## 公式サイト
+
+`site/` に Astro 製の静的サイト（7言語）があります。公開先は
+**https://channeltimeline.jewelrysunflower.com**（Cloudflare Pages ＋ 独自ドメイン）。
+
+```
+cd site
+npm install
+npm run build && npm run check
+```
+
+公開手順は [`docs/website-deploy-guide.md`](docs/website-deploy-guide.md)、サイト自体の説明は
+[`site/README.md`](site/README.md) を参照。アプリのビルドとは独立しています。
+
 ## ディレクトリ構成
 
 ```
@@ -277,6 +310,10 @@ ChannelTimelineViewer/
   Resources/  Config.example.plist（Config.plist は各自作成）
   Tests/      ChannelResolverTests / SharedLinkParserTests / VideoChannelLookupTests /
               VideoSortTests / WatchHistoryStoreTests
+  ExtensionShared/ HandoffViewController.swift（2つの拡張で共有する受け渡し画面）
+  Localization/  strings.json（翻訳の原本）＋ {lang}.lproj/Localizable.strings
+  Localization-OpenExtension/ {lang}.lproj/InfoPlist.strings（アクション名の翻訳）
+  site/       公式サイト（Astro・7言語）
   project.yml（XcodeGen 用）
 ```
 

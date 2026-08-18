@@ -56,6 +56,24 @@ LOCALE_MAP = {
     "ko": "ko",
 }
 
+class ASCError(RuntimeError):
+    """App Store Connect API がエラーを返したとき。呼び出し側で内容を見て分岐できるようにする。"""
+
+    def __init__(self, method: str, path: str, code: int, detail: str):
+        super().__init__(f"[ASC API エラー] {method} {path} -> HTTP {code}\n{detail}")
+        self.code = code
+        self.detail = detail
+
+
+# すでに公開したことがある（＝更新版なら「新機能」を書ける）状態。
+RELEASED_STATES = {
+    "READY_FOR_SALE",
+    "PENDING_DEVELOPER_RELEASE",
+    "PROCESSING_FOR_APP_STORE",
+    "REPLACED_WITH_NEW_VERSION",
+    "REMOVED_FROM_SALE",
+}
+
 # 編集できる（＝これから提出する）バージョンの状態。
 EDITABLE_STATES = {
     "PREPARE_FOR_SUBMISSION",
@@ -93,7 +111,7 @@ class Client:
                 return json.loads(raw) if raw else {}
         except urllib.error.HTTPError as e:
             detail = e.read().decode("utf-8", errors="replace")
-            raise SystemExit(f"[ASC API エラー] {method} {path} -> HTTP {e.code}\n{detail}") from None
+            raise ASCError(method, path, e.code, detail) from None
 
     def get(self, path: str) -> dict:
         return self.request("GET", path)
@@ -105,7 +123,19 @@ class Client:
             attrs = sorted(body.get("data", {}).get("attributes", {}).keys())
             print(f"    [dry-run] {method} {path} ({kind}: {', '.join(attrs)})")
             return {}
-        return self.request(method, path, body)
+        try:
+            return self.request(method, path, body)
+        except ASCError as error:
+            # 初回リリース等で編集できない項目があれば、その項目を外して一度だけやり直す。
+            blocked = [name for name in ("whatsNew", "promotionalText")
+                       if f"'{name}'" in error.detail]
+            attributes = body.get("data", {}).get("attributes", {})
+            if error.code != 409 or not blocked or not any(n in attributes for n in blocked):
+                raise
+            for name in blocked:
+                attributes.pop(name, None)
+            print(f"    （{', '.join(blocked)} は編集できないため外して再送します）")
+            return self.request(method, path, body)
 
 
 # --- 取得 ---------------------------------------------------------------------
@@ -184,7 +214,7 @@ def show_status(client: Client, bundle_id: str) -> int:
             review = client.get(
                 f"/v1/appStoreVersions/{version['id']}/appStoreReviewDetail").get("data")
             print(f"  審査メモ: {'入力済み' if review else '未入力'}")
-        except SystemExit:
+        except ASCError:
             print("  審査メモ: 取得できませんでした")
 
     info = editable_app_info(client, app_id)
@@ -218,6 +248,14 @@ def push(client: Client, bundle_id: str, version_string: str) -> int:
     print(f"アプリ: {app['attributes'].get('name')} (id={app_id})")
 
     # --- バージョン ---
+    # 一度も公開していないアプリの初回バージョンには「このバージョンの新機能」を書けない。
+    all_versions = client.get(f"/v1/apps/{app_id}/appStoreVersions?limit=50").get("data", [])
+    is_first_release = not any(
+        v["attributes"].get("appStoreState") in RELEASED_STATES for v in all_versions
+    )
+    if is_first_release:
+        print("初回リリースのため「このバージョンの新機能」は送りません（Apple 側で編集不可）")
+
     version = editable_version(client, app_id)
     if version is None:
         print(f"編集できるバージョンが無いので {version_string} を作成します")
@@ -242,10 +280,11 @@ def push(client: Client, bundle_id: str, version_string: str) -> int:
             "description": data["description"][lang],
             "keywords": data["keywords"][lang],
             "promotionalText": data["promotionalText"][lang],
-            "whatsNew": data["whatsNew"][lang],
             "supportUrl": localized_url(data["supportURL"], locale),
             "marketingUrl": localized_url(data["marketingURL"], locale),
         }
+        if not is_first_release:
+            attributes["whatsNew"] = data["whatsNew"][lang]
         if locale in existing:
             print(f"  更新: {locale}")
             client.write("PATCH", f"/v1/appStoreVersionLocalizations/{existing[locale]['id']}", {
@@ -319,9 +358,12 @@ def main() -> int:
 
     client = Client(make_token(args.key_id, args.issuer_id, args.private_key),
                     dry_run=args.dry_run)
-    if args.mode == "status":
-        return show_status(client, args.bundle_id)
-    return push(client, args.bundle_id, args.version)
+    try:
+        if args.mode == "status":
+            return show_status(client, args.bundle_id)
+        return push(client, args.bundle_id, args.version)
+    except ASCError as error:
+        raise SystemExit(str(error)) from None
 
 
 if __name__ == "__main__":

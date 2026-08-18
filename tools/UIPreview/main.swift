@@ -11,38 +11,18 @@ import SwiftUI
 
 // MARK: - 仕上がり確認用のシート
 
-/// 継ぎ目と文字の重なりの処理を見比べる。
-struct Finish {
-    let name: String
-    let gap: CGFloat
-    let knockout: Bool
-}
-
-let finishes: [Finish] = [
-    Finish(name: "案A: いま（上下に離す・切り抜きなし）", gap: 0.06, knockout: false),
-    Finish(name: "案B: 離さない・文字の下地で切り抜く", gap: 0.0, knockout: true),
-    Finish(name: "案C: 離す＋切り抜く", gap: 0.06, knockout: true),
-]
-
 struct RepeatBadgeSheet: View {
     let dark: Bool
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text(dark ? "ダークモード" : "ライトモード").font(.headline)
-            ForEach(finishes, id: \.name) { finish in
-                VStack(alignment: .leading, spacing: 6) {
-                    Text(finish.name).font(.caption).foregroundStyle(.secondary)
-                    HStack(alignment: .top, spacing: 28) {
-                        ForEach(RepeatMode.allCases) { mode in
-                            VStack(spacing: 10) {
-                                RepeatModeBadge(mode: mode, arrowGap: finish.gap,
-                                                usesKnockout: finish.knockout)
-                                RepeatModeBadge(mode: mode, size: 88, arrowGap: finish.gap,
-                                                usesKnockout: finish.knockout)
-                                Text(mode.label).font(.caption)
-                            }
-                        }
+            HStack(alignment: .top, spacing: 28) {
+                ForEach(RepeatMode.allCases) { mode in
+                    VStack(spacing: 10) {
+                        RepeatModeBadge(mode: mode)               // 実寸
+                        RepeatModeBadge(mode: mode, size: 88)     // 拡大
+                        Text(mode.label).font(.caption)
                     }
                 }
             }
@@ -54,29 +34,6 @@ struct RepeatBadgeSheet: View {
 }
 
 // MARK: - 数値合わせ用（1個ずつ書き出して計測する）
-
-struct SingleBadge: View {
-    let gap: CGFloat
-    let glyphRatio: CGFloat
-    let weight: Font.Weight
-    let labelRatio: CGFloat
-
-    var body: some View {
-        RepeatModeBadge(mode: .all, size: 220,
-                        arrowGap: gap,
-                        glyphRatio: glyphRatio,
-                        glyphWeight: weight,
-                        labelRatio: labelRatio)
-            .padding(20)
-            .background(Color.white)
-    }
-}
-
-let weights: [(String, Font.Weight)] = [
-    ("ultraLight", .ultraLight), ("thin", .thin), ("light", .light), ("regular", .regular),
-]
-let glyphRatios: [CGFloat] = [0.52, 0.60, 0.68]
-let gaps: [CGFloat] = [0.10, 0.16, 0.22]
 
 @MainActor
 func writePNG<V: View>(_ view: V, to url: URL, scale: CGFloat = 3) {
@@ -100,21 +57,5 @@ MainActor.assumeIsolated {
     writePNG(RepeatBadgeSheet(dark: false), to: out.appendingPathComponent("repeat-badge-light.png"))
     writePNG(RepeatBadgeSheet(dark: true), to: out.appendingPathComponent("repeat-badge-dark.png"))
 
-    // 数値合わせ用の総当たり。必要なときだけ第2引数に matrix を渡して有効にする。
-    guard CommandLine.arguments.count > 2, CommandLine.arguments[2] == "matrix" else {
-        print("done")
-        return
-    }
-    let matrix = out.appendingPathComponent("matrix", isDirectory: true)
-    try? FileManager.default.createDirectory(at: matrix, withIntermediateDirectories: true)
-    for (wname, weight) in weights {
-        for glyph in glyphRatios {
-            for gap in gaps {
-                let name = "w-\(wname)_glyph-\(Int(glyph * 100))_gap-\(Int(gap * 100)).png"
-                writePNG(SingleBadge(gap: gap, glyphRatio: glyph, weight: weight, labelRatio: 0.26),
-                         to: matrix.appendingPathComponent(name), scale: 1)
-            }
-        }
-    }
     print("done")
 }

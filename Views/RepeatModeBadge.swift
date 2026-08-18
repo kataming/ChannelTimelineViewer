@@ -6,37 +6,20 @@ import SwiftUI
 /// - 1本: 緑地のリピート記号の中央に「1」
 /// - 全体: 緑地のリピート記号の中央に「ALL」
 ///
-/// 画像ではなく描画で作っているので、拡大しても滲まず、
-/// ライト/ダークどちらでも枠線がはっきり見える。
-///
-/// ## 数値の決め方
-/// 見本画像（`yajirushi.png`）の比率に合わせてある。
-/// バッジの大きさに対して、線の太さ 約0.06 / 記号の縦の広がり 約0.64 / 横の広がり 約0.68。
-/// 記号を拡大すると線まで太くなるため、線は細め（light）にしたうえで記号を大きくし、
-/// さらに**記号を上下half に分けて離す**ことで中央（文字が入るところ）の空きを作っている。
-/// 数値を変えたときは `tools/UIPreview` で描き出して見比べること。
+/// ## 矢印は自前で描いている
+/// SF Symbols の `repeat` を切り貼りすると、継ぎ目の点が残ったり、
+/// 文字の下地で矢印が消えたりする。見本（`yajirushi.png`）どおりの形にするため、
+/// **矢印は Path で描き、中央は最初から空けてある**（切り抜きも分割もしない）。
+/// 上の矢印を描き、それを180度回転させたものを下の矢印にしているので左右対称になる。
 struct RepeatModeBadge: View {
     let mode: RepeatMode
     var size: CGFloat = 26
-    /// 上下の矢印を離す量（バッジの大きさに対する割合）。線の太さは変わらない。
-    var arrowGap: CGFloat = 0.06
-    /// 記号の大きさ（バッジに対する割合）。
-    var glyphRatio: CGFloat = 0.68
-    /// 記号の線の太さ。
-    var glyphWeight: Font.Weight = .light
-    /// 中央の文字の大きさ（バッジに対する割合）。
-    var labelRatio: CGFloat = 0.26
-    /// 中央の文字の下地で矢印の線を切り抜くか（文字と線が重なるのを防ぐ）。
-    var usesKnockout: Bool = false
 
     private var cornerRadius: CGFloat { size * 0.27 }
-    /// 記号は横に広い（幅は文字サイズの約1.4倍）ので、枠に収まるよう小さめにする。
-    private var glyphSize: CGFloat { size * glyphRatio }
-    private var labelSize: CGFloat { size * labelRatio }
+    private var lineWidth: CGFloat { size * 0.075 }
+    private var labelSize: CGFloat { size * 0.30 }
     private var fillColor: Color { mode.isActive ? .green : .clear }
     private var inkColor: Color { mode.isActive ? .black : .primary }
-    /// 上下それぞれをずらす量。
-    private var halfGap: CGFloat { size * arrowGap / 2 }
 
     var body: some View {
         ZStack {
@@ -45,50 +28,61 @@ struct RepeatModeBadge: View {
             RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                 .strokeBorder(mode.isActive ? Color.clear : Color.primary,
                               lineWidth: max(1, size * 0.07))
-            glyph
-        }
-        .frame(width: size, height: size)
-    }
 
-    private var symbol: some View {
-        Image(systemName: "repeat")
-            .font(.system(size: glyphSize, weight: glyphWeight))
-            .foregroundStyle(inkColor)
-    }
-
-    @ViewBuilder
-    private var glyph: some View {
-        ZStack {
-            // 上半分（右向きの矢印）を上へ、下半分（左向きの矢印）を下へずらす。
-            symbol
-                .mask(alignment: .top) { topHalfMask }
-                .offset(y: -halfGap)
-            symbol
-                .mask(alignment: .bottom) { bottomHalfMask }
-                .offset(y: halfGap)
+            arrow                                   // 上（右向き）
+            arrow.rotationEffect(.degrees(180))     // 下（左向き）
 
             if let label = mode.centerLabel {
                 Text(label)
                     .font(.system(size: labelSize, weight: .heavy))
                     .foregroundStyle(inkColor)
-                    .padding(.horizontal, size * 0.03)
-                    .frame(height: usesKnockout ? labelSize * 0.95 : nil)
-                    .background(usesKnockout ? fillColor : .clear)
+                    .minimumScaleFactor(0.6)
+                    .lineLimit(1)
+                    .frame(width: size * 0.62)
             }
         }
+        .frame(width: size, height: size)
     }
 
-    private var topHalfMask: some View {
-        VStack(spacing: 0) {
-            Rectangle()
-            Color.clear
+    /// 上側の矢印（軸＋矢じり）。
+    private var arrow: some View {
+        ZStack {
+            RepeatArrowShaft()
+                .stroke(inkColor, style: StrokeStyle(lineWidth: lineWidth, lineCap: .round))
+            RepeatArrowHead()
+                .fill(inkColor)
         }
     }
+}
 
-    private var bottomHalfMask: some View {
-        VStack(spacing: 0) {
-            Color.clear
-            Rectangle()
+/// 矢印の軸。左下から立ち上がって右へ伸びる。
+private struct RepeatArrowShaft: Shape {
+    func path(in rect: CGRect) -> Path {
+        let w = rect.width, h = rect.height
+        func p(_ x: CGFloat, _ y: CGFloat) -> CGPoint {
+            CGPoint(x: rect.minX + w * x, y: rect.minY + h * y)
         }
+        var path = Path()
+        path.move(to: p(0.15, 0.50))
+        path.addLine(to: p(0.15, 0.36))
+        path.addQuadCurve(to: p(0.26, 0.26), control: p(0.15, 0.26))
+        path.addLine(to: p(0.64, 0.26))
+        return path
+    }
+}
+
+/// 矢じり（軸の先の三角形）。
+private struct RepeatArrowHead: Shape {
+    func path(in rect: CGRect) -> Path {
+        let w = rect.width, h = rect.height
+        func p(_ x: CGFloat, _ y: CGFloat) -> CGPoint {
+            CGPoint(x: rect.minX + w * x, y: rect.minY + h * y)
+        }
+        var path = Path()
+        path.move(to: p(0.87, 0.26))     // 先端
+        path.addLine(to: p(0.63, 0.13))
+        path.addLine(to: p(0.63, 0.39))
+        path.closeSubpath()
+        return path
     }
 }

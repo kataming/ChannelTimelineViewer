@@ -42,11 +42,11 @@ final class HandoffViewController: UIViewController {
 
     private func process() async {
         guard let link = await extractYouTubeLink() else {
-            showFailure("YouTube の URL が見つかりませんでした。\n動画またはチャンネルのページから共有してください。")
+            showFailure(String(localized: "handoff.error.noURL"))
             return
         }
         guard let appURL = SharedLinkParser.makeAppURL(for: link) else {
-            showFailure("この URL は開けませんでした。")
+            showFailure(String(localized: "handoff.error.cannotOpen"))
             return
         }
 
@@ -58,7 +58,8 @@ final class HandoffViewController: UIViewController {
         // の順にフォールバックする。どちらの場合もクリップボードには入れておく。
         UIPasteboard.general.string = link
         pendingLink = link
-        statusLabel.text = "Channel Timeline Viewer に受け渡しています…"
+        statusLabel.text = String(format: String(localized: "handoff.passing.format"),
+                                  AppInfo.displayName)
 
         if await open(appURL) {
             complete()
@@ -76,17 +77,15 @@ final class HandoffViewController: UIViewController {
         if status == .notDetermined {
             showAuthorizationOffer()
         } else {
-            showHandoff("URL を受け取りました。\nChannel Timeline Viewer を開くと、"
-                        + "「共有されたURLを開く」からこのチャンネルを表示できます。")
+            showHandoff(String(format: String(localized: "handoff.received.format"),
+                               AppInfo.displayName))
         }
     }
 
     /// 「通知を許可すると、ここからそのまま開けます」の案内を出す。
     private func showAuthorizationOffer() {
         indicator.stopAnimating()
-        statusLabel.text = "URL を受け取りました。\n"
-            + "通知を許可すると、この直後に出る通知をタップするだけで開けます。\n"
-            + "（許可しない場合は、アプリを開いて「共有されたURLを開く」から表示できます）"
+        statusLabel.text = String(localized: "handoff.received.askNotification")
         allowButton.isHidden = false
         closeButton.isHidden = false
     }
@@ -95,7 +94,7 @@ final class HandoffViewController: UIViewController {
     @objc private func allowTapped() {
         allowButton.isEnabled = false
         indicator.startAnimating()
-        statusLabel.text = "通知を準備しています…"
+        statusLabel.text = String(localized: "handoff.preparingNotification")
         Task {
             let granted = (try? await UNUserNotificationCenter.current()
                 .requestAuthorization(options: [.alert])) ?? false
@@ -103,8 +102,8 @@ final class HandoffViewController: UIViewController {
                 complete()
             } else {
                 allowButton.isHidden = true
-                showHandoff("URL を受け取りました。\nChannel Timeline Viewer を開くと、"
-                            + "「共有されたURLを開く」からこのチャンネルを表示できます。")
+                showHandoff(String(format: String(localized: "handoff.received.format"),
+                                   AppInfo.displayName))
             }
         }
     }
@@ -206,7 +205,7 @@ final class HandoffViewController: UIViewController {
         indicator.stopAnimating()
         statusLabel.text = message
         allowButton.isHidden = true
-        closeButton.setTitle("閉じる", for: .normal)
+        closeButton.setTitle(String(localized: "common.close"), for: .normal)
         closeButton.isHidden = false
     }
 
@@ -231,23 +230,23 @@ final class HandoffViewController: UIViewController {
         card.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(card)
 
-        titleLabel.text = "Channel Timeline Viewer"
+        titleLabel.text = AppInfo.displayName
         titleLabel.font = .preferredFont(forTextStyle: .headline)
         titleLabel.textAlignment = .center
         titleLabel.numberOfLines = 0
 
-        statusLabel.text = "共有された URL を読み取っています…"
+        statusLabel.text = String(localized: "handoff.reading")
         statusLabel.font = .preferredFont(forTextStyle: .footnote)
         statusLabel.textColor = .secondaryLabel
         statusLabel.textAlignment = .center
         statusLabel.numberOfLines = 0
 
-        allowButton.setTitle("通知を許可して開く", for: .normal)
+        allowButton.setTitle(String(localized: "handoff.allowNotification"), for: .normal)
         allowButton.titleLabel?.font = .preferredFont(forTextStyle: .headline)
         allowButton.addTarget(self, action: #selector(allowTapped), for: .touchUpInside)
         allowButton.isHidden = true
 
-        closeButton.setTitle("閉じる", for: .normal)
+        closeButton.setTitle(String(localized: "common.close"), for: .normal)
         closeButton.addTarget(self, action: #selector(closeTapped), for: .touchUpInside)
         closeButton.isHidden = true
 

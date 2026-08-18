@@ -74,6 +74,7 @@ targets:
       - path: ExtensionShared
       # URL 解析・通知の組み立てはメインアプリと共有する（Foundation / UserNotifications のみ）。
       - path: Services/SharedLinkParser.swift
+      - path: Services/AppInfo.swift
       - path: Services/SharedLinkNotifier.swift
       # 表示文言（拡張は自分のバンドルを見るので、こちらにも含める）
       - path: Localization
@@ -97,6 +98,7 @@ targets:
     sources:
       - path: ExtensionShared
       - path: Services/SharedLinkParser.swift
+      - path: Services/AppInfo.swift
       - path: Services/SharedLinkNotifier.swift
       - path: Localization
     settings:

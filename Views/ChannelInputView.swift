@@ -14,9 +14,9 @@ struct ChannelInputView: View {
             Form {
                 if !viewModel.isAPIConfigured {
                     Section {
-                        Label("APIキーが設定されていません", systemImage: "exclamationmark.triangle.fill")
+                        Label("api.notConfigured.title", systemImage: "exclamationmark.triangle.fill")
                             .foregroundStyle(.orange)
-                        Text("Config.plist に YOUTUBE_API_KEY を設定してください。設定方法は README を参照してください。")
+                        Text("api.notConfigured.detail")
                             .font(.footnote)
                             .foregroundStyle(.secondary)
                     }
@@ -29,10 +29,10 @@ struct ChannelInputView: View {
                         Button {
                             openFromClipboard()
                         } label: {
-                            Label("共有されたURLを開く", systemImage: "doc.on.clipboard")
+                            Label("share.openSharedURL", systemImage: "doc.on.clipboard")
                                 .font(.body.bold())
                         }
-                        Text("共有シートで受け取ったURLがクリップボードにあります。")
+                        Text("share.clipboardHint")
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }
@@ -66,7 +66,7 @@ struct ChannelInputView: View {
                                     .foregroundStyle(.secondary)
                             }
                             .buttonStyle(.plain)
-                            .accessibilityLabel("入力を消去")
+                            .accessibilityLabel(String(localized: "input.clear.a11y"))
                         }
                     }
 
@@ -75,18 +75,17 @@ struct ChannelInputView: View {
                             if viewModel.isLoading {
                                 ProgressView().padding(.trailing, 4)
                             }
-                            Text(viewModel.isLoading ? "取得中..." : "動画を取得")
+                            Text(viewModel.isLoading ? "input.fetching" : "input.fetch")
                         }
                     }
                     .disabled(viewModel.isLoading ||
                               viewModel.urlText.trimmingCharacters(in: .whitespaces).isEmpty)
                 } header: {
-                    Text("チャンネルURL")
+                    Text("input.section.header")
                 } footer: {
                     // 入力例はプレースホルダで示しているので、ここでは繰り返さない。
-                    Text("YouTube アプリや Safari で共有 →「Channel Timeline Viewer」を選ぶと、"
-                         + "この画面に「共有されたURLを開く」が表示されます。"
-                         + "チャンネル・動画のどちらのURLでも開けます。")
+                    Text(String(format: String(localized: "input.section.footer"),
+                                AppInfo.displayName))
                 }
 
                 if let error = viewModel.errorMessage {
@@ -103,21 +102,20 @@ struct ChannelInputView: View {
                         }
                     } header: {
                         HStack {
-                            Text("最近使ったチャンネル")
+                            Text("favorites.section.header")
                             Spacer()
-                            Label("左スワイプで削除", systemImage: "arrow.left")
+                            Label("favorites.swipeHint", systemImage: "arrow.left")
                                 .font(.caption2)
                                 .foregroundStyle(.secondary)
                                 .textCase(nil)
                         }
                     } footer: {
-                        Text("行を左にスワイプすると、その1件だけを削除できます。"
-                             + "視聴済みの記録は残るので、開き直せば進捗も戻ります。")
+                        Text("favorites.section.footer")
                     }
                 }
 
                 Section {
-                    Text("このアプリは YouTube 公式アプリではありません。再生は YouTube 公式の埋め込みプレイヤーを使用し、ダウンロード・広告回避・バックグラウンド再生は行いません。")
+                    Text("disclaimer.short")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
@@ -133,7 +131,7 @@ struct ChannelInputView: View {
                     } label: {
                         Image(systemName: "info.circle")
                     }
-                    .accessibilityLabel("このアプリについて")
+                    .accessibilityLabel(String(localized: "about.open.a11y"))
                 }
             }
             .sheet(isPresented: $showAbout) {
@@ -163,54 +161,45 @@ struct ChannelInputView: View {
                     Button {
                         Task { await notificationPermission.request() }
                     } label: {
-                        Label("① 通知を許可してワンタップで開く", systemImage: "bell.badge")
+                        Label("shareTips.notify.request", systemImage: "bell.badge")
                     }
                 } else if notificationPermission.isDenied {
                     Button {
                         notificationPermission.openSettings()
                     } label: {
-                        Label("① 設定アプリで通知を許可する", systemImage: "gear")
+                        Label("shareTips.notify.settings", systemImage: "gear")
                     }
                 } else {
-                    Label("① 通知は許可済み（共有すると通知から開けます）", systemImage: "checkmark.circle.fill")
+                    Label("shareTips.notify.granted", systemImage: "checkmark.circle.fill")
                         .font(.subheadline)
                         .foregroundStyle(.green)
                 }
 
                 DisclosureGroup {
                     VStack(alignment: .leading, spacing: 6) {
-                        Text("共有先の並び順は iOS が決めるため、アプリからは指定できません。"
-                             + "次の手順で「よく使う項目」に登録すると、常に先頭付近に出ます。")
+                        Text("shareTips.pin.intro")
                             .font(.caption)
                             .foregroundStyle(.secondary)
-                        Text("1. 共有ボタンを押す\n"
-                             + "2. アプリのアイコンが並ぶ行を右端までスクロール →「その他」\n"
-                             + "3. 右上の「編集」をタップ\n"
-                             + "4. 「Channel Timeline Viewer」の左の「＋」を押す\n"
-                             + "5. 「よく使う項目」の中でドラッグして一番上へ →「完了」")
+                        Text(String(format: String(localized: "shareTips.pin.steps"),
+                                    AppInfo.displayName))
                             .font(.caption)
-                        Text("なお、共有シートを下にスクロールしたアクション一覧"
-                             + "（「Braveで開く」などが並ぶ枠）にも「Channel Timelineで開く」があります。"
-                             + "こちらは「その他」を開かなくても届きます。")
+                        Text("shareTips.pin.actionNote")
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }
                     .padding(.vertical, 4)
                 } label: {
-                    Label("② 共有シートの先頭に固定する", systemImage: "pin")
+                    Label("shareTips.pin.label", systemImage: "pin")
                 }
 
-                Button("この案内を閉じる") {
+                Button("shareTips.dismiss") {
                     sharedLinkRouter.dismissShareTips()
                 }
                 .font(.footnote)
             } header: {
-                Text("共有をもっと速く")
+                Text("shareTips.header")
             } footer: {
-                Text("iOS の仕様で、共有シートからアプリを直接起動することはできません。"
-                     + "通知を許可すると、共有した直後に出る通知をタップするだけで開けます。"
-                     + "使うのは共有した直後のこの通知だけで、お知らせや宣伝の通知は送りません。"
-                     + "（この案内は「ⓘ」からいつでも確認できます）")
+                Text("shareTips.footer")
             }
         }
     }
@@ -219,7 +208,7 @@ struct ChannelInputView: View {
     private func openFromClipboard() {
         clipboardMessage = nil
         guard let link = clipboardDetector.takeYouTubeLink() else {
-            clipboardMessage = "クリップボードに YouTube のURLが見つかりませんでした。URLを貼り付けて取得してください。"
+            clipboardMessage = String(localized: "clipboard.notFound")
             return
         }
         sharedLinkRouter.markShareHandoffUsed()

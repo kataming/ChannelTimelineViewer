@@ -978,5 +978,635 @@
     "de": "(Ohne Kanalname)",
     "fr": "(Sans nom de chaîne)",
     "ko": "(채널 이름 없음)"
+  },
+  "api.notConfigured.title": {
+    "comment": "APIキー未設定の見出し",
+    "ja": "APIキーが設定されていません",
+    "en": "API key not configured",
+    "zh-Hans": "尚未设置 API 密钥",
+    "es": "La clave de API no está configurada",
+    "de": "API-Schlüssel nicht konfiguriert",
+    "fr": "Clé API non configurée",
+    "ko": "API 키가 설정되지 않았습니다"
+  },
+  "api.notConfigured.detail": {
+    "comment": "APIキー未設定の説明",
+    "ja": "Config.plist に YOUTUBE_API_KEY を設定してください。設定方法は README を参照してください。",
+    "en": "Set YOUTUBE_API_KEY in Config.plist. See the README for how to set it up.",
+    "zh-Hans": "请在 Config.plist 中设置 YOUTUBE_API_KEY。设置方法请参阅 README。",
+    "es": "Configura YOUTUBE_API_KEY en Config.plist. Consulta el README para más detalles.",
+    "de": "Lege YOUTUBE_API_KEY in Config.plist fest. Details stehen in der README.",
+    "fr": "Définissez YOUTUBE_API_KEY dans Config.plist. Voir le README pour la procédure.",
+    "ko": "Config.plist에 YOUTUBE_API_KEY를 설정하세요. 설정 방법은 README를 참고하세요."
+  },
+  "share.openSharedURL": {
+    "comment": "共有されたURLを開くボタン",
+    "ja": "共有されたURLを開く",
+    "en": "Open shared link",
+    "zh-Hans": "打开分享的链接",
+    "es": "Abrir el enlace compartido",
+    "de": "Geteilten Link öffnen",
+    "fr": "Ouvrir le lien partagé",
+    "ko": "공유된 URL 열기"
+  },
+  "share.clipboardHint": {
+    "comment": "クリップボードにURLがある案内",
+    "ja": "共有シートで受け取ったURLがクリップボードにあります。",
+    "en": "The link you shared is on the clipboard.",
+    "zh-Hans": "分享的链接已保存在剪贴板中。",
+    "es": "El enlace que compartiste está en el portapapeles.",
+    "de": "Der geteilte Link liegt in der Zwischenablage.",
+    "fr": "Le lien partagé se trouve dans le presse-papiers.",
+    "ko": "공유한 URL이 클립보드에 있습니다."
+  },
+  "input.clear.a11y": {
+    "comment": "読み上げ: 入力を消去",
+    "ja": "入力を消去",
+    "en": "Clear text",
+    "zh-Hans": "清除输入",
+    "es": "Borrar texto",
+    "de": "Eingabe löschen",
+    "fr": "Effacer la saisie",
+    "ko": "입력 지우기"
+  },
+  "input.fetching": {
+    "comment": "取得中のボタン",
+    "ja": "取得中...",
+    "en": "Loading…",
+    "zh-Hans": "获取中…",
+    "es": "Cargando…",
+    "de": "Wird geladen …",
+    "fr": "Chargement…",
+    "ko": "가져오는 중…"
+  },
+  "input.fetch": {
+    "comment": "動画を取得ボタン",
+    "ja": "動画を取得",
+    "en": "Get videos",
+    "zh-Hans": "获取视频",
+    "es": "Obtener vídeos",
+    "de": "Videos laden",
+    "fr": "Charger les vidéos",
+    "ko": "동영상 가져오기"
+  },
+  "input.section.header": {
+    "comment": "見出し: チャンネルURL",
+    "ja": "チャンネルURL",
+    "en": "Channel URL",
+    "zh-Hans": "频道网址",
+    "es": "URL del canal",
+    "de": "Kanal-URL",
+    "fr": "URL de la chaîne",
+    "ko": "채널 URL"
+  },
+  "input.section.footer": {
+    "comment": "入力欄の説明（%@ にアプリ名）",
+    "ja": "YouTube アプリや Safari で共有 →「%@」を選ぶと、この画面に「共有されたURLを開く」が表示されます。チャンネル・動画のどちらのURLでも開けます。",
+    "en": "Share from the YouTube app or Safari and choose “%@” — then “Open shared link” appears on this screen. Channel and video URLs both work.",
+    "zh-Hans": "在 YouTube 应用或 Safari 中分享并选择“%@”，此界面就会出现“打开分享的链接”。频道和视频网址都可以。",
+    "es": "Comparte desde la app de YouTube o Safari y elige «%@»: aparecerá «Abrir el enlace compartido» en esta pantalla. Sirven URLs de canal y de vídeo.",
+    "de": "Teile aus der YouTube-App oder aus Safari und wähle „%@“ – dann erscheint hier „Geteilten Link öffnen“. Kanal- und Video-URLs funktionieren beide.",
+    "fr": "Partagez depuis l’app YouTube ou Safari et choisissez « %@ » : « Ouvrir le lien partagé » apparaît sur cet écran. Les URL de chaîne et de vidéo fonctionnent.",
+    "ko": "YouTube 앱이나 Safari에서 공유 → “%@”를 선택하면 이 화면에 ‘공유된 URL 열기’가 표시됩니다. 채널·동영상 URL 모두 사용할 수 있습니다."
+  },
+  "favorites.section.header": {
+    "comment": "見出し: 最近使ったチャンネル",
+    "ja": "最近使ったチャンネル",
+    "en": "Recent channels",
+    "zh-Hans": "最近使用的频道",
+    "es": "Canales recientes",
+    "de": "Zuletzt verwendete Kanäle",
+    "fr": "Chaînes récentes",
+    "ko": "최근 사용한 채널"
+  },
+  "favorites.swipeHint": {
+    "comment": "左スワイプで削除の案内",
+    "ja": "左スワイプで削除",
+    "en": "Swipe left to delete",
+    "zh-Hans": "向左滑动删除",
+    "es": "Desliza para eliminar",
+    "de": "Zum Löschen wischen",
+    "fr": "Balayez pour supprimer",
+    "ko": "왼쪽으로 밀어 삭제"
+  },
+  "favorites.section.footer": {
+    "comment": "お気に入り一覧の説明",
+    "ja": "行を左にスワイプすると、その1件だけを削除できます。視聴済みの記録は残るので、開き直せば進捗も戻ります。",
+    "en": "Swipe a row left to remove just that channel. Your watch history is kept, so progress returns when you open it again.",
+    "zh-Hans": "向左滑动某一行即可只删除该频道。观看记录会保留，重新打开后进度仍在。",
+    "es": "Desliza una fila hacia la izquierda para quitar solo ese canal. El historial se conserva, así que el progreso vuelve al abrirlo de nuevo.",
+    "de": "Wische eine Zeile nach links, um nur diesen Kanal zu entfernen. Der Verlauf bleibt erhalten – beim erneuten Öffnen ist der Fortschritt wieder da.",
+    "fr": "Balayez une ligne vers la gauche pour retirer uniquement cette chaîne. L’historique est conservé : la progression revient à la réouverture.",
+    "ko": "행을 왼쪽으로 밀면 해당 채널만 삭제됩니다. 시청 기록은 남으므로 다시 열면 진행률도 복원됩니다."
+  },
+  "disclaimer.short": {
+    "comment": "画面下部の注意書き",
+    "ja": "このアプリは YouTube 公式アプリではありません。再生は YouTube 公式の埋め込みプレイヤーを使用し、ダウンロード・広告回避・バックグラウンド再生は行いません。",
+    "en": "This app is not the official YouTube app. Playback uses YouTube’s official embedded player; it does not download videos, block ads, or play in the background.",
+    "zh-Hans": "本应用不是 YouTube 官方应用。播放使用 YouTube 官方嵌入式播放器，不下载视频、不屏蔽广告、不后台播放。",
+    "es": "Esta app no es la app oficial de YouTube. La reproducción usa el reproductor incrustado oficial de YouTube; no descarga vídeos, no bloquea anuncios ni reproduce en segundo plano.",
+    "de": "Diese App ist nicht die offizielle YouTube-App. Die Wiedergabe nutzt den offiziellen eingebetteten YouTube-Player; es werden keine Videos heruntergeladen, keine Werbung blockiert und nicht im Hintergrund abgespielt.",
+    "fr": "Cette app n’est pas l’app officielle YouTube. La lecture utilise le lecteur intégré officiel de YouTube ; aucun téléchargement, aucun blocage de publicité, aucune lecture en arrière-plan.",
+    "ko": "이 앱은 YouTube 공식 앱이 아닙니다. 재생에는 YouTube 공식 임베드 플레이어를 사용하며 다운로드·광고 차단·백그라운드 재생은 하지 않습니다."
+  },
+  "about.open.a11y": {
+    "comment": "読み上げ: このアプリについて",
+    "ja": "このアプリについて",
+    "en": "About this app",
+    "zh-Hans": "关于本应用",
+    "es": "Acerca de esta app",
+    "de": "Über diese App",
+    "fr": "À propos de cette app",
+    "ko": "이 앱에 대하여"
+  },
+  "shareTips.notify.request": {
+    "comment": "通知を許可してワンタップで開く",
+    "ja": "① 通知を許可してワンタップで開く",
+    "en": "① Allow notifications to open in one tap",
+    "zh-Hans": "① 允许通知，一键打开",
+    "es": "① Permitir notificaciones para abrir con un toque",
+    "de": "① Mitteilungen erlauben und mit einem Tippen öffnen",
+    "fr": "① Autoriser les notifications pour ouvrir en un geste",
+    "ko": "① 알림을 허용해 한 번에 열기"
+  },
+  "shareTips.notify.settings": {
+    "comment": "設定アプリで通知を許可する",
+    "ja": "① 設定アプリで通知を許可する",
+    "en": "① Allow notifications in Settings",
+    "zh-Hans": "① 在“设置”中允许通知",
+    "es": "① Permitir notificaciones en Ajustes",
+    "de": "① Mitteilungen in den Einstellungen erlauben",
+    "fr": "① Autoriser les notifications dans Réglages",
+    "ko": "① 설정 앱에서 알림 허용하기"
+  },
+  "shareTips.notify.granted": {
+    "comment": "通知は許可済み",
+    "ja": "① 通知は許可済み（共有すると通知から開けます）",
+    "en": "① Notifications are on (share, then tap the notification)",
+    "zh-Hans": "① 通知已开启（分享后可从通知打开）",
+    "es": "① Notificaciones activadas (comparte y toca la notificación)",
+    "de": "① Mitteilungen sind aktiv (teilen, dann Mitteilung antippen)",
+    "fr": "① Notifications activées (partagez puis touchez la notification)",
+    "ko": "① 알림이 허용되어 있습니다 (공유 후 알림에서 열기)"
+  },
+  "shareTips.pin.intro": {
+    "comment": "共有シート固定の前置き",
+    "ja": "共有先の並び順は iOS が決めるため、アプリからは指定できません。次の手順で「よく使う項目」に登録すると、常に先頭付近に出ます。",
+    "en": "iOS decides the order of share targets, so apps can’t change it. Add this app to Favorites with the steps below and it will always appear near the top.",
+    "zh-Hans": "分享目标的排列顺序由 iOS 决定，应用无法指定。按以下步骤加入“个人收藏”后，它会始终显示在靠前的位置。",
+    "es": "iOS decide el orden de los destinos para compartir, así que las apps no pueden cambiarlo. Añádela a Favoritos con estos pasos y aparecerá siempre arriba.",
+    "de": "iOS bestimmt die Reihenfolge der Ziele im Teilen-Menü; Apps können sie nicht ändern. Füge die App mit den folgenden Schritten zu den Favoriten hinzu, dann steht sie immer weit oben.",
+    "fr": "iOS décide de l’ordre des destinations de partage ; les apps ne peuvent pas le modifier. Ajoutez-la aux Favoris avec les étapes ci-dessous pour qu’elle reste en tête.",
+    "ko": "공유 대상의 순서는 iOS가 정하므로 앱에서 지정할 수 없습니다. 아래 순서로 ‘즐겨찾는 항목’에 추가하면 항상 앞쪽에 표시됩니다."
+  },
+  "shareTips.pin.steps": {
+    "comment": "共有シート固定の手順（%@ にアプリ名）",
+    "ja": "1. 共有ボタンを押す\n2. アプリのアイコンが並ぶ行を右端までスクロール →「その他」\n3. 右上の「編集」をタップ\n4. 「%@」の左の「＋」を押す\n5. 「よく使う項目」の中でドラッグして一番上へ →「完了」",
+    "en": "1. Tap the Share button\n2. Scroll the app icon row to the far right → “More”\n3. Tap “Edit” at the top right\n4. Tap “+” to the left of “%@”\n5. Drag it to the top of Favorites → “Done”",
+    "zh-Hans": "1. 点按分享按钮\n2. 将应用图标行滑到最右端 →“更多”\n3. 点按右上角的“编辑”\n4. 点按“%@”左侧的“+”\n5. 在“个人收藏”中拖到最上方 →“完成”",
+    "es": "1. Toca el botón Compartir\n2. Desplaza la fila de iconos hasta el final → «Más»\n3. Toca «Editar» arriba a la derecha\n4. Toca «+» a la izquierda de «%@»\n5. Arrástrala arriba del todo en Favoritos → «OK»",
+    "de": "1. Auf „Teilen“ tippen\n2. Die App-Symbolzeile ganz nach rechts scrollen → „Mehr“\n3. Oben rechts auf „Bearbeiten“ tippen\n4. Links neben „%@“ auf „+“ tippen\n5. In den Favoriten nach ganz oben ziehen → „Fertig“",
+    "fr": "1. Touchez le bouton Partager\n2. Faites défiler la rangée d’icônes jusqu’au bout → « Plus »\n3. Touchez « Modifier » en haut à droite\n4. Touchez « + » à gauche de « %@ »\n5. Faites-la glisser en haut des Favoris → « OK »",
+    "ko": "1. 공유 버튼을 누릅니다\n2. 앱 아이콘 줄을 오른쪽 끝까지 스크롤 → ‘기타’\n3. 오른쪽 위 ‘편집’을 탭합니다\n4. ‘%@’ 왼쪽의 ‘+’를 누릅니다\n5. ‘즐겨찾는 항목’에서 맨 위로 드래그 → ‘완료’"
+  },
+  "shareTips.pin.actionNote": {
+    "comment": "アクション一覧にもある案内",
+    "ja": "なお、共有シートを下にスクロールしたアクション一覧（「Braveで開く」などが並ぶ枠）にも「Channel Timelineで開く」があります。こちらは「その他」を開かなくても届きます。",
+    "en": "There is also “Open in Channel Timeline” in the action list further down the share sheet (where entries like “Open in Brave” appear). That one is reachable without opening “More”.",
+    "zh-Hans": "此外，在分享面板向下滚动后的操作列表中（“在 Brave 中打开”等所在的区域）也有“在 Channel Timeline 中打开”。这一项无需打开“更多”即可使用。",
+    "es": "Además, en la lista de acciones más abajo en la hoja para compartir (donde aparecen entradas como «Abrir en Brave») está «Abrir en Channel Timeline». A esa se llega sin abrir «Más».",
+    "de": "Weiter unten im Teilen-Menü gibt es in der Aktionsliste (dort, wo etwa „In Brave öffnen“ steht) außerdem „In Channel Timeline öffnen“. Diese ist ohne „Mehr“ erreichbar.",
+    "fr": "Plus bas dans la feuille de partage, la liste d’actions (là où figure « Ouvrir dans Brave ») contient aussi « Ouvrir dans Channel Timeline ». Elle est accessible sans passer par « Plus ».",
+    "ko": "또한 공유 시트를 아래로 스크롤한 동작 목록(‘Brave로 열기’ 등이 있는 영역)에도 ‘Channel Timeline으로 열기’가 있습니다. 이쪽은 ‘기타’를 열지 않아도 사용할 수 있습니다."
+  },
+  "shareTips.pin.label": {
+    "comment": "共有シートの先頭に固定する",
+    "ja": "② 共有シートの先頭に固定する",
+    "en": "② Pin it to the top of the share sheet",
+    "zh-Hans": "② 将其固定在分享面板顶部",
+    "es": "② Fíjala arriba en la hoja para compartir",
+    "de": "② Im Teilen-Menü nach oben anheften",
+    "fr": "② L’épingler en haut de la feuille de partage",
+    "ko": "② 공유 시트 맨 앞에 고정하기"
+  },
+  "shareTips.dismiss": {
+    "comment": "案内を閉じるボタン",
+    "ja": "この案内を閉じる",
+    "en": "Hide these tips",
+    "zh-Hans": "隐藏此提示",
+    "es": "Ocultar estos consejos",
+    "de": "Diese Hinweise ausblenden",
+    "fr": "Masquer ces conseils",
+    "ko": "이 안내 닫기"
+  },
+  "shareTips.header": {
+    "comment": "見出し: 共有をもっと速く",
+    "ja": "共有をもっと速く",
+    "en": "Make sharing faster",
+    "zh-Hans": "让分享更快捷",
+    "es": "Comparte más rápido",
+    "de": "Schneller teilen",
+    "fr": "Partager plus vite",
+    "ko": "공유를 더 빠르게"
+  },
+  "shareTips.footer": {
+    "comment": "共有の仕組みの説明",
+    "ja": "iOS の仕様で、共有シートからアプリを直接起動することはできません。通知を許可すると、共有した直後に出る通知をタップするだけで開けます。使うのは共有した直後のこの通知だけで、お知らせや宣伝の通知は送りません。（この案内は「ⓘ」からいつでも確認できます）",
+    "en": "iOS doesn’t let a share sheet launch an app directly. If you allow notifications, you can tap the notification that appears right after sharing. That is the only notification used — no news or promotions. (You can find these tips again under “ⓘ”.)",
+    "zh-Hans": "由于 iOS 的限制，分享面板无法直接启动应用。允许通知后，分享完成时会立即出现通知，点按即可打开。仅使用这一条通知，不会发送资讯或广告通知。（此提示可随时从“ⓘ”查看。）",
+    "es": "iOS no permite que la hoja para compartir abra una app directamente. Si permites las notificaciones, podrás tocar la que aparece justo después de compartir. Es la única notificación que se usa: nada de noticias ni promociones. (Puedes volver a ver estos consejos en «ⓘ».)",
+    "de": "iOS erlaubt es nicht, eine App direkt aus dem Teilen-Menü zu starten. Wenn du Mitteilungen erlaubst, kannst du einfach die Mitteilung antippen, die direkt nach dem Teilen erscheint. Nur diese eine Mitteilung wird genutzt – keine News, keine Werbung. (Diese Hinweise findest du jederzeit unter „ⓘ“.)",
+    "fr": "iOS ne permet pas à une feuille de partage de lancer directement une app. Si vous autorisez les notifications, il suffit de toucher celle qui apparaît juste après le partage. C’est la seule notification utilisée : ni actualités, ni promotions. (Ces conseils restent accessibles depuis « ⓘ ».)",
+    "ko": "iOS 사양상 공유 시트에서 앱을 직접 실행할 수 없습니다. 알림을 허용하면 공유 직후 표시되는 알림을 탭하는 것만으로 열 수 있습니다. 사용하는 알림은 이것뿐이며 소식·홍보 알림은 보내지 않습니다. (이 안내는 ‘ⓘ’에서 언제든지 확인할 수 있습니다.)"
+  },
+  "clipboard.notFound": {
+    "comment": "クリップボードにURLが無いとき",
+    "ja": "クリップボードに YouTube のURLが見つかりませんでした。URLを貼り付けて取得してください。",
+    "en": "No YouTube link was found on the clipboard. Paste a URL and try again.",
+    "zh-Hans": "剪贴板中没有找到 YouTube 网址。请粘贴网址后重试。",
+    "es": "No se encontró ningún enlace de YouTube en el portapapeles. Pega una URL e inténtalo de nuevo.",
+    "de": "In der Zwischenablage wurde kein YouTube-Link gefunden. Füge eine URL ein und versuche es erneut.",
+    "fr": "Aucun lien YouTube n’a été trouvé dans le presse-papiers. Collez une URL et réessayez.",
+    "ko": "클립보드에서 YouTube URL을 찾지 못했습니다. URL을 붙여넣고 다시 시도하세요."
+  },
+  "about.summary": {
+    "comment": "アプリの説明",
+    "ja": "チャンネルの投稿動画を公開日順（古い順）に整理し、過去動画視聴・シリーズ視聴・学習を進捗管理しながら行える視聴補助アプリです。YouTube 公式アプリの代替ではありません。",
+    "en": "A viewing companion that lists a channel’s uploads by publication date (oldest first) so you can work through archives, series, or courses while tracking your progress. It is not a replacement for the official YouTube app.",
+    "zh-Hans": "本应用会按发布日期（从旧到新）整理频道的投稿视频，方便你在管理进度的同时观看往期视频、连续剧集或学习内容。它并非 YouTube 官方应用的替代品。",
+    "es": "Una app complementaria que ordena las subidas de un canal por fecha de publicación (de las más antiguas a las más recientes) para ver archivos, series o cursos con seguimiento del progreso. No sustituye a la app oficial de YouTube.",
+    "de": "Eine Begleit-App, die die Uploads eines Kanals nach Veröffentlichungsdatum (älteste zuerst) sortiert, damit du Archive, Serien oder Kurse mit Fortschrittsanzeige durcharbeiten kannst. Sie ersetzt nicht die offizielle YouTube-App.",
+    "fr": "Une app compagnon qui classe les vidéos d’une chaîne par date de publication (des plus anciennes aux plus récentes) pour parcourir des archives, des séries ou des cours en suivant votre progression. Elle ne remplace pas l’app YouTube officielle.",
+    "ko": "채널의 업로드 동영상을 게시일순(오래된 순)으로 정리해 과거 영상·시리즈·학습 콘텐츠를 진행률을 관리하며 볼 수 있는 시청 보조 앱입니다. YouTube 공식 앱을 대체하지 않습니다."
+  },
+  "about.notices.header": {
+    "comment": "見出し: 重要な注意事項",
+    "ja": "重要な注意事項",
+    "en": "Important notices",
+    "zh-Hans": "重要提示",
+    "es": "Avisos importantes",
+    "de": "Wichtige Hinweise",
+    "fr": "Informations importantes",
+    "ko": "중요 안내"
+  },
+  "about.notice.notOfficial": {
+    "comment": "注意1",
+    "ja": "このアプリは YouTube 公式アプリではありません。",
+    "en": "This app is not the official YouTube app.",
+    "zh-Hans": "本应用不是 YouTube 官方应用。",
+    "es": "Esta app no es la app oficial de YouTube.",
+    "de": "Diese App ist nicht die offizielle YouTube-App.",
+    "fr": "Cette app n’est pas l’app officielle YouTube.",
+    "ko": "이 앱은 YouTube 공식 앱이 아닙니다."
+  },
+  "about.notice.officialPlayer": {
+    "comment": "注意2",
+    "ja": "動画再生には YouTube 公式の埋め込みプレイヤー（IFrame Player）を使用しています。",
+    "en": "Playback uses YouTube’s official embedded player (IFrame Player).",
+    "zh-Hans": "播放使用 YouTube 官方嵌入式播放器（IFrame Player）。",
+    "es": "La reproducción usa el reproductor incrustado oficial de YouTube (IFrame Player).",
+    "de": "Die Wiedergabe nutzt den offiziellen eingebetteten YouTube-Player (IFrame Player).",
+    "fr": "La lecture utilise le lecteur intégré officiel de YouTube (IFrame Player).",
+    "ko": "동영상 재생에는 YouTube 공식 임베드 플레이어(IFrame Player)를 사용합니다."
+  },
+  "about.notice.noDownload": {
+    "comment": "注意3",
+    "ja": "動画のダウンロードは行いません。",
+    "en": "It does not download videos.",
+    "zh-Hans": "不下载视频。",
+    "es": "No descarga vídeos.",
+    "de": "Es werden keine Videos heruntergeladen.",
+    "fr": "Aucun téléchargement de vidéo.",
+    "ko": "동영상을 다운로드하지 않습니다."
+  },
+  "about.notice.noAdBlock": {
+    "comment": "注意4",
+    "ja": "広告回避は行いません。",
+    "en": "It does not block ads.",
+    "zh-Hans": "不屏蔽广告。",
+    "es": "No bloquea anuncios.",
+    "de": "Es wird keine Werbung blockiert.",
+    "fr": "Aucun blocage de publicité.",
+    "ko": "광고를 차단하지 않습니다."
+  },
+  "about.notice.noBackground": {
+    "comment": "注意5",
+    "ja": "バックグラウンド再生は行いません。",
+    "en": "It does not play in the background.",
+    "zh-Hans": "不进行后台播放。",
+    "es": "No reproduce en segundo plano.",
+    "de": "Es wird nicht im Hintergrund abgespielt.",
+    "fr": "Aucune lecture en arrière-plan.",
+    "ko": "백그라운드 재생을 하지 않습니다."
+  },
+  "about.share.header": {
+    "comment": "見出し: 共有シートから開く",
+    "ja": "共有シートから開く",
+    "en": "Opening from the share sheet",
+    "zh-Hans": "从分享面板打开",
+    "es": "Abrir desde la hoja para compartir",
+    "de": "Über das Teilen-Menü öffnen",
+    "fr": "Ouvrir depuis la feuille de partage",
+    "ko": "공유 시트에서 열기"
+  },
+  "about.share.body1": {
+    "comment": "共有機能の説明（%@ にアプリ名）",
+    "ja": "YouTube アプリや Safari の共有ボタンから「%@」を選ぶと、共有されたチャンネル・動画のURLを受け取ります。共有機能はURLを受け取るだけで、外部への送信は行いません。",
+    "en": "Choose “%@” from the share button in the YouTube app or Safari and the app receives the shared channel or video URL. Sharing only receives the URL — nothing is sent anywhere.",
+    "zh-Hans": "在 YouTube 应用或 Safari 中点按分享按钮并选择“%@”，本应用即可接收所分享的频道或视频网址。共享功能只接收网址，不会向外部发送任何内容。",
+    "es": "Elige «%@» en el botón de compartir de la app de YouTube o de Safari y la app recibirá la URL del canal o del vídeo. Compartir solo recibe la URL: no se envía nada al exterior.",
+    "de": "Wähle im Teilen-Menü der YouTube-App oder von Safari „%@“, und die App erhält die geteilte Kanal- oder Video-URL. Beim Teilen wird die URL nur empfangen – es wird nichts nach außen gesendet.",
+    "fr": "Choisissez « %@ » depuis le bouton Partager de l’app YouTube ou de Safari : l’app reçoit l’URL de la chaîne ou de la vidéo. Le partage se contente de recevoir l’URL, rien n’est envoyé à l’extérieur.",
+    "ko": "YouTube 앱이나 Safari의 공유 버튼에서 ‘%@’를 선택하면 공유된 채널·동영상 URL을 받습니다. 공유 기능은 URL을 받기만 하며 외부로 전송하지 않습니다."
+  },
+  "about.share.body2": {
+    "comment": "共有後の流れの説明",
+    "ja": "受け取ったあと本アプリを開くと、最初の画面に「共有されたURLを開く」が表示されます。iOS の仕様上、共有シートからアプリを直接起動することはできないため、この形にしています。",
+    "en": "After that, open this app and “Open shared link” appears on the first screen. iOS does not allow a share sheet to launch an app directly, hence this flow.",
+    "zh-Hans": "之后打开本应用，首屏会显示“打开分享的链接”。由于 iOS 的限制，分享面板无法直接启动应用，因此采用这种方式。",
+    "es": "Después, abre esta app y aparecerá «Abrir el enlace compartido» en la primera pantalla. iOS no permite que una hoja para compartir abra una app directamente, de ahí este flujo.",
+    "de": "Öffne danach diese App – auf dem ersten Bildschirm erscheint „Geteilten Link öffnen“. iOS erlaubt es nicht, eine App direkt aus dem Teilen-Menü zu starten, daher dieser Ablauf.",
+    "fr": "Ouvrez ensuite cette app : « Ouvrir le lien partagé » apparaît sur le premier écran. iOS ne permet pas à une feuille de partage de lancer une app directement, d’où ce fonctionnement.",
+    "ko": "그 후 본 앱을 열면 첫 화면에 ‘공유된 URL 열기’가 표시됩니다. iOS 사양상 공유 시트에서 앱을 직접 실행할 수 없어 이런 방식을 사용합니다."
+  },
+  "about.oneTap.header": {
+    "comment": "見出し: ワンタップで開く",
+    "ja": "共有シートからワンタップで開く",
+    "en": "One-tap opening from the share sheet",
+    "zh-Hans": "从分享面板一键打开",
+    "es": "Abrir con un toque desde la hoja para compartir",
+    "de": "Mit einem Tippen aus dem Teilen-Menü öffnen",
+    "fr": "Ouvrir en un geste depuis la feuille de partage",
+    "ko": "공유 시트에서 한 번에 열기"
+  },
+  "about.oneTap.body": {
+    "comment": "通知の説明",
+    "ja": "通知を許可すると、共有した直後に通知が出て、タップするだけでそのチャンネルを開けます。使うのは共有した直後のこの通知だけで、お知らせ・宣伝の通知は送りません（サーバーからのプッシュ通知も使いません）。許可しない場合は、アプリを開いて「共有されたURLを開く」から表示できます。",
+    "en": "If you allow notifications, one appears right after you share and a single tap opens that channel. That is the only notification used — no news or promotions, and no server push notifications. If you don’t allow them, open the app and use “Open shared link”.",
+    "zh-Hans": "允许通知后，分享完成时会立即出现通知，点按即可打开该频道。仅使用这一条通知，不会发送资讯或广告通知（也不使用服务器推送）。若不允许，可打开应用并使用“打开分享的链接”。",
+    "es": "Si permites las notificaciones, aparecerá una justo después de compartir y con un toque se abrirá ese canal. Es la única notificación que se usa: sin noticias ni promociones, y sin notificaciones push desde servidores. Si no las permites, abre la app y usa «Abrir el enlace compartido».",
+    "de": "Wenn du Mitteilungen erlaubst, erscheint direkt nach dem Teilen eine Mitteilung, und ein Tippen öffnet den Kanal. Nur diese Mitteilung wird genutzt – keine News, keine Werbung und keine Server-Push-Mitteilungen. Andernfalls öffne die App und nutze „Geteilten Link öffnen“.",
+    "fr": "Si vous autorisez les notifications, l’une d’elles apparaît juste après le partage et un simple appui ouvre la chaîne. C’est la seule notification utilisée : ni actualités, ni promotions, ni notifications push depuis un serveur. Sinon, ouvrez l’app et utilisez « Ouvrir le lien partagé ».",
+    "ko": "알림을 허용하면 공유 직후 알림이 표시되며 탭 한 번으로 해당 채널을 열 수 있습니다. 사용하는 알림은 이것뿐이며 소식·홍보 알림이나 서버 푸시 알림은 보내지 않습니다. 허용하지 않으면 앱을 열어 ‘공유된 URL 열기’에서 볼 수 있습니다."
+  },
+  "about.notify.enabled": {
+    "comment": "通知は許可済み",
+    "ja": "通知は許可済みです",
+    "en": "Notifications are allowed",
+    "zh-Hans": "通知已允许",
+    "es": "Las notificaciones están permitidas",
+    "de": "Mitteilungen sind erlaubt",
+    "fr": "Les notifications sont autorisées",
+    "ko": "알림이 허용되어 있습니다"
+  },
+  "about.notify.allow": {
+    "comment": "通知を許可するボタン",
+    "ja": "通知を許可する",
+    "en": "Allow notifications",
+    "zh-Hans": "允许通知",
+    "es": "Permitir notificaciones",
+    "de": "Mitteilungen erlauben",
+    "fr": "Autoriser les notifications",
+    "ko": "알림 허용하기"
+  },
+  "about.notify.settings": {
+    "comment": "設定アプリで許可するボタン",
+    "ja": "設定アプリで通知を許可する",
+    "en": "Allow notifications in Settings",
+    "zh-Hans": "在“设置”中允许通知",
+    "es": "Permitir notificaciones en Ajustes",
+    "de": "Mitteilungen in den Einstellungen erlauben",
+    "fr": "Autoriser les notifications dans Réglages",
+    "ko": "설정 앱에서 알림 허용하기"
+  },
+  "about.pin.header": {
+    "comment": "見出し: 共有シートで上位に表示するには",
+    "ja": "共有シートで上位に表示するには",
+    "en": "Showing it near the top of the share sheet",
+    "zh-Hans": "如何在分享面板中靠前显示",
+    "es": "Cómo mostrarla arriba en la hoja para compartir",
+    "de": "So erscheint sie im Teilen-Menü weiter oben",
+    "fr": "L’afficher en haut de la feuille de partage",
+    "ko": "공유 시트 상단에 표시하려면"
+  },
+  "about.pin.body1": {
+    "comment": "共有シートの2か所の説明（%@ にアプリ名）",
+    "ja": "共有シートには2か所から入れます。アプリのアイコンが並ぶ行の「%@」と、下にスクロールしたアクション一覧の「Channel Timelineで開く」です。後者は「その他」を開かなくても届きます。",
+    "en": "There are two entry points in the share sheet: “%@” in the row of app icons, and “Open in Channel Timeline” in the action list further down. The latter is reachable without opening “More”.",
+    "zh-Hans": "分享面板中有两个入口：应用图标行中的“%@”，以及向下滚动后操作列表中的“在 Channel Timeline 中打开”。后者无需打开“更多”即可使用。",
+    "es": "Hay dos puntos de entrada en la hoja para compartir: «%@» en la fila de iconos de apps y «Abrir en Channel Timeline» en la lista de acciones más abajo. A la segunda se llega sin abrir «Más».",
+    "de": "Es gibt zwei Einstiegspunkte im Teilen-Menü: „%@“ in der Reihe der App-Symbole und „In Channel Timeline öffnen“ in der Aktionsliste weiter unten. Letztere ist ohne „Mehr“ erreichbar.",
+    "fr": "La feuille de partage offre deux entrées : « %@ » dans la rangée d’icônes d’apps, et « Ouvrir dans Channel Timeline » dans la liste d’actions plus bas. Cette dernière est accessible sans passer par « Plus ».",
+    "ko": "공유 시트에는 두 곳에서 진입할 수 있습니다. 앱 아이콘이 늘어선 줄의 ‘%@’와, 아래로 스크롤한 동작 목록의 ‘Channel Timeline으로 열기’입니다. 후자는 ‘기타’를 열지 않아도 사용할 수 있습니다."
+  },
+  "about.pin.body2": {
+    "comment": "並び順の説明",
+    "ja": "共有先の並び順は iOS が決めるため、アプリ側から指定できません。次の手順で「よく使う項目」に固定すると、常に上位に表示されます。",
+    "en": "iOS decides the order of share targets, so the app can’t set it. Pin it to Favorites with the steps below and it will always appear near the top.",
+    "zh-Hans": "分享目标的顺序由 iOS 决定，应用无法指定。按以下步骤固定到“个人收藏”后，它会始终靠前显示。",
+    "es": "iOS decide el orden de los destinos para compartir, así que la app no puede fijarlo. Añádela a Favoritos con estos pasos y aparecerá siempre arriba.",
+    "de": "iOS bestimmt die Reihenfolge der Teilen-Ziele; die App kann sie nicht festlegen. Hefte sie mit den folgenden Schritten an die Favoriten an, dann steht sie immer weit oben.",
+    "fr": "iOS décide de l’ordre des destinations de partage ; l’app ne peut pas l’imposer. Épinglez-la aux Favoris avec les étapes ci-dessous pour qu’elle reste en tête.",
+    "ko": "공유 대상의 순서는 iOS가 정하므로 앱에서 지정할 수 없습니다. 아래 순서로 ‘즐겨찾는 항목’에 고정하면 항상 위쪽에 표시됩니다."
+  },
+  "about.pin.steps": {
+    "comment": "固定手順（%@ にアプリ名）",
+    "ja": "① 共有ボタンを押す → アプリのアイコンが並ぶ行を右端までスクロール → 「その他」\n② 右上の「編集」をタップ\n③ 「%@」の左の「＋」で「よく使う項目」に追加\n④ 並べ替えて上位に移動 → 「完了」",
+    "en": "① Tap Share → scroll the app icon row to the far right → “More”\n② Tap “Edit” at the top right\n③ Tap “+” next to “%@” to add it to Favorites\n④ Drag it up in the list → “Done”",
+    "zh-Hans": "① 点按分享按钮 → 将应用图标行滑到最右端 →“更多”\n② 点按右上角的“编辑”\n③ 点按“%@”左侧的“+”加入“个人收藏”\n④ 拖动到靠前位置 →“完成”",
+    "es": "① Toca Compartir → desplaza la fila de iconos hasta el final → «Más»\n② Toca «Editar» arriba a la derecha\n③ Toca «+» junto a «%@» para añadirla a Favoritos\n④ Arrástrala hacia arriba → «OK»",
+    "de": "① Auf „Teilen“ tippen → App-Symbolzeile ganz nach rechts scrollen → „Mehr“\n② Oben rechts auf „Bearbeiten“ tippen\n③ Neben „%@“ auf „+“ tippen, um sie zu den Favoriten hinzuzufügen\n④ In der Liste nach oben ziehen → „Fertig“",
+    "fr": "① Touchez Partager → faites défiler la rangée d’icônes jusqu’au bout → « Plus »\n② Touchez « Modifier » en haut à droite\n③ Touchez « + » à côté de « %@ » pour l’ajouter aux Favoris\n④ Faites-la glisser vers le haut → « OK »",
+    "ko": "① 공유 버튼을 누릅니다 → 앱 아이콘 줄을 오른쪽 끝까지 스크롤 → ‘기타’\n② 오른쪽 위 ‘편집’을 탭합니다\n③ ‘%@’ 왼쪽의 ‘+’로 ‘즐겨찾는 항목’에 추가합니다\n④ 위쪽으로 이동시킨 뒤 ‘완료’"
+  },
+  "about.data.header": {
+    "comment": "見出し: データの取得と再生について",
+    "ja": "データの取得と再生について",
+    "en": "How data and playback work",
+    "zh-Hans": "关于数据获取与播放",
+    "es": "Cómo se obtienen los datos y la reproducción",
+    "de": "Datenabruf und Wiedergabe",
+    "fr": "Récupération des données et lecture",
+    "ko": "데이터 취득과 재생에 대하여"
+  },
+  "about.data.body": {
+    "comment": "データの説明",
+    "ja": "動画一覧の取得には YouTube Data API v3 を使用します。再生は YouTube 公式プレイヤーをそのまま埋め込んで表示します。スクレイピングや独自プレイヤーでの再生は行いません。",
+    "en": "Video lists come from the YouTube Data API v3. Playback embeds YouTube’s official player as-is. No scraping and no custom player.",
+    "zh-Hans": "视频列表通过 YouTube Data API v3 获取。播放直接嵌入 YouTube 官方播放器。不进行抓取，也不使用自制播放器。",
+    "es": "Las listas de vídeos se obtienen con la API de datos de YouTube v3. La reproducción incrusta el reproductor oficial tal cual. Sin scraping ni reproductor propio.",
+    "de": "Videolisten stammen aus der YouTube Data API v3. Die Wiedergabe bettet den offiziellen Player unverändert ein. Kein Scraping, kein eigener Player.",
+    "fr": "Les listes de vidéos proviennent de l’API YouTube Data v3. La lecture intègre le lecteur officiel tel quel. Ni scraping, ni lecteur maison.",
+    "ko": "동영상 목록은 YouTube Data API v3로 가져옵니다. 재생은 YouTube 공식 플레이어를 그대로 임베드해 표시합니다. 스크래핑이나 자체 플레이어 재생은 하지 않습니다."
+  },
+  "about.autoPlay.header": {
+    "comment": "見出し: 自動再生",
+    "ja": "自動再生（任意・初期状態はオフ）",
+    "en": "Autoplay (optional, off by default)",
+    "zh-Hans": "自动播放（可选，默认关闭）",
+    "es": "Reproducción automática (opcional, desactivada por defecto)",
+    "de": "Autoplay (optional, standardmäßig aus)",
+    "fr": "Lecture automatique (facultative, désactivée par défaut)",
+    "ko": "자동 재생 (선택 사항, 기본 꺼짐)"
+  },
+  "about.autoPlay.body": {
+    "comment": "自動再生の説明",
+    "ja": "自動再生は初期状態ではオフです。既定では再生が終わるとそこで停止し、「次の動画を再生」ボタンを表示します。再生画面の「終了したら次を自動再生」をご自身でオンにした場合のみ、続けて再生します。オンにした場合でも、進むのは開いているチャンネル一覧の次の動画だけで、関連動画やおすすめ動画へ移動することはありません。バックグラウンド再生は行わないため、アプリを閉じると再生も自動送りも止まります。",
+    "en": "Autoplay is off by default: playback stops when a video ends and a “Play next video” button appears. It continues only if you turn on “Autoplay next when the video ends” yourself on the player screen. Even then it moves only to the next video in the channel list you opened — never to related or recommended videos. There is no background playback, so closing the app stops both playback and autoplay.",
+    "zh-Hans": "自动播放默认关闭：视频结束后会停止并显示“播放下一个视频”按钮。只有你在播放界面自行开启“结束后自动播放下一个”时才会继续播放。即使开启，也只会前进到已打开频道列表中的下一个视频，不会跳转到相关或推荐视频。不进行后台播放，因此关闭应用后播放与自动播放都会停止。",
+    "es": "La reproducción automática está desactivada por defecto: al terminar un vídeo se detiene y aparece un botón «Reproducir el siguiente». Solo continúa si activas «Reproducir el siguiente automáticamente al terminar» en la pantalla del reproductor. Aun así, solo avanza al siguiente vídeo de la lista del canal abierto, nunca a vídeos relacionados o recomendados. No hay reproducción en segundo plano: al cerrar la app se detiene todo.",
+    "de": "Autoplay ist standardmäßig aus: Am Ende eines Videos stoppt die Wiedergabe und die Schaltfläche „Nächstes Video abspielen“ erscheint. Es geht nur weiter, wenn du auf dem Player-Bildschirm selbst „Am Ende automatisch das nächste Video abspielen“ einschaltest. Auch dann wird nur zum nächsten Video der geöffneten Kanalliste gewechselt – nie zu ähnlichen oder empfohlenen Videos. Es gibt keine Hintergrundwiedergabe; beim Schließen der App stoppt alles.",
+    "fr": "La lecture automatique est désactivée par défaut : à la fin d’une vidéo, la lecture s’arrête et un bouton « Lire la vidéo suivante » apparaît. Elle ne continue que si vous activez vous-même « Lire automatiquement la suivante à la fin » sur l’écran du lecteur. Même alors, elle passe uniquement à la vidéo suivante de la liste de la chaîne ouverte, jamais aux vidéos associées ou recommandées. Il n’y a pas de lecture en arrière-plan : fermer l’app arrête tout.",
+    "ko": "자동 재생은 기본적으로 꺼져 있습니다. 기본값에서는 재생이 끝나면 정지하고 ‘다음 동영상 재생’ 버튼을 표시합니다. 재생 화면에서 ‘종료 시 다음 동영상 자동 재생’을 직접 켠 경우에만 이어서 재생합니다. 켜더라도 이동하는 곳은 열어 둔 채널 목록의 다음 동영상뿐이며 관련 동영상·추천 동영상으로 이동하지 않습니다. 백그라운드 재생을 하지 않으므로 앱을 닫으면 재생과 자동 이동도 멈춥니다."
+  },
+  "about.screen.header": {
+    "comment": "見出し: 再生中の画面",
+    "ja": "再生中の画面",
+    "en": "The screen during playback",
+    "zh-Hans": "播放期间的屏幕",
+    "es": "La pantalla durante la reproducción",
+    "de": "Der Bildschirm während der Wiedergabe",
+    "fr": "L’écran pendant la lecture",
+    "ko": "재생 중 화면"
+  },
+  "about.screen.body": {
+    "comment": "画面ロックの説明",
+    "ja": "再生している間は画面が自動で暗くならないようにしています（置いたまま見ているときに消えて止まるのを防ぐため）。一時停止したときや、再生画面を離れたときは通常どおり自動でロックします。バックグラウンド再生は行わないため、アプリを閉じると再生も止まります。",
+    "en": "While a video is playing the screen is kept awake, so it won’t dim and interrupt you when the device is resting on a table. When you pause or leave the player, auto-lock returns to normal. There is no background playback, so closing the app stops playback.",
+    "zh-Hans": "播放期间会阻止屏幕自动变暗，以免设备放置时熄屏导致中断。暂停或离开播放界面后，自动锁定恢复正常。不进行后台播放，因此关闭应用后播放会停止。",
+    "es": "Mientras se reproduce un vídeo, la pantalla se mantiene encendida para que no se atenúe y te interrumpa con el dispositivo apoyado. Al pausar o salir del reproductor, el bloqueo automático vuelve a la normalidad. No hay reproducción en segundo plano: cerrar la app detiene la reproducción.",
+    "de": "Während der Wiedergabe bleibt der Bildschirm an, damit er nicht abdunkelt und die Wiedergabe unterbricht, wenn das Gerät liegt. Beim Pausieren oder Verlassen des Players gilt wieder die normale Auto-Sperre. Es gibt keine Hintergrundwiedergabe; beim Schließen der App stoppt die Wiedergabe.",
+    "fr": "Pendant la lecture, l’écran reste allumé afin qu’il ne s’éteigne pas et n’interrompe pas la vidéo lorsque l’appareil est posé. En pause ou en quittant le lecteur, le verrouillage automatique redevient normal. Il n’y a pas de lecture en arrière-plan : fermer l’app arrête la lecture.",
+    "ko": "재생 중에는 화면이 자동으로 어두워지지 않도록 합니다(기기를 놓아둔 채 볼 때 꺼져서 멈추는 것을 막기 위함). 일시정지하거나 재생 화면을 벗어나면 평소대로 자동 잠금됩니다. 백그라운드 재생을 하지 않으므로 앱을 닫으면 재생도 멈춥니다."
+  },
+  "about.resume.header": {
+    "comment": "見出し: 続きから再生",
+    "ja": "続きから再生",
+    "en": "Resume playback",
+    "zh-Hans": "从上次位置继续",
+    "es": "Reanudar la reproducción",
+    "de": "Wiedergabe fortsetzen",
+    "fr": "Reprendre la lecture",
+    "ko": "이어서 재생"
+  },
+  "about.resume.body": {
+    "comment": "続きから再生の説明",
+    "ja": "動画ごとの再生位置を端末内に保存し、次に同じ動画を開いたときは前回の続きから再生します（初期状態はオン）。再生画面の「…」メニューからオフにでき、「最初から再生」で頭出しもできます。保存するのは再生位置（秒）だけで、動画そのものは保存しません。",
+    "en": "The playback position of each video is stored on the device, so reopening a video resumes where you left off (on by default). You can turn it off from the “…” menu on the player screen, and “Play from the beginning” jumps back to the start. Only the position in seconds is stored — never the video itself.",
+    "zh-Hans": "每个视频的播放位置会保存在设备中，再次打开时会从上次的位置继续（默认开启）。可在播放界面的“…”菜单中关闭，也可用“从头播放”回到开头。仅保存播放位置（秒），不保存视频本身。",
+    "es": "La posición de reproducción de cada vídeo se guarda en el dispositivo, así que al reabrirlo continúa donde lo dejaste (activado por defecto). Puedes desactivarlo desde el menú «…» del reproductor, y «Reproducir desde el principio» vuelve al inicio. Solo se guarda la posición en segundos, nunca el vídeo.",
+    "de": "Die Wiedergabeposition jedes Videos wird auf dem Gerät gespeichert, sodass es beim erneuten Öffnen dort fortsetzt (standardmäßig aktiv). Im „…“-Menü des Players lässt es sich ausschalten, und „Von Anfang an abspielen“ springt zum Start. Gespeichert werden nur die Sekunden – nie das Video selbst.",
+    "fr": "La position de lecture de chaque vidéo est enregistrée sur l’appareil : à la réouverture, la lecture reprend où vous l’aviez laissée (activé par défaut). Vous pouvez le désactiver dans le menu « … » du lecteur, et « Lire depuis le début » revient au commencement. Seule la position en secondes est enregistrée, jamais la vidéo.",
+    "ko": "동영상별 재생 위치를 기기에 저장해 같은 동영상을 다시 열면 이전 위치부터 재생합니다(기본 켜짐). 재생 화면의 ‘…’ 메뉴에서 끌 수 있고 ‘처음부터 재생’으로 앞으로 돌릴 수도 있습니다. 저장하는 것은 재생 위치(초)뿐이며 동영상 자체는 저장하지 않습니다."
+  },
+  "about.privacyPolicy": {
+    "comment": "プライバシーポリシー",
+    "ja": "プライバシーポリシー",
+    "en": "Privacy policy",
+    "zh-Hans": "隐私政策",
+    "es": "Política de privacidad",
+    "de": "Datenschutzerklärung",
+    "fr": "Politique de confidentialité",
+    "ko": "개인정보 처리방침"
+  },
+  "about.title": {
+    "comment": "画面名: このアプリについて",
+    "ja": "このアプリについて",
+    "en": "About this app",
+    "zh-Hans": "关于本应用",
+    "es": "Acerca de esta app",
+    "de": "Über diese App",
+    "fr": "À propos de cette app",
+    "ko": "이 앱에 대하여"
+  },
+  "common.close": {
+    "comment": "閉じる",
+    "ja": "閉じる",
+    "en": "Close",
+    "zh-Hans": "关闭",
+    "es": "Cerrar",
+    "de": "Schließen",
+    "fr": "Fermer",
+    "ko": "닫기"
+  },
+  "handoff.error.noURL": {
+    "comment": "URLが見つからないとき",
+    "ja": "YouTube の URL が見つかりませんでした。\n動画またはチャンネルのページから共有してください。",
+    "en": "No YouTube URL was found.\nShare from a video or channel page.",
+    "zh-Hans": "未找到 YouTube 网址。\n请从视频或频道页面进行分享。",
+    "es": "No se encontró ninguna URL de YouTube.\nComparte desde la página de un vídeo o de un canal.",
+    "de": "Es wurde keine YouTube-URL gefunden.\nTeile von einer Video- oder Kanalseite.",
+    "fr": "Aucune URL YouTube trouvée.\nPartagez depuis une page de vidéo ou de chaîne.",
+    "ko": "YouTube URL을 찾지 못했습니다.\n동영상 또는 채널 페이지에서 공유해 주세요."
+  },
+  "handoff.error.cannotOpen": {
+    "comment": "URLを開けないとき",
+    "ja": "この URL は開けませんでした。",
+    "en": "This URL couldn’t be opened.",
+    "zh-Hans": "无法打开该网址。",
+    "es": "No se pudo abrir esta URL.",
+    "de": "Diese URL konnte nicht geöffnet werden.",
+    "fr": "Impossible d’ouvrir cette URL.",
+    "ko": "이 URL은 열 수 없었습니다."
+  },
+  "handoff.passing.format": {
+    "comment": "受け渡し中（%@ にアプリ名）",
+    "ja": "%@ に受け渡しています…",
+    "en": "Handing off to %@…",
+    "zh-Hans": "正在传递给 %@…",
+    "es": "Enviando a %@…",
+    "de": "Wird an %@ übergeben …",
+    "fr": "Transmission à %@…",
+    "ko": "%@(으)로 전달하는 중…"
+  },
+  "handoff.received.format": {
+    "comment": "受け取り完了の案内（%@ にアプリ名）",
+    "ja": "URL を受け取りました。\n%@ を開くと、「共有されたURLを開く」からこのチャンネルを表示できます。",
+    "en": "Got the URL.\nOpen %@ and tap “Open shared link” to view this channel.",
+    "zh-Hans": "已接收网址。\n打开 %@ 后，可从“打开分享的链接”查看该频道。",
+    "es": "URL recibida.\nAbre %@ y toca «Abrir el enlace compartido» para ver este canal.",
+    "de": "URL empfangen.\nÖffne %@ und tippe auf „Geteilten Link öffnen“, um den Kanal anzuzeigen.",
+    "fr": "URL reçue.\nOuvrez %@ et touchez « Ouvrir le lien partagé » pour afficher cette chaîne.",
+    "ko": "URL을 받았습니다.\n%@을(를) 열고 ‘공유된 URL 열기’에서 이 채널을 볼 수 있습니다."
+  },
+  "handoff.received.askNotification": {
+    "comment": "通知を勧める案内",
+    "ja": "URL を受け取りました。\n通知を許可すると、この直後に出る通知をタップするだけで開けます。\n（許可しない場合は、アプリを開いて「共有されたURLを開く」から表示できます）",
+    "en": "Got the URL.\nIf you allow notifications, you can just tap the notification that appears next.\n(Otherwise, open the app and use “Open shared link”.)",
+    "zh-Hans": "已接收网址。\n允许通知后，只需点按随后出现的通知即可打开。\n（若不允许，可打开应用并使用“打开分享的链接”。）",
+    "es": "URL recibida.\nSi permites las notificaciones, bastará con tocar la que aparezca a continuación.\n(Si no, abre la app y usa «Abrir el enlace compartido».)",
+    "de": "URL empfangen.\nWenn du Mitteilungen erlaubst, genügt ein Tippen auf die gleich erscheinende Mitteilung.\n(Andernfalls öffne die App und nutze „Geteilten Link öffnen“.)",
+    "fr": "URL reçue.\nSi vous autorisez les notifications, il suffira de toucher celle qui va apparaître.\n(Sinon, ouvrez l’app et utilisez « Ouvrir le lien partagé ».)",
+    "ko": "URL을 받았습니다.\n알림을 허용하면 곧 표시되는 알림을 탭하는 것만으로 열 수 있습니다.\n(허용하지 않으면 앱을 열고 ‘공유된 URL 열기’에서 볼 수 있습니다.)"
+  },
+  "handoff.preparingNotification": {
+    "comment": "通知準備中",
+    "ja": "通知を準備しています…",
+    "en": "Preparing the notification…",
+    "zh-Hans": "正在准备通知…",
+    "es": "Preparando la notificación…",
+    "de": "Mitteilung wird vorbereitet …",
+    "fr": "Préparation de la notification…",
+    "ko": "알림을 준비하는 중…"
+  },
+  "handoff.reading": {
+    "comment": "URL読み取り中",
+    "ja": "共有された URL を読み取っています…",
+    "en": "Reading the shared URL…",
+    "zh-Hans": "正在读取分享的网址…",
+    "es": "Leyendo la URL compartida…",
+    "de": "Geteilte URL wird gelesen …",
+    "fr": "Lecture de l’URL partagée…",
+    "ko": "공유된 URL을 읽는 중…"
+  },
+  "handoff.allowNotification": {
+    "comment": "通知を許可して開くボタン",
+    "ja": "通知を許可して開く",
+    "en": "Allow notifications and open",
+    "zh-Hans": "允许通知并打开",
+    "es": "Permitir notificaciones y abrir",
+    "de": "Mitteilungen erlauben und öffnen",
+    "fr": "Autoriser les notifications et ouvrir",
+    "ko": "알림을 허용하고 열기"
   }
 }

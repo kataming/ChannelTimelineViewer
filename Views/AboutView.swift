@@ -7,93 +7,89 @@ struct AboutView: View {
     @Environment(\.openURL) private var openURL
     @EnvironmentObject private var notificationPermission: NotificationPermission
 
-    private var appName: String {
-        (Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String)
-            ?? (Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String)
-            ?? "Channel Timeline Viewer"
-    }
+    private var appName: String { AppInfo.displayName }
 
     var body: some View {
         NavigationStack {
             List {
                 Section {
                     Text(appName).font(.headline)
-                    Text("チャンネルの投稿動画を公開日順（古い順）に整理し、過去動画視聴・シリーズ視聴・学習を進捗管理しながら行える視聴補助アプリです。YouTube 公式アプリの代替ではありません。")
+                    Text("about.summary")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                 }
 
-                Section("重要な注意事項") {
-                    disclaimerRow("このアプリは YouTube 公式アプリではありません。")
-                    disclaimerRow("動画再生には YouTube 公式の埋め込みプレイヤー（IFrame Player）を使用しています。")
-                    disclaimerRow("動画のダウンロードは行いません。")
-                    disclaimerRow("広告回避は行いません。")
-                    disclaimerRow("バックグラウンド再生は行いません。")
+                Section("about.notices.header") {
+                    disclaimerRow(String(localized: "about.notice.notOfficial"))
+                    disclaimerRow(String(localized: "about.notice.officialPlayer"))
+                    disclaimerRow(String(localized: "about.notice.noDownload"))
+                    disclaimerRow(String(localized: "about.notice.noAdBlock"))
+                    disclaimerRow(String(localized: "about.notice.noBackground"))
                 }
 
-                Section("共有シートから開く") {
-                    Text("YouTube アプリや Safari の共有ボタンから「\(appName)」を選ぶと、共有されたチャンネル・動画のURLを受け取ります。共有機能はURLを受け取るだけで、外部への送信は行いません。")
+                Section("about.share.header") {
+                    Text(String(format: String(localized: "about.share.body1"), appName))
                         .font(.footnote)
                         .foregroundStyle(.secondary)
-                    Text("受け取ったあと本アプリを開くと、最初の画面に「共有されたURLを開く」が表示されます。iOS の仕様上、共有シートからアプリを直接起動することはできないため、この形にしています。")
+                    Text("about.share.body2")
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                 }
 
-                Section("共有シートからワンタップで開く") {
-                    Text("通知を許可すると、共有した直後に通知が出て、タップするだけでそのチャンネルを開けます。使うのは共有した直後のこの通知だけで、お知らせ・宣伝の通知は送りません（サーバーからのプッシュ通知も使いません）。許可しない場合は、アプリを開いて「共有されたURLを開く」から表示できます。")
+                Section("about.oneTap.header") {
+                    Text("about.oneTap.body")
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                     if notificationPermission.isEnabled {
-                        Label("通知は許可済みです", systemImage: "checkmark.circle.fill")
+                        Label("about.notify.enabled", systemImage: "checkmark.circle.fill")
                             .font(.footnote)
                             .foregroundStyle(.green)
                     } else if notificationPermission.canAsk {
                         Button {
                             Task { await notificationPermission.request() }
                         } label: {
-                            Label("通知を許可する", systemImage: "bell.badge")
+                            Label("about.notify.allow", systemImage: "bell.badge")
                         }
                     } else {
                         Button {
                             notificationPermission.openSettings()
                         } label: {
-                            Label("設定アプリで通知を許可する", systemImage: "gear")
+                            Label("about.notify.settings", systemImage: "gear")
                         }
                     }
                 }
 
-                Section("共有シートで上位に表示するには") {
-                    Text("共有シートには2か所から入れます。アプリのアイコンが並ぶ行の「\(appName)」と、下にスクロールしたアクション一覧の「Channel Timelineで開く」です。後者は「その他」を開かなくても届きます。")
+                Section("about.pin.header") {
+                    Text(String(format: String(localized: "about.pin.body1"), appName))
                         .font(.footnote)
                         .foregroundStyle(.secondary)
-                    Text("共有先の並び順は iOS が決めるため、アプリ側から指定できません。次の手順で「よく使う項目」に固定すると、常に上位に表示されます。")
+                    Text("about.pin.body2")
                         .font(.footnote)
                         .foregroundStyle(.secondary)
-                    Text("① 共有ボタンを押す → アプリのアイコンが並ぶ行を右端までスクロール → 「その他」\n② 右上の「編集」をタップ\n③ 「\(appName)」の左の「＋」で「よく使う項目」に追加\n④ 並べ替えて上位に移動 → 「完了」")
+                    Text(String(format: String(localized: "about.pin.steps"), appName))
                         .font(.footnote)
                 }
 
-                Section("データの取得と再生について") {
-                    Text("動画一覧の取得には YouTube Data API v3 を使用します。再生は YouTube 公式プレイヤーをそのまま埋め込んで表示します。スクレイピングや独自プレイヤーでの再生は行いません。")
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
-                }
-
-                Section("自動再生（任意・初期状態はオフ）") {
-                    Text("自動再生は初期状態ではオフです。既定では再生が終わるとそこで停止し、「次の動画を再生」ボタンを表示します。再生画面の「終了したら次を自動再生」をご自身でオンにした場合のみ、続けて再生します。オンにした場合でも、進むのは開いているチャンネル一覧の次の動画だけで、関連動画やおすすめ動画へ移動することはありません。バックグラウンド再生は行わないため、アプリを閉じると再生も自動送りも止まります。")
+                Section("about.data.header") {
+                    Text("about.data.body")
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                 }
 
-                Section("再生中の画面") {
-                    Text("再生している間は画面が自動で暗くならないようにしています（置いたまま見ているときに消えて止まるのを防ぐため）。一時停止したときや、再生画面を離れたときは通常どおり自動でロックします。バックグラウンド再生は行わないため、アプリを閉じると再生も止まります。")
+                Section("about.autoPlay.header") {
+                    Text("about.autoPlay.body")
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                 }
 
-                Section("続きから再生") {
-                    Text("動画ごとの再生位置を端末内に保存し、次に同じ動画を開いたときは前回の続きから再生します（初期状態はオン）。再生画面の「…」メニューからオフにでき、「最初から再生」で頭出しもできます。保存するのは再生位置（秒）だけで、動画そのものは保存しません。")
+                Section("about.screen.header") {
+                    Text("about.screen.body")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                }
+
+                Section("about.resume.header") {
+                    Text("about.resume.body")
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                 }
@@ -103,16 +99,16 @@ struct AboutView: View {
                         Button {
                             openURL(url)
                         } label: {
-                            Label("プライバシーポリシー", systemImage: "hand.raised")
+                            Label("about.privacyPolicy", systemImage: "hand.raised")
                         }
                     }
                 }
             }
-            .navigationTitle("このアプリについて")
+            .navigationTitle(Text("about.title"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("閉じる") { dismiss() }
+                    Button("common.close") { dismiss() }
                 }
             }
         }

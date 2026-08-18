@@ -106,30 +106,6 @@ final class ScreenshotUITests: XCTestCase {
         add(attachment)
     }
 
-    /// キーボードを閉じる。SwiftUI の Form / ScrollView には「完了」ツールバーが無いため、
-    /// 環境によって効く方法が違う。どれも失敗扱いにはしない。
-    private func dismissKeyboard() {
-        guard app.keyboards.count > 0 else { return }
-
-        // 1) ツールバーがあるなら使う
-        let toolbarButton = app.toolbars.buttons.firstMatch
-        if toolbarButton.exists {
-            toolbarButton.tap()
-            if app.keyboards.count == 0 { return }
-        }
-
-        // 2) スクロールビューを下に払う（interactive dismissal）
-        let scroll = app.scrollViews.firstMatch
-        if scroll.exists { scroll.swipeDown() } else { app.swipeDown() }
-        if app.keyboards.count == 0 { return }
-
-        // 3) ナビゲーションバーをタップ
-        let navBar = app.navigationBars.firstMatch
-        if navBar.exists {
-            navBar.tap()
-        }
-    }
-
     /// 戻るボタン（ナビゲーションバーの先頭ボタン）を押す。無ければ何もしない。
     private func goBack() {
         let back = app.navigationBars.buttons.element(boundBy: 0)
@@ -146,6 +122,28 @@ final class ScreenshotUITests: XCTestCase {
             goBack()
             attempts += 1
         }
+    }
+
+    /// いま動画一覧にいることを確かめる。ホームまで戻ってしまっていたら開き直す。
+    private func ensureVideoList() {
+        if app.buttons[L("list.menu.a11y")].exists { return }
+        guard app.buttons[L("input.fetch")].exists else { return }
+        // ホームの「最近使ったチャンネル」から入り直す（0=URL欄, 1=取得ボタン, 2=チャンネル行）
+        let favorite = app.cells.element(boundBy: 2)
+        guard favorite.exists && favorite.isHittable else { return }
+        favorite.tap()
+        _ = app.buttons[L("list.menu.a11y")].waitForExistence(timeout: 120)
+        Thread.sleep(forTimeInterval: 1.5)
+    }
+
+    /// 一覧の指定行を開いて、再生画面が出るまで待つ。開けなければ false。
+    @discardableResult
+    private func openVideoRow(_ index: Int) -> Bool {
+        ensureVideoList()
+        let row = app.cells.element(boundBy: index)
+        guard row.exists && row.isHittable else { return false }
+        row.tap()
+        return waitForPlayerScreen()
     }
 
     /// 再生画面が使える状態になるまで待つ（移動ボタンの「次へ」が出れば描画済み）。
@@ -226,13 +224,8 @@ final class ScreenshotUITests: XCTestCase {
     private func markSomeVideosAsWatched() {
         for _ in 0..<max(0, watchedCount) {
             // 「次に見る／続きから」行は常に未視聴の先頭を開くので、繰り返すと順に進む
-            let resumeRow = app.cells.element(boundBy: 1)
-            guard resumeRow.exists && resumeRow.isHittable else { break }
-            resumeRow.tap()
-
-            if waitForPlayerScreen() {
-                markCurrentVideoWatched()
-            }
+            guard openVideoRow(1) else { break }
+            markCurrentVideoWatched()
             goBack()
         }
     }
@@ -270,26 +263,23 @@ final class ScreenshotUITests: XCTestCase {
     private func capturePlayerScreen() {
         let rowIndex = 3  // 0,1 は進捗ヘッダー/次に見る行
 
-        // 1回目: メモを入力するだけ
-        let row = app.cells.element(boundBy: rowIndex)
-        guard row.exists && row.isHittable else { return }
-        row.tap()
-        waitForPlayerScreen()
-
+        // 1回目: メモを入力するだけ。
+        // 入力直後はキーボードが出たままで写真に使えないので、ここでは撮らずに戻る
+        //（画面ごと閉じればキーボードも消える。メモは videoId ごとに自動保存される）。
+        guard openVideoRow(rowIndex) else { return }
         let memo = app.textViews.firstMatch
         if memo.exists && memo.isHittable {
             memo.tap()
             memo.typeText(sampleMemo)
             Thread.sleep(forTimeInterval: 0.8)
-            dismissKeyboard()
         }
         goBack()
 
         // 2回目: キーボードの無い状態で、プレイヤーの読み込みを待って撮る
-        let row2 = app.cells.element(boundBy: rowIndex)
-        guard row2.exists && row2.isHittable else { return }
-        row2.tap()
-        waitForPlayerScreen()
+        guard openVideoRow(rowIndex) else {
+            capture("ERROR-player-not-opened")
+            return
+        }
         Thread.sleep(forTimeInterval: 10)  // 埋め込みプレイヤーの読み込み待ち
         capture("04-player-with-memo")
 

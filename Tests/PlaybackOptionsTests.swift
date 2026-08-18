@@ -79,12 +79,17 @@ final class PlaybackOptionsTests: XCTestCase {
         XCTAssertEqual(vm.command?.javaScript, "setRate(1.50);")
     }
 
+    /// 表示は言語ごとに変わるので、数値の作り方だけを見る。
     func testRateLabels() {
-        XCTAssertEqual(PlayerViewModel.rateLabel(1), "1倍")
-        XCTAssertEqual(PlayerViewModel.rateLabel(2), "2倍")
-        XCTAssertEqual(PlayerViewModel.rateLabel(1.5), "1.5倍")
-        XCTAssertEqual(PlayerViewModel.rateLabel(1.25), "1.25倍")
-        XCTAssertEqual(PlayerViewModel.rateLabel(0.75), "0.75倍")
+        // 等倍は「1」（1.00 のような表記にしない）
+        XCTAssertTrue(PlayerViewModel.rateLabel(1).contains("1"))
+        XCTAssertFalse(PlayerViewModel.rateLabel(1).contains("1.0"))
+        XCTAssertTrue(PlayerViewModel.rateLabel(2).contains("2"))
+        // 端数はそのまま残す（余計な 0 を付けない）
+        XCTAssertTrue(PlayerViewModel.rateLabel(1.5).contains("1.5"))
+        XCTAssertFalse(PlayerViewModel.rateLabel(1.5).contains("1.50"))
+        XCTAssertTrue(PlayerViewModel.rateLabel(1.25).contains("1.25"))
+        XCTAssertTrue(PlayerViewModel.rateLabel(0.75).contains("0.75"))
     }
 
     // MARK: - 字幕
@@ -125,9 +130,12 @@ final class PlaybackOptionsTests: XCTestCase {
 
     // MARK: - 再生画面に出す状態表示
 
+    /// 要約の文言は言語ごとに変わるので、必要な値が入っているかを見る。
     func testSummaryShowsRateAndCaptionState() {
         let vm = makeViewModel()
-        XCTAssertEqual(vm.optionsSummary, "速度 1倍・字幕 オフ")
+        let initial = vm.optionsSummary
+        XCTAssertTrue(initial.contains("1"), "速度が入っている")
+        XCTAssertTrue(initial.contains(String(localized: "captions.off")), "字幕オフが入っている")
 
         vm.handleOptions(YouTubePlayerWebView.parseOptions([
             "rates": [1, 1.5],
@@ -135,7 +143,9 @@ final class PlaybackOptionsTests: XCTestCase {
             "captions": [["code": "ja", "name": "日本語（自動生成）"]],
             "activeCaption": "ja",
         ]))
-        XCTAssertEqual(vm.optionsSummary, "速度 1.5倍・字幕 日本語（自動生成）")
+        let updated = vm.optionsSummary
+        XCTAssertTrue(updated.contains("1.5"), "変更後の速度が入っている")
+        XCTAssertTrue(updated.contains("日本語（自動生成）"), "選んだ字幕トラック名が入っている")
     }
 
     /// 操作要求は毎回別の id を持ち、同じ操作を繰り返せること。

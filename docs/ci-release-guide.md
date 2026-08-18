@@ -138,6 +138,20 @@ gh run watch -R kataming/ChannelTimelineViewer
 `xcodebuild archive`（Release / 手動署名）→ `.ipa` 書き出し → `xcrun altool` で検証＆アップロード →
 keychain を削除。`.ipa` は workflow artifact としても 14 日間保存されます。
 
+## 参考: TestFlight に入れる前に見た目を確認する
+
+UI をいじったときは、実機に配信する前に見た目だけ先に確認できます。
+
+```bash
+gh workflow run ui-preview.yml -R kataming/ChannelTimelineViewer
+```
+
+`UI Preview` ワークフローが、アプリの実ソースを macOS 上でコンパイルして PNG を描き出します
+（アプリ全体のビルドや署名は不要。1〜2分）。生成物は成果物としてダウンロードできるほか、
+`docs/ui-preview/` に置いて push すると、次のページで見られます。
+
+- https://kataming.github.io/ChannelTimelineViewer/ui-preview/
+
 ## Step 5（人手）App Store Connect で提出
 
 アップロードから 5〜30 分ほどでビルドが処理されます。

@@ -1,0 +1,77 @@
+{
+  "_comment": "App Store Connect に入力する各言語のメタデータ。ここが唯一の原本で、scripts/build_store_metadata.py が docs/AppStore/metadata/*.md を生成し、文字数上限も検証する。",
+  "_limits": {
+    "name": 30,
+    "subtitle": 30,
+    "promotionalText": 170,
+    "keywords": 100,
+    "description": 4000,
+    "whatsNew": 4000
+  },
+  "_locales": {
+    "ja": "日本語 (ja)",
+    "en": "English (U.S.) — en-US",
+    "zh-Hans": "简体中文 — zh-Hans",
+    "es": "Español (México/España) — es-MX / es-ES",
+    "de": "Deutsch — de-DE",
+    "fr": "Français — fr-FR",
+    "ko": "한국어 — ko"
+  },
+  "name": {
+    "ja": "Channel Timeline Viewer",
+    "en": "Channel Timeline Viewer",
+    "zh-Hans": "Channel Timeline Viewer",
+    "es": "Channel Timeline Viewer",
+    "de": "Channel Timeline Viewer",
+    "fr": "Channel Timeline Viewer",
+    "ko": "Channel Timeline Viewer"
+  },
+  "subtitle": {
+    "ja": "チャンネル動画を古い順で視聴",
+    "en": "Watch a channel oldest-first",
+    "zh-Hans": "按发布顺序看完整个频道",
+    "es": "Ver canales del más antiguo",
+    "de": "Kanäle chronologisch ansehen",
+    "fr": "Vos chaînes dans l’ordre",
+    "ko": "채널 영상을 오래된 순으로"
+  },
+  "promotionalText": {
+    "ja": "気になるチャンネルを最初の動画から。公開日順に並べて、視聴済み・進捗率・続きから再生で、シリーズや講座を抜け漏れなく追えます。再生は YouTube 公式プレイヤー。",
+    "en": "Start a channel from its very first video. Uploads sorted by date, watched marks, progress and resume — series and courses stay in order. Uses YouTube's official player.",
+    "zh-Hans": "从频道的第一个视频开始看。按发布日期排序，记录已观看、进度与上次位置，让系列和课程井然有序。使用 YouTube 官方播放器。",
+    "es": "Empieza un canal por su primer vídeo. Orden por fecha, marcas de visto, progreso y reanudación: series y cursos en orden. Usa el reproductor oficial de YouTube.",
+    "de": "Starte einen Kanal beim allerersten Video. Nach Datum sortiert, mit Gesehen-Markierungen, Fortschritt und Fortsetzen. Nutzt den offiziellen YouTube-Player.",
+    "fr": "Commencez une chaîne par sa toute première vidéo. Tri par date, marques de visionnage, progression et reprise. Utilise le lecteur officiel YouTube.",
+    "ko": "채널을 첫 영상부터. 게시일순 정렬, 시청 표시, 진행률, 이어 보기로 시리즈와 강의를 순서대로. YouTube 공식 플레이어를 사용합니다."
+  },
+  "keywords": {
+    "ja": "古い順,時系列,チャンネル,進捗,学習,シリーズ,講座,未視聴,続きから,タイムライン,視聴管理",
+    "en": "chronological,oldest,channel,progress,series,course,study,archive,tracker,binge,timeline,queue",
+    "zh-Hans": "频道,时间顺序,从旧到新,进度,学习,课程,系列,补番,观看记录,时间线",
+    "es": "cronologico,canal,progreso,serie,curso,estudio,archivo,antiguo,seguimiento,linea de tiempo",
+    "de": "chronologisch,kanal,fortschritt,serie,kurs,lernen,archiv,aelteste,tracker,zeitleiste",
+    "fr": "chronologique,chaine,progression,serie,cours,etude,archive,ancien,suivi,chronologie",
+    "ko": "채널,시간순,오래된순,진행률,학습,강의,시리즈,정주행,시청기록,타임라인"
+  },
+  "description": {
+    "ja": "Channel Timeline Viewer は、チャンネルの投稿動画を「公開日順（古い順）」に並べ、最初の動画から順番に視聴・学習できるようにする視聴補助アプリです。解説シリーズ・講座・連載のように「最初から順に追いたい」動画に向いています。\n\n■ こんな方に\n・チャンネルの過去動画を最初から順番に見たい\n・講座や講義を、教材のように進捗管理しながら見たい\n・シリーズものを抜け漏れなく視聴したい\n\n■ 主な機能\n・チャンネルURLを入力、または YouTube アプリ／Safari の共有シートから受け取り\n・投稿動画を公開日順（古い順／新しい順）に一覧表示\n・チャンネルごとの進捗（視聴済み数／総数・進捗率・進捗バー）\n・「次に見る／続きから」で、止めたところにすぐ戻れる\n・前回停止した秒数からの続き再生\n・終了後に一覧の次の動画へ進む自動再生（初期状態はオフ）\n・リピート（1本／全体）\n・視聴済み・スキップの管理、未視聴のみ再生\n・フィルター（すべて／未視聴のみ／視聴済みのみ）\n・動画ごとのメモ（学習・シリーズ視聴用）\n・再生速度と字幕をプレイヤー外から操作\n・「2026年2月27日（1,034 / 3,500）」のように一覧内の位置を表示\n・移動ボタン5つ（最初へ／前へ／戻す／次へ／最後へ）。「戻す」は直前の動画と再生位置に復帰\n・一度開いたチャンネルは保存した一覧からすぐ表示\n\n■ 再生について\n動画の再生には YouTube 公式の埋め込みプレイヤー（IFrame Player）を使用します。\n\n■ ご注意\n・本アプリは YouTube 公式アプリではありません。\n・動画のダウンロード、広告回避、バックグラウンド再生は行いません。\n・動画一覧の取得には YouTube Data API v3 を使用します。\n・自動再生は初期状態でオフで、進むのは開いている一覧の次の動画だけです。\n・アプリ内課金・サブスクリプション・広告はありません。機能差のない1つの版だけをお届けします。\n\n※ YouTube は Google LLC の商標です。",
+    "en": "Channel Timeline Viewer lists a channel's uploads by publication date — oldest first — so you can work through an archive, a course, or a long-running series from the very beginning without losing your place.\n\nWHO IT'S FOR\n• Anyone catching up on a channel's back catalog\n• Learners following a course or lecture series\n• Viewers who want to know exactly how far they've watched\n\nMAIN FEATURES\n• Paste a channel URL, or share a video or channel from the YouTube app or Safari\n• Uploads listed oldest-first (or newest-first)\n• Per-channel progress: watched count, percentage, progress bar\n• \"Up next / Continue\" takes you straight back to where you stopped\n• Resume from the exact second you left off\n• Optional autoplay to the next video in the list (off by default)\n• Repeat one or repeat all\n• Mark videos watched or skipped; play unwatched only\n• Filters: all / unwatched / watched\n• Notes for each video, for studying or series viewing\n• Playback speed and captions controlled outside the player\n• Position shown as \"February 27, 2026 (1,034 / 3,500)\"\n• Five navigation buttons — first, previous, undo, next, last — where undo restores both the video and the position you were at\n• Channels you have opened before load instantly from a saved list\n\nPLAYBACK\nVideos play in YouTube's official embedded player (IFrame Player).\n\nPLEASE NOTE\n• This app is not the official YouTube app.\n• It does not download videos, block ads, or play in the background.\n• Video lists are retrieved via the YouTube Data API v3.\n• Autoplay is off by default and only moves to the next video in the list you opened.\n• No in-app purchases, no subscriptions, no ads. Everyone gets the same full feature set.\n\nYouTube is a trademark of Google LLC.",
+    "zh-Hans": "Channel Timeline Viewer 会按发布日期（从旧到新）整理频道的投稿视频，让你从第一个视频开始，按顺序看完往期内容、课程或长期连载的系列，而不会忘记看到哪里。\n\n■ 适合谁\n・想从头补看频道往期视频的人\n・像上课一样跟进讲座、课程的学习者\n・希望清楚知道自己看到第几集的观众\n\n■ 主要功能\n・输入频道网址，或从 YouTube 应用／Safari 的分享面板接收链接\n・按发布日期（从旧到新／从新到旧）列出投稿视频\n・每个频道的进度（已观看数／总数、百分比、进度条）\n・“接下来／继续”可直接回到上次停下的位置\n・从上次停止的秒数继续播放\n・可选的自动播放下一个视频（默认关闭）\n・重复播放（单个／全部）\n・已观看与跳过状态管理，只播放未观看\n・筛选（全部／仅未观看／仅已观看）\n・每个视频的笔记（学习与连续观看用）\n・在播放器之外调整播放速度与字幕\n・以“2026年2月27日（1,034 / 3,500）”的形式显示在列表中的位置\n・五个导航按钮（第一个／上一个／撤销／下一个／最后一个）；“撤销”会恢复原来的视频与播放位置\n・打开过的频道会从已保存的列表立即显示\n\n■ 关于播放\n视频通过 YouTube 官方嵌入式播放器（IFrame Player）播放。\n\n■ 请注意\n・本应用不是 YouTube 官方应用。\n・不下载视频、不屏蔽广告、不进行后台播放。\n・视频列表通过 YouTube Data API v3 获取。\n・自动播放默认关闭，且只会前进到你打开的列表中的下一个视频。\n・没有应用内购买、订阅或广告。所有人使用的都是功能相同的同一个版本。\n\n※ YouTube 是 Google LLC 的商标。",
+    "es": "Channel Timeline Viewer ordena las subidas de un canal por fecha de publicación —de las más antiguas a las más recientes— para que recorras un archivo, un curso o una serie larga desde el principio sin perder el hilo.\n\nPARA QUIÉN ES\n• Quien quiere ponerse al día con el catálogo antiguo de un canal\n• Estudiantes que siguen un curso o una serie de clases\n• Espectadores que quieren saber exactamente hasta dónde han visto\n\nFUNCIONES PRINCIPALES\n• Pega la URL de un canal o compártela desde la app de YouTube o Safari\n• Lista de subidas de la más antigua a la más reciente (o al revés)\n• Progreso por canal: vídeos vistos, porcentaje y barra de progreso\n• «Siguiente / Continuar» te devuelve justo donde lo dejaste\n• Reanudación en el segundo exacto en que paraste\n• Reproducción automática opcional del siguiente vídeo (desactivada por defecto)\n• Repetir uno o repetir todo\n• Marca vídeos como vistos u omitidos; reproduce solo los no vistos\n• Filtros: todos / no vistos / vistos\n• Notas por vídeo, para estudiar o seguir series\n• Velocidad de reproducción y subtítulos desde fuera del reproductor\n• Posición mostrada como «27 de febrero de 2026 (1.034 / 3.500)»\n• Cinco botones de navegación: primero, anterior, deshacer, siguiente y último; deshacer recupera el vídeo y la posición anteriores\n• Los canales ya abiertos se cargan al instante desde una lista guardada\n\nREPRODUCCIÓN\nLos vídeos se reproducen en el reproductor incrustado oficial de YouTube (IFrame Player).\n\nAVISOS\n• Esta app no es la app oficial de YouTube.\n• No descarga vídeos, no bloquea anuncios y no reproduce en segundo plano.\n• Las listas de vídeos se obtienen con la API de datos de YouTube v3.\n• La reproducción automática está desactivada por defecto y solo avanza al siguiente vídeo de la lista abierta.\n• Sin compras dentro de la app, sin suscripciones y sin anuncios. Todo el mundo recibe la misma versión completa.\n\nYouTube es una marca comercial de Google LLC.",
+    "de": "Channel Timeline Viewer sortiert die Uploads eines Kanals nach Veröffentlichungsdatum – die ältesten zuerst. So arbeitest du dich von Anfang an durch ein Archiv, einen Kurs oder eine lange Serie, ohne den Faden zu verlieren.\n\nFÜR WEN\n• Alle, die den älteren Katalog eines Kanals nachholen\n• Lernende, die einem Kurs oder einer Vorlesungsreihe folgen\n• Zuschauer, die genau wissen wollen, wie weit sie gekommen sind\n\nHAUPTFUNKTIONEN\n• Kanal-URL einfügen oder Video bzw. Kanal aus der YouTube-App oder aus Safari teilen\n• Uploads von alt nach neu (oder umgekehrt)\n• Fortschritt pro Kanal: gesehene Videos, Prozentwert, Fortschrittsbalken\n• „Als Nächstes / Weiter“ bringt dich sofort zurück zur Unterbrechung\n• Fortsetzen auf die Sekunde genau\n• Optionales Autoplay zum nächsten Video der Liste (standardmäßig aus)\n• Wiederholen: ein Video oder alle\n• Videos als gesehen oder übersprungen markieren; nur ungesehene abspielen\n• Filter: alle / ungesehen / gesehen\n• Notizen zu jedem Video – fürs Lernen oder für Serien\n• Wiedergabetempo und Untertitel außerhalb des Players steuern\n• Position als „27. Februar 2026 (1.034 / 3.500)“\n• Fünf Navigationstasten: Erstes, Zurück, Rückgängig, Weiter, Letztes – „Rückgängig“ stellt Video und Position wieder her\n• Bereits geöffnete Kanäle erscheinen sofort aus einer gespeicherten Liste\n\nWIEDERGABE\nVideos laufen im offiziellen eingebetteten YouTube-Player (IFrame Player).\n\nHINWEISE\n• Diese App ist nicht die offizielle YouTube-App.\n• Sie lädt keine Videos herunter, blockiert keine Werbung und spielt nicht im Hintergrund.\n• Videolisten stammen aus der YouTube Data API v3.\n• Autoplay ist standardmäßig aus und wechselt nur zum nächsten Video der geöffneten Liste.\n• Keine In-App-Käufe, keine Abos, keine Werbung. Alle erhalten denselben vollen Funktionsumfang.\n\nYouTube ist eine Marke von Google LLC.",
+    "fr": "Channel Timeline Viewer classe les vidéos d'une chaîne par date de publication — de la plus ancienne à la plus récente — pour parcourir des archives, un cours ou une longue série depuis le tout début sans perdre le fil.\n\nPOUR QUI\n• Celles et ceux qui rattrapent l'ancien catalogue d'une chaîne\n• Les apprenants qui suivent un cours ou une série de conférences\n• Les spectateurs qui veulent savoir exactement où ils en sont\n\nFONCTIONS PRINCIPALES\n• Collez l'URL d'une chaîne, ou partagez une vidéo ou une chaîne depuis l'app YouTube ou Safari\n• Vidéos listées de la plus ancienne à la plus récente (ou l'inverse)\n• Progression par chaîne : vidéos vues, pourcentage, barre de progression\n• « À suivre / Reprendre » vous ramène exactement là où vous vous étiez arrêté\n• Reprise à la seconde près\n• Lecture automatique facultative de la vidéo suivante (désactivée par défaut)\n• Répétition d'une vidéo ou de toute la liste\n• Marquez les vidéos comme regardées ou ignorées ; ne lisez que les non vues\n• Filtres : toutes / non vues / vues\n• Notes pour chaque vidéo, pour étudier ou suivre une série\n• Vitesse de lecture et sous-titres pilotés hors du lecteur\n• Position affichée comme « 27 février 2026 (1 034 / 3 500) »\n• Cinq boutons de navigation : première, précédente, annuler, suivante, dernière — « annuler » restaure la vidéo et la position précédentes\n• Les chaînes déjà ouvertes s'affichent immédiatement depuis une liste enregistrée\n\nLECTURE\nLes vidéos sont lues dans le lecteur intégré officiel de YouTube (IFrame Player).\n\nÀ NOTER\n• Cette app n'est pas l'app officielle YouTube.\n• Elle ne télécharge pas les vidéos, ne bloque pas la publicité et ne lit pas en arrière-plan.\n• Les listes de vidéos proviennent de l'API YouTube Data v3.\n• La lecture automatique est désactivée par défaut et ne passe qu'à la vidéo suivante de la liste ouverte.\n• Aucun achat intégré, aucun abonnement, aucune publicité. Tout le monde dispose des mêmes fonctionnalités.\n\nYouTube est une marque de Google LLC.",
+    "ko": "Channel Timeline Viewer는 채널의 업로드 동영상을 게시일순(오래된 순)으로 정리해, 과거 영상·강의·장기 시리즈를 처음부터 순서대로, 어디까지 봤는지 놓치지 않고 볼 수 있게 해 줍니다.\n\n■ 이런 분께\n・채널의 과거 영상을 처음부터 정주행하고 싶은 분\n・강의나 연속 강좌를 교재처럼 진도 관리하며 보고 싶은 분\n・어디까지 봤는지 정확히 알고 싶은 분\n\n■ 주요 기능\n・채널 URL 입력, 또는 YouTube 앱·Safari의 공유 시트에서 받기\n・업로드 동영상을 게시일순(오래된 순／최신 순)으로 목록 표시\n・채널별 진행률(시청 수／전체 수, 백분율, 진행 바)\n・‘다음 시청／이어 보기’로 멈춘 곳으로 바로 이동\n・마지막으로 멈춘 초부터 이어서 재생\n・종료 후 목록의 다음 동영상으로 넘어가는 자동 재생(기본 꺼짐)\n・반복 재생(한 편／전체)\n・시청함·건너뛰기 관리, 안 본 동영상만 재생\n・필터(전체／안 본 것／시청한 것)\n・동영상별 메모(학습·시리즈 시청용)\n・재생 속도와 자막을 플레이어 밖에서 조작\n・‘2026년 2월 27일 (1,034 / 3,500)’처럼 목록 내 위치 표시\n・이동 버튼 5개(처음／이전／되돌리기／다음／마지막). ‘되돌리기’는 직전 동영상과 재생 위치로 복귀\n・한 번 연 채널은 저장된 목록에서 바로 표시\n\n■ 재생에 대하여\n동영상은 YouTube 공식 임베드 플레이어(IFrame Player)로 재생됩니다.\n\n■ 유의 사항\n・이 앱은 YouTube 공식 앱이 아닙니다.\n・동영상 다운로드, 광고 차단, 백그라운드 재생을 하지 않습니다.\n・동영상 목록은 YouTube Data API v3로 가져옵니다.\n・자동 재생은 기본으로 꺼져 있으며, 열어 둔 목록의 다음 동영상으로만 이동합니다.\n・인앱 결제·구독·광고가 없습니다. 모든 사용자가 동일한 전체 기능을 사용합니다.\n\n※ YouTube는 Google LLC의 상표입니다."
+  },
+  "whatsNew": {
+    "ja": "初回リリースです。チャンネルの投稿動画を公開日順（古い順）に並べて、進捗管理しながら順番に視聴できます。",
+    "en": "First release. Watch a channel's uploads in order, oldest first, while tracking your progress.",
+    "zh-Hans": "首次发布。按发布顺序（从旧到新）观看频道视频，并记录观看进度。",
+    "es": "Primera versión. Mira las subidas de un canal en orden, de las más antiguas a las más recientes, con seguimiento del progreso.",
+    "de": "Erste Version. Sieh dir die Uploads eines Kanals der Reihe nach an – die ältesten zuerst – und behalte deinen Fortschritt im Blick.",
+    "fr": "Première version. Regardez les vidéos d'une chaîne dans l'ordre, de la plus ancienne à la plus récente, en suivant votre progression.",
+    "ko": "첫 번째 릴리스입니다. 채널의 업로드 동영상을 오래된 순으로 보면서 진행률을 관리할 수 있습니다."
+  },
+  "supportURL": "https://channeltimeline.jewelrysunflower.com/",
+  "marketingURL": "https://channeltimeline.jewelrysunflower.com/",
+  "privacyPolicyURL": "https://channeltimeline.jewelrysunflower.com/privacy/"
+}

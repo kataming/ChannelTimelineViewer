@@ -12,8 +12,11 @@ struct RepeatModeBadge: View {
     let mode: RepeatMode
     var size: CGFloat = 22
 
+    /// リピート記号の線の太さ。太いと「ALL」や「1」と干渉して潰れるので細めにする。
+    var glyphWeight: Font.Weight = .regular
+
     private var cornerRadius: CGFloat { size * 0.27 }
-    private var glyphSize: CGFloat { size * 0.58 }
+    private var glyphSize: CGFloat { size * 0.62 }
 
     var body: some View {
         ZStack {
@@ -21,7 +24,7 @@ struct RepeatModeBadge: View {
                 .fill(mode.isActive ? Color.green : Color.clear)
             RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                 .strokeBorder(mode.isActive ? Color.clear : Color.primary,
-                              lineWidth: max(1, size * 0.085))
+                              lineWidth: max(1, size * 0.07))
             glyph
         }
         .frame(width: size, height: size)
@@ -31,13 +34,13 @@ struct RepeatModeBadge: View {
     private var glyph: some View {
         let color: Color = mode.isActive ? .black : .primary
         Image(systemName: mode.glyphSymbolName)
-            .font(.system(size: glyphSize, weight: .black))
+            .font(.system(size: glyphSize, weight: glyphWeight))
             .foregroundStyle(color)
             .overlay {
                 if mode.showsAllLabel {
                     // 「ALL」はリピート記号の中央（矢印の間）に重ねる。
                     Text("ALL")
-                        .font(.system(size: size * 0.26, weight: .black))
+                        .font(.system(size: size * 0.24, weight: .heavy))
                         .foregroundStyle(color)
                 }
             }

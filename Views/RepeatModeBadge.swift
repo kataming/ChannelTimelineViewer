@@ -9,7 +9,7 @@ import SwiftUI
 /// ## 形は見本（yajirushi.png）を計測して写している
 /// 画素を1列ずつ測った結果（バッジの大きさに対する比）:
 ///   - 横棒の太さ 0.043
-///   - 上の矢印  x 0.162〜0.573 / y 0.179〜0.385
+///   - 上の矢印  x 0.162〜0.573 / y 0.179〜0.385（この位置に合わせてある）
 ///   - 中央の文字 y 0.410〜0.607（高さ 0.197）
 ///   - 下の矢印  上の矢印を中心まわりに180度回転したもの
 /// SF Symbols を加工すると継ぎ目の点や欠けが出るため、Path で直接描いている。
@@ -64,10 +64,10 @@ private struct RepeatArrowShaft: Shape {
             CGPoint(x: rect.minX + rect.width * x, y: rect.minY + rect.height * y)
         }
         var path = Path()
-        path.move(to: p(0.190, 0.372))                                  // 下端
-        path.addLine(to: p(0.190, 0.300))
-        path.addQuadCurve(to: p(0.232, 0.265), control: p(0.190, 0.265)) // 角
-        path.addLine(to: p(0.455, 0.265))                                // 横棒
+        path.move(to: p(0.227, 0.372))                                  // 下端
+        path.addLine(to: p(0.227, 0.300))
+        path.addQuadCurve(to: p(0.269, 0.265), control: p(0.227, 0.265)) // 角
+        path.addLine(to: p(0.492, 0.265))                                // 横棒
         return path
     }
 }
@@ -79,9 +79,9 @@ private struct RepeatArrowHead: Shape {
             CGPoint(x: rect.minX + rect.width * x, y: rect.minY + rect.height * y)
         }
         var path = Path()
-        path.move(to: p(0.573, 0.265))      // 先端
-        path.addLine(to: p(0.452, 0.179))
-        path.addLine(to: p(0.452, 0.351))
+        path.move(to: p(0.610, 0.265))      // 先端
+        path.addLine(to: p(0.489, 0.179))
+        path.addLine(to: p(0.489, 0.351))
         path.closeSubpath()
         return path
     }

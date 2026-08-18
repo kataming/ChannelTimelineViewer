@@ -4,7 +4,8 @@ name: iOS Screenshots
 # Mac を持っていなくても、撮影〜取り出しまで GitHub Actions 上で完結する。
 #
 # 撮影内容は UITests/ScreenshotUITests.swift 参照（ホーム/一覧/フィルター/再生+メモ/進捗/About）。
-# 生成物は workflow artifact 'app-store-screenshots' としてダウンロードできる。
+# 生成物は workflow artifact 'app-store-screenshots-<言語>' としてダウンロードできる。
+# 言語は入力 languages（既定は7言語すべて）で指定し、言語ごとに1ジョブ走る。
 
 on:
   workflow_dispatch:
@@ -23,11 +24,40 @@ on:
         description: '進捗バーに数字を出すため視聴済みにする本数（1本あたり約15秒かかる）'
         required: false
         default: '12'
+      languages:
+        description: '撮影する言語（カンマ区切り）。App Store の各言語に貼るぶんを撮る'
+        required: false
+        default: 'en,ja,zh-Hans,es,de,fr,ko'
 
 jobs:
+  plan:
+    name: 撮影する言語を決める
+    runs-on: ubuntu-latest
+    outputs:
+      languages: ${{ steps.build.outputs.languages }}
+    steps:
+      - name: 入力をマトリクス用のJSONにする
+        id: build
+        env:
+          LANGS: ${{ inputs.languages }}
+        run: |
+          set -euo pipefail
+          LIST="${LANGS:-en}"
+          JSON=$(printf '%s' "$LIST" | tr ',' '\n' | sed 's/[[:space:]]//g' | grep -v '^$' | jq -R . | jq -sc .)
+          echo "languages=$JSON" >> "$GITHUB_OUTPUT"
+          echo "撮影する言語: $JSON"
+
   screenshots:
-    name: Capture screenshots
+    name: Capture screenshots (${{ matrix.language }})
+    needs: plan
     runs-on: macos-26
+    strategy:
+      # 1言語が失敗しても他の言語は撮り切る
+      fail-fast: false
+      # 同時に走らせすぎないようにする（macOS ランナーは同時実行枠が小さい）
+      max-parallel: 2
+      matrix:
+        language: ${{ fromJson(needs.plan.outputs.languages) }}
 
     env:
       PROJECT: ChannelTimelineViewer.xcodeproj
@@ -96,6 +126,7 @@ jobs:
         env:
           CHANNEL_URL: ${{ inputs.channel_url }}
           WATCHED_COUNT: ${{ inputs.watched_count }}
+          LANGUAGE: ${{ matrix.language }}
         run: |
           set -o pipefail
           # TEST_RUNNER_ 付きの値は「xcodebuild の環境変数」として渡すと、接頭辞を外して
@@ -103,7 +134,8 @@ jobs:
           # テスト実行時には届かないので注意。
           export TEST_RUNNER_SCREENSHOT_CHANNEL_URL="$CHANNEL_URL"
           export TEST_RUNNER_SCREENSHOT_WATCHED_COUNT="$WATCHED_COUNT"
-          echo "撮影チャンネル: $TEST_RUNNER_SCREENSHOT_CHANNEL_URL / 視聴済みにする本数: $TEST_RUNNER_SCREENSHOT_WATCHED_COUNT"
+          export TEST_RUNNER_SCREENSHOT_LANGUAGE="$LANGUAGE"
+          echo "撮影チャンネル: $TEST_RUNNER_SCREENSHOT_CHANNEL_URL / 視聴済みにする本数: $TEST_RUNNER_SCREENSHOT_WATCHED_COUNT / 言語: $LANGUAGE"
           xcodebuild \
             -project "$PROJECT" \
             -scheme "$SCHEME" \
@@ -162,7 +194,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: app-store-screenshots
+          name: app-store-screenshots-${{ matrix.language }}
           path: screenshots/
           if-no-files-found: warn
           retention-days: 30
@@ -171,6 +203,6 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: screenshots-xcresult
+          name: screenshots-xcresult-${{ matrix.language }}
           path: ${{ env.RESULT_PATH }}
           retention-days: 7

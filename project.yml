@@ -132,6 +132,8 @@ targets:
     platform: iOS
     sources:
       - UITests
+      # 画面の要素を「表示されている文字」で探すため、テスト側にもアプリと同じ翻訳を入れる。
+      - path: Localization
     dependencies:
       - target: ChannelTimelineViewer
     settings:

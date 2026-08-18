@@ -13,6 +13,11 @@ import XCTest
 ///   05 進捗（視聴済みチェックが並んだ一覧）
 ///   06 このアプリについて（注意事項）
 ///
+/// **多言語対応**: `SCREENSHOT_LANGUAGE`（例 `ja` / `en` / `zh-Hans`）でアプリの表示言語を切り替えて撮る。
+/// 画面の要素は「表示されている文字」で探すため、テスト側も同じ言語の文言を使う必要がある。
+/// そこで UITests ターゲットにもアプリと同じ `Localization/` を含め、`L(_:)` で同じキーから引く
+/// （テストに日本語の文字列を直接書かない＝言語を足しても壊れない）。
+///
 /// 撮った画像は XCTAttachment として .xcresult に入る。ワークフロー側で
 /// `xcrun xcresulttool export attachments` により PNG として取り出す。
 ///
@@ -33,12 +38,60 @@ final class ScreenshotUITests: XCTestCase {
         Int(ProcessInfo.processInfo.environment["SCREENSHOT_WATCHED_COUNT"] ?? "") ?? 3
     }
 
+    /// 撮影する言語（アプリの表示言語）。未指定なら英語。
+    private var language: String {
+        let value = ProcessInfo.processInfo.environment["SCREENSHOT_LANGUAGE"] ?? "en"
+        return value.isEmpty ? "en" : value
+    }
+
+    /// 言語に対応する地域（日付や数字の書式を自然にするため）。
+    private var locale: String {
+        switch language {
+        case "ja": return "ja_JP"
+        case "zh-Hans": return "zh_CN"
+        case "es": return "es_ES"
+        case "de": return "de_DE"
+        case "fr": return "fr_FR"
+        case "ko": return "ko_KR"
+        default: return "en_US"
+        }
+    }
+
+    /// 撮影言語の .lproj。テスト側の文言もアプリと同じ翻訳から引く。
+    private lazy var strings: Bundle = {
+        let testBundle = Bundle(for: type(of: self))
+        if let path = testBundle.path(forResource: language, ofType: "lproj"),
+           let bundle = Bundle(path: path) {
+            return bundle
+        }
+        return testBundle
+    }()
+
+    /// 翻訳を引く。見つからなければキー名をそのまま返す（撮影は続ける）。
+    private func L(_ key: String) -> String {
+        strings.localizedString(forKey: key, value: key, table: nil)
+    }
+
+    /// メモ欄に入れるサンプル文（画面写真用。アプリの文言ではないのでここに置く）。
+    private var sampleMemo: String {
+        switch language {
+        case "ja": return "導入回。用語の定義をここまでで押さえる。次回から実践パート。"
+        case "zh-Hans": return "第一讲。先掌握术语定义，下一讲开始实践部分。"
+        case "es": return "Clase 1. Repasar las definiciones; la práctica empieza en la siguiente."
+        case "de": return "Folge 1: Begriffe bis hier festhalten. Praxisteil ab der nächsten Folge."
+        case "fr": return "Séance 1 : retenir les définitions. La pratique commence ensuite."
+        case "ko": return "1회차. 용어 정의까지 정리. 다음 회차부터 실습."
+        default: return "Episode 1 — lock in the definitions. Hands-on starts next time."
+        }
+    }
+
     override func setUpWithError() throws {
         // 1カットの失敗で以降を諦めない
         continueAfterFailure = true
-        // 入力が届いているかログで確認できるようにする（既定値に落ちていないか）
-        print("[screenshots] channel=\(channelURL) watchedCount=\(watchedCount)")
+        print("[screenshots] channel=\(channelURL) watchedCount=\(watchedCount) language=\(language)")
         app = XCUIApplication()
+        // 表示言語をアプリ側にも明示する（-testLanguage に頼らず、テストと確実に揃える）。
+        app.launchArguments += ["-AppleLanguages", "(\(language))", "-AppleLocale", locale]
         app.launch()
     }
 
@@ -89,10 +142,33 @@ final class ScreenshotUITests: XCTestCase {
     /// ルート（チャンネル入力画面）まで戻る。
     private func returnToRoot() {
         var attempts = 0
-        while !app.buttons["動画を取得"].exists && attempts < 6 {
+        while !app.buttons[L("input.fetch")].exists && attempts < 6 {
             goBack()
             attempts += 1
         }
+    }
+
+    /// 再生画面が使える状態になるまで待つ（移動ボタンの「次へ」が出れば描画済み）。
+    @discardableResult
+    private func waitForPlayerScreen(timeout: TimeInterval = 40) -> Bool {
+        app.buttons[L("player.nav.next")].waitForExistence(timeout: timeout)
+    }
+
+    /// 再生画面の「…」メニューから、いまの動画を視聴済みにする。
+    private func markCurrentVideoWatched() {
+        let more = app.buttons[L("player.menu.a11y")]
+        guard more.waitForExistence(timeout: 10), more.isHittable else { return }
+        more.tap()
+        Thread.sleep(forTimeInterval: 0.6)
+
+        let mark = app.buttons[L("player.menu.markWatched")]
+        if mark.waitForExistence(timeout: 5) {
+            mark.tap()
+        } else {
+            // すでに視聴済みならメニューを閉じるだけ（撮影は続ける）
+            app.tap()
+        }
+        Thread.sleep(forTimeInterval: 0.6)
     }
 
     // MARK: - 撮影本体
@@ -108,7 +184,7 @@ final class ScreenshotUITests: XCTestCase {
 
         // 一覧が出るまで待つ（チャンネル解決 + ページネーションで時間がかかる）。
         //
-        // ここで app.staticTexts["進捗"] を待つと、一覧の行数が多い時に
+        // ここで進捗の文字を待つと、一覧の行数が多い時に
         // 「Failed to get matching snapshots: Timed out while evaluating UI query」で落ちる。
         // ナビゲーションバーは要素数が少なく安価に評価できるので、タイトルの変化で判定する。
         let navBar = app.navigationBars.firstMatch
@@ -146,7 +222,7 @@ final class ScreenshotUITests: XCTestCase {
         captureAboutScreen()
     }
 
-    /// 一覧の先頭から数本を開いて「視聴済みにする」を押し、進捗を作る。
+    /// 一覧の先頭から数本を開いて視聴済みにし、進捗を作る。
     private func markSomeVideosAsWatched() {
         for _ in 0..<max(0, watchedCount) {
             // 「次に見る／続きから」行は常に未視聴の先頭を開くので、繰り返すと順に進む
@@ -154,27 +230,25 @@ final class ScreenshotUITests: XCTestCase {
             guard resumeRow.exists && resumeRow.isHittable else { break }
             resumeRow.tap()
 
-            let markButton = app.buttons["視聴済みにする"]
-            if markButton.waitForExistence(timeout: 40) {
-                markButton.tap()
-                Thread.sleep(forTimeInterval: 0.6)
+            if waitForPlayerScreen() {
+                markCurrentVideoWatched()
             }
             goBack()
         }
     }
 
     private func captureFilteredList() {
-        let filterButton = app.buttons["並び替えと表示"]
+        let filterButton = app.buttons[L("list.menu.a11y")]
         guard filterButton.waitForExistence(timeout: 10) else { return }
         filterButton.tap()
         Thread.sleep(forTimeInterval: 0.8)
 
         // Menu 内の Picker は環境により button / other として出る
-        let unwatchedButton = app.buttons["未視聴のみ"]
+        let unwatchedButton = app.buttons[L("filter.unwatched")]
         if unwatchedButton.waitForExistence(timeout: 5) {
             unwatchedButton.tap()
         } else {
-            let alt = app.otherElements["未視聴のみ"].firstMatch
+            let alt = app.otherElements[L("filter.unwatched")].firstMatch
             if alt.exists { alt.tap() } else { return }
         }
         capture("03-filter-unwatched")
@@ -182,7 +256,7 @@ final class ScreenshotUITests: XCTestCase {
         // 全件表示に戻す
         filterButton.tap()
         Thread.sleep(forTimeInterval: 0.8)
-        let all = app.buttons["すべて"]
+        let all = app.buttons[L("filter.all")]
         if all.waitForExistence(timeout: 5) { all.tap() }
         Thread.sleep(forTimeInterval: 0.8)
     }
@@ -200,12 +274,12 @@ final class ScreenshotUITests: XCTestCase {
         let row = app.cells.element(boundBy: rowIndex)
         guard row.exists && row.isHittable else { return }
         row.tap()
-        _ = app.buttons["視聴済みにする"].waitForExistence(timeout: 40)
+        waitForPlayerScreen()
 
         let memo = app.textViews.firstMatch
         if memo.exists && memo.isHittable {
             memo.tap()
-            memo.typeText("導入回。用語の定義をここまでで押さえる。次回から実践パート。")
+            memo.typeText(sampleMemo)
             Thread.sleep(forTimeInterval: 0.8)
             dismissKeyboard()
         }
@@ -215,7 +289,7 @@ final class ScreenshotUITests: XCTestCase {
         let row2 = app.cells.element(boundBy: rowIndex)
         guard row2.exists && row2.isHittable else { return }
         row2.tap()
-        _ = app.buttons["視聴済みにする"].waitForExistence(timeout: 40)
+        waitForPlayerScreen()
         Thread.sleep(forTimeInterval: 10)  // 埋め込みプレイヤーの読み込み待ち
         capture("04-player-with-memo")
 
@@ -223,7 +297,7 @@ final class ScreenshotUITests: XCTestCase {
     }
 
     private func captureAboutScreen() {
-        let aboutButton = app.buttons["このアプリについて"]
+        let aboutButton = app.buttons[L("about.open.a11y")]
         guard aboutButton.waitForExistence(timeout: 10) else { return }
         aboutButton.tap()
         Thread.sleep(forTimeInterval: 1.2)

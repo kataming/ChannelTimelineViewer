@@ -80,7 +80,11 @@ MainActor.assumeIsolated {
     writePNG(RepeatBadgeSheet(dark: false), to: out.appendingPathComponent("repeat-badge-light.png"))
     writePNG(RepeatBadgeSheet(dark: true), to: out.appendingPathComponent("repeat-badge-dark.png"))
 
-    // 数値合わせ用（計測してから消す）
+    // 数値合わせ用の総当たり。必要なときだけ第2引数に matrix を渡して有効にする。
+    guard CommandLine.arguments.count > 2, CommandLine.arguments[2] == "matrix" else {
+        print("done")
+        return
+    }
     let matrix = out.appendingPathComponent("matrix", isDirectory: true)
     try? FileManager.default.createDirectory(at: matrix, withIntermediateDirectories: true)
     for (wname, weight) in weights {

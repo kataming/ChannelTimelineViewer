@@ -9,18 +9,21 @@ import SwiftUI
 /// 画像ではなく描画で作っているので、拡大しても滲まず、
 /// ライト/ダークどちらでも枠線がはっきり見える。
 ///
-/// ## 中央のスペースの作り方
-/// 記号を拡大すると線まで太くなってしまうため、**記号を上下half に分けて離す**ことで
-/// 線の太さはそのままに、中央（文字が入るところ）の空きだけを広げている。
+/// ## 数値の決め方
+/// 見本画像（`yajirushi.png`）の比率に合わせてある。
+/// バッジの大きさに対して、線の太さ 約0.06 / 記号の縦の広がり 約0.64 / 横の広がり 約0.68。
+/// 記号を拡大すると線まで太くなるため、線は細め（light）にしたうえで記号を大きくし、
+/// さらに**記号を上下half に分けて離す**ことで中央（文字が入るところ）の空きを作っている。
+/// 数値を変えたときは `tools/UIPreview` で描き出して見比べること。
 struct RepeatModeBadge: View {
     let mode: RepeatMode
     var size: CGFloat = 26
     /// 上下の矢印を離す量（バッジの大きさに対する割合）。線の太さは変わらない。
-    var arrowGap: CGFloat = 0.14
+    var arrowGap: CGFloat = 0.06
     /// 記号の大きさ（バッジに対する割合）。
-    var glyphRatio: CGFloat = 0.46
+    var glyphRatio: CGFloat = 0.68
     /// 記号の線の太さ。
-    var glyphWeight: Font.Weight = .medium
+    var glyphWeight: Font.Weight = .light
     /// 中央の文字の大きさ（バッジに対する割合）。
     var labelRatio: CGFloat = 0.26
 

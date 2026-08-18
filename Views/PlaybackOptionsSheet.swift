@@ -13,7 +13,7 @@ struct PlaybackOptionsSheet: View {
     var body: some View {
         NavigationStack {
             List {
-                Section("再生速度") {
+                Section("options.rate.section") {
                     ForEach(viewModel.availableRates, id: \.self) { rate in
                         Button {
                             viewModel.setPlaybackRate(rate)
@@ -36,7 +36,7 @@ struct PlaybackOptionsSheet: View {
                         viewModel.setCaptionTrack(nil)
                     } label: {
                         HStack {
-                            Text("オフ").foregroundStyle(.primary)
+                            Text("captions.off").foregroundStyle(.primary)
                             Spacer()
                             if viewModel.options.activeCaption == nil {
                                 Image(systemName: "checkmark").foregroundStyle(.tint)
@@ -58,33 +58,29 @@ struct PlaybackOptionsSheet: View {
                         }
                     }
                 } header: {
-                    Text("字幕")
+                    Text("options.captions.section")
                 } footer: {
                     if viewModel.options.captions.isEmpty {
-                        Text("この動画で使える字幕はまだ読み込まれていません。"
-                             + "再生を始めてからもう一度開くと表示されます（字幕が無い動画もあります）。")
+                        Text("options.captions.notLoaded")
                     } else {
-                        Text("字幕は既定でオフから始まります。")
+                        Text("options.captions.defaultOff")
                     }
                 }
 
                 Section {
-                    LabeledContent("画質", value: "自動")
+                    LabeledContent(String(localized: "options.quality.title"),
+                                   value: String(localized: "options.quality.auto"))
                 } footer: {
-                    Text("画質は YouTube 側が通信状況に合わせて自動で調整します"
-                         + "（公式プレイヤーの仕様上、アプリからは指定できません）。\n"
-                         + "自分で選ぶ場合は、再生を始めてから "
-                         + "プレイヤー右下の全画面ボタン → 歯車 → 画質 で変更できます"
-                         + "（再生前に開くと画質の項目は出ません）。")
+                    Text("options.quality.note")
                 }
             }
-            .navigationTitle("再生設定")
+            .navigationTitle(Text("options.title"))
             .navigationBarTitleDisplayMode(.inline)
             // 字幕トラックは再生開始から少し遅れて用意されるので、開くたびに取り直す。
             .task { viewModel.refreshOptions() }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("完了") { dismiss() }
+                    Button("common.done") { dismiss() }
                 }
             }
         }

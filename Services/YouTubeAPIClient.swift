@@ -148,7 +148,7 @@ final class YouTubeAPIClient {
             let published = publishedString.flatMap(ISO8601.date(from:)) ?? Date.distantPast
             return VideoItem(
                 id: videoId,
-                title: item.snippet?.title ?? "(タイトルなし)",
+                title: item.snippet?.title ?? String(localized: "video.untitled"),
                 description: item.snippet?.description ?? "",
                 publishedAt: published,
                 thumbnailURL: item.snippet?.thumbnails?.bestURL,
@@ -169,7 +169,7 @@ final class YouTubeAPIClient {
         }
         return Channel(
             id: item.id,
-            title: item.snippet?.title ?? "(チャンネル名なし)",
+            title: item.snippet?.title ?? String(localized: "channel.untitled"),
             thumbnailURL: item.snippet?.thumbnails?.bestURL,
             uploadsPlaylistId: item.contentDetails?.relatedPlaylists?.uploads
         )

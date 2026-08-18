@@ -298,5 +298,685 @@
     "de": "Der Fortschritt erscheint, sobald du den Kanal öffnest.",
     "fr": "La progression s’affiche une fois la chaîne ouverte.",
     "ko": "채널을 열면 진행률이 표시됩니다."
+  },
+  "list.menu.sort": {
+    "comment": "並び替えメニュー",
+    "ja": "並び替え",
+    "en": "Sort",
+    "zh-Hans": "排序",
+    "es": "Ordenar",
+    "de": "Sortieren",
+    "fr": "Trier",
+    "ko": "정렬"
+  },
+  "list.sort.oldest": {
+    "comment": "古い順",
+    "ja": "古い順",
+    "en": "Oldest first",
+    "zh-Hans": "从旧到新",
+    "es": "Más antiguos primero",
+    "de": "Älteste zuerst",
+    "fr": "Plus anciennes d’abord",
+    "ko": "오래된 순"
+  },
+  "list.sort.newest": {
+    "comment": "新しい順",
+    "ja": "新しい順",
+    "en": "Newest first",
+    "zh-Hans": "从新到旧",
+    "es": "Más recientes primero",
+    "de": "Neueste zuerst",
+    "fr": "Plus récentes d’abord",
+    "ko": "최신 순"
+  },
+  "list.menu.show": {
+    "comment": "表示（フィルター）",
+    "ja": "表示",
+    "en": "Show",
+    "zh-Hans": "显示",
+    "es": "Mostrar",
+    "de": "Anzeigen",
+    "fr": "Afficher",
+    "ko": "표시"
+  },
+  "list.menu.checkNew": {
+    "comment": "新着を確認",
+    "ja": "新着を確認",
+    "en": "Check for new videos",
+    "zh-Hans": "检查新视频",
+    "es": "Buscar vídeos nuevos",
+    "de": "Nach neuen Videos suchen",
+    "fr": "Rechercher les nouveautés",
+    "ko": "새 동영상 확인"
+  },
+  "list.menu.reloadAll": {
+    "comment": "すべて再読み込み",
+    "ja": "すべて再読み込み",
+    "en": "Reload everything",
+    "zh-Hans": "全部重新加载",
+    "es": "Recargar todo",
+    "de": "Alles neu laden",
+    "fr": "Tout recharger",
+    "ko": "전체 다시 불러오기"
+  },
+  "list.menu.a11y": {
+    "comment": "読み上げ: 並び替えと表示",
+    "ja": "並び替えと表示",
+    "en": "Sort and filter",
+    "zh-Hans": "排序与筛选",
+    "es": "Ordenar y filtrar",
+    "de": "Sortieren und filtern",
+    "fr": "Trier et filtrer",
+    "ko": "정렬 및 필터"
+  },
+  "list.loading": {
+    "comment": "取得中",
+    "ja": "動画を取得中...",
+    "en": "Loading videos…",
+    "zh-Hans": "正在获取视频…",
+    "es": "Cargando vídeos…",
+    "de": "Videos werden geladen …",
+    "fr": "Chargement des vidéos…",
+    "ko": "동영상을 가져오는 중…"
+  },
+  "list.error.title": {
+    "comment": "取得失敗の見出し",
+    "ja": "取得できませんでした",
+    "en": "Couldn’t load",
+    "zh-Hans": "获取失败",
+    "es": "No se pudo cargar",
+    "de": "Laden fehlgeschlagen",
+    "fr": "Échec du chargement",
+    "ko": "불러오지 못했습니다"
+  },
+  "common.retry": {
+    "comment": "再試行",
+    "ja": "再試行",
+    "en": "Try again",
+    "zh-Hans": "重试",
+    "es": "Reintentar",
+    "de": "Erneut versuchen",
+    "fr": "Réessayer",
+    "ko": "다시 시도"
+  },
+  "list.checkingNew": {
+    "comment": "新着確認中",
+    "ja": "新着を確認中…",
+    "en": "Checking for new videos…",
+    "zh-Hans": "正在检查新视频…",
+    "es": "Buscando vídeos nuevos…",
+    "de": "Suche nach neuen Videos …",
+    "fr": "Recherche de nouveautés…",
+    "ko": "새 동영상 확인 중…"
+  },
+  "list.cached.format": {
+    "comment": "保存済み一覧の案内（%@ に最終更新日時）",
+    "ja": "保存済みの一覧を表示中（最終更新 %@）",
+    "en": "Showing saved list (updated %@)",
+    "zh-Hans": "显示已保存的列表（更新于 %@）",
+    "es": "Mostrando la lista guardada (actualizada el %@)",
+    "de": "Gespeicherte Liste (aktualisiert %@)",
+    "fr": "Liste enregistrée (mise à jour le %@)",
+    "ko": "저장된 목록 표시 중 (업데이트 %@)"
+  },
+  "video.markUnwatched": {
+    "comment": "スワイプ: 未視聴に戻す",
+    "ja": "未視聴に戻す",
+    "en": "Mark unwatched",
+    "zh-Hans": "标记为未观看",
+    "es": "Marcar como no visto",
+    "de": "Als ungesehen markieren",
+    "fr": "Marquer non regardée",
+    "ko": "안 본 항목으로"
+  },
+  "video.watched": {
+    "comment": "視聴済み",
+    "ja": "視聴済み",
+    "en": "Watched",
+    "zh-Hans": "已观看",
+    "es": "Visto",
+    "de": "Gesehen",
+    "fr": "Regardée",
+    "ko": "시청함"
+  },
+  "video.skip": {
+    "comment": "スキップ",
+    "ja": "スキップ",
+    "en": "Skip",
+    "zh-Hans": "跳过",
+    "es": "Omitir",
+    "de": "Überspringen",
+    "fr": "Ignorer",
+    "ko": "건너뛰기"
+  },
+  "video.unskip": {
+    "comment": "スキップ解除",
+    "ja": "スキップ解除",
+    "en": "Don’t skip",
+    "zh-Hans": "取消跳过",
+    "es": "No omitir",
+    "de": "Nicht überspringen",
+    "fr": "Ne plus ignorer",
+    "ko": "건너뛰기 해제"
+  },
+  "list.count.format": {
+    "comment": "件数（%1$@=表示中 %2$@=全体）",
+    "ja": "%1$@本表示 / 全%2$@本",
+    "en": "Showing %1$@ of %2$@",
+    "zh-Hans": "显示 %1$@ / 共 %2$@",
+    "es": "Mostrando %1$@ de %2$@",
+    "de": "%1$@ von %2$@ angezeigt",
+    "fr": "%1$@ sur %2$@ affichées",
+    "ko": "%1$@ / %2$@개 표시"
+  },
+  "progress.title": {
+    "comment": "進捗",
+    "ja": "進捗",
+    "en": "Progress",
+    "zh-Hans": "进度",
+    "es": "Progreso",
+    "de": "Fortschritt",
+    "fr": "Progression",
+    "ko": "진행률"
+  },
+  "progress.count.format": {
+    "comment": "進捗の内訳（%1$@=視聴済み %2$@=総数 %3$@=割合）",
+    "ja": "%1$@ / %2$@本（%3$@%%）",
+    "en": "%1$@ / %2$@ (%3$@%%)",
+    "zh-Hans": "%1$@ / %2$@（%3$@%%）",
+    "es": "%1$@ / %2$@ (%3$@%%)",
+    "de": "%1$@ / %2$@ (%3$@%%)",
+    "fr": "%1$@ / %2$@ (%3$@%%)",
+    "ko": "%1$@ / %2$@ (%3$@%%)"
+  },
+  "list.next.resume.format": {
+    "comment": "続きから（%@ に本数）",
+    "ja": "続きから：第%@本目",
+    "en": "Continue: #%@",
+    "zh-Hans": "继续：第 %@ 个",
+    "es": "Continuar: n.º %@",
+    "de": "Weiter: Nr. %@",
+    "fr": "Reprendre : n° %@",
+    "ko": "이어 보기: %@번째"
+  },
+  "list.next.new.format": {
+    "comment": "次に見る（%@ に本数）",
+    "ja": "次に見る：第%@本目",
+    "en": "Up next: #%@",
+    "zh-Hans": "接下来：第 %@ 个",
+    "es": "Siguiente: n.º %@",
+    "de": "Als Nächstes: Nr. %@",
+    "fr": "À suivre : n° %@",
+    "ko": "다음 시청: %@번째"
+  },
+  "list.allWatched": {
+    "comment": "全部見終わったとき",
+    "ja": "すべて視聴済みです 🎉",
+    "en": "You’ve watched everything 🎉",
+    "zh-Hans": "已全部观看完毕 🎉",
+    "es": "Has visto todo 🎉",
+    "de": "Du hast alles gesehen 🎉",
+    "fr": "Vous avez tout regardé 🎉",
+    "ko": "모두 시청했습니다 🎉"
+  },
+  "options.rate.section": {
+    "comment": "見出し: 再生速度",
+    "ja": "再生速度",
+    "en": "Playback speed",
+    "zh-Hans": "播放速度",
+    "es": "Velocidad de reproducción",
+    "de": "Wiedergabetempo",
+    "fr": "Vitesse de lecture",
+    "ko": "재생 속도"
+  },
+  "options.captions.section": {
+    "comment": "見出し: 字幕",
+    "ja": "字幕",
+    "en": "Captions",
+    "zh-Hans": "字幕",
+    "es": "Subtítulos",
+    "de": "Untertitel",
+    "fr": "Sous-titres",
+    "ko": "자막"
+  },
+  "options.captions.notLoaded": {
+    "comment": "字幕がまだ読み込まれていないときの説明",
+    "ja": "この動画で使える字幕はまだ読み込まれていません。再生を始めてからもう一度開くと表示されます（字幕が無い動画もあります）。",
+    "en": "Captions for this video haven’t loaded yet. Start playback, then open this sheet again (some videos have no captions).",
+    "zh-Hans": "该视频的字幕尚未加载。开始播放后再打开此页即可显示（部分视频没有字幕）。",
+    "es": "Los subtítulos de este vídeo aún no se han cargado. Inicia la reproducción y vuelve a abrir esta hoja (algunos vídeos no tienen subtítulos).",
+    "de": "Die Untertitel dieses Videos sind noch nicht geladen. Starte die Wiedergabe und öffne dieses Blatt erneut (manche Videos haben keine Untertitel).",
+    "fr": "Les sous-titres de cette vidéo ne sont pas encore chargés. Lancez la lecture puis rouvrez cette feuille (certaines vidéos n’en ont pas).",
+    "ko": "이 동영상의 자막이 아직 불러와지지 않았습니다. 재생을 시작한 뒤 다시 열어 보세요(자막이 없는 동영상도 있습니다)."
+  },
+  "options.captions.defaultOff": {
+    "comment": "字幕は既定オフの説明",
+    "ja": "字幕は既定でオフから始まります。",
+    "en": "Captions start off by default.",
+    "zh-Hans": "字幕默认关闭。",
+    "es": "Los subtítulos empiezan desactivados.",
+    "de": "Untertitel sind standardmäßig aus.",
+    "fr": "Les sous-titres sont désactivés par défaut.",
+    "ko": "자막은 기본적으로 꺼진 상태로 시작합니다."
+  },
+  "options.quality.title": {
+    "comment": "画質",
+    "ja": "画質",
+    "en": "Quality",
+    "zh-Hans": "画质",
+    "es": "Calidad",
+    "de": "Qualität",
+    "fr": "Qualité",
+    "ko": "화질"
+  },
+  "options.quality.auto": {
+    "comment": "画質: 自動",
+    "ja": "自動",
+    "en": "Auto",
+    "zh-Hans": "自动",
+    "es": "Automática",
+    "de": "Automatisch",
+    "fr": "Automatique",
+    "ko": "자동"
+  },
+  "options.quality.note": {
+    "comment": "画質の説明",
+    "ja": "画質は YouTube 側が通信状況に合わせて自動で調整します（公式プレイヤーの仕様上、アプリからは指定できません）。\n自分で選ぶ場合は、再生を始めてからプレイヤー右下の全画面ボタン → 歯車 → 画質 で変更できます（再生前に開くと画質の項目は出ません）。",
+    "en": "YouTube adjusts quality automatically based on your connection (the official player doesn’t let apps set it).\nTo choose it yourself, start playback, then use the full-screen button at the bottom right of the player → gear → Quality (the quality item doesn’t appear before playback starts).",
+    "zh-Hans": "YouTube 会根据网络状况自动调整画质（官方播放器不允许应用指定画质）。\n若要自行选择，请先开始播放，然后点击播放器右下角的全屏按钮 → 齿轮 → 画质（播放前不会显示画质选项）。",
+    "es": "YouTube ajusta la calidad automáticamente según tu conexión (el reproductor oficial no permite que las apps la fijen).\nPara elegirla tú, inicia la reproducción y usa el botón de pantalla completa abajo a la derecha → engranaje → Calidad (no aparece antes de reproducir).",
+    "de": "YouTube passt die Qualität automatisch an deine Verbindung an (der offizielle Player lässt keine App-Vorgabe zu).\nWenn du selbst wählen willst: Wiedergabe starten, dann unten rechts im Player auf Vollbild → Zahnrad → Qualität (vor dem Start erscheint der Punkt nicht).",
+    "fr": "YouTube ajuste la qualité automatiquement selon votre connexion (le lecteur officiel ne permet pas aux apps de la définir).\nPour la choisir vous-même : lancez la lecture, puis utilisez le bouton plein écran en bas à droite → engrenage → Qualité (l’option n’apparaît pas avant la lecture).",
+    "ko": "화질은 통신 상태에 맞춰 YouTube가 자동으로 조정합니다(공식 플레이어 사양상 앱에서 지정할 수 없습니다).\n직접 고르려면 재생을 시작한 뒤 플레이어 오른쪽 아래 전체화면 버튼 → 톱니바퀴 → 화질에서 변경하세요(재생 전에는 화질 항목이 표시되지 않습니다)."
+  },
+  "options.title": {
+    "comment": "画面名: 再生設定",
+    "ja": "再生設定",
+    "en": "Playback settings",
+    "zh-Hans": "播放设置",
+    "es": "Ajustes de reproducción",
+    "de": "Wiedergabe-Einstellungen",
+    "fr": "Réglages de lecture",
+    "ko": "재생 설정"
+  },
+  "common.done": {
+    "comment": "完了",
+    "ja": "完了",
+    "en": "Done",
+    "zh-Hans": "完成",
+    "es": "Listo",
+    "de": "Fertig",
+    "fr": "Terminé",
+    "ko": "완료"
+  },
+  "player.noVideos": {
+    "comment": "動画が無いとき",
+    "ja": "動画がありません",
+    "en": "No videos",
+    "zh-Hans": "没有视频",
+    "es": "No hay vídeos",
+    "de": "Keine Videos",
+    "fr": "Aucune vidéo",
+    "ko": "동영상이 없습니다"
+  },
+  "player.options.a11y": {
+    "comment": "読み上げ: 再生設定ボタン",
+    "ja": "再生設定",
+    "en": "Playback settings",
+    "zh-Hans": "播放设置",
+    "es": "Ajustes de reproducción",
+    "de": "Wiedergabe-Einstellungen",
+    "fr": "Réglages de lecture",
+    "ko": "재생 설정"
+  },
+  "player.repeat.hint": {
+    "comment": "リピートボタンのヒント",
+    "ja": "タップでリピートを切り替えます",
+    "en": "Tap to change repeat mode",
+    "zh-Hans": "点按切换重复模式",
+    "es": "Toca para cambiar la repetición",
+    "de": "Tippen, um den Wiederholmodus zu wechseln",
+    "fr": "Touchez pour changer la répétition",
+    "ko": "탭하여 반복 모드를 전환합니다"
+  },
+  "player.publishedWithPosition.format": {
+    "comment": "公開日と一覧内の位置（%1$@=公開日 %2$@=位置）",
+    "ja": "%1$@（%2$@）",
+    "en": "%1$@ (%2$@)",
+    "zh-Hans": "%1$@（%2$@）",
+    "es": "%1$@ (%2$@)",
+    "de": "%1$@ (%2$@)",
+    "fr": "%1$@ (%2$@)",
+    "ko": "%1$@ (%2$@)"
+  },
+  "player.autoAdvanced": {
+    "comment": "自動再生で進んだときの表示",
+    "ja": "自動再生で次の動画に進みました",
+    "en": "Moved on to the next video",
+    "zh-Hans": "已自动播放下一个视频",
+    "es": "Se pasó al siguiente vídeo",
+    "de": "Zum nächsten Video gewechselt",
+    "fr": "Passage à la vidéo suivante",
+    "ko": "다음 동영상으로 이동했습니다"
+  },
+  "player.memo.title": {
+    "comment": "メモ欄の見出し",
+    "ja": "メモ（シリーズ視聴・学習用）",
+    "en": "Notes (for series and study)",
+    "zh-Hans": "笔记（连续观看・学习用）",
+    "es": "Notas (para series y estudio)",
+    "de": "Notizen (für Serien und Lernen)",
+    "fr": "Notes (séries et apprentissage)",
+    "ko": "메모 (시리즈 시청·학습용)"
+  },
+  "player.memo.autosave": {
+    "comment": "メモの自動保存の説明",
+    "ja": "入力すると自動保存されます。",
+    "en": "Saved automatically as you type.",
+    "zh-Hans": "输入内容会自动保存。",
+    "es": "Se guarda automáticamente mientras escribes.",
+    "de": "Wird beim Tippen automatisch gespeichert.",
+    "fr": "Enregistré automatiquement pendant la saisie.",
+    "ko": "입력하면 자동으로 저장됩니다."
+  },
+  "player.resume.notice.format": {
+    "comment": "続きから再生中の案内（%@ に時刻）",
+    "ja": "前回の続き（%@）から再生中",
+    "en": "Resuming from %@",
+    "zh-Hans": "从上次的 %@ 继续播放",
+    "es": "Reanudando desde %@",
+    "de": "Fortsetzung ab %@",
+    "fr": "Reprise à %@",
+    "ko": "이전 위치(%@)부터 재생 중"
+  },
+  "player.resume.restart": {
+    "comment": "最初から見直すボタン",
+    "ja": "最初から",
+    "en": "Restart",
+    "zh-Hans": "从头开始",
+    "es": "Desde el principio",
+    "de": "Von vorn",
+    "fr": "Depuis le début",
+    "ko": "처음부터"
+  },
+  "player.autoPlay.on.title": {
+    "comment": "自動再生オンの見出し",
+    "ja": "自動再生オン：終了後に次の動画へ",
+    "en": "Autoplay on: continue to the next video",
+    "zh-Hans": "自动播放开启：结束后播放下一个",
+    "es": "Reproducción automática activada: sigue con el siguiente vídeo",
+    "de": "Autoplay ein: weiter zum nächsten Video",
+    "fr": "Lecture auto activée : passer à la vidéo suivante",
+    "ko": "자동 재생 켜짐: 종료 후 다음 동영상으로"
+  },
+  "player.autoPlay.off.title": {
+    "comment": "自動再生オフの見出し",
+    "ja": "自動再生オフ：終了後に停止",
+    "en": "Autoplay off: stop when the video ends",
+    "zh-Hans": "自动播放关闭：结束后停止",
+    "es": "Reproducción automática desactivada: se detiene al terminar",
+    "de": "Autoplay aus: am Ende anhalten",
+    "fr": "Lecture auto désactivée : arrêt à la fin",
+    "ko": "자동 재생 꺼짐: 종료 후 정지"
+  },
+  "player.autoPlay.on.detail": {
+    "comment": "自動再生オンの説明",
+    "ja": "この一覧の次の動画だけを続けて再生します",
+    "en": "Plays only the next video in this list",
+    "zh-Hans": "只会继续播放此列表中的下一个视频",
+    "es": "Solo reproduce el siguiente vídeo de esta lista",
+    "de": "Spielt nur das nächste Video dieser Liste ab",
+    "fr": "Lit uniquement la vidéo suivante de cette liste",
+    "ko": "이 목록의 다음 동영상만 이어서 재생합니다"
+  },
+  "player.autoPlay.off.detail": {
+    "comment": "自動再生オフの説明",
+    "ja": "終了したら「次の動画を再生」ボタンを表示します",
+    "en": "Shows a “Play next video” button when it ends",
+    "zh-Hans": "结束后会显示“播放下一个视频”按钮",
+    "es": "Muestra un botón «Reproducir siguiente» al terminar",
+    "de": "Zeigt am Ende die Schaltfläche „Nächstes Video“",
+    "fr": "Affiche un bouton « Lire la vidéo suivante » à la fin",
+    "ko": "종료되면 ‘다음 동영상 재생’ 버튼을 표시합니다"
+  },
+  "player.autoPlay.a11y": {
+    "comment": "読み上げ: 自動再生トグル",
+    "ja": "終了したら次を自動再生",
+    "en": "Autoplay next when the video ends",
+    "zh-Hans": "结束后自动播放下一个",
+    "es": "Reproducir el siguiente automáticamente al terminar",
+    "de": "Am Ende automatisch das nächste Video abspielen",
+    "fr": "Lire automatiquement la suivante à la fin",
+    "ko": "종료 시 다음 동영상 자동 재생"
+  },
+  "player.unwatchedOnly": {
+    "comment": "未視聴のみ再生トグル",
+    "ja": "未視聴のみ再生",
+    "en": "Play unwatched only",
+    "zh-Hans": "只播放未观看",
+    "es": "Reproducir solo no vistos",
+    "de": "Nur ungesehene abspielen",
+    "fr": "Lire seulement les non regardées",
+    "ko": "안 본 동영상만 재생"
+  },
+  "player.mode.skip": {
+    "comment": "スキップの説明",
+    "ja": "スキップにした動画は自動再生で飛ばします。",
+    "en": "Videos marked as skip are passed over during autoplay.",
+    "zh-Hans": "标记为跳过的视频在自动播放时会被略过。",
+    "es": "Los vídeos marcados como omitidos se saltan en la reproducción automática.",
+    "de": "Als „Überspringen“ markierte Videos werden beim Autoplay übergangen.",
+    "fr": "Les vidéos marquées « ignorer » sont sautées en lecture automatique.",
+    "ko": "건너뛰기로 표시한 동영상은 자동 재생에서 건너뜁니다."
+  },
+  "player.mode.unwatchedOnly": {
+    "comment": "未視聴のみ再生の説明",
+    "ja": "視聴済みの動画も飛ばして、未視聴だけを再生します。",
+    "en": "Watched videos are skipped too, so only unwatched ones play.",
+    "zh-Hans": "已观看的视频也会跳过，只播放未观看的。",
+    "es": "También se omiten los vídeos vistos, así solo se reproducen los no vistos.",
+    "de": "Auch gesehene Videos werden übersprungen – es laufen nur ungesehene.",
+    "fr": "Les vidéos déjà regardées sont aussi sautées : seules les non vues sont lues.",
+    "ko": "시청한 동영상도 건너뛰고 안 본 것만 재생합니다."
+  },
+  "player.mode.repeatOne": {
+    "comment": "1本リピートの説明",
+    "ja": "いまの動画を繰り返し再生します。",
+    "en": "Repeats the current video.",
+    "zh-Hans": "重复播放当前视频。",
+    "es": "Repite el vídeo actual.",
+    "de": "Wiederholt das aktuelle Video.",
+    "fr": "Répète la vidéo en cours.",
+    "ko": "현재 동영상을 반복 재생합니다."
+  },
+  "player.mode.repeatAll": {
+    "comment": "全体リピートの説明",
+    "ja": "一覧の最後まで行ったら先頭に戻ります（自動再生オンのとき）。",
+    "en": "Returns to the first video after the last one (when autoplay is on).",
+    "zh-Hans": "播放到列表末尾后会回到第一个（自动播放开启时）。",
+    "es": "Vuelve al primer vídeo tras el último (con la reproducción automática activada).",
+    "de": "Springt nach dem letzten Video zurück zum ersten (bei aktivem Autoplay).",
+    "fr": "Revient à la première vidéo après la dernière (si la lecture auto est activée).",
+    "ko": "목록 끝까지 가면 처음으로 돌아갑니다(자동 재생이 켜진 경우)."
+  },
+  "player.menu.unmarkWatched": {
+    "comment": "メニュー: 視聴済みを解除",
+    "ja": "視聴済みを解除",
+    "en": "Mark as unwatched",
+    "zh-Hans": "取消已观看",
+    "es": "Marcar como no visto",
+    "de": "Als ungesehen markieren",
+    "fr": "Marquer comme non regardée",
+    "ko": "시청 안 함으로 표시"
+  },
+  "player.menu.markWatched": {
+    "comment": "メニュー: 視聴済みにする",
+    "ja": "視聴済みにする",
+    "en": "Mark as watched",
+    "zh-Hans": "标记为已观看",
+    "es": "Marcar como visto",
+    "de": "Als gesehen markieren",
+    "fr": "Marquer comme regardée",
+    "ko": "시청함으로 표시"
+  },
+  "player.menu.unskip": {
+    "comment": "メニュー: スキップを解除",
+    "ja": "スキップを解除",
+    "en": "Don’t skip",
+    "zh-Hans": "取消跳过",
+    "es": "No omitir",
+    "de": "Nicht überspringen",
+    "fr": "Ne plus ignorer",
+    "ko": "건너뛰기 해제"
+  },
+  "player.menu.skip": {
+    "comment": "メニュー: スキップにする",
+    "ja": "スキップにする",
+    "en": "Mark as skipped",
+    "zh-Hans": "标记为跳过",
+    "es": "Marcar como omitido",
+    "de": "Als übersprungen markieren",
+    "fr": "Marquer comme ignorée",
+    "ko": "건너뛰기로 표시"
+  },
+  "player.menu.resume": {
+    "comment": "メニュー: 続きから再生する",
+    "ja": "続きから再生する",
+    "en": "Resume where I left off",
+    "zh-Hans": "从上次位置继续",
+    "es": "Continuar donde lo dejé",
+    "de": "Dort fortsetzen, wo ich aufgehört habe",
+    "fr": "Reprendre où je me suis arrêté",
+    "ko": "이어서 재생하기"
+  },
+  "player.menu.restart": {
+    "comment": "メニュー: 最初から再生",
+    "ja": "最初から再生",
+    "en": "Play from the beginning",
+    "zh-Hans": "从头播放",
+    "es": "Reproducir desde el principio",
+    "de": "Von Anfang an abspielen",
+    "fr": "Lire depuis le début",
+    "ko": "처음부터 재생"
+  },
+  "player.openInYouTube": {
+    "comment": "YouTubeで開く",
+    "ja": "YouTubeで開く",
+    "en": "Open in YouTube",
+    "zh-Hans": "在 YouTube 中打开",
+    "es": "Abrir en YouTube",
+    "de": "In YouTube öffnen",
+    "fr": "Ouvrir dans YouTube",
+    "ko": "YouTube에서 열기"
+  },
+  "player.menu.a11y": {
+    "comment": "読み上げ: その他の操作",
+    "ja": "その他の操作",
+    "en": "More actions",
+    "zh-Hans": "更多操作",
+    "es": "Más acciones",
+    "de": "Weitere Aktionen",
+    "fr": "Plus d’actions",
+    "ko": "기타 작업"
+  },
+  "player.ended.title": {
+    "comment": "終了時の案内",
+    "ja": "再生が終了しました。次の動画:",
+    "en": "Playback finished. Up next:",
+    "zh-Hans": "播放已结束。下一个：",
+    "es": "Reproducción finalizada. A continuación:",
+    "de": "Wiedergabe beendet. Als Nächstes:",
+    "fr": "Lecture terminée. À suivre :",
+    "ko": "재생이 끝났습니다. 다음 동영상:"
+  },
+  "player.ended.playNext": {
+    "comment": "次の動画を再生ボタン",
+    "ja": "次の動画を再生",
+    "en": "Play next video",
+    "zh-Hans": "播放下一个视频",
+    "es": "Reproducir el siguiente",
+    "de": "Nächstes Video abspielen",
+    "fr": "Lire la vidéo suivante",
+    "ko": "다음 동영상 재생"
+  },
+  "player.nav.first": {
+    "comment": "移動: 最初へ",
+    "ja": "最初へ",
+    "en": "First",
+    "zh-Hans": "第一个",
+    "es": "Primero",
+    "de": "Erstes",
+    "fr": "Première",
+    "ko": "처음"
+  },
+  "player.nav.previous": {
+    "comment": "移動: 前へ",
+    "ja": "前へ",
+    "en": "Previous",
+    "zh-Hans": "上一个",
+    "es": "Anterior",
+    "de": "Zurück",
+    "fr": "Précédente",
+    "ko": "이전"
+  },
+  "player.nav.undo": {
+    "comment": "移動: 戻す（直前の移動を取り消す）",
+    "ja": "戻す",
+    "en": "Undo",
+    "zh-Hans": "撤销",
+    "es": "Deshacer",
+    "de": "Rückgängig",
+    "fr": "Annuler",
+    "ko": "되돌리기"
+  },
+  "player.nav.next": {
+    "comment": "移動: 次へ",
+    "ja": "次へ",
+    "en": "Next",
+    "zh-Hans": "下一个",
+    "es": "Siguiente",
+    "de": "Weiter",
+    "fr": "Suivante",
+    "ko": "다음"
+  },
+  "player.nav.last": {
+    "comment": "移動: 最後へ",
+    "ja": "最後へ",
+    "en": "Last",
+    "zh-Hans": "最后一个",
+    "es": "Último",
+    "de": "Letztes",
+    "fr": "Dernière",
+    "ko": "마지막"
+  },
+  "player.status.skipped": {
+    "comment": "スキップ状態の表示",
+    "ja": "スキップ（自動再生で飛ばします）",
+    "en": "Skipped (passed over during autoplay)",
+    "zh-Hans": "已跳过（自动播放时略过）",
+    "es": "Omitido (se salta en la reproducción automática)",
+    "de": "Übersprungen (wird beim Autoplay übergangen)",
+    "fr": "Ignorée (sautée en lecture automatique)",
+    "ko": "건너뛰기 (자동 재생에서 건너뜀)"
+  },
+  "video.untitled": {
+    "comment": "タイトルが取得できないとき",
+    "ja": "(タイトルなし)",
+    "en": "(No title)",
+    "zh-Hans": "（无标题）",
+    "es": "(Sin título)",
+    "de": "(Ohne Titel)",
+    "fr": "(Sans titre)",
+    "ko": "(제목 없음)"
+  },
+  "channel.untitled": {
+    "comment": "チャンネル名が取得できないとき",
+    "ja": "(チャンネル名なし)",
+    "en": "(No channel name)",
+    "zh-Hans": "（无频道名称）",
+    "es": "(Sin nombre de canal)",
+    "de": "(Ohne Kanalname)",
+    "fr": "(Sans nom de chaîne)",
+    "ko": "(채널 이름 없음)"
   }
 }

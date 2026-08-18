@@ -19,11 +19,11 @@ struct VideoListView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Menu {
-                        Picker("並び替え", selection: $viewModel.sortAscending) {
-                            Text("古い順").tag(true)
-                            Text("新しい順").tag(false)
+                        Picker("list.menu.sort", selection: $viewModel.sortAscending) {
+                            Text("list.sort.oldest").tag(true)
+                            Text("list.sort.newest").tag(false)
                         }
-                        Picker("表示", selection: $viewModel.watchFilter) {
+                        Picker("list.menu.show", selection: $viewModel.watchFilter) {
                             ForEach(WatchFilter.allCases) { f in
                                 Text(f.label).tag(f)
                             }
@@ -32,7 +32,7 @@ struct VideoListView: View {
                         Button {
                             Task { await viewModel.checkForNewVideos() }
                         } label: {
-                            Label("新着を確認", systemImage: "arrow.clockwise")
+                            Label("list.menu.checkNew", systemImage: "arrow.clockwise")
                         }
                         Button {
                             Task {
@@ -40,12 +40,12 @@ struct VideoListView: View {
                                 updateProgress()
                             }
                         } label: {
-                            Label("すべて再読み込み", systemImage: "arrow.triangle.2.circlepath")
+                            Label("list.menu.reloadAll", systemImage: "arrow.triangle.2.circlepath")
                         }
                     } label: {
                         Image(systemName: "line.3.horizontal.decrease.circle")
                     }
-                    .accessibilityLabel("並び替えと表示")
+                    .accessibilityLabel(String(localized: "list.menu.a11y"))
                 }
             }
             .task {
@@ -70,15 +70,15 @@ struct VideoListView: View {
     @ViewBuilder
     private var content: some View {
         if viewModel.isLoading && viewModel.videos.isEmpty {
-            ProgressView("動画を取得中...")
+            ProgressView("list.loading")
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         } else if let error = viewModel.errorMessage, viewModel.videos.isEmpty {
             ContentUnavailableView {
-                Label("取得できませんでした", systemImage: "exclamationmark.triangle")
+                Label("list.error.title", systemImage: "exclamationmark.triangle")
             } description: {
                 Text(error)
             } actions: {
-                Button("再試行") { Task { await viewModel.load() } }
+                Button("common.retry") { Task { await viewModel.load() } }
             }
         } else {
             list
@@ -99,12 +99,13 @@ struct VideoListView: View {
         if viewModel.isCheckingForNew {
             HStack(spacing: 6) {
                 ProgressView().controlSize(.mini)
-                Text("新着を確認中…")
+                Text("list.checkingNew")
             }
             .font(.caption2)
             .foregroundStyle(.secondary)
         } else if let updatedAt = viewModel.lastUpdatedAt {
-            Text("保存済みの一覧を表示中（最終更新 \(updatedAt.formatted(date: .abbreviated, time: .shortened))）")
+            Text(String(format: String(localized: "list.cached.format"),
+                 updatedAt.formatted(date: .abbreviated, time: .shortened)))
                 .font(.caption2)
                 .foregroundStyle(.tertiary)
         }
@@ -138,7 +139,7 @@ struct VideoListView: View {
                         Button {
                             watchStore.toggleWatched(video.id)
                         } label: {
-                            Label(watched ? "未視聴に戻す" : "視聴済み",
+                            Label(watched ? String(localized: "video.markUnwatched") : String(localized: "video.watched"),
                                   systemImage: watched ? "arrow.uturn.backward" : "checkmark.circle.fill")
                         }
                         .tint(watched ? .gray : .green)
@@ -149,14 +150,14 @@ struct VideoListView: View {
                         Button {
                             skipStore.toggleSkipped(video.id)
                         } label: {
-                            Label(skipped ? "スキップ解除" : "スキップ",
+                            Label(skipped ? String(localized: "video.unskip") : String(localized: "video.skip"),
                                   systemImage: skipped ? "arrow.uturn.backward" : "forward.end.circle.fill")
                         }
                         .tint(skipped ? .gray : .orange)
                     }
                 }
             } header: {
-                Text("\(visible.count)本表示 / 全\(totalCount)本")
+                Text(String(format: String(localized: "list.count.format"), "\(visible.count)", "\(totalCount)"))
             }
         }
         .listStyle(.plain)
@@ -173,9 +174,10 @@ struct VideoListView: View {
             let rate = Double(watchedCount) / Double(totalCount)
             VStack(alignment: .leading, spacing: 6) {
                 HStack {
-                    Text("進捗").font(.subheadline.bold())
+                    Text("progress.title").font(.subheadline.bold())
                     Spacer()
-                    Text("\(watchedCount) / \(totalCount)本（\(Int((rate * 100).rounded()))%）")
+                    Text(String(format: String(localized: "progress.count.format"),
+                         "\(watchedCount)", "\(totalCount)", "\(Int((rate * 100).rounded()))"))
                         .font(.caption).foregroundStyle(.secondary)
                 }
                 ProgressView(value: rate).tint(.green)
@@ -212,7 +214,9 @@ struct VideoListView: View {
                 HStack(spacing: 12) {
                     RemoteThumbnail(url: target.thumbnailURL, width: 88, height: 50)
                     VStack(alignment: .leading, spacing: 3) {
-                        Text("\(isResume ? "続きから" : "次に見る")：第\(index + 1)本目")
+                        Text(String(format: String(localized: isResume ? "list.next.resume.format"
+                                                                     : "list.next.new.format"),
+                                     "\(index + 1)"))
                             .font(.caption).foregroundStyle(.secondary)
                         Text(target.title).font(.subheadline).lineLimit(2)
                     }
@@ -221,7 +225,7 @@ struct VideoListView: View {
                 }
             }
         } else if totalCount > 0 {
-            Label("すべて視聴済みです 🎉", systemImage: "checkmark.seal.fill")
+            Label("list.allWatched", systemImage: "checkmark.seal.fill")
                 .foregroundStyle(.green)
         }
     }
@@ -250,12 +254,12 @@ private struct VideoRow: View {
                 if watched {
                     Image(systemName: "checkmark.circle.fill")
                         .foregroundStyle(.green)
-                        .accessibilityLabel("視聴済み")
+                        .accessibilityLabel(String(localized: "video.watched"))
                 }
                 if skipped {
                     Image(systemName: "checkmark.circle.fill")
                         .foregroundStyle(.orange)
-                        .accessibilityLabel("スキップ")
+                        .accessibilityLabel(String(localized: "video.skip"))
                 }
             }
         }

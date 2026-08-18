@@ -68,7 +68,7 @@ struct PlayerView: View {
                     }
                 }
             } else {
-                ContentUnavailableView("動画がありません", systemImage: "film")
+                ContentUnavailableView("player.noVideos", systemImage: "film")
             }
         }
         // いまどのチャンネルを見ているかが分かるように、画面上部にチャンネル名を出す。
@@ -84,7 +84,7 @@ struct PlayerView: View {
                 } label: {
                     Image(systemName: "slider.horizontal.3")
                 }
-                .accessibilityLabel("再生設定")
+                .accessibilityLabel(String(localized: "player.options.a11y"))
             }
             ToolbarItem(placement: .topBarTrailing) {
                 moreMenu
@@ -132,7 +132,7 @@ struct PlayerView: View {
         // バッジの色をツールバーの着色で上書きされないようにする。
         .buttonStyle(.plain)
         .accessibilityLabel(settings.repeatMode.accessibilityDescription)
-        .accessibilityHint("タップでリピートを切り替えます")
+        .accessibilityHint(String(localized: "player.repeat.hint"))
     }
 
 
@@ -146,13 +146,14 @@ struct PlayerView: View {
                 .foregroundStyle(.secondary)
                 .lineLimit(2)
             // 公開日と、一覧の中での位置（例: 2026年2月27日（1,034 / 3,500））
-            Text("\(video.publishedAt.formatted(date: .long, time: .omitted))"
-                 + "（\(viewModel.positionText)）")
+            Text(String(format: String(localized: "player.publishedWithPosition.format"),
+                        video.publishedAt.formatted(date: .long, time: .omitted),
+                        viewModel.positionText))
                 .font(.caption)
                 .foregroundStyle(.secondary)
 
             if viewModel.didAutoAdvance {
-                Label("自動再生で次の動画に進みました", systemImage: "forward.end.alt.fill")
+                Label("player.autoAdvanced", systemImage: "forward.end.alt.fill")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
@@ -183,7 +184,7 @@ struct PlayerView: View {
     @ViewBuilder
     private func memoSection(for video: VideoItem) -> some View {
         VStack(alignment: .leading, spacing: 6) {
-            Label("メモ（シリーズ視聴・学習用）", systemImage: "note.text")
+            Label("player.memo.title", systemImage: "note.text")
                 .font(.subheadline.bold())
             TextEditor(text: memoBinding(for: video.id))
                 .frame(minHeight: 80)
@@ -193,7 +194,7 @@ struct PlayerView: View {
                         .stroke(Color(.separator))
                 )
                 .scrollContentBackground(.hidden)
-            Text("入力すると自動保存されます。")
+            Text("player.memo.autosave")
                 .font(.caption2)
                 .foregroundStyle(.tertiary)
         }
@@ -204,12 +205,13 @@ struct PlayerView: View {
     private var resumeNotice: some View {
         if viewModel.isResumingFromSavedPosition {
             HStack(spacing: 8) {
-                Label("前回の続き（\(PlaybackPosition.timeString(viewModel.startSecondsForCurrent))）から再生中",
+                Label(String(format: String(localized: "player.resume.notice.format"),
+                             PlaybackPosition.timeString(viewModel.startSecondsForCurrent)),
                       systemImage: "clock.arrow.circlepath")
                     .font(.caption)
                     .foregroundStyle(.secondary)
                 Spacer(minLength: 4)
-                Button("最初から") {
+                Button("player.resume.restart") {
                     viewModel.restartFromBeginning()
                 }
                 .font(.caption)
@@ -224,24 +226,24 @@ struct PlayerView: View {
         VStack(alignment: .leading, spacing: 10) {
             Toggle(isOn: $settings.autoPlayNext) {
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(settings.autoPlayNext ? "自動再生オン：終了後に次の動画へ"
-                                               : "自動再生オフ：終了後に停止")
+                    Text(settings.autoPlayNext ? "player.autoPlay.on.title"
+                                               : "player.autoPlay.off.title")
                         .font(.subheadline.bold())
                     Text(settings.autoPlayNext
-                         ? "この一覧の次の動画だけを続けて再生します"
-                         : "終了したら「次の動画を再生」ボタンを表示します")
+                         ? "player.autoPlay.on.detail"
+                         : "player.autoPlay.off.detail")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
             }
             .tint(.green)
-            .accessibilityLabel("終了したら次を自動再生")
+            .accessibilityLabel(String(localized: "player.autoPlay.a11y"))
 
             Divider()
 
             // リピートは画面右上のアイコンで切り替える（ここには置かない）。
             Toggle(isOn: $settings.playUnwatchedOnly) {
-                Text("未視聴のみ再生")
+                Text("player.unwatchedOnly")
                     .font(.subheadline)
             }
             .tint(.green)
@@ -256,17 +258,17 @@ struct PlayerView: View {
     }
 
     private var playbackModeCaption: String {
-        var lines = ["スキップにした動画は自動再生で飛ばします。"]
+        var lines = [String(localized: "player.mode.skip")]
         if settings.playUnwatchedOnly {
-            lines.append("視聴済みの動画も飛ばして、未視聴だけを再生します。")
+            lines.append(String(localized: "player.mode.unwatchedOnly"))
         }
         switch settings.repeatMode {
         case .off:
             break
         case .one:
-            lines.append("いまの動画を繰り返し再生します。")
+            lines.append(String(localized: "player.mode.repeatOne"))
         case .all:
-            lines.append("一覧の最後まで行ったら先頭に戻ります（自動再生オンのとき）。")
+            lines.append(String(localized: "player.mode.repeatAll"))
         }
         return lines.joined()
     }
@@ -280,7 +282,8 @@ struct PlayerView: View {
                 Button {
                     watchStore.toggleWatched(video.id)
                 } label: {
-                    Label(watched ? "視聴済みを解除" : "視聴済みにする",
+                    Label(watched ? String(localized: "player.menu.unmarkWatched")
+                                : String(localized: "player.menu.markWatched"),
                           systemImage: watched ? "checkmark.circle.fill" : "checkmark.circle")
                 }
 
@@ -288,35 +291,36 @@ struct PlayerView: View {
                 Button {
                     skipStore.toggleSkipped(video.id)
                 } label: {
-                    Label(skipped ? "スキップを解除" : "スキップにする",
+                    Label(skipped ? String(localized: "player.menu.unskip")
+                                : String(localized: "player.menu.skip"),
                           systemImage: skipped ? "forward.end.circle.fill" : "forward.end.circle")
                 }
 
                 Toggle(isOn: $settings.resumeFromLastPosition) {
-                    Label("続きから再生する", systemImage: "clock.arrow.circlepath")
+                    Label("player.menu.resume", systemImage: "clock.arrow.circlepath")
                 }
 
                 Button {
                     viewModel.restartFromBeginning()
                 } label: {
-                    Label("最初から再生", systemImage: "gobackward")
+                    Label("player.menu.restart", systemImage: "gobackward")
                 }
 
                 Button {
                     if let url = video.watchURL { openURL(url) }
                 } label: {
-                    Label("YouTubeで開く", systemImage: "play.rectangle.fill")
+                    Label("player.openInYouTube", systemImage: "play.rectangle.fill")
                 }
             } label: {
                 Image(systemName: "ellipsis.circle")
             }
-            .accessibilityLabel("その他の操作")
+            .accessibilityLabel(String(localized: "player.menu.a11y"))
         }
     }
 
     private func endedSuggestion(_ next: VideoItem) -> some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("再生が終了しました。次の動画:")
+            Text("player.ended.title")
                 .font(.caption)
                 .foregroundStyle(.secondary)
             HStack(spacing: 12) {
@@ -326,7 +330,7 @@ struct PlayerView: View {
             Button {
                 viewModel.goNext()
             } label: {
-                Label("次の動画を再生", systemImage: "play.fill")
+                Label("player.ended.playNext", systemImage: "play.fill")
                     .frame(maxWidth: .infinity)
             }
             .buttonStyle(.borderedProminent)
@@ -339,20 +343,20 @@ struct PlayerView: View {
     private func controls(for video: VideoItem) -> some View {
         VStack(spacing: 12) {
             HStack(spacing: 6) {
-                navButton("最初へ", "backward.end.fill", enabled: viewModel.canGoPrevious) {
+                navButton(String(localized: "player.nav.first"), "backward.end.fill", enabled: viewModel.canGoPrevious) {
                     viewModel.goFirst()
                 }
-                navButton("前へ", "backward.fill", enabled: viewModel.canGoPrevious) {
+                navButton(String(localized: "player.nav.previous"), "backward.fill", enabled: viewModel.canGoPrevious) {
                     viewModel.goPrevious()
                 }
                 // 「最初へ」などを押し間違えたとき、移動前の動画・再生位置に戻る。
-                navButton("戻す", "arrow.uturn.backward", enabled: viewModel.canGoBack) {
+                navButton(String(localized: "player.nav.undo"), "arrow.uturn.backward", enabled: viewModel.canGoBack) {
                     viewModel.goBack()
                 }
-                navButton("次へ", "forward.fill", enabled: viewModel.canGoNext) {
+                navButton(String(localized: "player.nav.next"), "forward.fill", enabled: viewModel.canGoNext) {
                     viewModel.goNext()
                 }
-                navButton("最後へ", "forward.end.fill", enabled: viewModel.canGoNext) {
+                navButton(String(localized: "player.nav.last"), "forward.end.fill", enabled: viewModel.canGoNext) {
                     viewModel.goLast()
                 }
             }
@@ -361,11 +365,11 @@ struct PlayerView: View {
             // 手動の切り替えは右上の「…」メニュー、または動画一覧のスワイプから行う。
             VStack(alignment: .leading, spacing: 4) {
                 if watchStore.isWatched(video.id) {
-                    Label("視聴済み", systemImage: "checkmark.circle.fill")
+                    Label("video.watched", systemImage: "checkmark.circle.fill")
                         .foregroundStyle(.green)
                 }
                 if skipStore.isSkipped(video.id) {
-                    Label("スキップ（自動再生で飛ばします）", systemImage: "checkmark.circle.fill")
+                    Label("player.status.skipped", systemImage: "checkmark.circle.fill")
                         .foregroundStyle(.orange)
                 }
             }
@@ -377,7 +381,7 @@ struct PlayerView: View {
             Button {
                 if let url = video.watchURL { openURL(url) }
             } label: {
-                Label("YouTubeで開く", systemImage: "play.rectangle.fill")
+                Label("player.openInYouTube", systemImage: "play.rectangle.fill")
                     .frame(maxWidth: .infinity)
             }
             .buttonStyle(.bordered)

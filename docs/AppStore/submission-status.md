@@ -1,6 +1,6 @@
 # 提出状況（App Store Connect）
 
-最終確認日: 2026-08-18 / アプリ ID `6792964082` / Bundle ID `com.deskflowlabs.channeltimelineviewer`
+最終確認日: 2026-08-18（diagnose 実行） / アプリ ID `6792964082` / Bundle ID `com.deskflowlabs.channeltimelineviewer`
 
 App Store Connect の状態は API で確認できます（画面にログインしなくても分かる）。
 
@@ -21,6 +21,9 @@ GitHub → Actions → App Store Metadata → Run workflow → mode: status
 | 年齢制限 | 4+ | ASC 側で設定済み |
 | ビルド | **build 25 を 1.0 に紐づけ済み** | `mode: attach-build` |
 | スクリーンショット（日本語・6.9インチ） | 5枚登録済み（ホーム/一覧/フィルター/進捗/このアプリについて） | App Store Screenshots ワークフロー |
+| 価格 | **無料（¥0）設定済み** ／ 配信は全地域向け | ユーザーが画面で設定 |
+| App のプライバシー | 申告済み（API では読めないため画面で確認） | ユーザーが画面で設定 |
+| EU 事業者（トレーダー）情報 | 申告済み | ユーザーが画面で設定 |
 | 審査連絡先・審査メモ | **登録済み**（英語の審査メモ 3,267字。電話番号は Secret `ASC_REVIEW_PHONE` から投入し、ログにも残していない） | `mode: review` |
 
 ## 残っていること
@@ -28,10 +31,7 @@ GitHub → Actions → App Store Metadata → Run workflow → mode: status
 | 項目 | 誰が | 内容 |
 | --- | --- | --- |
 | 再生画面のスクショ | ユーザー | CI だと YouTube の bot 確認画面が写るため、実機（TestFlight）で1枚撮る → 追加登録 |
-| 価格 | ユーザー | 無料（¥0）を App Store Connect の「価格および配信状況」で設定（API では扱いにくいため画面で） |
-| App のプライバシー | ユーザー | 「データを収集していません」を選択（本アプリは端末内保存のみ・解析なし・IDFA 不使用） |
-| EU の事業者（トレーダー）情報 | ユーザー | EU 配信には DSA 対応の事業者情報の登録が必要。**この情報は EU の製品ページで公開される**（審査用の電話番号とは別物）。App Store Connect →「ビジネス」→ 事業者ステータス で登録する（API 非対応） |
-| 提出 | ユーザー | 上記がそろったら「審査へ提出」 |
+| 提出 | ユーザー | `mode: diagnose` は「API から見える範囲では不足なし」。あとは提出するだけ |
 
 ### App のプライバシーで選ぶ内容（事実ベース）
 

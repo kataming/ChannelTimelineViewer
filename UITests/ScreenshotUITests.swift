@@ -1,3 +1,4 @@
+import CoreGraphics
 import XCTest
 
 /// App Store 提出用スクリーンショットを撮るための UI テスト。
@@ -124,6 +125,32 @@ final class ScreenshotUITests: XCTestCase {
         }
     }
 
+    /// メニュー・ポップオーバーが開いたままなら閉じる。
+    /// 開いていると背後の行が押せず（isHittable == false）、以降の操作が全部空振りする。
+    private func dismissTransientUI() {
+        let dismissRegion = app.otherElements["PopoverDismissRegion"]
+        if dismissRegion.exists {
+            dismissRegion.tap()
+            Thread.sleep(forTimeInterval: 0.6)
+            return
+        }
+        // iPhone のメニューは暗幕をタップすると閉じる。画面上端付近なら行に当たりにくい。
+        if app.buttons[L("filter.all")].exists || app.buttons[L("filter.unwatched")].exists {
+            app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.02)).tap()
+            Thread.sleep(forTimeInterval: 0.6)
+        }
+    }
+
+    /// 一覧を上端まで戻す（スワイプでずれた状態から行を選ぶと画面外で押せないため）。
+    private func scrollListToTop() {
+        for _ in 0..<3 {
+            let progress = app.staticTexts[L("progress.title")]
+            if progress.exists && progress.isHittable { return }
+            app.swipeDown()
+            Thread.sleep(forTimeInterval: 0.4)
+        }
+    }
+
     /// いま動画一覧にいることを確かめる。ホームまで戻ってしまっていたら開き直す。
     private func ensureVideoList() {
         if app.buttons[L("list.menu.a11y")].exists { return }
@@ -137,13 +164,26 @@ final class ScreenshotUITests: XCTestCase {
     }
 
     /// 一覧の指定行を開いて、再生画面が出るまで待つ。開けなければ false。
+    ///
+    /// 行番号は目安。押せない（画面外・メニューが開いている等）ときは後ろの行を順に試す。
     @discardableResult
     private func openVideoRow(_ index: Int) -> Bool {
+        dismissTransientUI()
         ensureVideoList()
-        let row = app.cells.element(boundBy: index)
-        guard row.exists && row.isHittable else { return false }
-        row.tap()
-        return waitForPlayerScreen()
+        scrollListToTop()
+
+        for candidate in index..<(index + 4) {
+            let row = app.cells.element(boundBy: candidate)
+            guard row.exists else { continue }
+            guard row.isHittable else { continue }
+            row.tap()
+            // 最初の候補は取得直後で時間がかかることがあるので長めに待つ。
+            // 2つ目以降は「押した先が動画ではなかった」判定を早く済ませる。
+            if waitForPlayerScreen(timeout: candidate == index ? 40 : 12) { return true }
+            // 動画以外の行（進捗など）を押しただけなら一覧のまま。次の候補へ。
+            if !app.buttons[L("list.menu.a11y")].exists { goBack() }
+        }
+        return false
     }
 
     /// 再生画面が使える状態になるまで待つ（移動ボタンの「次へ」が出れば描画済み）。
@@ -250,7 +290,12 @@ final class ScreenshotUITests: XCTestCase {
         filterButton.tap()
         Thread.sleep(forTimeInterval: 0.8)
         let all = app.buttons[L("filter.all")]
-        if all.waitForExistence(timeout: 5) { all.tap() }
+        if all.waitForExistence(timeout: 5) {
+            all.tap()
+        } else {
+            // メニューが開いたままだと以降の操作が全部空振りするので、必ず閉じる
+            dismissTransientUI()
+        }
         Thread.sleep(forTimeInterval: 0.8)
     }
 
@@ -266,7 +311,10 @@ final class ScreenshotUITests: XCTestCase {
         // 1回目: メモを入力するだけ。
         // 入力直後はキーボードが出たままで写真に使えないので、ここでは撮らずに戻る
         //（画面ごと閉じればキーボードも消える。メモは videoId ごとに自動保存される）。
-        guard openVideoRow(rowIndex) else { return }
+        guard openVideoRow(rowIndex) else {
+            capture("ERROR-player-not-opened-1")
+            return
+        }
         let memo = app.textViews.firstMatch
         if memo.exists && memo.isHittable {
             memo.tap()
@@ -277,7 +325,7 @@ final class ScreenshotUITests: XCTestCase {
 
         // 2回目: キーボードの無い状態で、プレイヤーの読み込みを待って撮る
         guard openVideoRow(rowIndex) else {
-            capture("ERROR-player-not-opened")
+            capture("ERROR-player-not-opened-2")
             return
         }
         Thread.sleep(forTimeInterval: 10)  // 埋め込みプレイヤーの読み込み待ち

@@ -14,8 +14,13 @@ on:
   workflow_dispatch:
     inputs:
       screenshots_run_id:
-        description: 'iOS Screenshots の run ID（artifact の取り出し元）'
-        required: true
+        description: 'iOS Screenshots の run ID（artifact から取り出す場合）'
+        required: false
+        default: ''
+      repo_dir:
+        description: 'リポジトリ内のフォルダから登録する場合のパス（例 docs/AppStore/screenshots）'
+        required: false
+        default: ''
       dry_run:
         description: '送信せず、何を入れるかだけ表示する'
         type: boolean
@@ -50,10 +55,22 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RUN_ID: ${{ inputs.screenshots_run_id }}
+          REPO_DIR: ${{ inputs.repo_dir }}
           EXCLUDE_PLAYER: ${{ inputs.exclude_player_shot }}
         run: |
           set -euo pipefail
           mkdir -p raw screenshots
+          if [ -n "$REPO_DIR" ]; then
+            # リポジトリ内のフォルダ（<言語>/xx.png）をそのまま使う
+            cp -r "$REPO_DIR"/. screenshots/
+            echo "リポジトリから取り込みました: $REPO_DIR"
+            find screenshots -type f | sort
+            exit 0
+          fi
+          if [ -z "$RUN_ID" ]; then
+            echo "::error::screenshots_run_id か repo_dir のどちらかを指定してください"
+            exit 1
+          fi
           gh run download "$RUN_ID" --dir raw
           # app-store-screenshots-<言語>/ → screenshots/<言語>/
           for dir in raw/app-store-screenshots-*; do

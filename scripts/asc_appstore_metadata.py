@@ -546,6 +546,25 @@ def upload_screenshot(client: Client, set_id: str, image: Path, order: int) -> N
     })
 
 
+def reorder_screenshots(client: Client, set_id: str) -> None:
+    """セット内の画像をファイル名順（01,02,…）に並べ替える。
+
+    追加でアップロードした画像は末尾に付くため、そのままだと
+    「再生画面」が最後に来てしまう。表示順は名前で決めるのが分かりやすい。
+    """
+    shots = client.get(f"/v1/appScreenshotSets/{set_id}/appScreenshots?limit=50").get("data", [])
+    if len(shots) < 2:
+        return
+    ordered = sorted(shots, key=lambda shot: shot["attributes"].get("fileName") or "")
+    if [s["id"] for s in ordered] == [s["id"] for s in shots]:
+        return
+    print("    並び順を "
+          + " → ".join((s["attributes"].get("fileName") or "?").split("-")[0] for s in ordered))
+    client.request("PATCH", f"/v1/appScreenshotSets/{set_id}/relationships/appScreenshots", {
+        "data": [{"type": "appScreenshots", "id": shot["id"]} for shot in ordered]
+    })
+
+
 def push_screenshots(client: Client, bundle_id: str, directory: Path,
                      display_type: str, replace: bool) -> int:
     """`<ディレクトリ>/<ロケール>/*.png` を言語ごとにアップロードする。
@@ -568,8 +587,10 @@ def push_screenshots(client: Client, bundle_id: str, directory: Path,
         if locale not in version_locs:
             print(f"  {folder.name}: ロケール {locale} が未作成のため飛ばします")
             continue
-        images = sorted(p for p in folder.glob("*.png")
-                        if not p.name.startswith(("00-", "ERROR")))
+        images = sorted((p for p in folder.iterdir()
+                         if p.suffix.lower() in {".png", ".jpg", ".jpeg"}
+                         and not p.name.startswith(("00-", "ERROR"))),
+                        key=lambda p: p.name)
         if not images:
             print(f"  {locale}: 画像がありません")
             continue
@@ -609,6 +630,9 @@ def push_screenshots(client: Client, bundle_id: str, directory: Path,
         for order, image in enumerate(images):
             upload_screenshot(client, target["id"] if target else "dry-run", image, order)
             total += 1
+
+        if target and not client.dry_run:
+            reorder_screenshots(client, target["id"])
 
     print(f"\n合計 {total} 枚を処理しました。")
     return 0

@@ -43,6 +43,7 @@ import jwt
 API_BASE = "https://api.appstoreconnect.apple.com"
 REPO_ROOT = Path(__file__).resolve().parent.parent
 METADATA = REPO_ROOT / "docs" / "AppStore" / "metadata.json"
+REVIEW_NOTES = REPO_ROOT / "docs" / "AppStore" / "review-notes-en.md"
 DEFAULT_BUNDLE_ID = "com.deskflowlabs.channeltimelineviewer"
 
 # 原本の言語キー → App Store Connect のロケール。
@@ -399,9 +400,96 @@ def attach_build(client: Client, bundle_id: str, build_version: str | None) -> i
     return 0
 
 
+def set_category(client: Client, bundle_id: str, primary: str, secondary: str | None) -> int:
+    """主要カテゴリ（必要なら副カテゴリ）を設定する。"""
+    app = find_app(client, bundle_id)
+    info = editable_app_info(client, app["id"])
+    if info is None:
+        raise SystemExit("App 情報が取得できませんでした。")
+
+    relationships = {
+        "primaryCategory": {"data": {"type": "appCategories", "id": primary}}
+    }
+    if secondary:
+        relationships["secondaryCategory"] = {
+            "data": {"type": "appCategories", "id": secondary}
+        }
+    print(f"カテゴリを設定します: 主 {primary}" + (f" / 副 {secondary}" if secondary else ""))
+    client.write("PATCH", f"/v1/appInfos/{info['id']}", {
+        "data": {"type": "appInfos", "id": info["id"], "relationships": relationships}
+    })
+    print("完了しました。")
+    return 0
+
+
+def read_review_notes() -> str:
+    """review-notes-en.md の ``` で囲まれた本文を取り出す。"""
+    text = io.open(REVIEW_NOTES, encoding="utf-8").read()
+    parts = text.split("```")
+    if len(parts) < 3:
+        raise SystemExit(f"{REVIEW_NOTES.name} に本文（``` で囲んだ部分）がありません。")
+    return parts[1].strip()
+
+
+def set_review_details(client: Client, bundle_id: str, contact: dict) -> int:
+    """審査連絡先と審査メモを登録する（App Review Information）。"""
+    missing = [key for key, value in contact.items() if not value]
+    if missing:
+        raise SystemExit(
+            "審査連絡先が足りません: " + ", ".join(missing) +
+            "\n（ASC_REVIEW_PHONE などの Secret を設定してください）")
+
+    app = find_app(client, bundle_id)
+    version = editable_version(client, app["id"])
+    if version is None:
+        raise SystemExit("編集できるバージョンがありません。")
+
+    attributes = {
+        "contactFirstName": contact["first_name"],
+        "contactLastName": contact["last_name"],
+        "contactPhone": contact["phone"],
+        "contactEmail": contact["email"],
+        "notes": read_review_notes(),
+        "demoAccountRequired": False,
+    }
+    # 電話番号などは表示しない（Public リポジトリのログに残さない）。
+    print(f"審査情報を登録します（メモ {len(attributes['notes'])} 文字 / 連絡先は非表示）")
+
+    try:
+        existing = client.get(
+            f"/v1/appStoreVersions/{version['id']}/appStoreReviewDetail").get("data")
+    except ASCError:
+        existing = None
+
+    if existing:
+        client.write("PATCH", f"/v1/appStoreReviewDetails/{existing['id']}", {
+            "data": {"type": "appStoreReviewDetails", "id": existing["id"],
+                     "attributes": attributes}
+        })
+    else:
+        client.write("POST", "/v1/appStoreReviewDetails", {
+            "data": {
+                "type": "appStoreReviewDetails",
+                "attributes": attributes,
+                "relationships": {
+                    "appStoreVersion": {
+                        "data": {"type": "appStoreVersions", "id": version["id"]}
+                    }
+                },
+            }
+        })
+    print("完了しました。")
+    return 0
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--mode", choices=["status", "push", "attach-build"], default="status")
+    parser.add_argument(
+        "--mode",
+        choices=["status", "push", "attach-build", "category", "review"],
+        default="status")
+    parser.add_argument("--primary-category", default="EDUCATION")
+    parser.add_argument("--secondary-category", default="")
     parser.add_argument("--build", default="", help="紐づけるビルド番号（空なら最新の VALID）")
     parser.add_argument("--bundle-id", default=DEFAULT_BUNDLE_ID)
     parser.add_argument("--version", default="1.0", help="編集できるバージョンが無いときに作る版数")
@@ -422,6 +510,17 @@ def main() -> int:
             return show_status(client, args.bundle_id)
         if args.mode == "attach-build":
             return attach_build(client, args.bundle_id, args.build or None)
+        if args.mode == "category":
+            return set_category(client, args.bundle_id,
+                                args.primary_category, args.secondary_category or None)
+        if args.mode == "review":
+            contact = {
+                "first_name": os.environ.get("ASC_REVIEW_FIRST_NAME", "Toshiharu"),
+                "last_name": os.environ.get("ASC_REVIEW_LAST_NAME", "Katami"),
+                "phone": os.environ.get("ASC_REVIEW_PHONE", ""),
+                "email": os.environ.get("ASC_REVIEW_EMAIL", "atamitrading@jewelrysunflower.com"),
+            }
+            return set_review_details(client, args.bundle_id, contact)
         return push(client, args.bundle_id, args.version)
     except ASCError as error:
         raise SystemExit(str(error)) from None

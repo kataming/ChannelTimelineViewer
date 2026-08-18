@@ -14,9 +14,9 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: '動作（status=確認のみ / push=メタデータ反映 / attach-build=ビルド紐づけ）'
+        description: '動作（status=確認 / push=メタデータ / attach-build=ビルド / category=カテゴリ / review=審査情報）'
         type: choice
-        options: [status, push, attach-build]
+        options: [status, push, attach-build, category, review]
         default: status
       dry_run:
         description: 'push のとき、送信せず内容だけ表示する'
@@ -53,6 +53,11 @@ jobs:
           ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
           ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
           ASC_PRIVATE_KEY: ${{ secrets.ASC_PRIVATE_KEY }}
+          # 審査連絡先は個人情報なので Secrets から渡す（入力欄は Public リポジトリでは見えるため）
+          ASC_REVIEW_PHONE: ${{ secrets.ASC_REVIEW_PHONE }}
+          ASC_REVIEW_EMAIL: ${{ secrets.ASC_REVIEW_EMAIL }}
+          ASC_REVIEW_FIRST_NAME: ${{ secrets.ASC_REVIEW_FIRST_NAME }}
+          ASC_REVIEW_LAST_NAME: ${{ secrets.ASC_REVIEW_LAST_NAME }}
           MODE: ${{ inputs.mode }}
           DRY_RUN: ${{ inputs.dry_run }}
           VERSION: ${{ inputs.version }}

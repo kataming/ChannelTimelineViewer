@@ -17,6 +17,10 @@ struct RepeatModeBadge: View {
 
     /// リピート記号の線の太さ。
     var glyphWeight: Font.Weight = .medium
+    /// 記号を縦に伸ばして、中央の文字が入る隙間を広げる倍率。
+    var verticalStretch: CGFloat = 1.0
+    /// 中央の文字の下地で記号の線を切り抜くか。
+    var usesKnockout: Bool = false
 
     private var cornerRadius: CGFloat { size * 0.27 }
     /// 記号は横に広い（幅は文字サイズの約1.4倍）ので、枠に収まるよう小さめにする。
@@ -43,14 +47,27 @@ struct RepeatModeBadge: View {
         Image(systemName: "repeat")
             .font(.system(size: glyphSize, weight: glyphWeight))
             .foregroundStyle(inkColor)
+            .scaleEffect(x: 1, y: verticalStretch)
             .overlay {
                 if let label = mode.centerLabel {
-                    Text(label)
-                        .font(.system(size: labelSize, weight: .heavy))
-                        .foregroundStyle(inkColor)
-                        .padding(.horizontal, size * 0.04)
-                        .background(fillColor)   // 矢印の線を切り抜く
+                    centerLabelView(label)
                 }
             }
+    }
+
+    @ViewBuilder
+    private func centerLabelView(_ label: String) -> some View {
+        let text = Text(label)
+            .font(.system(size: labelSize, weight: .heavy))
+            .foregroundStyle(inkColor)
+        if usesKnockout {
+            // 文字の高さぶんだけ下地を敷いて、矢印の線を切り抜く。
+            text
+                .padding(.horizontal, size * 0.03)
+                .frame(height: labelSize * 0.9)
+                .background(fillColor)
+        } else {
+            text
+        }
     }
 }

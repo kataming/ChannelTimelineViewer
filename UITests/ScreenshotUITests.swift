@@ -233,6 +233,14 @@ final class ScreenshotUITests: XCTestCase {
             XCTFail("動画一覧を取得できませんでした（APIキー/ネットワーク/チャンネルURLを確認）")
             return
         }
+        // タイトルが変わるのは「チャンネルが解決できた」時点で、動画一覧はまだ取得中のことがある。
+        // 本数の多いチャンネル（数千本）だと数分かかるので、取得完了の合図＝進捗ヘッダーを待つ。
+        let progressHeader = app.staticTexts[L("progress.title")]
+        if !progressHeader.waitForExistence(timeout: 420) {
+            capture("ERROR-list-not-loaded")
+            XCTFail("動画一覧の取得が終わりませんでした（本数が多すぎる/通信エラーの可能性）")
+            return
+        }
         Thread.sleep(forTimeInterval: 2.0)  // 一覧の描画待ち
 
         // --- 何本かを視聴済みにして、進捗バーに数字を出す ---

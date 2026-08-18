@@ -540,11 +540,14 @@ def main() -> int:
             return set_category(client, args.bundle_id,
                                 args.primary_category, args.secondary_category or None)
         if args.mode == "review":
+            # ワークフローからは未設定の Secret も「空文字」で渡ってくるため、
+            # get(..., 既定値) ではなく or で拾う（空なら既定値にする）。
             contact = {
-                "first_name": os.environ.get("ASC_REVIEW_FIRST_NAME", "Toshiharu"),
-                "last_name": os.environ.get("ASC_REVIEW_LAST_NAME", "Katami"),
-                "phone": os.environ.get("ASC_REVIEW_PHONE", ""),
-                "email": os.environ.get("ASC_REVIEW_EMAIL", "atamitrading@jewelrysunflower.com"),
+                "first_name": os.environ.get("ASC_REVIEW_FIRST_NAME") or "Toshiharu",
+                "last_name": os.environ.get("ASC_REVIEW_LAST_NAME") or "Katami",
+                "phone": os.environ.get("ASC_REVIEW_PHONE") or "",
+                "email": (os.environ.get("ASC_REVIEW_EMAIL")
+                          or "atamitrading@jewelrysunflower.com"),
             }
             return set_review_details(client, args.bundle_id, contact)
         return push(client, args.bundle_id, args.version)

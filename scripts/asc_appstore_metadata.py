@@ -29,9 +29,11 @@ App Store Connect API で流し込める。7言語ぶんを手で貼り付ける
 from __future__ import annotations
 
 import argparse
+import hashlib
 import io
 import json
 import os
+import re
 import sys
 import time
 import urllib.error
@@ -482,13 +484,133 @@ def set_review_details(client: Client, bundle_id: str, contact: dict) -> int:
     return 0
 
 
+def upload_binary(url: str, method: str, headers: list[dict], chunk: bytes) -> None:
+    """予約時に返ってきた指示どおりに画像の一部を送る。"""
+    req = urllib.request.Request(url, data=chunk, method=method)
+    for header in headers:
+        req.add_header(header["name"], header["value"])
+    try:
+        with urllib.request.urlopen(req, timeout=180) as resp:
+            resp.read()
+    except urllib.error.HTTPError as e:
+        detail = e.read().decode("utf-8", errors="replace")
+        raise ASCError(method, url, e.code, detail) from None
+
+
+def upload_screenshot(client: Client, set_id: str, image: Path, order: int) -> None:
+    data = image.read_bytes()
+    # ファイル名は App Store Connect 上の表示名。撮影時の UUID を落として並び順が分かる名前にする。
+    name = re.sub(r"_0_[0-9A-F-]+\.png$", ".png", image.name, flags=re.IGNORECASE)
+    print(f"    {order + 1}. {name}（{len(data) // 1024} KB）")
+    if client.dry_run:
+        return
+
+    reserved = client.request("POST", "/v1/appScreenshots", {
+        "data": {
+            "type": "appScreenshots",
+            "attributes": {"fileSize": len(data), "fileName": name},
+            "relationships": {
+                "appScreenshotSet": {"data": {"type": "appScreenshotSets", "id": set_id}}
+            },
+        }
+    })["data"]
+
+    for operation in reserved["attributes"].get("uploadOperations", []):
+        start = operation["offset"]
+        end = start + operation["length"]
+        upload_binary(operation["url"], operation["method"],
+                      operation.get("requestHeaders", []), data[start:end])
+
+    client.request("PATCH", f"/v1/appScreenshots/{reserved['id']}", {
+        "data": {
+            "type": "appScreenshots",
+            "id": reserved["id"],
+            "attributes": {"uploaded": True,
+                           "sourceFileChecksum": hashlib.md5(data).hexdigest()},
+        }
+    })
+
+
+def push_screenshots(client: Client, bundle_id: str, directory: Path,
+                     display_type: str, replace: bool) -> int:
+    """`<ディレクトリ>/<ロケール>/*.png` を言語ごとにアップロードする。
+
+    ロケール名のフォルダは ASC のロケール（ja, en-US, ...）でも、原本の言語キー（ja, en, ...）でもよい。
+    """
+    if not directory.is_dir():
+        raise SystemExit(f"スクリーンショットのフォルダがありません: {directory}")
+
+    app = find_app(client, bundle_id)
+    version = editable_version(client, app["id"])
+    if version is None:
+        raise SystemExit("編集できるバージョンがありません。")
+    version_locs = localizations(
+        client, f"/v1/appStoreVersions/{version['id']}/appStoreVersionLocalizations")
+
+    total = 0
+    for folder in sorted(p for p in directory.iterdir() if p.is_dir()):
+        locale = LOCALE_MAP.get(folder.name, folder.name)
+        if locale not in version_locs:
+            print(f"  {folder.name}: ロケール {locale} が未作成のため飛ばします")
+            continue
+        images = sorted(p for p in folder.glob("*.png")
+                        if not p.name.startswith(("00-", "ERROR")))
+        if not images:
+            print(f"  {locale}: 画像がありません")
+            continue
+
+        loc_id = version_locs[locale]["id"]
+        sets = client.get(
+            f"/v1/appStoreVersionLocalizations/{loc_id}/appScreenshotSets?limit=20").get("data", [])
+        target = next((s for s in sets
+                       if s["attributes"].get("screenshotDisplayType") == display_type), None)
+
+        if target and replace:
+            existing = client.get(
+                f"/v1/appScreenshotSets/{target['id']}/appScreenshots?limit=50").get("data", [])
+            for shot in existing:
+                print(f"  {locale}: 既存の画像を削除 {shot['attributes'].get('fileName')}")
+                client.write("DELETE", f"/v1/appScreenshots/{shot['id']}", {"data": {}})
+
+        if target is None:
+            print(f"  {locale}: {display_type} のセットを作成します")
+            created = client.write("POST", "/v1/appScreenshotSets", {
+                "data": {
+                    "type": "appScreenshotSets",
+                    "attributes": {"screenshotDisplayType": display_type},
+                    "relationships": {
+                        "appStoreVersionLocalization": {
+                            "data": {"type": "appStoreVersionLocalizations", "id": loc_id}
+                        }
+                    },
+                }
+            })
+            target = created.get("data")
+            if target is None:
+                print("    （dry-run のため以降は表示のみ）")
+
+        print(f"  {locale}: {len(images)} 枚")
+        for order, image in enumerate(images):
+            upload_screenshot(client, target["id"] if target else "dry-run", image, order)
+            total += 1
+
+    print(f"\n合計 {total} 枚を処理しました。")
+    return 0
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--mode",
-        choices=["status", "push", "attach-build", "category", "review"],
+        choices=["status", "push", "attach-build", "category", "review", "screenshots"],
         default="status")
     parser.add_argument("--primary-category", default="EDUCATION")
+    parser.add_argument("--screenshots-dir", default="screenshots",
+                        help="<ロケール>/xx.png を並べたフォルダ")
+    parser.add_argument("--display-type", default="APP_IPHONE_67",
+                        help="画面サイズの種類（6.7/6.9インチは APP_IPHONE_67）")
+    parser.add_argument("--replace", action="store_true",
+                        help="既にある画像を消してから入れ直す")
     parser.add_argument("--secondary-category", default="")
     parser.add_argument("--build", default="", help="紐づけるビルド番号（空なら最新の VALID）")
     parser.add_argument("--bundle-id", default=DEFAULT_BUNDLE_ID)
@@ -510,6 +632,9 @@ def main() -> int:
             return show_status(client, args.bundle_id)
         if args.mode == "attach-build":
             return attach_build(client, args.bundle_id, args.build or None)
+        if args.mode == "screenshots":
+            return push_screenshots(client, args.bundle_id, Path(args.screenshots_dir),
+                                    args.display_type, args.replace)
         if args.mode == "category":
             return set_category(client, args.bundle_id,
                                 args.primary_category, args.secondary_category or None)

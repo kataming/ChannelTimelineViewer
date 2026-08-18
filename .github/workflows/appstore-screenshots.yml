@@ -1,0 +1,83 @@
+name: App Store Screenshots
+
+# 目的: iOS Screenshots ワークフローが撮った画像を、App Store Connect にそのまま入れる。
+# 7言語 × 6枚を手で並べるのは大変なので、artifact から取り出して API で流し込む。
+#
+# 使い方:
+#   1) 先に「iOS Screenshots」を実行し、その run ID を控える
+#   2) このワークフローを run ID 指定で実行（まず dry_run=true で確認）
+#
+# 注意: 再生画面のカット(04)は CI だと YouTube の bot 確認画面が写るため、実機で撮り直した画像に
+#       差し替えてから入れること（docs/screenshot-production-guide.md 参照）。
+
+on:
+  workflow_dispatch:
+    inputs:
+      screenshots_run_id:
+        description: 'iOS Screenshots の run ID（artifact の取り出し元）'
+        required: true
+      dry_run:
+        description: '送信せず、何を入れるかだけ表示する'
+        type: boolean
+        default: true
+      replace:
+        description: '既にある画像を削除してから入れ直す'
+        type: boolean
+        default: false
+      exclude_player_shot:
+        description: '再生画面(04)を除外する（実機で撮り直す場合はオン）'
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: 依存関係
+        run: pip install --quiet pyjwt cryptography
+
+      - name: スクリーンショットを取り出す
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_ID: ${{ inputs.screenshots_run_id }}
+          EXCLUDE_PLAYER: ${{ inputs.exclude_player_shot }}
+        run: |
+          set -euo pipefail
+          mkdir -p raw screenshots
+          gh run download "$RUN_ID" --dir raw
+          # app-store-screenshots-<言語>/ → screenshots/<言語>/
+          for dir in raw/app-store-screenshots-*; do
+            [ -d "$dir" ] || continue
+            lang="${dir##*app-store-screenshots-}"
+            mkdir -p "screenshots/$lang"
+            cp "$dir"/*.png "screenshots/$lang/" 2>/dev/null || true
+            if [ "$EXCLUDE_PLAYER" = "true" ]; then
+              rm -f "screenshots/$lang"/04-*.png
+            fi
+          done
+          echo "取り出した画像:"
+          find screenshots -name '*.png' | sort
+
+      - name: App Store Connect に登録
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          ASC_PRIVATE_KEY: ${{ secrets.ASC_PRIVATE_KEY }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          REPLACE: ${{ inputs.replace }}
+        run: |
+          set -euo pipefail
+          ARGS="--mode screenshots --screenshots-dir screenshots"
+          if [ "$DRY_RUN" = "true" ]; then ARGS="$ARGS --dry-run"; fi
+          if [ "$REPLACE" = "true" ]; then ARGS="$ARGS --replace"; fi
+          python scripts/asc_appstore_metadata.py $ARGS

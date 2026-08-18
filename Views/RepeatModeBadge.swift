@@ -16,7 +16,7 @@ struct RepeatModeBadge: View {
     var size: CGFloat = 26
 
     private var cornerRadius: CGFloat { size * 0.27 }
-    private var lineWidth: CGFloat { size * 0.075 }
+    private var lineWidth: CGFloat { size * 0.060 }
     private var labelSize: CGFloat { size * 0.30 }
     private var fillColor: Color { mode.isActive ? .green : .clear }
     private var inkColor: Color { mode.isActive ? .black : .primary }
@@ -55,12 +55,19 @@ struct RepeatModeBadge: View {
     }
 }
 
+/// 見本（yajirushi.png）の比率に合わせるための全体倍率。
+/// 計測値: 線の太さ 0.060 / 縦の広がり 0.641 / 横の広がり 0.684（バッジ比）。
+private let arrowShapeScale: CGFloat = 0.875
+
 /// 矢印の軸。左下から立ち上がって右へ伸びる。
 private struct RepeatArrowShaft: Shape {
     func path(in rect: CGRect) -> Path {
         let w = rect.width, h = rect.height
         func p(_ x: CGFloat, _ y: CGFloat) -> CGPoint {
-            CGPoint(x: rect.minX + w * x, y: rect.minY + h * y)
+            // 中心を基準に縮める（見本の大きさに合わせる）
+            let sx = 0.5 + (x - 0.5) * arrowShapeScale
+            let sy = 0.5 + (y - 0.5) * arrowShapeScale
+            return CGPoint(x: rect.minX + w * sx, y: rect.minY + h * sy)
         }
         var path = Path()
         path.move(to: p(0.15, 0.50))
@@ -76,7 +83,9 @@ private struct RepeatArrowHead: Shape {
     func path(in rect: CGRect) -> Path {
         let w = rect.width, h = rect.height
         func p(_ x: CGFloat, _ y: CGFloat) -> CGPoint {
-            CGPoint(x: rect.minX + w * x, y: rect.minY + h * y)
+            let sx = 0.5 + (x - 0.5) * arrowShapeScale
+            let sy = 0.5 + (y - 0.5) * arrowShapeScale
+            return CGPoint(x: rect.minX + w * sx, y: rect.minY + h * sy)
         }
         var path = Path()
         path.move(to: p(0.87, 0.26))     // 先端

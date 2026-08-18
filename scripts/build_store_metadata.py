@@ -22,6 +22,10 @@ OUT_DIR = ROOT / "docs" / "AppStore" / "metadata"
 
 # App Store Connect の入力欄と、その並び順。
 FIELDS = ["name", "subtitle", "promotionalText", "keywords", "description", "whatsNew"]
+
+# 公式サイトの言語スラッグ（URL は {lang} を置き換えて使う）。
+SITE_SLUGS = {"ja": "ja", "en": "en", "zh-Hans": "zh", "es": "es",
+              "de": "de", "fr": "fr", "ko": "ko"}
 FIELD_LABELS = {
     "name": "App 名（Name）",
     "subtitle": "サブタイトル（Subtitle）",
@@ -60,15 +64,18 @@ def write(data: dict) -> None:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
 
     for locale, label in locales.items():
+        slug = SITE_SLUGS[locale]
+        url = lambda key: data[key].replace("{lang}", slug)
         lines = [
             f"# App Store メタデータ — {label}",
             "",
             "> このファイルは `scripts/build_store_metadata.py` が生成します。直接編集せず、",
             "> `docs/AppStore/metadata.json` を直してから再生成してください。",
+            "> App Store Connect への反映は `scripts/asc_appstore_metadata.py`（API）でも行えます。",
             "",
-            f"- サポートURL: {data['supportURL']}",
-            f"- マーケティングURL: {data['marketingURL']}",
-            f"- プライバシーポリシーURL: {data['privacyPolicyURL']}",
+            f"- サポートURL: {url('supportURL')}",
+            f"- マーケティングURL: {url('marketingURL')}",
+            f"- プライバシーポリシーURL: {url('privacyPolicyURL')}",
             "",
         ]
         for field in FIELDS:

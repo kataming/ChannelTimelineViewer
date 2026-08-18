@@ -2,10 +2,11 @@
 
 > このファイルは `scripts/build_store_metadata.py` が生成します。直接編集せず、
 > `docs/AppStore/metadata.json` を直してから再生成してください。
+> App Store Connect への反映は `scripts/asc_appstore_metadata.py`（API）でも行えます。
 
-- サポートURL: https://channeltimeline.jewelrysunflower.com/
-- マーケティングURL: https://channeltimeline.jewelrysunflower.com/
-- プライバシーポリシーURL: https://channeltimeline.jewelrysunflower.com/privacy/
+- サポートURL: https://channeltimeline.jewelrysunflower.com/de/support/
+- マーケティングURL: https://channeltimeline.jewelrysunflower.com/de/
+- プライバシーポリシーURL: https://channeltimeline.jewelrysunflower.com/de/privacy/
 
 ## App 名（Name）
 <!-- 23 / 30 文字 -->

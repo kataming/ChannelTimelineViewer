@@ -1,0 +1,61 @@
+name: App Store Metadata
+
+# 目的: App Store Connect のアプリ情報（7言語のメタデータ）を API で確認・反映する。
+# 画面から7言語ぶんを手で貼り付けると事故りやすいので、原本 docs/AppStore/metadata.json から流し込む。
+#
+# 使う Secrets（署名ワークフローと同じもの。追加登録は不要）:
+#   ASC_KEY_ID / ASC_ISSUER_ID / ASC_PRIVATE_KEY
+#
+# mode:
+#   status … いまの登録状況を読むだけ（変更しない）
+#   push   … 原本を反映する。dry_run=true なら送信せず内容だけ表示する
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: '動作（status=確認のみ / push=反映）'
+        type: choice
+        options: [status, push]
+        default: status
+      dry_run:
+        description: 'push のとき、送信せず内容だけ表示する'
+        type: boolean
+        default: true
+      version:
+        description: '編集できるバージョンが無いときに作る版数'
+        required: false
+        default: '1.0'
+
+jobs:
+  metadata:
+    name: ${{ inputs.mode }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: 依存関係
+        run: pip install --quiet pyjwt cryptography
+
+      - name: 原本の検証（文字数・翻訳漏れ）
+        run: python scripts/build_store_metadata.py --check
+
+      - name: App Store Connect に問い合わせ
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          ASC_PRIVATE_KEY: ${{ secrets.ASC_PRIVATE_KEY }}
+          MODE: ${{ inputs.mode }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          VERSION: ${{ inputs.version }}
+        run: |
+          set -euo pipefail
+          ARGS="--mode $MODE --version $VERSION"
+          if [ "$MODE" = "push" ] && [ "$DRY_RUN" = "true" ]; then
+            ARGS="$ARGS --dry-run"
+          fi
+          python scripts/asc_appstore_metadata.py $ARGS

@@ -71,7 +71,8 @@
     "fr": "Première version. Regardez les vidéos d'une chaîne dans l'ordre, de la plus ancienne à la plus récente, en suivant votre progression.",
     "ko": "첫 번째 릴리스입니다. 채널의 업로드 동영상을 오래된 순으로 보면서 진행률을 관리할 수 있습니다."
   },
-  "supportURL": "https://channeltimeline.jewelrysunflower.com/",
-  "marketingURL": "https://channeltimeline.jewelrysunflower.com/",
-  "privacyPolicyURL": "https://channeltimeline.jewelrysunflower.com/privacy/"
+  "supportURL": "https://channeltimeline.jewelrysunflower.com/{lang}/support/",
+  "marketingURL": "https://channeltimeline.jewelrysunflower.com/{lang}/",
+  "privacyPolicyURL": "https://channeltimeline.jewelrysunflower.com/{lang}/privacy/",
+  "_urlComment": "{lang} は言語ごとのスラッグ（ja/en/zh/es/de/fr/ko）に置き換える。scripts が自動で行う。"
 }

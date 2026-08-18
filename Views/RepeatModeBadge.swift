@@ -14,6 +14,8 @@ import SwiftUI
 struct RepeatModeBadge: View {
     let mode: RepeatMode
     var size: CGFloat = 26
+    /// 矢印の上下幅（記号を縦に伸ばす倍率）。中央の文字まわりの余裕を調整する。
+    var verticalStretch: CGFloat = 1.0
 
     private var cornerRadius: CGFloat { size * 0.27 }
     /// 記号は横に広い（幅は文字サイズの約1.4倍）ので、枠に収まるよう小さめにする。
@@ -39,6 +41,7 @@ struct RepeatModeBadge: View {
         Image(systemName: "repeat")
             .font(.system(size: glyphSize, weight: .medium))
             .foregroundStyle(inkColor)
+            .scaleEffect(x: 1, y: verticalStretch)
             .overlay {
                 if let label = mode.centerLabel {
                     Text(label)

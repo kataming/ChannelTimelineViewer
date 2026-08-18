@@ -10,6 +10,17 @@
 import AppKit
 import SwiftUI
 
+/// 見比べる「矢印の上下幅」の候補。
+let stretches: [CGFloat] = [1.0, 1.2, 1.4]
+
+func stretchLabel(_ stretch: CGFloat) -> String {
+    switch stretch {
+    case 1.0: return "案1: いまのまま（上下幅そのまま）"
+    case 1.2: return "案2: 少し広げる（1.2倍）"
+    default: return "案3: しっかり広げる（1.4倍）"
+    }
+}
+
 /// 3状態を、実寸と拡大で並べたシート。
 struct RepeatBadgeSheet: View {
     let dark: Bool
@@ -18,14 +29,19 @@ struct RepeatBadgeSheet: View {
         VStack(alignment: .leading, spacing: 16) {
             Text(dark ? "ダークモード" : "ライトモード")
                 .font(.headline)
-            HStack(alignment: .top, spacing: 28) {
-                ForEach(RepeatMode.allCases) { mode in
-                    VStack(spacing: 10) {
-                        // ツールバーでの実寸
-                        RepeatModeBadge(mode: mode)
-                        // 形が分かるように拡大
-                        RepeatModeBadge(mode: mode, size: 88)
-                        Text(mode.label).font(.caption)
+            ForEach(stretches, id: \.self) { stretch in
+                VStack(alignment: .leading, spacing: 6) {
+                    Text(stretchLabel(stretch)).font(.caption).foregroundStyle(.secondary)
+                    HStack(alignment: .top, spacing: 28) {
+                        ForEach(RepeatMode.allCases) { mode in
+                            VStack(spacing: 10) {
+                                // ツールバーでの実寸
+                                RepeatModeBadge(mode: mode, verticalStretch: stretch)
+                                // 形が分かるように拡大
+                                RepeatModeBadge(mode: mode, size: 88, verticalStretch: stretch)
+                                Text(mode.label).font(.caption)
+                            }
+                        }
                     }
                 }
             }

@@ -373,7 +373,7 @@ python tools/verify_youtube_api.py "https://www.youtube.com/@ハンドル"
 - [`docs/screenshot-production-guide.md`](docs/screenshot-production-guide.md) — **スクリーンショット作成手順**（サイズ・撮影・キャプション）
 - [`docs/app-store-connect-fields.md`](docs/app-store-connect-fields.md) — **App Store Connect 入力項目の下書き**
 - [`docs/support.md`](docs/support.md) — **サポートページ**（GitHub Pages で公開 → `/support/`）
-- [`docs/monetization-plan.md`](docs/monetization-plan.md) — **収益化方針**（初回は無料・広告なし・IAPなし。将来Proはアプリ独自機能のみ課金）
+- [`docs/monetization-plan.md`](docs/monetization-plan.md) — **収益化方針**（アプリ内課金・サブスク・広告は採用せず、**本体価格のみ**。初回無料 → $4.99 → $9.99）
 
 参考（初期ドラフト）:
 - [`docs/AppStore/README.md`](docs/AppStore/README.md) — 索引・プライバシーポリシーURLの設定場所

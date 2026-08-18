@@ -42,6 +42,8 @@ Channel Timeline Viewer は、チャンネルの投稿動画を「公開日順�
 ・広告回避は行いません。
 ・バックグラウンド再生は行いません。
 ・動画一覧の取得には YouTube Data API v3 を使用します。
+・アプリ内課金・サブスクリプションはありません。広告も表示しません。
+　有料版／無料版の機能差はなく、すべての機能をお使いいただけます。
 
 ※ YouTube は Google LLC の商標です。
 
@@ -71,6 +73,7 @@ Please note
 • Playback uses YouTube's official embedded player.
 • It does NOT download videos, block ads, or play in the background.
 • Video lists are retrieved via the YouTube Data API v3.
+• No in-app purchases, no subscriptions, and no ads. Everyone gets the same full feature set.
 
 YouTube is a trademark of Google LLC.
 

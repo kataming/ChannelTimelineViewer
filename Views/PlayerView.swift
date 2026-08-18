@@ -127,7 +127,7 @@ struct PlayerView: View {
         Button {
             settings.repeatMode = settings.repeatMode.next
         } label: {
-            RepeatModeBadge(mode: settings.repeatMode)
+            RepeatModeBadge(mode: settings.repeatMode, size: 26)
         }
         // バッジの色をツールバーの着色で上書きされないようにする。
         .buttonStyle(.plain)

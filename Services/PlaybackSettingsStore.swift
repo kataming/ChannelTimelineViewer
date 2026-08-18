@@ -31,13 +31,14 @@ enum RepeatMode: String, CaseIterable, Identifiable, Codable {
     /// リピートが働いている状態か（バッジを塗りつぶすかの判断に使う）。
     var isActive: Bool { self != .off }
 
-    /// バッジの中に描くリピート記号。
-    var glyphSymbolName: String {
-        self == .one ? "repeat.1" : "repeat"
+    /// 記号の中央に重ねる文字（オフは無し）。
+    var centerLabel: String? {
+        switch self {
+        case .off: return nil
+        case .one: return "1"
+        case .all: return "ALL"
+        }
     }
-
-    /// 記号の中央に「ALL」を重ねるか。
-    var showsAllLabel: Bool { self == .all }
 
     /// 読み上げ・説明用。
     var accessibilityDescription: String {

@@ -2,26 +2,34 @@ import SwiftUI
 
 /// リピートの状態を表す角丸バッジ。
 ///
-/// - オフ: 枠線だけ（中は透明）
-/// - 1本: 緑の塗りつぶし＋「1」入りのリピート記号
-/// - 全体: 緑の塗りつぶし＋「ALL」入りのリピート記号
+/// - オフ: 枠線だけ（中は透明）＋リピート記号
+/// - 1本: 緑地のリピート記号の中央に「1」
+/// - 全体: 緑地のリピート記号の中央に「ALL」
 ///
 /// 画像ではなく描画で作っているので、拡大しても滲まず、
 /// ライト/ダークどちらでも枠線がはっきり見える。
+///
+/// 中央の文字は、記号の線を**同じ色で塗って切り抜いてから**重ねている。
+/// そうしないと矢印と文字が重なって潰れる。
 struct RepeatModeBadge: View {
     let mode: RepeatMode
     var size: CGFloat = 22
 
-    /// リピート記号の線の太さ。太いと「ALL」や「1」と干渉して潰れるので細めにする。
-    var glyphWeight: Font.Weight = .regular
+    /// リピート記号の線の太さ。
+    var glyphWeight: Font.Weight = .medium
 
     private var cornerRadius: CGFloat { size * 0.27 }
-    private var glyphSize: CGFloat { size * 0.62 }
+    /// 記号は横に広い（幅は文字サイズの約1.4倍）ので、枠に収まるよう小さめにする。
+    private var glyphSize: CGFloat { size * 0.46 }
+    private var labelSize: CGFloat { size * 0.26 }
+    /// 塗りつぶし色（中央の文字の下地にも使い、記号の線を切り抜く）。
+    private var fillColor: Color { mode.isActive ? .green : .clear }
+    private var inkColor: Color { mode.isActive ? .black : .primary }
 
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                .fill(mode.isActive ? Color.green : Color.clear)
+                .fill(fillColor)
             RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                 .strokeBorder(mode.isActive ? Color.clear : Color.primary,
                               lineWidth: max(1, size * 0.07))
@@ -32,16 +40,16 @@ struct RepeatModeBadge: View {
 
     @ViewBuilder
     private var glyph: some View {
-        let color: Color = mode.isActive ? .black : .primary
-        Image(systemName: mode.glyphSymbolName)
+        Image(systemName: "repeat")
             .font(.system(size: glyphSize, weight: glyphWeight))
-            .foregroundStyle(color)
+            .foregroundStyle(inkColor)
             .overlay {
-                if mode.showsAllLabel {
-                    // 「ALL」はリピート記号の中央（矢印の間）に重ねる。
-                    Text("ALL")
-                        .font(.system(size: size * 0.24, weight: .heavy))
-                        .foregroundStyle(color)
+                if let label = mode.centerLabel {
+                    Text(label)
+                        .font(.system(size: labelSize, weight: .heavy))
+                        .foregroundStyle(inkColor)
+                        .padding(.horizontal, size * 0.04)
+                        .background(fillColor)   // 矢印の線を切り抜く
                 }
             }
     }

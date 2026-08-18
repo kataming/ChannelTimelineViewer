@@ -80,13 +80,9 @@ final class PlaybackModeTests: XCTestCase {
         XCTAssertTrue(RepeatMode.one.isActive)
         XCTAssertTrue(RepeatMode.all.isActive)
 
-        XCTAssertEqual(RepeatMode.one.glyphSymbolName, "repeat.1", "1本は数字入りの記号")
-        XCTAssertEqual(RepeatMode.off.glyphSymbolName, "repeat")
-        XCTAssertEqual(RepeatMode.all.glyphSymbolName, "repeat")
-
-        XCTAssertTrue(RepeatMode.all.showsAllLabel, "全体は ALL を重ねる")
-        XCTAssertFalse(RepeatMode.one.showsAllLabel)
-        XCTAssertFalse(RepeatMode.off.showsAllLabel)
+        XCTAssertNil(RepeatMode.off.centerLabel, "オフは記号だけ")
+        XCTAssertEqual(RepeatMode.one.centerLabel, "1")
+        XCTAssertEqual(RepeatMode.all.centerLabel, "ALL")
     }
 
     // MARK: - ① リピート

@@ -22,7 +22,7 @@ struct RepeatBadgeSheet: View {
                 ForEach(RepeatMode.allCases) { mode in
                     VStack(spacing: 10) {
                         // ツールバーでの実寸
-                        RepeatModeBadge(mode: mode)
+                        RepeatModeBadge(mode: mode, size: 26)
                         // 形が分かるように拡大
                         RepeatModeBadge(mode: mode, size: 88)
                         Text(mode.label).font(.caption)

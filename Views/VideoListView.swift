@@ -264,5 +264,8 @@ private struct VideoRow: View {
             }
         }
         .padding(.vertical, 4)
+        // 1行を1要素にまとめる。VoiceOver が行ごとに読めるようになり、
+        // 数千本のチャンネルでもアクセシビリティのツリーが膨らまない。
+        .accessibilityElement(children: .combine)
     }
 }

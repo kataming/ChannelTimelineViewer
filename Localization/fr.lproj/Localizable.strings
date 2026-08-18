@@ -215,8 +215,8 @@
 "player.ended.playNext" = "Lire la vidéo suivante";
 /* 終了時の案内 */
 "player.ended.title" = "Lecture terminée. À suivre :";
-/* メモの自動保存の説明 */
-"player.memo.autosave" = "Enregistré automatiquement pendant la saisie.";
+/* メモの自動保存と、入力の終え方の説明 */
+"player.memo.autosave" = "Enregistré automatiquement pendant la saisie. Touchez ailleurs ou « Terminé » pour quitter.";
 /* メモ欄の見出し */
 "player.memo.title" = "Notes (séries et apprentissage)";
 /* 読み上げ: その他の操作 */

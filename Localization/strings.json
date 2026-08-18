@@ -670,14 +670,14 @@
     "ko": "메모 (시리즈 시청·학습용)"
   },
   "player.memo.autosave": {
-    "comment": "メモの自動保存の説明",
-    "ja": "入力すると自動保存されます。",
-    "en": "Saved automatically as you type.",
-    "zh-Hans": "输入内容会自动保存。",
-    "es": "Se guarda automáticamente mientras escribes.",
-    "de": "Wird beim Tippen automatisch gespeichert.",
-    "fr": "Enregistré automatiquement pendant la saisie.",
-    "ko": "입력하면 자동으로 저장됩니다."
+    "comment": "メモの自動保存と、入力の終え方の説明",
+    "ja": "入力すると自動保存されます。他の場所を押すか「完了」で入力を終えられます。",
+    "en": "Saved automatically as you type. Tap elsewhere or “Done” to finish editing.",
+    "zh-Hans": "输入内容会自动保存。点按其他位置或“完成”即可结束输入。",
+    "es": "Se guarda automáticamente mientras escribes. Toca fuera o «Listo» para terminar.",
+    "de": "Wird beim Tippen automatisch gespeichert. Tippe daneben oder auf „Fertig“, um die Eingabe zu beenden.",
+    "fr": "Enregistré automatiquement pendant la saisie. Touchez ailleurs ou « Terminé » pour quitter.",
+    "ko": "입력하면 자동으로 저장됩니다. 다른 곳을 탭하거나 ‘완료’를 누르면 입력이 끝납니다."
   },
   "player.resume.notice.format": {
     "comment": "続きから再生中の案内（%@ に時刻）",

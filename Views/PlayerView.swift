@@ -11,6 +11,8 @@ struct PlayerView: View {
     @Environment(\.openURL) private var openURL
     /// 再生設定（速度・字幕）のシートを表示中か。
     @State private var showPlaybackOptions = false
+    /// メモ欄を編集中か。TextEditor は自前で閉じる手段を用意しないと入力状態から抜けられない。
+    @FocusState private var isMemoFocused: Bool
     @Environment(\.scenePhase) private var scenePhase
     /// いま再生しているチャンネル（画面上部に名前を出す）。
     private let channel: Channel
@@ -66,6 +68,8 @@ struct PlayerView: View {
                     ScrollView {
                         details(for: video)
                     }
+                    // 下にスワイプしてもキーボードを下げられるようにする。
+                    .scrollDismissesKeyboard(.interactively)
                 }
             } else {
                 ContentUnavailableView("player.noVideos", systemImage: "film")
@@ -179,6 +183,10 @@ struct PlayerView: View {
             }
         }
         .padding()
+        // メモ欄以外（余白を含む）を押したら入力を終える。
+        // ボタンやトグルは自分でタップを処理するので、この指定では反応が変わらない。
+        .contentShape(Rectangle())
+        .onTapGesture { isMemoFocused = false }
     }
 
     @ViewBuilder
@@ -194,6 +202,15 @@ struct PlayerView: View {
                         .stroke(Color(.separator))
                 )
                 .scrollContentBackground(.hidden)
+                .focused($isMemoFocused)
+                // 改行が入力できる欄なので Return では閉じられない。
+                // キーボードの上に「完了」を出して、確実に抜けられるようにする。
+                .toolbar {
+                    ToolbarItemGroup(placement: .keyboard) {
+                        Spacer()
+                        Button("common.done") { isMemoFocused = false }
+                    }
+                }
             Text("player.memo.autosave")
                 .font(.caption2)
                 .foregroundStyle(.tertiary)

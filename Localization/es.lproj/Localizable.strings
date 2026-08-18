@@ -215,8 +215,8 @@
 "player.ended.playNext" = "Reproducir el siguiente";
 /* 終了時の案内 */
 "player.ended.title" = "Reproducción finalizada. A continuación:";
-/* メモの自動保存の説明 */
-"player.memo.autosave" = "Se guarda automáticamente mientras escribes.";
+/* メモの自動保存と、入力の終え方の説明 */
+"player.memo.autosave" = "Se guarda automáticamente mientras escribes. Toca fuera o «Listo» para terminar.";
 /* メモ欄の見出し */
 "player.memo.title" = "Notas (para series y estudio)";
 /* 読み上げ: その他の操作 */

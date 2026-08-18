@@ -215,8 +215,8 @@
 "player.ended.playNext" = "播放下一个视频";
 /* 終了時の案内 */
 "player.ended.title" = "播放已结束。下一个：";
-/* メモの自動保存の説明 */
-"player.memo.autosave" = "输入内容会自动保存。";
+/* メモの自動保存と、入力の終え方の説明 */
+"player.memo.autosave" = "输入内容会自动保存。点按其他位置或“完成”即可结束输入。";
 /* メモ欄の見出し */
 "player.memo.title" = "笔记（连续观看・学习用）";
 /* 読み上げ: その他の操作 */

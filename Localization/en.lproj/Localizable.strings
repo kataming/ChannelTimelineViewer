@@ -215,8 +215,8 @@
 "player.ended.playNext" = "Play next video";
 /* 終了時の案内 */
 "player.ended.title" = "Playback finished. Up next:";
-/* メモの自動保存の説明 */
-"player.memo.autosave" = "Saved automatically as you type.";
+/* メモの自動保存と、入力の終え方の説明 */
+"player.memo.autosave" = "Saved automatically as you type. Tap elsewhere or “Done” to finish editing.";
 /* メモ欄の見出し */
 "player.memo.title" = "Notes (for series and study)";
 /* 読み上げ: その他の操作 */

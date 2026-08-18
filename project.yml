@@ -2,6 +2,9 @@ name: ChannelTimelineViewer
 
 options:
   bundleIdPrefix: com.deskflowlabs
+  # 7言語対応（arrows-lite と同じ言語セット）
+  developmentLanguage: ja
+  knownRegions: [ja, en, zh-Hans, es, de, fr, ko]
   deploymentTarget:
     iOS: "17.0"
   createIntermediateGroups: true
@@ -70,6 +73,14 @@ targets:
       # URL 解析・通知の組み立てはメインアプリと共有する（Foundation / UserNotifications のみ）。
       - path: Services/SharedLinkParser.swift
       - path: Services/SharedLinkNotifier.swift
+      # 表示文言の多言語対応（拡張は自分のバンドルを見るので、こちらにも含める）
+      - path: Resources/ja.lproj/Localizable.strings
+      - path: Resources/en.lproj/Localizable.strings
+      - path: Resources/zh-Hans.lproj/Localizable.strings
+      - path: Resources/es.lproj/Localizable.strings
+      - path: Resources/de.lproj/Localizable.strings
+      - path: Resources/fr.lproj/Localizable.strings
+      - path: Resources/ko.lproj/Localizable.strings
     settings:
       base:
         GENERATE_INFOPLIST_FILE: NO
@@ -91,6 +102,13 @@ targets:
       - path: ExtensionShared
       - path: Services/SharedLinkParser.swift
       - path: Services/SharedLinkNotifier.swift
+      - path: Resources/ja.lproj/Localizable.strings
+      - path: Resources/en.lproj/Localizable.strings
+      - path: Resources/zh-Hans.lproj/Localizable.strings
+      - path: Resources/es.lproj/Localizable.strings
+      - path: Resources/de.lproj/Localizable.strings
+      - path: Resources/fr.lproj/Localizable.strings
+      - path: Resources/ko.lproj/Localizable.strings
     settings:
       base:
         GENERATE_INFOPLIST_FILE: NO

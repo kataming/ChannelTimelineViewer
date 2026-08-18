@@ -17,11 +17,17 @@ struct RepeatModeBadge: View {
     var size: CGFloat = 26
     /// 上下の矢印を離す量（バッジの大きさに対する割合）。線の太さは変わらない。
     var arrowGap: CGFloat = 0.14
+    /// 記号の大きさ（バッジに対する割合）。
+    var glyphRatio: CGFloat = 0.46
+    /// 記号の線の太さ。
+    var glyphWeight: Font.Weight = .medium
+    /// 中央の文字の大きさ（バッジに対する割合）。
+    var labelRatio: CGFloat = 0.26
 
     private var cornerRadius: CGFloat { size * 0.27 }
     /// 記号は横に広い（幅は文字サイズの約1.4倍）ので、枠に収まるよう小さめにする。
-    private var glyphSize: CGFloat { size * 0.46 }
-    private var labelSize: CGFloat { size * 0.26 }
+    private var glyphSize: CGFloat { size * glyphRatio }
+    private var labelSize: CGFloat { size * labelRatio }
     private var fillColor: Color { mode.isActive ? .green : .clear }
     private var inkColor: Color { mode.isActive ? .black : .primary }
     /// 上下それぞれをずらす量。
@@ -41,7 +47,7 @@ struct RepeatModeBadge: View {
 
     private var symbol: some View {
         Image(systemName: "repeat")
-            .font(.system(size: glyphSize, weight: .medium))
+            .font(.system(size: glyphSize, weight: glyphWeight))
             .foregroundStyle(inkColor)
     }
 

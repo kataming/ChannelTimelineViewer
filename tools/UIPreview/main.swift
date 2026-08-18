@@ -1,48 +1,28 @@
-// アプリのパーツ（いまはリピートバッジ）を PNG に描き出すだけの小さなツール。
+// アプリのパーツ（いまはリピートバッジ）を PNG に描き出すツール。
 //
-// 目的: 実機に入れる前に見た目を確認する。
-//   Windows 環境では Xcode のプレビューが使えないため、GitHub Actions の macOS
-//   ランナーで実アプリのソース（Views/RepeatModeBadge.swift）をそのままコンパイルし、
-//   PNG を生成して成果物として持ち帰る。
+// 目的:
+//  1) 実機に入れる前に見た目を確認する（Windows では Xcode プレビューが使えないため）
+//  2) 目標の見た目に合う数値（線の太さ・大きさ・間隔）を総当たりで探す
 //
-// 実行: swiftc で本体のソースと一緒にビルドして起動する（.github/workflows/ui-preview.yml）。
+// 実行: .github/workflows/ui-preview.yml から。
 
 import AppKit
 import SwiftUI
 
-/// 見比べる「上下の矢印の間隔」。線の太さは変えない。
-let gaps: [CGFloat] = [0.0, 0.10, 0.16, 0.22]
+// MARK: - 仕上がり確認用のシート
 
-func gapLabel(_ gap: CGFloat) -> String {
-    switch gap {
-    case 0.0: return "案1: いまのまま（間隔そのまま）"
-    case 0.10: return "案2: 少し広げる"
-    case 0.16: return "案3: もう少し広げる"
-    default: return "案4: しっかり広げる"
-    }
-}
-
-/// 3状態を、実寸と拡大で並べたシート。
 struct RepeatBadgeSheet: View {
     let dark: Bool
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text(dark ? "ダークモード" : "ライトモード")
-                .font(.headline)
-            ForEach(gaps, id: \.self) { gap in
-                VStack(alignment: .leading, spacing: 6) {
-                    Text(gapLabel(gap)).font(.caption).foregroundStyle(.secondary)
-                    HStack(alignment: .top, spacing: 28) {
-                        ForEach(RepeatMode.allCases) { mode in
-                            VStack(spacing: 10) {
-                                // ツールバーでの実寸
-                                RepeatModeBadge(mode: mode, arrowGap: gap)
-                                // 形が分かるように拡大
-                                RepeatModeBadge(mode: mode, size: 88, arrowGap: gap)
-                                Text(mode.label).font(.caption)
-                            }
-                        }
+            Text(dark ? "ダークモード" : "ライトモード").font(.headline)
+            HStack(alignment: .top, spacing: 28) {
+                ForEach(RepeatMode.allCases) { mode in
+                    VStack(spacing: 10) {
+                        RepeatModeBadge(mode: mode)               // 実寸
+                        RepeatModeBadge(mode: mode, size: 88)     // 拡大
+                        Text(mode.label).font(.caption)
                     }
                 }
             }
@@ -52,6 +32,31 @@ struct RepeatBadgeSheet: View {
         .environment(\.colorScheme, dark ? .dark : .light)
     }
 }
+
+// MARK: - 数値合わせ用（1個ずつ書き出して計測する）
+
+struct SingleBadge: View {
+    let gap: CGFloat
+    let glyphRatio: CGFloat
+    let weight: Font.Weight
+    let labelRatio: CGFloat
+
+    var body: some View {
+        RepeatModeBadge(mode: .all, size: 220,
+                        arrowGap: gap,
+                        glyphRatio: glyphRatio,
+                        glyphWeight: weight,
+                        labelRatio: labelRatio)
+            .padding(20)
+            .background(Color.white)
+    }
+}
+
+let weights: [(String, Font.Weight)] = [
+    ("ultraLight", .ultraLight), ("thin", .thin), ("light", .light), ("regular", .regular),
+]
+let glyphRatios: [CGFloat] = [0.52, 0.60, 0.68]
+let gaps: [CGFloat] = [0.10, 0.16, 0.22]
 
 @MainActor
 func writePNG<V: View>(_ view: V, to url: URL, scale: CGFloat = 3) {
@@ -65,17 +70,27 @@ func writePNG<V: View>(_ view: V, to url: URL, scale: CGFloat = 3) {
         return
     }
     try? png.write(to: url)
-    print("wrote \(url.path)")
 }
 
 MainActor.assumeIsolated {
-    let outputDirectory = URL(fileURLWithPath: CommandLine.arguments.count > 1
-                              ? CommandLine.arguments[1]
-                              : "./build/ui-preview")
-    try? FileManager.default.createDirectory(at: outputDirectory, withIntermediateDirectories: true)
+    let out = URL(fileURLWithPath: CommandLine.arguments.count > 1
+                  ? CommandLine.arguments[1] : "./build/ui-preview")
+    try? FileManager.default.createDirectory(at: out, withIntermediateDirectories: true)
 
-    writePNG(RepeatBadgeSheet(dark: false),
-             to: outputDirectory.appendingPathComponent("repeat-badge-light.png"))
-    writePNG(RepeatBadgeSheet(dark: true),
-             to: outputDirectory.appendingPathComponent("repeat-badge-dark.png"))
+    writePNG(RepeatBadgeSheet(dark: false), to: out.appendingPathComponent("repeat-badge-light.png"))
+    writePNG(RepeatBadgeSheet(dark: true), to: out.appendingPathComponent("repeat-badge-dark.png"))
+
+    // 数値合わせ用（計測してから消す）
+    let matrix = out.appendingPathComponent("matrix", isDirectory: true)
+    try? FileManager.default.createDirectory(at: matrix, withIntermediateDirectories: true)
+    for (wname, weight) in weights {
+        for glyph in glyphRatios {
+            for gap in gaps {
+                let name = "w-\(wname)_glyph-\(Int(glyph * 100))_gap-\(Int(gap * 100)).png"
+                writePNG(SingleBadge(gap: gap, glyphRatio: glyph, weight: weight, labelRatio: 0.26),
+                         to: matrix.appendingPathComponent(name), scale: 1)
+            }
+        }
+    }
+    print("done")
 }

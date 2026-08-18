@@ -36,6 +36,8 @@ targets:
       - Views
       - path: Resources
         # Config.plist / Config.example.plist などをバンドルリソースとして含める
+      # 表示文言（7言語）
+      - path: Localization
     dependencies:
       # 共有シート（Share Extension）。アプリに埋め込まれて一緒に配布される。
       - target: ChannelTimelineViewerShareExtension
@@ -73,14 +75,8 @@ targets:
       # URL 解析・通知の組み立てはメインアプリと共有する（Foundation / UserNotifications のみ）。
       - path: Services/SharedLinkParser.swift
       - path: Services/SharedLinkNotifier.swift
-      # 表示文言の多言語対応（拡張は自分のバンドルを見るので、こちらにも含める）
-      - path: Resources/ja.lproj/Localizable.strings
-      - path: Resources/en.lproj/Localizable.strings
-      - path: Resources/zh-Hans.lproj/Localizable.strings
-      - path: Resources/es.lproj/Localizable.strings
-      - path: Resources/de.lproj/Localizable.strings
-      - path: Resources/fr.lproj/Localizable.strings
-      - path: Resources/ko.lproj/Localizable.strings
+      # 表示文言（拡張は自分のバンドルを見るので、こちらにも含める）
+      - path: Localization
     settings:
       base:
         GENERATE_INFOPLIST_FILE: NO
@@ -102,13 +98,7 @@ targets:
       - path: ExtensionShared
       - path: Services/SharedLinkParser.swift
       - path: Services/SharedLinkNotifier.swift
-      - path: Resources/ja.lproj/Localizable.strings
-      - path: Resources/en.lproj/Localizable.strings
-      - path: Resources/zh-Hans.lproj/Localizable.strings
-      - path: Resources/es.lproj/Localizable.strings
-      - path: Resources/de.lproj/Localizable.strings
-      - path: Resources/fr.lproj/Localizable.strings
-      - path: Resources/ko.lproj/Localizable.strings
+      - path: Localization
     settings:
       base:
         GENERATE_INFOPLIST_FILE: NO

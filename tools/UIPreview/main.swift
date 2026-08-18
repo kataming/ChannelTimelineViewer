@@ -10,24 +10,6 @@
 import AppKit
 import SwiftUI
 
-/// 見比べる案。
-struct Candidate {
-    let name: String
-    let badge: (RepeatMode, CGFloat) -> AnyView
-}
-
-let candidates: [Candidate] = [
-    Candidate(name: "案A: 記号を縦に伸ばして隙間を作る（切り抜きなし）") { mode, size in
-        AnyView(RepeatModeBadge(mode: mode, size: size, verticalStretch: 1.45, usesKnockout: false))
-    },
-    Candidate(name: "案B: 文字の高さだけ切り抜く") { mode, size in
-        AnyView(RepeatModeBadge(mode: mode, size: size, usesKnockout: true))
-    },
-    Candidate(name: "案C: 縦に伸ばす＋切り抜き") { mode, size in
-        AnyView(RepeatModeBadge(mode: mode, size: size, verticalStretch: 1.3, usesKnockout: true))
-    },
-]
-
 /// 3状態を、実寸と拡大で並べたシート。
 struct RepeatBadgeSheet: View {
     let dark: Bool
@@ -36,19 +18,14 @@ struct RepeatBadgeSheet: View {
         VStack(alignment: .leading, spacing: 16) {
             Text(dark ? "ダークモード" : "ライトモード")
                 .font(.headline)
-            ForEach(Array(candidates.enumerated()), id: \.offset) { _, candidate in
-                VStack(alignment: .leading, spacing: 6) {
-                    Text(candidate.name).font(.caption).foregroundStyle(.secondary)
-                    HStack(alignment: .top, spacing: 28) {
-                        ForEach(RepeatMode.allCases) { mode in
-                            VStack(spacing: 10) {
-                                // ツールバーでの実寸
-                                candidate.badge(mode, 26)
-                                // 形が分かるように拡大
-                                candidate.badge(mode, 88)
-                                Text(mode.label).font(.caption)
-                            }
-                        }
+            HStack(alignment: .top, spacing: 28) {
+                ForEach(RepeatMode.allCases) { mode in
+                    VStack(spacing: 10) {
+                        // ツールバーでの実寸
+                        RepeatModeBadge(mode: mode)
+                        // 形が分かるように拡大
+                        RepeatModeBadge(mode: mode, size: 88)
+                        Text(mode.label).font(.caption)
                     }
                 }
             }

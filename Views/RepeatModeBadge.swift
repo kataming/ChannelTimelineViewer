@@ -9,24 +9,16 @@ import SwiftUI
 /// 画像ではなく描画で作っているので、拡大しても滲まず、
 /// ライト/ダークどちらでも枠線がはっきり見える。
 ///
-/// 中央の文字は、記号の線を**同じ色で塗って切り抜いてから**重ねている。
-/// そうしないと矢印と文字が重なって潰れる。
+/// 中央の文字は、**文字の高さのぶんだけ下地を敷いて記号の線を切り抜いてから**重ねている。
+/// そのまま重ねると矢印と文字がぶつかって読めなくなる（`tools/UIPreview` で比較して決定）。
 struct RepeatModeBadge: View {
     let mode: RepeatMode
-    var size: CGFloat = 22
-
-    /// リピート記号の線の太さ。
-    var glyphWeight: Font.Weight = .medium
-    /// 記号を縦に伸ばして、中央の文字が入る隙間を広げる倍率。
-    var verticalStretch: CGFloat = 1.0
-    /// 中央の文字の下地で記号の線を切り抜くか。
-    var usesKnockout: Bool = false
+    var size: CGFloat = 26
 
     private var cornerRadius: CGFloat { size * 0.27 }
     /// 記号は横に広い（幅は文字サイズの約1.4倍）ので、枠に収まるよう小さめにする。
     private var glyphSize: CGFloat { size * 0.46 }
     private var labelSize: CGFloat { size * 0.26 }
-    /// 塗りつぶし色（中央の文字の下地にも使い、記号の線を切り抜く）。
     private var fillColor: Color { mode.isActive ? .green : .clear }
     private var inkColor: Color { mode.isActive ? .black : .primary }
 
@@ -45,29 +37,17 @@ struct RepeatModeBadge: View {
     @ViewBuilder
     private var glyph: some View {
         Image(systemName: "repeat")
-            .font(.system(size: glyphSize, weight: glyphWeight))
+            .font(.system(size: glyphSize, weight: .medium))
             .foregroundStyle(inkColor)
-            .scaleEffect(x: 1, y: verticalStretch)
             .overlay {
                 if let label = mode.centerLabel {
-                    centerLabelView(label)
+                    Text(label)
+                        .font(.system(size: labelSize, weight: .heavy))
+                        .foregroundStyle(inkColor)
+                        .padding(.horizontal, size * 0.03)
+                        .frame(height: labelSize * 0.9)
+                        .background(fillColor)   // 矢印の線を切り抜く
                 }
             }
-    }
-
-    @ViewBuilder
-    private func centerLabelView(_ label: String) -> some View {
-        let text = Text(label)
-            .font(.system(size: labelSize, weight: .heavy))
-            .foregroundStyle(inkColor)
-        if usesKnockout {
-            // 文字の高さぶんだけ下地を敷いて、矢印の線を切り抜く。
-            text
-                .padding(.horizontal, size * 0.03)
-                .frame(height: labelSize * 0.9)
-                .background(fillColor)
-        } else {
-            text
-        }
     }
 }

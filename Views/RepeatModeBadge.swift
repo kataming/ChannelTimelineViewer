@@ -16,7 +16,7 @@ struct RepeatModeBadge: View {
     var size: CGFloat = 26
 
     private var cornerRadius: CGFloat { size * 0.27 }
-    private var lineWidth: CGFloat { size * 0.060 }
+    private var lineWidth: CGFloat { size * 0.105 }
     private var labelSize: CGFloat { size * 0.30 }
     private var fillColor: Color { mode.isActive ? .green : .clear }
     private var inkColor: Color { mode.isActive ? .black : .primary }

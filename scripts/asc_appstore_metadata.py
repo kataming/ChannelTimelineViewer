@@ -527,15 +527,15 @@ def diagnose(client: Client, bundle_id: str) -> int:
           lambda res: "設定あり（"
                       + ", ".join(sorted({item["type"] for item in res.get("included", [])}))
                       + "）" if res.get("included") else "設定あり")
-    probe("配信地域", f"/v1/apps/{app_id}/appAvailabilityV2?include=territoryAvailabilities&limit=1",
-          lambda res: f"{len(res.get('included', []))} 件以上の地域設定あり")
+    probe("配信地域", f"/v1/apps/{app_id}/appAvailabilityV2",
+          lambda res: "全地域向け"
+                      if res["data"]["attributes"].get("availableInNewTerritories")
+                      else "地域を限定して配信")
 
+    # App のプライバシー（データ収集の申告）は公開 API から読めないため、画面での確認を促す。
     print("\nApp のプライバシー（データ収集の申告）")
-    probe("公開状態", f"/v1/apps/{app_id}/appDataUsagesPublishState",
-          lambda res: "公開済み（申告完了）"
-                      if res["data"]["attributes"].get("published") else "未公開（申告が未完了）")
-    probe("申告内容", f"/v1/apps/{app_id}/dataUsages?limit=5",
-          lambda res: f"{len(res.get('data', []))} 件の申告")
+    print("  API では読めません。App Store Connect の「App のプライバシー」で"
+          "『データを収集していません』になっているか目視で確認してください。")
 
     print("\nバージョン")
     version = editable_version(client, app_id)

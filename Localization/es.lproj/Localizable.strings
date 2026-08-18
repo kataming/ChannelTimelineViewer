@@ -1,2 +1,63 @@
-/* English */
-"app.name" = "Channel Timeline Viewer";
+/* このファイルは scripts/build_localizations.py が生成します。直接編集しないこと。 */
+/* language: es */
+
+/* 字幕: オフ */
+"captions.off" = "Desactivados";
+/* 削除 */
+"common.delete" = "Eliminar";
+/* エラー: APIキー未設定 */
+"error.apiKeyMissing" = "No hay ninguna clave de API configurada.";
+/* エラー: チャンネルが見つからない */
+"error.channelNotFound" = "No se encontró el canal.";
+/* エラー: 応答を解釈できない */
+"error.decoding" = "No se pudo obtener la lista de vídeos.";
+/* エラー: チャンネルURLとして解析できない */
+"error.invalidChannelURL" = "No parece una URL de canal de YouTube.";
+/* エラー: URLの形式が不正 */
+"error.invalidURL" = "La URL no es válida.";
+/* エラー: 動画URLとして解析できない */
+"error.invalidVideoURL" = "No parece una URL de vídeo de YouTube.";
+/* エラー: 通信失敗 */
+"error.network" = "Falló la conexión.";
+/* エラー: API利用上限 */
+"error.quotaExceeded" = "Se alcanzó el límite de la API de YouTube. Inténtalo de nuevo más tarde.";
+/* エラー: その他 */
+"error.unknown" = "Se produjo un error desconocido.";
+/* エラー: 動画一覧を取得できない */
+"error.uploadsPlaylistNotFound" = "No se pudo obtener la lista de vídeos de este canal.";
+/* エラー: 動画から投稿チャンネルを特定できない */
+"error.videoNotFound" = "No se pudo identificar el canal de este vídeo.";
+/* 最終利用日時（%@ に日時） */
+"favorites.lastOpened.format" = "Última vez: %@";
+/* 進捗（%1$@=視聴済み %2$@=総数 %3$@=割合） */
+"favorites.progress.format" = "%1$@ de %2$@ vistos (%3$@%%)";
+/* 進捗が未計算のとき */
+"favorites.progressHint" = "El progreso aparece al abrir el canal.";
+/* 続きから見る */
+"favorites.resume" = "Continuar viendo";
+/* フィルター: すべて */
+"filter.all" = "Todos";
+/* フィルター: 未視聴のみ */
+"filter.unwatched" = "No vistos";
+/* フィルター: 視聴済みのみ */
+"filter.watched" = "Vistos";
+/* 一覧が空のとき */
+"list.empty" = "Este canal no tiene vídeos para mostrar.";
+/* 共有直後の通知の本文 */
+"notification.sharedLink.body" = "Toca para abrir la lista de vídeos del canal compartido.";
+/* 再生設定の要約（%1$@=速度 %2$@=字幕） */
+"player.optionsSummary.format" = "Velocidad %1$@ · Subtítulos %2$@";
+/* 再生速度の表示（%@ に倍率） */
+"player.rate.format" = "%@×";
+/* 読み上げ: 全体リピート */
+"repeat.a11y.all" = "Repetir todos los vídeos";
+/* 読み上げ: リピートオフ */
+"repeat.a11y.off" = "Repetición desactivada";
+/* 読み上げ: 1本リピート */
+"repeat.a11y.one" = "Repetir un vídeo";
+/* リピート: 全体 */
+"repeat.all" = "Todo";
+/* リピート: オフ */
+"repeat.off" = "No";
+/* リピート: 1本 */
+"repeat.one" = "Uno";

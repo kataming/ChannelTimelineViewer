@@ -1,2 +1,63 @@
-/* English */
-"app.name" = "Channel Timeline Viewer";
+/* このファイルは scripts/build_localizations.py が生成します。直接編集しないこと。 */
+/* language: de */
+
+/* 字幕: オフ */
+"captions.off" = "Aus";
+/* 削除 */
+"common.delete" = "Löschen";
+/* エラー: APIキー未設定 */
+"error.apiKeyMissing" = "Es ist kein API-Schlüssel konfiguriert.";
+/* エラー: チャンネルが見つからない */
+"error.channelNotFound" = "Kanal nicht gefunden.";
+/* エラー: 応答を解釈できない */
+"error.decoding" = "Die Videoliste konnte nicht geladen werden.";
+/* エラー: チャンネルURLとして解析できない */
+"error.invalidChannelURL" = "Das scheint keine YouTube-Kanal-URL zu sein.";
+/* エラー: URLの形式が不正 */
+"error.invalidURL" = "Die URL ist ungültig.";
+/* エラー: 動画URLとして解析できない */
+"error.invalidVideoURL" = "Das scheint keine YouTube-Video-URL zu sein.";
+/* エラー: 通信失敗 */
+"error.network" = "Die Verbindung ist fehlgeschlagen.";
+/* エラー: API利用上限 */
+"error.quotaExceeded" = "Das Limit der YouTube-API ist erreicht. Bitte später erneut versuchen.";
+/* エラー: その他 */
+"error.unknown" = "Ein unbekannter Fehler ist aufgetreten.";
+/* エラー: 動画一覧を取得できない */
+"error.uploadsPlaylistNotFound" = "Die Videoliste dieses Kanals konnte nicht geladen werden.";
+/* エラー: 動画から投稿チャンネルを特定できない */
+"error.videoNotFound" = "Der Kanal dieses Videos konnte nicht ermittelt werden.";
+/* 最終利用日時（%@ に日時） */
+"favorites.lastOpened.format" = "Zuletzt: %@";
+/* 進捗（%1$@=視聴済み %2$@=総数 %3$@=割合） */
+"favorites.progress.format" = "%1$@ von %2$@ gesehen (%3$@%%)";
+/* 進捗が未計算のとき */
+"favorites.progressHint" = "Der Fortschritt erscheint, sobald du den Kanal öffnest.";
+/* 続きから見る */
+"favorites.resume" = "Weiterschauen";
+/* フィルター: すべて */
+"filter.all" = "Alle";
+/* フィルター: 未視聴のみ */
+"filter.unwatched" = "Ungesehen";
+/* フィルター: 視聴済みのみ */
+"filter.watched" = "Gesehen";
+/* 一覧が空のとき */
+"list.empty" = "Dieser Kanal hat keine anzeigbaren Videos.";
+/* 共有直後の通知の本文 */
+"notification.sharedLink.body" = "Tippen, um die Videoliste des geteilten Kanals zu öffnen.";
+/* 再生設定の要約（%1$@=速度 %2$@=字幕） */
+"player.optionsSummary.format" = "Tempo %1$@ · Untertitel %2$@";
+/* 再生速度の表示（%@ に倍率） */
+"player.rate.format" = "%@×";
+/* 読み上げ: 全体リピート */
+"repeat.a11y.all" = "Alle Videos wiederholen";
+/* 読み上げ: リピートオフ */
+"repeat.a11y.off" = "Wiederholung aus";
+/* 読み上げ: 1本リピート */
+"repeat.a11y.one" = "Ein Video wiederholen";
+/* リピート: 全体 */
+"repeat.all" = "Alle";
+/* リピート: オフ */
+"repeat.off" = "Aus";
+/* リピート: 1本 */
+"repeat.one" = "Eins";

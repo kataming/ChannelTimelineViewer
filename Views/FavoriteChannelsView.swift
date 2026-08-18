@@ -45,7 +45,8 @@ struct FavoriteChannelsView: View {
                                 .font(.body)
                                 .foregroundStyle(.primary)
                                 .lineLimit(1)
-                            Text("最終: \(favorite.lastOpenedAt.formatted(date: .abbreviated, time: .shortened))")
+                            Text(String(format: String(localized: "favorites.lastOpened.format"),
+                                        favorite.lastOpenedAt.formatted(date: .abbreviated, time: .shortened)))
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
@@ -54,7 +55,7 @@ struct FavoriteChannelsView: View {
                     }
                     progressRow(for: favorite)
                     if progressStore.progress(for: favorite.id)?.lastOpenedVideoId != nil {
-                        Label("続きから見る", systemImage: "play.circle.fill")
+                        Label(String(localized: "favorites.resume"), systemImage: "play.circle.fill")
                             .font(.caption.bold())
                             .foregroundStyle(.tint)
                     }
@@ -65,7 +66,7 @@ struct FavoriteChannelsView: View {
                 Button(role: .destructive) {
                     remove(favorite)
                 } label: {
-                    Label("削除", systemImage: "trash")
+                    Label(String(localized: "common.delete"), systemImage: "trash")
                 }
             }
         }
@@ -88,11 +89,13 @@ struct FavoriteChannelsView: View {
         if let p = progressStore.progress(for: favorite.id), p.totalVideoCount > 0 {
             ProgressView(value: p.progressRate)
                 .tint(.green)
-            Text("\(p.watchedVideoCount) / \(p.totalVideoCount)本 視聴済み（\(Int((p.progressRate * 100).rounded()))%）")
+            Text(String(format: String(localized: "favorites.progress.format"),
+                        "\(p.watchedVideoCount)", "\(p.totalVideoCount)",
+                        "\(Int((p.progressRate * 100).rounded()))"))
                 .font(.caption2)
                 .foregroundStyle(.secondary)
         } else {
-            Text("進捗はチャンネルを開くと表示されます")
+            Text("favorites.progressHint")
                 .font(.caption2)
                 .foregroundStyle(.tertiary)
         }

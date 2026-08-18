@@ -1,0 +1,302 @@
+{
+  "error.invalidURL": {
+    "comment": "エラー: URLの形式が不正",
+    "ja": "URLが正しくありません",
+    "en": "The URL isn’t valid.",
+    "zh-Hans": "网址无效。",
+    "es": "La URL no es válida.",
+    "de": "Die URL ist ungültig.",
+    "fr": "L’URL n’est pas valide.",
+    "ko": "URL이 올바르지 않습니다."
+  },
+  "error.invalidChannelURL": {
+    "comment": "エラー: チャンネルURLとして解析できない",
+    "ja": "YouTubeチャンネルのURLとして認識できませんでした",
+    "en": "That doesn’t look like a YouTube channel URL.",
+    "zh-Hans": "无法识别为 YouTube 频道网址。",
+    "es": "No parece una URL de canal de YouTube.",
+    "de": "Das scheint keine YouTube-Kanal-URL zu sein.",
+    "fr": "Cela ne ressemble pas à une URL de chaîne YouTube.",
+    "ko": "YouTube 채널 URL로 인식할 수 없습니다."
+  },
+  "error.invalidVideoURL": {
+    "comment": "エラー: 動画URLとして解析できない",
+    "ja": "YouTube動画のURLとして認識できませんでした",
+    "en": "That doesn’t look like a YouTube video URL.",
+    "zh-Hans": "无法识别为 YouTube 视频网址。",
+    "es": "No parece una URL de vídeo de YouTube.",
+    "de": "Das scheint keine YouTube-Video-URL zu sein.",
+    "fr": "Cela ne ressemble pas à une URL de vidéo YouTube.",
+    "ko": "YouTube 동영상 URL로 인식할 수 없습니다."
+  },
+  "error.videoNotFound": {
+    "comment": "エラー: 動画から投稿チャンネルを特定できない",
+    "ja": "この動画のチャンネルを特定できませんでした",
+    "en": "Couldn’t identify the channel for this video.",
+    "zh-Hans": "无法确定该视频所属的频道。",
+    "es": "No se pudo identificar el canal de este vídeo.",
+    "de": "Der Kanal dieses Videos konnte nicht ermittelt werden.",
+    "fr": "Impossible d’identifier la chaîne de cette vidéo.",
+    "ko": "이 동영상의 채널을 확인할 수 없습니다."
+  },
+  "error.channelNotFound": {
+    "comment": "エラー: チャンネルが見つからない",
+    "ja": "チャンネルが見つかりませんでした",
+    "en": "Channel not found.",
+    "zh-Hans": "未找到该频道。",
+    "es": "No se encontró el canal.",
+    "de": "Kanal nicht gefunden.",
+    "fr": "Chaîne introuvable.",
+    "ko": "채널을 찾을 수 없습니다."
+  },
+  "error.uploadsPlaylistNotFound": {
+    "comment": "エラー: 動画一覧を取得できない",
+    "ja": "このチャンネルの動画一覧を取得できませんでした",
+    "en": "Couldn’t load the video list for this channel.",
+    "zh-Hans": "无法获取该频道的视频列表。",
+    "es": "No se pudo obtener la lista de vídeos de este canal.",
+    "de": "Die Videoliste dieses Kanals konnte nicht geladen werden.",
+    "fr": "Impossible de récupérer la liste des vidéos de cette chaîne.",
+    "ko": "이 채널의 동영상 목록을 가져오지 못했습니다."
+  },
+  "error.apiKeyMissing": {
+    "comment": "エラー: APIキー未設定",
+    "ja": "APIキーが設定されていません",
+    "en": "No API key is configured.",
+    "zh-Hans": "未设置 API 密钥。",
+    "es": "No hay ninguna clave de API configurada.",
+    "de": "Es ist kein API-Schlüssel konfiguriert.",
+    "fr": "Aucune clé API n’est configurée.",
+    "ko": "API 키가 설정되지 않았습니다."
+  },
+  "error.quotaExceeded": {
+    "comment": "エラー: API利用上限",
+    "ja": "YouTube APIの利用上限に達しました。時間をおいて再度お試しください",
+    "en": "The YouTube API limit has been reached. Please try again later.",
+    "zh-Hans": "已达到 YouTube API 使用上限，请稍后再试。",
+    "es": "Se alcanzó el límite de la API de YouTube. Inténtalo de nuevo más tarde.",
+    "de": "Das Limit der YouTube-API ist erreicht. Bitte später erneut versuchen.",
+    "fr": "La limite de l’API YouTube est atteinte. Réessayez plus tard.",
+    "ko": "YouTube API 사용 한도에 도달했습니다. 잠시 후 다시 시도해 주세요."
+  },
+  "error.network": {
+    "comment": "エラー: 通信失敗",
+    "ja": "通信に失敗しました",
+    "en": "The connection failed.",
+    "zh-Hans": "网络连接失败。",
+    "es": "Falló la conexión.",
+    "de": "Die Verbindung ist fehlgeschlagen.",
+    "fr": "La connexion a échoué.",
+    "ko": "통신에 실패했습니다."
+  },
+  "error.decoding": {
+    "comment": "エラー: 応答を解釈できない",
+    "ja": "動画一覧を取得できませんでした",
+    "en": "Couldn’t load the video list.",
+    "zh-Hans": "无法获取视频列表。",
+    "es": "No se pudo obtener la lista de vídeos.",
+    "de": "Die Videoliste konnte nicht geladen werden.",
+    "fr": "Impossible de récupérer la liste des vidéos.",
+    "ko": "동영상 목록을 가져오지 못했습니다."
+  },
+  "error.unknown": {
+    "comment": "エラー: その他",
+    "ja": "不明なエラーが発生しました",
+    "en": "Something went wrong.",
+    "zh-Hans": "发生了未知错误。",
+    "es": "Se produjo un error desconocido.",
+    "de": "Ein unbekannter Fehler ist aufgetreten.",
+    "fr": "Une erreur inconnue s’est produite.",
+    "ko": "알 수 없는 오류가 발생했습니다."
+  },
+  "repeat.off": {
+    "comment": "リピート: オフ",
+    "ja": "オフ",
+    "en": "Off",
+    "zh-Hans": "关闭",
+    "es": "No",
+    "de": "Aus",
+    "fr": "Non",
+    "ko": "끔"
+  },
+  "repeat.one": {
+    "comment": "リピート: 1本",
+    "ja": "1本",
+    "en": "One",
+    "zh-Hans": "单个",
+    "es": "Uno",
+    "de": "Eins",
+    "fr": "Une",
+    "ko": "한 개"
+  },
+  "repeat.all": {
+    "comment": "リピート: 全体",
+    "ja": "全体",
+    "en": "All",
+    "zh-Hans": "全部",
+    "es": "Todo",
+    "de": "Alle",
+    "fr": "Tout",
+    "ko": "전체"
+  },
+  "repeat.a11y.off": {
+    "comment": "読み上げ: リピートオフ",
+    "ja": "リピートオフ",
+    "en": "Repeat off",
+    "zh-Hans": "循环播放已关闭",
+    "es": "Repetición desactivada",
+    "de": "Wiederholung aus",
+    "fr": "Répétition désactivée",
+    "ko": "반복 끔"
+  },
+  "repeat.a11y.one": {
+    "comment": "読み上げ: 1本リピート",
+    "ja": "1本リピート",
+    "en": "Repeat one video",
+    "zh-Hans": "单个循环播放",
+    "es": "Repetir un vídeo",
+    "de": "Ein Video wiederholen",
+    "fr": "Répéter une vidéo",
+    "ko": "한 개 반복"
+  },
+  "repeat.a11y.all": {
+    "comment": "読み上げ: 全体リピート",
+    "ja": "全体リピート",
+    "en": "Repeat all videos",
+    "zh-Hans": "全部循环播放",
+    "es": "Repetir todos los vídeos",
+    "de": "Alle Videos wiederholen",
+    "fr": "Répéter toutes les vidéos",
+    "ko": "전체 반복"
+  },
+  "notification.sharedLink.body": {
+    "comment": "共有直後の通知の本文",
+    "ja": "タップすると、共有されたチャンネルの動画一覧を開きます。",
+    "en": "Tap to open the shared channel’s video list.",
+    "zh-Hans": "点按即可打开所共享频道的视频列表。",
+    "es": "Toca para abrir la lista de vídeos del canal compartido.",
+    "de": "Tippen, um die Videoliste des geteilten Kanals zu öffnen.",
+    "fr": "Touchez pour ouvrir la liste des vidéos de la chaîne partagée.",
+    "ko": "탭하면 공유된 채널의 동영상 목록이 열립니다."
+  },
+  "filter.all": {
+    "comment": "フィルター: すべて",
+    "ja": "すべて",
+    "en": "All",
+    "zh-Hans": "全部",
+    "es": "Todos",
+    "de": "Alle",
+    "fr": "Toutes",
+    "ko": "전체"
+  },
+  "filter.unwatched": {
+    "comment": "フィルター: 未視聴のみ",
+    "ja": "未視聴のみ",
+    "en": "Unwatched",
+    "zh-Hans": "未观看",
+    "es": "No vistos",
+    "de": "Ungesehen",
+    "fr": "Non regardées",
+    "ko": "안 본 항목"
+  },
+  "filter.watched": {
+    "comment": "フィルター: 視聴済みのみ",
+    "ja": "視聴済みのみ",
+    "en": "Watched",
+    "zh-Hans": "已观看",
+    "es": "Vistos",
+    "de": "Gesehen",
+    "fr": "Regardées",
+    "ko": "본 항목"
+  },
+  "list.empty": {
+    "comment": "一覧が空のとき",
+    "ja": "このチャンネルには表示できる動画がありませんでした",
+    "en": "This channel has no videos to show.",
+    "zh-Hans": "该频道没有可显示的视频。",
+    "es": "Este canal no tiene vídeos para mostrar.",
+    "de": "Dieser Kanal hat keine anzeigbaren Videos.",
+    "fr": "Cette chaîne n’a aucune vidéo à afficher.",
+    "ko": "이 채널에는 표시할 동영상이 없습니다."
+  },
+  "captions.off": {
+    "comment": "字幕: オフ",
+    "ja": "オフ",
+    "en": "Off",
+    "zh-Hans": "关闭",
+    "es": "Desactivados",
+    "de": "Aus",
+    "fr": "Désactivés",
+    "ko": "끔"
+  },
+  "player.rate.format": {
+    "comment": "再生速度の表示（%@ に倍率）",
+    "ja": "%@倍",
+    "en": "%@×",
+    "zh-Hans": "%@×",
+    "es": "%@×",
+    "de": "%@×",
+    "fr": "%@×",
+    "ko": "%@배"
+  },
+  "player.optionsSummary.format": {
+    "comment": "再生設定の要約（%1$@=速度 %2$@=字幕）",
+    "ja": "速度 %1$@・字幕 %2$@",
+    "en": "Speed %1$@ · Captions %2$@",
+    "zh-Hans": "速度 %1$@ · 字幕 %2$@",
+    "es": "Velocidad %1$@ · Subtítulos %2$@",
+    "de": "Tempo %1$@ · Untertitel %2$@",
+    "fr": "Vitesse %1$@ · Sous-titres %2$@",
+    "ko": "속도 %1$@ · 자막 %2$@"
+  },
+  "favorites.lastOpened.format": {
+    "comment": "最終利用日時（%@ に日時）",
+    "ja": "最終: %@",
+    "en": "Last opened: %@",
+    "zh-Hans": "最近打开：%@",
+    "es": "Última vez: %@",
+    "de": "Zuletzt: %@",
+    "fr": "Dernière fois : %@",
+    "ko": "마지막: %@"
+  },
+  "favorites.resume": {
+    "comment": "続きから見る",
+    "ja": "続きから見る",
+    "en": "Continue watching",
+    "zh-Hans": "继续观看",
+    "es": "Continuar viendo",
+    "de": "Weiterschauen",
+    "fr": "Reprendre",
+    "ko": "이어 보기"
+  },
+  "common.delete": {
+    "comment": "削除",
+    "ja": "削除",
+    "en": "Delete",
+    "zh-Hans": "删除",
+    "es": "Eliminar",
+    "de": "Löschen",
+    "fr": "Supprimer",
+    "ko": "삭제"
+  },
+  "favorites.progress.format": {
+    "comment": "進捗（%1$@=視聴済み %2$@=総数 %3$@=割合）",
+    "ja": "%1$@ / %2$@本 視聴済み（%3$@%%）",
+    "en": "%1$@ of %2$@ watched (%3$@%%)",
+    "zh-Hans": "已观看 %1$@ / %2$@（%3$@%%）",
+    "es": "%1$@ de %2$@ vistos (%3$@%%)",
+    "de": "%1$@ von %2$@ gesehen (%3$@%%)",
+    "fr": "%1$@ sur %2$@ regardées (%3$@%%)",
+    "ko": "%1$@ / %2$@ 시청 완료 (%3$@%%)"
+  },
+  "favorites.progressHint": {
+    "comment": "進捗が未計算のとき",
+    "ja": "進捗はチャンネルを開くと表示されます",
+    "en": "Progress appears once you open the channel.",
+    "zh-Hans": "打开频道后会显示进度。",
+    "es": "El progreso aparece al abrir el canal.",
+    "de": "Der Fortschritt erscheint, sobald du den Kanal öffnest.",
+    "fr": "La progression s’affiche une fois la chaîne ouverte.",
+    "ko": "채널을 열면 진행률이 표시됩니다."
+  }
+}

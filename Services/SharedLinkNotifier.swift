@@ -23,7 +23,7 @@ enum SharedLinkNotifier {
 
         let content = UNMutableNotificationContent()
         content.title = "Channel Timeline Viewer"
-        content.body = "タップすると、共有されたチャンネルの動画一覧を開きます。"
+        content.body = String(localized: "notification.sharedLink.body")
         content.userInfo = [linkUserInfoKey: link]
         content.categoryIdentifier = categoryIdentifier
         content.sound = nil          // 音は鳴らさない（受け渡しの案内なので静かに出す）

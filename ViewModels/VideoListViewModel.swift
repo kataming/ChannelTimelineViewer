@@ -2,10 +2,20 @@ import Foundation
 
 /// 視聴状態によるフィルター。
 enum WatchFilter: String, CaseIterable, Identifiable {
-    case all = "すべて"
-    case unwatched = "未視聴のみ"
-    case watched = "視聴済みのみ"
+    case all
+    case unwatched
+    case watched
+
     var id: String { rawValue }
+
+    /// 画面に出す名前（多言語）。
+    var label: String {
+        switch self {
+        case .all: return String(localized: "filter.all")
+        case .unwatched: return String(localized: "filter.unwatched")
+        case .watched: return String(localized: "filter.watched")
+        }
+    }
 }
 
 @MainActor
@@ -107,7 +117,7 @@ final class VideoListViewModel: ObservableObject {
         do {
             videos = try await api.fetchVideos(playlistId: playlistId)
             if videos.isEmpty {
-                errorMessage = "このチャンネルには表示できる動画がありませんでした"
+                errorMessage = String(localized: "list.empty")
             } else {
                 storeCache()
             }

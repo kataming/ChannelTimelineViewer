@@ -204,9 +204,9 @@ final class PlayerViewModel: ObservableObject {
         if let code = options.activeCaption {
             caption = options.captions.first(where: { $0.code == code })?.name ?? code
         } else {
-            caption = "オフ"
+            caption = String(localized: "captions.off")
         }
-        return "速度 \(rate)・字幕 \(caption)"
+        return String(format: String(localized: "player.optionsSummary.format"), rate, caption)
     }
 
     /// 選べる再生速度。プレイヤーから届く前は一般的な候補を出す。
@@ -216,11 +216,14 @@ final class PlayerViewModel: ObservableObject {
 
     /// 「1.5倍」のような表示。
     static func rateLabel(_ rate: Double) -> String {
+        let number: String
         if rate == rate.rounded() {
-            return "\(Int(rate))倍"
+            number = "\(Int(rate))"
+        } else {
+            number = String(format: "%.2f", rate)
+                .replacingOccurrences(of: "0$", with: "", options: .regularExpression)
         }
-        return String(format: "%.2f", rate)
-            .replacingOccurrences(of: "0$", with: "", options: .regularExpression) + "倍"
+        return String(format: String(localized: "player.rate.format"), number)
     }
 
     // MARK: - 視聴済み / スキップ

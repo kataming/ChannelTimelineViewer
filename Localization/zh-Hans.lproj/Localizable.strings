@@ -1,2 +1,63 @@
-/* English */
-"app.name" = "Channel Timeline Viewer";
+/* このファイルは scripts/build_localizations.py が生成します。直接編集しないこと。 */
+/* language: zh-Hans */
+
+/* 字幕: オフ */
+"captions.off" = "关闭";
+/* 削除 */
+"common.delete" = "删除";
+/* エラー: APIキー未設定 */
+"error.apiKeyMissing" = "未设置 API 密钥。";
+/* エラー: チャンネルが見つからない */
+"error.channelNotFound" = "未找到该频道。";
+/* エラー: 応答を解釈できない */
+"error.decoding" = "无法获取视频列表。";
+/* エラー: チャンネルURLとして解析できない */
+"error.invalidChannelURL" = "无法识别为 YouTube 频道网址。";
+/* エラー: URLの形式が不正 */
+"error.invalidURL" = "网址无效。";
+/* エラー: 動画URLとして解析できない */
+"error.invalidVideoURL" = "无法识别为 YouTube 视频网址。";
+/* エラー: 通信失敗 */
+"error.network" = "网络连接失败。";
+/* エラー: API利用上限 */
+"error.quotaExceeded" = "已达到 YouTube API 使用上限，请稍后再试。";
+/* エラー: その他 */
+"error.unknown" = "发生了未知错误。";
+/* エラー: 動画一覧を取得できない */
+"error.uploadsPlaylistNotFound" = "无法获取该频道的视频列表。";
+/* エラー: 動画から投稿チャンネルを特定できない */
+"error.videoNotFound" = "无法确定该视频所属的频道。";
+/* 最終利用日時（%@ に日時） */
+"favorites.lastOpened.format" = "最近打开：%@";
+/* 進捗（%1$@=視聴済み %2$@=総数 %3$@=割合） */
+"favorites.progress.format" = "已观看 %1$@ / %2$@（%3$@%%）";
+/* 進捗が未計算のとき */
+"favorites.progressHint" = "打开频道后会显示进度。";
+/* 続きから見る */
+"favorites.resume" = "继续观看";
+/* フィルター: すべて */
+"filter.all" = "全部";
+/* フィルター: 未視聴のみ */
+"filter.unwatched" = "未观看";
+/* フィルター: 視聴済みのみ */
+"filter.watched" = "已观看";
+/* 一覧が空のとき */
+"list.empty" = "该频道没有可显示的视频。";
+/* 共有直後の通知の本文 */
+"notification.sharedLink.body" = "点按即可打开所共享频道的视频列表。";
+/* 再生設定の要約（%1$@=速度 %2$@=字幕） */
+"player.optionsSummary.format" = "速度 %1$@ · 字幕 %2$@";
+/* 再生速度の表示（%@ に倍率） */
+"player.rate.format" = "%@×";
+/* 読み上げ: 全体リピート */
+"repeat.a11y.all" = "全部循环播放";
+/* 読み上げ: リピートオフ */
+"repeat.a11y.off" = "循环播放已关闭";
+/* 読み上げ: 1本リピート */
+"repeat.a11y.one" = "单个循环播放";
+/* リピート: 全体 */
+"repeat.all" = "全部";
+/* リピート: オフ */
+"repeat.off" = "关闭";
+/* リピート: 1本 */
+"repeat.one" = "单个";

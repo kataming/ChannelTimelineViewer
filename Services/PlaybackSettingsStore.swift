@@ -13,9 +13,9 @@ enum RepeatMode: String, CaseIterable, Identifiable, Codable {
 
     var label: String {
         switch self {
-        case .off: return "オフ"
-        case .one: return "1本"
-        case .all: return "全体"
+        case .off: return String(localized: "repeat.off")
+        case .one: return String(localized: "repeat.one")
+        case .all: return String(localized: "repeat.all")
         }
     }
 
@@ -43,9 +43,9 @@ enum RepeatMode: String, CaseIterable, Identifiable, Codable {
     /// 読み上げ・説明用。
     var accessibilityDescription: String {
         switch self {
-        case .off: return "リピートオフ"
-        case .one: return "1本リピート"
-        case .all: return "全体リピート"
+        case .off: return String(localized: "repeat.a11y.off")
+        case .one: return String(localized: "repeat.a11y.one")
+        case .all: return String(localized: "repeat.a11y.all")
         }
     }
 }

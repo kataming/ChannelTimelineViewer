@@ -25,7 +25,7 @@ struct VideoListView: View {
                         }
                         Picker("表示", selection: $viewModel.watchFilter) {
                             ForEach(WatchFilter.allCases) { f in
-                                Text(f.rawValue).tag(f)
+                                Text(f.label).tag(f)
                             }
                         }
                         Divider()

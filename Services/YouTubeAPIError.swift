@@ -17,27 +17,27 @@ enum YouTubeAPIError: LocalizedError, Equatable {
     var errorDescription: String? {
         switch self {
         case .invalidURL:
-            return "URLが正しくありません"
+            return String(localized: "error.invalidURL")
         case .invalidChannelURL:
-            return "YouTubeチャンネルのURLとして認識できませんでした"
+            return String(localized: "error.invalidChannelURL")
         case .invalidVideoURL:
-            return "YouTube動画のURLとして認識できませんでした"
+            return String(localized: "error.invalidVideoURL")
         case .videoNotFound:
-            return "この動画のチャンネルを特定できませんでした"
+            return String(localized: "error.videoNotFound")
         case .channelNotFound:
-            return "チャンネルが見つかりませんでした"
+            return String(localized: "error.channelNotFound")
         case .uploadsPlaylistNotFound:
-            return "このチャンネルの動画一覧を取得できませんでした"
+            return String(localized: "error.uploadsPlaylistNotFound")
         case .apiKeyMissing:
-            return "APIキーが設定されていません"
+            return String(localized: "error.apiKeyMissing")
         case .quotaExceeded:
-            return "YouTube APIの利用上限に達しました。時間をおいて再度お試しください"
+            return String(localized: "error.quotaExceeded")
         case .networkError:
-            return "通信に失敗しました"
+            return String(localized: "error.network")
         case .decodingError:
-            return "動画一覧を取得できませんでした"
+            return String(localized: "error.decoding")
         case .unknown:
-            return "不明なエラーが発生しました"
+            return String(localized: "error.unknown")
         }
     }
 }

@@ -1,2 +1,63 @@
-/* English */
-"app.name" = "Channel Timeline Viewer";
+/* このファイルは scripts/build_localizations.py が生成します。直接編集しないこと。 */
+/* language: ko */
+
+/* 字幕: オフ */
+"captions.off" = "끔";
+/* 削除 */
+"common.delete" = "삭제";
+/* エラー: APIキー未設定 */
+"error.apiKeyMissing" = "API 키가 설정되지 않았습니다.";
+/* エラー: チャンネルが見つからない */
+"error.channelNotFound" = "채널을 찾을 수 없습니다.";
+/* エラー: 応答を解釈できない */
+"error.decoding" = "동영상 목록을 가져오지 못했습니다.";
+/* エラー: チャンネルURLとして解析できない */
+"error.invalidChannelURL" = "YouTube 채널 URL로 인식할 수 없습니다.";
+/* エラー: URLの形式が不正 */
+"error.invalidURL" = "URL이 올바르지 않습니다.";
+/* エラー: 動画URLとして解析できない */
+"error.invalidVideoURL" = "YouTube 동영상 URL로 인식할 수 없습니다.";
+/* エラー: 通信失敗 */
+"error.network" = "통신에 실패했습니다.";
+/* エラー: API利用上限 */
+"error.quotaExceeded" = "YouTube API 사용 한도에 도달했습니다. 잠시 후 다시 시도해 주세요.";
+/* エラー: その他 */
+"error.unknown" = "알 수 없는 오류가 발생했습니다.";
+/* エラー: 動画一覧を取得できない */
+"error.uploadsPlaylistNotFound" = "이 채널의 동영상 목록을 가져오지 못했습니다.";
+/* エラー: 動画から投稿チャンネルを特定できない */
+"error.videoNotFound" = "이 동영상의 채널을 확인할 수 없습니다.";
+/* 最終利用日時（%@ に日時） */
+"favorites.lastOpened.format" = "마지막: %@";
+/* 進捗（%1$@=視聴済み %2$@=総数 %3$@=割合） */
+"favorites.progress.format" = "%1$@ / %2$@ 시청 완료 (%3$@%%)";
+/* 進捗が未計算のとき */
+"favorites.progressHint" = "채널을 열면 진행률이 표시됩니다.";
+/* 続きから見る */
+"favorites.resume" = "이어 보기";
+/* フィルター: すべて */
+"filter.all" = "전체";
+/* フィルター: 未視聴のみ */
+"filter.unwatched" = "안 본 항목";
+/* フィルター: 視聴済みのみ */
+"filter.watched" = "본 항목";
+/* 一覧が空のとき */
+"list.empty" = "이 채널에는 표시할 동영상이 없습니다.";
+/* 共有直後の通知の本文 */
+"notification.sharedLink.body" = "탭하면 공유된 채널의 동영상 목록이 열립니다.";
+/* 再生設定の要約（%1$@=速度 %2$@=字幕） */
+"player.optionsSummary.format" = "속도 %1$@ · 자막 %2$@";
+/* 再生速度の表示（%@ に倍率） */
+"player.rate.format" = "%@배";
+/* 読み上げ: 全体リピート */
+"repeat.a11y.all" = "전체 반복";
+/* 読み上げ: リピートオフ */
+"repeat.a11y.off" = "반복 끔";
+/* 読み上げ: 1本リピート */
+"repeat.a11y.one" = "한 개 반복";
+/* リピート: 全体 */
+"repeat.all" = "전체";
+/* リピート: オフ */
+"repeat.off" = "끔";
+/* リピート: 1本 */
+"repeat.one" = "한 개";

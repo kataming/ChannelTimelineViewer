@@ -1,10 +1,86 @@
 /* このファイルは scripts/build_localizations.py が生成します。直接編集しないこと。 */
 /* language: ko */
 
+/* 自動再生の説明 */
+"about.autoPlay.body" = "자동 재생은 기본적으로 꺼져 있습니다. 기본값에서는 재생이 끝나면 정지하고 ‘다음 동영상 재생’ 버튼을 표시합니다. 재생 화면에서 ‘종료 시 다음 동영상 자동 재생’을 직접 켠 경우에만 이어서 재생합니다. 켜더라도 이동하는 곳은 열어 둔 채널 목록의 다음 동영상뿐이며 관련 동영상·추천 동영상으로 이동하지 않습니다. 백그라운드 재생을 하지 않으므로 앱을 닫으면 재생과 자동 이동도 멈춥니다.";
+/* 見出し: 自動再生 */
+"about.autoPlay.header" = "자동 재생 (선택 사항, 기본 꺼짐)";
+/* データの説明 */
+"about.data.body" = "동영상 목록은 YouTube Data API v3로 가져옵니다. 재생은 YouTube 공식 플레이어를 그대로 임베드해 표시합니다. 스크래핑이나 자체 플레이어 재생은 하지 않습니다.";
+/* 見出し: データの取得と再生について */
+"about.data.header" = "데이터 취득과 재생에 대하여";
+/* 注意4 */
+"about.notice.noAdBlock" = "광고를 차단하지 않습니다.";
+/* 注意5 */
+"about.notice.noBackground" = "백그라운드 재생을 하지 않습니다.";
+/* 注意3 */
+"about.notice.noDownload" = "동영상을 다운로드하지 않습니다.";
+/* 注意1 */
+"about.notice.notOfficial" = "이 앱은 YouTube 공식 앱이 아닙니다.";
+/* 注意2 */
+"about.notice.officialPlayer" = "동영상 재생에는 YouTube 공식 임베드 플레이어(IFrame Player)를 사용합니다.";
+/* 見出し: 重要な注意事項 */
+"about.notices.header" = "중요 안내";
+/* 通知を許可するボタン */
+"about.notify.allow" = "알림 허용하기";
+/* 通知は許可済み */
+"about.notify.enabled" = "알림이 허용되어 있습니다";
+/* 設定アプリで許可するボタン */
+"about.notify.settings" = "설정 앱에서 알림 허용하기";
+/* 通知の説明 */
+"about.oneTap.body" = "알림을 허용하면 공유 직후 알림이 표시되며 탭 한 번으로 해당 채널을 열 수 있습니다. 사용하는 알림은 이것뿐이며 소식·홍보 알림이나 서버 푸시 알림은 보내지 않습니다. 허용하지 않으면 앱을 열어 ‘공유된 URL 열기’에서 볼 수 있습니다.";
+/* 見出し: ワンタップで開く */
+"about.oneTap.header" = "공유 시트에서 한 번에 열기";
+/* 読み上げ: このアプリについて */
+"about.open.a11y" = "이 앱에 대하여";
+/* 共有シートの2か所の説明（%@ にアプリ名） */
+"about.pin.body1" = "공유 시트에는 두 곳에서 진입할 수 있습니다. 앱 아이콘이 늘어선 줄의 ‘%@’와, 아래로 스크롤한 동작 목록의 ‘Channel Timeline으로 열기’입니다. 후자는 ‘기타’를 열지 않아도 사용할 수 있습니다.";
+/* 並び順の説明 */
+"about.pin.body2" = "공유 대상의 순서는 iOS가 정하므로 앱에서 지정할 수 없습니다. 아래 순서로 ‘즐겨찾는 항목’에 고정하면 항상 위쪽에 표시됩니다.";
+/* 見出し: 共有シートで上位に表示するには */
+"about.pin.header" = "공유 시트 상단에 표시하려면";
+/* 固定手順（%@ にアプリ名） */
+"about.pin.steps" = "① 공유 버튼을 누릅니다 → 앱 아이콘 줄을 오른쪽 끝까지 스크롤 → ‘기타’\n② 오른쪽 위 ‘편집’을 탭합니다\n③ ‘%@’ 왼쪽의 ‘+’로 ‘즐겨찾는 항목’에 추가합니다\n④ 위쪽으로 이동시킨 뒤 ‘완료’";
+/* プライバシーポリシー */
+"about.privacyPolicy" = "개인정보 처리방침";
+/* 続きから再生の説明 */
+"about.resume.body" = "동영상별 재생 위치를 기기에 저장해 같은 동영상을 다시 열면 이전 위치부터 재생합니다(기본 켜짐). 재생 화면의 ‘…’ 메뉴에서 끌 수 있고 ‘처음부터 재생’으로 앞으로 돌릴 수도 있습니다. 저장하는 것은 재생 위치(초)뿐이며 동영상 자체는 저장하지 않습니다.";
+/* 見出し: 続きから再生 */
+"about.resume.header" = "이어서 재생";
+/* 画面ロックの説明 */
+"about.screen.body" = "재생 중에는 화면이 자동으로 어두워지지 않도록 합니다(기기를 놓아둔 채 볼 때 꺼져서 멈추는 것을 막기 위함). 일시정지하거나 재생 화면을 벗어나면 평소대로 자동 잠금됩니다. 백그라운드 재생을 하지 않으므로 앱을 닫으면 재생도 멈춥니다.";
+/* 見出し: 再生中の画面 */
+"about.screen.header" = "재생 중 화면";
+/* 共有機能の説明（%@ にアプリ名） */
+"about.share.body1" = "YouTube 앱이나 Safari의 공유 버튼에서 ‘%@’를 선택하면 공유된 채널·동영상 URL을 받습니다. 공유 기능은 URL을 받기만 하며 외부로 전송하지 않습니다.";
+/* 共有後の流れの説明 */
+"about.share.body2" = "그 후 본 앱을 열면 첫 화면에 ‘공유된 URL 열기’가 표시됩니다. iOS 사양상 공유 시트에서 앱을 직접 실행할 수 없어 이런 방식을 사용합니다.";
+/* 見出し: 共有シートから開く */
+"about.share.header" = "공유 시트에서 열기";
+/* アプリの説明 */
+"about.summary" = "채널의 업로드 동영상을 게시일순(오래된 순)으로 정리해 과거 영상·시리즈·학습 콘텐츠를 진행률을 관리하며 볼 수 있는 시청 보조 앱입니다. YouTube 공식 앱을 대체하지 않습니다.";
+/* 画面名: このアプリについて */
+"about.title" = "이 앱에 대하여";
+/* APIキー未設定の説明 */
+"api.notConfigured.detail" = "Config.plist에 YOUTUBE_API_KEY를 설정하세요. 설정 방법은 README를 참고하세요.";
+/* APIキー未設定の見出し */
+"api.notConfigured.title" = "API 키가 설정되지 않았습니다";
 /* 字幕: オフ */
 "captions.off" = "끔";
+/* チャンネル名が取得できないとき */
+"channel.untitled" = "(채널 이름 없음)";
+/* クリップボードにURLが無いとき */
+"clipboard.notFound" = "클립보드에서 YouTube URL을 찾지 못했습니다. URL을 붙여넣고 다시 시도하세요.";
+/* 閉じる */
+"common.close" = "닫기";
 /* 削除 */
 "common.delete" = "삭제";
+/* 完了 */
+"common.done" = "완료";
+/* 再試行 */
+"common.retry" = "다시 시도";
+/* 画面下部の注意書き */
+"disclaimer.short" = "이 앱은 YouTube 공식 앱이 아닙니다. 재생에는 YouTube 공식 임베드 플레이어를 사용하며 다운로드·광고 차단·백그라운드 재생은 하지 않습니다.";
 /* エラー: APIキー未設定 */
 "error.apiKeyMissing" = "API 키가 설정되지 않았습니다.";
 /* エラー: チャンネルが見つからない */
@@ -35,20 +111,172 @@
 "favorites.progressHint" = "채널을 열면 진행률이 표시됩니다.";
 /* 続きから見る */
 "favorites.resume" = "이어 보기";
+/* お気に入り一覧の説明 */
+"favorites.section.footer" = "행을 왼쪽으로 밀면 해당 채널만 삭제됩니다. 시청 기록은 남으므로 다시 열면 진행률도 복원됩니다.";
+/* 見出し: 最近使ったチャンネル */
+"favorites.section.header" = "최근 사용한 채널";
+/* 左スワイプで削除の案内 */
+"favorites.swipeHint" = "왼쪽으로 밀어 삭제";
 /* フィルター: すべて */
 "filter.all" = "전체";
 /* フィルター: 未視聴のみ */
 "filter.unwatched" = "안 본 항목";
 /* フィルター: 視聴済みのみ */
 "filter.watched" = "본 항목";
+/* 通知を許可して開くボタン */
+"handoff.allowNotification" = "알림을 허용하고 열기";
+/* URLを開けないとき */
+"handoff.error.cannotOpen" = "이 URL은 열 수 없었습니다.";
+/* URLが見つからないとき */
+"handoff.error.noURL" = "YouTube URL을 찾지 못했습니다.\n동영상 또는 채널 페이지에서 공유해 주세요.";
+/* 受け渡し中（%@ にアプリ名） */
+"handoff.passing.format" = "%@(으)로 전달하는 중…";
+/* 通知準備中 */
+"handoff.preparingNotification" = "알림을 준비하는 중…";
+/* URL読み取り中 */
+"handoff.reading" = "공유된 URL을 읽는 중…";
+/* 通知を勧める案内 */
+"handoff.received.askNotification" = "URL을 받았습니다.\n알림을 허용하면 곧 표시되는 알림을 탭하는 것만으로 열 수 있습니다.\n(허용하지 않으면 앱을 열고 ‘공유된 URL 열기’에서 볼 수 있습니다.)";
+/* 受け取り完了の案内（%@ にアプリ名） */
+"handoff.received.format" = "URL을 받았습니다.\n%@을(를) 열고 ‘공유된 URL 열기’에서 이 채널을 볼 수 있습니다.";
+/* 読み上げ: 入力を消去 */
+"input.clear.a11y" = "입력 지우기";
+/* 動画を取得ボタン */
+"input.fetch" = "동영상 가져오기";
+/* 取得中のボタン */
+"input.fetching" = "가져오는 중…";
+/* 入力欄の説明（%@ にアプリ名） */
+"input.section.footer" = "YouTube 앱이나 Safari에서 공유 → “%@”를 선택하면 이 화면에 ‘공유된 URL 열기’가 표시됩니다. 채널·동영상 URL 모두 사용할 수 있습니다.";
+/* 見出し: チャンネルURL */
+"input.section.header" = "채널 URL";
+/* 全部見終わったとき */
+"list.allWatched" = "모두 시청했습니다 🎉";
+/* 保存済み一覧の案内（%@ に最終更新日時） */
+"list.cached.format" = "저장된 목록 표시 중 (업데이트 %@)";
+/* 新着確認中 */
+"list.checkingNew" = "새 동영상 확인 중…";
+/* 件数（%1$@=表示中 %2$@=全体） */
+"list.count.format" = "%1$@ / %2$@개 표시";
 /* 一覧が空のとき */
 "list.empty" = "이 채널에는 표시할 동영상이 없습니다.";
+/* 取得失敗の見出し */
+"list.error.title" = "불러오지 못했습니다";
+/* 取得中 */
+"list.loading" = "동영상을 가져오는 중…";
+/* 読み上げ: 並び替えと表示 */
+"list.menu.a11y" = "정렬 및 필터";
+/* 新着を確認 */
+"list.menu.checkNew" = "새 동영상 확인";
+/* すべて再読み込み */
+"list.menu.reloadAll" = "전체 다시 불러오기";
+/* 表示（フィルター） */
+"list.menu.show" = "표시";
+/* 並び替えメニュー */
+"list.menu.sort" = "정렬";
+/* 次に見る（%@ に本数） */
+"list.next.new.format" = "다음 시청: %@번째";
+/* 続きから（%@ に本数） */
+"list.next.resume.format" = "이어 보기: %@번째";
+/* 新しい順 */
+"list.sort.newest" = "최신 순";
+/* 古い順 */
+"list.sort.oldest" = "오래된 순";
 /* 共有直後の通知の本文 */
 "notification.sharedLink.body" = "탭하면 공유된 채널의 동영상 목록이 열립니다.";
+/* 字幕は既定オフの説明 */
+"options.captions.defaultOff" = "자막은 기본적으로 꺼진 상태로 시작합니다.";
+/* 字幕がまだ読み込まれていないときの説明 */
+"options.captions.notLoaded" = "이 동영상의 자막이 아직 불러와지지 않았습니다. 재생을 시작한 뒤 다시 열어 보세요(자막이 없는 동영상도 있습니다).";
+/* 見出し: 字幕 */
+"options.captions.section" = "자막";
+/* 画質: 自動 */
+"options.quality.auto" = "자동";
+/* 画質の説明 */
+"options.quality.note" = "화질은 통신 상태에 맞춰 YouTube가 자동으로 조정합니다(공식 플레이어 사양상 앱에서 지정할 수 없습니다).\n직접 고르려면 재생을 시작한 뒤 플레이어 오른쪽 아래 전체화면 버튼 → 톱니바퀴 → 화질에서 변경하세요(재생 전에는 화질 항목이 표시되지 않습니다).";
+/* 画質 */
+"options.quality.title" = "화질";
+/* 見出し: 再生速度 */
+"options.rate.section" = "재생 속도";
+/* 画面名: 再生設定 */
+"options.title" = "재생 설정";
+/* 自動再生で進んだときの表示 */
+"player.autoAdvanced" = "다음 동영상으로 이동했습니다";
+/* 読み上げ: 自動再生トグル */
+"player.autoPlay.a11y" = "종료 시 다음 동영상 자동 재생";
+/* 自動再生オフの説明 */
+"player.autoPlay.off.detail" = "종료되면 ‘다음 동영상 재생’ 버튼을 표시합니다";
+/* 自動再生オフの見出し */
+"player.autoPlay.off.title" = "자동 재생 꺼짐: 종료 후 정지";
+/* 自動再生オンの説明 */
+"player.autoPlay.on.detail" = "이 목록의 다음 동영상만 이어서 재생합니다";
+/* 自動再生オンの見出し */
+"player.autoPlay.on.title" = "자동 재생 켜짐: 종료 후 다음 동영상으로";
+/* 次の動画を再生ボタン */
+"player.ended.playNext" = "다음 동영상 재생";
+/* 終了時の案内 */
+"player.ended.title" = "재생이 끝났습니다. 다음 동영상:";
+/* メモの自動保存の説明 */
+"player.memo.autosave" = "입력하면 자동으로 저장됩니다.";
+/* メモ欄の見出し */
+"player.memo.title" = "메모 (시리즈 시청·학습용)";
+/* 読み上げ: その他の操作 */
+"player.menu.a11y" = "기타 작업";
+/* メニュー: 視聴済みにする */
+"player.menu.markWatched" = "시청함으로 표시";
+/* メニュー: 最初から再生 */
+"player.menu.restart" = "처음부터 재생";
+/* メニュー: 続きから再生する */
+"player.menu.resume" = "이어서 재생하기";
+/* メニュー: スキップにする */
+"player.menu.skip" = "건너뛰기로 표시";
+/* メニュー: 視聴済みを解除 */
+"player.menu.unmarkWatched" = "시청 안 함으로 표시";
+/* メニュー: スキップを解除 */
+"player.menu.unskip" = "건너뛰기 해제";
+/* 全体リピートの説明 */
+"player.mode.repeatAll" = "목록 끝까지 가면 처음으로 돌아갑니다(자동 재생이 켜진 경우).";
+/* 1本リピートの説明 */
+"player.mode.repeatOne" = "현재 동영상을 반복 재생합니다.";
+/* スキップの説明 */
+"player.mode.skip" = "건너뛰기로 표시한 동영상은 자동 재생에서 건너뜁니다.";
+/* 未視聴のみ再生の説明 */
+"player.mode.unwatchedOnly" = "시청한 동영상도 건너뛰고 안 본 것만 재생합니다.";
+/* 移動: 最初へ */
+"player.nav.first" = "처음";
+/* 移動: 最後へ */
+"player.nav.last" = "마지막";
+/* 移動: 次へ */
+"player.nav.next" = "다음";
+/* 移動: 前へ */
+"player.nav.previous" = "이전";
+/* 移動: 戻す（直前の移動を取り消す） */
+"player.nav.undo" = "되돌리기";
+/* 動画が無いとき */
+"player.noVideos" = "동영상이 없습니다";
+/* YouTubeで開く */
+"player.openInYouTube" = "YouTube에서 열기";
+/* 読み上げ: 再生設定ボタン */
+"player.options.a11y" = "재생 설정";
 /* 再生設定の要約（%1$@=速度 %2$@=字幕） */
 "player.optionsSummary.format" = "속도 %1$@ · 자막 %2$@";
+/* 公開日と一覧内の位置（%1$@=公開日 %2$@=位置） */
+"player.publishedWithPosition.format" = "%1$@ (%2$@)";
 /* 再生速度の表示（%@ に倍率） */
 "player.rate.format" = "%@배";
+/* リピートボタンのヒント */
+"player.repeat.hint" = "탭하여 반복 모드를 전환합니다";
+/* 続きから再生中の案内（%@ に時刻） */
+"player.resume.notice.format" = "이전 위치(%@)부터 재생 중";
+/* 最初から見直すボタン */
+"player.resume.restart" = "처음부터";
+/* スキップ状態の表示 */
+"player.status.skipped" = "건너뛰기 (자동 재생에서 건너뜀)";
+/* 未視聴のみ再生トグル */
+"player.unwatchedOnly" = "안 본 동영상만 재생";
+/* 進捗の内訳（%1$@=視聴済み %2$@=総数 %3$@=割合） */
+"progress.count.format" = "%1$@ / %2$@ (%3$@%%)";
+/* 進捗 */
+"progress.title" = "진행률";
 /* 読み上げ: 全体リピート */
 "repeat.a11y.all" = "전체 반복";
 /* 読み上げ: リピートオフ */
@@ -61,3 +289,37 @@
 "repeat.off" = "끔";
 /* リピート: 1本 */
 "repeat.one" = "한 개";
+/* クリップボードにURLがある案内 */
+"share.clipboardHint" = "공유한 URL이 클립보드에 있습니다.";
+/* 共有されたURLを開くボタン */
+"share.openSharedURL" = "공유된 URL 열기";
+/* 案内を閉じるボタン */
+"shareTips.dismiss" = "이 안내 닫기";
+/* 共有の仕組みの説明 */
+"shareTips.footer" = "iOS 사양상 공유 시트에서 앱을 직접 실행할 수 없습니다. 알림을 허용하면 공유 직후 표시되는 알림을 탭하는 것만으로 열 수 있습니다. 사용하는 알림은 이것뿐이며 소식·홍보 알림은 보내지 않습니다. (이 안내는 ‘ⓘ’에서 언제든지 확인할 수 있습니다.)";
+/* 見出し: 共有をもっと速く */
+"shareTips.header" = "공유를 더 빠르게";
+/* 通知は許可済み */
+"shareTips.notify.granted" = "① 알림이 허용되어 있습니다 (공유 후 알림에서 열기)";
+/* 通知を許可してワンタップで開く */
+"shareTips.notify.request" = "① 알림을 허용해 한 번에 열기";
+/* 設定アプリで通知を許可する */
+"shareTips.notify.settings" = "① 설정 앱에서 알림 허용하기";
+/* アクション一覧にもある案内 */
+"shareTips.pin.actionNote" = "또한 공유 시트를 아래로 스크롤한 동작 목록(‘Brave로 열기’ 등이 있는 영역)에도 ‘Channel Timeline으로 열기’가 있습니다. 이쪽은 ‘기타’를 열지 않아도 사용할 수 있습니다.";
+/* 共有シート固定の前置き */
+"shareTips.pin.intro" = "공유 대상의 순서는 iOS가 정하므로 앱에서 지정할 수 없습니다. 아래 순서로 ‘즐겨찾는 항목’에 추가하면 항상 앞쪽에 표시됩니다.";
+/* 共有シートの先頭に固定する */
+"shareTips.pin.label" = "② 공유 시트 맨 앞에 고정하기";
+/* 共有シート固定の手順（%@ にアプリ名） */
+"shareTips.pin.steps" = "1. 공유 버튼을 누릅니다\n2. 앱 아이콘 줄을 오른쪽 끝까지 스크롤 → ‘기타’\n3. 오른쪽 위 ‘편집’을 탭합니다\n4. ‘%@’ 왼쪽의 ‘+’를 누릅니다\n5. ‘즐겨찾는 항목’에서 맨 위로 드래그 → ‘완료’";
+/* スワイプ: 未視聴に戻す */
+"video.markUnwatched" = "안 본 항목으로";
+/* スキップ */
+"video.skip" = "건너뛰기";
+/* スキップ解除 */
+"video.unskip" = "건너뛰기 해제";
+/* タイトルが取得できないとき */
+"video.untitled" = "(제목 없음)";
+/* 視聴済み */
+"video.watched" = "시청함";

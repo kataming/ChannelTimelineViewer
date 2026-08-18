@@ -1,10 +1,86 @@
 /* このファイルは scripts/build_localizations.py が生成します。直接編集しないこと。 */
 /* language: zh-Hans */
 
+/* 自動再生の説明 */
+"about.autoPlay.body" = "自动播放默认关闭：视频结束后会停止并显示“播放下一个视频”按钮。只有你在播放界面自行开启“结束后自动播放下一个”时才会继续播放。即使开启，也只会前进到已打开频道列表中的下一个视频，不会跳转到相关或推荐视频。不进行后台播放，因此关闭应用后播放与自动播放都会停止。";
+/* 見出し: 自動再生 */
+"about.autoPlay.header" = "自动播放（可选，默认关闭）";
+/* データの説明 */
+"about.data.body" = "视频列表通过 YouTube Data API v3 获取。播放直接嵌入 YouTube 官方播放器。不进行抓取，也不使用自制播放器。";
+/* 見出し: データの取得と再生について */
+"about.data.header" = "关于数据获取与播放";
+/* 注意4 */
+"about.notice.noAdBlock" = "不屏蔽广告。";
+/* 注意5 */
+"about.notice.noBackground" = "不进行后台播放。";
+/* 注意3 */
+"about.notice.noDownload" = "不下载视频。";
+/* 注意1 */
+"about.notice.notOfficial" = "本应用不是 YouTube 官方应用。";
+/* 注意2 */
+"about.notice.officialPlayer" = "播放使用 YouTube 官方嵌入式播放器（IFrame Player）。";
+/* 見出し: 重要な注意事項 */
+"about.notices.header" = "重要提示";
+/* 通知を許可するボタン */
+"about.notify.allow" = "允许通知";
+/* 通知は許可済み */
+"about.notify.enabled" = "通知已允许";
+/* 設定アプリで許可するボタン */
+"about.notify.settings" = "在“设置”中允许通知";
+/* 通知の説明 */
+"about.oneTap.body" = "允许通知后，分享完成时会立即出现通知，点按即可打开该频道。仅使用这一条通知，不会发送资讯或广告通知（也不使用服务器推送）。若不允许，可打开应用并使用“打开分享的链接”。";
+/* 見出し: ワンタップで開く */
+"about.oneTap.header" = "从分享面板一键打开";
+/* 読み上げ: このアプリについて */
+"about.open.a11y" = "关于本应用";
+/* 共有シートの2か所の説明（%@ にアプリ名） */
+"about.pin.body1" = "分享面板中有两个入口：应用图标行中的“%@”，以及向下滚动后操作列表中的“在 Channel Timeline 中打开”。后者无需打开“更多”即可使用。";
+/* 並び順の説明 */
+"about.pin.body2" = "分享目标的顺序由 iOS 决定，应用无法指定。按以下步骤固定到“个人收藏”后，它会始终靠前显示。";
+/* 見出し: 共有シートで上位に表示するには */
+"about.pin.header" = "如何在分享面板中靠前显示";
+/* 固定手順（%@ にアプリ名） */
+"about.pin.steps" = "① 点按分享按钮 → 将应用图标行滑到最右端 →“更多”\n② 点按右上角的“编辑”\n③ 点按“%@”左侧的“+”加入“个人收藏”\n④ 拖动到靠前位置 →“完成”";
+/* プライバシーポリシー */
+"about.privacyPolicy" = "隐私政策";
+/* 続きから再生の説明 */
+"about.resume.body" = "每个视频的播放位置会保存在设备中，再次打开时会从上次的位置继续（默认开启）。可在播放界面的“…”菜单中关闭，也可用“从头播放”回到开头。仅保存播放位置（秒），不保存视频本身。";
+/* 見出し: 続きから再生 */
+"about.resume.header" = "从上次位置继续";
+/* 画面ロックの説明 */
+"about.screen.body" = "播放期间会阻止屏幕自动变暗，以免设备放置时熄屏导致中断。暂停或离开播放界面后，自动锁定恢复正常。不进行后台播放，因此关闭应用后播放会停止。";
+/* 見出し: 再生中の画面 */
+"about.screen.header" = "播放期间的屏幕";
+/* 共有機能の説明（%@ にアプリ名） */
+"about.share.body1" = "在 YouTube 应用或 Safari 中点按分享按钮并选择“%@”，本应用即可接收所分享的频道或视频网址。共享功能只接收网址，不会向外部发送任何内容。";
+/* 共有後の流れの説明 */
+"about.share.body2" = "之后打开本应用，首屏会显示“打开分享的链接”。由于 iOS 的限制，分享面板无法直接启动应用，因此采用这种方式。";
+/* 見出し: 共有シートから開く */
+"about.share.header" = "从分享面板打开";
+/* アプリの説明 */
+"about.summary" = "本应用会按发布日期（从旧到新）整理频道的投稿视频，方便你在管理进度的同时观看往期视频、连续剧集或学习内容。它并非 YouTube 官方应用的替代品。";
+/* 画面名: このアプリについて */
+"about.title" = "关于本应用";
+/* APIキー未設定の説明 */
+"api.notConfigured.detail" = "请在 Config.plist 中设置 YOUTUBE_API_KEY。设置方法请参阅 README。";
+/* APIキー未設定の見出し */
+"api.notConfigured.title" = "尚未设置 API 密钥";
 /* 字幕: オフ */
 "captions.off" = "关闭";
+/* チャンネル名が取得できないとき */
+"channel.untitled" = "（无频道名称）";
+/* クリップボードにURLが無いとき */
+"clipboard.notFound" = "剪贴板中没有找到 YouTube 网址。请粘贴网址后重试。";
+/* 閉じる */
+"common.close" = "关闭";
 /* 削除 */
 "common.delete" = "删除";
+/* 完了 */
+"common.done" = "完成";
+/* 再試行 */
+"common.retry" = "重试";
+/* 画面下部の注意書き */
+"disclaimer.short" = "本应用不是 YouTube 官方应用。播放使用 YouTube 官方嵌入式播放器，不下载视频、不屏蔽广告、不后台播放。";
 /* エラー: APIキー未設定 */
 "error.apiKeyMissing" = "未设置 API 密钥。";
 /* エラー: チャンネルが見つからない */
@@ -35,20 +111,172 @@
 "favorites.progressHint" = "打开频道后会显示进度。";
 /* 続きから見る */
 "favorites.resume" = "继续观看";
+/* お気に入り一覧の説明 */
+"favorites.section.footer" = "向左滑动某一行即可只删除该频道。观看记录会保留，重新打开后进度仍在。";
+/* 見出し: 最近使ったチャンネル */
+"favorites.section.header" = "最近使用的频道";
+/* 左スワイプで削除の案内 */
+"favorites.swipeHint" = "向左滑动删除";
 /* フィルター: すべて */
 "filter.all" = "全部";
 /* フィルター: 未視聴のみ */
 "filter.unwatched" = "未观看";
 /* フィルター: 視聴済みのみ */
 "filter.watched" = "已观看";
+/* 通知を許可して開くボタン */
+"handoff.allowNotification" = "允许通知并打开";
+/* URLを開けないとき */
+"handoff.error.cannotOpen" = "无法打开该网址。";
+/* URLが見つからないとき */
+"handoff.error.noURL" = "未找到 YouTube 网址。\n请从视频或频道页面进行分享。";
+/* 受け渡し中（%@ にアプリ名） */
+"handoff.passing.format" = "正在传递给 %@…";
+/* 通知準備中 */
+"handoff.preparingNotification" = "正在准备通知…";
+/* URL読み取り中 */
+"handoff.reading" = "正在读取分享的网址…";
+/* 通知を勧める案内 */
+"handoff.received.askNotification" = "已接收网址。\n允许通知后，只需点按随后出现的通知即可打开。\n（若不允许，可打开应用并使用“打开分享的链接”。）";
+/* 受け取り完了の案内（%@ にアプリ名） */
+"handoff.received.format" = "已接收网址。\n打开 %@ 后，可从“打开分享的链接”查看该频道。";
+/* 読み上げ: 入力を消去 */
+"input.clear.a11y" = "清除输入";
+/* 動画を取得ボタン */
+"input.fetch" = "获取视频";
+/* 取得中のボタン */
+"input.fetching" = "获取中…";
+/* 入力欄の説明（%@ にアプリ名） */
+"input.section.footer" = "在 YouTube 应用或 Safari 中分享并选择“%@”，此界面就会出现“打开分享的链接”。频道和视频网址都可以。";
+/* 見出し: チャンネルURL */
+"input.section.header" = "频道网址";
+/* 全部見終わったとき */
+"list.allWatched" = "已全部观看完毕 🎉";
+/* 保存済み一覧の案内（%@ に最終更新日時） */
+"list.cached.format" = "显示已保存的列表（更新于 %@）";
+/* 新着確認中 */
+"list.checkingNew" = "正在检查新视频…";
+/* 件数（%1$@=表示中 %2$@=全体） */
+"list.count.format" = "显示 %1$@ / 共 %2$@";
 /* 一覧が空のとき */
 "list.empty" = "该频道没有可显示的视频。";
+/* 取得失敗の見出し */
+"list.error.title" = "获取失败";
+/* 取得中 */
+"list.loading" = "正在获取视频…";
+/* 読み上げ: 並び替えと表示 */
+"list.menu.a11y" = "排序与筛选";
+/* 新着を確認 */
+"list.menu.checkNew" = "检查新视频";
+/* すべて再読み込み */
+"list.menu.reloadAll" = "全部重新加载";
+/* 表示（フィルター） */
+"list.menu.show" = "显示";
+/* 並び替えメニュー */
+"list.menu.sort" = "排序";
+/* 次に見る（%@ に本数） */
+"list.next.new.format" = "接下来：第 %@ 个";
+/* 続きから（%@ に本数） */
+"list.next.resume.format" = "继续：第 %@ 个";
+/* 新しい順 */
+"list.sort.newest" = "从新到旧";
+/* 古い順 */
+"list.sort.oldest" = "从旧到新";
 /* 共有直後の通知の本文 */
 "notification.sharedLink.body" = "点按即可打开所共享频道的视频列表。";
+/* 字幕は既定オフの説明 */
+"options.captions.defaultOff" = "字幕默认关闭。";
+/* 字幕がまだ読み込まれていないときの説明 */
+"options.captions.notLoaded" = "该视频的字幕尚未加载。开始播放后再打开此页即可显示（部分视频没有字幕）。";
+/* 見出し: 字幕 */
+"options.captions.section" = "字幕";
+/* 画質: 自動 */
+"options.quality.auto" = "自动";
+/* 画質の説明 */
+"options.quality.note" = "YouTube 会根据网络状况自动调整画质（官方播放器不允许应用指定画质）。\n若要自行选择，请先开始播放，然后点击播放器右下角的全屏按钮 → 齿轮 → 画质（播放前不会显示画质选项）。";
+/* 画質 */
+"options.quality.title" = "画质";
+/* 見出し: 再生速度 */
+"options.rate.section" = "播放速度";
+/* 画面名: 再生設定 */
+"options.title" = "播放设置";
+/* 自動再生で進んだときの表示 */
+"player.autoAdvanced" = "已自动播放下一个视频";
+/* 読み上げ: 自動再生トグル */
+"player.autoPlay.a11y" = "结束后自动播放下一个";
+/* 自動再生オフの説明 */
+"player.autoPlay.off.detail" = "结束后会显示“播放下一个视频”按钮";
+/* 自動再生オフの見出し */
+"player.autoPlay.off.title" = "自动播放关闭：结束后停止";
+/* 自動再生オンの説明 */
+"player.autoPlay.on.detail" = "只会继续播放此列表中的下一个视频";
+/* 自動再生オンの見出し */
+"player.autoPlay.on.title" = "自动播放开启：结束后播放下一个";
+/* 次の動画を再生ボタン */
+"player.ended.playNext" = "播放下一个视频";
+/* 終了時の案内 */
+"player.ended.title" = "播放已结束。下一个：";
+/* メモの自動保存の説明 */
+"player.memo.autosave" = "输入内容会自动保存。";
+/* メモ欄の見出し */
+"player.memo.title" = "笔记（连续观看・学习用）";
+/* 読み上げ: その他の操作 */
+"player.menu.a11y" = "更多操作";
+/* メニュー: 視聴済みにする */
+"player.menu.markWatched" = "标记为已观看";
+/* メニュー: 最初から再生 */
+"player.menu.restart" = "从头播放";
+/* メニュー: 続きから再生する */
+"player.menu.resume" = "从上次位置继续";
+/* メニュー: スキップにする */
+"player.menu.skip" = "标记为跳过";
+/* メニュー: 視聴済みを解除 */
+"player.menu.unmarkWatched" = "取消已观看";
+/* メニュー: スキップを解除 */
+"player.menu.unskip" = "取消跳过";
+/* 全体リピートの説明 */
+"player.mode.repeatAll" = "播放到列表末尾后会回到第一个（自动播放开启时）。";
+/* 1本リピートの説明 */
+"player.mode.repeatOne" = "重复播放当前视频。";
+/* スキップの説明 */
+"player.mode.skip" = "标记为跳过的视频在自动播放时会被略过。";
+/* 未視聴のみ再生の説明 */
+"player.mode.unwatchedOnly" = "已观看的视频也会跳过，只播放未观看的。";
+/* 移動: 最初へ */
+"player.nav.first" = "第一个";
+/* 移動: 最後へ */
+"player.nav.last" = "最后一个";
+/* 移動: 次へ */
+"player.nav.next" = "下一个";
+/* 移動: 前へ */
+"player.nav.previous" = "上一个";
+/* 移動: 戻す（直前の移動を取り消す） */
+"player.nav.undo" = "撤销";
+/* 動画が無いとき */
+"player.noVideos" = "没有视频";
+/* YouTubeで開く */
+"player.openInYouTube" = "在 YouTube 中打开";
+/* 読み上げ: 再生設定ボタン */
+"player.options.a11y" = "播放设置";
 /* 再生設定の要約（%1$@=速度 %2$@=字幕） */
 "player.optionsSummary.format" = "速度 %1$@ · 字幕 %2$@";
+/* 公開日と一覧内の位置（%1$@=公開日 %2$@=位置） */
+"player.publishedWithPosition.format" = "%1$@（%2$@）";
 /* 再生速度の表示（%@ に倍率） */
 "player.rate.format" = "%@×";
+/* リピートボタンのヒント */
+"player.repeat.hint" = "点按切换重复模式";
+/* 続きから再生中の案内（%@ に時刻） */
+"player.resume.notice.format" = "从上次的 %@ 继续播放";
+/* 最初から見直すボタン */
+"player.resume.restart" = "从头开始";
+/* スキップ状態の表示 */
+"player.status.skipped" = "已跳过（自动播放时略过）";
+/* 未視聴のみ再生トグル */
+"player.unwatchedOnly" = "只播放未观看";
+/* 進捗の内訳（%1$@=視聴済み %2$@=総数 %3$@=割合） */
+"progress.count.format" = "%1$@ / %2$@（%3$@%%）";
+/* 進捗 */
+"progress.title" = "进度";
 /* 読み上げ: 全体リピート */
 "repeat.a11y.all" = "全部循环播放";
 /* 読み上げ: リピートオフ */
@@ -61,3 +289,37 @@
 "repeat.off" = "关闭";
 /* リピート: 1本 */
 "repeat.one" = "单个";
+/* クリップボードにURLがある案内 */
+"share.clipboardHint" = "分享的链接已保存在剪贴板中。";
+/* 共有されたURLを開くボタン */
+"share.openSharedURL" = "打开分享的链接";
+/* 案内を閉じるボタン */
+"shareTips.dismiss" = "隐藏此提示";
+/* 共有の仕組みの説明 */
+"shareTips.footer" = "由于 iOS 的限制，分享面板无法直接启动应用。允许通知后，分享完成时会立即出现通知，点按即可打开。仅使用这一条通知，不会发送资讯或广告通知。（此提示可随时从“ⓘ”查看。）";
+/* 見出し: 共有をもっと速く */
+"shareTips.header" = "让分享更快捷";
+/* 通知は許可済み */
+"shareTips.notify.granted" = "① 通知已开启（分享后可从通知打开）";
+/* 通知を許可してワンタップで開く */
+"shareTips.notify.request" = "① 允许通知，一键打开";
+/* 設定アプリで通知を許可する */
+"shareTips.notify.settings" = "① 在“设置”中允许通知";
+/* アクション一覧にもある案内 */
+"shareTips.pin.actionNote" = "此外，在分享面板向下滚动后的操作列表中（“在 Brave 中打开”等所在的区域）也有“在 Channel Timeline 中打开”。这一项无需打开“更多”即可使用。";
+/* 共有シート固定の前置き */
+"shareTips.pin.intro" = "分享目标的排列顺序由 iOS 决定，应用无法指定。按以下步骤加入“个人收藏”后，它会始终显示在靠前的位置。";
+/* 共有シートの先頭に固定する */
+"shareTips.pin.label" = "② 将其固定在分享面板顶部";
+/* 共有シート固定の手順（%@ にアプリ名） */
+"shareTips.pin.steps" = "1. 点按分享按钮\n2. 将应用图标行滑到最右端 →“更多”\n3. 点按右上角的“编辑”\n4. 点按“%@”左侧的“+”\n5. 在“个人收藏”中拖到最上方 →“完成”";
+/* スワイプ: 未視聴に戻す */
+"video.markUnwatched" = "标记为未观看";
+/* スキップ */
+"video.skip" = "跳过";
+/* スキップ解除 */
+"video.unskip" = "取消跳过";
+/* タイトルが取得できないとき */
+"video.untitled" = "（无标题）";
+/* 視聴済み */
+"video.watched" = "已观看";

@@ -21,9 +21,33 @@ SOURCE = ROOT / "Localization" / "strings.json"
 LANGUAGES = ["ja", "en", "zh-Hans", "es", "de", "fr", "ko"]
 BASE_LANGUAGE = "ja"
 
+# Info.plist の値（共有シートに出るアクション名など）は Localizable.strings ではなく
+# InfoPlist.strings で翻訳する。ターゲットごとに別フォルダにする必要があるため
+# （同じフォルダに置くとアプリ本体の表示名まで置き換わってしまう）、出力先を分けている。
+INFO_PLIST_OUTPUTS = [
+    {
+        # 共有シート下部のアクション一覧に出る「Channel Timelineで開く」。
+        "directory": "Localization-OpenExtension",
+        "entries": {"CFBundleDisplayName": "openExtension.displayName"},
+    },
+]
+
+# InfoPlist.strings 専用のキーは Localizable.strings には出さない。
+INFO_PLIST_KEYS = {
+    source for output in INFO_PLIST_OUTPUTS for source in output["entries"].values()
+}
+
 
 def escape(value: str) -> str:
-    return value.replace("\\", "\\\\").replace('"', '\\"').replace("\n", "\n")
+    """.strings のリテラルとして安全な形にする。
+
+    改行をそのまま書くと strings ファイルとして読み込めず、実行時に
+    キー名（例: "about.pin.steps"）がそのまま画面に出てしまうため \\n に直す。
+    """
+    return (value.replace("\\", "\\\\")
+                 .replace('"', '\\"')
+                 .replace("\n", "\\n")
+                 .replace("\t", "\\t"))
 
 
 def load() -> dict:
@@ -46,7 +70,7 @@ def write_strings(data: dict) -> None:
             f"/* language: {lang} */",
             "",
         ]
-        for key in sorted(data):
+        for key in sorted(k for k in data if k not in INFO_PLIST_KEYS):
             entry = data[key]
             comment = entry.get("comment")
             if comment:
@@ -57,6 +81,25 @@ def write_strings(data: dict) -> None:
         path.parent.mkdir(parents=True, exist_ok=True)
         io.open(path, "w", encoding="utf-8", newline="\n").write("\n".join(lines) + "\n")
         print(f"  書き出し: {path.relative_to(ROOT)}（{len(data)} 件）")
+
+
+def write_info_plist_strings(data: dict) -> None:
+    """拡張の表示名を InfoPlist.strings として書き出す。"""
+    for output in INFO_PLIST_OUTPUTS:
+        for lang in LANGUAGES:
+            lines = [
+                "/* このファイルは scripts/build_localizations.py が生成します。直接編集しないこと。 */",
+                f"/* language: {lang} */",
+                "",
+            ]
+            for plist_key, source_key in output["entries"].items():
+                entry = data[source_key]
+                value = entry.get(lang) or entry[BASE_LANGUAGE]
+                lines.append(f'"{plist_key}" = "{escape(value)}";')
+            path = ROOT / output["directory"] / f"{lang}.lproj" / "InfoPlist.strings"
+            path.parent.mkdir(parents=True, exist_ok=True)
+            io.open(path, "w", encoding="utf-8", newline="\n").write("\n".join(lines) + "\n")
+            print(f"  書き出し: {path.relative_to(ROOT)}")
 
 
 def main() -> int:
@@ -78,6 +121,7 @@ def main() -> int:
         return 0
 
     write_strings(data)
+    write_info_plist_strings(data)
     print(f"完了: {len(data)} 件 × {len(LANGUAGES)} 言語")
     return 0
 

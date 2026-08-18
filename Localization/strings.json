@@ -1608,5 +1608,15 @@
     "de": "Mitteilungen erlauben und öffnen",
     "fr": "Autoriser les notifications et ouvrir",
     "ko": "알림을 허용하고 열기"
+  },
+  "openExtension.displayName": {
+    "comment": "共有シート下部のアクション一覧に出る名前（InfoPlist.strings 用）",
+    "ja": "Channel Timelineで開く",
+    "en": "Open in Channel Timeline",
+    "zh-Hans": "在 Channel Timeline 中打开",
+    "es": "Abrir en Channel Timeline",
+    "de": "In Channel Timeline öffnen",
+    "fr": "Ouvrir dans Channel Timeline",
+    "ko": "Channel Timeline으로 열기"
   }
 }

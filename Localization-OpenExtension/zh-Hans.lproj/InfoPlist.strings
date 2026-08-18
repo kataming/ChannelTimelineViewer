@@ -1,0 +1,4 @@
+/* このファイルは scripts/build_localizations.py が生成します。直接編集しないこと。 */
+/* language: zh-Hans */
+
+"CFBundleDisplayName" = "在 Channel Timeline 中打开";

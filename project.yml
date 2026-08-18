@@ -101,6 +101,9 @@ targets:
       - path: Services/AppInfo.swift
       - path: Services/SharedLinkNotifier.swift
       - path: Localization
+      # 共有シートに出るアクション名（CFBundleDisplayName）の翻訳。
+      # アプリ本体・共有シート拡張の表示名まで置き換わらないよう、この拡張専用のフォルダにしている。
+      - path: Localization-OpenExtension
     settings:
       base:
         GENERATE_INFOPLIST_FILE: NO

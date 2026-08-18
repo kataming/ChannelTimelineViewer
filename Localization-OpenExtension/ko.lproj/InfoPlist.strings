@@ -1,0 +1,4 @@
+/* このファイルは scripts/build_localizations.py が生成します。直接編集しないこと。 */
+/* language: ko */
+
+"CFBundleDisplayName" = "Channel Timeline으로 열기";

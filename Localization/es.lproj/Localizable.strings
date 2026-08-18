@@ -1,10 +1,86 @@
 /* このファイルは scripts/build_localizations.py が生成します。直接編集しないこと。 */
 /* language: es */
 
+/* 自動再生の説明 */
+"about.autoPlay.body" = "La reproducción automática está desactivada por defecto: al terminar un vídeo se detiene y aparece un botón «Reproducir el siguiente». Solo continúa si activas «Reproducir el siguiente automáticamente al terminar» en la pantalla del reproductor. Aun así, solo avanza al siguiente vídeo de la lista del canal abierto, nunca a vídeos relacionados o recomendados. No hay reproducción en segundo plano: al cerrar la app se detiene todo.";
+/* 見出し: 自動再生 */
+"about.autoPlay.header" = "Reproducción automática (opcional, desactivada por defecto)";
+/* データの説明 */
+"about.data.body" = "Las listas de vídeos se obtienen con la API de datos de YouTube v3. La reproducción incrusta el reproductor oficial tal cual. Sin scraping ni reproductor propio.";
+/* 見出し: データの取得と再生について */
+"about.data.header" = "Cómo se obtienen los datos y la reproducción";
+/* 注意4 */
+"about.notice.noAdBlock" = "No bloquea anuncios.";
+/* 注意5 */
+"about.notice.noBackground" = "No reproduce en segundo plano.";
+/* 注意3 */
+"about.notice.noDownload" = "No descarga vídeos.";
+/* 注意1 */
+"about.notice.notOfficial" = "Esta app no es la app oficial de YouTube.";
+/* 注意2 */
+"about.notice.officialPlayer" = "La reproducción usa el reproductor incrustado oficial de YouTube (IFrame Player).";
+/* 見出し: 重要な注意事項 */
+"about.notices.header" = "Avisos importantes";
+/* 通知を許可するボタン */
+"about.notify.allow" = "Permitir notificaciones";
+/* 通知は許可済み */
+"about.notify.enabled" = "Las notificaciones están permitidas";
+/* 設定アプリで許可するボタン */
+"about.notify.settings" = "Permitir notificaciones en Ajustes";
+/* 通知の説明 */
+"about.oneTap.body" = "Si permites las notificaciones, aparecerá una justo después de compartir y con un toque se abrirá ese canal. Es la única notificación que se usa: sin noticias ni promociones, y sin notificaciones push desde servidores. Si no las permites, abre la app y usa «Abrir el enlace compartido».";
+/* 見出し: ワンタップで開く */
+"about.oneTap.header" = "Abrir con un toque desde la hoja para compartir";
+/* 読み上げ: このアプリについて */
+"about.open.a11y" = "Acerca de esta app";
+/* 共有シートの2か所の説明（%@ にアプリ名） */
+"about.pin.body1" = "Hay dos puntos de entrada en la hoja para compartir: «%@» en la fila de iconos de apps y «Abrir en Channel Timeline» en la lista de acciones más abajo. A la segunda se llega sin abrir «Más».";
+/* 並び順の説明 */
+"about.pin.body2" = "iOS decide el orden de los destinos para compartir, así que la app no puede fijarlo. Añádela a Favoritos con estos pasos y aparecerá siempre arriba.";
+/* 見出し: 共有シートで上位に表示するには */
+"about.pin.header" = "Cómo mostrarla arriba en la hoja para compartir";
+/* 固定手順（%@ にアプリ名） */
+"about.pin.steps" = "① Toca Compartir → desplaza la fila de iconos hasta el final → «Más»\n② Toca «Editar» arriba a la derecha\n③ Toca «+» junto a «%@» para añadirla a Favoritos\n④ Arrástrala hacia arriba → «OK»";
+/* プライバシーポリシー */
+"about.privacyPolicy" = "Política de privacidad";
+/* 続きから再生の説明 */
+"about.resume.body" = "La posición de reproducción de cada vídeo se guarda en el dispositivo, así que al reabrirlo continúa donde lo dejaste (activado por defecto). Puedes desactivarlo desde el menú «…» del reproductor, y «Reproducir desde el principio» vuelve al inicio. Solo se guarda la posición en segundos, nunca el vídeo.";
+/* 見出し: 続きから再生 */
+"about.resume.header" = "Reanudar la reproducción";
+/* 画面ロックの説明 */
+"about.screen.body" = "Mientras se reproduce un vídeo, la pantalla se mantiene encendida para que no se atenúe y te interrumpa con el dispositivo apoyado. Al pausar o salir del reproductor, el bloqueo automático vuelve a la normalidad. No hay reproducción en segundo plano: cerrar la app detiene la reproducción.";
+/* 見出し: 再生中の画面 */
+"about.screen.header" = "La pantalla durante la reproducción";
+/* 共有機能の説明（%@ にアプリ名） */
+"about.share.body1" = "Elige «%@» en el botón de compartir de la app de YouTube o de Safari y la app recibirá la URL del canal o del vídeo. Compartir solo recibe la URL: no se envía nada al exterior.";
+/* 共有後の流れの説明 */
+"about.share.body2" = "Después, abre esta app y aparecerá «Abrir el enlace compartido» en la primera pantalla. iOS no permite que una hoja para compartir abra una app directamente, de ahí este flujo.";
+/* 見出し: 共有シートから開く */
+"about.share.header" = "Abrir desde la hoja para compartir";
+/* アプリの説明 */
+"about.summary" = "Una app complementaria que ordena las subidas de un canal por fecha de publicación (de las más antiguas a las más recientes) para ver archivos, series o cursos con seguimiento del progreso. No sustituye a la app oficial de YouTube.";
+/* 画面名: このアプリについて */
+"about.title" = "Acerca de esta app";
+/* APIキー未設定の説明 */
+"api.notConfigured.detail" = "Configura YOUTUBE_API_KEY en Config.plist. Consulta el README para más detalles.";
+/* APIキー未設定の見出し */
+"api.notConfigured.title" = "La clave de API no está configurada";
 /* 字幕: オフ */
 "captions.off" = "Desactivados";
+/* チャンネル名が取得できないとき */
+"channel.untitled" = "(Sin nombre de canal)";
+/* クリップボードにURLが無いとき */
+"clipboard.notFound" = "No se encontró ningún enlace de YouTube en el portapapeles. Pega una URL e inténtalo de nuevo.";
+/* 閉じる */
+"common.close" = "Cerrar";
 /* 削除 */
 "common.delete" = "Eliminar";
+/* 完了 */
+"common.done" = "Listo";
+/* 再試行 */
+"common.retry" = "Reintentar";
+/* 画面下部の注意書き */
+"disclaimer.short" = "Esta app no es la app oficial de YouTube. La reproducción usa el reproductor incrustado oficial de YouTube; no descarga vídeos, no bloquea anuncios ni reproduce en segundo plano.";
 /* エラー: APIキー未設定 */
 "error.apiKeyMissing" = "No hay ninguna clave de API configurada.";
 /* エラー: チャンネルが見つからない */
@@ -35,20 +111,172 @@
 "favorites.progressHint" = "El progreso aparece al abrir el canal.";
 /* 続きから見る */
 "favorites.resume" = "Continuar viendo";
+/* お気に入り一覧の説明 */
+"favorites.section.footer" = "Desliza una fila hacia la izquierda para quitar solo ese canal. El historial se conserva, así que el progreso vuelve al abrirlo de nuevo.";
+/* 見出し: 最近使ったチャンネル */
+"favorites.section.header" = "Canales recientes";
+/* 左スワイプで削除の案内 */
+"favorites.swipeHint" = "Desliza para eliminar";
 /* フィルター: すべて */
 "filter.all" = "Todos";
 /* フィルター: 未視聴のみ */
 "filter.unwatched" = "No vistos";
 /* フィルター: 視聴済みのみ */
 "filter.watched" = "Vistos";
+/* 通知を許可して開くボタン */
+"handoff.allowNotification" = "Permitir notificaciones y abrir";
+/* URLを開けないとき */
+"handoff.error.cannotOpen" = "No se pudo abrir esta URL.";
+/* URLが見つからないとき */
+"handoff.error.noURL" = "No se encontró ninguna URL de YouTube.\nComparte desde la página de un vídeo o de un canal.";
+/* 受け渡し中（%@ にアプリ名） */
+"handoff.passing.format" = "Enviando a %@…";
+/* 通知準備中 */
+"handoff.preparingNotification" = "Preparando la notificación…";
+/* URL読み取り中 */
+"handoff.reading" = "Leyendo la URL compartida…";
+/* 通知を勧める案内 */
+"handoff.received.askNotification" = "URL recibida.\nSi permites las notificaciones, bastará con tocar la que aparezca a continuación.\n(Si no, abre la app y usa «Abrir el enlace compartido».)";
+/* 受け取り完了の案内（%@ にアプリ名） */
+"handoff.received.format" = "URL recibida.\nAbre %@ y toca «Abrir el enlace compartido» para ver este canal.";
+/* 読み上げ: 入力を消去 */
+"input.clear.a11y" = "Borrar texto";
+/* 動画を取得ボタン */
+"input.fetch" = "Obtener vídeos";
+/* 取得中のボタン */
+"input.fetching" = "Cargando…";
+/* 入力欄の説明（%@ にアプリ名） */
+"input.section.footer" = "Comparte desde la app de YouTube o Safari y elige «%@»: aparecerá «Abrir el enlace compartido» en esta pantalla. Sirven URLs de canal y de vídeo.";
+/* 見出し: チャンネルURL */
+"input.section.header" = "URL del canal";
+/* 全部見終わったとき */
+"list.allWatched" = "Has visto todo 🎉";
+/* 保存済み一覧の案内（%@ に最終更新日時） */
+"list.cached.format" = "Mostrando la lista guardada (actualizada el %@)";
+/* 新着確認中 */
+"list.checkingNew" = "Buscando vídeos nuevos…";
+/* 件数（%1$@=表示中 %2$@=全体） */
+"list.count.format" = "Mostrando %1$@ de %2$@";
 /* 一覧が空のとき */
 "list.empty" = "Este canal no tiene vídeos para mostrar.";
+/* 取得失敗の見出し */
+"list.error.title" = "No se pudo cargar";
+/* 取得中 */
+"list.loading" = "Cargando vídeos…";
+/* 読み上げ: 並び替えと表示 */
+"list.menu.a11y" = "Ordenar y filtrar";
+/* 新着を確認 */
+"list.menu.checkNew" = "Buscar vídeos nuevos";
+/* すべて再読み込み */
+"list.menu.reloadAll" = "Recargar todo";
+/* 表示（フィルター） */
+"list.menu.show" = "Mostrar";
+/* 並び替えメニュー */
+"list.menu.sort" = "Ordenar";
+/* 次に見る（%@ に本数） */
+"list.next.new.format" = "Siguiente: n.º %@";
+/* 続きから（%@ に本数） */
+"list.next.resume.format" = "Continuar: n.º %@";
+/* 新しい順 */
+"list.sort.newest" = "Más recientes primero";
+/* 古い順 */
+"list.sort.oldest" = "Más antiguos primero";
 /* 共有直後の通知の本文 */
 "notification.sharedLink.body" = "Toca para abrir la lista de vídeos del canal compartido.";
+/* 字幕は既定オフの説明 */
+"options.captions.defaultOff" = "Los subtítulos empiezan desactivados.";
+/* 字幕がまだ読み込まれていないときの説明 */
+"options.captions.notLoaded" = "Los subtítulos de este vídeo aún no se han cargado. Inicia la reproducción y vuelve a abrir esta hoja (algunos vídeos no tienen subtítulos).";
+/* 見出し: 字幕 */
+"options.captions.section" = "Subtítulos";
+/* 画質: 自動 */
+"options.quality.auto" = "Automática";
+/* 画質の説明 */
+"options.quality.note" = "YouTube ajusta la calidad automáticamente según tu conexión (el reproductor oficial no permite que las apps la fijen).\nPara elegirla tú, inicia la reproducción y usa el botón de pantalla completa abajo a la derecha → engranaje → Calidad (no aparece antes de reproducir).";
+/* 画質 */
+"options.quality.title" = "Calidad";
+/* 見出し: 再生速度 */
+"options.rate.section" = "Velocidad de reproducción";
+/* 画面名: 再生設定 */
+"options.title" = "Ajustes de reproducción";
+/* 自動再生で進んだときの表示 */
+"player.autoAdvanced" = "Se pasó al siguiente vídeo";
+/* 読み上げ: 自動再生トグル */
+"player.autoPlay.a11y" = "Reproducir el siguiente automáticamente al terminar";
+/* 自動再生オフの説明 */
+"player.autoPlay.off.detail" = "Muestra un botón «Reproducir siguiente» al terminar";
+/* 自動再生オフの見出し */
+"player.autoPlay.off.title" = "Reproducción automática desactivada: se detiene al terminar";
+/* 自動再生オンの説明 */
+"player.autoPlay.on.detail" = "Solo reproduce el siguiente vídeo de esta lista";
+/* 自動再生オンの見出し */
+"player.autoPlay.on.title" = "Reproducción automática activada: sigue con el siguiente vídeo";
+/* 次の動画を再生ボタン */
+"player.ended.playNext" = "Reproducir el siguiente";
+/* 終了時の案内 */
+"player.ended.title" = "Reproducción finalizada. A continuación:";
+/* メモの自動保存の説明 */
+"player.memo.autosave" = "Se guarda automáticamente mientras escribes.";
+/* メモ欄の見出し */
+"player.memo.title" = "Notas (para series y estudio)";
+/* 読み上げ: その他の操作 */
+"player.menu.a11y" = "Más acciones";
+/* メニュー: 視聴済みにする */
+"player.menu.markWatched" = "Marcar como visto";
+/* メニュー: 最初から再生 */
+"player.menu.restart" = "Reproducir desde el principio";
+/* メニュー: 続きから再生する */
+"player.menu.resume" = "Continuar donde lo dejé";
+/* メニュー: スキップにする */
+"player.menu.skip" = "Marcar como omitido";
+/* メニュー: 視聴済みを解除 */
+"player.menu.unmarkWatched" = "Marcar como no visto";
+/* メニュー: スキップを解除 */
+"player.menu.unskip" = "No omitir";
+/* 全体リピートの説明 */
+"player.mode.repeatAll" = "Vuelve al primer vídeo tras el último (con la reproducción automática activada).";
+/* 1本リピートの説明 */
+"player.mode.repeatOne" = "Repite el vídeo actual.";
+/* スキップの説明 */
+"player.mode.skip" = "Los vídeos marcados como omitidos se saltan en la reproducción automática.";
+/* 未視聴のみ再生の説明 */
+"player.mode.unwatchedOnly" = "También se omiten los vídeos vistos, así solo se reproducen los no vistos.";
+/* 移動: 最初へ */
+"player.nav.first" = "Primero";
+/* 移動: 最後へ */
+"player.nav.last" = "Último";
+/* 移動: 次へ */
+"player.nav.next" = "Siguiente";
+/* 移動: 前へ */
+"player.nav.previous" = "Anterior";
+/* 移動: 戻す（直前の移動を取り消す） */
+"player.nav.undo" = "Deshacer";
+/* 動画が無いとき */
+"player.noVideos" = "No hay vídeos";
+/* YouTubeで開く */
+"player.openInYouTube" = "Abrir en YouTube";
+/* 読み上げ: 再生設定ボタン */
+"player.options.a11y" = "Ajustes de reproducción";
 /* 再生設定の要約（%1$@=速度 %2$@=字幕） */
 "player.optionsSummary.format" = "Velocidad %1$@ · Subtítulos %2$@";
+/* 公開日と一覧内の位置（%1$@=公開日 %2$@=位置） */
+"player.publishedWithPosition.format" = "%1$@ (%2$@)";
 /* 再生速度の表示（%@ に倍率） */
 "player.rate.format" = "%@×";
+/* リピートボタンのヒント */
+"player.repeat.hint" = "Toca para cambiar la repetición";
+/* 続きから再生中の案内（%@ に時刻） */
+"player.resume.notice.format" = "Reanudando desde %@";
+/* 最初から見直すボタン */
+"player.resume.restart" = "Desde el principio";
+/* スキップ状態の表示 */
+"player.status.skipped" = "Omitido (se salta en la reproducción automática)";
+/* 未視聴のみ再生トグル */
+"player.unwatchedOnly" = "Reproducir solo no vistos";
+/* 進捗の内訳（%1$@=視聴済み %2$@=総数 %3$@=割合） */
+"progress.count.format" = "%1$@ / %2$@ (%3$@%%)";
+/* 進捗 */
+"progress.title" = "Progreso";
 /* 読み上げ: 全体リピート */
 "repeat.a11y.all" = "Repetir todos los vídeos";
 /* 読み上げ: リピートオフ */
@@ -61,3 +289,37 @@
 "repeat.off" = "No";
 /* リピート: 1本 */
 "repeat.one" = "Uno";
+/* クリップボードにURLがある案内 */
+"share.clipboardHint" = "El enlace que compartiste está en el portapapeles.";
+/* 共有されたURLを開くボタン */
+"share.openSharedURL" = "Abrir el enlace compartido";
+/* 案内を閉じるボタン */
+"shareTips.dismiss" = "Ocultar estos consejos";
+/* 共有の仕組みの説明 */
+"shareTips.footer" = "iOS no permite que la hoja para compartir abra una app directamente. Si permites las notificaciones, podrás tocar la que aparece justo después de compartir. Es la única notificación que se usa: nada de noticias ni promociones. (Puedes volver a ver estos consejos en «ⓘ».)";
+/* 見出し: 共有をもっと速く */
+"shareTips.header" = "Comparte más rápido";
+/* 通知は許可済み */
+"shareTips.notify.granted" = "① Notificaciones activadas (comparte y toca la notificación)";
+/* 通知を許可してワンタップで開く */
+"shareTips.notify.request" = "① Permitir notificaciones para abrir con un toque";
+/* 設定アプリで通知を許可する */
+"shareTips.notify.settings" = "① Permitir notificaciones en Ajustes";
+/* アクション一覧にもある案内 */
+"shareTips.pin.actionNote" = "Además, en la lista de acciones más abajo en la hoja para compartir (donde aparecen entradas como «Abrir en Brave») está «Abrir en Channel Timeline». A esa se llega sin abrir «Más».";
+/* 共有シート固定の前置き */
+"shareTips.pin.intro" = "iOS decide el orden de los destinos para compartir, así que las apps no pueden cambiarlo. Añádela a Favoritos con estos pasos y aparecerá siempre arriba.";
+/* 共有シートの先頭に固定する */
+"shareTips.pin.label" = "② Fíjala arriba en la hoja para compartir";
+/* 共有シート固定の手順（%@ にアプリ名） */
+"shareTips.pin.steps" = "1. Toca el botón Compartir\n2. Desplaza la fila de iconos hasta el final → «Más»\n3. Toca «Editar» arriba a la derecha\n4. Toca «+» a la izquierda de «%@»\n5. Arrástrala arriba del todo en Favoritos → «OK»";
+/* スワイプ: 未視聴に戻す */
+"video.markUnwatched" = "Marcar como no visto";
+/* スキップ */
+"video.skip" = "Omitir";
+/* スキップ解除 */
+"video.unskip" = "No omitir";
+/* タイトルが取得できないとき */
+"video.untitled" = "(Sin título)";
+/* 視聴済み */
+"video.watched" = "Visto";

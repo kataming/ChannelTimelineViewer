@@ -14,9 +14,9 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: '動作（status=確認のみ / push=反映）'
+        description: '動作（status=確認のみ / push=メタデータ反映 / attach-build=ビルド紐づけ）'
         type: choice
-        options: [status, push]
+        options: [status, push, attach-build]
         default: status
       dry_run:
         description: 'push のとき、送信せず内容だけ表示する'
@@ -26,6 +26,10 @@ on:
         description: '編集できるバージョンが無いときに作る版数'
         required: false
         default: '1.0'
+      build:
+        description: 'attach-build のとき紐づけるビルド番号（空なら最新の処理済み）'
+        required: false
+        default: ''
 
 jobs:
   metadata:
@@ -52,10 +56,14 @@ jobs:
           MODE: ${{ inputs.mode }}
           DRY_RUN: ${{ inputs.dry_run }}
           VERSION: ${{ inputs.version }}
+          BUILD: ${{ inputs.build }}
         run: |
           set -euo pipefail
           ARGS="--mode $MODE --version $VERSION"
-          if [ "$MODE" = "push" ] && [ "$DRY_RUN" = "true" ]; then
+          if [ -n "$BUILD" ]; then
+            ARGS="$ARGS --build $BUILD"
+          fi
+          if [ "$MODE" != "status" ] && [ "$DRY_RUN" = "true" ]; then
             ARGS="$ARGS --dry-run"
           fi
           python scripts/asc_appstore_metadata.py $ARGS

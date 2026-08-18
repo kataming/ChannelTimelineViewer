@@ -210,6 +210,14 @@ def show_status(client: Client, bundle_id: str) -> int:
         # 審査に必要な付随情報
         build = client.get(f"/v1/appStoreVersions/{version['id']}/build").get("data")
         print(f"\n  紐づいたビルド: {build['attributes']['version'] if build else '未選択'}")
+
+        builds = client.get(
+            f"/v1/builds?filter[app]={app_id}&sort=-version&limit=5").get("data", [])
+        print("  TestFlight のビルド（新しい順）:")
+        for b in builds:
+            ba = b["attributes"]
+            print(f"    - build {ba.get('version')}: 処理 {ba.get('processingState')}"
+                  f" / 期限切れ {ba.get('expired')}")
         try:
             review = client.get(
                 f"/v1/appStoreVersions/{version['id']}/appStoreReviewDetail").get("data")
@@ -229,7 +237,25 @@ def show_status(client: Client, bundle_id: str) -> int:
         if missing:
             print(f"    未作成の言語: {', '.join(missing)}")
         ia = info["attributes"]
-        print(f"  カテゴリ/年齢制限などの状態: {ia}")
+        print(f"  年齢制限: {ia.get('appStoreAgeRating')}")
+        for name in ("primaryCategory", "secondaryCategory"):
+            try:
+                category = client.get(f"/v1/appInfos/{info['id']}/{name}").get("data")
+            except ASCError:
+                category = None
+            print(f"  {name}: {category['id'] if category else '未設定'}")
+
+    # 価格（無料なら価格表の設定が要る）
+    try:
+        prices = client.get(
+            f"/v1/apps/{app_id}/appPriceSchedule?include=manualPrices&limit=5")
+        included = prices.get("included", [])
+        print(f"\n  価格スケジュール: {'設定済み' if included or prices.get('data') else '未設定'}")
+    except ASCError:
+        print("\n  価格スケジュール: 取得できませんでした（App Store Connect で確認してください）")
+
+    print("\n  ※ App のプライバシー（データ収集の申告）は API では設定できないため、"
+          "App Store Connect の画面で行ってください。")
     return 0
 
 
@@ -341,9 +367,42 @@ def push(client: Client, bundle_id: str, version_string: str) -> int:
     return 0
 
 
+def attach_build(client: Client, bundle_id: str, build_version: str | None) -> int:
+    """TestFlight のビルドを、提出予定のバージョンに紐づける。
+
+    処理が終わっていない（PROCESSING）ビルドは選べないので、VALID のものから選ぶ。
+    """
+    app = find_app(client, bundle_id)
+    app_id = app["id"]
+    version = editable_version(client, app_id)
+    if version is None:
+        raise SystemExit("編集できるバージョンがありません。先に push でバージョンを作ってください。")
+
+    builds = client.get(f"/v1/builds?filter[app]={app_id}&sort=-version&limit=20").get("data", [])
+    usable = [b for b in builds
+              if b["attributes"].get("processingState") == "VALID"
+              and not b["attributes"].get("expired")]
+    if build_version:
+        usable = [b for b in usable if b["attributes"].get("version") == build_version]
+    if not usable:
+        states = ", ".join(
+            f"{b['attributes'].get('version')}({b['attributes'].get('processingState')})"
+            for b in builds[:5]) or "なし"
+        raise SystemExit(f"使えるビルドがありません。いまの状態: {states}")
+
+    build = usable[0]
+    print(f"バージョン {version['attributes']['versionString']} に "
+          f"build {build['attributes']['version']} を紐づけます")
+    client.write("PATCH", f"/v1/appStoreVersions/{version['id']}/relationships/build",
+                 {"data": {"type": "builds", "id": build["id"]}})
+    print("完了しました。")
+    return 0
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--mode", choices=["status", "push"], default="status")
+    parser.add_argument("--mode", choices=["status", "push", "attach-build"], default="status")
+    parser.add_argument("--build", default="", help="紐づけるビルド番号（空なら最新の VALID）")
     parser.add_argument("--bundle-id", default=DEFAULT_BUNDLE_ID)
     parser.add_argument("--version", default="1.0", help="編集できるバージョンが無いときに作る版数")
     parser.add_argument("--dry-run", action="store_true", help="変更内容を表示するだけで送信しない")
@@ -361,6 +420,8 @@ def main() -> int:
     try:
         if args.mode == "status":
             return show_status(client, args.bundle_id)
+        if args.mode == "attach-build":
+            return attach_build(client, args.bundle_id, args.build or None)
         return push(client, args.bundle_id, args.version)
     except ASCError as error:
         raise SystemExit(str(error)) from None

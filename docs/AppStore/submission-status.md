@@ -20,7 +20,7 @@ GitHub → Actions → App Store Metadata → Run workflow → mode: status
 | カテゴリ | 主要 = 教育（EDUCATION） | `mode: category` |
 | 年齢制限 | 4+ | ASC 側で設定済み |
 | ビルド | **build 25 を 1.0 に紐づけ済み** | `mode: attach-build` |
-| スクリーンショット（日本語・6.9インチ） | 5枚登録済み（ホーム/一覧/フィルター/進捗/このアプリについて） | App Store Screenshots ワークフロー |
+| スクリーンショット | **7言語すべて5枚ずつ登録済み**（ホーム/一覧/フィルター/進捗/このアプリについて）。素材は権利関係の安全な NASA 公式チャンネル（米政府の著作物＝パブリックドメイン） | App Store Screenshots ワークフロー |
 | 価格 | **無料（¥0）設定済み** ／ 配信は全地域向け | ユーザーが画面で設定 |
 | App のプライバシー | 申告済み（API では読めないため画面で確認） | ユーザーが画面で設定 |
 | EU 事業者（トレーダー）情報 | 申告済み | ユーザーが画面で設定 |
@@ -30,7 +30,7 @@ GitHub → Actions → App Store Metadata → Run workflow → mode: status
 
 | 項目 | 誰が | 内容 |
 | --- | --- | --- |
-| 再生画面のスクショ | ユーザー | CI だと YouTube の bot 確認画面が写るため、実機（TestFlight）で1枚撮る → 追加登録 |
+| 再生画面のスクショ | ユーザー | CI だと YouTube の bot 確認画面が写るため、実機（TestFlight）で1枚撮る → 追加登録。撮るなら NASA など権利が明確な動画で |
 | 提出 | ユーザー | `mode: diagnose` は「API から見える範囲では不足なし」。あとは提出するだけ |
 
 ### App のプライバシーで選ぶ内容（事実ベース）

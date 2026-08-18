@@ -10,21 +10,17 @@
 import AppKit
 import SwiftUI
 
-/// 見比べる候補（矢印の上下幅・左右幅）。
-struct GlyphSizing: Hashable {
-    let name: String
-    let verticalStretch: CGFloat
-    let glyphScale: CGFloat
-}
+/// 見比べる「上下の矢印の間隔」。線の太さは変えない。
+let gaps: [CGFloat] = [0.0, 0.10, 0.16, 0.22]
 
-let sizings: [GlyphSizing] = [
-    GlyphSizing(name: "案1: いまのまま", verticalStretch: 1.0, glyphScale: 1.0),
-    GlyphSizing(name: "案2: 上下だけ広げる（上下1.2倍）", verticalStretch: 1.2, glyphScale: 1.0),
-    GlyphSizing(name: "案3: 上下も左右も少し広げる（上下1.2倍 / 全体1.15倍）",
-                verticalStretch: 1.2, glyphScale: 1.15),
-    GlyphSizing(name: "案4: しっかり広げる（上下1.35倍 / 全体1.25倍）",
-                verticalStretch: 1.35, glyphScale: 1.25),
-]
+func gapLabel(_ gap: CGFloat) -> String {
+    switch gap {
+    case 0.0: return "案1: いまのまま（間隔そのまま）"
+    case 0.10: return "案2: 少し広げる"
+    case 0.16: return "案3: もう少し広げる"
+    default: return "案4: しっかり広げる"
+    }
+}
 
 /// 3状態を、実寸と拡大で並べたシート。
 struct RepeatBadgeSheet: View {
@@ -34,20 +30,16 @@ struct RepeatBadgeSheet: View {
         VStack(alignment: .leading, spacing: 16) {
             Text(dark ? "ダークモード" : "ライトモード")
                 .font(.headline)
-            ForEach(sizings, id: \.self) { sizing in
+            ForEach(gaps, id: \.self) { gap in
                 VStack(alignment: .leading, spacing: 6) {
-                    Text(sizing.name).font(.caption).foregroundStyle(.secondary)
+                    Text(gapLabel(gap)).font(.caption).foregroundStyle(.secondary)
                     HStack(alignment: .top, spacing: 28) {
                         ForEach(RepeatMode.allCases) { mode in
                             VStack(spacing: 10) {
                                 // ツールバーでの実寸
-                                RepeatModeBadge(mode: mode,
-                                                verticalStretch: sizing.verticalStretch,
-                                                glyphScale: sizing.glyphScale)
+                                RepeatModeBadge(mode: mode, arrowGap: gap)
                                 // 形が分かるように拡大
-                                RepeatModeBadge(mode: mode, size: 88,
-                                                verticalStretch: sizing.verticalStretch,
-                                                glyphScale: sizing.glyphScale)
+                                RepeatModeBadge(mode: mode, size: 88, arrowGap: gap)
                                 Text(mode.label).font(.caption)
                             }
                         }

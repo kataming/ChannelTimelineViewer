@@ -9,22 +9,23 @@ import SwiftUI
 /// 画像ではなく描画で作っているので、拡大しても滲まず、
 /// ライト/ダークどちらでも枠線がはっきり見える。
 ///
-/// 中央の文字は、**文字の高さのぶんだけ下地を敷いて記号の線を切り抜いてから**重ねている。
-/// そのまま重ねると矢印と文字がぶつかって読めなくなる（`tools/UIPreview` で比較して決定）。
+/// ## 中央のスペースの作り方
+/// 記号を拡大すると線まで太くなってしまうため、**記号を上下half に分けて離す**ことで
+/// 線の太さはそのままに、中央（文字が入るところ）の空きだけを広げている。
 struct RepeatModeBadge: View {
     let mode: RepeatMode
     var size: CGFloat = 26
-    /// 矢印の上下幅（記号を縦に伸ばす倍率）。中央の文字まわりの余裕を調整する。
-    var verticalStretch: CGFloat = 1.0
-    /// 矢印の左右幅（記号の大きさ自体の倍率）。
-    var glyphScale: CGFloat = 1.0
+    /// 上下の矢印を離す量（バッジの大きさに対する割合）。線の太さは変わらない。
+    var arrowGap: CGFloat = 0.14
 
     private var cornerRadius: CGFloat { size * 0.27 }
     /// 記号は横に広い（幅は文字サイズの約1.4倍）ので、枠に収まるよう小さめにする。
-    private var glyphSize: CGFloat { size * 0.46 * glyphScale }
+    private var glyphSize: CGFloat { size * 0.46 }
     private var labelSize: CGFloat { size * 0.26 }
     private var fillColor: Color { mode.isActive ? .green : .clear }
     private var inkColor: Color { mode.isActive ? .black : .primary }
+    /// 上下それぞれをずらす量。
+    private var halfGap: CGFloat { size * arrowGap / 2 }
 
     var body: some View {
         ZStack {
@@ -38,21 +39,42 @@ struct RepeatModeBadge: View {
         .frame(width: size, height: size)
     }
 
-    @ViewBuilder
-    private var glyph: some View {
+    private var symbol: some View {
         Image(systemName: "repeat")
             .font(.system(size: glyphSize, weight: .medium))
             .foregroundStyle(inkColor)
-            .scaleEffect(x: 1, y: verticalStretch)
-            .overlay {
-                if let label = mode.centerLabel {
-                    Text(label)
-                        .font(.system(size: labelSize, weight: .heavy))
-                        .foregroundStyle(inkColor)
-                        .padding(.horizontal, size * 0.03)
-                        .frame(height: labelSize * 0.9)
-                        .background(fillColor)   // 矢印の線を切り抜く
-                }
+    }
+
+    @ViewBuilder
+    private var glyph: some View {
+        ZStack {
+            // 上半分（右向きの矢印）を上へ、下半分（左向きの矢印）を下へずらす。
+            symbol
+                .mask(alignment: .top) { topHalfMask }
+                .offset(y: -halfGap)
+            symbol
+                .mask(alignment: .bottom) { bottomHalfMask }
+                .offset(y: halfGap)
+
+            if let label = mode.centerLabel {
+                Text(label)
+                    .font(.system(size: labelSize, weight: .heavy))
+                    .foregroundStyle(inkColor)
             }
+        }
+    }
+
+    private var topHalfMask: some View {
+        VStack(spacing: 0) {
+            Rectangle()
+            Color.clear
+        }
+    }
+
+    private var bottomHalfMask: some View {
+        VStack(spacing: 0) {
+            Color.clear
+            Rectangle()
+        }
     }
 }

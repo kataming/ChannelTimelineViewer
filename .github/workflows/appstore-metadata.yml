@@ -16,7 +16,7 @@ on:
       mode:
         description: '動作（status=確認 / push=メタデータ / attach-build=ビルド / category=カテゴリ / review=審査情報）'
         type: choice
-        options: [status, push, attach-build, category, review]
+        options: [status, diagnose, push, attach-build, category, review]
         default: status
       dry_run:
         description: 'push のとき、送信せず内容だけ表示する'

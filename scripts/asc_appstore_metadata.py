@@ -499,11 +499,92 @@ def set_review_details(client: Client, bundle_id: str, contact: dict) -> int:
     return 0
 
 
+def diagnose(client: Client, bundle_id: str) -> int:
+    """提出前チェック。読み取れる範囲で「未設定のまま提出しようとしていないか」を見る。"""
+    app = find_app(client, bundle_id)
+    app_id = app["id"]
+    print(f"アプリ: {app['attributes'].get('name')} (id={app_id})\n")
+
+    def probe(label: str, path: str, summarize=None) -> None:
+        try:
+            res = client.get(path)
+        except ASCError as error:
+            first = ""
+            try:
+                first = json.loads(error.detail)["errors"][0].get("detail", "")
+            except Exception:
+                first = error.detail[:120].replace("\n", " ")
+            print(f"  {label}: 取得できず（HTTP {error.code}）{first}")
+            return
+        data = res.get("data")
+        if not data:
+            print(f"  {label}: 未設定")
+            return
+        print(f"  {label}: {summarize(res) if summarize else 'あり'}")
+
+    print("価格・配信")
+    probe("価格スケジュール", f"/v1/apps/{app_id}/appPriceSchedule?include=manualPrices,baseTerritory",
+          lambda res: "設定あり（"
+                      + ", ".join(sorted({item["type"] for item in res.get("included", [])}))
+                      + "）" if res.get("included") else "設定あり")
+    probe("配信地域", f"/v1/apps/{app_id}/appAvailabilityV2?include=territoryAvailabilities&limit=1",
+          lambda res: f"{len(res.get('included', []))} 件以上の地域設定あり")
+
+    print("\nApp のプライバシー（データ収集の申告）")
+    probe("公開状態", f"/v1/apps/{app_id}/appDataUsagesPublishState",
+          lambda res: "公開済み（申告完了）"
+                      if res["data"]["attributes"].get("published") else "未公開（申告が未完了）")
+    probe("申告内容", f"/v1/apps/{app_id}/dataUsages?limit=5",
+          lambda res: f"{len(res.get('data', []))} 件の申告")
+
+    print("\nバージョン")
+    version = editable_version(client, app_id)
+    if version is None:
+        print("  編集できるバージョンがありません")
+        return 0
+    va = version["attributes"]
+    print(f"  {va.get('versionString')}: {va.get('appStoreState')} / 公開方法 {va.get('releaseType')}")
+
+    checks = []
+    locs = localizations(
+        client, f"/v1/appStoreVersions/{version['id']}/appStoreVersionLocalizations")
+    primary = app["attributes"].get("primaryLocale")
+    for locale, item in sorted(locs.items()):
+        a = item["attributes"]
+        shots = client.get(
+            f"/v1/appStoreVersionLocalizations/{item['id']}/appScreenshotSets?limit=10"
+        ).get("data", [])
+        if not a.get("description"):
+            checks.append(f"{locale}: 説明が未入力")
+        if locale == primary and not shots:
+            checks.append(f"{locale}（主要言語）: スクリーンショットが未登録")
+
+    if not client.get(f"/v1/appStoreVersions/{version['id']}/build").get("data"):
+        checks.append("ビルドが未選択")
+    try:
+        if not client.get(
+                f"/v1/appStoreVersions/{version['id']}/appStoreReviewDetail").get("data"):
+            checks.append("審査に関する情報が未入力")
+    except ASCError:
+        checks.append("審査に関する情報が未入力")
+
+    print("\n提出前チェック")
+    if checks:
+        for item in checks:
+            print(f"  × {item}")
+    else:
+        print("  ○ API から見える範囲では不足はありません")
+    print("\n  ※ EU の事業者（トレーダー）情報と「App のプライバシー」の細目は、"
+          "App Store Connect の画面でも目視確認してください。")
+    return 0
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--mode",
-        choices=["status", "push", "attach-build", "category", "review", "screenshots"],
+        choices=["status", "push", "attach-build", "category", "review", "screenshots",
+                 "diagnose"],
         default="status")
     parser.add_argument("--primary-category", default="EDUCATION")
     parser.add_argument("--screenshots-dir", default="screenshots",
@@ -533,6 +614,8 @@ def main() -> int:
             return show_status(client, args.bundle_id)
         if args.mode == "attach-build":
             return attach_build(client, args.bundle_id, args.build or None)
+        if args.mode == "diagnose":
+            return diagnose(client, args.bundle_id)
         if args.mode == "screenshots":
             return push_screenshots(client, args.bundle_id, Path(args.screenshots_dir),
                                     args.display_type, args.replace)

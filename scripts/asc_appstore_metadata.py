@@ -670,7 +670,21 @@ def diagnose(client: Client, bundle_id: str) -> int:
             return
         print(f"  {label}: {summarize(res) if summarize else 'あり'}")
 
-    print("価格・配信")
+    print("審査への提出")
+    try:
+        submissions = client.get(
+            f"/v1/apps/{app_id}/reviewSubmissions?limit=5").get("data", [])
+    except ASCError as error:
+        submissions = []
+        print(f"  取得できず（HTTP {error.code}）")
+    if not submissions:
+        print("  提出の記録はありません")
+    for item in submissions:
+        a = item["attributes"]
+        print(f"  - 状態 {a.get('state')} / 提出 {a.get('submitted')} "
+              f"/ 提出日 {a.get('submittedDate')}")
+
+    print("\n価格・配信")
     probe("価格スケジュール", f"/v1/apps/{app_id}/appPriceSchedule?include=manualPrices,baseTerritory",
           lambda res: "設定あり（"
                       + ", ".join(sorted({item["type"] for item in res.get("included", [])}))

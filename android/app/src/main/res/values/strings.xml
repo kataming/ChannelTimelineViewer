@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- このファイルは scripts/build_android_strings.py が生成します。直接編集しないこと。 -->
 <!-- language: en -->
-<resources>
-    <string name="app_name">Channel Timeline Viewer</string>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="en">
+    <string name="app_name" translatable="false">Channel Timeline Viewer</string>
     <!-- 自動再生の説明 -->
     <string name="about_autoplay_body">Autoplay is off by default: playback stops when a video ends and a “Play next video” button appears. It continues only if you turn on “Autoplay next when the video ends” yourself on the player screen. Even then it moves only to the next video in the channel list you opened — never to related or recommended videos. There is no background playback, so closing the app stops both playback and autoplay.</string>
     <!-- 見出し: 自動再生 -->

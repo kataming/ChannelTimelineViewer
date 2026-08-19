@@ -82,11 +82,15 @@ def write(data: dict, check_only: bool) -> int:
             '<?xml version="1.0" encoding="utf-8"?>',
             "<!-- このファイルは scripts/build_android_strings.py が生成します。直接編集しないこと。 -->",
             f"<!-- language: {lang} -->",
-            "<resources>",
+            # 既定は英語であることを lint に伝える（未翻訳の警告を正しく出させるため）。
+            ('<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="en">'
+             if folder == "values" else "<resources>"),
         ]
         if folder == "values":
             for name, value in EXTRA_STRINGS.items():
-                lines.append(f'    <string name="{name}">{escape(value)}</string>')
+                # アプリ名などは翻訳しない（製品名なので全言語同じ）。
+                lines.append(
+                    f'    <string name="{name}" translatable="false">{escape(value)}</string>')
         for key in keys:
             entry = data[key]
             value = entry.get(lang) or entry["ja"]

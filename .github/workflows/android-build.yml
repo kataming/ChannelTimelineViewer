@@ -47,13 +47,15 @@ jobs:
           fi
 
       - name: ユニットテスト
-        env:
-          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
         run: ./gradlew --no-daemon testDebugUnitTest
 
+      # ⚠️ このリポジトリは Public で、artifact は誰でもダウンロードできる。
+      # そのため APK に入れるキーは **Android 専用に制限したキー**だけにする
+      # （iOS 用のキーを入れると、公開の APK から取り出されてしまう）。
+      # YOUTUBE_API_KEY_ANDROID が未設定なら、キー無しの APK を作る（起動と画面確認はできる）。
       - name: デバッグ APK をビルド
         env:
-          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY_ANDROID }}
         run: ./gradlew --no-daemon assembleDebug
 
       - name: Lint（エラーがあれば失敗）

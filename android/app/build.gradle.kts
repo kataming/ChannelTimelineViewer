@@ -28,6 +28,18 @@ android {
     namespace = "com.deskflowlabs.channeltimelineviewer"
     compileSdk = 35
 
+    signingConfigs {
+        // デバッグ用の署名鍵をリポジトリに固定で置く（秘密情報ではない）。
+        // これで **どの端末・CI でビルドしても署名の SHA-1 が変わらない**ため、
+        // YouTube API キーの「Android アプリ制限（パッケージ名＋SHA-1）」が効かせられる。
+        getByName("debug") {
+            storeFile = file("debug.keystore")
+            storePassword = "android"
+            keyAlias = "androiddebugkey"
+            keyPassword = "android"
+        }
+    }
+
     defaultConfig {
         applicationId = "com.deskflowlabs.channeltimelineviewer"
         minSdk = 26

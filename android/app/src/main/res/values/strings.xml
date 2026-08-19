@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- このファイルは scripts/build_android_strings.py が生成します。直接編集しないこと。 -->
+<!-- language: en -->
+<resources>
+    <string name="app_name">Channel Timeline Viewer</string>
+    <!-- 自動再生の説明 -->
+    <string name="about_autoplay_body">Autoplay is off by default: playback stops when a video ends and a “Play next video” button appears. It continues only if you turn on “Autoplay next when the video ends” yourself on the player screen. Even then it moves only to the next video in the channel list you opened — never to related or recommended videos. There is no background playback, so closing the app stops both playback and autoplay.</string>
+    <!-- 見出し: 自動再生 -->
+    <string name="about_autoplay_header">Autoplay (optional, off by default)</string>
+    <!-- データの説明 -->
+    <string name="about_data_body">Video lists come from the YouTube Data API v3. Playback embeds YouTube’s official player as-is. No scraping and no custom player.</string>
+    <!-- 見出し: データの取得と再生について -->
+    <string name="about_data_header">How data and playback work</string>
+    <!-- 注意4 -->
+    <string name="about_notice_noadblock">It does not block ads.</string>
+    <!-- 注意5 -->
+    <string name="about_notice_nobackground">It does not play in the background.</string>
+    <!-- 注意3 -->
+    <string name="about_notice_nodownload">It does not download videos.</string>
+    <!-- 注意1 -->
+    <string name="about_notice_notofficial">This app is not the official YouTube app.</string>
+    <!-- 注意2 -->
+    <string name="about_notice_officialplayer">Playback uses YouTube’s official embedded player (IFrame Player).</string>
+    <!-- 見出し: 重要な注意事項 -->
+    <string name="about_notices_header">Important notices</string>
+    <!-- 通知を許可するボタン -->
+    <string name="about_notify_allow">Allow notifications</string>
+    <!-- 通知は許可済み -->
+    <string name="about_notify_enabled">Notifications are allowed</string>
+    <!-- 設定アプリで許可するボタン -->
+    <string name="about_notify_settings">Allow notifications in Settings</string>
+    <!-- 通知の説明 -->
+    <string name="about_onetap_body">If you allow notifications, one appears right after you share and a single tap opens that channel. That is the only notification used — no news or promotions, and no server push notifications. If you don’t allow them, open the app and use “Open shared link”.</string>
+    <!-- 見出し: ワンタップで開く -->
+    <string name="about_onetap_header">One-tap opening from the share sheet</string>
+    <!-- 読み上げ: このアプリについて -->
+    <string name="about_open_a11y">About this app</string>
+    <!-- 共有シートの2か所の説明（%@ にアプリ名） -->
+    <string name="about_pin_body1">There are two entry points in the share sheet: “%s” in the row of app icons, and “Open in Channel Timeline” in the action list further down. The latter is reachable without opening “More”.</string>
+    <!-- 並び順の説明 -->
+    <string name="about_pin_body2">iOS decides the order of share targets, so the app can’t set it. Pin it to Favorites with the steps below and it will always appear near the top.</string>
+    <!-- 見出し: 共有シートで上位に表示するには -->
+    <string name="about_pin_header">Showing it near the top of the share sheet</string>
+    <!-- 固定手順（%@ にアプリ名） -->
+    <string name="about_pin_steps">① Tap Share → scroll the app icon row to the far right → “More”\n② Tap “Edit” at the top right\n③ Tap “+” next to “%s” to add it to Favorites\n④ Drag it up in the list → “Done”</string>
+    <!-- プライバシーポリシー -->
+    <string name="about_privacypolicy">Privacy policy</string>
+    <!-- 続きから再生の説明 -->
+    <string name="about_resume_body">The playback position of each video is stored on the device, so reopening a video resumes where you left off (on by default). You can turn it off from the “…” menu on the player screen, and “Play from the beginning” jumps back to the start. Only the position in seconds is stored — never the video itself.</string>
+    <!-- 見出し: 続きから再生 -->
+    <string name="about_resume_header">Resume playback</string>
+    <!-- 画面ロックの説明 -->
+    <string name="about_screen_body">While a video is playing the screen is kept awake, so it won’t dim and interrupt you when the device is resting on a table. When you pause or leave the player, auto-lock returns to normal. There is no background playback, so closing the app stops playback.</string>
+    <!-- 見出し: 再生中の画面 -->
+    <string name="about_screen_header">The screen during playback</string>
+    <!-- 共有機能の説明（%@ にアプリ名） -->
+    <string name="about_share_body1">Choose “%s” from the share button in the YouTube app or Safari and the app receives the shared channel or video URL. Sharing only receives the URL — nothing is sent anywhere.</string>
+    <!-- 共有後の流れの説明 -->
+    <string name="about_share_body2">After that, open this app and “Open shared link” appears on the first screen. iOS does not allow a share sheet to launch an app directly, hence this flow.</string>
+    <!-- 見出し: 共有シートから開く -->
+    <string name="about_share_header">Opening from the share sheet</string>
+    <!-- アプリの説明 -->
+    <string name="about_summary">A viewing companion that lists a channel’s uploads by publication date (oldest first) so you can work through archives, series, or courses while tracking your progress. It is not a replacement for the official YouTube app.</string>
+    <!-- 画面名: このアプリについて -->
+    <string name="about_title">About this app</string>
+    <!-- APIキー未設定の説明 -->
+    <string name="api_notconfigured_detail">Set YOUTUBE_API_KEY in Config.plist. See the README for how to set it up.</string>
+    <!-- APIキー未設定の見出し -->
+    <string name="api_notconfigured_title">API key not configured</string>
+    <!-- 字幕: オフ -->
+    <string name="captions_off">Off</string>
+    <!-- チャンネル名が取得できないとき -->
+    <string name="channel_untitled">(No channel name)</string>
+    <!-- クリップボードにURLが無いとき -->
+    <string name="clipboard_notfound">No YouTube link was found on the clipboard. Paste a URL and try again.</string>
+    <!-- 閉じる -->
+    <string name="common_close">Close</string>
+    <!-- 削除 -->
+    <string name="common_delete">Delete</string>
+    <!-- 完了 -->
+    <string name="common_done">Done</string>
+    <!-- 再試行 -->
+    <string name="common_retry">Try again</string>
+    <!-- 画面下部の注意書き -->
+    <string name="disclaimer_short">This app is not the official YouTube app. Playback uses YouTube’s official embedded player; it does not download videos, block ads, or play in the background.</string>
+    <!-- エラー: APIキー未設定 -->
+    <string name="error_apikeymissing">No API key is configured.</string>
+    <!-- エラー: チャンネルが見つからない -->
+    <string name="error_channelnotfound">Channel not found.</string>
+    <!-- エラー: 応答を解釈できない -->
+    <string name="error_decoding">Couldn’t load the video list.</string>
+    <!-- エラー: チャンネルURLとして解析できない -->
+    <string name="error_invalidchannelurl">That doesn’t look like a YouTube channel URL.</string>
+    <!-- エラー: URLの形式が不正 -->
+    <string name="error_invalidurl">The URL isn’t valid.</string>
+    <!-- エラー: 動画URLとして解析できない -->
+    <string name="error_invalidvideourl">That doesn’t look like a YouTube video URL.</string>
+    <!-- エラー: 通信失敗 -->
+    <string name="error_network">The connection failed.</string>
+    <!-- エラー: API利用上限 -->
+    <string name="error_quotaexceeded">The YouTube API limit has been reached. Please try again later.</string>
+    <!-- エラー: その他 -->
+    <string name="error_unknown">Something went wrong.</string>
+    <!-- エラー: 動画一覧を取得できない -->
+    <string name="error_uploadsplaylistnotfound">Couldn’t load the video list for this channel.</string>
+    <!-- エラー: 動画から投稿チャンネルを特定できない -->
+    <string name="error_videonotfound">Couldn’t identify the channel for this video.</string>
+    <!-- 最終利用日時（%@ に日時） -->
+    <string name="favorites_lastopened_format">Last opened: %s</string>
+    <!-- 進捗（%1$@=視聴済み %2$@=総数 %3$@=割合） -->
+    <string name="favorites_progress_format">%1$s of %2$s watched (%3$s%%)</string>
+    <!-- 進捗が未計算のとき -->
+    <string name="favorites_progresshint">Progress appears once you open the channel.</string>
+    <!-- 続きから見る -->
+    <string name="favorites_resume">Continue watching</string>
+    <!-- お気に入り一覧の説明 -->
+    <string name="favorites_section_footer">Swipe a row left to remove just that channel. Your watch history is kept, so progress returns when you open it again.</string>
+    <!-- 見出し: 最近使ったチャンネル -->
+    <string name="favorites_section_header">Recent channels</string>
+    <!-- 左スワイプで削除の案内 -->
+    <string name="favorites_swipehint">Swipe left to delete</string>
+    <!-- フィルター: すべて -->
+    <string name="filter_all">All</string>
+    <!-- フィルター: 未視聴のみ -->
+    <string name="filter_unwatched">Unwatched</string>
+    <!-- フィルター: 視聴済みのみ -->
+    <string name="filter_watched">Watched</string>
+    <!-- 読み上げ: 入力を消去 -->
+    <string name="input_clear_a11y">Clear text</string>
+    <!-- 動画を取得ボタン -->
+    <string name="input_fetch">Get videos</string>
+    <!-- 取得中のボタン -->
+    <string name="input_fetching">Loading…</string>
+    <!-- 入力欄の説明（%@ にアプリ名） -->
+    <string name="input_section_footer">Share from the YouTube app or Safari and choose “%s” — then “Open shared link” appears on this screen. Channel and video URLs both work.</string>
+    <!-- 見出し: チャンネルURL -->
+    <string name="input_section_header">Channel URL</string>
+    <!-- 全部見終わったとき -->
+    <string name="list_allwatched">You’ve watched everything 🎉</string>
+    <!-- 保存済み一覧の案内（%@ に最終更新日時） -->
+    <string name="list_cached_format">Showing saved list (updated %s)</string>
+    <!-- 新着確認中 -->
+    <string name="list_checkingnew">Checking for new videos…</string>
+    <!-- 件数（%1$@=表示中 %2$@=全体） -->
+    <string name="list_count_format">Showing %1$s of %2$s</string>
+    <!-- 一覧が空のとき -->
+    <string name="list_empty">This channel has no videos to show.</string>
+    <!-- 取得失敗の見出し -->
+    <string name="list_error_title">Couldn’t load</string>
+    <!-- 取得中 -->
+    <string name="list_loading">Loading videos…</string>
+    <!-- 読み上げ: 並び替えと表示 -->
+    <string name="list_menu_a11y">Sort and filter</string>
+    <!-- 新着を確認 -->
+    <string name="list_menu_checknew">Check for new videos</string>
+    <!-- すべて再読み込み -->
+    <string name="list_menu_reloadall">Reload everything</string>
+    <!-- 表示（フィルター） -->
+    <string name="list_menu_show">Show</string>
+    <!-- 並び替えメニュー -->
+    <string name="list_menu_sort">Sort</string>
+    <!-- 次に見る（%@ に本数） -->
+    <string name="list_next_new_format">Up next: #%s</string>
+    <!-- 続きから（%@ に本数） -->
+    <string name="list_next_resume_format">Continue: #%s</string>
+    <!-- 新しい順 -->
+    <string name="list_sort_newest">Newest first</string>
+    <!-- 古い順 -->
+    <string name="list_sort_oldest">Oldest first</string>
+    <!-- 字幕は既定オフの説明 -->
+    <string name="options_captions_defaultoff">Captions start off by default.</string>
+    <!-- 字幕がまだ読み込まれていないときの説明 -->
+    <string name="options_captions_notloaded">Captions for this video haven’t loaded yet. Start playback, then open this sheet again (some videos have no captions).</string>
+    <!-- 見出し: 字幕 -->
+    <string name="options_captions_section">Captions</string>
+    <!-- 画質: 自動 -->
+    <string name="options_quality_auto">Auto</string>
+    <!-- 画質の説明 -->
+    <string name="options_quality_note">YouTube adjusts quality automatically based on your connection (the official player doesn’t let apps set it).\nTo choose it yourself, start playback, then use the full-screen button at the bottom right of the player → gear → Quality (the quality item doesn’t appear before playback starts).</string>
+    <!-- 画質 -->
+    <string name="options_quality_title">Quality</string>
+    <!-- 見出し: 再生速度 -->
+    <string name="options_rate_section">Playback speed</string>
+    <!-- 画面名: 再生設定 -->
+    <string name="options_title">Playback settings</string>
+    <!-- 自動再生で進んだときの表示 -->
+    <string name="player_autoadvanced">Moved on to the next video</string>
+    <!-- 読み上げ: 自動再生トグル -->
+    <string name="player_autoplay_a11y">Autoplay next when the video ends</string>
+    <!-- 自動再生オフの説明 -->
+    <string name="player_autoplay_off_detail">Shows a “Play next video” button when it ends</string>
+    <!-- 自動再生オフの見出し -->
+    <string name="player_autoplay_off_title">Autoplay off: stop when the video ends</string>
+    <!-- 自動再生オンの説明 -->
+    <string name="player_autoplay_on_detail">Plays only the next video in this list</string>
+    <!-- 自動再生オンの見出し -->
+    <string name="player_autoplay_on_title">Autoplay on: continue to the next video</string>
+    <!-- 次の動画を再生ボタン -->
+    <string name="player_ended_playnext">Play next video</string>
+    <!-- 終了時の案内 -->
+    <string name="player_ended_title">Playback finished. Up next:</string>
+    <!-- メモの自動保存と、入力の終え方の説明 -->
+    <string name="player_memo_autosave">Saved automatically as you type. Tap elsewhere or “Done” to finish editing.</string>
+    <!-- メモ欄の見出し -->
+    <string name="player_memo_title">Notes (for series and study)</string>
+    <!-- 読み上げ: その他の操作 -->
+    <string name="player_menu_a11y">More actions</string>
+    <!-- メニュー: 視聴済みにする -->
+    <string name="player_menu_markwatched">Mark as watched</string>
+    <!-- メニュー: 最初から再生 -->
+    <string name="player_menu_restart">Play from the beginning</string>
+    <!-- メニュー: 続きから再生する -->
+    <string name="player_menu_resume">Resume where I left off</string>
+    <!-- メニュー: スキップにする -->
+    <string name="player_menu_skip">Mark as skipped</string>
+    <!-- メニュー: 視聴済みを解除 -->
+    <string name="player_menu_unmarkwatched">Mark as unwatched</string>
+    <!-- メニュー: スキップを解除 -->
+    <string name="player_menu_unskip">Don’t skip</string>
+    <!-- 全体リピートの説明 -->
+    <string name="player_mode_repeatall">Returns to the first video after the last one (when autoplay is on).</string>
+    <!-- 1本リピートの説明 -->
+    <string name="player_mode_repeatone">Repeats the current video.</string>
+    <!-- スキップの説明 -->
+    <string name="player_mode_skip">Videos marked as skip are passed over during autoplay.</string>
+    <!-- 未視聴のみ再生の説明 -->
+    <string name="player_mode_unwatchedonly">Watched videos are skipped too, so only unwatched ones play.</string>
+    <!-- 移動: 最初へ -->
+    <string name="player_nav_first">First</string>
+    <!-- 移動: 最後へ -->
+    <string name="player_nav_last">Last</string>
+    <!-- 移動: 次へ -->
+    <string name="player_nav_next">Next</string>
+    <!-- 移動: 前へ -->
+    <string name="player_nav_previous">Previous</string>
+    <!-- 移動: 戻す（直前の移動を取り消す） -->
+    <string name="player_nav_undo">Undo</string>
+    <!-- 動画が無いとき -->
+    <string name="player_novideos">No videos</string>
+    <!-- YouTubeで開く -->
+    <string name="player_openinyoutube">Open in YouTube</string>
+    <!-- 読み上げ: 再生設定ボタン -->
+    <string name="player_options_a11y">Playback settings</string>
+    <!-- 再生設定の要約（%1$@=速度 %2$@=字幕） -->
+    <string name="player_optionssummary_format">Speed %1$s · Captions %2$s</string>
+    <!-- 公開日と一覧内の位置（%1$@=公開日 %2$@=位置） -->
+    <string name="player_publishedwithposition_format">%1$s (%2$s)</string>
+    <!-- 再生速度の表示（%@ に倍率） -->
+    <string name="player_rate_format">%s×</string>
+    <!-- リピートボタンのヒント -->
+    <string name="player_repeat_hint">Tap to change repeat mode</string>
+    <!-- 続きから再生中の案内（%@ に時刻） -->
+    <string name="player_resume_notice_format">Resuming from %s</string>
+    <!-- 最初から見直すボタン -->
+    <string name="player_resume_restart">Restart</string>
+    <!-- スキップ状態の表示 -->
+    <string name="player_status_skipped">Skipped (passed over during autoplay)</string>
+    <!-- 未視聴のみ再生トグル -->
+    <string name="player_unwatchedonly">Play unwatched only</string>
+    <!-- 進捗の内訳（%1$@=視聴済み %2$@=総数 %3$@=割合） -->
+    <string name="progress_count_format">%1$s / %2$s (%3$s%%)</string>
+    <!-- 進捗 -->
+    <string name="progress_title">Progress</string>
+    <!-- 読み上げ: 全体リピート -->
+    <string name="repeat_a11y_all">Repeat all videos</string>
+    <!-- 読み上げ: リピートオフ -->
+    <string name="repeat_a11y_off">Repeat off</string>
+    <!-- 読み上げ: 1本リピート -->
+    <string name="repeat_a11y_one">Repeat one video</string>
+    <!-- リピート: 全体 -->
+    <string name="repeat_all">All</string>
+    <!-- リピート: オフ -->
+    <string name="repeat_off">Off</string>
+    <!-- リピート: 1本 -->
+    <string name="repeat_one">One</string>
+    <!-- スワイプ: 未視聴に戻す -->
+    <string name="video_markunwatched">Mark unwatched</string>
+    <!-- スキップ -->
+    <string name="video_skip">Skip</string>
+    <!-- スキップ解除 -->
+    <string name="video_unskip">Don’t skip</string>
+    <!-- タイトルが取得できないとき -->
+    <string name="video_untitled">(No title)</string>
+    <!-- 視聴済み -->
+    <string name="video_watched">Watched</string>
+</resources>

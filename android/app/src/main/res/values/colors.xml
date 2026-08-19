@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- アプリアイコンの背景。公式サイトのファビコンと同じ緑にしている。 -->
+    <color name="ic_launcher_background">#17914A</color>
+</resources>

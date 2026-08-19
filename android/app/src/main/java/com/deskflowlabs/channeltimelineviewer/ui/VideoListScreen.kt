@@ -86,8 +86,18 @@ fun VideoListScreen(
 
     val isWatched: (String) -> Boolean = { it in watched }
     val isSkipped: (String) -> Boolean = { it in skipped }
-    val visible = viewModel.visibleVideos(isWatched)
-    val oldestFirst = viewModel.oldestFirst()
+
+    // 並び替え・絞り込みの結果は remember で持つ。
+    // ここで毎回作り直すと、LazyColumn の中身が古い値を掴んだままになり
+    //（5,000本のチャンネルで「0本表示」になる不具合が出た）、並び替えの計算も無駄に走る。
+    val visible = remember(videos, watched, skipped, filter, sortAscending) {
+        viewModel.visibleVideos(isWatched)
+    }
+    val oldestFirst = remember(videos) { viewModel.oldestFirst() }
+    val next = remember(videos, watched, skipped) { viewModel.nextUnwatched(isWatched, isSkipped) }
+    val nextPosition = remember(videos, watched, skipped) {
+        viewModel.nextUnwatchedPosition(isWatched, isSkipped)
+    }
 
     var menuOpen by remember { mutableStateOf(false) }
 
@@ -182,8 +192,6 @@ fun VideoListScreen(
                 )
             }
 
-            val next = viewModel.nextUnwatched(isWatched, isSkipped)
-            val nextPosition = viewModel.nextUnwatchedPosition(isWatched, isSkipped)
             if (next != null && nextPosition != null) {
                 item {
                     NextToWatchRow(

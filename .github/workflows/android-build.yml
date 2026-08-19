@@ -38,7 +38,7 @@ jobs:
         working-directory: .
         run: |
           set -euo pipefail
-          python scripts/build_android_strings.py > /dev/null
+          python3 scripts/build_android_strings.py > /dev/null
           if ! git diff --quiet -- android/app/src/main/res; then
             echo "::error::strings.xml が strings.json と食い違っています。"
             echo "python scripts/build_android_strings.py を実行してコミットしてください。"

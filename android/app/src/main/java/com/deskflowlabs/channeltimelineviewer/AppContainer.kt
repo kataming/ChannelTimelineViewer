@@ -10,6 +10,7 @@ import com.deskflowlabs.channeltimelineviewer.data.VideoListCache
 import com.deskflowlabs.channeltimelineviewer.data.VideoMemoStore
 import com.deskflowlabs.channeltimelineviewer.data.WatchHistoryStore
 import com.deskflowlabs.channeltimelineviewer.data.storePrefs
+import com.deskflowlabs.channeltimelineviewer.network.AndroidAppIdentity
 import com.deskflowlabs.channeltimelineviewer.network.YouTubeApiClient
 
 /**
@@ -21,7 +22,9 @@ import com.deskflowlabs.channeltimelineviewer.network.YouTubeApiClient
 class AppContainer(context: Context) {
     private val prefs = context.applicationContext.storePrefs()
 
-    val api = YouTubeApiClient()
+    // APIキーに Android アプリ制限（パッケージ名＋SHA-1）をかけているため、
+    // 実行中の自分自身の情報をヘッダーで申告する。
+    val api = YouTubeApiClient(appIdentity = AndroidAppIdentity.from(context.applicationContext))
     val watchStore = WatchHistoryStore(prefs)
     val skipStore = SkippedVideoStore(prefs)
     val memoStore = VideoMemoStore(prefs)

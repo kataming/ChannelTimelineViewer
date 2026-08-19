@@ -135,6 +135,8 @@
     <string name="input_section_footer">Share from the YouTube app or Safari and choose “%s” — then “Open shared link” appears on this screen. Channel and video URLs both work.</string>
     <!-- 見出し: チャンネルURL -->
     <string name="input_section_header">Channel URL</string>
+    <!-- Android 版の共有の説明（%@ にアプリ名）。iOS 版とは動きが違うので別文言 -->
+    <string name="input_share_android">Share from the YouTube app or a browser and choose “%s” — the channel\'s video list opens right away. Channel and video URLs both work.</string>
     <!-- 全部見終わったとき -->
     <string name="list_allwatched">You’ve watched everything 🎉</string>
     <!-- 保存済み一覧の案内（%@ に最終更新日時） -->

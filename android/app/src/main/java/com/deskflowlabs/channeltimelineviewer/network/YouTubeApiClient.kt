@@ -1,6 +1,7 @@
 package com.deskflowlabs.channeltimelineviewer.network
 
 import android.net.Uri
+import android.util.Log
 import com.deskflowlabs.channeltimelineviewer.BuildConfig
 import com.deskflowlabs.channeltimelineviewer.model.Channel
 import com.deskflowlabs.channeltimelineviewer.model.VideoItem
@@ -30,6 +31,11 @@ class YouTubeApiClient(
     private val apiKey: String = BuildConfig.YOUTUBE_API_KEY,
     private val httpClient: OkHttpClient = defaultClient,
     private val baseUrl: String = "https://www.googleapis.com/youtube/v3",
+    /**
+     * APIキーに「Android アプリ制限」をかけている場合に必要な自己申告。
+     * 素の HTTP で呼ぶときは、Google のライブラリが付けているヘッダーを自分で付ける必要がある。
+     */
+    private val appIdentity: AndroidAppIdentity? = null,
 ) {
 
     /** 暴走防止のための最大ページ数（50件/ページ × 100 = 5000本）。 */
@@ -150,14 +156,26 @@ class YouTubeApiClient(
         builder.appendQueryParameter("key", apiKey)
         val url = builder.build().toString()
 
+        val request = Request.Builder().url(url).get().apply {
+            appIdentity?.let {
+                addHeader("X-Android-Package", it.packageName)
+                addHeader("X-Android-Cert", it.signatureSha1)
+            }
+        }.build()
+
         val (code, body) = withContext(Dispatchers.IO) {
             try {
-                httpClient.newCall(Request.Builder().url(url).get().build()).execute().use { response ->
+                httpClient.newCall(request).execute().use { response ->
                     response.code to (response.body?.string().orEmpty())
                 }
             } catch (e: IOException) {
                 throw YouTubeApiException(YouTubeApiError.NetworkError)
             }
+        }
+
+        if (code !in 200..299) {
+            // 原因の切り分け用（APIキーそのものは出力しない）。
+            Log.w("YouTubeApiClient", "HTTP $code / $path / ${body.take(300)}")
         }
 
         when {

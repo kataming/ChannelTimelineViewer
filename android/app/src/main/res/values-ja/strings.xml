@@ -68,6 +68,7 @@
     <string name="input_fetching">取得中...</string>
     <string name="input_section_footer">YouTube アプリや Safari で共有 →「%s」を選ぶと、この画面に「共有されたURLを開く」が表示されます。チャンネル・動画のどちらのURLでも開けます。</string>
     <string name="input_section_header">チャンネルURL</string>
+    <string name="input_share_android">YouTube アプリやブラウザで共有 →「%s」を選ぶと、そのチャンネルの動画一覧がそのまま開きます。チャンネル・動画のどちらのURLでも構いません。</string>
     <string name="list_allwatched">すべて視聴済みです 🎉</string>
     <string name="list_cached_format">保存済みの一覧を表示中（最終更新 %s）</string>
     <string name="list_checkingnew">新着を確認中…</string>

@@ -68,6 +68,7 @@
     <string name="input_fetching">Wird geladen …</string>
     <string name="input_section_footer">Teile aus der YouTube-App oder aus Safari und wähle „%s“ – dann erscheint hier „Geteilten Link öffnen“. Kanal- und Video-URLs funktionieren beide.</string>
     <string name="input_section_header">Kanal-URL</string>
+    <string name="input_share_android">Teile aus der YouTube-App oder einem Browser und wähle „%s“ – die Videoliste des Kanals öffnet sich sofort. Kanal- und Video-URLs funktionieren beide.</string>
     <string name="list_allwatched">Du hast alles gesehen 🎉</string>
     <string name="list_cached_format">Gespeicherte Liste (aktualisiert %s)</string>
     <string name="list_checkingnew">Suche nach neuen Videos …</string>

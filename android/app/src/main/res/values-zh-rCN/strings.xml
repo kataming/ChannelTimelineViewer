@@ -68,6 +68,7 @@
     <string name="input_fetching">获取中…</string>
     <string name="input_section_footer">在 YouTube 应用或 Safari 中分享并选择“%s”，此界面就会出现“打开分享的链接”。频道和视频网址都可以。</string>
     <string name="input_section_header">频道网址</string>
+    <string name="input_share_android">在 YouTube 应用或浏览器中分享并选择“%s”，该频道的视频列表会直接打开。频道和视频网址都可以。</string>
     <string name="list_allwatched">已全部观看完毕 🎉</string>
     <string name="list_cached_format">显示已保存的列表（更新于 %s）</string>
     <string name="list_checkingnew">正在检查新视频…</string>

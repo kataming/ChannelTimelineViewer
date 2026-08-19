@@ -68,6 +68,7 @@
     <string name="input_fetching">Cargando…</string>
     <string name="input_section_footer">Comparte desde la app de YouTube o Safari y elige «%s»: aparecerá «Abrir el enlace compartido» en esta pantalla. Sirven URLs de canal y de vídeo.</string>
     <string name="input_section_header">URL del canal</string>
+    <string name="input_share_android">Comparte desde la app de YouTube o un navegador y elige «%s»: la lista de vídeos del canal se abre al instante. Sirven URLs de canal y de vídeo.</string>
     <string name="list_allwatched">Has visto todo 🎉</string>
     <string name="list_cached_format">Mostrando la lista guardada (actualizada el %s)</string>
     <string name="list_checkingnew">Buscando vídeos nuevos…</string>

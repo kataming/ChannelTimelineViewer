@@ -160,7 +160,8 @@ fun ChannelInputScreen(
 
             item {
                 Text(
-                    stringResource(R.string.input_section_footer, stringResource(R.string.app_name)),
+                    // Android は共有からそのままアプリが開くので、iOS とは説明を変えている。
+                    stringResource(R.string.input_share_android, stringResource(R.string.app_name)),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )

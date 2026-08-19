@@ -68,6 +68,7 @@
     <string name="input_fetching">Chargement…</string>
     <string name="input_section_footer">Partagez depuis l’app YouTube ou Safari et choisissez « %s » : « Ouvrir le lien partagé » apparaît sur cet écran. Les URL de chaîne et de vidéo fonctionnent.</string>
     <string name="input_section_header">URL de la chaîne</string>
+    <string name="input_share_android">Partagez depuis l’app YouTube ou un navigateur et choisissez « %s » : la liste des vidéos de la chaîne s’ouvre aussitôt. Les URL de chaîne et de vidéo fonctionnent.</string>
     <string name="list_allwatched">Vous avez tout regardé 🎉</string>
     <string name="list_cached_format">Liste enregistrée (mise à jour le %s)</string>
     <string name="list_checkingnew">Recherche de nouveautés…</string>

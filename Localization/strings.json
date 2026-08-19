@@ -1618,5 +1618,15 @@
     "de": "In Channel Timeline öffnen",
     "fr": "Ouvrir dans Channel Timeline",
     "ko": "Channel Timeline으로 열기"
+  },
+  "input.share.android": {
+    "comment": "Android 版の共有の説明（%@ にアプリ名）。iOS 版とは動きが違うので別文言",
+    "ja": "YouTube アプリやブラウザで共有 →「%@」を選ぶと、そのチャンネルの動画一覧がそのまま開きます。チャンネル・動画のどちらのURLでも構いません。",
+    "en": "Share from the YouTube app or a browser and choose “%@” — the channel's video list opens right away. Channel and video URLs both work.",
+    "zh-Hans": "在 YouTube 应用或浏览器中分享并选择“%@”，该频道的视频列表会直接打开。频道和视频网址都可以。",
+    "es": "Comparte desde la app de YouTube o un navegador y elige «%@»: la lista de vídeos del canal se abre al instante. Sirven URLs de canal y de vídeo.",
+    "de": "Teile aus der YouTube-App oder einem Browser und wähle „%@“ – die Videoliste des Kanals öffnet sich sofort. Kanal- und Video-URLs funktionieren beide.",
+    "fr": "Partagez depuis l’app YouTube ou un navigateur et choisissez « %@ » : la liste des vidéos de la chaîne s’ouvre aussitôt. Les URL de chaîne et de vidéo fonctionnent.",
+    "ko": "YouTube 앱이나 브라우저에서 공유 → “%@”를 선택하면 해당 채널의 동영상 목록이 바로 열립니다. 채널·동영상 URL 모두 사용할 수 있습니다."
   }
 }

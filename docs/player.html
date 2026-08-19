@@ -63,8 +63,14 @@
   var currentId = videoId;
 
   function post(msg) {
+    // iOS（WKWebView のメッセージハンドラ）
     if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.ytHandler) {
       window.webkit.messageHandlers.ytHandler.postMessage(msg);
+      return;
+    }
+    // Android（WebView の JavaScript インターフェース）。文字列しか渡せないので JSON にする。
+    if (window.ytAndroid && typeof window.ytAndroid.postMessage === 'function') {
+      window.ytAndroid.postMessage(JSON.stringify(msg));
     }
   }
 

@@ -280,6 +280,20 @@ App Store の各言語のメタデータは [`docs/AppStore/metadata/`](docs/App
 （原本は [`docs/AppStore/metadata.json`](docs/AppStore/metadata.json)、
 `python scripts/build_store_metadata.py` で生成・文字数検証）。
 
+## Android 版
+
+`android/` に Kotlin / Jetpack Compose 版があります（iOS 版と同じ機能・同じ翻訳・同じ中継ページ）。
+
+```
+cd android
+./gradlew testDebugUnitTest   # テスト
+./gradlew assembleDebug       # APK
+```
+
+詳細は [`android/README.md`](android/README.md)。文言は iOS と共通の `Localization/strings.json` から
+`python scripts/build_android_strings.py` で生成します。CI は
+[`.github/workflows/android-build.yml`](.github/workflows/android-build.yml)（Linux ランナー）。
+
 ## 公式サイト
 
 `site/` に Astro 製の静的サイト（7言語）があります。公開先は

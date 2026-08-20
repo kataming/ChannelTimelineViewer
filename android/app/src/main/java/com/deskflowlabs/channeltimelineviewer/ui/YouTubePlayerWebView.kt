@@ -3,6 +3,7 @@ package com.deskflowlabs.channeltimelineviewer.ui
 import android.annotation.SuppressLint
 import android.net.Uri
 import android.webkit.JavascriptInterface
+import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.compose.runtime.Composable
@@ -48,6 +49,11 @@ fun YouTubePlayerWebView(
                 // （公式プレイヤーの中の話で、こちらで動画データを触るわけではない）。
                 settings.mediaPlaybackRequiresUserGesture = false
                 webViewClient = WebViewClient()
+                // HTML5 の動画を描画するには WebChromeClient が要る。
+                // 未設定だと「音は出るのに画面が真っ黒」になる（Android の WebView の仕様）。
+                webChromeClient = WebChromeClient()
+                // 動画の描画にはハードウェアアクセラレーションが必要。
+                setLayerType(android.view.View.LAYER_TYPE_HARDWARE, null)
                 addJavascriptInterface(
                     PlayerBridge(onStateChange, onTimeUpdate, onOptions),
                     "ytAndroid",

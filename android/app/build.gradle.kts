@@ -146,6 +146,7 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.okhttp)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.billing)
 
     debugImplementation(libs.androidx.ui.tooling)
 

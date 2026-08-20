@@ -29,6 +29,7 @@ import com.deskflowlabs.channeltimelineviewer.ui.BadgePreviewScreen
 import com.deskflowlabs.channeltimelineviewer.ui.ChannelInputScreen
 import com.deskflowlabs.channeltimelineviewer.ui.PlaybackOptionsSheet
 import com.deskflowlabs.channeltimelineviewer.ui.PlayerScreen
+import com.deskflowlabs.channeltimelineviewer.ui.ProScreen
 import com.deskflowlabs.channeltimelineviewer.ui.VideoListScreen
 import com.deskflowlabs.channeltimelineviewer.ui.theme.ChannelTimelineTheme
 import com.deskflowlabs.channeltimelineviewer.viewmodel.ChannelInputViewModel
@@ -50,6 +51,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         container = AppContainer(this)
+        container.billing.start()
         handleShareIntent(intent)
 
         // デバッグビルドでのみ使う確認用の入り口。
@@ -71,6 +73,17 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // 別端末で買った・返金された・保留が確定した、のどれでも追随できるようにする。
+        container.billing.refresh()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        container.billing.dispose()
     }
 
     override fun onNewIntent(intent: Intent) {
@@ -116,6 +129,7 @@ private fun WithLocale(languageTag: String?, content: @Composable () -> Unit) {
 private sealed interface Screen {
     data object Input : Screen
     data object About : Screen
+    data object Pro : Screen
     data class Videos(val channel: Channel) : Screen
     data class Play(val channel: Channel, val videos: List<VideoItem>, val index: Int) : Screen
 }
@@ -126,8 +140,15 @@ private fun AppRoot(container: AppContainer, sharedUrl: MutableStateFlow<String?
     var showOptions by remember { mutableStateOf(false) }
 
     val inputViewModel: ChannelInputViewModel = viewModel(
-        factory = simpleFactory { ChannelInputViewModel(container.api, container.favorites) }
+        factory = simpleFactory {
+            ChannelInputViewModel(
+                api = container.api,
+                favorites = container.favorites,
+                isPro = container.proEntitlement.isPro,
+            )
+        }
     )
+    val isPro by container.proEntitlement.isPro.collectAsStateWithLifecycle()
     val resolved by inputViewModel.resolvedChannel.collectAsStateWithLifecycle()
     val shared by sharedUrl.collectAsStateWithLifecycle()
 
@@ -137,6 +158,11 @@ private fun AppRoot(container: AppContainer, sharedUrl: MutableStateFlow<String?
         sharedUrl.value = null
         screen = Screen.Input
         inputViewModel.openSharedLink(url)
+    }
+
+    // Pro を買った直後は、上限で止めていたチャンネルをそのまま開く。
+    LaunchedEffect(isPro) {
+        if (isPro) inputViewModel.retryPendingUpgradeIfUnlocked()
     }
 
     LaunchedEffect(resolved) {
@@ -151,11 +177,19 @@ private fun AppRoot(container: AppContainer, sharedUrl: MutableStateFlow<String?
             favorites = container.favorites,
             progressStore = container.progress,
             isApiConfigured = container.isApiConfigured,
+            isPro = isPro,
             onOpenAbout = { screen = Screen.About },
+            onOpenPro = { screen = Screen.Pro },
             onOpenFavorite = { favorite -> inputViewModel.open(favorite.toChannel()) },
         )
 
         is Screen.About -> AboutScreen(onBack = { screen = Screen.Input })
+
+        is Screen.Pro -> ProScreen(
+            billing = container.billing,
+            entitlement = container.proEntitlement,
+            onBack = { screen = Screen.Input },
+        )
 
         is Screen.Videos -> VideoListRoute(
             container = container,

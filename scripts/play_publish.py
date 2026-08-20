@@ -7,6 +7,7 @@ Play Console の画面で7言語ぶんを手入力するのは事故のもとな
 できること:
   --mode status    いまの登録状況を読むだけ（変更しない）
   --mode listing   掲載情報（アプリ名・簡単な説明・詳しい説明）と画像を反映
+  --mode details   ストアに公開される連絡先（メール・サイト）を反映
   --mode aab       署名済み AAB をアップロードして指定トラックに載せる
   --dry-run        送信せず、何をするかだけ表示する
 
@@ -130,6 +131,25 @@ def push_listing(api, dry_run: bool) -> int:
     return 0
 
 
+def push_details(api, dry_run: bool) -> int:
+    """ストアの掲載情報に表示される連絡先。電話番号は公開されるので入れない。"""
+    body = {
+        "contactEmail": "support@jewelrysunflower.com",
+        "contactWebsite": "https://channeltimeline.jewelrysunflower.com/",
+    }
+    if dry_run:
+        print(f"  [dry-run] 連絡先を反映: {body}")
+        return 0
+
+    edits = api.edits()
+    edit_id = edits.insert(body={}, packageName=PACKAGE_NAME).execute()["id"]
+    # patch にして、既存の defaultLanguage などを消さないようにする。
+    edits.details().patch(packageName=PACKAGE_NAME, editId=edit_id, body=body).execute()
+    edits.commit(packageName=PACKAGE_NAME, editId=edit_id).execute()
+    print(f"  連絡先を反映しました: {body['contactEmail']} / {body['contactWebsite']}")
+    return 0
+
+
 def image_sets(locale: str) -> dict[str, list[Path]]:
     """言語ごとに入れる画像。アイコンとフィーチャーグラフィックは全言語共通のものを使う。"""
     screenshots = sorted(
@@ -181,7 +201,7 @@ def upload_aab(api, aab_path: Path, track: str, release_name: str, dry_run: bool
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--mode", choices=["status", "listing", "aab"], default="status")
+    parser.add_argument("--mode", choices=["status", "listing", "details", "aab"], default="status")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--aab", default="", help="--mode aab のときに使う AAB のパス")
     parser.add_argument("--track", default="internal", help="internal / alpha / beta / production")
@@ -194,6 +214,8 @@ def main() -> int:
             return show_status(api)
         if args.mode == "listing":
             return push_listing(api, args.dry_run)
+        if args.mode == "details":
+            return push_details(api, args.dry_run)
         return upload_aab(api, Path(args.aab), args.track, args.release_name, args.dry_run)
     except HttpError as error:
         detail = error.content.decode("utf-8", errors="replace") if error.content else str(error)

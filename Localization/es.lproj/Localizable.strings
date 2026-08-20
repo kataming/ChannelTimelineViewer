@@ -71,6 +71,8 @@
 "channel.untitled" = "(Sin nombre de canal)";
 /* クリップボードにURLが無いとき */
 "clipboard.notFound" = "No se encontró ningún enlace de YouTube en el portapapeles. Pega una URL e inténtalo de nuevo.";
+/* 共通: キャンセル */
+"common.cancel" = "Cancelar";
 /* 閉じる */
 "common.close" = "Cerrar";
 /* 削除 */
@@ -275,6 +277,62 @@
 "player.status.skipped" = "Omitido (se salta en la reproducción automática)";
 /* 未視聴のみ再生トグル */
 "player.unwatchedOnly" = "Reproducir solo no vistos";
+/* Pro の中心価値 */
+"pro.benefit.multiChannel" = "Con Pro puedes guardar varios canales de YouTube y seguir el progreso de cada uno.";
+/* 購入ボタン（価格が取れないとき） */
+"pro.buy" = "Comprar (pago único)";
+/* 購入ボタン（%@ に価格） */
+"pro.buy.format" = "Comprar por %@ (pago único)";
+/* ホームからPro画面へ入る行の説明 */
+"pro.entry.body" = "Compra única. La versión gratuita guarda un canal.";
+/* ホームからPro画面へ入る行の見出し */
+"pro.entry.title" = "Guardar varios canales (Pro)";
+/* 購入できなかった */
+"pro.error.failed" = "No se pudo completar la compra.";
+/* Google Play に繋がらない */
+"pro.error.unavailable" = "No se pudo conectar con Google Play. Inténtalo de nuevo más tarde.";
+/* 無料版の説明 */
+"pro.free.summary" = "La versión gratuita permite guardar un canal.";
+/* 無料でできることの本文（1チャンネル内は制限しない方針） */
+"pro.freeFeatures.body" = "Dentro del canal guardado todo funciona sin límites: orden de más antiguo o más reciente, control de vistos, reanudar, botones de salto, notas, progreso y reproducción en el reproductor oficial.";
+/* 無料でできることの見出し */
+"pro.freeFeatures.header" = "Qué incluye la versión gratuita";
+/* Pro 画面の見出し（買い切りであることを明示） */
+"pro.headline" = "Una compra única que desbloquea guardar varios canales.";
+/* 保存上限の本文（%1$@=開こうとしたチャンネル %2$@=保存中のチャンネル） */
+"pro.limit.body.format" = "Para abrir «%1$@», sustituye el canal guardado «%2$@» o hazte con Pro.";
+/* 入れ替えるボタン */
+"pro.limit.replace" = "Sustituir";
+/* 入れ替えても記録は残ることの説明 */
+"pro.limit.replaceHint" = "Al sustituir se conservan el historial de vistos y el progreso. Si vuelves a guardar el canal anterior, seguirás donde lo dejaste.";
+/* 保存上限の案内タイトル */
+"pro.limit.title" = "Puedes guardar un canal";
+/* 上限の案内でProへ進むボタン */
+"pro.limit.upgrade" = "Obtener Pro";
+/* Pro の商品名（全言語共通） */
+"pro.name" = "Channel Timeline Viewer Pro";
+/* サブスクではないことの明示（購入画面に必須） */
+"pro.notSubscription" = "No es una suscripción.";
+/* アクセシビリティ: Pro画面を開く */
+"pro.open.a11y" = "Abrir información de Pro";
+/* 購入済みの表示 */
+"pro.owned" = "Ya tienes Pro. Gracias.";
+/* 保留中の支払い */
+"pro.pending" = "El pago está pendiente. Pro se activará automáticamente al completarse.";
+/* 価格取得中 */
+"pro.price.loading" = "Consultando el precio…";
+/* Pro で解放される機能の本文 */
+"pro.proFeatures.body" = "Guarda varios canales, sigue el progreso de cada uno, gestiona tu lista de canales guardados e incluye las futuras funciones avanzadas.";
+/* Pro で解放される機能の見出し */
+"pro.proFeatures.header" = "Qué desbloquea Pro";
+/* 購入の復元ボタン */
+"pro.restore" = "Restaurar compra";
+/* 復元できた */
+"pro.restore.done" = "Se ha restaurado tu compra.";
+/* 復元の説明 */
+"pro.restore.hint" = "Si usas la misma cuenta de Google, puedes restaurarla tras reinstalar o cambiar de dispositivo.";
+/* 復元できる購入がなかった */
+"pro.restore.none" = "No se encontró ninguna compra para esta cuenta de Google.";
 /* 進捗の内訳（%1$@=視聴済み %2$@=総数 %3$@=割合） */
 "progress.count.format" = "%1$@ / %2$@ (%3$@%%)";
 /* 進捗 */

@@ -1628,5 +1628,295 @@
     "de": "Teile aus der YouTube-App oder einem Browser und wähle „%@“ – die Videoliste des Kanals öffnet sich sofort. Kanal- und Video-URLs funktionieren beide.",
     "fr": "Partagez depuis l’app YouTube ou un navigateur et choisissez « %@ » : la liste des vidéos de la chaîne s’ouvre aussitôt. Les URL de chaîne et de vidéo fonctionnent.",
     "ko": "YouTube 앱이나 브라우저에서 공유 → “%@”를 선택하면 해당 채널의 동영상 목록이 바로 열립니다. 채널·동영상 URL 모두 사용할 수 있습니다."
+  },
+  "common.cancel": {
+    "comment": "共通: キャンセル",
+    "ja": "キャンセル",
+    "en": "Cancel",
+    "zh-Hans": "取消",
+    "es": "Cancelar",
+    "de": "Abbrechen",
+    "fr": "Annuler",
+    "ko": "취소"
+  },
+  "pro.name": {
+    "comment": "Pro の商品名（全言語共通）",
+    "ja": "Channel Timeline Viewer Pro",
+    "en": "Channel Timeline Viewer Pro",
+    "zh-Hans": "Channel Timeline Viewer Pro",
+    "es": "Channel Timeline Viewer Pro",
+    "de": "Channel Timeline Viewer Pro",
+    "fr": "Channel Timeline Viewer Pro",
+    "ko": "Channel Timeline Viewer Pro"
+  },
+  "pro.headline": {
+    "comment": "Pro 画面の見出し（買い切りであることを明示）",
+    "ja": "買い切りで複数チャンネル保存を解放します。",
+    "en": "A one-time purchase that unlocks saving multiple channels.",
+    "zh-Hans": "一次性买断，解锁保存多个频道。",
+    "es": "Una compra única que desbloquea guardar varios canales.",
+    "de": "Ein einmaliger Kauf, der das Speichern mehrerer Kanäle freischaltet.",
+    "fr": "Un achat unique qui débloque l’enregistrement de plusieurs chaînes.",
+    "ko": "한 번만 구매하면 여러 채널 저장이 열립니다."
+  },
+  "pro.free.summary": {
+    "comment": "無料版の説明",
+    "ja": "無料版では1チャンネルを保存できます。",
+    "en": "The free version lets you save one channel.",
+    "zh-Hans": "免费版可保存 1 个频道。",
+    "es": "La versión gratuita permite guardar un canal.",
+    "de": "In der kostenlosen Version kannst du einen Kanal speichern.",
+    "fr": "La version gratuite permet d’enregistrer une chaîne.",
+    "ko": "무료 버전에서는 채널 1개를 저장할 수 있습니다."
+  },
+  "pro.benefit.multiChannel": {
+    "comment": "Pro の中心価値",
+    "ja": "Proでは複数のYouTubeチャンネルを保存し、それぞれの進捗を管理できます。",
+    "en": "With Pro you can save multiple YouTube channels and track progress for each one.",
+    "zh-Hans": "使用 Pro 可以保存多个 YouTube 频道，并分别管理各自的进度。",
+    "es": "Con Pro puedes guardar varios canales de YouTube y seguir el progreso de cada uno.",
+    "de": "Mit Pro speicherst du mehrere YouTube-Kanäle und verfolgst den Fortschritt für jeden.",
+    "fr": "Avec Pro, enregistrez plusieurs chaînes YouTube et suivez la progression de chacune.",
+    "ko": "Pro에서는 여러 YouTube 채널을 저장하고 채널별 진행 상황을 관리할 수 있습니다."
+  },
+  "pro.notSubscription": {
+    "comment": "サブスクではないことの明示（購入画面に必須）",
+    "ja": "サブスクリプションではありません。",
+    "en": "This is not a subscription.",
+    "zh-Hans": "这不是订阅服务。",
+    "es": "No es una suscripción.",
+    "de": "Es ist kein Abo.",
+    "fr": "Ce n’est pas un abonnement.",
+    "ko": "구독이 아닙니다."
+  },
+  "pro.freeFeatures.header": {
+    "comment": "無料でできることの見出し",
+    "ja": "無料版でできること",
+    "en": "What you get for free",
+    "zh-Hans": "免费版可用功能",
+    "es": "Qué incluye la versión gratuita",
+    "de": "Das bietet die kostenlose Version",
+    "fr": "Ce qu’offre la version gratuite",
+    "ko": "무료 버전에서 사용할 수 있는 기능"
+  },
+  "pro.freeFeatures.body": {
+    "comment": "無料でできることの本文（1チャンネル内は制限しない方針）",
+    "ja": "保存した1チャンネルの中では、古い順・新しい順の並べ替え、視聴済み管理、続きから再生、移動ボタン、メモ、進捗表示、公式プレイヤーでの再生をすべて制限なく使えます。",
+    "en": "Inside your saved channel everything works without limits: oldest or newest sorting, watched tracking, resume, jump buttons, notes, progress, and playback in the official player.",
+    "zh-Hans": "在已保存的频道内，按最早或最新排序、已观看管理、继续播放、跳转按钮、备注、进度显示、官方播放器播放均可无限制使用。",
+    "es": "Dentro del canal guardado todo funciona sin límites: orden de más antiguo o más reciente, control de vistos, reanudar, botones de salto, notas, progreso y reproducción en el reproductor oficial.",
+    "de": "In deinem gespeicherten Kanal funktioniert alles ohne Einschränkung: Sortierung nach ältesten oder neuesten, Gesehen-Status, Fortsetzen, Sprungtasten, Notizen, Fortschritt und Wiedergabe im offiziellen Player.",
+    "fr": "Dans la chaîne enregistrée, tout fonctionne sans limite : tri du plus ancien au plus récent, suivi des vidéos vues, reprise, boutons de saut, notes, progression et lecture dans le lecteur officiel.",
+    "ko": "저장한 채널 안에서는 오래된 순·최신 순 정렬, 시청 완료 관리, 이어 보기, 이동 버튼, 메모, 진행률 표시, 공식 플레이어 재생을 모두 제한 없이 사용할 수 있습니다."
+  },
+  "pro.proFeatures.header": {
+    "comment": "Pro で解放される機能の見出し",
+    "ja": "Proで解放される機能",
+    "en": "What Pro unlocks",
+    "zh-Hans": "Pro 解锁的功能",
+    "es": "Qué desbloquea Pro",
+    "de": "Das schaltet Pro frei",
+    "fr": "Ce que débloque Pro",
+    "ko": "Pro에서 열리는 기능"
+  },
+  "pro.proFeatures.body": {
+    "comment": "Pro で解放される機能の本文",
+    "ja": "複数チャンネルの保存、チャンネルごとの進捗管理、保存チャンネル一覧の管理。今後追加する上位の管理機能も含みます。",
+    "en": "Save multiple channels, track progress per channel, manage your saved channel list, and get future advanced management features.",
+    "zh-Hans": "保存多个频道、按频道管理进度、管理已保存频道列表，并包含今后新增的高级管理功能。",
+    "es": "Guarda varios canales, sigue el progreso de cada uno, gestiona tu lista de canales guardados e incluye las futuras funciones avanzadas.",
+    "de": "Mehrere Kanäle speichern, Fortschritt je Kanal verfolgen, die Liste gespeicherter Kanäle verwalten – inklusive künftiger erweiterter Verwaltungsfunktionen.",
+    "fr": "Enregistrez plusieurs chaînes, suivez la progression de chacune, gérez votre liste de chaînes enregistrées, et profitez des futures fonctions de gestion avancées.",
+    "ko": "여러 채널 저장, 채널별 진행 상황 관리, 저장한 채널 목록 관리. 앞으로 추가되는 상위 관리 기능도 포함됩니다."
+  },
+  "pro.buy.format": {
+    "comment": "購入ボタン（%@ に価格）",
+    "ja": "%@ で購入（買い切り）",
+    "en": "Buy for %@ (one-time)",
+    "zh-Hans": "以 %@ 购买（一次性）",
+    "es": "Comprar por %@ (pago único)",
+    "de": "Für %@ kaufen (einmalig)",
+    "fr": "Acheter pour %@ (achat unique)",
+    "ko": "%@에 구매(1회 결제)"
+  },
+  "pro.buy": {
+    "comment": "購入ボタン（価格が取れないとき）",
+    "ja": "購入する（買い切り）",
+    "en": "Buy (one-time)",
+    "zh-Hans": "购买（一次性）",
+    "es": "Comprar (pago único)",
+    "de": "Kaufen (einmalig)",
+    "fr": "Acheter (achat unique)",
+    "ko": "구매(1회 결제)"
+  },
+  "pro.price.loading": {
+    "comment": "価格取得中",
+    "ja": "価格を確認しています…",
+    "en": "Checking the price…",
+    "zh-Hans": "正在确认价格…",
+    "es": "Consultando el precio…",
+    "de": "Preis wird geprüft …",
+    "fr": "Vérification du prix…",
+    "ko": "가격을 확인하는 중…"
+  },
+  "pro.restore": {
+    "comment": "購入の復元ボタン",
+    "ja": "購入を復元",
+    "en": "Restore purchase",
+    "zh-Hans": "恢复购买",
+    "es": "Restaurar compra",
+    "de": "Kauf wiederherstellen",
+    "fr": "Restaurer l’achat",
+    "ko": "구매 복원"
+  },
+  "pro.restore.hint": {
+    "comment": "復元の説明",
+    "ja": "同じ Google アカウントなら、機種変更や再インストールのあとでも復元できます。",
+    "en": "As long as you use the same Google account, you can restore it after reinstalling or switching devices.",
+    "zh-Hans": "只要使用同一 Google 账号，重新安装或更换设备后也可恢复。",
+    "es": "Si usas la misma cuenta de Google, puedes restaurarla tras reinstalar o cambiar de dispositivo.",
+    "de": "Mit demselben Google-Konto kannst du den Kauf nach einer Neuinstallation oder einem Gerätewechsel wiederherstellen.",
+    "fr": "Avec le même compte Google, vous pouvez le restaurer après une réinstallation ou un changement d’appareil.",
+    "ko": "같은 Google 계정이라면 재설치하거나 기기를 바꾼 뒤에도 복원할 수 있습니다."
+  },
+  "pro.restore.done": {
+    "comment": "復元できた",
+    "ja": "購入を復元しました。",
+    "en": "Your purchase has been restored.",
+    "zh-Hans": "已恢复购买。",
+    "es": "Se ha restaurado tu compra.",
+    "de": "Dein Kauf wurde wiederhergestellt.",
+    "fr": "Votre achat a été restauré.",
+    "ko": "구매를 복원했습니다."
+  },
+  "pro.restore.none": {
+    "comment": "復元できる購入がなかった",
+    "ja": "この Google アカウントでの購入は見つかりませんでした。",
+    "en": "No purchase was found for this Google account.",
+    "zh-Hans": "未找到此 Google 账号的购买记录。",
+    "es": "No se encontró ninguna compra para esta cuenta de Google.",
+    "de": "Für dieses Google-Konto wurde kein Kauf gefunden.",
+    "fr": "Aucun achat n’a été trouvé pour ce compte Google.",
+    "ko": "이 Google 계정에서 구매 내역을 찾지 못했습니다."
+  },
+  "pro.owned": {
+    "comment": "購入済みの表示",
+    "ja": "Pro を利用中です。ありがとうございます。",
+    "en": "You have Pro. Thank you.",
+    "zh-Hans": "您已拥有 Pro，感谢支持。",
+    "es": "Ya tienes Pro. Gracias.",
+    "de": "Du hast Pro. Vielen Dank.",
+    "fr": "Vous avez Pro. Merci.",
+    "ko": "Pro를 이용 중입니다. 감사합니다."
+  },
+  "pro.pending": {
+    "comment": "保留中の支払い",
+    "ja": "お支払いの確認待ちです。完了すると自動で有効になります。",
+    "en": "Your payment is pending. Pro turns on automatically once it completes.",
+    "zh-Hans": "付款确认中，完成后将自动启用。",
+    "es": "El pago está pendiente. Pro se activará automáticamente al completarse.",
+    "de": "Die Zahlung steht noch aus. Pro wird automatisch aktiviert, sobald sie abgeschlossen ist.",
+    "fr": "Le paiement est en attente. Pro s’activera automatiquement une fois terminé.",
+    "ko": "결제 확인 중입니다. 완료되면 자동으로 활성화됩니다."
+  },
+  "pro.error.unavailable": {
+    "comment": "Google Play に繋がらない",
+    "ja": "Google Play に接続できませんでした。時間をおいてもう一度お試しください。",
+    "en": "Couldn’t reach Google Play. Please try again later.",
+    "zh-Hans": "无法连接 Google Play，请稍后再试。",
+    "es": "No se pudo conectar con Google Play. Inténtalo de nuevo más tarde.",
+    "de": "Google Play konnte nicht erreicht werden. Bitte versuche es später erneut.",
+    "fr": "Impossible de contacter Google Play. Réessayez plus tard.",
+    "ko": "Google Play에 연결하지 못했습니다. 잠시 후 다시 시도해 주세요."
+  },
+  "pro.error.failed": {
+    "comment": "購入できなかった",
+    "ja": "購入を完了できませんでした。",
+    "en": "The purchase couldn’t be completed.",
+    "zh-Hans": "购买未能完成。",
+    "es": "No se pudo completar la compra.",
+    "de": "Der Kauf konnte nicht abgeschlossen werden.",
+    "fr": "L’achat n’a pas pu être finalisé.",
+    "ko": "구매를 완료하지 못했습니다."
+  },
+  "pro.limit.title": {
+    "comment": "保存上限の案内タイトル",
+    "ja": "保存できるチャンネルは1件です",
+    "en": "You can save one channel",
+    "zh-Hans": "可保存 1 个频道",
+    "es": "Puedes guardar un canal",
+    "de": "Du kannst einen Kanal speichern",
+    "fr": "Vous pouvez enregistrer une chaîne",
+    "ko": "저장할 수 있는 채널은 1개입니다"
+  },
+  "pro.limit.body.format": {
+    "comment": "保存上限の本文（%1$@=開こうとしたチャンネル %2$@=保存中のチャンネル）",
+    "ja": "「%1$@」を開くには、保存中の「%2$@」と入れ替えるか、Proにしてください。",
+    "en": "To open “%1$@”, replace the saved channel “%2$@” or get Pro.",
+    "zh-Hans": "要打开“%1$@”，请替换已保存的“%2$@”，或购买 Pro。",
+    "es": "Para abrir «%1$@», sustituye el canal guardado «%2$@» o hazte con Pro.",
+    "de": "Um „%1$@“ zu öffnen, ersetze den gespeicherten Kanal „%2$@“ oder hol dir Pro.",
+    "fr": "Pour ouvrir « %1$@ », remplacez la chaîne enregistrée « %2$@ » ou passez à Pro.",
+    "ko": "「%1$@」을(를) 열려면 저장된 「%2$@」을(를) 교체하거나 Pro를 구매하세요."
+  },
+  "pro.limit.replace": {
+    "comment": "入れ替えるボタン",
+    "ja": "入れ替える",
+    "en": "Replace",
+    "zh-Hans": "替换",
+    "es": "Sustituir",
+    "de": "Ersetzen",
+    "fr": "Remplacer",
+    "ko": "교체"
+  },
+  "pro.limit.replaceHint": {
+    "comment": "入れ替えても記録は残ることの説明",
+    "ja": "入れ替えても、視聴済みや進捗の記録は残ります。元のチャンネルを保存し直せば、そのまま続きから見られます。",
+    "en": "Replacing keeps your watched history and progress. Save the old channel again and you can pick up where you left off.",
+    "zh-Hans": "替换后仍保留已观看记录与进度。重新保存原频道即可继续观看。",
+    "es": "Al sustituir se conservan el historial de vistos y el progreso. Si vuelves a guardar el canal anterior, seguirás donde lo dejaste.",
+    "de": "Beim Ersetzen bleiben Gesehen-Status und Fortschritt erhalten. Speicherst du den alten Kanal erneut, machst du dort weiter, wo du aufgehört hast.",
+    "fr": "Le remplacement conserve l’historique et la progression. Réenregistrez l’ancienne chaîne pour reprendre où vous en étiez.",
+    "ko": "교체해도 시청 기록과 진행 상황은 남습니다. 이전 채널을 다시 저장하면 이어서 볼 수 있습니다."
+  },
+  "pro.entry.title": {
+    "comment": "ホームからPro画面へ入る行の見出し",
+    "ja": "複数チャンネルを保存する（Pro）",
+    "en": "Save multiple channels (Pro)",
+    "zh-Hans": "保存多个频道（Pro）",
+    "es": "Guardar varios canales (Pro)",
+    "de": "Mehrere Kanäle speichern (Pro)",
+    "fr": "Enregistrer plusieurs chaînes (Pro)",
+    "ko": "여러 채널 저장 (Pro)"
+  },
+  "pro.entry.body": {
+    "comment": "ホームからPro画面へ入る行の説明",
+    "ja": "買い切り。無料版は1チャンネルまで保存できます。",
+    "en": "One-time purchase. The free version saves one channel.",
+    "zh-Hans": "一次性买断。免费版可保存 1 个频道。",
+    "es": "Compra única. La versión gratuita guarda un canal.",
+    "de": "Einmaliger Kauf. Die kostenlose Version speichert einen Kanal.",
+    "fr": "Achat unique. La version gratuite enregistre une chaîne.",
+    "ko": "한 번만 구매. 무료 버전은 채널 1개를 저장합니다."
+  },
+  "pro.open.a11y": {
+    "comment": "アクセシビリティ: Pro画面を開く",
+    "ja": "Pro の説明を開く",
+    "en": "Open Pro details",
+    "zh-Hans": "打开 Pro 说明",
+    "es": "Abrir información de Pro",
+    "de": "Pro-Details öffnen",
+    "fr": "Ouvrir les détails de Pro",
+    "ko": "Pro 설명 열기"
+  },
+  "pro.limit.upgrade": {
+    "comment": "上限の案内でProへ進むボタン",
+    "ja": "Proにする",
+    "en": "Get Pro",
+    "zh-Hans": "购买 Pro",
+    "es": "Obtener Pro",
+    "de": "Pro holen",
+    "fr": "Passer à Pro",
+    "ko": "Pro 구매"
   }
 }

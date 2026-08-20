@@ -73,6 +73,8 @@
     <string name="channel_untitled">(No channel name)</string>
     <!-- クリップボードにURLが無いとき -->
     <string name="clipboard_notfound">No YouTube link was found on the clipboard. Paste a URL and try again.</string>
+    <!-- 共通: キャンセル -->
+    <string name="common_cancel">Cancel</string>
     <!-- 閉じる -->
     <string name="common_close">Close</string>
     <!-- 削除 -->
@@ -259,6 +261,62 @@
     <string name="player_status_skipped">Skipped (passed over during autoplay)</string>
     <!-- 未視聴のみ再生トグル -->
     <string name="player_unwatchedonly">Play unwatched only</string>
+    <!-- Pro の中心価値 -->
+    <string name="pro_benefit_multichannel">With Pro you can save multiple YouTube channels and track progress for each one.</string>
+    <!-- 購入ボタン（価格が取れないとき） -->
+    <string name="pro_buy">Buy (one-time)</string>
+    <!-- 購入ボタン（%@ に価格） -->
+    <string name="pro_buy_format">Buy for %s (one-time)</string>
+    <!-- ホームからPro画面へ入る行の説明 -->
+    <string name="pro_entry_body">One-time purchase. The free version saves one channel.</string>
+    <!-- ホームからPro画面へ入る行の見出し -->
+    <string name="pro_entry_title">Save multiple channels (Pro)</string>
+    <!-- 購入できなかった -->
+    <string name="pro_error_failed">The purchase couldn’t be completed.</string>
+    <!-- Google Play に繋がらない -->
+    <string name="pro_error_unavailable">Couldn’t reach Google Play. Please try again later.</string>
+    <!-- 無料版の説明 -->
+    <string name="pro_free_summary">The free version lets you save one channel.</string>
+    <!-- 無料でできることの本文（1チャンネル内は制限しない方針） -->
+    <string name="pro_freefeatures_body">Inside your saved channel everything works without limits: oldest or newest sorting, watched tracking, resume, jump buttons, notes, progress, and playback in the official player.</string>
+    <!-- 無料でできることの見出し -->
+    <string name="pro_freefeatures_header">What you get for free</string>
+    <!-- Pro 画面の見出し（買い切りであることを明示） -->
+    <string name="pro_headline">A one-time purchase that unlocks saving multiple channels.</string>
+    <!-- 保存上限の本文（%1$@=開こうとしたチャンネル %2$@=保存中のチャンネル） -->
+    <string name="pro_limit_body_format">To open “%1$s”, replace the saved channel “%2$s” or get Pro.</string>
+    <!-- 入れ替えるボタン -->
+    <string name="pro_limit_replace">Replace</string>
+    <!-- 入れ替えても記録は残ることの説明 -->
+    <string name="pro_limit_replacehint">Replacing keeps your watched history and progress. Save the old channel again and you can pick up where you left off.</string>
+    <!-- 保存上限の案内タイトル -->
+    <string name="pro_limit_title">You can save one channel</string>
+    <!-- 上限の案内でProへ進むボタン -->
+    <string name="pro_limit_upgrade">Get Pro</string>
+    <!-- Pro の商品名（全言語共通） -->
+    <string name="pro_name">Channel Timeline Viewer Pro</string>
+    <!-- サブスクではないことの明示（購入画面に必須） -->
+    <string name="pro_notsubscription">This is not a subscription.</string>
+    <!-- アクセシビリティ: Pro画面を開く -->
+    <string name="pro_open_a11y">Open Pro details</string>
+    <!-- 購入済みの表示 -->
+    <string name="pro_owned">You have Pro. Thank you.</string>
+    <!-- 保留中の支払い -->
+    <string name="pro_pending">Your payment is pending. Pro turns on automatically once it completes.</string>
+    <!-- 価格取得中 -->
+    <string name="pro_price_loading">Checking the price…</string>
+    <!-- Pro で解放される機能の本文 -->
+    <string name="pro_profeatures_body">Save multiple channels, track progress per channel, manage your saved channel list, and get future advanced management features.</string>
+    <!-- Pro で解放される機能の見出し -->
+    <string name="pro_profeatures_header">What Pro unlocks</string>
+    <!-- 購入の復元ボタン -->
+    <string name="pro_restore">Restore purchase</string>
+    <!-- 復元できた -->
+    <string name="pro_restore_done">Your purchase has been restored.</string>
+    <!-- 復元の説明 -->
+    <string name="pro_restore_hint">As long as you use the same Google account, you can restore it after reinstalling or switching devices.</string>
+    <!-- 復元できる購入がなかった -->
+    <string name="pro_restore_none">No purchase was found for this Google account.</string>
     <!-- 進捗の内訳（%1$@=視聴済み %2$@=総数 %3$@=割合） -->
     <string name="progress_count_format">%1$s / %2$s (%3$s%%)</string>
     <!-- 進捗 -->

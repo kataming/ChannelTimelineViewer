@@ -71,6 +71,8 @@
 "channel.untitled" = "（无频道名称）";
 /* クリップボードにURLが無いとき */
 "clipboard.notFound" = "剪贴板中没有找到 YouTube 网址。请粘贴网址后重试。";
+/* 共通: キャンセル */
+"common.cancel" = "取消";
 /* 閉じる */
 "common.close" = "关闭";
 /* 削除 */
@@ -275,6 +277,62 @@
 "player.status.skipped" = "已跳过（自动播放时略过）";
 /* 未視聴のみ再生トグル */
 "player.unwatchedOnly" = "只播放未观看";
+/* Pro の中心価値 */
+"pro.benefit.multiChannel" = "使用 Pro 可以保存多个 YouTube 频道，并分别管理各自的进度。";
+/* 購入ボタン（価格が取れないとき） */
+"pro.buy" = "购买（一次性）";
+/* 購入ボタン（%@ に価格） */
+"pro.buy.format" = "以 %@ 购买（一次性）";
+/* ホームからPro画面へ入る行の説明 */
+"pro.entry.body" = "一次性买断。免费版可保存 1 个频道。";
+/* ホームからPro画面へ入る行の見出し */
+"pro.entry.title" = "保存多个频道（Pro）";
+/* 購入できなかった */
+"pro.error.failed" = "购买未能完成。";
+/* Google Play に繋がらない */
+"pro.error.unavailable" = "无法连接 Google Play，请稍后再试。";
+/* 無料版の説明 */
+"pro.free.summary" = "免费版可保存 1 个频道。";
+/* 無料でできることの本文（1チャンネル内は制限しない方針） */
+"pro.freeFeatures.body" = "在已保存的频道内，按最早或最新排序、已观看管理、继续播放、跳转按钮、备注、进度显示、官方播放器播放均可无限制使用。";
+/* 無料でできることの見出し */
+"pro.freeFeatures.header" = "免费版可用功能";
+/* Pro 画面の見出し（買い切りであることを明示） */
+"pro.headline" = "一次性买断，解锁保存多个频道。";
+/* 保存上限の本文（%1$@=開こうとしたチャンネル %2$@=保存中のチャンネル） */
+"pro.limit.body.format" = "要打开“%1$@”，请替换已保存的“%2$@”，或购买 Pro。";
+/* 入れ替えるボタン */
+"pro.limit.replace" = "替换";
+/* 入れ替えても記録は残ることの説明 */
+"pro.limit.replaceHint" = "替换后仍保留已观看记录与进度。重新保存原频道即可继续观看。";
+/* 保存上限の案内タイトル */
+"pro.limit.title" = "可保存 1 个频道";
+/* 上限の案内でProへ進むボタン */
+"pro.limit.upgrade" = "购买 Pro";
+/* Pro の商品名（全言語共通） */
+"pro.name" = "Channel Timeline Viewer Pro";
+/* サブスクではないことの明示（購入画面に必須） */
+"pro.notSubscription" = "这不是订阅服务。";
+/* アクセシビリティ: Pro画面を開く */
+"pro.open.a11y" = "打开 Pro 说明";
+/* 購入済みの表示 */
+"pro.owned" = "您已拥有 Pro，感谢支持。";
+/* 保留中の支払い */
+"pro.pending" = "付款确认中，完成后将自动启用。";
+/* 価格取得中 */
+"pro.price.loading" = "正在确认价格…";
+/* Pro で解放される機能の本文 */
+"pro.proFeatures.body" = "保存多个频道、按频道管理进度、管理已保存频道列表，并包含今后新增的高级管理功能。";
+/* Pro で解放される機能の見出し */
+"pro.proFeatures.header" = "Pro 解锁的功能";
+/* 購入の復元ボタン */
+"pro.restore" = "恢复购买";
+/* 復元できた */
+"pro.restore.done" = "已恢复购买。";
+/* 復元の説明 */
+"pro.restore.hint" = "只要使用同一 Google 账号，重新安装或更换设备后也可恢复。";
+/* 復元できる購入がなかった */
+"pro.restore.none" = "未找到此 Google 账号的购买记录。";
 /* 進捗の内訳（%1$@=視聴済み %2$@=総数 %3$@=割合） */
 "progress.count.format" = "%1$@ / %2$@（%3$@%%）";
 /* 進捗 */

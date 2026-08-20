@@ -16,6 +16,7 @@ import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -27,6 +28,8 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -57,7 +60,9 @@ fun ChannelInputScreen(
     favorites: FavoriteChannelStore,
     progressStore: ChannelProgressStore,
     isApiConfigured: Boolean,
+    isPro: Boolean,
     onOpenAbout: () -> Unit,
+    onOpenPro: () -> Unit,
     onOpenFavorite: (FavoriteChannel) -> Unit,
 ) {
     val urlText by viewModel.urlText.collectAsStateWithLifecycle()
@@ -65,6 +70,7 @@ fun ChannelInputScreen(
     val errorRes by viewModel.errorRes.collectAsStateWithLifecycle()
     val favoriteList by favorites.favorites.collectAsStateWithLifecycle()
     val progressMap by progressStore.progress.collectAsStateWithLifecycle()
+    val pendingUpgrade by viewModel.pendingUpgrade.collectAsStateWithLifecycle()
 
     Scaffold(
         topBar = {
@@ -167,6 +173,10 @@ fun ChannelInputScreen(
                 )
             }
 
+            item {
+                ProEntryCard(isPro = isPro, onOpen = onOpenPro)
+            }
+
             if (favoriteList.isNotEmpty()) {
                 item {
                     Text(
@@ -198,6 +208,67 @@ fun ChannelInputScreen(
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(bottom = 24.dp),
+                )
+            }
+        }
+    }
+
+    pendingUpgrade?.let { pending ->
+        AlertDialog(
+            onDismissRequest = viewModel::dismissPendingUpgrade,
+            title = { Text(stringResource(R.string.pro_limit_title)) },
+            text = {
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text(
+                        stringResource(
+                            R.string.pro_limit_body_format,
+                            pending.channel.title,
+                            pending.savedChannelTitle,
+                        )
+                    )
+                    Text(
+                        stringResource(R.string.pro_limit_replaceHint),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                    OutlinedButton(
+                        onClick = viewModel::replaceSavedChannel,
+                        modifier = Modifier.fillMaxWidth(),
+                    ) {
+                        Text(stringResource(R.string.pro_limit_replace))
+                    }
+                }
+            },
+            confirmButton = {
+                TextButton(onClick = {
+                    onOpenPro()
+                }) {
+                    Text(stringResource(R.string.pro_limit_upgrade))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = viewModel::dismissPendingUpgrade) {
+                    Text(stringResource(R.string.common_cancel))
+                }
+            },
+        )
+    }
+}
+
+/** Pro（複数チャンネル保存）への入口。無料のうちは案内、購入後は状態表示になる。 */
+@Composable
+private fun ProEntryCard(isPro: Boolean, onOpen: () -> Unit) {
+    Card(modifier = Modifier.fillMaxWidth().clickable(onClick = onOpen)) {
+        Column(Modifier.padding(12.dp)) {
+            Text(
+                stringResource(if (isPro) R.string.pro_owned else R.string.pro_entry_title),
+                style = MaterialTheme.typography.titleSmall,
+            )
+            if (!isPro) {
+                Text(
+                    stringResource(R.string.pro_entry_body),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
         }

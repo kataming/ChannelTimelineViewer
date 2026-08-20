@@ -1,6 +1,8 @@
 package com.deskflowlabs.channeltimelineviewer
 
 import android.content.Context
+import com.deskflowlabs.channeltimelineviewer.billing.ProBillingManager
+import com.deskflowlabs.channeltimelineviewer.billing.ProEntitlementStore
 import com.deskflowlabs.channeltimelineviewer.data.ChannelProgressStore
 import com.deskflowlabs.channeltimelineviewer.data.FavoriteChannelStore
 import com.deskflowlabs.channeltimelineviewer.data.PlaybackPositionStore
@@ -33,6 +35,10 @@ class AppContainer(context: Context) {
     val favorites = FavoriteChannelStore(prefs)
     val progress = ChannelProgressStore(prefs)
     val videoListCache = VideoListCache(prefs)
+
+    // 買い切り Pro（複数チャンネル保存）。正は Google Play 側の購入情報で、ここはその写し。
+    val proEntitlement = ProEntitlementStore(prefs)
+    val billing = ProBillingManager(context.applicationContext, proEntitlement)
 
     /** APIキーが設定されているか（未設定なら入力画面で警告を出す）。 */
     val isApiConfigured: Boolean get() = BuildConfig.YOUTUBE_API_KEY.isNotBlank()

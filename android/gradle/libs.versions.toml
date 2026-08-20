@@ -10,6 +10,8 @@ navigation = "2.8.5"
 coil = "2.7.0"
 okhttp = "4.12.0"
 serialization = "1.7.3"
+# Play Billing: 2026-08-31 以降の新規アプリ・更新は 8 以降が必須。9.x は compileSdk 35 が要る（本アプリは 35）。
+billing = "9.1.0"
 junit = "4.13.2"
 androidxJunit = "1.2.1"
 androidxTestCore = "1.6.1"
@@ -33,6 +35,7 @@ androidx-material-icons-extended = { group = "androidx.compose.material", name =
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
+billing = { group = "com.android.billingclient", name = "billing", version.ref = "billing" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serialization" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 robolectric = { group = "org.robolectric", name = "robolectric", version.ref = "robolectric" }

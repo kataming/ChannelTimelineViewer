@@ -71,6 +71,8 @@
 "channel.untitled" = "(No channel name)";
 /* クリップボードにURLが無いとき */
 "clipboard.notFound" = "No YouTube link was found on the clipboard. Paste a URL and try again.";
+/* 共通: キャンセル */
+"common.cancel" = "Cancel";
 /* 閉じる */
 "common.close" = "Close";
 /* 削除 */
@@ -275,6 +277,62 @@
 "player.status.skipped" = "Skipped (passed over during autoplay)";
 /* 未視聴のみ再生トグル */
 "player.unwatchedOnly" = "Play unwatched only";
+/* Pro の中心価値 */
+"pro.benefit.multiChannel" = "With Pro you can save multiple YouTube channels and track progress for each one.";
+/* 購入ボタン（価格が取れないとき） */
+"pro.buy" = "Buy (one-time)";
+/* 購入ボタン（%@ に価格） */
+"pro.buy.format" = "Buy for %@ (one-time)";
+/* ホームからPro画面へ入る行の説明 */
+"pro.entry.body" = "One-time purchase. The free version saves one channel.";
+/* ホームからPro画面へ入る行の見出し */
+"pro.entry.title" = "Save multiple channels (Pro)";
+/* 購入できなかった */
+"pro.error.failed" = "The purchase couldn’t be completed.";
+/* Google Play に繋がらない */
+"pro.error.unavailable" = "Couldn’t reach Google Play. Please try again later.";
+/* 無料版の説明 */
+"pro.free.summary" = "The free version lets you save one channel.";
+/* 無料でできることの本文（1チャンネル内は制限しない方針） */
+"pro.freeFeatures.body" = "Inside your saved channel everything works without limits: oldest or newest sorting, watched tracking, resume, jump buttons, notes, progress, and playback in the official player.";
+/* 無料でできることの見出し */
+"pro.freeFeatures.header" = "What you get for free";
+/* Pro 画面の見出し（買い切りであることを明示） */
+"pro.headline" = "A one-time purchase that unlocks saving multiple channels.";
+/* 保存上限の本文（%1$@=開こうとしたチャンネル %2$@=保存中のチャンネル） */
+"pro.limit.body.format" = "To open “%1$@”, replace the saved channel “%2$@” or get Pro.";
+/* 入れ替えるボタン */
+"pro.limit.replace" = "Replace";
+/* 入れ替えても記録は残ることの説明 */
+"pro.limit.replaceHint" = "Replacing keeps your watched history and progress. Save the old channel again and you can pick up where you left off.";
+/* 保存上限の案内タイトル */
+"pro.limit.title" = "You can save one channel";
+/* 上限の案内でProへ進むボタン */
+"pro.limit.upgrade" = "Get Pro";
+/* Pro の商品名（全言語共通） */
+"pro.name" = "Channel Timeline Viewer Pro";
+/* サブスクではないことの明示（購入画面に必須） */
+"pro.notSubscription" = "This is not a subscription.";
+/* アクセシビリティ: Pro画面を開く */
+"pro.open.a11y" = "Open Pro details";
+/* 購入済みの表示 */
+"pro.owned" = "You have Pro. Thank you.";
+/* 保留中の支払い */
+"pro.pending" = "Your payment is pending. Pro turns on automatically once it completes.";
+/* 価格取得中 */
+"pro.price.loading" = "Checking the price…";
+/* Pro で解放される機能の本文 */
+"pro.proFeatures.body" = "Save multiple channels, track progress per channel, manage your saved channel list, and get future advanced management features.";
+/* Pro で解放される機能の見出し */
+"pro.proFeatures.header" = "What Pro unlocks";
+/* 購入の復元ボタン */
+"pro.restore" = "Restore purchase";
+/* 復元できた */
+"pro.restore.done" = "Your purchase has been restored.";
+/* 復元の説明 */
+"pro.restore.hint" = "As long as you use the same Google account, you can restore it after reinstalling or switching devices.";
+/* 復元できる購入がなかった */
+"pro.restore.none" = "No purchase was found for this Google account.";
 /* 進捗の内訳（%1$@=視聴済み %2$@=総数 %3$@=割合） */
 "progress.count.format" = "%1$@ / %2$@ (%3$@%%)";
 /* 進捗 */

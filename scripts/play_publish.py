@@ -10,6 +10,7 @@ Play Console の画面で7言語ぶんを手入力するのは事故のもとな
   --mode details   ストアに公開される連絡先（メール・サイト）を反映
   --mode product   アプリ内アイテム（買い切りの Pro）を作成／更新
   --mode aab       署名済み AAB をアップロードして指定トラックに載せる
+  --mode promote   すでにアップロード済みのビルドを別トラック（既定は製品版）へ下書きで載せる
   --dry-run        送信せず、何をするかだけ表示する
 
 できないこと（Play Console の画面でしか設定できない）:
@@ -269,6 +270,76 @@ def upsert_product(api, dry_run: bool) -> int:
     return 0
 
 
+# 初回リリースの説明（Play のロケール名で持つ。500字まで）。
+RELEASE_NOTES = {
+    "ja-JP": "初回リリースです。チャンネルの投稿動画を公開日順（古い順）に並べ、"
+             "続きから再生・視聴済み管理・メモ・進捗表示で順番に見ていけます。"
+             "無料で1チャンネル、Pro（買い切り）で複数チャンネルを保存できます。",
+    "en-US": "First release. Line up a channel's uploads oldest first and work through them with "
+             "resume, watched tracking, notes, and progress. Save one channel for free, or "
+             "several with Pro (a one-time purchase).",
+    "zh-CN": "首个版本。将频道的投稿视频按发布日期从旧到新排列，可继续播放、管理已观看、"
+             "记录备注并查看进度。免费可保存 1 个频道，购买 Pro（一次性买断）可保存多个频道。",
+    "es-ES": "Primera versión. Ordena las subidas de un canal de la más antigua a la más reciente y "
+             "avanza con reanudación, control de vistos, notas y progreso. Guarda un canal gratis o "
+             "varios con Pro (compra única).",
+    "de-DE": "Erste Version. Sortiere die Uploads eines Kanals von den ältesten zu den neuesten und "
+             "arbeite dich mit Fortsetzen, Gesehen-Status, Notizen und Fortschritt durch. Ein Kanal "
+             "kostenlos, mehrere mit Pro (einmaliger Kauf).",
+    "fr-FR": "Première version. Classez les vidéos d'une chaîne de la plus ancienne à la plus récente "
+             "et avancez avec la reprise, le suivi des vidéos vues, les notes et la progression. "
+             "Une chaîne gratuitement, plusieurs avec Pro (achat unique).",
+    "ko-KR": "첫 번째 릴리스입니다. 채널의 업로드 영상을 오래된 순으로 정렬해 이어 보기, 시청 완료 관리, "
+             "메모, 진행률 표시와 함께 차례대로 볼 수 있습니다. 무료로 채널 1개, "
+             "Pro(1회 구매)로 여러 채널을 저장할 수 있습니다.",
+}
+
+
+def promote(api, track: str, version_code: str, release_name: str, dry_run: bool) -> int:
+    """アップロード済みのビルドを別トラックへ**下書き**として載せる。
+
+    公開・審査提出はしない（事故防止のため、最後の一押しは人がコンソールで行う）。
+    """
+    edits = api.edits()
+    edit_id = edits.insert(body={}, packageName=PACKAGE_NAME).execute()["id"]
+    try:
+        bundles = edits.bundles().list(
+            packageName=PACKAGE_NAME, editId=edit_id).execute().get("bundles", [])
+        available = sorted(str(b["versionCode"]) for b in bundles)
+        if not available:
+            raise SystemExit("アップロード済みのビルドがありません。")
+        target = version_code or available[-1]
+        if target not in available:
+            raise SystemExit(f"versionCode {target} は見つかりません（あるのは {available}）。")
+
+        if dry_run:
+            print(f"  [dry-run] versionCode {target} を {track} に下書きとして載せる")
+            return 0
+
+        edits.tracks().update(
+            packageName=PACKAGE_NAME, editId=edit_id, track=track,
+            body={
+                "track": track,
+                "releases": [{
+                    "name": release_name,
+                    "versionCodes": [target],
+                    "status": "draft",
+                    "releaseNotes": [
+                        {"language": locale, "text": text}
+                        for locale, text in RELEASE_NOTES.items()
+                    ],
+                }],
+            },
+        ).execute()
+        edits.commit(packageName=PACKAGE_NAME, editId=edit_id).execute()
+        print(f"  {track} に versionCode {target} を**下書き**で載せました。")
+        print("  Play Console で内容を確認し、「審査に送信」を押してください。")
+        return 0
+    except Exception:
+        edits.delete(packageName=PACKAGE_NAME, editId=edit_id).execute()
+        raise
+
+
 def upload_aab(api, aab_path: Path, track: str, release_name: str, dry_run: bool) -> int:
     if not aab_path.exists():
         raise SystemExit(f"AAB がありません: {aab_path}")
@@ -307,11 +378,12 @@ def upload_aab(api, aab_path: Path, track: str, release_name: str, dry_run: bool
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--mode", choices=["status", "listing", "details", "product", "aab"], default="status")
+    parser.add_argument("--mode", choices=["status", "listing", "details", "product", "promote", "aab"], default="status")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--aab", default="", help="--mode aab のときに使う AAB のパス")
     parser.add_argument("--track", default="internal", help="internal / alpha / beta / production")
     parser.add_argument("--release-name", default="1.0")
+    parser.add_argument("--version-code", default="", help="--mode promote で載せるビルド（既定は最新）")
     args = parser.parse_args()
 
     api = service()
@@ -324,6 +396,8 @@ def main() -> int:
             return push_details(api, args.dry_run)
         if args.mode == "product":
             return upsert_product(api, args.dry_run)
+        if args.mode == "promote":
+            return promote(api, args.track, args.version_code, args.release_name, args.dry_run)
         return upload_aab(api, Path(args.aab), args.track, args.release_name, args.dry_run)
     except HttpError as error:
         detail = error.content.decode("utf-8", errors="replace") if error.content else str(error)

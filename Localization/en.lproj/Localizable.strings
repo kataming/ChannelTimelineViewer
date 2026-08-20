@@ -149,6 +149,8 @@
 "input.section.footer" = "Share from the YouTube app or Safari and choose “%@” — then “Open shared link” appears on this screen. Channel and video URLs both work.";
 /* 見出し: チャンネルURL */
 "input.section.header" = "Channel URL";
+/* Android 版の共有の説明（%@ にアプリ名）。iOS 版とは動きが違うので別文言 */
+"input.share.android" = "Share from the YouTube app or a browser and choose “%@” — the channel's video list opens right away. Channel and video URLs both work.";
 /* 全部見終わったとき */
 "list.allWatched" = "You’ve watched everything 🎉";
 /* 保存済み一覧の案内（%@ に最終更新日時） */

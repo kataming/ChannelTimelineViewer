@@ -43,6 +43,13 @@ fun YouTubePlayerWebView(
         modifier = modifier,
         factory = { context ->
             WebView(context).apply {
+                // AndroidView の既定は WRAP_CONTENT。WebView は中身の高さが確定しないため
+                // 0 の高さで配置されることがあり、「音は出るのに何も見えない」状態になる。
+                // 置き場所（16:9 の枠）いっぱいに広げる。
+                layoutParams = android.view.ViewGroup.LayoutParams(
+                    android.view.ViewGroup.LayoutParams.MATCH_PARENT,
+                    android.view.ViewGroup.LayoutParams.MATCH_PARENT,
+                )
                 settings.javaScriptEnabled = true
                 settings.domStorageEnabled = true
                 // 自動再生・頭出しのために、ユーザー操作なしの再生を許可する
@@ -52,8 +59,6 @@ fun YouTubePlayerWebView(
                 // HTML5 の動画を描画するには WebChromeClient が要る。
                 // 未設定だと「音は出るのに画面が真っ黒」になる（Android の WebView の仕様）。
                 webChromeClient = WebChromeClient()
-                // 動画の描画にはハードウェアアクセラレーションが必要。
-                setLayerType(android.view.View.LAYER_TYPE_HARDWARE, null)
                 addJavascriptInterface(
                     PlayerBridge(onStateChange, onTimeUpdate, onOptions),
                     "ytAndroid",

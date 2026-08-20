@@ -1,0 +1,52 @@
+name: Play Metadata
+
+# Google Play のストア掲載情報（7言語のテキスト＋画像）を API で反映する。
+# 画面で7言語ぶんを手入力する代わりに、docs/PlayStore/ の原本から流し込む。
+#
+# 必要な Secret: GOOGLE_PLAY_SERVICE_ACCOUNT_JSON
+#   （Play Console の「ユーザーと権限」で、このアプリの「ストアでの表示の管理」権限が要る）
+#
+# データセーフティ・コンテンツのレーティング・広告の申告・価格は API では設定できないため、
+# 引き続き Play Console の画面で行う（docs/android-play-release-guide.md 参照）。
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: '動作（status=確認のみ / listing=掲載情報と画像を反映）'
+        type: choice
+        options: [status, listing]
+        default: status
+      dry_run:
+        description: '送信せず、何をするかだけ表示する'
+        type: boolean
+        default: true
+
+jobs:
+  metadata:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: 依存関係
+        run: pip install --quiet google-api-python-client google-auth
+
+      - name: 原本の検証（文字数）
+        run: python scripts/build_play_metadata.py --check
+
+      - name: Play へ問い合わせ / 反映
+        env:
+          GOOGLE_PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
+          MODE: ${{ inputs.mode }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          set -euo pipefail
+          ARGS="--mode $MODE"
+          if [ "$MODE" != "status" ] && [ "$DRY_RUN" = "true" ]; then
+            ARGS="$ARGS --dry-run"
+          fi
+          python scripts/play_publish.py $ARGS

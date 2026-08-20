@@ -224,11 +224,7 @@ fun VideoListScreen(
                 lastUpdatedAt?.let { updated ->
                     item {
                         Text(
-                            stringResource(
-                                R.string.list_cached_format,
-                                DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT)
-                                    .format(Date(updated * 1000)),
-                            ),
+                            stringResource(R.string.list_cached_format, formatDateTime(updated)),
                             modifier = Modifier.padding(horizontal = 16.dp),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -362,8 +358,7 @@ private fun VideoRow(
         Column(Modifier.weight(1f).padding(horizontal = 12.dp)) {
             Text(video.title, maxLines = 2, overflow = TextOverflow.Ellipsis)
             Text(
-                DateFormat.getDateInstance(DateFormat.MEDIUM)
-                    .format(Date(video.publishedAtEpochSeconds * 1000)),
+                formatDate(video.publishedAtEpochSeconds),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )

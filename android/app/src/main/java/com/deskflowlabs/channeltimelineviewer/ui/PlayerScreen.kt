@@ -232,8 +232,7 @@ fun PlayerScreen(
                 Text(
                     stringResource(
                         R.string.player_publishedwithposition_format,
-                        DateFormat.getDateInstance(DateFormat.LONG)
-                            .format(Date(video.publishedAtEpochSeconds * 1000)),
+                        formatDate(video.publishedAtEpochSeconds, DateFormat.LONG),
                         viewModel.positionText,
                     ),
                     style = MaterialTheme.typography.bodySmall,

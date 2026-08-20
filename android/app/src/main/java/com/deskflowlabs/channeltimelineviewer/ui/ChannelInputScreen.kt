@@ -225,8 +225,7 @@ private fun FavoriteRow(
                     Text(
                         stringResource(
                             R.string.favorites_lastopened_format,
-                            DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT)
-                                .format(Date(favorite.lastOpenedAtEpochSeconds * 1000)),
+                            formatDateTime(favorite.lastOpenedAtEpochSeconds),
                         ),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,

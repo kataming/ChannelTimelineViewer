@@ -1,0 +1,117 @@
+# -*- coding: utf-8 -*-
+"""つないだ Android 実機から、Google Play 用のスクリーンショットを言語別に撮る。
+
+アプリのデバッグビルドに入れてある「表示言語の切り替え」（`--es locale <言語>`）を使うので、
+端末の言語設定を変えずに7言語ぶんを撮れる。
+
+前提:
+  - USB デバッグを許可した端末が1台つながっている
+  - **CI でビルドした APK**（APIキー入り）が入っている
+  - 撮影に使うチャンネルを一度開いてキャッシュしてある（既定は NASA）
+
+使い方:
+    python scripts/capture_play_screenshots.py                # 全7言語
+    python scripts/capture_play_screenshots.py --locales ja   # 一部だけ
+出力:
+    docs/PlayStore/screenshots/<ロケール>/01-home.png ほか
+"""
+from __future__ import annotations
+
+import argparse
+import subprocess
+import sys
+import time
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+OUT_DIR = ROOT / "docs" / "PlayStore" / "screenshots"
+ADB = Path.home() / "AppData/Local/Android/Sdk/platform-tools/adb.exe"
+PACKAGE = "com.deskflowlabs.channeltimelineviewer"
+ACTIVITY = f"{PACKAGE}/.MainActivity"
+
+# 表示言語（アプリ内） → Play のロケール名
+LOCALES = {
+    "ja": "ja-JP",
+    "en": "en-US",
+    "zh-Hans": "zh-CN",
+    "es": "es-ES",
+    "de": "de-DE",
+    "fr": "fr-FR",
+    "ko": "ko-KR",
+}
+
+# 画面上の位置（720×1520 の端末で確認した値）。別解像度の端末では調整が要る。
+TAP_FAVORITE = (360, 1030)
+TAP_NEXT_ROW = (360, 393)
+
+
+def adb(*args: str, capture: bool = False) -> bytes:
+    command = [str(ADB), *args]
+    if capture:
+        return subprocess.run(command, capture_output=True, timeout=120).stdout
+    subprocess.run(command, capture_output=True, timeout=120)
+    return b""
+
+
+def screencap(path: Path) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_bytes(adb("exec-out", "screencap", "-p", capture=True))
+
+
+def capture_locale(app_locale: str, play_locale: str, channel_url: str) -> None:
+    out = OUT_DIR / play_locale
+    print(f"  {play_locale}: 撮影中…")
+
+    # アプリを止めてから、その言語で開き直す。
+    adb("shell", "am", "force-stop", PACKAGE)
+    time.sleep(1)
+    adb("shell", "am", "start", "-n", ACTIVITY, "--es", "locale", app_locale)
+    time.sleep(4)
+    screencap(out / "01-home.png")
+
+    # 最近使ったチャンネル → 一覧（キャッシュから即表示される）
+    adb("shell", "input", "tap", str(TAP_FAVORITE[0]), str(TAP_FAVORITE[1]))
+    time.sleep(6)
+    screencap(out / "02-list.png")
+
+    # 一覧 → 再生画面
+    adb("shell", "input", "tap", str(TAP_NEXT_ROW[0]), str(TAP_NEXT_ROW[1]))
+    time.sleep(14)
+    screencap(out / "03-player.png")
+
+    # 進捗が見える位置までスクロールして、もう1枚
+    adb("shell", "input", "swipe", "360", "1100", "360", "700", "300")
+    time.sleep(2)
+    screencap(out / "04-player-controls.png")
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--locales", default="", help="カンマ区切り（例 ja,en）。空なら全部")
+    parser.add_argument("--channel", default="https://www.youtube.com/@NASA",
+                        help="撮影に使うチャンネル（あらかじめ開いてキャッシュしておく）")
+    args = parser.parse_args()
+
+    if not ADB.exists():
+        print(f"adb が見つかりません: {ADB}")
+        return 1
+    devices = adb("devices", capture=True).decode(errors="replace")
+    if "\tdevice" not in devices:
+        print("端末がつながっていません（USB デバッグの許可も確認してください）")
+        return 1
+
+    wanted = [item.strip() for item in args.locales.split(",") if item.strip()] or list(LOCALES)
+    for app_locale in wanted:
+        play_locale = LOCALES.get(app_locale)
+        if play_locale is None:
+            print(f"  {app_locale}: 対応していない言語です")
+            continue
+        capture_locale(app_locale, play_locale, args.channel)
+
+    print(f"\n出力先: {OUT_DIR.relative_to(ROOT)}")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    sys.exit(main())

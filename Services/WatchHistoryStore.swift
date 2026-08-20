@@ -36,6 +36,14 @@ final class WatchHistoryStore: ObservableObject {
         }
     }
 
+    /// まとめて消す（チャンネルの記録を捨てるとき）。保存は一度だけ行う。
+    func removeAll(videoIds: [String]) {
+        guard !videoIds.isEmpty else { return }
+        var changed = false
+        for id in videoIds where entries.removeValue(forKey: id) != nil { changed = true }
+        if changed { save() }
+    }
+
     var watchedCount: Int { entries.count }
 
     /// 指定した videoId 群のうち視聴済みの本数（チャンネル進捗の計算に使う）。

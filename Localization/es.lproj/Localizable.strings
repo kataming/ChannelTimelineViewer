@@ -105,10 +105,12 @@
 "error.uploadsPlaylistNotFound" = "No se pudo obtener la lista de vídeos de este canal.";
 /* エラー: 動画から投稿チャンネルを特定できない */
 "error.videoNotFound" = "No se pudo identificar el canal de este vídeo.";
-/* 保存解除の確認ダイアログのタイトル */
-"favorites.delete.title" = "¿Dejar de guardar este canal?";
-/* 保存解除の警告（%@ にチャンネル名）。大きめ・太字・赤で出す */
-"favorites.delete.warning.format" = "Al dejar de guardarlo se eliminarán el historial de vistos, el progreso y las notas de «%@».";
+/* 削除実行のボタン */
+"favorites.delete.confirm" = "Eliminar";
+/* 削除確認のタイトル */
+"favorites.delete.title" = "¿Eliminar este canal?";
+/* 削除の警告（%@ にチャンネル名）。大きめ・太字・赤で出す */
+"favorites.delete.warning.format" = "Al eliminar este canal también se borran el historial de vistos, el progreso y las notas de «%@».";
 /* 最終利用日時（%@ に日時） */
 "favorites.lastOpened.format" = "Última vez: %@";
 /* 進捗（%1$@=視聴済み %2$@=総数 %3$@=割合） */
@@ -117,8 +119,8 @@
 "favorites.progressHint" = "El progreso aparece al abrir el canal.";
 /* 続きから見る */
 "favorites.resume" = "Continuar viendo";
-/* お気に入り一覧の説明 */
-"favorites.section.footer" = "Desliza una fila hacia la izquierda para quitar solo ese canal. El historial se conserva, así que el progreso vuelve al abrirlo de nuevo.";
+/* お気に入り一覧の脚注（削除で記録も消えることを断る） */
+"favorites.section.footer" = "Desliza una fila a la izquierda para eliminarla. Al eliminarla también se borran su historial de vistos, progreso y notas.";
 /* Android のお気に入り一覧の脚注。削除で記録も消えることを断る */
 "favorites.section.footer.android" = "Usa el botón de papelera para dejar de guardar un canal. Al hacerlo también se eliminan su historial de vistos, progreso y notas.";
 /* 見出し: 最近使ったチャンネル */
@@ -289,6 +291,12 @@
 "pro.buy" = "Comprar (pago único)";
 /* 購入ボタン（%@ に価格） */
 "pro.buy.format" = "Comprar por %@ (pago único)";
+/* Pro失効の説明 */
+"pro.disabled.body" = "La versión gratuita permite usar un canal. Elige cuál seguirás usando gratis. Los canales bloqueados conservan su historial, progreso y notas. Vuelve a comprar Pro para usarlos todos.";
+/* 使うチャンネルを選ぶ導線 */
+"pro.disabled.choose" = "Elegir el canal gratuito";
+/* Pro失効の見出し */
+"pro.disabled.title" = "Pro ya no está activo";
 /* ホームからPro画面へ入る行の説明 */
 "pro.entry.body" = "Compra única. La versión gratuita guarda un canal.";
 /* ホームからPro画面へ入る行の見出し */
@@ -323,10 +331,14 @@
 "pro.locked.body.format" = "La versión gratuita permite usar un canal. Si cambias a «%1$@», «%2$@» dejará de estar disponible. No se borra ningún registro.";
 /* ロック中のチャンネルがあるときの案内 */
 "pro.locked.hint" = "Compra Pro para volver a usar todos los canales guardados, con los registros intactos.";
+/* ロック中のチャンネルを開こうとしたときの説明 */
+"pro.locked.open.body" = "Este canal está bloqueado. Como Pro ya no está activo, la versión gratuita permite un canal. Vuelve a comprar Pro para continuar con tu historial, progreso y notas intactos.";
 /* 切り替えるボタン */
 "pro.locked.switch" = "Cambiar a este canal";
 /* ロックされたチャンネルを開こうとしたときのタイトル */
 "pro.locked.title" = "Pro no está activo";
+/* このチャンネルを無料枠にする */
+"pro.locked.useThis" = "Usar este canal gratis";
 /* Pro の商品名（全言語共通） */
 "pro.name" = "Channel Timeline Viewer Pro";
 /* サブスクではないことの明示（購入画面に必須） */

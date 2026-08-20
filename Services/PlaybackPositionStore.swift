@@ -65,6 +65,14 @@ final class PlaybackPositionStore: ObservableObject {
         save()
     }
 
+    /// まとめて消す（チャンネルの記録を捨てるとき）。
+    func removeAll(videoIds: [String]) {
+        guard !videoIds.isEmpty else { return }
+        var changed = false
+        for id in videoIds where positions.removeValue(forKey: id) != nil { changed = true }
+        if changed { save() }
+    }
+
     func clearAll() {
         positions = [:]
         save()

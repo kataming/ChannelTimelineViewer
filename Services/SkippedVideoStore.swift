@@ -40,6 +40,14 @@ final class SkippedVideoStore: ObservableObject {
         }
     }
 
+    /// まとめて消す（チャンネルの記録を捨てるとき）。
+    func removeAll(videoIds: [String]) {
+        guard !videoIds.isEmpty else { return }
+        var changed = false
+        for id in videoIds where entries.removeValue(forKey: id) != nil { changed = true }
+        if changed { save() }
+    }
+
     var skippedCount: Int { entries.count }
 
     /// 指定した videoId 群のうちスキップ指定の本数。

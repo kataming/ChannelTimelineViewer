@@ -12,6 +12,10 @@ struct ChannelTimelineViewerApp: App {
     // 続きから再生用の再生位置と、再生の挙動設定。
     @StateObject private var positionStore = PlaybackPositionStore()
     @StateObject private var playbackSettings = PlaybackSettingsStore()
+    // 買い切り Pro（複数チャンネル保存）。正は StoreKit の entitlement で、端末内はその写し。
+    @StateObject private var proStore = ProEntitlementStore()
+    // Pro が無効なときに「無料で使う1チャンネル」を覚える。
+    @StateObject private var activeChannelStore = ActiveChannelStore()
     // 通知タップ（共有シートからのワンタップ起動）を受け取る。
     @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     // 共有シート（Share Extension）から渡された YouTube URL の受け口。
@@ -32,6 +36,8 @@ struct ChannelTimelineViewerApp: App {
                 .environmentObject(memoStore)
                 .environmentObject(positionStore)
                 .environmentObject(playbackSettings)
+                .environmentObject(proStore)
+                .environmentObject(activeChannelStore)
                 .environmentObject(sharedLinkRouter)
                 .environmentObject(clipboardDetector)
                 .environmentObject(notificationPermission)

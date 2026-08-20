@@ -33,6 +33,14 @@ final class VideoMemoStore: ObservableObject {
         save()
     }
 
+    /// まとめて消す（チャンネルの記録を捨てるとき）。
+    func removeAll(videoIds: [String]) {
+        guard !videoIds.isEmpty else { return }
+        var changed = false
+        for id in videoIds where memos.removeValue(forKey: id) != nil { changed = true }
+        if changed { save() }
+    }
+
     // MARK: - Persistence
 
     private func load() {

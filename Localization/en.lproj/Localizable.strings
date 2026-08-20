@@ -105,10 +105,12 @@
 "error.uploadsPlaylistNotFound" = "Couldn’t load the video list for this channel.";
 /* エラー: 動画から投稿チャンネルを特定できない */
 "error.videoNotFound" = "Couldn’t identify the channel for this video.";
-/* 保存解除の確認ダイアログのタイトル */
-"favorites.delete.title" = "Unsave this channel?";
-/* 保存解除の警告（%@ にチャンネル名）。大きめ・太字・赤で出す */
-"favorites.delete.warning.format" = "Unsaving deletes the watched history, progress, and notes of “%@”.";
+/* 削除実行のボタン */
+"favorites.delete.confirm" = "Delete";
+/* 削除確認のタイトル */
+"favorites.delete.title" = "Delete this channel?";
+/* 削除の警告（%@ にチャンネル名）。大きめ・太字・赤で出す */
+"favorites.delete.warning.format" = "Deleting this channel also deletes the watched history, progress, and notes of “%@”.";
 /* 最終利用日時（%@ に日時） */
 "favorites.lastOpened.format" = "Last opened: %@";
 /* 進捗（%1$@=視聴済み %2$@=総数 %3$@=割合） */
@@ -117,8 +119,8 @@
 "favorites.progressHint" = "Progress appears once you open the channel.";
 /* 続きから見る */
 "favorites.resume" = "Continue watching";
-/* お気に入り一覧の説明 */
-"favorites.section.footer" = "Swipe a row left to remove just that channel. Your watch history is kept, so progress returns when you open it again.";
+/* お気に入り一覧の脚注（削除で記録も消えることを断る） */
+"favorites.section.footer" = "Swipe a row left to delete it. Deleting also removes that channel’s watched history, progress, and notes.";
 /* Android のお気に入り一覧の脚注。削除で記録も消えることを断る */
 "favorites.section.footer.android" = "Use the trash button to unsave a channel. Unsaving also deletes its watched history, progress, and notes.";
 /* 見出し: 最近使ったチャンネル */
@@ -289,6 +291,12 @@
 "pro.buy" = "Buy (one-time)";
 /* 購入ボタン（%@ に価格） */
 "pro.buy.format" = "Buy for %@ (one-time)";
+/* Pro失効の説明 */
+"pro.disabled.body" = "The free version lets you use one channel. Choose which channel to keep using for free. Locked channels keep their watched history, progress, and notes. Buy Pro again to use every channel.";
+/* 使うチャンネルを選ぶ導線 */
+"pro.disabled.choose" = "Choose the channel to keep free";
+/* Pro失効の見出し */
+"pro.disabled.title" = "Pro is no longer active";
 /* ホームからPro画面へ入る行の説明 */
 "pro.entry.body" = "One-time purchase. The free version saves one channel.";
 /* ホームからPro画面へ入る行の見出し */
@@ -323,10 +331,14 @@
 "pro.locked.body.format" = "The free version lets you use one channel. Switching to “%1$@” makes “%2$@” unavailable. Neither channel’s records are deleted.";
 /* ロック中のチャンネルがあるときの案内 */
 "pro.locked.hint" = "Buy Pro to use every saved channel again, with all records intact.";
+/* ロック中のチャンネルを開こうとしたときの説明 */
+"pro.locked.open.body" = "This channel is locked. Pro is no longer active, so the free version allows one channel. Buy Pro again to continue with all your watched history, progress, and notes intact.";
 /* 切り替えるボタン */
 "pro.locked.switch" = "Switch to this channel";
 /* ロックされたチャンネルを開こうとしたときのタイトル */
 "pro.locked.title" = "Pro is not active";
+/* このチャンネルを無料枠にする */
+"pro.locked.useThis" = "Use this channel for free";
 /* Pro の商品名（全言語共通） */
 "pro.name" = "Channel Timeline Viewer Pro";
 /* サブスクではないことの明示（購入画面に必須） */

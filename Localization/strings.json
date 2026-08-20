@@ -1090,14 +1090,14 @@
     "ko": "왼쪽으로 밀어 삭제"
   },
   "favorites.section.footer": {
-    "comment": "お気に入り一覧の説明",
-    "ja": "行を左にスワイプすると、その1件だけを削除できます。視聴済みの記録は残るので、開き直せば進捗も戻ります。",
-    "en": "Swipe a row left to remove just that channel. Your watch history is kept, so progress returns when you open it again.",
-    "zh-Hans": "向左滑动某一行即可只删除该频道。观看记录会保留，重新打开后进度仍在。",
-    "es": "Desliza una fila hacia la izquierda para quitar solo ese canal. El historial se conserva, así que el progreso vuelve al abrirlo de nuevo.",
-    "de": "Wische eine Zeile nach links, um nur diesen Kanal zu entfernen. Der Verlauf bleibt erhalten – beim erneuten Öffnen ist der Fortschritt wieder da.",
-    "fr": "Balayez une ligne vers la gauche pour retirer uniquement cette chaîne. L’historique est conservé : la progression revient à la réouverture.",
-    "ko": "행을 왼쪽으로 밀면 해당 채널만 삭제됩니다. 시청 기록은 남으므로 다시 열면 진행률도 복원됩니다."
+    "comment": "お気に入り一覧の脚注（削除で記録も消えることを断る）",
+    "ja": "行を左にスワイプすると削除できます。削除すると、そのチャンネルの視聴済み・進捗・メモも削除されます。",
+    "en": "Swipe a row left to delete it. Deleting also removes that channel’s watched history, progress, and notes.",
+    "zh-Hans": "向左滑动可删除。删除时会同时删除该频道的已观看记录、进度和备注。",
+    "es": "Desliza una fila a la izquierda para eliminarla. Al eliminarla también se borran su historial de vistos, progreso y notas.",
+    "de": "Wische eine Zeile nach links, um sie zu löschen. Dabei werden auch Gesehen-Status, Fortschritt und Notizen des Kanals gelöscht.",
+    "fr": "Balayez une ligne vers la gauche pour la supprimer. Cela efface aussi l’historique, la progression et les notes de la chaîne.",
+    "ko": "행을 왼쪽으로 밀면 삭제할 수 있습니다. 삭제하면 해당 채널의 시청 기록·진행 상황·메모도 삭제됩니다."
   },
   "disclaimer.short": {
     "comment": "画面下部の注意書き",
@@ -1940,24 +1940,24 @@
     "ko": "휴지통 버튼으로 저장을 해제할 수 있습니다. 해제하면 해당 채널의 시청 기록·진행 상황·메모도 삭제됩니다."
   },
   "favorites.delete.title": {
-    "comment": "保存解除の確認ダイアログのタイトル",
-    "ja": "このチャンネルの保存を解除しますか？",
-    "en": "Unsave this channel?",
-    "zh-Hans": "要取消保存该频道吗？",
-    "es": "¿Dejar de guardar este canal?",
-    "de": "Diesen Kanal nicht mehr speichern?",
-    "fr": "Retirer cette chaîne des enregistrements ?",
-    "ko": "이 채널의 저장을 해제할까요?"
+    "comment": "削除確認のタイトル",
+    "ja": "このチャンネルを削除しますか？",
+    "en": "Delete this channel?",
+    "zh-Hans": "要删除该频道吗？",
+    "es": "¿Eliminar este canal?",
+    "de": "Diesen Kanal löschen?",
+    "fr": "Supprimer cette chaîne ?",
+    "ko": "이 채널을 삭제할까요?"
   },
   "favorites.delete.warning.format": {
-    "comment": "保存解除の警告（%@ にチャンネル名）。大きめ・太字・赤で出す",
-    "ja": "解除すると「%@」の視聴済み・進捗・メモは削除されます。",
-    "en": "Unsaving deletes the watched history, progress, and notes of “%@”.",
-    "zh-Hans": "取消保存将删除“%@”的已观看记录、进度和备注。",
-    "es": "Al dejar de guardarlo se eliminarán el historial de vistos, el progreso y las notas de «%@».",
-    "de": "Beim Aufheben werden Gesehen-Status, Fortschritt und Notizen von „%@“ gelöscht.",
-    "fr": "Le retrait supprime l’historique, la progression et les notes de « %@ ».",
-    "ko": "해제하면 「%@」의 시청 기록·진행 상황·메모가 삭제됩니다."
+    "comment": "削除の警告（%@ にチャンネル名）。大きめ・太字・赤で出す",
+    "ja": "このチャンネルを削除すると、「%@」の視聴済み・進捗・メモも削除されます。",
+    "en": "Deleting this channel also deletes the watched history, progress, and notes of “%@”.",
+    "zh-Hans": "删除该频道会同时删除“%@”的已观看记录、进度和备注。",
+    "es": "Al eliminar este canal también se borran el historial de vistos, el progreso y las notas de «%@».",
+    "de": "Wenn du diesen Kanal löschst, werden auch Gesehen-Status, Fortschritt und Notizen von „%@“ gelöscht.",
+    "fr": "La suppression de cette chaîne efface aussi l’historique, la progression et les notes de « %@ ».",
+    "ko": "이 채널을 삭제하면 「%@」의 시청 기록·진행 상황·메모도 삭제됩니다."
   },
   "pro.locked.badge": {
     "comment": "一覧でロック中を示すラベル",
@@ -2008,5 +2008,65 @@
     "de": "Mit Pro kannst du alle gespeicherten Kanäle wieder nutzen – mit allen Aufzeichnungen.",
     "fr": "Achetez Pro pour réutiliser toutes les chaînes enregistrées, avec toutes les données.",
     "ko": "Pro를 구매하면 저장한 모든 채널을 기록 그대로 다시 사용할 수 있습니다."
+  },
+  "favorites.delete.confirm": {
+    "comment": "削除実行のボタン",
+    "ja": "削除する",
+    "en": "Delete",
+    "zh-Hans": "删除",
+    "es": "Eliminar",
+    "de": "Löschen",
+    "fr": "Supprimer",
+    "ko": "삭제"
+  },
+  "pro.disabled.title": {
+    "comment": "Pro失効の見出し",
+    "ja": "Proが無効になりました",
+    "en": "Pro is no longer active",
+    "zh-Hans": "Pro 已失效",
+    "es": "Pro ya no está activo",
+    "de": "Pro ist nicht mehr aktiv",
+    "fr": "Pro n’est plus actif",
+    "ko": "Pro가 비활성화되었습니다"
+  },
+  "pro.disabled.body": {
+    "comment": "Pro失効の説明",
+    "ja": "無料版では1チャンネルのみ利用できます。どのチャンネルを無料で使い続けるか選んでください。ロックされたチャンネルの視聴済み・進捗・メモは削除されません。Proを再購入すると、すべてのチャンネルを再び利用できます。",
+    "en": "The free version lets you use one channel. Choose which channel to keep using for free. Locked channels keep their watched history, progress, and notes. Buy Pro again to use every channel.",
+    "zh-Hans": "免费版只能使用 1 个频道。请选择继续免费使用的频道。被锁定频道的已观看记录、进度和备注不会被删除。重新购买 Pro 后可再次使用全部频道。",
+    "es": "La versión gratuita permite usar un canal. Elige cuál seguirás usando gratis. Los canales bloqueados conservan su historial, progreso y notas. Vuelve a comprar Pro para usarlos todos.",
+    "de": "In der kostenlosen Version kannst du einen Kanal nutzen. Wähle, welchen du kostenlos weiter nutzt. Gesperrte Kanäle behalten Gesehen-Status, Fortschritt und Notizen. Kaufe Pro erneut, um alle zu nutzen.",
+    "fr": "La version gratuite permet d’utiliser une chaîne. Choisissez celle que vous gardez gratuitement. Les chaînes verrouillées conservent leur historique, progression et notes. Rachetez Pro pour toutes les réutiliser.",
+    "ko": "무료 버전에서는 채널 1개만 사용할 수 있습니다. 무료로 계속 사용할 채널을 선택하세요. 잠긴 채널의 시청 기록·진행 상황·메모는 삭제되지 않습니다. Pro를 다시 구매하면 모든 채널을 사용할 수 있습니다."
+  },
+  "pro.disabled.choose": {
+    "comment": "使うチャンネルを選ぶ導線",
+    "ja": "無料で使う1チャンネルを選ぶ",
+    "en": "Choose the channel to keep free",
+    "zh-Hans": "选择免费使用的 1 个频道",
+    "es": "Elegir el canal gratuito",
+    "de": "Kostenlosen Kanal wählen",
+    "fr": "Choisir la chaîne gratuite",
+    "ko": "무료로 사용할 채널 선택"
+  },
+  "pro.locked.open.body": {
+    "comment": "ロック中のチャンネルを開こうとしたときの説明",
+    "ja": "このチャンネルはロックされています。Proが無効になったため、無料版では1チャンネルのみ利用できます。Proを再購入すると、視聴済み・進捗・メモを残したまま再開できます。",
+    "en": "This channel is locked. Pro is no longer active, so the free version allows one channel. Buy Pro again to continue with all your watched history, progress, and notes intact.",
+    "zh-Hans": "该频道已锁定。由于 Pro 已失效，免费版只能使用 1 个频道。重新购买 Pro 后可保留已观看记录、进度和备注继续使用。",
+    "es": "Este canal está bloqueado. Como Pro ya no está activo, la versión gratuita permite un canal. Vuelve a comprar Pro para continuar con tu historial, progreso y notas intactos.",
+    "de": "Dieser Kanal ist gesperrt. Da Pro nicht mehr aktiv ist, erlaubt die kostenlose Version einen Kanal. Kaufe Pro erneut, um mit allen Aufzeichnungen weiterzumachen.",
+    "fr": "Cette chaîne est verrouillée. Pro n’étant plus actif, la version gratuite permet une chaîne. Rachetez Pro pour reprendre avec votre historique, votre progression et vos notes.",
+    "ko": "이 채널은 잠겨 있습니다. Pro가 비활성화되어 무료 버전에서는 채널 1개만 사용할 수 있습니다. Pro를 다시 구매하면 시청 기록·진행 상황·메모를 그대로 유지한 채 이어갈 수 있습니다."
+  },
+  "pro.locked.useThis": {
+    "comment": "このチャンネルを無料枠にする",
+    "ja": "このチャンネルを無料で使う",
+    "en": "Use this channel for free",
+    "zh-Hans": "免费使用该频道",
+    "es": "Usar este canal gratis",
+    "de": "Diesen Kanal kostenlos nutzen",
+    "fr": "Utiliser cette chaîne gratuitement",
+    "ko": "이 채널을 무료로 사용"
   }
 }

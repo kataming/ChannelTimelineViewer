@@ -30,7 +30,11 @@ struct RemoteThumbnail: View {
 struct FavoriteChannelsView: View {
     @EnvironmentObject private var favoriteStore: FavoriteChannelStore
     @EnvironmentObject private var progressStore: ChannelProgressStore
+    /// いま開けるチャンネル。ここに無いものはロック表示にする（Pro 失効時のみ起きる）。
+    var usableChannelIds: Set<String>
     var onSelect: (FavoriteChannel) -> Void
+    /// 削除は必ず確認を挟む（記録も消えるため）。
+    var onAskDelete: (FavoriteChannel) -> Void
 
     var body: some View {
         ForEach(favoriteStore.favorites) { favorite in
@@ -45,6 +49,11 @@ struct FavoriteChannelsView: View {
                                 .font(.body)
                                 .foregroundStyle(.primary)
                                 .lineLimit(1)
+                            if !usableChannelIds.contains(favorite.id) {
+                                Label("pro.locked.badge", systemImage: "lock.fill")
+                                    .font(.caption2.bold())
+                                    .foregroundStyle(.red)
+                            }
                             Text(String(format: String(localized: "favorites.lastOpened.format"),
                                         favorite.lastOpenedAt.formatted(date: .abbreviated, time: .shortened)))
                                 .font(.caption)
@@ -64,24 +73,17 @@ struct FavoriteChannelsView: View {
             // 1件ずつ消す導線（左スワイプ）。分かるように Section の footer で案内している。
             .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                 Button(role: .destructive) {
-                    remove(favorite)
+                    onAskDelete(favorite)
                 } label: {
                     Label(String(localized: "common.delete"), systemImage: "trash")
                 }
             }
         }
         .onDelete { offsets in
-            // 編集モード（EditButton）からの削除。
-            let targets = offsets.map { favoriteStore.favorites[$0] }
-            targets.forEach { remove($0) }
+            // 編集モード（EditButton）からの削除。まとめ消しはせず、1件ずつ確認する。
+            guard let first = offsets.map({ favoriteStore.favorites[$0] }).first else { return }
+            onAskDelete(first)
         }
-    }
-
-    /// 一覧から1件消す。視聴済みの記録（動画単位）は残し、チャンネルの進捗キャッシュだけ消す。
-    /// 同じチャンネルを開き直せば、視聴済みから進捗は再計算される。
-    private func remove(_ favorite: FavoriteChannel) {
-        favoriteStore.remove(favorite.id)
-        progressStore.remove(favorite.id)
     }
 
     @ViewBuilder

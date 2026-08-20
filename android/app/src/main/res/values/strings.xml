@@ -287,12 +287,16 @@
     <string name="pro_limit_body_format">To open “%1$s”, replace the saved channel “%2$s” or get Pro.</string>
     <!-- 入れ替えるボタン -->
     <string name="pro_limit_replace">Replace</string>
-    <!-- 入れ替えても記録は残ることの説明 -->
-    <string name="pro_limit_replacehint">Replacing keeps your watched history and progress. Save the old channel again and you can pick up where you left off.</string>
+    <!-- 入れ替えで記録が消えることの補足 -->
+    <string name="pro_limit_replacehint">Erased records cannot be recovered. With Pro you keep both channels saved, each with its own progress.</string>
     <!-- 保存上限の案内タイトル -->
     <string name="pro_limit_title">You can save one channel</string>
     <!-- 上限の案内でProへ進むボタン -->
     <string name="pro_limit_upgrade">Get Pro</string>
+    <!-- 上限の案内から Pro の説明画面へ進むボタン -->
+    <string name="pro_limit_viewpro">See what Pro includes</string>
+    <!-- 入れ替えの警告（%@ に外れるチャンネル名）。大きめの文字で目立たせる -->
+    <string name="pro_limit_warning_format">Replacing erases all watched history, progress, and notes for “%s”</string>
     <!-- Pro の商品名（全言語共通） -->
     <string name="pro_name">Channel Timeline Viewer Pro</string>
     <!-- サブスクではないことの明示（購入画面に必須） -->
@@ -306,7 +310,7 @@
     <!-- 価格取得中 -->
     <string name="pro_price_loading">Checking the price…</string>
     <!-- Pro で解放される機能の本文 -->
-    <string name="pro_profeatures_body">Save multiple channels, track progress per channel, manage your saved channel list, and get future advanced management features.</string>
+    <string name="pro_profeatures_body">Save multiple channels, track progress per channel, and manage your saved list. You never have to replace a channel, so watched history, progress, and notes are never erased. Future advanced management features are included.</string>
     <!-- Pro で解放される機能の見出し -->
     <string name="pro_profeatures_header">What Pro unlocks</string>
     <!-- 購入の復元ボタン -->

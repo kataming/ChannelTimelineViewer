@@ -3,6 +3,7 @@ package com.deskflowlabs.channeltimelineviewer
 import android.content.Context
 import com.deskflowlabs.channeltimelineviewer.billing.ProBillingManager
 import com.deskflowlabs.channeltimelineviewer.billing.ProEntitlementStore
+import com.deskflowlabs.channeltimelineviewer.data.ChannelDataRemover
 import com.deskflowlabs.channeltimelineviewer.data.ChannelProgressStore
 import com.deskflowlabs.channeltimelineviewer.data.FavoriteChannelStore
 import com.deskflowlabs.channeltimelineviewer.data.PlaybackPositionStore
@@ -35,6 +36,17 @@ class AppContainer(context: Context) {
     val favorites = FavoriteChannelStore(prefs)
     val progress = ChannelProgressStore(prefs)
     val videoListCache = VideoListCache(prefs)
+
+    // 無料の枠で「入れ替える」を選んだときに、外すチャンネルの記録ごと消す。
+    val channelDataRemover = ChannelDataRemover(
+        favorites = favorites,
+        progress = progress,
+        videoListCache = videoListCache,
+        watchStore = watchStore,
+        skipStore = skipStore,
+        memoStore = memoStore,
+        positionStore = positionStore,
+    )
 
     // 買い切り Pro（複数チャンネル保存）。正は Google Play 側の購入情報で、ここはその写し。
     val proEntitlement = ProEntitlementStore(prefs)

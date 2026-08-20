@@ -303,12 +303,16 @@
 "pro.limit.body.format" = "To open “%1$@”, replace the saved channel “%2$@” or get Pro.";
 /* 入れ替えるボタン */
 "pro.limit.replace" = "Replace";
-/* 入れ替えても記録は残ることの説明 */
-"pro.limit.replaceHint" = "Replacing keeps your watched history and progress. Save the old channel again and you can pick up where you left off.";
+/* 入れ替えで記録が消えることの補足 */
+"pro.limit.replaceHint" = "Erased records cannot be recovered. With Pro you keep both channels saved, each with its own progress.";
 /* 保存上限の案内タイトル */
 "pro.limit.title" = "You can save one channel";
 /* 上限の案内でProへ進むボタン */
 "pro.limit.upgrade" = "Get Pro";
+/* 上限の案内から Pro の説明画面へ進むボタン */
+"pro.limit.viewPro" = "See what Pro includes";
+/* 入れ替えの警告（%@ に外れるチャンネル名）。大きめの文字で目立たせる */
+"pro.limit.warning.format" = "Replacing erases all watched history, progress, and notes for “%@”";
 /* Pro の商品名（全言語共通） */
 "pro.name" = "Channel Timeline Viewer Pro";
 /* サブスクではないことの明示（購入画面に必須） */
@@ -322,7 +326,7 @@
 /* 価格取得中 */
 "pro.price.loading" = "Checking the price…";
 /* Pro で解放される機能の本文 */
-"pro.proFeatures.body" = "Save multiple channels, track progress per channel, manage your saved channel list, and get future advanced management features.";
+"pro.proFeatures.body" = "Save multiple channels, track progress per channel, and manage your saved list. You never have to replace a channel, so watched history, progress, and notes are never erased. Future advanced management features are included.";
 /* Pro で解放される機能の見出し */
 "pro.proFeatures.header" = "What Pro unlocks";
 /* 購入の復元ボタン */

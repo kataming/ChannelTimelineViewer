@@ -3,6 +3,7 @@ package com.deskflowlabs.channeltimelineviewer.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.deskflowlabs.channeltimelineviewer.billing.ChannelSlotPolicy
+import com.deskflowlabs.channeltimelineviewer.data.ChannelDataRemover
 import com.deskflowlabs.channeltimelineviewer.data.FavoriteChannelStore
 import com.deskflowlabs.channeltimelineviewer.model.Channel
 import com.deskflowlabs.channeltimelineviewer.network.YouTubeApiClient
@@ -25,6 +26,7 @@ class ChannelInputViewModel(
     private val api: YouTubeApiClient,
     private val favorites: FavoriteChannelStore,
     private val isPro: StateFlow<Boolean>,
+    private val dataRemover: ChannelDataRemover,
 ) : ViewModel() {
 
     /** 保存上限に当たったチャンネルと、いま保存しているチャンネル名。 */
@@ -87,12 +89,15 @@ class ChannelInputViewModel(
 
     /**
      * 保存中のチャンネルを外して、新しいチャンネルに入れ替える。
-     * 視聴済み・進捗・メモ・再生位置は消さないので、戻せば続きから見られる。
+     *
+     * **外したチャンネルの視聴済み・進捗・メモ・再生位置はすべて消える**（元に戻せない）。
+     * 画面で警告してから呼ぶこと。消さずに複数を持ちたい場合が Pro。
      */
     fun replaceSavedChannel() {
         val pending = _pendingUpgrade.value?.channel ?: return
         val savedNewestFirst = favorites.favorites.value.map { it.id }
-        ChannelSlotPolicy.idsToRemoveForReplacement(savedNewestFirst).forEach(favorites::remove)
+        ChannelSlotPolicy.idsToRemoveForReplacement(savedNewestFirst)
+            .forEach(dataRemover::removeChannel)
         _pendingUpgrade.value = null
         openResolved(pending)
     }
@@ -117,9 +122,14 @@ class ChannelInputViewModel(
             openResolved(channel)
             return
         }
+        // 警告に出す名前は「実際に外れるチャンネル」。以前から複数保存している人は
+        // 複数まとめて外れるので、その全部を並べる（消える範囲を偽らないため）。
+        val leaving = ChannelSlotPolicy.idsToRemoveForReplacement(saved.map { it.id }).toSet()
         _pendingUpgrade.value = PendingUpgrade(
             channel = channel,
-            savedChannelTitle = saved.firstOrNull()?.title.orEmpty(),
+            savedChannelTitle = saved.filter { it.id in leaving }
+                .joinToString("、") { it.title }
+                .ifEmpty { saved.firstOrNull()?.title.orEmpty() },
         )
     }
 

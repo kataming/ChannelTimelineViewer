@@ -303,12 +303,16 @@
 "pro.limit.body.format" = "Pour ouvrir « %1$@ », remplacez la chaîne enregistrée « %2$@ » ou passez à Pro.";
 /* 入れ替えるボタン */
 "pro.limit.replace" = "Remplacer";
-/* 入れ替えても記録は残ることの説明 */
-"pro.limit.replaceHint" = "Le remplacement conserve l’historique et la progression. Réenregistrez l’ancienne chaîne pour reprendre où vous en étiez.";
+/* 入れ替えで記録が消えることの補足 */
+"pro.limit.replaceHint" = "Les données effacées sont irrécupérables. Avec Pro, vous gardez les deux chaînes enregistrées, chacune avec sa progression.";
 /* 保存上限の案内タイトル */
 "pro.limit.title" = "Vous pouvez enregistrer une chaîne";
 /* 上限の案内でProへ進むボタン */
 "pro.limit.upgrade" = "Passer à Pro";
+/* 上限の案内から Pro の説明画面へ進むボタン */
+"pro.limit.viewPro" = "Voir ce que Pro inclut";
+/* 入れ替えの警告（%@ に外れるチャンネル名）。大きめの文字で目立たせる */
+"pro.limit.warning.format" = "Le remplacement efface tout l’historique, la progression et les notes de « %@ »";
 /* Pro の商品名（全言語共通） */
 "pro.name" = "Channel Timeline Viewer Pro";
 /* サブスクではないことの明示（購入画面に必須） */
@@ -322,7 +326,7 @@
 /* 価格取得中 */
 "pro.price.loading" = "Vérification du prix…";
 /* Pro で解放される機能の本文 */
-"pro.proFeatures.body" = "Enregistrez plusieurs chaînes, suivez la progression de chacune, gérez votre liste de chaînes enregistrées, et profitez des futures fonctions de gestion avancées.";
+"pro.proFeatures.body" = "Enregistrez plusieurs chaînes, suivez la progression de chacune et gérez votre liste. Plus besoin de remplacer une chaîne : l’historique, la progression et les notes ne sont jamais effacés. Les futures fonctions avancées sont incluses.";
 /* Pro で解放される機能の見出し */
 "pro.proFeatures.header" = "Ce que débloque Pro";
 /* 購入の復元ボタン */

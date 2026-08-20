@@ -52,6 +52,14 @@ class WatchHistoryStore(private val prefs: SharedPreferences) {
         if (isWatched(videoId)) markUnwatched(videoId) else markWatched(videoId)
     }
 
+    /** まとめて消す（チャンネルの記録を捨てるとき）。 */
+    fun removeAll(videoIds: Collection<String>) {
+        if (videoIds.isEmpty()) return
+        val ids = videoIds.toSet()
+        val next = _watched.value.filterKeys { it !in ids }
+        if (next.size != _watched.value.size) update(next)
+    }
+
     /** 一覧のうち視聴済みの本数。 */
     fun watchedCount(videoIds: Collection<String>): Int = videoIds.count { isWatched(it) }
 
@@ -90,6 +98,13 @@ class SkippedVideoStore(private val prefs: SharedPreferences) {
         update(if (isSkipped(videoId)) _skipped.value - videoId else _skipped.value + videoId)
     }
 
+    /** まとめて消す（チャンネルの記録を捨てるとき）。 */
+    fun removeAll(videoIds: Collection<String>) {
+        if (videoIds.isEmpty()) return
+        val next = _skipped.value - videoIds.toSet()
+        if (next.size != _skipped.value.size) update(next)
+    }
+
     private fun update(value: Set<String>) {
         _skipped.value = value
         prefs.edit().putStringSet(key, value).apply()
@@ -111,6 +126,17 @@ class VideoMemoStore(private val prefs: SharedPreferences) {
     fun setMemo(text: String, videoId: String) {
         val trimmed = text
         val next = if (trimmed.isEmpty()) _memos.value - videoId else _memos.value + (videoId to trimmed)
+        _memos.value = next
+        prefs.edit().putString(key, storeJson.encodeToString(
+            MapSerializer(String.serializer(), String.serializer()), next)).apply()
+    }
+
+    /** まとめて消す（チャンネルの記録を捨てるとき）。 */
+    fun removeAll(videoIds: Collection<String>) {
+        if (videoIds.isEmpty()) return
+        val ids = videoIds.toSet()
+        val next = _memos.value.filterKeys { it !in ids }
+        if (next.size == _memos.value.size) return
         _memos.value = next
         prefs.edit().putString(key, storeJson.encodeToString(
             MapSerializer(String.serializer(), String.serializer()), next)).apply()
@@ -158,6 +184,14 @@ class PlaybackPositionStore(private val prefs: SharedPreferences) {
     /** 記録を消す（最初から見直した・見終わった場合）。 */
     fun clear(videoId: String) {
         if (positions.remove(videoId) != null) save()
+    }
+
+    /** まとめて消す（チャンネルの記録を捨てるとき）。 */
+    fun removeAll(videoIds: Collection<String>) {
+        if (videoIds.isEmpty()) return
+        var removed = false
+        videoIds.forEach { if (positions.remove(it) != null) removed = true }
+        if (removed) save()
     }
 
     private fun save() {

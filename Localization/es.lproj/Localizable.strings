@@ -303,12 +303,16 @@
 "pro.limit.body.format" = "Para abrir «%1$@», sustituye el canal guardado «%2$@» o hazte con Pro.";
 /* 入れ替えるボタン */
 "pro.limit.replace" = "Sustituir";
-/* 入れ替えても記録は残ることの説明 */
-"pro.limit.replaceHint" = "Al sustituir se conservan el historial de vistos y el progreso. Si vuelves a guardar el canal anterior, seguirás donde lo dejaste.";
+/* 入れ替えで記録が消えることの補足 */
+"pro.limit.replaceHint" = "Los registros borrados no se pueden recuperar. Con Pro mantienes ambos canales guardados, cada uno con su propio progreso.";
 /* 保存上限の案内タイトル */
 "pro.limit.title" = "Puedes guardar un canal";
 /* 上限の案内でProへ進むボタン */
 "pro.limit.upgrade" = "Obtener Pro";
+/* 上限の案内から Pro の説明画面へ進むボタン */
+"pro.limit.viewPro" = "Ver qué incluye Pro";
+/* 入れ替えの警告（%@ に外れるチャンネル名）。大きめの文字で目立たせる */
+"pro.limit.warning.format" = "Sustituir borra todo el historial de vistos, el progreso y las notas de «%@»";
 /* Pro の商品名（全言語共通） */
 "pro.name" = "Channel Timeline Viewer Pro";
 /* サブスクではないことの明示（購入画面に必須） */
@@ -322,7 +326,7 @@
 /* 価格取得中 */
 "pro.price.loading" = "Consultando el precio…";
 /* Pro で解放される機能の本文 */
-"pro.proFeatures.body" = "Guarda varios canales, sigue el progreso de cada uno, gestiona tu lista de canales guardados e incluye las futuras funciones avanzadas.";
+"pro.proFeatures.body" = "Guarda varios canales, sigue el progreso de cada uno y gestiona tu lista. Ya no tendrás que sustituir canales, así que el historial, el progreso y las notas nunca se borran. Incluye las futuras funciones avanzadas.";
 /* Pro で解放される機能の見出し */
 "pro.proFeatures.header" = "Qué desbloquea Pro";
 /* 購入の復元ボタン */

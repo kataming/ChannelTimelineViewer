@@ -1721,13 +1721,13 @@
   },
   "pro.proFeatures.body": {
     "comment": "Pro で解放される機能の本文",
-    "ja": "複数チャンネルの保存、チャンネルごとの進捗管理、保存チャンネル一覧の管理。今後追加する上位の管理機能も含みます。",
-    "en": "Save multiple channels, track progress per channel, manage your saved channel list, and get future advanced management features.",
-    "zh-Hans": "保存多个频道、按频道管理进度、管理已保存频道列表，并包含今后新增的高级管理功能。",
-    "es": "Guarda varios canales, sigue el progreso de cada uno, gestiona tu lista de canales guardados e incluye las futuras funciones avanzadas.",
-    "de": "Mehrere Kanäle speichern, Fortschritt je Kanal verfolgen, die Liste gespeicherter Kanäle verwalten – inklusive künftiger erweiterter Verwaltungsfunktionen.",
-    "fr": "Enregistrez plusieurs chaînes, suivez la progression de chacune, gérez votre liste de chaînes enregistrées, et profitez des futures fonctions de gestion avancées.",
-    "ko": "여러 채널 저장, 채널별 진행 상황 관리, 저장한 채널 목록 관리. 앞으로 추가되는 상위 관리 기능도 포함됩니다."
+    "ja": "複数チャンネルの保存、チャンネルごとの進捗管理、保存チャンネル一覧の管理。チャンネルを入れ替える必要がなくなるので、視聴済み・進捗・メモを消さずに残せます。今後追加する上位の管理機能も含みます。",
+    "en": "Save multiple channels, track progress per channel, and manage your saved list. You never have to replace a channel, so watched history, progress, and notes are never erased. Future advanced management features are included.",
+    "zh-Hans": "保存多个频道、按频道管理进度、管理已保存频道列表。无需再替换频道，因此已观看记录、进度和备注都不会被删除。今后新增的高级管理功能也包含在内。",
+    "es": "Guarda varios canales, sigue el progreso de cada uno y gestiona tu lista. Ya no tendrás que sustituir canales, así que el historial, el progreso y las notas nunca se borran. Incluye las futuras funciones avanzadas.",
+    "de": "Mehrere Kanäle speichern, Fortschritt je Kanal verfolgen, die Liste verwalten. Du musst keinen Kanal mehr ersetzen – Gesehen-Status, Fortschritt und Notizen gehen nie verloren. Künftige erweiterte Funktionen inklusive.",
+    "fr": "Enregistrez plusieurs chaînes, suivez la progression de chacune et gérez votre liste. Plus besoin de remplacer une chaîne : l’historique, la progression et les notes ne sont jamais effacés. Les futures fonctions avancées sont incluses.",
+    "ko": "여러 채널 저장, 채널별 진행 상황 관리, 저장 목록 관리. 채널을 교체할 필요가 없어 시청 기록·진행 상황·메모가 삭제되지 않습니다. 앞으로 추가되는 상위 관리 기능도 포함됩니다."
   },
   "pro.buy.format": {
     "comment": "購入ボタン（%@ に価格）",
@@ -1870,14 +1870,14 @@
     "ko": "교체"
   },
   "pro.limit.replaceHint": {
-    "comment": "入れ替えても記録は残ることの説明",
-    "ja": "入れ替えても、視聴済みや進捗の記録は残ります。元のチャンネルを保存し直せば、そのまま続きから見られます。",
-    "en": "Replacing keeps your watched history and progress. Save the old channel again and you can pick up where you left off.",
-    "zh-Hans": "替换后仍保留已观看记录与进度。重新保存原频道即可继续观看。",
-    "es": "Al sustituir se conservan el historial de vistos y el progreso. Si vuelves a guardar el canal anterior, seguirás donde lo dejaste.",
-    "de": "Beim Ersetzen bleiben Gesehen-Status und Fortschritt erhalten. Speicherst du den alten Kanal erneut, machst du dort weiter, wo du aufgehört hast.",
-    "fr": "Le remplacement conserve l’historique et la progression. Réenregistrez l’ancienne chaîne pour reprendre où vous en étiez.",
-    "ko": "교체해도 시청 기록과 진행 상황은 남습니다. 이전 채널을 다시 저장하면 이어서 볼 수 있습니다."
+    "comment": "入れ替えで記録が消えることの補足",
+    "ja": "消えた記録は元に戻せません。Proなら、どちらのチャンネルも保存したまま、それぞれの進捗を残せます。",
+    "en": "Erased records cannot be recovered. With Pro you keep both channels saved, each with its own progress.",
+    "zh-Hans": "删除的记录无法恢复。使用 Pro 可同时保存两个频道，并分别保留各自的进度。",
+    "es": "Los registros borrados no se pueden recuperar. Con Pro mantienes ambos canales guardados, cada uno con su propio progreso.",
+    "de": "Gelöschte Aufzeichnungen lassen sich nicht wiederherstellen. Mit Pro bleiben beide Kanäle gespeichert – jeder mit eigenem Fortschritt.",
+    "fr": "Les données effacées sont irrécupérables. Avec Pro, vous gardez les deux chaînes enregistrées, chacune avec sa progression.",
+    "ko": "삭제된 기록은 되돌릴 수 없습니다. Pro에서는 두 채널을 모두 저장한 채, 각각의 진행 상황을 유지할 수 있습니다."
   },
   "pro.entry.title": {
     "comment": "ホームからPro画面へ入る行の見出し",
@@ -1918,5 +1918,25 @@
     "de": "Pro holen",
     "fr": "Passer à Pro",
     "ko": "Pro 구매"
+  },
+  "pro.limit.warning.format": {
+    "comment": "入れ替えの警告（%@ に外れるチャンネル名）。大きめの文字で目立たせる",
+    "ja": "入れ替えると「%@」の視聴済み・進捗・メモはすべて消えます",
+    "en": "Replacing erases all watched history, progress, and notes for “%@”",
+    "zh-Hans": "替换将删除“%@”的全部已观看记录、进度和备注",
+    "es": "Sustituir borra todo el historial de vistos, el progreso y las notas de «%@»",
+    "de": "Beim Ersetzen werden Gesehen-Status, Fortschritt und Notizen von „%@“ vollständig gelöscht",
+    "fr": "Le remplacement efface tout l’historique, la progression et les notes de « %@ »",
+    "ko": "교체하면 「%@」의 시청 기록·진행 상황·메모가 모두 삭제됩니다"
+  },
+  "pro.limit.viewPro": {
+    "comment": "上限の案内から Pro の説明画面へ進むボタン",
+    "ja": "Proの内容を見る",
+    "en": "See what Pro includes",
+    "zh-Hans": "查看 Pro 的内容",
+    "es": "Ver qué incluye Pro",
+    "de": "Ansehen, was Pro bietet",
+    "fr": "Voir ce que Pro inclut",
+    "ko": "Pro 내용 보기"
   }
 }

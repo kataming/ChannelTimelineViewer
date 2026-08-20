@@ -145,6 +145,7 @@ private fun AppRoot(container: AppContainer, sharedUrl: MutableStateFlow<String?
                 api = container.api,
                 favorites = container.favorites,
                 isPro = container.proEntitlement.isPro,
+                dataRemover = container.channelDataRemover,
             )
         }
     )

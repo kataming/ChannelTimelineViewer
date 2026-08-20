@@ -26,6 +26,7 @@ import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -37,6 +38,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -218,7 +220,7 @@ fun ChannelInputScreen(
             onDismissRequest = viewModel::dismissPendingUpgrade,
             title = { Text(stringResource(R.string.pro_limit_title)) },
             text = {
-                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                     Text(
                         stringResource(
                             R.string.pro_limit_body_format,
@@ -226,26 +228,42 @@ fun ChannelInputScreen(
                             pending.savedChannelTitle,
                         )
                     )
+
+                    // 記録が消えることは取り返しがつかないので、いちばん目立たせる。
+                    Text(
+                        stringResource(
+                            R.string.pro_limit_warning_format,
+                            pending.savedChannelTitle,
+                        ),
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.error,
+                    )
                     Text(
                         stringResource(R.string.pro_limit_replacehint),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
+
+                    // 消さずに済む道（Pro）を、消す操作より先に見せる。
+                    Button(
+                        onClick = onOpenPro,
+                        modifier = Modifier.fillMaxWidth(),
+                    ) {
+                        Text(stringResource(R.string.pro_limit_viewpro))
+                    }
                     OutlinedButton(
                         onClick = viewModel::replaceSavedChannel,
                         modifier = Modifier.fillMaxWidth(),
+                        colors = ButtonDefaults.outlinedButtonColors(
+                            contentColor = MaterialTheme.colorScheme.error,
+                        ),
                     ) {
                         Text(stringResource(R.string.pro_limit_replace))
                     }
                 }
             },
-            confirmButton = {
-                TextButton(onClick = {
-                    onOpenPro()
-                }) {
-                    Text(stringResource(R.string.pro_limit_upgrade))
-                }
-            },
+            confirmButton = {},
             dismissButton = {
                 TextButton(onClick = viewModel::dismissPendingUpgrade) {
                     Text(stringResource(R.string.common_cancel))

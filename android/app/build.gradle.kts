@@ -24,6 +24,30 @@ fun youtubeApiKey(): String {
     return System.getenv("YOUTUBE_API_KEY").orEmpty()
 }
 
+/**
+ * アップロード鍵の場所。次の順で探し、無ければ null（＝署名なしのビルドになる）。
+ *   1. 環境変数 ANDROID_KEYSTORE_PATH（CI が base64 から復元した鍵）
+ *   2. android/keystore/upload.jks（各自の端末用・gitignore 済み）
+ */
+fun uploadKeystore(): File? {
+    System.getenv("ANDROID_KEYSTORE_PATH")?.takeIf { it.isNotBlank() }?.let { path ->
+        val file = File(path)
+        if (file.exists()) return file
+    }
+    val local = rootProject.file("keystore/upload.jks")
+    return if (local.exists()) local else null
+}
+
+/**
+ * アップロード鍵の合言葉。CI は環境変数、各自の端末は android/keystore/password.txt から読む
+ * （どちらもリポジトリには入らない）。
+ */
+fun uploadKeystorePassword(): String? {
+    System.getenv("ANDROID_KEYSTORE_PASSWORD")?.takeIf { it.isNotBlank() }?.let { return it }
+    val local = rootProject.file("keystore/password.txt")
+    return if (local.exists()) local.readText().trim().ifBlank { null } else null
+}
+
 android {
     namespace = "com.deskflowlabs.channeltimelineviewer"
     compileSdk = 35
@@ -38,14 +62,28 @@ android {
             keyAlias = "androiddebugkey"
             keyPassword = "android"
         }
+
+        // Google Play へ出すための署名（アップロード鍵）。鍵と合言葉は CI の Secrets から渡す。
+        // 鍵そのものはリポジトリに入れない（android/keystore/ は .gitignore 済み）。
+        val keystore = uploadKeystore()
+        val password = uploadKeystorePassword()
+        if (keystore != null && password != null) {
+            create("release") {
+                storeFile = keystore
+                storePassword = password
+                keyAlias = System.getenv("ANDROID_KEY_ALIAS") ?: "upload"
+                keyPassword = System.getenv("ANDROID_KEY_PASSWORD") ?: password
+            }
+        }
     }
 
     defaultConfig {
         applicationId = "com.deskflowlabs.channeltimelineviewer"
         minSdk = 26
         targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
+        // Play は versionCode の重複を拒否するので、CI からは実行番号を渡す。
+        versionCode = (System.getenv("ANDROID_VERSION_CODE") ?: "1").toInt()
+        versionName = System.getenv("ANDROID_VERSION_NAME") ?: "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -67,6 +105,7 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            signingConfig = signingConfigs.findByName("release")
         }
     }
 

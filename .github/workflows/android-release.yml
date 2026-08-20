@@ -1,0 +1,113 @@
+name: Android Release
+
+# 署名済みの AAB / APK を作り、指定すれば Google Play の内部テストへ送る。
+# iOS の TestFlight に相当するのが Play の「内部テスト」で、テスターは Play ストアから入れられる。
+#
+# 必要な GitHub Secrets:
+#   ANDROID_KEYSTORE_B64            アップロード鍵(.jks)の base64
+#   ANDROID_KEYSTORE_PASSWORD       その合言葉
+#   ANDROID_KEY_ALIAS               鍵の別名（既定 upload）
+#   YOUTUBE_API_KEY_ANDROID         Android アプリ制限つきの API キー
+#   GOOGLE_PLAY_SERVICE_ACCOUNT_JSON  Play へ自動アップロードする場合のみ（Play Console の
+#                                     サービスアカウントの JSON。他プロジェクトと同じものが使える）
+#
+# ⚠️ Play の署名は「アップロード鍵」とは別に Play 側の鍵で行われる（Play App Signing）。
+#    そのため Play 経由で配ったアプリは署名の SHA-1 が変わる。API キーの Android 制限に
+#    **Play Console に表示されるアプリ署名証明書の SHA-1 も追加**すること。
+
+on:
+  workflow_dispatch:
+    inputs:
+      version_name:
+        description: '表示バージョン（例 1.0）'
+        required: false
+        default: '1.0'
+      upload_to_play:
+        description: 'Google Play の内部テストへアップロードする'
+        type: boolean
+        default: false
+      release_notes:
+        description: '内部テスターへの変更点メモ（任意）'
+        required: false
+        default: ''
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: android
+    env:
+      # secrets は step の if で直接参照できないので、真偽値に落としてから使う。
+      HAS_PLAY_SA: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON != '' }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: JDK 17 を用意
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Gradle を用意（キャッシュあり）
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: アップロード鍵を復元
+        env:
+          KEYSTORE_B64: ${{ secrets.ANDROID_KEYSTORE_B64 }}
+        run: |
+          set -euo pipefail
+          if [ -z "$KEYSTORE_B64" ]; then
+            echo "::error::ANDROID_KEYSTORE_B64 が未設定です（署名できません）"
+            exit 1
+          fi
+          mkdir -p "$RUNNER_TEMP/signing"
+          echo "$KEYSTORE_B64" | base64 -d > "$RUNNER_TEMP/signing/upload.jks"
+          echo "ANDROID_KEYSTORE_PATH=$RUNNER_TEMP/signing/upload.jks" >> "$GITHUB_ENV"
+
+      - name: 署名済み AAB / APK をビルド
+        env:
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY_ANDROID }}
+          # Play は versionCode の重複を拒むので、実行番号をそのまま使う。
+          ANDROID_VERSION_CODE: ${{ github.run_number }}
+          ANDROID_VERSION_NAME: ${{ inputs.version_name }}
+        run: ./gradlew --no-daemon bundleRelease assembleRelease
+
+      - name: 署名を確認
+        run: |
+          set -euo pipefail
+          APK=app/build/outputs/apk/release/app-release.apk
+          "$ANDROID_HOME"/build-tools/34.0.0/apksigner verify --print-certs "$APK" \
+            | grep -i "SHA-1" || true
+
+      - name: 変更点メモを用意
+        if: ${{ inputs.upload_to_play && env.HAS_PLAY_SA == 'true' }}
+        env:
+          NOTES: ${{ inputs.release_notes }}
+        run: |
+          set -euo pipefail
+          mkdir -p whatsnew
+          printf '%s\n' "${NOTES:-内部テスト向けビルド}" > whatsnew/whatsnew-en-US
+
+      - name: Google Play の内部テストへアップロード
+        if: ${{ inputs.upload_to_play && env.HAS_PLAY_SA == 'true' }}
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
+          packageName: com.deskflowlabs.channeltimelineviewer
+          releaseFiles: android/app/build/outputs/bundle/release/app-release.aab
+          track: internal
+          status: completed
+          whatsNewDirectory: android/whatsnew
+
+      - name: 成果物を保存
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-release
+          path: |
+            android/app/build/outputs/bundle/release/*.aab
+            android/app/build/outputs/apk/release/*.apk
+          retention-days: 30

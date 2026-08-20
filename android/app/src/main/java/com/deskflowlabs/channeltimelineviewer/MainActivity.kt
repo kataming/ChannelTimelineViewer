@@ -21,6 +21,7 @@ import com.deskflowlabs.channeltimelineviewer.model.Channel
 import com.deskflowlabs.channeltimelineviewer.model.VideoItem
 import com.deskflowlabs.channeltimelineviewer.network.SharedLinkParser
 import com.deskflowlabs.channeltimelineviewer.ui.AboutScreen
+import com.deskflowlabs.channeltimelineviewer.ui.BadgePreviewScreen
 import com.deskflowlabs.channeltimelineviewer.ui.ChannelInputScreen
 import com.deskflowlabs.channeltimelineviewer.ui.PlaybackOptionsSheet
 import com.deskflowlabs.channeltimelineviewer.ui.PlayerScreen
@@ -46,10 +47,18 @@ class MainActivity : ComponentActivity() {
         container = AppContainer(this)
         handleShareIntent(intent)
 
+        // デバッグビルドでのみ、見た目確認用の画面を開けるようにする
+        // （adb shell am start ... --es preview badge）。
+        val previewName = if (BuildConfig.DEBUG) intent?.getStringExtra("preview") else null
+
         setContent {
             ChannelTimelineTheme {
                 Surface(modifier = Modifier.fillMaxSize()) {
-                    AppRoot(container, sharedUrl)
+                    if (previewName == "badge") {
+                        BadgePreviewScreen()
+                    } else {
+                        AppRoot(container, sharedUrl)
+                    }
                 }
             }
         }

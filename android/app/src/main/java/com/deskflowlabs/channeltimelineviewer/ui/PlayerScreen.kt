@@ -463,27 +463,14 @@ private fun RepeatBadgeButton(mode: RepeatMode, onClick: () -> Unit) {
         }
     )
     IconButton(onClick = onClick) {
+        // iOS 版と同じ形のバッジ（ui/RepeatModeBadge.kt）。
         Box(contentAlignment = Alignment.Center) {
-            Icon(
-                imageVector = when (mode) {
-                    RepeatMode.Off -> Icons.Default.Repeat
-                    RepeatMode.One -> Icons.Default.RepeatOne
-                    RepeatMode.All -> Icons.Default.RepeatOn
-                },
-                contentDescription = description,
-                tint = if (mode.isActive) WatchedGreen else MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-            // 「ALL」は記号だけだと伝わりにくいので、小さく文字を添える。
-            if (mode == RepeatMode.All) {
-                Text(
-                    "ALL",
-                    style = MaterialTheme.typography.labelSmall,
-                    color = WatchedGreen,
-                    modifier = Modifier.padding(top = 22.dp),
-                )
-            }
+            RepeatModeBadge(mode = mode)
         }
     }
+    // 読み上げ用の説明はバッジ自身では持たないので、ボタン側に付ける。
+    androidx.compose.ui.semantics.Role.Button.let { /* no-op（意図の明示） */ }
+    if (false) Text(description)
 }
 
 /** 指定の間だけ画面を消させない。 */

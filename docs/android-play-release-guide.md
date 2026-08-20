@@ -104,8 +104,13 @@ python scripts/capture_play_screenshots.py  # スクショ（実機をつない�
 
 1. GitHub → Actions → **Android Release** を実行
    - `version_name`: `1.0`
-   - `upload_to_play`: **オン**（`GOOGLE_PLAY_SERVICE_ACCOUNT_JSON` 登録済みの場合）
-   - オフの場合は artifact `android-release` の `app-release.aab` を手でアップロード
+   - `upload_to_play`: **オフ**（既定。手でアップロードする）
+   - 完了したら artifact **`android-release`** の `app-release.aab` をダウンロード
+
+   > 自動アップロードを使いたい場合は、先に
+   > [`android-play-service-account.md`](android-play-service-account.md) の手順で
+   > サービスアカウントを作る（**このアカウントにはまだ存在しない。新規作成が必要**）。
+   > 初回リリースは Play の API では送れないため、どちらにせよ最初は手動になる。
 2. Play Console → **製品版** → 新しいリリースを作成 → AAB を選択
 3. リリースノート（各言語）を入力 → 「リリースのレビュー」→ **審査に送信**
 

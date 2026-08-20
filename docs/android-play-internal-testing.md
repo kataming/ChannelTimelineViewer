@@ -86,14 +86,13 @@ Play 経由で配ると署名が Play の鍵に変わるため、デバッグ鍵
 4. 保存してから**数分待つ**（制限の変更は即時に反映されないことがある）。
    端末側はアプリを一度終了（強制停止）してから開き直す。
 
-### 5. サービスアカウントの JSON をこのリポジトリにも登録する（自動化用）
+### 5.（任意）自動アップロード用のサービスアカウント
 
-`sunflower-room-partner-kit` で使っている Play のサービスアカウントは、**同じ Play アカウント内なら使い回せる**。
+**このデベロッパーアカウントには、まだ Play 用のサービスアカウントが存在しない**
+（`sunflower-room-partner-kit` も手動アップロードで運用している）。作れば両方のアプリで使い回せる。
 
-1. その JSON の中身をコピー
-2. https://github.com/kataming/ChannelTimelineViewer/settings/secrets/actions
-   → New repository secret → 名前 **`GOOGLE_PLAY_SERVICE_ACCOUNT_JSON`** → 貼り付け
-3. Play Console → ユーザーと権限 → そのサービスアカウントに **このアプリへの権限**（リリース管理）を付与
+作り方は [`android-play-service-account.md`](android-play-service-account.md) を参照。
+作らない場合は、AAB を Play Console へ手でアップロードすればよい（初回はどのみち手動が必要）。
 
 ---
 

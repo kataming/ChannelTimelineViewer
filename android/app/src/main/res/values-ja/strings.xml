@@ -151,6 +151,11 @@
     <string name="pro_limit_upgrade">Proにする</string>
     <string name="pro_limit_viewpro">Proの内容を見る</string>
     <string name="pro_limit_warning_format">このチャンネルを入れ替えると、現在保存中の「%s」の視聴済み・進捗・メモは削除されます。</string>
+    <string name="pro_locked_badge">ロック中</string>
+    <string name="pro_locked_body_format">無料版で使えるチャンネルは1つです。「%1$s」に切り替えると、いま使っている「%2$s」は開けなくなります。記録はどちらも消えません。</string>
+    <string name="pro_locked_hint">Proを購入すると、保存したチャンネルをすべてそのまま使えます。記録も残ったままです。</string>
+    <string name="pro_locked_switch">このチャンネルに切り替える</string>
+    <string name="pro_locked_title">Proが無効です</string>
     <string name="pro_name">Channel Timeline Viewer Pro</string>
     <string name="pro_notsubscription">サブスクリプションではありません。</string>
     <string name="pro_open_a11y">Pro の説明を開く</string>

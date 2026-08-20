@@ -151,6 +151,11 @@
     <string name="pro_limit_upgrade">Pro holen</string>
     <string name="pro_limit_viewpro">Ansehen, was Pro bietet</string>
     <string name="pro_limit_warning_format">Wenn du diesen Kanal ersetzt, werden Gesehen-Status, Fortschritt und Notizen des gespeicherten Kanals „%s“ gelöscht.</string>
+    <string name="pro_locked_badge">Gesperrt</string>
+    <string name="pro_locked_body_format">In der kostenlosen Version kannst du einen Kanal nutzen. Wechselst du zu „%1$s“, ist „%2$s“ nicht mehr verfügbar. Es werden keine Aufzeichnungen gelöscht.</string>
+    <string name="pro_locked_hint">Mit Pro kannst du alle gespeicherten Kanäle wieder nutzen – mit allen Aufzeichnungen.</string>
+    <string name="pro_locked_switch">Zu diesem Kanal wechseln</string>
+    <string name="pro_locked_title">Pro ist nicht aktiv</string>
     <string name="pro_name">Channel Timeline Viewer Pro</string>
     <string name="pro_notsubscription">Es ist kein Abo.</string>
     <string name="pro_open_a11y">Pro-Details öffnen</string>

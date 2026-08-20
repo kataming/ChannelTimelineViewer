@@ -317,6 +317,16 @@
 "pro.limit.viewPro" = "Ver qué incluye Pro";
 /* 入れ替えの警告（%@ に外れるチャンネル名）。大きめ・太字・赤で出す */
 "pro.limit.warning.format" = "Si sustituyes este canal, se eliminarán el historial de vistos, el progreso y las notas del canal guardado «%@».";
+/* 一覧でロック中を示すラベル */
+"pro.locked.badge" = "Bloqueado";
+/* ロックの説明（%1$@=開こうとしたチャンネル %2$@=いま使えるチャンネル） */
+"pro.locked.body.format" = "La versión gratuita permite usar un canal. Si cambias a «%1$@», «%2$@» dejará de estar disponible. No se borra ningún registro.";
+/* ロック中のチャンネルがあるときの案内 */
+"pro.locked.hint" = "Compra Pro para volver a usar todos los canales guardados, con los registros intactos.";
+/* 切り替えるボタン */
+"pro.locked.switch" = "Cambiar a este canal";
+/* ロックされたチャンネルを開こうとしたときのタイトル */
+"pro.locked.title" = "Pro no está activo";
 /* Pro の商品名（全言語共通） */
 "pro.name" = "Channel Timeline Viewer Pro";
 /* サブスクではないことの明示（購入画面に必須） */

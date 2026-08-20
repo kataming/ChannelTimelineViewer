@@ -15,6 +15,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
@@ -34,6 +35,7 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -74,6 +76,9 @@ fun ChannelInputScreen(
     val progressMap by progressStore.progress.collectAsStateWithLifecycle()
     val pendingUpgrade by viewModel.pendingUpgrade.collectAsStateWithLifecycle()
     val pendingDeletion by viewModel.pendingDeletion.collectAsStateWithLifecycle()
+    val pendingUnlock by viewModel.pendingUnlock.collectAsStateWithLifecycle()
+    // Pro が外れて保存が上限を超えていると、選んだ1つ以外はロックされる（記録は消えない）。
+    val usableIds = remember(favoriteList, isPro) { viewModel.usableChannelIds() }
 
     Scaffold(
         topBar = {
@@ -190,11 +195,21 @@ fun ChannelInputScreen(
                 items(favoriteList, key = { it.id }) { favorite ->
                     FavoriteRow(
                         favorite = favorite,
+                        isLocked = favorite.id !in usableIds,
                         watchedCount = progressMap[favorite.id]?.watchedCount ?: 0,
                         totalCount = progressMap[favorite.id]?.totalCount ?: 0,
                         onOpen = { onOpenFavorite(favorite) },
                         onDelete = { viewModel.askToDelete(favorite) },
                     )
+                }
+                if (favoriteList.any { it.id !in usableIds }) {
+                    item {
+                        Text(
+                            stringResource(R.string.pro_locked_hint),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.error,
+                        )
+                    }
                 }
                 item {
                     Text(
@@ -306,6 +321,40 @@ fun ChannelInputScreen(
             confirmButton = {},
         )
     }
+
+    pendingUnlock?.let { target ->
+        AlertDialog(
+            onDismissRequest = viewModel::dismissUnlock,
+            title = { Text(stringResource(R.string.pro_locked_title)) },
+            text = {
+                Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    Text(
+                        stringResource(
+                            R.string.pro_locked_body_format,
+                            target.title,
+                            viewModel.currentUsableTitle(),
+                        )
+                    )
+                    Button(onClick = onOpenPro, modifier = Modifier.fillMaxWidth()) {
+                        Text(stringResource(R.string.pro_limit_viewpro))
+                    }
+                    OutlinedButton(
+                        onClick = viewModel::switchToPending,
+                        modifier = Modifier.fillMaxWidth(),
+                    ) {
+                        Text(stringResource(R.string.pro_locked_switch))
+                    }
+                    TextButton(
+                        onClick = viewModel::dismissUnlock,
+                        modifier = Modifier.fillMaxWidth(),
+                    ) {
+                        Text(stringResource(R.string.common_cancel))
+                    }
+                }
+            },
+            confirmButton = {},
+        )
+    }
 }
 
 /** Pro（複数チャンネル保存）への入口。無料のうちは案内、購入後は状態表示になる。 */
@@ -331,6 +380,7 @@ private fun ProEntryCard(isPro: Boolean, onOpen: () -> Unit) {
 @Composable
 private fun FavoriteRow(
     favorite: FavoriteChannel,
+    isLocked: Boolean,
     watchedCount: Int,
     totalCount: Int,
     onOpen: () -> Unit,
@@ -346,6 +396,22 @@ private fun FavoriteRow(
                 )
                 Column(Modifier.weight(1f).padding(start = 12.dp)) {
                     Text(favorite.title, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                    if (isLocked) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Icon(
+                                Icons.Default.Lock,
+                                contentDescription = null,
+                                modifier = Modifier.size(14.dp),
+                                tint = MaterialTheme.colorScheme.error,
+                            )
+                            Text(
+                                stringResource(R.string.pro_locked_badge),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.error,
+                                modifier = Modifier.padding(start = 4.dp),
+                            )
+                        }
+                    }
                     Text(
                         stringResource(
                             R.string.favorites_lastopened_format,

@@ -151,6 +151,11 @@
     <string name="pro_limit_upgrade">Passer à Pro</string>
     <string name="pro_limit_viewpro">Voir ce que Pro inclut</string>
     <string name="pro_limit_warning_format">Si vous remplacez cette chaîne, l’historique, la progression et les notes de la chaîne enregistrée « %s » seront supprimés.</string>
+    <string name="pro_locked_badge">Verrouillée</string>
+    <string name="pro_locked_body_format">La version gratuite permet d’utiliser une chaîne. En passant à « %1$s », « %2$s » ne sera plus accessible. Aucune donnée n’est supprimée.</string>
+    <string name="pro_locked_hint">Achetez Pro pour réutiliser toutes les chaînes enregistrées, avec toutes les données.</string>
+    <string name="pro_locked_switch">Basculer vers cette chaîne</string>
+    <string name="pro_locked_title">Pro n’est pas actif</string>
     <string name="pro_name">Channel Timeline Viewer Pro</string>
     <string name="pro_notsubscription">Ce n’est pas un abonnement.</string>
     <string name="pro_open_a11y">Ouvrir les détails de Pro</string>

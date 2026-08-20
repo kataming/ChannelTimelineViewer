@@ -146,6 +146,7 @@ private fun AppRoot(container: AppContainer, sharedUrl: MutableStateFlow<String?
                 favorites = container.favorites,
                 isPro = container.proEntitlement.isPro,
                 dataRemover = container.channelDataRemover,
+                activeChannel = container.activeChannel,
             )
         }
     )
@@ -181,7 +182,7 @@ private fun AppRoot(container: AppContainer, sharedUrl: MutableStateFlow<String?
             isPro = isPro,
             onOpenAbout = { screen = Screen.About },
             onOpenPro = { screen = Screen.Pro },
-            onOpenFavorite = { favorite -> inputViewModel.open(favorite.toChannel()) },
+            onOpenFavorite = { favorite -> inputViewModel.open(favorite) },
         )
 
         is Screen.About -> AboutScreen(onBack = { screen = Screen.Input })

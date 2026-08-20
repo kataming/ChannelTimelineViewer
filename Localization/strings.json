@@ -1958,5 +1958,55 @@
     "de": "Beim Aufheben werden Gesehen-Status, Fortschritt und Notizen von „%@“ gelöscht.",
     "fr": "Le retrait supprime l’historique, la progression et les notes de « %@ ».",
     "ko": "해제하면 「%@」의 시청 기록·진행 상황·메모가 삭제됩니다."
+  },
+  "pro.locked.badge": {
+    "comment": "一覧でロック中を示すラベル",
+    "ja": "ロック中",
+    "en": "Locked",
+    "zh-Hans": "已锁定",
+    "es": "Bloqueado",
+    "de": "Gesperrt",
+    "fr": "Verrouillée",
+    "ko": "잠김"
+  },
+  "pro.locked.title": {
+    "comment": "ロックされたチャンネルを開こうとしたときのタイトル",
+    "ja": "Proが無効です",
+    "en": "Pro is not active",
+    "zh-Hans": "Pro 未启用",
+    "es": "Pro no está activo",
+    "de": "Pro ist nicht aktiv",
+    "fr": "Pro n’est pas actif",
+    "ko": "Pro가 활성화되어 있지 않습니다"
+  },
+  "pro.locked.body.format": {
+    "comment": "ロックの説明（%1$@=開こうとしたチャンネル %2$@=いま使えるチャンネル）",
+    "ja": "無料版で使えるチャンネルは1つです。「%1$@」に切り替えると、いま使っている「%2$@」は開けなくなります。記録はどちらも消えません。",
+    "en": "The free version lets you use one channel. Switching to “%1$@” makes “%2$@” unavailable. Neither channel’s records are deleted.",
+    "zh-Hans": "免费版只能使用 1 个频道。切换到“%1$@”后，当前的“%2$@”将无法打开。两个频道的记录都不会被删除。",
+    "es": "La versión gratuita permite usar un canal. Si cambias a «%1$@», «%2$@» dejará de estar disponible. No se borra ningún registro.",
+    "de": "In der kostenlosen Version kannst du einen Kanal nutzen. Wechselst du zu „%1$@“, ist „%2$@“ nicht mehr verfügbar. Es werden keine Aufzeichnungen gelöscht.",
+    "fr": "La version gratuite permet d’utiliser une chaîne. En passant à « %1$@ », « %2$@ » ne sera plus accessible. Aucune donnée n’est supprimée.",
+    "ko": "무료 버전에서는 채널 1개를 사용할 수 있습니다. 「%1$@」로 전환하면 현재 사용 중인 「%2$@」는 열 수 없게 됩니다. 두 채널의 기록은 삭제되지 않습니다."
+  },
+  "pro.locked.switch": {
+    "comment": "切り替えるボタン",
+    "ja": "このチャンネルに切り替える",
+    "en": "Switch to this channel",
+    "zh-Hans": "切换到该频道",
+    "es": "Cambiar a este canal",
+    "de": "Zu diesem Kanal wechseln",
+    "fr": "Basculer vers cette chaîne",
+    "ko": "이 채널로 전환"
+  },
+  "pro.locked.hint": {
+    "comment": "ロック中のチャンネルがあるときの案内",
+    "ja": "Proを購入すると、保存したチャンネルをすべてそのまま使えます。記録も残ったままです。",
+    "en": "Buy Pro to use every saved channel again, with all records intact.",
+    "zh-Hans": "购买 Pro 后可继续使用全部已保存频道，记录也会完整保留。",
+    "es": "Compra Pro para volver a usar todos los canales guardados, con los registros intactos.",
+    "de": "Mit Pro kannst du alle gespeicherten Kanäle wieder nutzen – mit allen Aufzeichnungen.",
+    "fr": "Achetez Pro pour réutiliser toutes les chaînes enregistrées, avec toutes les données.",
+    "ko": "Pro를 구매하면 저장한 모든 채널을 기록 그대로 다시 사용할 수 있습니다."
   }
 }

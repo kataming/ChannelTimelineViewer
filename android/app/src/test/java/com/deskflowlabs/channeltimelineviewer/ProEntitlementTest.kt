@@ -60,6 +60,56 @@ class ProEntitlementTest {
     }
 
     @Test
+    fun `Proなら保存済みは全部使える`() {
+        val saved = listOf("UC_a", "UC_b", "UC_c")
+        assertEquals(
+            saved.toSet(),
+            ChannelSlotPolicy.usableChannelIds(saved, isPro = true, activeChannelId = null),
+        )
+    }
+
+    @Test
+    fun `Proが外れると上限を超えた分はロックされる`() {
+        // 返金などで Pro を失った状態。保存は消さないが、使えるのは1つだけにする。
+        val saved = listOf("UC_new", "UC_old")
+        assertEquals(
+            setOf("UC_new"),
+            ChannelSlotPolicy.usableChannelIds(saved, isPro = false, activeChannelId = null),
+        )
+        assertTrue(ChannelSlotPolicy.isLocked(saved, "UC_old", isPro = false, activeChannelId = null))
+        assertFalse(ChannelSlotPolicy.isLocked(saved, "UC_new", isPro = false, activeChannelId = null))
+    }
+
+    @Test
+    fun `選んだチャンネルが使える方になる`() {
+        val saved = listOf("UC_new", "UC_old")
+        assertEquals(
+            setOf("UC_old"),
+            ChannelSlotPolicy.usableChannelIds(saved, isPro = false, activeChannelId = "UC_old"),
+        )
+        assertTrue(ChannelSlotPolicy.isLocked(saved, "UC_new", isPro = false, activeChannelId = "UC_old"))
+    }
+
+    @Test
+    fun `保存が1件だけならロックは起きない`() {
+        val saved = listOf("UC_a")
+        assertEquals(
+            setOf("UC_a"),
+            ChannelSlotPolicy.usableChannelIds(saved, isPro = false, activeChannelId = null),
+        )
+        assertFalse(ChannelSlotPolicy.isLocked(saved, "UC_a", isPro = false, activeChannelId = null))
+    }
+
+    @Test
+    fun `選んだチャンネルが消えていても1つは使える`() {
+        val saved = listOf("UC_a", "UC_b")
+        assertEquals(
+            setOf("UC_a"),
+            ChannelSlotPolicy.usableChannelIds(saved, isPro = false, activeChannelId = "UC_gone"),
+        )
+    }
+
+    @Test
     fun `購入前は無料あつかい`() {
         assertFalse(ProEntitlementStore(prefs()).isPro.value)
     }

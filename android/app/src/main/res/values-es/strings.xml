@@ -151,6 +151,11 @@
     <string name="pro_limit_upgrade">Obtener Pro</string>
     <string name="pro_limit_viewpro">Ver qué incluye Pro</string>
     <string name="pro_limit_warning_format">Si sustituyes este canal, se eliminarán el historial de vistos, el progreso y las notas del canal guardado «%s».</string>
+    <string name="pro_locked_badge">Bloqueado</string>
+    <string name="pro_locked_body_format">La versión gratuita permite usar un canal. Si cambias a «%1$s», «%2$s» dejará de estar disponible. No se borra ningún registro.</string>
+    <string name="pro_locked_hint">Compra Pro para volver a usar todos los canales guardados, con los registros intactos.</string>
+    <string name="pro_locked_switch">Cambiar a este canal</string>
+    <string name="pro_locked_title">Pro no está activo</string>
     <string name="pro_name">Channel Timeline Viewer Pro</string>
     <string name="pro_notsubscription">No es una suscripción.</string>
     <string name="pro_open_a11y">Abrir información de Pro</string>

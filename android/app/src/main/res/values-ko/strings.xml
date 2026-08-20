@@ -151,6 +151,11 @@
     <string name="pro_limit_upgrade">Pro 구매</string>
     <string name="pro_limit_viewpro">Pro 내용 보기</string>
     <string name="pro_limit_warning_format">이 채널을 교체하면 현재 저장된 「%s」의 시청 기록·진행 상황·메모가 삭제됩니다.</string>
+    <string name="pro_locked_badge">잠김</string>
+    <string name="pro_locked_body_format">무료 버전에서는 채널 1개를 사용할 수 있습니다. 「%1$s」로 전환하면 현재 사용 중인 「%2$s」는 열 수 없게 됩니다. 두 채널의 기록은 삭제되지 않습니다.</string>
+    <string name="pro_locked_hint">Pro를 구매하면 저장한 모든 채널을 기록 그대로 다시 사용할 수 있습니다.</string>
+    <string name="pro_locked_switch">이 채널로 전환</string>
+    <string name="pro_locked_title">Pro가 활성화되어 있지 않습니다</string>
     <string name="pro_name">Channel Timeline Viewer Pro</string>
     <string name="pro_notsubscription">구독이 아닙니다.</string>
     <string name="pro_open_a11y">Pro 설명 열기</string>

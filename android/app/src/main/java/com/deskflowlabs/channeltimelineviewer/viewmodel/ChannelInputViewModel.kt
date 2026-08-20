@@ -3,6 +3,7 @@ package com.deskflowlabs.channeltimelineviewer.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.deskflowlabs.channeltimelineviewer.billing.ChannelSlotPolicy
+import com.deskflowlabs.channeltimelineviewer.data.ActiveChannelStore
 import com.deskflowlabs.channeltimelineviewer.data.ChannelDataRemover
 import com.deskflowlabs.channeltimelineviewer.data.FavoriteChannelStore
 import com.deskflowlabs.channeltimelineviewer.model.Channel
@@ -28,6 +29,7 @@ class ChannelInputViewModel(
     private val favorites: FavoriteChannelStore,
     private val isPro: StateFlow<Boolean>,
     private val dataRemover: ChannelDataRemover,
+    private val activeChannel: ActiveChannelStore,
 ) : ViewModel() {
 
     /** 保存上限に当たったチャンネルと、いま保存しているチャンネル名。 */
@@ -52,6 +54,32 @@ class ChannelInputViewModel(
     /** 保存解除の確認待ちのチャンネル。解除すると記録も消えるので必ず確認する。 */
     private val _pendingDeletion = MutableStateFlow<FavoriteChannel?>(null)
     val pendingDeletion: StateFlow<FavoriteChannel?> = _pendingDeletion.asStateFlow()
+
+    /** ロックされたチャンネルを開こうとした（Pro が無い状態で保存が上限を超えている）。 */
+    private val _pendingUnlock = MutableStateFlow<FavoriteChannel?>(null)
+    val pendingUnlock: StateFlow<FavoriteChannel?> = _pendingUnlock.asStateFlow()
+
+    /** いま使えるチャンネル。ここに無い保存済みチャンネルは一覧でロック表示にする。 */
+    fun usableChannelIds(): Set<String> = ChannelSlotPolicy.usableChannelIds(
+        favorites.favorites.value.map { it.id }, isPro.value, activeChannel.activeChannelId.value)
+
+    fun dismissUnlock() {
+        _pendingUnlock.value = null
+    }
+
+    /** ロック中のチャンネルに切り替える。記録はどちらも消えない。 */
+    fun switchToPending() {
+        val target = _pendingUnlock.value ?: return
+        _pendingUnlock.value = null
+        activeChannel.set(target.id)
+        openResolved(target.toChannel())
+    }
+
+    /** いま使えるチャンネルの名前（切り替えの説明に出す）。 */
+    fun currentUsableTitle(): String {
+        val usable = usableChannelIds()
+        return favorites.favorites.value.firstOrNull { it.id in usable }?.title.orEmpty()
+    }
 
     fun askToDelete(favorite: FavoriteChannel) {
         _pendingDeletion.value = favorite
@@ -101,9 +129,14 @@ class ChannelInputViewModel(
         resolve(url)
     }
 
-    /** お気に入り（最近使った）から開く。 */
-    fun open(channel: Channel) {
-        openResolved(channel)
+    /** お気に入り（最近使った）から開く。ロック中なら開かずに案内を出す。 */
+    fun open(favorite: FavoriteChannel) {
+        if (favorite.id !in usableChannelIds()) {
+            _pendingUnlock.value = favorite
+            return
+        }
+        activeChannel.set(favorite.id)
+        openResolved(favorite.toChannel())
     }
 
     fun dismissPendingUpgrade() {
@@ -134,6 +167,8 @@ class ChannelInputViewModel(
     }
 
     private fun openResolved(channel: Channel) {
+        // 無料のときは「いま使うチャンネル」も更新する（1件だけなら常にこれ）。
+        if (!isPro.value) activeChannel.set(channel.id)
         favorites.touch(channel)
         _resolvedChannel.value = channel
     }

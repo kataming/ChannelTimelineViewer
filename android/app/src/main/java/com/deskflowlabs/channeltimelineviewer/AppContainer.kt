@@ -3,6 +3,7 @@ package com.deskflowlabs.channeltimelineviewer
 import android.content.Context
 import com.deskflowlabs.channeltimelineviewer.billing.ProBillingManager
 import com.deskflowlabs.channeltimelineviewer.billing.ProEntitlementStore
+import com.deskflowlabs.channeltimelineviewer.data.ActiveChannelStore
 import com.deskflowlabs.channeltimelineviewer.data.ChannelDataRemover
 import com.deskflowlabs.channeltimelineviewer.data.ChannelProgressStore
 import com.deskflowlabs.channeltimelineviewer.data.FavoriteChannelStore
@@ -36,6 +37,7 @@ class AppContainer(context: Context) {
     val favorites = FavoriteChannelStore(prefs)
     val progress = ChannelProgressStore(prefs)
     val videoListCache = VideoListCache(prefs)
+    val activeChannel = ActiveChannelStore(prefs)
 
     // 無料の枠で「入れ替える」を選んだときに、外すチャンネルの記録ごと消す。
     val channelDataRemover = ChannelDataRemover(

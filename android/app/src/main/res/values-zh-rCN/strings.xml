@@ -151,6 +151,11 @@
     <string name="pro_limit_upgrade">购买 Pro</string>
     <string name="pro_limit_viewpro">查看 Pro 的内容</string>
     <string name="pro_limit_warning_format">更换频道后，当前已保存的“%s”的已观看记录、进度和备注将被删除。</string>
+    <string name="pro_locked_badge">已锁定</string>
+    <string name="pro_locked_body_format">免费版只能使用 1 个频道。切换到“%1$s”后，当前的“%2$s”将无法打开。两个频道的记录都不会被删除。</string>
+    <string name="pro_locked_hint">购买 Pro 后可继续使用全部已保存频道，记录也会完整保留。</string>
+    <string name="pro_locked_switch">切换到该频道</string>
+    <string name="pro_locked_title">Pro 未启用</string>
     <string name="pro_name">Channel Timeline Viewer Pro</string>
     <string name="pro_notsubscription">这不是订阅服务。</string>
     <string name="pro_open_a11y">打开 Pro 说明</string>

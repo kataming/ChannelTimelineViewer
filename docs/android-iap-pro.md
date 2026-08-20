@@ -83,23 +83,29 @@ API では設定できないので、Play Console の画面で行う。
 > **一方通行**。無料にすると、その後この アプリを本体有料に戻すことはできない。
 > 今回はその前提で「本体無料＋Pro 買い切り」に決めている。
 
-### 3-2. アプリ内アイテムを作る
+### 3-2. アプリ内アイテム（**作成済み・API で行う**）
 
-**収益化 → 商品 → アプリ内アイテム**（`.../app/<appId>/managed-products`）→ **商品を作成**
+`python scripts/play_publish.py --mode product` で作成・更新できる。**画面での手入力は不要**。
 
 | 項目 | 値 |
 | --- | --- |
-| 商品ID | `pro_unlock` （**作成後は変更できない**。アプリのコードと一致させる） |
-| 商品タイプ | 1回限りの購入（One-time product） |
-| 消費のしかた | **消費しない**（買い切り。Apple の Non-consumable に相当） |
-| 商品名 | `Channel Timeline Viewer Pro` |
-| 説明 | 複数チャンネル保存を買い切りで解放します。サブスクリプションではありません。 |
-| 価格 | 初期は **$4.99 相当**（ローンチ価格）。将来 $9.99 相当へ変更する前提 |
-| ステータス | **有効（アクティブ）** |
+| 商品ID | `pro_unlock` （**変更不可**。アプリのコードと一致） |
+| 購入オプションID | `pro-unlock` |
+| タイプ | 1回限りの購入（買い切り。consume しない） |
+| 名前 | `Channel Timeline Viewer Pro`（7言語で登録済み） |
+| 価格 | $4.99 相当。173 の国と地域に自動換算して設定済み |
+| 状態 | **ACTIVE** |
+| EU の申告 | デジタルコンテンツ（`WITHDRAWAL_RIGHT_DIGITAL_CONTENT`） |
 
-- 商品を「有効」にしないと、アプリ側で価格が取得できず購入ボタンが押せない。
-- 各国の価格は基準価格から自動換算される。7言語の対象国はすべて自動で入る。
-- **値上げしてもアプリの更新は不要**（価格はコードに持っていないため）。
+値上げ（$9.99 相当など）も同じコマンドで行える。`PRO_PRICE_USD` を書き換えて実行すれば、
+全地域の価格が再換算される。**アプリの更新は不要**（価格はコードに持っていないため）。
+
+> **旧 `inappproducts` API は 2026 年時点で使えない**（`Please migrate to the new publishing API.` が返る）。
+> `monetization.onetimeproducts.patch` を使う。新規作成でも `updateMask` の指定が必須で、
+> 作成しただけでは有効にならないので `purchaseOptions.batchUpdateStates` で有効化する。
+
+画面で確認したいときは Play Console → **収益化 → 商品 → アプリ内アイテム**
+（`https://play.google.com/console/u/0/developers/<開発者ID>/app/<アプリID>/managed-products`）。
 
 ### 3-3. 商品名・説明の多言語（任意）
 

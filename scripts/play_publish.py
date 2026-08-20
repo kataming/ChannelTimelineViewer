@@ -8,6 +8,7 @@ Play Console の画面で7言語ぶんを手入力するのは事故のもとな
   --mode status    いまの登録状況を読むだけ（変更しない）
   --mode listing   掲載情報（アプリ名・簡単な説明・詳しい説明）と画像を反映
   --mode details   ストアに公開される連絡先（メール・サイト）を反映
+  --mode product   アプリ内アイテム（買い切りの Pro）を作成／更新
   --mode aab       署名済み AAB をアップロードして指定トラックに載せる
   --dry-run        送信せず、何をするかだけ表示する
 
@@ -163,6 +164,111 @@ def image_sets(locale: str) -> dict[str, list[Path]]:
     }
 
 
+# 買い切り Pro のアプリ内アイテム。商品IDはアプリのコード（ProBillingManager）と一致させる。
+PRO_PRODUCT_ID = "pro_unlock"
+PRO_PURCHASE_OPTION_ID = "pro-unlock"
+# ローンチ価格 $4.99。他国は Play に換算させる（値上げは Play Console から行える）。
+PRO_PRICE_USD = {"currencyCode": "USD", "units": "4", "nanos": 990000000}
+
+PRO_LISTINGS = {
+    "ja-JP": ("Channel Timeline Viewer Pro",
+              "買い切りで複数チャンネル保存を解放します。サブスクリプションではありません。"),
+    "en-US": ("Channel Timeline Viewer Pro",
+              "A one-time purchase that unlocks saving multiple channels. Not a subscription."),
+    "zh-CN": ("Channel Timeline Viewer Pro",
+              "一次性买断，解锁保存多个频道。这不是订阅服务。"),
+    "es-ES": ("Channel Timeline Viewer Pro",
+              "Una compra única que desbloquea guardar varios canales. No es una suscripción."),
+    "de-DE": ("Channel Timeline Viewer Pro",
+              "Ein einmaliger Kauf, der das Speichern mehrerer Kanäle freischaltet. Kein Abo."),
+    "fr-FR": ("Channel Timeline Viewer Pro",
+              "Un achat unique qui débloque l’enregistrement de plusieurs chaînes. Pas un abonnement."),
+    "ko-KR": ("Channel Timeline Viewer Pro",
+              "한 번만 구매하면 여러 채널 저장이 열립니다. 구독이 아닙니다."),
+}
+
+
+def upsert_product(api, dry_run: bool) -> int:
+    """買い切りの Pro を作る（既にあれば更新する）。
+
+    旧 `inappproducts` API は 2026 現在使えない（"Please migrate to the new publishing API."）ので、
+    `monetization.onetimeproducts` を使う。各国の価格は `convertRegionPrices` に換算させる。
+    """
+    monetization = api.monetization()
+    converted = monetization.convertRegionPrices(
+        packageName=PACKAGE_NAME, body={"price": PRO_PRICE_USD}).execute()
+    region_prices = converted.get("convertedRegionPrices", {})
+    other_regions = converted.get("convertedOtherRegionsPrice", {})
+    regions_version = converted.get("regionVersion", {}).get("version", "2022/02")
+
+    configs = [
+        {"regionCode": code, "availability": "AVAILABLE", "price": info["price"]}
+        for code, info in sorted(region_prices.items())
+        if "price" in info
+    ]
+    print(f"  価格を換算: {len(configs)} の国と地域 / 地域バージョン {regions_version}")
+
+    purchase_option = {
+        "purchaseOptionId": PRO_PURCHASE_OPTION_ID,
+        # legacyCompatible=True にしないと、従来の購入フロー（本アプリの実装）から買えない。
+        "buyOption": {"legacyCompatible": True, "multiQuantityEnabled": False},
+        "regionalPricingAndAvailabilityConfigs": configs,
+        # EU のデジタルコンテンツ（クーリングオフの扱い）を申告する。
+        "taxAndComplianceSettings": {"withdrawalRightType": "WITHDRAWAL_RIGHT_DIGITAL_CONTENT"},
+    }
+    if other_regions.get("usdPrice") and other_regions.get("eurPrice"):
+        purchase_option["newRegionsConfig"] = {
+            "availability": "AVAILABLE",
+            "usdPrice": other_regions["usdPrice"],
+            "eurPrice": other_regions["eurPrice"],
+        }
+
+    body = {
+        "packageName": PACKAGE_NAME,
+        "productId": PRO_PRODUCT_ID,
+        "listings": [
+            {"languageCode": locale, "title": title, "description": description}
+            for locale, (title, description) in PRO_LISTINGS.items()
+        ],
+        "purchaseOptions": [purchase_option],
+    }
+
+    if dry_run:
+        print(f"  [dry-run] {PRO_PRODUCT_ID} を作成/更新して有効化する")
+        return 0
+
+    products = monetization.onetimeproducts()
+    products.patch(
+        packageName=PACKAGE_NAME,
+        productId=PRO_PRODUCT_ID,
+        allowMissing=True,
+        # 新規作成でも update_mask が要るので、こちらで書き換える項目を明示する。
+        updateMask="listings,purchaseOptions",
+        **{"regionsVersion_version": regions_version},
+        body=body,
+    ).execute()
+    print(f"  作成/更新しました: {PRO_PRODUCT_ID}")
+
+    # 作っただけでは「有効」にならないので、購入オプションを有効化する。
+    products.purchaseOptions().batchUpdateStates(
+        packageName=PACKAGE_NAME,
+        productId=PRO_PRODUCT_ID,
+        body={"requests": [{
+            "activatePurchaseOptionRequest": {
+                "packageName": PACKAGE_NAME,
+                "productId": PRO_PRODUCT_ID,
+                "purchaseOptionId": PRO_PURCHASE_OPTION_ID,
+            }
+        }]},
+    ).execute()
+
+    current = products.get(packageName=PACKAGE_NAME, productId=PRO_PRODUCT_ID).execute()
+    for option in current.get("purchaseOptions", []):
+        print(f"  購入オプション {option.get('purchaseOptionId')}: {option.get('state')} / "
+              f"価格を持つ国 {len(option.get('regionalPricingAndAvailabilityConfigs', []))}")
+    return 0
+
+
 def upload_aab(api, aab_path: Path, track: str, release_name: str, dry_run: bool) -> int:
     if not aab_path.exists():
         raise SystemExit(f"AAB がありません: {aab_path}")
@@ -201,7 +307,7 @@ def upload_aab(api, aab_path: Path, track: str, release_name: str, dry_run: bool
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--mode", choices=["status", "listing", "details", "aab"], default="status")
+    parser.add_argument("--mode", choices=["status", "listing", "details", "product", "aab"], default="status")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--aab", default="", help="--mode aab のときに使う AAB のパス")
     parser.add_argument("--track", default="internal", help="internal / alpha / beta / production")
@@ -216,6 +322,8 @@ def main() -> int:
             return push_listing(api, args.dry_run)
         if args.mode == "details":
             return push_details(api, args.dry_run)
+        if args.mode == "product":
+            return upsert_product(api, args.dry_run)
         return upload_aab(api, Path(args.aab), args.track, args.release_name, args.dry_run)
     except HttpError as error:
         detail = error.content.decode("utf-8", errors="replace") if error.content else str(error)

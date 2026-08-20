@@ -59,6 +59,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.deskflowlabs.channeltimelineviewer.R
 import com.deskflowlabs.channeltimelineviewer.data.PlaybackPositionStore
@@ -458,9 +459,13 @@ private fun NavButton(
             Icon(icon, null, modifier = Modifier.size(20.dp))
             Text(
                 stringResource(labelRes),
+                // 言語によって語が長い（例: フランス語の Précédente）。
+                // 1行に収めようとすると切れるので、小さめの字で2行まで許す。
                 style = MaterialTheme.typography.labelSmall,
+                fontSize = 9.sp,
+                lineHeight = 11.sp,
                 textAlign = TextAlign.Center,
-                maxLines = 1,
+                maxLines = 2,
             )
         }
     }

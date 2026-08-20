@@ -142,13 +142,12 @@
     <string name="pro_freefeatures_body">保存した1チャンネルの中では、古い順・新しい順の並べ替え、視聴済み管理、続きから再生、移動ボタン、メモ、進捗表示、公式プレイヤーでの再生をすべて制限なく使えます。</string>
     <string name="pro_freefeatures_header">無料版でできること</string>
     <string name="pro_headline">買い切りで複数チャンネル保存を解放します。</string>
-    <string name="pro_limit_body_format">「%1$s」を開くには、保存中の「%2$s」と入れ替えるか、Proにしてください。</string>
     <string name="pro_limit_replace">入れ替える</string>
-    <string name="pro_limit_replacehint">消えた記録は元に戻せません。Proなら、どちらのチャンネルも保存したまま、それぞれの進捗を残せます。</string>
+    <string name="pro_limit_replacehint">複数チャンネルの履歴を残したい場合は、Proをご利用ください。</string>
     <string name="pro_limit_title">保存できるチャンネルは1件です</string>
     <string name="pro_limit_upgrade">Proにする</string>
     <string name="pro_limit_viewpro">Proの内容を見る</string>
-    <string name="pro_limit_warning_format">入れ替えると「%s」の視聴済み・進捗・メモはすべて消えます</string>
+    <string name="pro_limit_warning_format">このチャンネルを入れ替えると、現在保存中の「%s」の視聴済み・進捗・メモは削除されます。</string>
     <string name="pro_name">Channel Timeline Viewer Pro</string>
     <string name="pro_notsubscription">サブスクリプションではありません。</string>
     <string name="pro_open_a11y">Pro の説明を開く</string>

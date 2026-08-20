@@ -142,13 +142,12 @@
     <string name="pro_freefeatures_body">在已保存的频道内，按最早或最新排序、已观看管理、继续播放、跳转按钮、备注、进度显示、官方播放器播放均可无限制使用。</string>
     <string name="pro_freefeatures_header">免费版可用功能</string>
     <string name="pro_headline">一次性买断，解锁保存多个频道。</string>
-    <string name="pro_limit_body_format">要打开“%1$s”，请替换已保存的“%2$s”，或购买 Pro。</string>
     <string name="pro_limit_replace">替换</string>
-    <string name="pro_limit_replacehint">删除的记录无法恢复。使用 Pro 可同时保存两个频道，并分别保留各自的进度。</string>
+    <string name="pro_limit_replacehint">若想保留多个频道的记录，请使用 Pro。</string>
     <string name="pro_limit_title">可保存 1 个频道</string>
     <string name="pro_limit_upgrade">购买 Pro</string>
     <string name="pro_limit_viewpro">查看 Pro 的内容</string>
-    <string name="pro_limit_warning_format">替换将删除“%s”的全部已观看记录、进度和备注</string>
+    <string name="pro_limit_warning_format">更换频道后，当前已保存的“%s”的已观看记录、进度和备注将被删除。</string>
     <string name="pro_name">Channel Timeline Viewer Pro</string>
     <string name="pro_notsubscription">这不是订阅服务。</string>
     <string name="pro_open_a11y">打开 Pro 说明</string>

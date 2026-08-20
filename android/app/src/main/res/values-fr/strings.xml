@@ -142,13 +142,12 @@
     <string name="pro_freefeatures_body">Dans la chaîne enregistrée, tout fonctionne sans limite : tri du plus ancien au plus récent, suivi des vidéos vues, reprise, boutons de saut, notes, progression et lecture dans le lecteur officiel.</string>
     <string name="pro_freefeatures_header">Ce qu’offre la version gratuite</string>
     <string name="pro_headline">Un achat unique qui débloque l’enregistrement de plusieurs chaînes.</string>
-    <string name="pro_limit_body_format">Pour ouvrir « %1$s », remplacez la chaîne enregistrée « %2$s » ou passez à Pro.</string>
     <string name="pro_limit_replace">Remplacer</string>
-    <string name="pro_limit_replacehint">Les données effacées sont irrécupérables. Avec Pro, vous gardez les deux chaînes enregistrées, chacune avec sa progression.</string>
+    <string name="pro_limit_replacehint">Pour conserver l’historique de plusieurs chaînes, utilisez Pro.</string>
     <string name="pro_limit_title">Vous pouvez enregistrer une chaîne</string>
     <string name="pro_limit_upgrade">Passer à Pro</string>
     <string name="pro_limit_viewpro">Voir ce que Pro inclut</string>
-    <string name="pro_limit_warning_format">Le remplacement efface tout l’historique, la progression et les notes de « %s »</string>
+    <string name="pro_limit_warning_format">Si vous remplacez cette chaîne, l’historique, la progression et les notes de la chaîne enregistrée « %s » seront supprimés.</string>
     <string name="pro_name">Channel Timeline Viewer Pro</string>
     <string name="pro_notsubscription">Ce n’est pas un abonnement.</string>
     <string name="pro_open_a11y">Ouvrir les détails de Pro</string>

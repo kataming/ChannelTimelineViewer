@@ -283,20 +283,18 @@
     <string name="pro_freefeatures_header">What you get for free</string>
     <!-- Pro 画面の見出し（買い切りであることを明示） -->
     <string name="pro_headline">A one-time purchase that unlocks saving multiple channels.</string>
-    <!-- 保存上限の本文（%1$@=開こうとしたチャンネル %2$@=保存中のチャンネル） -->
-    <string name="pro_limit_body_format">To open “%1$s”, replace the saved channel “%2$s” or get Pro.</string>
     <!-- 入れ替えるボタン -->
     <string name="pro_limit_replace">Replace</string>
-    <!-- 入れ替えで記録が消えることの補足 -->
-    <string name="pro_limit_replacehint">Erased records cannot be recovered. With Pro you keep both channels saved, each with its own progress.</string>
+    <!-- 警告のあとに出す Pro への誘導 -->
+    <string name="pro_limit_replacehint">If you want to keep the history of several channels, use Pro.</string>
     <!-- 保存上限の案内タイトル -->
     <string name="pro_limit_title">You can save one channel</string>
     <!-- 上限の案内でProへ進むボタン -->
     <string name="pro_limit_upgrade">Get Pro</string>
     <!-- 上限の案内から Pro の説明画面へ進むボタン -->
     <string name="pro_limit_viewpro">See what Pro includes</string>
-    <!-- 入れ替えの警告（%@ に外れるチャンネル名）。大きめの文字で目立たせる -->
-    <string name="pro_limit_warning_format">Replacing erases all watched history, progress, and notes for “%s”</string>
+    <!-- 入れ替えの警告（%@ に外れるチャンネル名）。大きめ・太字・赤で出す -->
+    <string name="pro_limit_warning_format">Replacing this channel deletes the watched history, progress, and notes of the currently saved “%s”.</string>
     <!-- Pro の商品名（全言語共通） -->
     <string name="pro_name">Channel Timeline Viewer Pro</string>
     <!-- サブスクではないことの明示（購入画面に必須） -->

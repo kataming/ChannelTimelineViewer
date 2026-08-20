@@ -142,13 +142,12 @@
     <string name="pro_freefeatures_body">Dentro del canal guardado todo funciona sin límites: orden de más antiguo o más reciente, control de vistos, reanudar, botones de salto, notas, progreso y reproducción en el reproductor oficial.</string>
     <string name="pro_freefeatures_header">Qué incluye la versión gratuita</string>
     <string name="pro_headline">Una compra única que desbloquea guardar varios canales.</string>
-    <string name="pro_limit_body_format">Para abrir «%1$s», sustituye el canal guardado «%2$s» o hazte con Pro.</string>
     <string name="pro_limit_replace">Sustituir</string>
-    <string name="pro_limit_replacehint">Los registros borrados no se pueden recuperar. Con Pro mantienes ambos canales guardados, cada uno con su propio progreso.</string>
+    <string name="pro_limit_replacehint">Si quieres conservar el historial de varios canales, usa Pro.</string>
     <string name="pro_limit_title">Puedes guardar un canal</string>
     <string name="pro_limit_upgrade">Obtener Pro</string>
     <string name="pro_limit_viewpro">Ver qué incluye Pro</string>
-    <string name="pro_limit_warning_format">Sustituir borra todo el historial de vistos, el progreso y las notas de «%s»</string>
+    <string name="pro_limit_warning_format">Si sustituyes este canal, se eliminarán el historial de vistos, el progreso y las notas del canal guardado «%s».</string>
     <string name="pro_name">Channel Timeline Viewer Pro</string>
     <string name="pro_notsubscription">No es una suscripción.</string>
     <string name="pro_open_a11y">Abrir información de Pro</string>

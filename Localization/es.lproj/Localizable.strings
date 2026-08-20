@@ -299,20 +299,18 @@
 "pro.freeFeatures.header" = "Qué incluye la versión gratuita";
 /* Pro 画面の見出し（買い切りであることを明示） */
 "pro.headline" = "Una compra única que desbloquea guardar varios canales.";
-/* 保存上限の本文（%1$@=開こうとしたチャンネル %2$@=保存中のチャンネル） */
-"pro.limit.body.format" = "Para abrir «%1$@», sustituye el canal guardado «%2$@» o hazte con Pro.";
 /* 入れ替えるボタン */
 "pro.limit.replace" = "Sustituir";
-/* 入れ替えで記録が消えることの補足 */
-"pro.limit.replaceHint" = "Los registros borrados no se pueden recuperar. Con Pro mantienes ambos canales guardados, cada uno con su propio progreso.";
+/* 警告のあとに出す Pro への誘導 */
+"pro.limit.replaceHint" = "Si quieres conservar el historial de varios canales, usa Pro.";
 /* 保存上限の案内タイトル */
 "pro.limit.title" = "Puedes guardar un canal";
 /* 上限の案内でProへ進むボタン */
 "pro.limit.upgrade" = "Obtener Pro";
 /* 上限の案内から Pro の説明画面へ進むボタン */
 "pro.limit.viewPro" = "Ver qué incluye Pro";
-/* 入れ替えの警告（%@ に外れるチャンネル名）。大きめの文字で目立たせる */
-"pro.limit.warning.format" = "Sustituir borra todo el historial de vistos, el progreso y las notas de «%@»";
+/* 入れ替えの警告（%@ に外れるチャンネル名）。大きめ・太字・赤で出す */
+"pro.limit.warning.format" = "Si sustituyes este canal, se eliminarán el historial de vistos, el progreso y las notas del canal guardado «%@».";
 /* Pro の商品名（全言語共通） */
 "pro.name" = "Channel Timeline Viewer Pro";
 /* サブスクではないことの明示（購入画面に必須） */

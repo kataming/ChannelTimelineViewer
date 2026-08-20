@@ -1849,16 +1849,6 @@
     "fr": "Vous pouvez enregistrer une chaîne",
     "ko": "저장할 수 있는 채널은 1개입니다"
   },
-  "pro.limit.body.format": {
-    "comment": "保存上限の本文（%1$@=開こうとしたチャンネル %2$@=保存中のチャンネル）",
-    "ja": "「%1$@」を開くには、保存中の「%2$@」と入れ替えるか、Proにしてください。",
-    "en": "To open “%1$@”, replace the saved channel “%2$@” or get Pro.",
-    "zh-Hans": "要打开“%1$@”，请替换已保存的“%2$@”，或购买 Pro。",
-    "es": "Para abrir «%1$@», sustituye el canal guardado «%2$@» o hazte con Pro.",
-    "de": "Um „%1$@“ zu öffnen, ersetze den gespeicherten Kanal „%2$@“ oder hol dir Pro.",
-    "fr": "Pour ouvrir « %1$@ », remplacez la chaîne enregistrée « %2$@ » ou passez à Pro.",
-    "ko": "「%1$@」을(를) 열려면 저장된 「%2$@」을(를) 교체하거나 Pro를 구매하세요."
-  },
   "pro.limit.replace": {
     "comment": "入れ替えるボタン",
     "ja": "入れ替える",
@@ -1870,14 +1860,14 @@
     "ko": "교체"
   },
   "pro.limit.replaceHint": {
-    "comment": "入れ替えで記録が消えることの補足",
-    "ja": "消えた記録は元に戻せません。Proなら、どちらのチャンネルも保存したまま、それぞれの進捗を残せます。",
-    "en": "Erased records cannot be recovered. With Pro you keep both channels saved, each with its own progress.",
-    "zh-Hans": "删除的记录无法恢复。使用 Pro 可同时保存两个频道，并分别保留各自的进度。",
-    "es": "Los registros borrados no se pueden recuperar. Con Pro mantienes ambos canales guardados, cada uno con su propio progreso.",
-    "de": "Gelöschte Aufzeichnungen lassen sich nicht wiederherstellen. Mit Pro bleiben beide Kanäle gespeichert – jeder mit eigenem Fortschritt.",
-    "fr": "Les données effacées sont irrécupérables. Avec Pro, vous gardez les deux chaînes enregistrées, chacune avec sa progression.",
-    "ko": "삭제된 기록은 되돌릴 수 없습니다. Pro에서는 두 채널을 모두 저장한 채, 각각의 진행 상황을 유지할 수 있습니다."
+    "comment": "警告のあとに出す Pro への誘導",
+    "ja": "複数チャンネルの履歴を残したい場合は、Proをご利用ください。",
+    "en": "If you want to keep the history of several channels, use Pro.",
+    "zh-Hans": "若想保留多个频道的记录，请使用 Pro。",
+    "es": "Si quieres conservar el historial de varios canales, usa Pro.",
+    "de": "Wenn du den Verlauf mehrerer Kanäle behalten möchtest, nutze Pro.",
+    "fr": "Pour conserver l’historique de plusieurs chaînes, utilisez Pro.",
+    "ko": "여러 채널의 기록을 남기고 싶다면 Pro를 이용하세요."
   },
   "pro.entry.title": {
     "comment": "ホームからPro画面へ入る行の見出し",
@@ -1920,14 +1910,14 @@
     "ko": "Pro 구매"
   },
   "pro.limit.warning.format": {
-    "comment": "入れ替えの警告（%@ に外れるチャンネル名）。大きめの文字で目立たせる",
-    "ja": "入れ替えると「%@」の視聴済み・進捗・メモはすべて消えます",
-    "en": "Replacing erases all watched history, progress, and notes for “%@”",
-    "zh-Hans": "替换将删除“%@”的全部已观看记录、进度和备注",
-    "es": "Sustituir borra todo el historial de vistos, el progreso y las notas de «%@»",
-    "de": "Beim Ersetzen werden Gesehen-Status, Fortschritt und Notizen von „%@“ vollständig gelöscht",
-    "fr": "Le remplacement efface tout l’historique, la progression et les notes de « %@ »",
-    "ko": "교체하면 「%@」의 시청 기록·진행 상황·메모가 모두 삭제됩니다"
+    "comment": "入れ替えの警告（%@ に外れるチャンネル名）。大きめ・太字・赤で出す",
+    "ja": "このチャンネルを入れ替えると、現在保存中の「%@」の視聴済み・進捗・メモは削除されます。",
+    "en": "Replacing this channel deletes the watched history, progress, and notes of the currently saved “%@”.",
+    "zh-Hans": "更换频道后，当前已保存的“%@”的已观看记录、进度和备注将被删除。",
+    "es": "Si sustituyes este canal, se eliminarán el historial de vistos, el progreso y las notas del canal guardado «%@».",
+    "de": "Wenn du diesen Kanal ersetzt, werden Gesehen-Status, Fortschritt und Notizen des gespeicherten Kanals „%@“ gelöscht.",
+    "fr": "Si vous remplacez cette chaîne, l’historique, la progression et les notes de la chaîne enregistrée « %@ » seront supprimés.",
+    "ko": "이 채널을 교체하면 현재 저장된 「%@」의 시청 기록·진행 상황·메모가 삭제됩니다."
   },
   "pro.limit.viewPro": {
     "comment": "上限の案内から Pro の説明画面へ進むボタン",

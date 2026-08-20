@@ -220,15 +220,7 @@ fun ChannelInputScreen(
             onDismissRequest = viewModel::dismissPendingUpgrade,
             title = { Text(stringResource(R.string.pro_limit_title)) },
             text = {
-                Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                    Text(
-                        stringResource(
-                            R.string.pro_limit_body_format,
-                            pending.channel.title,
-                            pending.savedChannelTitle,
-                        )
-                    )
-
+                Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                     // 記録が消えることは取り返しがつかないので、いちばん目立たせる。
                     Text(
                         stringResource(
@@ -241,11 +233,10 @@ fun ChannelInputScreen(
                     )
                     Text(
                         stringResource(R.string.pro_limit_replacehint),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        style = MaterialTheme.typography.bodyMedium,
                     )
 
-                    // 消さずに済む道（Pro）を、消す操作より先に見せる。
+                    // 記録を失わずに済む道（Pro）を、失う操作より上に置く。
                     Button(
                         onClick = onOpenPro,
                         modifier = Modifier.fillMaxWidth(),
@@ -261,14 +252,15 @@ fun ChannelInputScreen(
                     ) {
                         Text(stringResource(R.string.pro_limit_replace))
                     }
+                    TextButton(
+                        onClick = viewModel::dismissPendingUpgrade,
+                        modifier = Modifier.fillMaxWidth(),
+                    ) {
+                        Text(stringResource(R.string.common_cancel))
+                    }
                 }
             },
             confirmButton = {},
-            dismissButton = {
-                TextButton(onClick = viewModel::dismissPendingUpgrade) {
-                    Text(stringResource(R.string.common_cancel))
-                }
-            },
         )
     }
 }

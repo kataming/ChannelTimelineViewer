@@ -142,13 +142,12 @@
     <string name="pro_freefeatures_body">In deinem gespeicherten Kanal funktioniert alles ohne Einschränkung: Sortierung nach ältesten oder neuesten, Gesehen-Status, Fortsetzen, Sprungtasten, Notizen, Fortschritt und Wiedergabe im offiziellen Player.</string>
     <string name="pro_freefeatures_header">Das bietet die kostenlose Version</string>
     <string name="pro_headline">Ein einmaliger Kauf, der das Speichern mehrerer Kanäle freischaltet.</string>
-    <string name="pro_limit_body_format">Um „%1$s“ zu öffnen, ersetze den gespeicherten Kanal „%2$s“ oder hol dir Pro.</string>
     <string name="pro_limit_replace">Ersetzen</string>
-    <string name="pro_limit_replacehint">Gelöschte Aufzeichnungen lassen sich nicht wiederherstellen. Mit Pro bleiben beide Kanäle gespeichert – jeder mit eigenem Fortschritt.</string>
+    <string name="pro_limit_replacehint">Wenn du den Verlauf mehrerer Kanäle behalten möchtest, nutze Pro.</string>
     <string name="pro_limit_title">Du kannst einen Kanal speichern</string>
     <string name="pro_limit_upgrade">Pro holen</string>
     <string name="pro_limit_viewpro">Ansehen, was Pro bietet</string>
-    <string name="pro_limit_warning_format">Beim Ersetzen werden Gesehen-Status, Fortschritt und Notizen von „%s“ vollständig gelöscht</string>
+    <string name="pro_limit_warning_format">Wenn du diesen Kanal ersetzt, werden Gesehen-Status, Fortschritt und Notizen des gespeicherten Kanals „%s“ gelöscht.</string>
     <string name="pro_name">Channel Timeline Viewer Pro</string>
     <string name="pro_notsubscription">Es ist kein Abo.</string>
     <string name="pro_open_a11y">Pro-Details öffnen</string>

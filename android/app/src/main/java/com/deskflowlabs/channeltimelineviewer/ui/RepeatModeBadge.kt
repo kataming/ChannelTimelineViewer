@@ -45,7 +45,8 @@ import com.deskflowlabs.channeltimelineviewer.ui.theme.WatchedGreen
 fun RepeatModeBadge(mode: RepeatMode, size: Dp = 26.dp) {
     val active = mode.isActive
     val outline = LocalContentColor.current
-    val ink = if (active) Color.Black else outline
+    // 緑地のときは白抜き。Android は画面が白基調なので、黒よりこちらの方が離れて見ても分かる。
+    val ink = if (active) Color.White else outline
 
     Box(modifier = Modifier.size(size), contentAlignment = Alignment.Center) {
         Canvas(modifier = Modifier.size(size)) {

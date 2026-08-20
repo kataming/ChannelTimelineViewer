@@ -18,6 +18,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.FastForward
 import androidx.compose.material.icons.filled.FastRewind
@@ -95,6 +96,7 @@ fun PlayerScreen(
     val autoPlayNext by settings.autoPlayNext.collectAsStateWithLifecycle()
     val unwatchedOnly by settings.playUnwatchedOnly.collectAsStateWithLifecycle()
     val repeatMode by settings.repeatMode.collectAsStateWithLifecycle()
+    val resumeFromLastPosition by settings.resumeFromLastPosition.collectAsStateWithLifecycle()
     val showEnded by viewModel.showEndedSuggestion.collectAsStateWithLifecycle()
     val didAutoAdvance by viewModel.didAutoAdvance.collectAsStateWithLifecycle()
     val canGoBack by viewModel.canGoBack.collectAsStateWithLifecycle()
@@ -155,6 +157,19 @@ fun PlayerScreen(
                             },
                         )
                         Divider()
+                        // 続きから再生の入切（既定オン）。iOS 版と同じくメニューに置く。
+                        DropdownMenuItem(
+                            text = { Text(stringResource(R.string.player_menu_resume)) },
+                            trailingIcon = {
+                                if (resumeFromLastPosition) {
+                                    Icon(Icons.Default.Check, null, tint = WatchedGreen)
+                                }
+                            },
+                            onClick = {
+                                settings.setResumeFromLastPosition(!resumeFromLastPosition)
+                                menuOpen = false
+                            },
+                        )
                         DropdownMenuItem(
                             text = { Text(stringResource(R.string.player_menu_restart)) },
                             onClick = {

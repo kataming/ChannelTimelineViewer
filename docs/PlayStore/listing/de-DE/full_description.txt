@@ -25,12 +25,16 @@ HAUPTFUNKTIONEN
 WIEDERGABE
 Videos laufen im offiziellen eingebetteten YouTube-Player (IFrame Player).
 
+KOSTENLOS UND PRO
+Einen Kanal speicherst du kostenlos. In diesem Kanal funktioniert alles ohne Einschränkung: Sortierung, Gesehen-Status, Fortsetzen, Sprungtasten, Notizen, Fortschritt und Wiedergabe im offiziellen Player.
+Wenn du mehrere Kanäle speichern und den Fortschritt je Kanal verfolgen möchtest, hol dir Pro – ein einmaliger Kauf, kein Abo.
+
 HINWEISE
 • Diese App ist nicht die offizielle YouTube-App.
 • Sie lädt keine Videos herunter, blockiert keine Werbung und spielt nicht im Hintergrund.
 • Videolisten stammen aus der YouTube Data API v3.
 • Autoplay ist standardmäßig aus und wechselt nur zum nächsten Video der geöffneten Liste.
-• Keine In-App-Käufe, keine Abos, keine Werbung.
+• Keine Werbung und keine Abos – Pro ist ein einmaliger Kauf.
 • Verlauf, Fortschritt, Notizen und Positionen bleiben auf deinem Gerät.
 
 YouTube ist eine Marke von Google LLC.

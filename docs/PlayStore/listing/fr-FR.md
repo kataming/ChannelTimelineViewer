@@ -22,7 +22,7 @@ Regardez les vidéos d'une chaîne dans l'ordre, avec suivi de progression.
 ```
 
 ## 詳しい説明（Full description）
-<!-- 2060 / 4000 文字 -->
+<!-- 2413 / 4000 文字 -->
 
 ```
 Channel Timeline Viewer classe les vidéos d'une chaîne par date de publication — de la plus ancienne à la plus récente — pour parcourir des archives, un cours ou une longue série depuis le tout début sans perdre le fil.
@@ -52,12 +52,16 @@ FONCTIONS PRINCIPALES
 LECTURE
 Les vidéos sont lues dans le lecteur intégré officiel de YouTube (IFrame Player).
 
+GRATUIT ET PRO
+Vous pouvez enregistrer une chaîne gratuitement. Dans cette chaîne, tout fonctionne sans limite : tri, suivi des vidéos vues, reprise, boutons de saut, notes, progression et lecture dans le lecteur officiel.
+Pour enregistrer plusieurs chaînes et suivre la progression de chacune, achetez Pro : un achat unique, pas un abonnement.
+
 À NOTER
 • Cette app n'est pas l'app officielle YouTube.
 • Elle ne télécharge pas les vidéos, ne bloque pas la publicité et ne lit pas en arrière-plan.
 • Les listes de vidéos proviennent de l'API YouTube Data v3.
 • La lecture automatique est désactivée par défaut et ne passe qu'à la vidéo suivante de la liste ouverte.
-• Aucun achat intégré, aucun abonnement, aucune publicité.
+• Aucune publicité et aucun abonnement : Pro est un achat unique.
 • Historique, progression, notes et positions restent sur votre appareil.
 
 YouTube est une marque de Google LLC.

@@ -107,6 +107,10 @@
     <string name="error_uploadsplaylistnotfound">Couldn’t load the video list for this channel.</string>
     <!-- エラー: 動画から投稿チャンネルを特定できない -->
     <string name="error_videonotfound">Couldn’t identify the channel for this video.</string>
+    <!-- 保存解除の確認ダイアログのタイトル -->
+    <string name="favorites_delete_title">Unsave this channel?</string>
+    <!-- 保存解除の警告（%@ にチャンネル名）。大きめ・太字・赤で出す -->
+    <string name="favorites_delete_warning_format">Unsaving deletes the watched history, progress, and notes of “%s”.</string>
     <!-- 最終利用日時（%@ に日時） -->
     <string name="favorites_lastopened_format">Last opened: %s</string>
     <!-- 進捗（%1$@=視聴済み %2$@=総数 %3$@=割合） -->
@@ -117,6 +121,8 @@
     <string name="favorites_resume">Continue watching</string>
     <!-- お気に入り一覧の説明 -->
     <string name="favorites_section_footer">Swipe a row left to remove just that channel. Your watch history is kept, so progress returns when you open it again.</string>
+    <!-- Android のお気に入り一覧の脚注。削除で記録も消えることを断る -->
+    <string name="favorites_section_footer_android">Use the trash button to unsave a channel. Unsaving also deletes its watched history, progress, and notes.</string>
     <!-- 見出し: 最近使ったチャンネル -->
     <string name="favorites_section_header">Recent channels</string>
     <!-- 左スワイプで削除の案内 -->

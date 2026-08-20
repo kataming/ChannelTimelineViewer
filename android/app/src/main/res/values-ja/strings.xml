@@ -54,11 +54,14 @@
     <string name="error_unknown">不明なエラーが発生しました</string>
     <string name="error_uploadsplaylistnotfound">このチャンネルの動画一覧を取得できませんでした</string>
     <string name="error_videonotfound">この動画のチャンネルを特定できませんでした</string>
+    <string name="favorites_delete_title">このチャンネルの保存を解除しますか？</string>
+    <string name="favorites_delete_warning_format">解除すると「%s」の視聴済み・進捗・メモは削除されます。</string>
     <string name="favorites_lastopened_format">最終: %s</string>
     <string name="favorites_progress_format">%1$s / %2$s本 視聴済み（%3$s%%）</string>
     <string name="favorites_progresshint">進捗はチャンネルを開くと表示されます</string>
     <string name="favorites_resume">続きから見る</string>
     <string name="favorites_section_footer">行を左にスワイプすると、その1件だけを削除できます。視聴済みの記録は残るので、開き直せば進捗も戻ります。</string>
+    <string name="favorites_section_footer_android">ゴミ箱ボタンで保存を解除できます。解除するとそのチャンネルの視聴済み・進捗・メモも削除されます。</string>
     <string name="favorites_section_header">最近使ったチャンネル</string>
     <string name="favorites_swipehint">左スワイプで削除</string>
     <string name="filter_all">すべて</string>

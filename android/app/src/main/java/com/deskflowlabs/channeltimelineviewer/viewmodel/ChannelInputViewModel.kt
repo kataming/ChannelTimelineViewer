@@ -6,6 +6,7 @@ import com.deskflowlabs.channeltimelineviewer.billing.ChannelSlotPolicy
 import com.deskflowlabs.channeltimelineviewer.data.ChannelDataRemover
 import com.deskflowlabs.channeltimelineviewer.data.FavoriteChannelStore
 import com.deskflowlabs.channeltimelineviewer.model.Channel
+import com.deskflowlabs.channeltimelineviewer.model.FavoriteChannel
 import com.deskflowlabs.channeltimelineviewer.network.YouTubeApiClient
 import com.deskflowlabs.channeltimelineviewer.network.YouTubeApiError
 import com.deskflowlabs.channeltimelineviewer.network.YouTubeApiException
@@ -47,6 +48,28 @@ class ChannelInputViewModel(
 
     private val _pendingUpgrade = MutableStateFlow<PendingUpgrade?>(null)
     val pendingUpgrade: StateFlow<PendingUpgrade?> = _pendingUpgrade.asStateFlow()
+
+    /** 保存解除の確認待ちのチャンネル。解除すると記録も消えるので必ず確認する。 */
+    private val _pendingDeletion = MutableStateFlow<FavoriteChannel?>(null)
+    val pendingDeletion: StateFlow<FavoriteChannel?> = _pendingDeletion.asStateFlow()
+
+    fun askToDelete(favorite: FavoriteChannel) {
+        _pendingDeletion.value = favorite
+    }
+
+    fun dismissDeletion() {
+        _pendingDeletion.value = null
+    }
+
+    /**
+     * 保存を解除する。**そのチャンネルの視聴済み・進捗・メモ・再生位置も消える**。
+     * 解除だけして枠を空けられると入れ替えの制限が意味を失うので、入れ替えと同じ扱いにしている。
+     */
+    fun confirmDeletion() {
+        val target = _pendingDeletion.value ?: return
+        _pendingDeletion.value = null
+        dataRemover.removeChannel(target.id)
+    }
 
     fun setUrlText(value: String) {
         _urlText.value = value

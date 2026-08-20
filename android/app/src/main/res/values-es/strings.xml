@@ -54,11 +54,14 @@
     <string name="error_unknown">Se produjo un error desconocido.</string>
     <string name="error_uploadsplaylistnotfound">No se pudo obtener la lista de vídeos de este canal.</string>
     <string name="error_videonotfound">No se pudo identificar el canal de este vídeo.</string>
+    <string name="favorites_delete_title">¿Dejar de guardar este canal?</string>
+    <string name="favorites_delete_warning_format">Al dejar de guardarlo se eliminarán el historial de vistos, el progreso y las notas de «%s».</string>
     <string name="favorites_lastopened_format">Última vez: %s</string>
     <string name="favorites_progress_format">%1$s de %2$s vistos (%3$s%%)</string>
     <string name="favorites_progresshint">El progreso aparece al abrir el canal.</string>
     <string name="favorites_resume">Continuar viendo</string>
     <string name="favorites_section_footer">Desliza una fila hacia la izquierda para quitar solo ese canal. El historial se conserva, así que el progreso vuelve al abrirlo de nuevo.</string>
+    <string name="favorites_section_footer_android">Usa el botón de papelera para dejar de guardar un canal. Al hacerlo también se eliminan su historial de vistos, progreso y notas.</string>
     <string name="favorites_section_header">Canales recientes</string>
     <string name="favorites_swipehint">Desliza para eliminar</string>
     <string name="filter_all">Todos</string>

@@ -73,6 +73,7 @@ fun ChannelInputScreen(
     val favoriteList by favorites.favorites.collectAsStateWithLifecycle()
     val progressMap by progressStore.progress.collectAsStateWithLifecycle()
     val pendingUpgrade by viewModel.pendingUpgrade.collectAsStateWithLifecycle()
+    val pendingDeletion by viewModel.pendingDeletion.collectAsStateWithLifecycle()
 
     Scaffold(
         topBar = {
@@ -192,12 +193,12 @@ fun ChannelInputScreen(
                         watchedCount = progressMap[favorite.id]?.watchedCount ?: 0,
                         totalCount = progressMap[favorite.id]?.totalCount ?: 0,
                         onOpen = { onOpenFavorite(favorite) },
-                        onDelete = { favorites.remove(favorite.id) },
+                        onDelete = { viewModel.askToDelete(favorite) },
                     )
                 }
                 item {
                     Text(
-                        stringResource(R.string.favorites_section_footer),
+                        stringResource(R.string.favorites_section_footer_android),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
@@ -254,6 +255,48 @@ fun ChannelInputScreen(
                     }
                     TextButton(
                         onClick = viewModel::dismissPendingUpgrade,
+                        modifier = Modifier.fillMaxWidth(),
+                    ) {
+                        Text(stringResource(R.string.common_cancel))
+                    }
+                }
+            },
+            confirmButton = {},
+        )
+    }
+
+    pendingDeletion?.let { target ->
+        AlertDialog(
+            onDismissRequest = viewModel::dismissDeletion,
+            title = { Text(stringResource(R.string.favorites_delete_title)) },
+            text = {
+                Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    Text(
+                        stringResource(R.string.favorites_delete_warning_format, target.title),
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.error,
+                    )
+                    if (!isPro) {
+                        Text(
+                            stringResource(R.string.pro_limit_replacehint),
+                            style = MaterialTheme.typography.bodyMedium,
+                        )
+                        Button(onClick = onOpenPro, modifier = Modifier.fillMaxWidth()) {
+                            Text(stringResource(R.string.pro_limit_viewpro))
+                        }
+                    }
+                    OutlinedButton(
+                        onClick = viewModel::confirmDeletion,
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = ButtonDefaults.outlinedButtonColors(
+                            contentColor = MaterialTheme.colorScheme.error,
+                        ),
+                    ) {
+                        Text(stringResource(R.string.common_delete))
+                    }
+                    TextButton(
+                        onClick = viewModel::dismissDeletion,
                         modifier = Modifier.fillMaxWidth(),
                     ) {
                         Text(stringResource(R.string.common_cancel))

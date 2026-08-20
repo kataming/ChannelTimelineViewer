@@ -1928,5 +1928,35 @@
     "de": "Ansehen, was Pro bietet",
     "fr": "Voir ce que Pro inclut",
     "ko": "Pro 내용 보기"
+  },
+  "favorites.section.footer.android": {
+    "comment": "Android のお気に入り一覧の脚注。削除で記録も消えることを断る",
+    "ja": "ゴミ箱ボタンで保存を解除できます。解除するとそのチャンネルの視聴済み・進捗・メモも削除されます。",
+    "en": "Use the trash button to unsave a channel. Unsaving also deletes its watched history, progress, and notes.",
+    "zh-Hans": "点击垃圾桶按钮可取消保存。取消保存会同时删除该频道的已观看记录、进度和备注。",
+    "es": "Usa el botón de papelera para dejar de guardar un canal. Al hacerlo también se eliminan su historial de vistos, progreso y notas.",
+    "de": "Mit dem Papierkorb-Symbol hebst du das Speichern auf. Dabei werden auch Gesehen-Status, Fortschritt und Notizen des Kanals gelöscht.",
+    "fr": "Le bouton corbeille retire la chaîne des enregistrements. Cela supprime aussi son historique, sa progression et ses notes.",
+    "ko": "휴지통 버튼으로 저장을 해제할 수 있습니다. 해제하면 해당 채널의 시청 기록·진행 상황·메모도 삭제됩니다."
+  },
+  "favorites.delete.title": {
+    "comment": "保存解除の確認ダイアログのタイトル",
+    "ja": "このチャンネルの保存を解除しますか？",
+    "en": "Unsave this channel?",
+    "zh-Hans": "要取消保存该频道吗？",
+    "es": "¿Dejar de guardar este canal?",
+    "de": "Diesen Kanal nicht mehr speichern?",
+    "fr": "Retirer cette chaîne des enregistrements ?",
+    "ko": "이 채널의 저장을 해제할까요?"
+  },
+  "favorites.delete.warning.format": {
+    "comment": "保存解除の警告（%@ にチャンネル名）。大きめ・太字・赤で出す",
+    "ja": "解除すると「%@」の視聴済み・進捗・メモは削除されます。",
+    "en": "Unsaving deletes the watched history, progress, and notes of “%@”.",
+    "zh-Hans": "取消保存将删除“%@”的已观看记录、进度和备注。",
+    "es": "Al dejar de guardarlo se eliminarán el historial de vistos, el progreso y las notas de «%@».",
+    "de": "Beim Aufheben werden Gesehen-Status, Fortschritt und Notizen von „%@“ gelöscht.",
+    "fr": "Le retrait supprime l’historique, la progression et les notes de « %@ ».",
+    "ko": "해제하면 「%@」의 시청 기록·진행 상황·메모가 삭제됩니다."
   }
 }

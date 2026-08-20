@@ -54,11 +54,14 @@
     <string name="error_unknown">Une erreur inconnue s’est produite.</string>
     <string name="error_uploadsplaylistnotfound">Impossible de récupérer la liste des vidéos de cette chaîne.</string>
     <string name="error_videonotfound">Impossible d’identifier la chaîne de cette vidéo.</string>
+    <string name="favorites_delete_title">Retirer cette chaîne des enregistrements ?</string>
+    <string name="favorites_delete_warning_format">Le retrait supprime l’historique, la progression et les notes de « %s ».</string>
     <string name="favorites_lastopened_format">Dernière fois : %s</string>
     <string name="favorites_progress_format">%1$s sur %2$s regardées (%3$s%%)</string>
     <string name="favorites_progresshint">La progression s’affiche une fois la chaîne ouverte.</string>
     <string name="favorites_resume">Reprendre</string>
     <string name="favorites_section_footer">Balayez une ligne vers la gauche pour retirer uniquement cette chaîne. L’historique est conservé : la progression revient à la réouverture.</string>
+    <string name="favorites_section_footer_android">Le bouton corbeille retire la chaîne des enregistrements. Cela supprime aussi son historique, sa progression et ses notes.</string>
     <string name="favorites_section_header">Chaînes récentes</string>
     <string name="favorites_swipehint">Balayez pour supprimer</string>
     <string name="filter_all">Toutes</string>

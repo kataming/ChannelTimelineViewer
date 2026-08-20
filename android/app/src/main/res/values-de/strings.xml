@@ -54,11 +54,14 @@
     <string name="error_unknown">Ein unbekannter Fehler ist aufgetreten.</string>
     <string name="error_uploadsplaylistnotfound">Die Videoliste dieses Kanals konnte nicht geladen werden.</string>
     <string name="error_videonotfound">Der Kanal dieses Videos konnte nicht ermittelt werden.</string>
+    <string name="favorites_delete_title">Diesen Kanal nicht mehr speichern?</string>
+    <string name="favorites_delete_warning_format">Beim Aufheben werden Gesehen-Status, Fortschritt und Notizen von „%s“ gelöscht.</string>
     <string name="favorites_lastopened_format">Zuletzt: %s</string>
     <string name="favorites_progress_format">%1$s von %2$s gesehen (%3$s%%)</string>
     <string name="favorites_progresshint">Der Fortschritt erscheint, sobald du den Kanal öffnest.</string>
     <string name="favorites_resume">Weiterschauen</string>
     <string name="favorites_section_footer">Wische eine Zeile nach links, um nur diesen Kanal zu entfernen. Der Verlauf bleibt erhalten – beim erneuten Öffnen ist der Fortschritt wieder da.</string>
+    <string name="favorites_section_footer_android">Mit dem Papierkorb-Symbol hebst du das Speichern auf. Dabei werden auch Gesehen-Status, Fortschritt und Notizen des Kanals gelöscht.</string>
     <string name="favorites_section_header">Zuletzt verwendete Kanäle</string>
     <string name="favorites_swipehint">Zum Löschen wischen</string>
     <string name="filter_all">Alle</string>

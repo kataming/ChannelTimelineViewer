@@ -54,11 +54,14 @@
     <string name="error_unknown">发生了未知错误。</string>
     <string name="error_uploadsplaylistnotfound">无法获取该频道的视频列表。</string>
     <string name="error_videonotfound">无法确定该视频所属的频道。</string>
+    <string name="favorites_delete_title">要取消保存该频道吗？</string>
+    <string name="favorites_delete_warning_format">取消保存将删除“%s”的已观看记录、进度和备注。</string>
     <string name="favorites_lastopened_format">最近打开：%s</string>
     <string name="favorites_progress_format">已观看 %1$s / %2$s（%3$s%%）</string>
     <string name="favorites_progresshint">打开频道后会显示进度。</string>
     <string name="favorites_resume">继续观看</string>
     <string name="favorites_section_footer">向左滑动某一行即可只删除该频道。观看记录会保留，重新打开后进度仍在。</string>
+    <string name="favorites_section_footer_android">点击垃圾桶按钮可取消保存。取消保存会同时删除该频道的已观看记录、进度和备注。</string>
     <string name="favorites_section_header">最近使用的频道</string>
     <string name="favorites_swipehint">向左滑动删除</string>
     <string name="filter_all">全部</string>

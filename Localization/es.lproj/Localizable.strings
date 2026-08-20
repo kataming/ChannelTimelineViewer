@@ -105,6 +105,10 @@
 "error.uploadsPlaylistNotFound" = "No se pudo obtener la lista de vídeos de este canal.";
 /* エラー: 動画から投稿チャンネルを特定できない */
 "error.videoNotFound" = "No se pudo identificar el canal de este vídeo.";
+/* 保存解除の確認ダイアログのタイトル */
+"favorites.delete.title" = "¿Dejar de guardar este canal?";
+/* 保存解除の警告（%@ にチャンネル名）。大きめ・太字・赤で出す */
+"favorites.delete.warning.format" = "Al dejar de guardarlo se eliminarán el historial de vistos, el progreso y las notas de «%@».";
 /* 最終利用日時（%@ に日時） */
 "favorites.lastOpened.format" = "Última vez: %@";
 /* 進捗（%1$@=視聴済み %2$@=総数 %3$@=割合） */
@@ -115,6 +119,8 @@
 "favorites.resume" = "Continuar viendo";
 /* お気に入り一覧の説明 */
 "favorites.section.footer" = "Desliza una fila hacia la izquierda para quitar solo ese canal. El historial se conserva, así que el progreso vuelve al abrirlo de nuevo.";
+/* Android のお気に入り一覧の脚注。削除で記録も消えることを断る */
+"favorites.section.footer.android" = "Usa el botón de papelera para dejar de guardar un canal. Al hacerlo también se eliminan su historial de vistos, progreso y notas.";
 /* 見出し: 最近使ったチャンネル */
 "favorites.section.header" = "Canales recientes";
 /* 左スワイプで削除の案内 */

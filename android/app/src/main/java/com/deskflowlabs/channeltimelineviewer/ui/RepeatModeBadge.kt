@@ -4,6 +4,7 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.LocalContentColor
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -17,6 +18,8 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.text.PlatformTextStyle
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
@@ -72,15 +75,22 @@ fun RepeatModeBadge(mode: RepeatMode, size: Dp = 26.dp) {
         }
 
         mode.centerLabel?.let { label ->
-            val fontSize = with(LocalDensity.current) { (size * 0.25f).toSp() }
+            // 文字数で大きさを変える。「1」は大きく、「ALL」は幅に収まるよう控えめに。
+            // （iOS と同じ 0.25 だと、ツールバーの実寸 26dp では潰れて見えなかった）
+            val ratio = if (label.length == 1) 0.42f else 0.30f
+            val fontSize = with(LocalDensity.current) { (size * ratio).toSp() }
             Text(
                 text = label,
                 color = ink,
                 fontSize = fontSize,
+                // 行の余白（font padding）が入ると中央からずれるので切る。
+                lineHeight = fontSize,
+                style = LocalTextStyle.current.merge(
+                    TextStyle(platformStyle = PlatformTextStyle(includeFontPadding = false))
+                ),
                 fontWeight = FontWeight.Black,
                 maxLines = 1,
                 textAlign = TextAlign.Center,
-                modifier = Modifier.size(width = size * 0.70f, height = size * 0.40f),
             )
         }
     }

@@ -1,18 +1,22 @@
 package com.deskflowlabs.channeltimelineviewer
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -31,6 +35,7 @@ import com.deskflowlabs.channeltimelineviewer.viewmodel.ChannelInputViewModel
 import com.deskflowlabs.channeltimelineviewer.viewmodel.PlayerViewModel
 import com.deskflowlabs.channeltimelineviewer.viewmodel.VideoListViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import java.util.Locale
 
 /**
  * 画面はこの1つの Activity 内で切り替える（3画面なので Navigation ライブラリは使わない）。
@@ -47,17 +52,21 @@ class MainActivity : ComponentActivity() {
         container = AppContainer(this)
         handleShareIntent(intent)
 
-        // デバッグビルドでのみ、見た目確認用の画面を開けるようにする
-        // （adb shell am start ... --es preview badge）。
+        // デバッグビルドでのみ使う確認用の入り口。
+        //   --es preview badge … バッジの見た目確認
+        //   --es locale ja      … 表示言語を切り替える（ストア用スクショを言語別に撮るため）
         val previewName = if (BuildConfig.DEBUG) intent?.getStringExtra("preview") else null
+        val localeTag = if (BuildConfig.DEBUG) intent?.getStringExtra("locale") else null
 
         setContent {
-            ChannelTimelineTheme {
-                Surface(modifier = Modifier.fillMaxSize()) {
-                    if (previewName == "badge") {
-                        BadgePreviewScreen()
-                    } else {
-                        AppRoot(container, sharedUrl)
+            WithLocale(localeTag) {
+                ChannelTimelineTheme {
+                    Surface(modifier = Modifier.fillMaxSize()) {
+                        if (previewName == "badge") {
+                            BadgePreviewScreen()
+                        } else {
+                            AppRoot(container, sharedUrl)
+                        }
                     }
                 }
             }
@@ -78,6 +87,28 @@ class MainActivity : ComponentActivity() {
         if (intent?.action != Intent.ACTION_SEND) return
         val text = intent.getStringExtra(Intent.EXTRA_TEXT) ?: return
         SharedLinkParser.extractYouTubeUrl(text)?.let { sharedUrl.value = it }
+    }
+}
+
+/**
+ * 表示言語を差し替えて中身を描く（デバッグ専用）。
+ * 端末の言語設定を変えずに、7言語ぶんのスクリーンショットを撮るために使う。
+ */
+@Composable
+private fun WithLocale(languageTag: String?, content: @Composable () -> Unit) {
+    if (languageTag.isNullOrBlank()) {
+        content()
+        return
+    }
+    val context = LocalContext.current
+    val configuration = Configuration(LocalConfiguration.current).apply {
+        setLocale(Locale.forLanguageTag(languageTag))
+    }
+    CompositionLocalProvider(
+        LocalConfiguration provides configuration,
+        LocalContext provides context.createConfigurationContext(configuration),
+    ) {
+        content()
     }
 }
 

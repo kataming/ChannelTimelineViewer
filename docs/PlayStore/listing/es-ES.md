@@ -1,0 +1,64 @@
+# Google Play ストア掲載情報 — Español (España)（es-ES）
+
+> このファイルは `scripts/build_play_metadata.py` が生成します。直接編集せず、
+> `docs/PlayStore/metadata.json` を直してから再生成してください。
+
+- メール: support@jewelrysunflower.com
+- ウェブサイト: https://channeltimeline.jewelrysunflower.com/
+- プライバシーポリシー: https://channeltimeline.jewelrysunflower.com/en/privacy/
+
+## アプリ名（Title）
+<!-- 23 / 30 文字 -->
+
+```
+Channel Timeline Viewer
+```
+
+## 短い説明（Short description）
+<!-- 76 / 80 文字 -->
+
+```
+Mira las subidas de un canal de las más antiguas a las nuevas, con progreso.
+```
+
+## 詳しい説明（Full description）
+<!-- 2019 / 4000 文字 -->
+
+```
+Channel Timeline Viewer ordena las subidas de un canal por fecha de publicación —de las más antiguas a las más recientes— para que recorras un archivo, un curso o una serie larga desde el principio sin perder el hilo.
+
+PARA QUIÉN ES
+• Quien quiere ponerse al día con el catálogo antiguo de un canal
+• Estudiantes que siguen un curso o una serie de clases
+• Espectadores que quieren saber exactamente hasta dónde han visto
+
+FUNCIONES PRINCIPALES
+• Pega la URL de un canal o compártela desde la app de YouTube o un navegador
+• Lista de subidas de la más antigua a la más reciente (o al revés)
+• Progreso por canal: vídeos vistos, porcentaje y barra de progreso
+• «Siguiente / Continuar» te devuelve justo donde lo dejaste
+• Reanudación en el segundo exacto en que paraste
+• Reproducción automática opcional del siguiente vídeo (desactivada por defecto)
+• Repetir uno o repetir todo
+• Marca vídeos como vistos u omitidos; reproduce solo los no vistos
+• Filtros: todos / no vistos / vistos
+• Notas por vídeo, para estudiar o seguir series
+• Velocidad de reproducción y subtítulos desde fuera del reproductor
+• Posición mostrada como «27 de febrero de 2026 (1.034 / 3.500)»
+• Cinco botones de navegación: primero, anterior, deshacer, siguiente y último
+• Los canales ya abiertos se cargan al instante desde una lista guardada
+• Disponible en español, inglés, japonés, chino simplificado, alemán, francés y coreano
+
+REPRODUCCIÓN
+Los vídeos se reproducen en el reproductor incrustado oficial de YouTube (IFrame Player).
+
+AVISOS
+• Esta app no es la app oficial de YouTube.
+• No descarga vídeos, no bloquea anuncios y no reproduce en segundo plano.
+• Las listas de vídeos se obtienen con la API de datos de YouTube v3.
+• La reproducción automática está desactivada por defecto y solo avanza al siguiente vídeo de la lista abierta.
+• Sin compras dentro de la app, sin suscripciones y sin anuncios.
+• El historial, el progreso, las notas y las posiciones se quedan en tu dispositivo.
+
+YouTube es una marca comercial de Google LLC.
+```

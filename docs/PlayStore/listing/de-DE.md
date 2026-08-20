@@ -22,7 +22,7 @@ Kanal-Uploads chronologisch ansehen – mit Fortschritt und Fortsetzen.
 ```
 
 ## 詳しい説明（Full description）
-<!-- 2289 / 4000 文字 -->
+<!-- 2428 / 4000 文字 -->
 
 ```
 Channel Timeline Viewer sortiert die Uploads eines Kanals nach Veröffentlichungsdatum – die ältesten zuerst. So arbeitest du dich von Anfang an durch ein Archiv, einen Kurs oder eine lange Serie, ohne den Faden zu verlieren.
@@ -54,7 +54,8 @@ Videos laufen im offiziellen eingebetteten YouTube-Player (IFrame Player).
 
 KOSTENLOS UND PRO
 Einen Kanal speicherst du kostenlos. In diesem Kanal funktioniert alles ohne Einschränkung: Sortierung, Gesehen-Status, Fortsetzen, Sprungtasten, Notizen, Fortschritt und Wiedergabe im offiziellen Player.
-Wenn du mehrere Kanäle speichern und den Fortschritt je Kanal verfolgen möchtest, hol dir Pro – ein einmaliger Kauf, kein Abo.
+Du kannst den Kanal auch kostenlos austauschen, dabei werden aber Gesehen-Status, Fortschritt und Notizen des bisherigen Kanals gelöscht.
+Wenn du mehrere Kanäle parallel verfolgen und alle Aufzeichnungen behalten willst, hol dir Pro – ein einmaliger Kauf, kein Abo.
 
 HINWEISE
 • Diese App ist nicht die offizielle YouTube-App.

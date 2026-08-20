@@ -22,7 +22,7 @@ Mira las subidas de un canal de las más antiguas a las nuevas, con progreso.
 ```
 
 ## 詳しい説明（Full description）
-<!-- 2345 / 4000 文字 -->
+<!-- 2466 / 4000 文字 -->
 
 ```
 Channel Timeline Viewer ordena las subidas de un canal por fecha de publicación —de las más antiguas a las más recientes— para que recorras un archivo, un curso o una serie larga desde el principio sin perder el hilo.
@@ -54,7 +54,8 @@ Los vídeos se reproducen en el reproductor incrustado oficial de YouTube (IFram
 
 GRATIS Y PRO
 Puedes guardar un canal gratis. Dentro de ese canal todo funciona sin límites: ordenación, control de vistos, reanudar, botones de salto, notas, progreso y reproducción en el reproductor oficial.
-Si quieres guardar varios canales y seguir el progreso de cada uno, compra Pro. Es una compra única, no una suscripción.
+Puedes cambiar de canal gratis, pero al hacerlo se borran el historial de vistos, el progreso y las notas del anterior.
+Para seguir varios canales a la vez y conservar todos los registros, compra Pro. Es una compra única, no una suscripción.
 
 AVISOS
 • Esta app no es la app oficial de YouTube.

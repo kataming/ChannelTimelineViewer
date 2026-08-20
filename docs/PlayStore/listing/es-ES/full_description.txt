@@ -27,7 +27,8 @@ Los vídeos se reproducen en el reproductor incrustado oficial de YouTube (IFram
 
 GRATIS Y PRO
 Puedes guardar un canal gratis. Dentro de ese canal todo funciona sin límites: ordenación, control de vistos, reanudar, botones de salto, notas, progreso y reproducción en el reproductor oficial.
-Si quieres guardar varios canales y seguir el progreso de cada uno, compra Pro. Es una compra única, no una suscripción.
+Puedes cambiar de canal gratis, pero al hacerlo se borran el historial de vistos, el progreso y las notas del anterior.
+Para seguir varios canales a la vez y conservar todos los registros, compra Pro. Es una compra única, no una suscripción.
 
 AVISOS
 • Esta app no es la app oficial de YouTube.

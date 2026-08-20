@@ -22,7 +22,7 @@ Watch a channel's uploads oldest-first and track how far you have watched.
 ```
 
 ## 詳しい説明（Full description）
-<!-- 2188 / 4000 文字 -->
+<!-- 2320 / 4000 文字 -->
 
 ```
 Channel Timeline Viewer lists a channel's uploads by publication date — oldest first — so you can work through an archive, a course, or a long-running series from the very beginning without losing your place.
@@ -54,7 +54,8 @@ Videos play in YouTube's official embedded player (IFrame Player).
 
 FREE AND PRO
 You can save one channel for free. Inside that channel everything works without limits: sorting, watched tracking, resume, jump buttons, notes, progress, and playback in the official player.
-When you want to save several channels and track each one, buy Pro. It is a one-time purchase, not a subscription.
+You can swap in a different channel for free, but doing so erases the watched history, progress, and notes of the previous one.
+To follow several channels side by side and keep every record, buy Pro. It is a one-time purchase, not a subscription.
 
 PLEASE NOTE
 • This app is not the official YouTube app.

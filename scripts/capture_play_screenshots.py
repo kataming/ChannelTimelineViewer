@@ -71,6 +71,14 @@ def screencap(path: Path, trim: bool = True) -> None:
         return
     with Image.open(path) as image:
         width, height = image.size
+        # 端末が横向きだと Play の規格（縦長・縦横比 2.3 以内）を満たさない。
+        # 撮り直しに気づけるよう、ここで弾いて例外にする。
+        if width >= height:
+            message = (
+                "横向きで撮れています（{}×{}）: {}".format(width, height, path)
+                + " / 端末の画面回転を縦に固定してから撮り直してください。"
+            )
+            raise SystemExit(message)
         box = (0, STATUS_BAR_HEIGHT, width, height - NAVIGATION_BAR_HEIGHT)
         image.crop(box).save(path)
 

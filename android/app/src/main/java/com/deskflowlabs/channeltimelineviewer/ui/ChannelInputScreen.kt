@@ -227,7 +227,7 @@ fun ChannelInputScreen(
                         )
                     )
                     Text(
-                        stringResource(R.string.pro_limit_replaceHint),
+                        stringResource(R.string.pro_limit_replacehint),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )

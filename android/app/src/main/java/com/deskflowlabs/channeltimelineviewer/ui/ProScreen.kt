@@ -85,23 +85,23 @@ fun ProScreen(
                 style = MaterialTheme.typography.titleMedium,
             )
             Text(
-                stringResource(R.string.pro_benefit_multiChannel),
+                stringResource(R.string.pro_benefit_multichannel),
                 style = MaterialTheme.typography.bodyMedium,
             )
             Text(
-                stringResource(R.string.pro_notSubscription),
+                stringResource(R.string.pro_notsubscription),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
 
             SectionCard(
-                header = stringResource(R.string.pro_freeFeatures_header),
-                body = stringResource(R.string.pro_freeFeatures_body),
+                header = stringResource(R.string.pro_freefeatures_header),
+                body = stringResource(R.string.pro_freefeatures_body),
                 extra = stringResource(R.string.pro_free_summary),
             )
             SectionCard(
-                header = stringResource(R.string.pro_proFeatures_header),
-                body = stringResource(R.string.pro_proFeatures_body),
+                header = stringResource(R.string.pro_profeatures_header),
+                body = stringResource(R.string.pro_profeatures_body),
             )
 
             if (isPro) {

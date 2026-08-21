@@ -39,8 +39,8 @@ final class ProScreenshotUITests: XCTestCase {
     }
 
     func testCaptureProScreen() throws {
-        // ホームの「Save multiple channels (Pro)」を押して購入画面へ。
-        let entry = app.buttons[L("pro.entry.title")]
+        // ホームの Pro の入口を押して購入画面へ（表示文字ではなく識別子で探す）。
+        let entry = app.buttons["proEntry"]
         XCTAssertTrue(entry.waitForExistence(timeout: 60), "Pro の入口が見つからない")
         entry.tap()
 

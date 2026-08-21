@@ -226,6 +226,7 @@ struct ChannelInputView: View {
                     Label("pro.owned", systemImage: "checkmark.seal.fill")
                         .foregroundStyle(.green)
                 }
+                .accessibilityIdentifier("proEntry")
             } else {
                 Button {
                     showPro = true
@@ -236,6 +237,7 @@ struct ChannelInputView: View {
                     }
                 }
                 .accessibilityLabel(String(localized: "pro.open.a11y"))
+                .accessibilityIdentifier("proEntry")
             }
         }
     }

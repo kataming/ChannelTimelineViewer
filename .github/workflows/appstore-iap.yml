@@ -1,0 +1,50 @@
+name: App Store IAP
+
+# App 内課金（買い切りの Pro / pro_unlock）を App Store Connect API で登録・確認する。
+# 画面で7言語ぶんを手入力する代わりに、scripts/asc_iap.py から流し込む。
+#
+# 必要な Secret: ASC_KEY_ID / ASC_ISSUER_ID / ASC_PRIVATE_KEY
+#
+# 審査用スクリーンショットの添付と、バージョンへの紐づけ・審査提出は
+# App Store Connect の画面で行う（docs/ios-iap-pro.md 参照）。
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: '動作（status=確認のみ / create=作成・更新）'
+        type: choice
+        options: [status, create]
+        default: status
+      dry_run:
+        description: '送信せず、何をするかだけ表示する'
+        type: boolean
+        default: true
+
+jobs:
+  iap:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: 依存関係
+        run: pip install --quiet requests pyjwt cryptography
+
+      - name: App Store Connect へ問い合わせ / 反映
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          ASC_PRIVATE_KEY: ${{ secrets.ASC_PRIVATE_KEY }}
+          MODE: ${{ inputs.mode }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          set -euo pipefail
+          ARGS="--mode $MODE"
+          if [ "$MODE" != "status" ] && [ "$DRY_RUN" = "true" ]; then
+            ARGS="$ARGS --dry-run"
+          fi
+          python scripts/asc_iap.py $ARGS

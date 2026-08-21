@@ -101,5 +101,8 @@ jobs:
           ASC_PRIVATE_KEY: ${{ secrets.ASC_PRIVATE_KEY }}
         run: |
           set -euo pipefail
-          python3 -m pip install --quiet requests pyjwt cryptography
-          python3 scripts/asc_iap.py --mode screenshot --image build/iap/iap-review-pro.png
+          # macOS ランナーの python3 は externally-managed のため、隔離環境に入れる。
+          python3 -m venv build/venv
+          build/venv/bin/python -m pip install --quiet --upgrade pip
+          build/venv/bin/python -m pip install --quiet requests pyjwt cryptography
+          build/venv/bin/python scripts/asc_iap.py --mode screenshot             --image build/iap/iap-review-pro.png

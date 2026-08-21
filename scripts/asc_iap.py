@@ -108,7 +108,6 @@ def create_or_update(client: Client, dry_run: bool) -> int:
                     "reviewNote": REVIEW_NOTE,
                     # 買い切りをファミリー共有にはしない（1人分の権利として売る）。
                     "familySharable": False,
-                    "availableInAllTerritories": True,
                 },
                 "relationships": {"app": {"data": {"type": "apps", "id": app["id"]}}},
             }
@@ -118,6 +117,7 @@ def create_or_update(client: Client, dry_run: bool) -> int:
     else:
         print(f"  既にあります: {PRODUCT_ID}（id {iap['id']}）")
 
+    push_availability(client, iap["id"], dry_run)
     push_localizations(client, iap["id"], dry_run)
     push_price(client, iap["id"], dry_run)
 
@@ -125,6 +125,40 @@ def create_or_update(client: Client, dry_run: bool) -> int:
     print("  - 審査用スクリーンショット（Pro 画面）の添付")
     print("  - バージョンへの紐づけと審査提出")
     return 0
+
+
+def push_availability(client: Client, iap_id: str, dry_run: bool) -> None:
+    """配信する国と地域。全世界＋今後増える国も自動で対象にする。"""
+    if dry_run:
+        print("  [dry-run] 全世界で配信する設定にする")
+        return
+
+    try:
+        current = client.get(f"/v1/inAppPurchases/{iap_id}/iapAvailability?limit=1")
+        if current.get("data"):
+            print("  配信地域: すでに設定済みのため変更しません")
+            return
+    except ASCError:
+        pass
+
+    territories = []
+    path = "/v1/territories?limit=200"
+    while path:
+        page = client.get(path)
+        territories += [{"type": "territories", "id": item["id"]} for item in page.get("data", [])]
+        path = page.get("links", {}).get("next", "")
+
+    client.write("POST", "/v1/inAppPurchaseAvailabilities", {
+        "data": {
+            "type": "inAppPurchaseAvailabilities",
+            "attributes": {"availableInNewTerritories": True},
+            "relationships": {
+                "inAppPurchase": {"data": {"type": "inAppPurchases", "id": iap_id}},
+                "availableTerritories": {"data": territories},
+            },
+        }
+    })
+    print(f"  配信地域: {len(territories)} の国と地域で配信する設定にしました")
 
 
 def push_localizations(client: Client, iap_id: str, dry_run: bool) -> None:

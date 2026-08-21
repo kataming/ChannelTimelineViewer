@@ -8,6 +8,7 @@
   --mode status   いまの登録状況を読むだけ（変更しない）
   --mode create   商品を作る（既にあれば表示名・説明・価格だけ更新する）
   --mode screenshot --image <png>  審査用スクリーンショットを添付する
+  --mode app-price [--price 0.00]  アプリ本体の価格を設定する（0.00 で無料）
   --dry-run       送信せず、何をするかだけ表示する
 
 できないこと（App Store Connect の画面でしか行えない）:
@@ -68,6 +69,7 @@ def find_iap(client: Client, app_id: str) -> dict | None:
 
 def show_status(client: Client) -> int:
     app = find_app(client, BUNDLE_ID)
+    show_app_price(client, app["id"])
     iap = find_iap(client, app["id"])
     if iap is None:
         print(f"App 内課金 {PRODUCT_ID} は未登録です。")
@@ -312,9 +314,85 @@ def existing_screenshot_ids(client: Client, iap_id: str) -> list[str]:
         return []
 
 
+def show_app_price(client: Client, app_id: str) -> None:
+    """いまのアプリ本体価格（基準国の表示価格）を出す。"""
+    try:
+        schedule = client.get(
+            f"/v1/apps/{app_id}/appPriceSchedule"
+            "?include=baseTerritory,manualPrices&limit=50")
+    except ASCError:
+        print("  本体価格: 未設定")
+        return
+
+    base = next((item["id"] for item in schedule.get("included", [])
+                 if item.get("type") == "territories"), "?")
+    prices = [item for item in schedule.get("included", [])
+              if item.get("type") == "appPrices"]
+    print(f"  本体価格: 基準の国 {base} / 価格の登録 {len(prices)} 件")
+
+
+def set_app_price(client: Client, price: str, dry_run: bool) -> int:
+    """アプリ本体の価格を設定する。`0.00` を渡すと無料になる。
+
+    App 内課金と同じで、基準の国（USA）の価格ポイントを1つ選べば、
+    他の国は Apple の対応表で決まる。
+    """
+    app = find_app(client, BUNDLE_ID)
+    show_app_price(client, app["id"])
+
+    print(f"  設定する価格: {price} USD（{BASE_TERRITORY} 基準）"
+          + ("＝無料" if price == "0.00" else ""))
+    if dry_run:
+        return 0
+
+    point_id = find_app_price_point(client, app["id"], price)
+    if point_id is None:
+        raise SystemExit(f"{price} USD の価格ポイントが見つかりませんでした。")
+
+    client.write("POST", "/v1/appPriceSchedules", {
+        "data": {
+            "type": "appPriceSchedules",
+            "relationships": {
+                "app": {"data": {"type": "apps", "id": app["id"]}},
+                "baseTerritory": {"data": {"type": "territories", "id": BASE_TERRITORY}},
+                "manualPrices": {"data": [{"type": "appPrices", "id": "${price1}"}]},
+            },
+        },
+        "included": [{
+            "type": "appPrices",
+            "id": "${price1}",
+            # startDate を入れないと「いますぐ」の意味になる。
+            "attributes": {"startDate": None, "endDate": None},
+            "relationships": {
+                "app": {"data": {"type": "apps", "id": app["id"]}},
+                "appPricePoint": {"data": {"type": "appPricePoints", "id": point_id}},
+            },
+        }],
+    })
+    print("  設定しました。")
+    show_app_price(client, app["id"])
+    return 0
+
+
+def find_app_price_point(client: Client, app_id: str, price: str) -> str | None:
+    path = (f"/v2/apps/{app_id}/appPricePoints"
+            f"?filter[territory]={BASE_TERRITORY}&limit=200")
+    while path:
+        page = client.get(path)
+        for item in page.get("data", []):
+            if item.get("attributes", {}).get("customerPrice") == price:
+                return item["id"]
+        path = page.get("links", {}).get("next", "")
+    return None
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--mode", choices=["status", "create", "screenshot"], default="status")
+    parser.add_argument("--mode",
+                        choices=["status", "create", "screenshot", "app-price"],
+                        default="status")
+    parser.add_argument("--price", default="0.00",
+                        help="--mode app-price で設定する USD 価格（0.00 で無料）")
     parser.add_argument("--image", default="", help="--mode screenshot で添付する PNG")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--key-id", default=os.environ.get("ASC_KEY_ID", ""))
@@ -332,6 +410,8 @@ def main() -> int:
             return show_status(client)
         if args.mode == "screenshot":
             return push_screenshot(client, Path(args.image), args.dry_run)
+        if args.mode == "app-price":
+            return set_app_price(client, args.price, args.dry_run)
         return create_or_update(client, args.dry_run)
     except ASCError as error:
         print(f"[App Store Connect エラー] {error}")

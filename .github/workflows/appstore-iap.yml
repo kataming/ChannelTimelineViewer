@@ -12,10 +12,14 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: '動作（status=確認のみ / create=作成・更新）'
+        description: '動作（status=確認 / create=課金アイテム作成 / app-price=本体価格を設定）'
         type: choice
-        options: [status, create]
+        options: [status, create, app-price]
         default: status
+      price:
+        description: 'app-price のときの USD 価格（0.00 で無料）'
+        required: false
+        default: '0.00'
       dry_run:
         description: '送信せず、何をするかだけ表示する'
         type: boolean
@@ -41,9 +45,13 @@ jobs:
           ASC_PRIVATE_KEY: ${{ secrets.ASC_PRIVATE_KEY }}
           MODE: ${{ inputs.mode }}
           DRY_RUN: ${{ inputs.dry_run }}
+          PRICE: ${{ inputs.price }}
         run: |
           set -euo pipefail
           ARGS="--mode $MODE"
+          if [ "$MODE" = "app-price" ]; then
+            ARGS="$ARGS --price $PRICE"
+          fi
           if [ "$MODE" != "status" ] && [ "$DRY_RUN" = "true" ]; then
             ARGS="$ARGS --dry-run"
           fi

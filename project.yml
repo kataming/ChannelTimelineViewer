@@ -152,6 +152,18 @@ schemes:
       targets:
         - ChannelTimelineViewerTests
 
+  # App 内課金の審査用スクリーンショットを撮るスキーム。
+  # StoreKit のテスト設定を読ませて、購入画面に価格が出た状態で撮る。
+  ProScreenshot:
+    build:
+      targets:
+        ChannelTimelineViewer: all
+        ChannelTimelineViewerUITests: [test]
+    test:
+      targets:
+        - ChannelTimelineViewerUITests
+      storeKitConfiguration: StoreKit/ProStoreKit.storekit
+
   # スクリーンショット撮影専用スキーム（通常 CI とは分離）
   Screenshots:
     build:

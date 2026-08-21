@@ -1,0 +1,31 @@
+{
+  "identifier" : "CTV-PRO-STOREKIT",
+  "nonRenewingSubscriptions" : [ ],
+  "products" : [
+    {
+      "displayPrice" : "4.99",
+      "familyShareable" : false,
+      "internalID" : "PRO-UNLOCK",
+      "localizations" : [
+        {
+          "description" : "Save multiple channels. One-time purchase.",
+          "displayName" : "Channel Timeline Viewer Pro",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "pro_unlock",
+      "referenceName" : "Channel Timeline Viewer Pro",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_applicationInternalID" : "CTV",
+    "_developerTeamID" : "893UUWYHB8",
+    "_lastSynchronizedDate" : 0
+  },
+  "subscriptionGroups" : [ ],
+  "version" : {
+    "major" : 3,
+    "minor" : 0
+  }
+}

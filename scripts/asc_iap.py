@@ -7,10 +7,10 @@
 できること:
   --mode status   いまの登録状況を読むだけ（変更しない）
   --mode create   商品を作る（既にあれば表示名・説明・価格だけ更新する）
+  --mode screenshot --image <png>  審査用スクリーンショットを添付する
   --dry-run       送信せず、何をするかだけ表示する
 
 できないこと（App Store Connect の画面でしか行えない）:
-  - 審査用スクリーンショットの添付（画像が必要。ビルドが出来てから）
   - バージョンへの紐づけと審査提出
 
 必要な環境変数: ASC_KEY_ID / ASC_ISSUER_ID / ASC_PRIVATE_KEY
@@ -18,12 +18,15 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import os
 import sys
+from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from asc_appstore_metadata import ASCError, Client, find_app, make_token  # noqa: E402
+from asc_appstore_metadata import (  # noqa: E402
+    ASCError, Client, find_app, make_token, upload_binary)
 
 BUNDLE_ID = "com.deskflowlabs.channeltimelineviewer"
 
@@ -246,9 +249,67 @@ def find_price_point(client: Client, iap_id: str) -> str | None:
     return None
 
 
+def push_screenshot(client: Client, image: Path, dry_run: bool) -> int:
+    """審査用スクリーンショットを添付する。
+
+    Apple は「その課金がアプリのどこで提供されるか」が分かる画像を1枚求める。
+    受け付ける寸法が決まっているので、撮影側（ワークフロー）で 1242x2688 に揃えてから渡す。
+    """
+    if not image.exists():
+        raise SystemExit(f"画像がありません: {image}")
+
+    app = find_app(client, BUNDLE_ID)
+    iap = find_iap(client, app["id"])
+    if iap is None:
+        raise SystemExit(f"{PRODUCT_ID} が未登録です。先に --mode create を実行してください。")
+
+    data = image.read_bytes()
+    print(f"  添付する画像: {image.name}（{len(data) // 1024} KB）")
+    if dry_run:
+        return 0
+
+    # 既に付いていれば入れ替える（古い画像が残ると審査時に紛らわしい）。
+    try:
+        current = client.get(
+            f"/v2/inAppPurchases/{iap['id']}/appStoreReviewScreenshot?limit=1")
+        if current.get("data"):
+            client.write("DELETE",
+                         f"/v1/inAppPurchaseAppStoreReviewScreenshots/{current['data']['id']}", {})
+            print("  既存のスクリーンショットを外しました")
+    except ASCError:
+        pass
+
+    reserved = client.write("POST", "/v1/inAppPurchaseAppStoreReviewScreenshots", {
+        "data": {
+            "type": "inAppPurchaseAppStoreReviewScreenshots",
+            "attributes": {"fileSize": len(data), "fileName": image.name},
+            "relationships": {"inAppPurchaseV2": {
+                "data": {"type": "inAppPurchases", "id": iap["id"]}}},
+        }
+    })["data"]
+
+    for operation in reserved["attributes"].get("uploadOperations", []):
+        start = operation["offset"]
+        upload_binary(operation["url"], operation["method"],
+                      operation.get("requestHeaders", []),
+                      data[start:start + operation["length"]])
+
+    client.write("PATCH", f"/v1/inAppPurchaseAppStoreReviewScreenshots/{reserved['id']}", {
+        "data": {
+            "type": "inAppPurchaseAppStoreReviewScreenshots",
+            "id": reserved["id"],
+            "attributes": {"uploaded": True,
+                           "sourceFileChecksum": hashlib.md5(data).hexdigest()},
+        }
+    })
+    print("  添付しました。App Store Connect で確認できます。")
+    return 0
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--mode", choices=["status", "create"], default="status")
+    parser.add_argument("--mode", choices=["status", "create", "screenshot"], default="status")
+    parser.add_argument("--image", default="", help="--mode screenshot で添付する PNG")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--key-id", default=os.environ.get("ASC_KEY_ID", ""))
     parser.add_argument("--issuer-id", default=os.environ.get("ASC_ISSUER_ID", ""))
@@ -263,6 +324,8 @@ def main() -> int:
     try:
         if args.mode == "status":
             return show_status(client)
+        if args.mode == "screenshot":
+            return push_screenshot(client, Path(args.image), args.dry_run)
         return create_or_update(client, args.dry_run)
     except ASCError as error:
         print(f"[App Store Connect エラー] {error}")

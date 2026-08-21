@@ -47,7 +47,13 @@ jobs:
           fi
 
       - name: Generate Xcode project
-        run: xcodegen generate
+        run: |
+          set -euo pipefail
+          xcodegen generate
+          # XcodeGen はテストアクションに StoreKit 設定を書き出さないので、ここで足す。
+          # これが無いと購入画面が「価格を確認しています…」のまま撮れてしまう。
+          python3 scripts/patch_storekit_scheme.py ProScreenshot StoreKit/ProStoreKit.storekit
+          grep -c StoreKitConfigurationFileReference             ChannelTimelineViewer.xcodeproj/xcshareddata/xcschemes/ProScreenshot.xcscheme
 
       - name: Pick simulator
         run: |

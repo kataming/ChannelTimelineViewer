@@ -151,6 +151,17 @@ App 内課金は「pro_unlock」1つのみで、非消費型の買い切りで�
 
 ## 4. テスト購入のしかた
 
+### CI で撮る審査用スクリーンショット
+
+`.github/workflows/appstore-iap-screenshot.yml` を実行すると、購入画面を撮って
+1242x2688 に整え、`scripts/asc_iap.py --mode screenshot` で課金アイテムに添付するところまで自動で行う。
+
+> **既知の制約**: シミュレーターでは価格が出ず「価格を確認しています…」のまま撮れる。
+> StoreKit のテスト設定（`StoreKit/ProStoreKit.storekit`）はスキームに書き出せている
+> （XcodeGen が run/test の両方に参照を出す）が、シミュレーターが商品を読み込めていない。
+> 参照パスの解決かファイル形式が原因と見ているが未解決。
+> 審査に必要なのは「課金がどこで提供されるか分かる画像」なので、この状態で提出できる。
+
 ### Xcode（実機・シミュレーター）
 
 1. Xcode で **StoreKit Configuration File** を作り（File → New → File → StoreKit Configuration File）、

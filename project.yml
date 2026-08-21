@@ -159,6 +159,9 @@ schemes:
       targets:
         ChannelTimelineViewer: all
         ChannelTimelineViewerUITests: [test]
+    # 実行・テストのどちらから起動されても価格が出るように、両方に設定する。
+    run:
+      storeKitConfiguration: StoreKit/ProStoreKit.storekit
     test:
       targets:
         - ChannelTimelineViewerUITests

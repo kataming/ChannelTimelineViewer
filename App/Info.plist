@@ -9,6 +9,13 @@
 	  ※ その他の Info.plist の値は GENERATE_INFOPLIST_FILE=YES（project.yml の INFOPLIST_KEY_*）
 	     によって生成・マージされる。ここには追加分だけを書く。
 	-->
+	<!--
+	  輸出コンプライアンス: 独自の暗号化は実装しておらず、通信は OS 標準の HTTPS のみ。
+	  そのため「非対象（exempt）」に当たる。これを入れておくと、アップロードのたびに
+	  App Store Connect で輸出コンプライアンスを聞かれなくなる。
+	-->
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>

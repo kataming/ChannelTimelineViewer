@@ -9,6 +9,7 @@
   --mode create   商品を作る（既にあれば表示名・説明・価格だけ更新する）
   --mode screenshot --image <png>  審査用スクリーンショットを添付する
   --mode app-price [--price 0.00]  アプリ本体の価格を設定する（0.00 で無料）
+  --mode export-compliance --build <番号>  輸出コンプライアンスに「非対象」と回答する
   --dry-run       送信せず、何をするかだけ表示する
 
 できないこと（App Store Connect の画面でしか行えない）:
@@ -386,11 +387,44 @@ def find_app_price_point(client: Client, app_id: str, price: str) -> str | None:
     return None
 
 
+def answer_export_compliance(client: Client, build_number: str, dry_run: bool) -> int:
+    """輸出コンプライアンスに「非対象」と回答する。
+
+    このアプリは独自の暗号化を実装しておらず、通信は OS 標準の HTTPS のみ。
+    回答しないと「このビルドには、輸出コンプライアンス情報が存在しません」で審査に出せない。
+    """
+    app = find_app(client, BUNDLE_ID)
+    path = (f"/v1/builds?filter[app]={app['id']}"
+            f"&filter[version]={build_number}&limit=1")
+    builds = client.get(path).get("data", [])
+    if not builds:
+        raise SystemExit(f"build {build_number} が見つかりません。")
+
+    build = builds[0]
+    current = build.get("attributes", {}).get("usesNonExemptEncryption")
+    print(f"  build {build_number}（id {build['id']}）: いまの回答 {current}")
+    if current is False:
+        print("  すでに「非対象」と回答済みです。")
+        return 0
+    if dry_run:
+        print("  [dry-run] 「非対象（usesNonExemptEncryption=false）」と回答する")
+        return 0
+
+    client.write("PATCH", f"/v1/builds/{build['id']}", {
+        "data": {"type": "builds", "id": build["id"],
+                 "attributes": {"usesNonExemptEncryption": False}}
+    })
+    print("  「非対象」と回答しました。")
+    return 0
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--mode",
-                        choices=["status", "create", "screenshot", "app-price"],
+                        choices=["status", "create", "screenshot", "app-price",
+                                 "export-compliance"],
                         default="status")
+    parser.add_argument("--build", default="", help="--mode export-compliance の対象ビルド番号")
     parser.add_argument("--price", default="0.00",
                         help="--mode app-price で設定する USD 価格（0.00 で無料）")
     parser.add_argument("--image", default="", help="--mode screenshot で添付する PNG")
@@ -412,6 +446,8 @@ def main() -> int:
             return push_screenshot(client, Path(args.image), args.dry_run)
         if args.mode == "app-price":
             return set_app_price(client, args.price, args.dry_run)
+        if args.mode == "export-compliance":
+            return answer_export_compliance(client, args.build, args.dry_run)
         return create_or_update(client, args.dry_run)
     except ASCError as error:
         print(f"[App Store Connect エラー] {error}")

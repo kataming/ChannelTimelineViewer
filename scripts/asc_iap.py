@@ -77,11 +77,11 @@ def show_status(client: Client) -> int:
     print(f"  状態:   {attributes.get('state')}")
 
     locales = client.get(
-        f"/v1/inAppPurchases/{iap['id']}/inAppPurchaseLocalizations?limit=50")
+        f"/v2/inAppPurchases/{iap['id']}/inAppPurchaseLocalizations?limit=50")
     names = [item["attributes"]["locale"] for item in locales.get("data", [])]
     print(f"  表示名の言語: {len(names)} 件 {sorted(names)}")
 
-    schedule = client.get(f"/v1/inAppPurchases/{iap['id']}/iapPriceSchedule"
+    schedule = client.get(f"/v2/inAppPurchases/{iap['id']}/iapPriceSchedule"
                           "?include=manualPrices&limit=1")
     prices = [item for item in schedule.get("included", [])
               if item.get("type") == "inAppPurchasePrices"]
@@ -134,7 +134,7 @@ def push_availability(client: Client, iap_id: str, dry_run: bool) -> None:
         return
 
     try:
-        current = client.get(f"/v1/inAppPurchases/{iap_id}/iapAvailability?limit=1")
+        current = client.get(f"/v2/inAppPurchases/{iap_id}/iapAvailability?limit=1")
         if current.get("data"):
             print("  配信地域: すでに設定済みのため変更しません")
             return
@@ -164,7 +164,7 @@ def push_availability(client: Client, iap_id: str, dry_run: bool) -> None:
 def push_localizations(client: Client, iap_id: str, dry_run: bool) -> None:
     existing = {}
     if not dry_run:
-        found = client.get(f"/v1/inAppPurchases/{iap_id}/inAppPurchaseLocalizations?limit=50")
+        found = client.get(f"/v2/inAppPurchases/{iap_id}/inAppPurchaseLocalizations?limit=50")
         existing = {item["attributes"]["locale"]: item["id"] for item in found.get("data", [])}
 
     for locale, (name, description) in LOCALIZATIONS.items():
@@ -197,7 +197,7 @@ def push_price(client: Client, iap_id: str, dry_run: bool) -> None:
 
     # 既に価格が付いていれば触らない（値上げは意図した操作のときだけ行う）。
     try:
-        schedule = client.get(f"/v1/inAppPurchases/{iap_id}/iapPriceSchedule?limit=1")
+        schedule = client.get(f"/v2/inAppPurchases/{iap_id}/iapPriceSchedule?limit=1")
         if schedule.get("data"):
             print("  価格: すでに設定済みのため変更しません")
             return

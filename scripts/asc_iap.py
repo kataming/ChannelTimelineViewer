@@ -268,16 +268,11 @@ def push_screenshot(client: Client, image: Path, dry_run: bool) -> int:
     if dry_run:
         return 0
 
-    # 既に付いていれば入れ替える（古い画像が残ると審査時に紛らわしい）。
-    try:
-        current = client.get(
-            f"/v2/inAppPurchases/{iap['id']}/appStoreReviewScreenshot?limit=1")
-        if current.get("data"):
-            client.write("DELETE",
-                         f"/v1/inAppPurchaseAppStoreReviewScreenshots/{current['data']['id']}", {})
-            print("  既存のスクリーンショットを外しました")
-    except ASCError:
-        pass
+    # 既に付いていれば外す（付いたまま POST すると 409 "Screenshot already exists" になる）。
+    for screenshot_id in existing_screenshot_ids(client, iap["id"]):
+        client.write("DELETE",
+                     f"/v1/inAppPurchaseAppStoreReviewScreenshots/{screenshot_id}", {})
+        print("  既存のスクリーンショットを外しました")
 
     reserved = client.write("POST", "/v1/inAppPurchaseAppStoreReviewScreenshots", {
         "data": {
@@ -304,6 +299,17 @@ def push_screenshot(client: Client, image: Path, dry_run: bool) -> int:
     })
     print("  添付しました。App Store Connect で確認できます。")
     return 0
+
+
+def existing_screenshot_ids(client: Client, iap_id: str) -> list[str]:
+    """付いている審査用スクリーンショットのID。関係名の綴りが版で違うので複数試す。"""
+    try:
+        detail = client.get(
+            f"/v2/inAppPurchases/{iap_id}?include=appStoreReviewScreenshot")
+        return [item["id"] for item in detail.get("included", [])
+                if item.get("type") == "inAppPurchaseAppStoreReviewScreenshots"]
+    except ASCError:
+        return []
 
 
 def main() -> int:

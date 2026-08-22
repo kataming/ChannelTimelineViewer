@@ -455,14 +455,17 @@ def submission_item_labels(client: Client, submission_id: str) -> list[str]:
     """提出物の中身（バージョン / 課金アイテム）を読みやすい形にする。"""
     detail = client.get(
         f"/v1/reviewSubmissions/{submission_id}/items"
-        "?include=appStoreVersion,inAppPurchaseV2&limit=50")
+        "?include=appStoreVersion,appEvent&limit=50")
     included = {item["id"]: item for item in detail.get("included", [])}
     labels = []
     for item in detail.get("data", []):
         state = item.get("attributes", {}).get("state", "")
         found = False
+        # 関係名は API の版で綴りが違うので、考えられるものを順に見る。
         for name, prefix in (("appStoreVersion", "バージョン"),
-                             ("inAppPurchaseV2", "課金アイテム")):
+                             ("inAppPurchaseV2", "課金アイテム"),
+                             ("inAppPurchase", "課金アイテム"),
+                             ("appEvent", "アプリ内イベント")):
             target = (item.get("relationships", {}).get(name, {}) or {}).get("data")
             if not target:
                 continue

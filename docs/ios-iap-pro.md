@@ -86,6 +86,60 @@ Android 版（[`android-iap-pro.md`](android-iap-pro.md)）と挙動を揃えて
 
 ---
 
+## 2-2. 2026-08 の却下（2.1(b)）と対応
+
+**却下の内容**: Pro 画面が「Checking the price...」のままで、Pro が読み込まれない
+（"the pro plan was not loaded properly"）。あわせて「App 内課金が審査に提出されていない」とも指摘された。
+
+### 原因は2つあった
+
+**(1) 課金アイテムが審査の提出物に入っていなかった（主因）**
+
+App Store Connect API で提出物の中身を読んだところ、入っていたのは**バージョン 1.0 だけ**だった。
+
+```
+提出物 14c24c50-...: 状態 UNRESOLVED_ISSUES
+  中身: バージョン 1.0（REJECTED）      ← 課金アイテムが無い
+```
+
+バージョンのページで課金アイテムを選んでいても、**「審査用に追加」のときに提出物へ含めないと
+審査対象にならない**。審査環境で商品が引けず、価格が出なかった。
+確認は `python scripts/asc_iap.py --mode review`。
+
+> **API では追加できない。** `POST /v1/reviewSubmissionItems` に課金アイテムを渡す関係名が無く、
+> `'inAppPurchaseV2' is not a relationship on the resource 'reviewSubmissionItems'` が返る。
+> ここだけは App Store Connect の画面で行う（下記 3-6）。
+
+**(2) 商品取得が一度きりで、失敗すると戻らなかった（アプリ側）**
+
+`Product.products(for:)` を `try?` で1回呼ぶだけだったため、通信の失敗や
+StoreKit の準備前に当たると `product` が nil のままになり、
+「価格を確認しています…」から永久に変わらなかった。
+
+修正:
+
+- 取得は**間を空けて4回まで再試行**する（0.5s → 1s → 2s → 4s）
+- `ProProductLoadState`（idle / loading / loaded / failed）で状態を持つ
+- **取れるまで購入ボタンは押せない**（`loadState.canPurchase`）
+- 「価格を確認しています…」は**取得中だけ**表示する
+- 失敗したら理由を出し、**「価格を再取得」**ボタンを出す
+- 失敗の理由は `Logger`（category: IAP）に残す。空配列で返った場合は
+  「商品が見つかりません（ID / 返り値の件数）」として記録する
+
+### 文言の修正
+
+購入・復元まわりに Android 向けの表現が残っていたので、iOS 用のキーを分けた。
+
+| 用途 | iOS が使うキー | Android が使うキー |
+| --- | --- | --- |
+| 復元の説明 | `pro.restore.hint.apple`（Apple アカウント） | `pro.restore.hint`（Google アカウント） |
+| 復元できなかった | `pro.restore.none.apple` | `pro.restore.none` |
+
+`scripts/build_android_strings.py` の `SKIP_KEYS` で、iOS 専用キーは Android の
+`strings.xml` に出さないようにしている。
+
+> YouTube・Google API の説明（一覧の取得元など）は正しい記述なので残している。
+
 ## 3. App Store Connect で人が行う設定
 
 ### 3-1. App 内課金アイテム（**登録済み・API で行う**）
@@ -114,6 +168,45 @@ GitHub → Actions → **App Store IAP** からも実行できる（`mode=create
 > （`/v1/...` は関係名が存在しない）。
 
 **状態は `MISSING_METADATA`** のまま残る。審査用スクリーンショットが未添付のため。
+
+### 3-6. 課金アイテムを審査に含める（**却下の主因。必ず確認する**）
+
+**API では行えない。** App Store Connect の画面で次を行う。
+
+1. アプリ → 左メニューの **バージョン 1.0** を開く
+2. 下の方の **「App 内課金」** で `Channel Timeline Viewer Pro`（`pro_unlock`）が選ばれているか確認する
+3. 右上の **「審査用に追加」** を押す
+4. **確認のダイアログに課金アイテムが並ぶので、チェックが入った状態で進める**
+   - ここで含めないと、バージョンだけが審査に出て、審査環境で商品が引けない
+5. 追加後に `python scripts/asc_iap.py --mode review` で中身を確認する
+
+```
+提出物 ...: 状態 READY_FOR_REVIEW
+  中身: バージョン 1.0（...）
+  中身: 課金アイテム pro_unlock（...）   ← これが出ていること
+```
+
+**この2行が揃ってから提出する。**
+
+### 3-7. 再提出前のチェック（審査環境で価格が出ること）
+
+**「価格を確認しています…」のまま再提出しない。** TestFlight（Sandbox）で次を確認する。
+
+- [ ] Pro 画面に**実価格**（¥◯◯◯）が出る
+- [ ] 購入ボタンが押せる（取得できるまでは押せない作りになっている）
+- [ ] 購入フローが開く。キャンセルしても落ちない
+- [ ] 「購入を復元」が動く。説明が **Apple アカウント**になっている
+- [ ] 無料では2件目で確認シートが出る／入れ替えで記録が消える
+- [ ] 購入後は複数チャンネルを保存でき、記録が残る
+
+価格が出ない場合は、アプリではなく **App Store Connect 側**を疑う。
+
+| 見るところ | 期待する状態 |
+| --- | --- |
+| 課金アイテムの状態 | `READY_TO_SUBMIT` 以上（`python scripts/asc_iap.py --mode status`） |
+| 審査の提出物 | バージョンと課金アイテムの**両方**が入っている（3-6） |
+| 契約 | 有料 App 契約・銀行口座・税務情報が有効 |
+| 商品ID | アプリ側の `ProEntitlementStore.productID` と完全一致（`pro_unlock`） |
 
 ### 3-2. アプリ情報の申告
 

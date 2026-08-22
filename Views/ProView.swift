@@ -6,6 +6,10 @@ import SwiftUI
 /// - 買い切りであること／サブスクリプションではないこと
 /// - Pro で解放されるのは「複数チャンネル保存」と「チャンネルごとの記録の保持」であること
 /// - 無料でも1チャンネルは主要機能込みで使えること
+/// - **StoreKit から取った実価格を出すこと**
+///
+/// 2026-08 の審査却下（2.1(b)）は、価格が取れないまま「価格を確認しています…」で
+/// 止まっていたことが原因。取得中・取得済み・失敗を区別し、失敗時は再取得の導線を出す。
 struct ProView: View {
     @EnvironmentObject private var pro: ProEntitlementStore
     @Environment(\.dismiss) private var dismiss
@@ -43,22 +47,7 @@ struct ProView: View {
                         Label("pro.owned", systemImage: "checkmark.seal.fill")
                             .foregroundStyle(.green)
                     } else {
-                        Button {
-                            Task { await pro.purchase() }
-                        } label: {
-                            HStack {
-                                if pro.isBusy { ProgressView().padding(.trailing, 4) }
-                                Text(buyLabel)
-                                    .font(.body.bold())
-                            }
-                        }
-                        .disabled(pro.isBusy)
-
-                        if pro.product == nil {
-                            Text("pro.price.loading")
-                                .font(.footnote)
-                                .foregroundStyle(.secondary)
-                        }
+                        purchaseRow
                     }
 
                     Button("pro.restore") {
@@ -66,7 +55,7 @@ struct ProView: View {
                     }
                     .disabled(pro.isBusy)
                 } footer: {
-                    Text("pro.restore.hint")
+                    Text("pro.restore.hint.apple")
                 }
 
                 if let message = pro.message {
@@ -92,6 +81,36 @@ struct ProView: View {
             }
             // 開くたびに購入状態と価格を読み直す（別端末で買った直後でも合うように）。
             .task { await pro.refresh() }
+        }
+    }
+
+    /// 購入ボタンと、その下に出す価格の状態。
+    @ViewBuilder
+    private var purchaseRow: some View {
+        Button {
+            Task { await pro.purchase() }
+        } label: {
+            HStack {
+                if pro.isBusy { ProgressView().padding(.trailing, 4) }
+                Text(buyLabel)
+                    .font(.body.bold())
+            }
+        }
+        // 商品（＝価格）が取れるまでは押せないようにする。
+        .disabled(pro.isBusy || !pro.loadState.canPurchase)
+
+        if pro.loadState.isLoading {
+            Text("pro.price.loading")
+                .font(.footnote)
+                .foregroundStyle(.secondary)
+        } else if pro.loadState.failureReason != nil {
+            Text("pro.price.failed")
+                .font(.footnote)
+                .foregroundStyle(.red)
+            Button("pro.price.retry") {
+                Task { await pro.reloadProduct() }
+            }
+            .font(.footnote)
         }
     }
 

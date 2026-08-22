@@ -2068,5 +2068,45 @@
     "de": "Diesen Kanal kostenlos nutzen",
     "fr": "Utiliser cette chaîne gratuitement",
     "ko": "이 채널을 무료로 사용"
+  },
+  "pro.restore.hint.apple": {
+    "comment": "iOS: 復元の説明（Apple アカウント）",
+    "ja": "同じ Apple アカウントなら、機種変更や再インストールのあとでも復元できます。",
+    "en": "As long as you use the same Apple Account, you can restore it after reinstalling or switching devices.",
+    "zh-Hans": "只要使用同一 Apple 账户，重新安装或更换设备后也可恢复。",
+    "es": "Si usas la misma cuenta de Apple, puedes restaurarla tras reinstalar o cambiar de dispositivo.",
+    "de": "Mit demselben Apple-Account kannst du den Kauf nach einer Neuinstallation oder einem Gerätewechsel wiederherstellen.",
+    "fr": "Avec le même compte Apple, vous pouvez le restaurer après une réinstallation ou un changement d’appareil.",
+    "ko": "같은 Apple 계정이라면 재설치하거나 기기를 바꾼 뒤에도 복원할 수 있습니다."
+  },
+  "pro.restore.none.apple": {
+    "comment": "iOS: 復元できる購入が無かった（Apple アカウント）",
+    "ja": "この Apple アカウントでの購入は見つかりませんでした。",
+    "en": "No purchase was found for this Apple Account.",
+    "zh-Hans": "未找到此 Apple 账户的购买记录。",
+    "es": "No se encontró ninguna compra para esta cuenta de Apple.",
+    "de": "Für diesen Apple-Account wurde kein Kauf gefunden.",
+    "fr": "Aucun achat n’a été trouvé pour ce compte Apple.",
+    "ko": "이 Apple 계정에서 구매 내역을 찾지 못했습니다."
+  },
+  "pro.price.failed": {
+    "comment": "iOS: 価格を取得できなかった",
+    "ja": "価格を取得できませんでした。通信状況を確かめて、もう一度お試しください。",
+    "en": "Couldn’t load the price. Check your connection and try again.",
+    "zh-Hans": "无法获取价格。请检查网络后重试。",
+    "es": "No se pudo cargar el precio. Comprueba tu conexión e inténtalo de nuevo.",
+    "de": "Der Preis konnte nicht geladen werden. Prüfe deine Verbindung und versuche es erneut.",
+    "fr": "Impossible de charger le prix. Vérifiez votre connexion et réessayez.",
+    "ko": "가격을 불러오지 못했습니다. 연결 상태를 확인한 뒤 다시 시도해 주세요."
+  },
+  "pro.price.retry": {
+    "comment": "iOS: 価格の再取得ボタン",
+    "ja": "価格を再取得",
+    "en": "Reload the price",
+    "zh-Hans": "重新获取价格",
+    "es": "Volver a cargar el precio",
+    "de": "Preis neu laden",
+    "fr": "Recharger le prix",
+    "ko": "가격 다시 불러오기"
   }
 }

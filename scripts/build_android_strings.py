@@ -44,6 +44,13 @@ EXTRA_STRINGS = {"app_name": "Channel Timeline Viewer"}
 
 # iOS 専用の文言（Android では出番が無い）は入れない。
 SKIP_PREFIXES = ("handoff.", "shareTips.", "share.", "openExtension.", "notification.")
+# iOS だけで使う文言（Apple アカウント・価格取得の再試行）。Android 側には出さない。
+SKIP_KEYS = {
+    "pro.restore.hint.apple",
+    "pro.restore.none.apple",
+    "pro.price.failed",
+    "pro.price.retry",
+}
 
 
 def resource_name(key: str) -> str:
@@ -72,7 +79,7 @@ def load() -> dict:
 
 
 def included(key: str) -> bool:
-    return not key.startswith(SKIP_PREFIXES)
+    return key not in SKIP_KEYS and not key.startswith(SKIP_PREFIXES)
 
 
 def write(data: dict, check_only: bool) -> int:

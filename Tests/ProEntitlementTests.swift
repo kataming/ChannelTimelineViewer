@@ -89,6 +89,33 @@ final class ProEntitlementTests: XCTestCase {
                                                   isPro: true, activeChannelId: "UC_a"))
     }
 
+    // MARK: - 商品（価格）の取得状態
+
+    func test_価格が取れるまで購入ボタンは押せない() {
+        XCTAssertFalse(ProProductLoadState.idle.canPurchase)
+        XCTAssertFalse(ProProductLoadState.loading.canPurchase)
+        XCTAssertFalse(ProProductLoadState.failed("network").canPurchase)
+        XCTAssertTrue(ProProductLoadState.loaded.canPurchase)
+    }
+
+    func test_価格を確認していますは取得中だけ出す() {
+        // 取得に失敗したまま「価格を確認しています…」で止まるのが却下の原因だった。
+        XCTAssertTrue(ProProductLoadState.idle.isLoading)
+        XCTAssertTrue(ProProductLoadState.loading.isLoading)
+        XCTAssertFalse(ProProductLoadState.failed("network").isLoading)
+        XCTAssertFalse(ProProductLoadState.loaded.isLoading)
+    }
+
+    func test_失敗の理由は開発ログ用に残る() {
+        XCTAssertEqual(ProProductLoadState.failed("商品が見つかりません").failureReason,
+                       "商品が見つかりません")
+        XCTAssertNil(ProProductLoadState.loaded.failureReason)
+    }
+
+    func test_商品IDはApp_Store_Connectの登録と完全一致する() {
+        XCTAssertEqual(ProEntitlementStore.productID, "pro_unlock")
+    }
+
     // MARK: - 記録の削除（入れ替え・削除で使う）
 
     func test_削除したチャンネルの記録は消え_他のチャンネルは残る() throws {

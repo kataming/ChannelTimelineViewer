@@ -349,8 +349,12 @@
 "pro.owned" = "Ya tienes Pro. Gracias.";
 /* 保留中の支払い */
 "pro.pending" = "El pago está pendiente. Pro se activará automáticamente al completarse.";
+/* iOS: 価格を取得できなかった */
+"pro.price.failed" = "No se pudo cargar el precio. Comprueba tu conexión e inténtalo de nuevo.";
 /* 価格取得中 */
 "pro.price.loading" = "Consultando el precio…";
+/* iOS: 価格の再取得ボタン */
+"pro.price.retry" = "Volver a cargar el precio";
 /* Pro で解放される機能の本文 */
 "pro.proFeatures.body" = "Guarda varios canales, sigue el progreso de cada uno y gestiona tu lista. Ya no tendrás que sustituir canales, así que el historial, el progreso y las notas nunca se borran. Incluye las futuras funciones avanzadas.";
 /* Pro で解放される機能の見出し */
@@ -361,8 +365,12 @@
 "pro.restore.done" = "Se ha restaurado tu compra.";
 /* 復元の説明 */
 "pro.restore.hint" = "Si usas la misma cuenta de Google, puedes restaurarla tras reinstalar o cambiar de dispositivo.";
+/* iOS: 復元の説明（Apple アカウント） */
+"pro.restore.hint.apple" = "Si usas la misma cuenta de Apple, puedes restaurarla tras reinstalar o cambiar de dispositivo.";
 /* 復元できる購入がなかった */
 "pro.restore.none" = "No se encontró ninguna compra para esta cuenta de Google.";
+/* iOS: 復元できる購入が無かった（Apple アカウント） */
+"pro.restore.none.apple" = "No se encontró ninguna compra para esta cuenta de Apple.";
 /* 進捗の内訳（%1$@=視聴済み %2$@=総数 %3$@=割合） */
 "progress.count.format" = "%1$@ / %2$@ (%3$@%%)";
 /* 進捗 */

@@ -107,10 +107,12 @@
     <string name="error_uploadsplaylistnotfound">Couldn’t load the video list for this channel.</string>
     <!-- エラー: 動画から投稿チャンネルを特定できない -->
     <string name="error_videonotfound">Couldn’t identify the channel for this video.</string>
-    <!-- 保存解除の確認ダイアログのタイトル -->
-    <string name="favorites_delete_title">Unsave this channel?</string>
-    <!-- 保存解除の警告（%@ にチャンネル名）。大きめ・太字・赤で出す -->
-    <string name="favorites_delete_warning_format">Unsaving deletes the watched history, progress, and notes of “%s”.</string>
+    <!-- 削除実行のボタン -->
+    <string name="favorites_delete_confirm">Delete</string>
+    <!-- 削除確認のタイトル -->
+    <string name="favorites_delete_title">Delete this channel?</string>
+    <!-- 削除の警告（%@ にチャンネル名）。大きめ・太字・赤で出す -->
+    <string name="favorites_delete_warning_format">Deleting this channel also deletes the watched history, progress, and notes of “%s”.</string>
     <!-- 最終利用日時（%@ に日時） -->
     <string name="favorites_lastopened_format">Last opened: %s</string>
     <!-- 進捗（%1$@=視聴済み %2$@=総数 %3$@=割合） -->
@@ -119,8 +121,8 @@
     <string name="favorites_progresshint">Progress appears once you open the channel.</string>
     <!-- 続きから見る -->
     <string name="favorites_resume">Continue watching</string>
-    <!-- お気に入り一覧の説明 -->
-    <string name="favorites_section_footer">Swipe a row left to remove just that channel. Your watch history is kept, so progress returns when you open it again.</string>
+    <!-- お気に入り一覧の脚注（削除で記録も消えることを断る） -->
+    <string name="favorites_section_footer">Swipe a row left to delete it. Deleting also removes that channel’s watched history, progress, and notes.</string>
     <!-- Android のお気に入り一覧の脚注。削除で記録も消えることを断る -->
     <string name="favorites_section_footer_android">Use the trash button to unsave a channel. Unsaving also deletes its watched history, progress, and notes.</string>
     <!-- 見出し: 最近使ったチャンネル -->
@@ -273,6 +275,12 @@
     <string name="pro_buy">Buy (one-time)</string>
     <!-- 購入ボタン（%@ に価格） -->
     <string name="pro_buy_format">Buy for %s (one-time)</string>
+    <!-- Pro失効の説明 -->
+    <string name="pro_disabled_body">The free version lets you use one channel. Choose which channel to keep using for free. Locked channels keep their watched history, progress, and notes. Buy Pro again to use every channel.</string>
+    <!-- 使うチャンネルを選ぶ導線 -->
+    <string name="pro_disabled_choose">Choose the channel to keep free</string>
+    <!-- Pro失効の見出し -->
+    <string name="pro_disabled_title">Pro is no longer active</string>
     <!-- ホームからPro画面へ入る行の説明 -->
     <string name="pro_entry_body">One-time purchase. The free version saves one channel.</string>
     <!-- ホームからPro画面へ入る行の見出し -->
@@ -307,10 +315,14 @@
     <string name="pro_locked_body_format">The free version lets you use one channel. Switching to “%1$s” makes “%2$s” unavailable. Neither channel’s records are deleted.</string>
     <!-- ロック中のチャンネルがあるときの案内 -->
     <string name="pro_locked_hint">Buy Pro to use every saved channel again, with all records intact.</string>
+    <!-- ロック中のチャンネルを開こうとしたときの説明 -->
+    <string name="pro_locked_open_body">This channel is locked. Pro is no longer active, so the free version allows one channel. Buy Pro again to continue with all your watched history, progress, and notes intact.</string>
     <!-- 切り替えるボタン -->
     <string name="pro_locked_switch">Switch to this channel</string>
     <!-- ロックされたチャンネルを開こうとしたときのタイトル -->
     <string name="pro_locked_title">Pro is not active</string>
+    <!-- このチャンネルを無料枠にする -->
+    <string name="pro_locked_usethis">Use this channel for free</string>
     <!-- Pro の商品名（全言語共通） -->
     <string name="pro_name">Channel Timeline Viewer Pro</string>
     <!-- サブスクではないことの明示（購入画面に必須） -->

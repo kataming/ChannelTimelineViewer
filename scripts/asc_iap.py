@@ -10,6 +10,8 @@
   --mode screenshot --image <png>  審査用スクリーンショットを添付する
   --mode app-price [--price 0.00]  アプリ本体の価格を設定する（0.00 で無料）
   --mode export-compliance --build <番号>  輸出コンプライアンスに「非対象」と回答する
+  --mode review    審査に出している中身（バージョン・課金アイテム）を一覧する
+  --mode submit-iap  審査中の提出物に課金アイテムを追加する
   --dry-run       送信せず、何をするかだけ表示する
 
 できないこと（App Store Connect の画面でしか行えない）:
@@ -418,11 +420,95 @@ def answer_export_compliance(client: Client, build_number: str, dry_run: bool) -
     return 0
 
 
+REVIEW_STATES = ["READY_FOR_REVIEW", "WAITING_FOR_REVIEW", "IN_REVIEW",
+                 "UNRESOLVED_ISSUES", "COMPLETING"]
+
+
+def review_submissions(client: Client, app_id: str) -> list[dict]:
+    """審査に出している（または出そうとしている）提出物。"""
+    path = (f"/v1/reviewSubmissions?filter[app]={app_id}"
+            f"&filter[state]={','.join(REVIEW_STATES)}&include=items&limit=10")
+    return client.get(path)
+
+
+def show_review(client: Client) -> int:
+    """審査の提出物に何が入っているかを出す。
+
+    Apple から「IAP が審査に提出されていない」と指摘されたときは、ここで実際の中身を見る。
+    """
+    app = find_app(client, BUNDLE_ID)
+    result = review_submissions(client, app["id"])
+    submissions = result.get("data", [])
+    if not submissions:
+        print("審査中の提出物はありません（却下後に作り直す必要があります）。")
+        return 0
+
+    included = {item["id"]: item for item in result.get("included", [])}
+    for submission in submissions:
+        state = submission["attributes"].get("state")
+        print(f"提出物 {submission['id']}: 状態 {state}")
+        items = submission.get("relationships", {}).get("items", {}).get("data", [])
+        if not items:
+            print("  中身: なし")
+        for ref in items:
+            item = included.get(ref["id"], {})
+            relationships = item.get("relationships", {})
+            kinds = [name for name, value in relationships.items()
+                     if (value or {}).get("data")]
+            detail = ", ".join(
+                f"{name}={relationships[name]['data'].get('id')}" for name in kinds)
+            print(f"  中身: {detail or '（不明）'}")
+    return 0
+
+
+def submit_iap(client: Client, dry_run: bool) -> int:
+    """審査中の提出物に課金アイテムを足す。
+
+    初回リリースでは、課金アイテムをアプリのバージョンと**一緒に**審査へ出す必要がある。
+    """
+    app = find_app(client, BUNDLE_ID)
+    iap = find_iap(client, app["id"])
+    if iap is None:
+        raise SystemExit(f"{PRODUCT_ID} が未登録です。")
+
+    result = review_submissions(client, app["id"])
+    submissions = result.get("data", [])
+    if not submissions:
+        raise SystemExit("審査中の提出物がありません。先に App Store Connect で提出を作ってください。")
+
+    submission = submissions[0]
+    included = {item["id"]: item for item in result.get("included", [])}
+    for ref in submission.get("relationships", {}).get("items", {}).get("data", []):
+        target = (included.get(ref["id"], {}).get("relationships", {})
+                  .get("inAppPurchaseV2", {}).get("data") or {})
+        if target.get("id") == iap["id"]:
+            print("  課金アイテムはすでに提出物に入っています。")
+            return 0
+
+    print(f"  提出物 {submission['id']} に {PRODUCT_ID} を追加します")
+    if dry_run:
+        return 0
+
+    client.write("POST", "/v1/reviewSubmissionItems", {
+        "data": {
+            "type": "reviewSubmissionItems",
+            "relationships": {
+                "reviewSubmission": {
+                    "data": {"type": "reviewSubmissions", "id": submission["id"]}},
+                "inAppPurchaseV2": {
+                    "data": {"type": "inAppPurchases", "id": iap["id"]}},
+            },
+        }
+    })
+    print("  追加しました。")
+    return show_review(client)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--mode",
                         choices=["status", "create", "screenshot", "app-price",
-                                 "export-compliance"],
+                                 "export-compliance", "review", "submit-iap"],
                         default="status")
     parser.add_argument("--build", default="", help="--mode export-compliance の対象ビルド番号")
     parser.add_argument("--price", default="0.00",
@@ -448,6 +534,10 @@ def main() -> int:
             return set_app_price(client, args.price, args.dry_run)
         if args.mode == "export-compliance":
             return answer_export_compliance(client, args.build, args.dry_run)
+        if args.mode == "review":
+            return show_review(client)
+        if args.mode == "submit-iap":
+            return submit_iap(client, args.dry_run)
         return create_or_update(client, args.dry_run)
     except ASCError as error:
         print(f"[App Store Connect エラー] {error}")

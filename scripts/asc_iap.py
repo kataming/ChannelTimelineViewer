@@ -12,6 +12,7 @@
   --mode export-compliance --build <番号>  輸出コンプライアンスに「非対象」と回答する
   --mode review    審査に出している中身（バージョン・課金アイテム）を一覧する
   --mode submit-iap  審査中の提出物に課金アイテムを追加する
+  --mode testflight --build <番号>  ビルドを TestFlight のグループへ配布する
   --dry-run       送信せず、何をするかだけ表示する
 
 できないこと（App Store Connect の画面でしか行えない）:
@@ -531,11 +532,50 @@ def submit_iap(client: Client, dry_run: bool) -> int:
     return 1
 
 
+def distribute_to_testflight(client: Client, build_number: str, dry_run: bool) -> int:
+    """ビルドを TestFlight のグループに入れる。
+
+    アップロードして処理が終わっても、グループに入っていないとテスターの
+    TestFlight には出てこない（古いビルドのままに見える）。
+    """
+    app = find_app(client, BUNDLE_ID)
+    builds = client.get(
+        f"/v1/builds?filter[app]={app['id']}&filter[version]={build_number}&limit=1"
+    ).get("data", [])
+    if not builds:
+        raise SystemExit(f"build {build_number} が見つかりません。")
+    build = builds[0]
+    print(f"  build {build_number}（id {build['id']}）"
+          f" 処理 {build.get('attributes', {}).get('processingState')}")
+
+    groups = client.get(f"/v1/apps/{app['id']}/betaGroups?limit=50").get("data", [])
+    if not groups:
+        raise SystemExit("TestFlight のグループがありません。App Store Connect で作ってください。")
+
+    for group in groups:
+        attributes = group.get("attributes", {})
+        kind = "内部" if attributes.get("isInternalGroup") else "外部"
+        name = attributes.get("name")
+        # 外部グループは配布前にベータ版審査が要るので、まず内部グループだけに入れる。
+        if not attributes.get("isInternalGroup"):
+            print(f"  {kind}グループ「{name}」: 外部のため今回は入れません")
+            continue
+        print(f"  {kind}グループ「{name}」に追加します")
+        if dry_run:
+            continue
+        client.write("POST", f"/v1/betaGroups/{group['id']}/relationships/builds", {
+            "data": [{"type": "builds", "id": build["id"]}]
+        })
+        print("    追加しました")
+    return 0
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--mode",
                         choices=["status", "create", "screenshot", "app-price",
-                                 "export-compliance", "review", "submit-iap"],
+                                 "export-compliance", "review", "submit-iap",
+                                 "testflight"],
                         default="status")
     parser.add_argument("--build", default="", help="--mode export-compliance の対象ビルド番号")
     parser.add_argument("--price", default="0.00",
@@ -565,6 +605,8 @@ def main() -> int:
             return show_review(client)
         if args.mode == "submit-iap":
             return submit_iap(client, args.dry_run)
+        if args.mode == "testflight":
+            return distribute_to_testflight(client, args.build, args.dry_run)
         return create_or_update(client, args.dry_run)
     except ASCError as error:
         print(f"[App Store Connect エラー] {error}")

@@ -14,7 +14,7 @@ on:
       mode:
         description: '動作（status=確認 / create=課金アイテム作成 / app-price=本体価格を設定）'
         type: choice
-        options: [status, create, app-price, export-compliance, review, submit-iap]
+        options: [status, create, app-price, export-compliance, review, submit-iap, testflight]
         default: status
       price:
         description: 'app-price のときの USD 価格（0.00 で無料）'
@@ -57,7 +57,7 @@ jobs:
           if [ "$MODE" = "app-price" ]; then
             ARGS="$ARGS --price $PRICE"
           fi
-          if [ "$MODE" = "export-compliance" ]; then
+          if [ "$MODE" = "export-compliance" ] || [ "$MODE" = "testflight" ]; then
             ARGS="$ARGS --build $BUILD"
           fi
           if [ "$MODE" != "status" ] && [ "$DRY_RUN" = "true" ]; then

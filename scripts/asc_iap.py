@@ -503,19 +503,32 @@ def submit_iap(client: Client, dry_run: bool) -> int:
     if dry_run:
         return 0
 
-    client.write("POST", "/v1/reviewSubmissionItems", {
-        "data": {
-            "type": "reviewSubmissionItems",
-            "relationships": {
-                "reviewSubmission": {
-                    "data": {"type": "reviewSubmissions", "id": submission["id"]}},
-                "inAppPurchaseV2": {
-                    "data": {"type": "inAppPurchases", "id": iap["id"]}},
-            },
-        }
-    })
-    print("  追加しました。")
-    return show_review(client)
+    # 関係名は API の版で綴りが違う（v2 / v1）。受け付ける方を順に試す。
+    last_error: ASCError | None = None
+    for name in ("inAppPurchaseV2", "inAppPurchase"):
+        try:
+            client.write("POST", "/v1/reviewSubmissionItems", {
+                "data": {
+                    "type": "reviewSubmissionItems",
+                    "relationships": {
+                        "reviewSubmission": {
+                            "data": {"type": "reviewSubmissions", "id": submission["id"]}},
+                        name: {"data": {"type": "inAppPurchases", "id": iap["id"]}},
+                    },
+                }
+            })
+            print(f"  追加しました（関係名 {name}）。")
+            return show_review(client)
+        except ASCError as error:
+            print(f"  {name} では追加できませんでした")
+            last_error = error
+
+    print("\n課金アイテムの提出は API では行えないようです。")
+    print("App Store Connect の画面で、バージョンのページ →「App 内課金」→ 対象を選び、")
+    print("「審査用に追加」のときに課金アイテムも一緒に含めてください。")
+    if last_error is not None:
+        raise last_error
+    return 1
 
 
 def main() -> int:

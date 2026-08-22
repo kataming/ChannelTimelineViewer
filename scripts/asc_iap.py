@@ -13,6 +13,7 @@
   --mode review    審査に出している中身（バージョン・課金アイテム）を一覧する
   --mode submit-iap  審査中の提出物に課金アイテムを追加する
   --mode testflight --build <番号>  ビルドを TestFlight のグループへ配布する
+  --mode expire-build --build <番号>  ビルドを期限切れにする（TestFlight から消す・戻せない）
   --dry-run       送信せず、何をするかだけ表示する
 
 できないこと（App Store Connect の画面でしか行えない）:
@@ -570,12 +571,44 @@ def distribute_to_testflight(client: Client, build_number: str, dry_run: bool) -
     return 0
 
 
+def expire_build(client: Client, build_number: str, dry_run: bool) -> int:
+    """ビルドを期限切れにして、TestFlight の一覧から消す。
+
+    **元に戻せない。** 同じ番号での再アップロードもできないので、
+    捨てビルド（表示バージョンを間違えたもの等）にだけ使う。
+    審査に紐づいているビルドには使わないこと。
+    """
+    app = find_app(client, BUNDLE_ID)
+    builds = client.get(
+        f"/v1/builds?filter[app]={app['id']}&filter[version]={build_number}&limit=1"
+    ).get("data", [])
+    if not builds:
+        raise SystemExit(f"build {build_number} が見つかりません。")
+
+    build = builds[0]
+    attributes = build.get("attributes", {})
+    print(f"  build {build_number}（id {build['id']}）"
+          f" 処理 {attributes.get('processingState')} / 期限切れ {attributes.get('expired')}")
+    if attributes.get("expired"):
+        print("  すでに期限切れです。")
+        return 0
+    if dry_run:
+        print("  [dry-run] 期限切れにする")
+        return 0
+
+    client.write("PATCH", f"/v1/builds/{build['id']}", {
+        "data": {"type": "builds", "id": build["id"], "attributes": {"expired": True}}
+    })
+    print("  期限切れにしました（TestFlight の一覧から消えます）。")
+    return 0
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--mode",
                         choices=["status", "create", "screenshot", "app-price",
                                  "export-compliance", "review", "submit-iap",
-                                 "testflight"],
+                                 "testflight", "expire-build"],
                         default="status")
     parser.add_argument("--build", default="", help="--mode export-compliance の対象ビルド番号")
     parser.add_argument("--price", default="0.00",
@@ -607,6 +640,8 @@ def main() -> int:
             return submit_iap(client, args.dry_run)
         if args.mode == "testflight":
             return distribute_to_testflight(client, args.build, args.dry_run)
+        if args.mode == "expire-build":
+            return expire_build(client, args.build, args.dry_run)
         return create_or_update(client, args.dry_run)
     except ASCError as error:
         print(f"[App Store Connect エラー] {error}")

@@ -554,13 +554,13 @@ def distribute_to_testflight(client: Client, build_number: str, dry_run: bool) -
 
     for group in groups:
         attributes = group.get("attributes", {})
-        kind = "内部" if attributes.get("isInternalGroup") else "外部"
         name = attributes.get("name")
-        # 外部グループは配布前にベータ版審査が要るので、まず内部グループだけに入れる。
-        if not attributes.get("isInternalGroup"):
-            print(f"  {kind}グループ「{name}」: 外部のため今回は入れません")
+        # 内部グループは処理が終わったビルドを自動で受け取る。API から足そうとすると
+        # 「Cannot add internal group to a build.」で弾かれるので、触らない。
+        if attributes.get("isInternalGroup"):
+            print(f"  内部グループ「{name}」: 自動で配布されるため操作は不要です")
             continue
-        print(f"  {kind}グループ「{name}」に追加します")
+        print(f"  外部グループ「{name}」に追加します")
         if dry_run:
             continue
         client.write("POST", f"/v1/betaGroups/{group['id']}/relationships/builds", {

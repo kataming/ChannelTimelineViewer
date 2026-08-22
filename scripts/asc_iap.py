@@ -443,22 +443,36 @@ def show_review(client: Client) -> int:
         print("審査中の提出物はありません（却下後に作り直す必要があります）。")
         return 0
 
-    included = {item["id"]: item for item in result.get("included", [])}
     for submission in submissions:
         state = submission["attributes"].get("state")
         print(f"提出物 {submission['id']}: 状態 {state}")
-        items = submission.get("relationships", {}).get("items", {}).get("data", [])
-        if not items:
-            print("  中身: なし")
-        for ref in items:
-            item = included.get(ref["id"], {})
-            relationships = item.get("relationships", {})
-            kinds = [name for name, value in relationships.items()
-                     if (value or {}).get("data")]
-            detail = ", ".join(
-                f"{name}={relationships[name]['data'].get('id')}" for name in kinds)
-            print(f"  中身: {detail or '（不明）'}")
+        for label in submission_item_labels(client, submission["id"]):
+            print(f"  中身: {label}")
     return 0
+
+
+def submission_item_labels(client: Client, submission_id: str) -> list[str]:
+    """提出物の中身（バージョン / 課金アイテム）を読みやすい形にする。"""
+    detail = client.get(
+        f"/v1/reviewSubmissions/{submission_id}/items"
+        "?include=appStoreVersion,inAppPurchaseV2&limit=50")
+    included = {item["id"]: item for item in detail.get("included", [])}
+    labels = []
+    for item in detail.get("data", []):
+        state = item.get("attributes", {}).get("state", "")
+        found = False
+        for name, prefix in (("appStoreVersion", "バージョン"),
+                             ("inAppPurchaseV2", "課金アイテム")):
+            target = (item.get("relationships", {}).get(name, {}) or {}).get("data")
+            if not target:
+                continue
+            found = True
+            attributes = included.get(target["id"], {}).get("attributes", {})
+            title = attributes.get("versionString") or attributes.get("productId") or target["id"]
+            labels.append(f"{prefix} {title}（{state}）")
+        if not found:
+            labels.append(f"種別不明の項目（{state}）")
+    return labels or ["なし"]
 
 
 def submit_iap(client: Client, dry_run: bool) -> int:
@@ -477,13 +491,10 @@ def submit_iap(client: Client, dry_run: bool) -> int:
         raise SystemExit("審査中の提出物がありません。先に App Store Connect で提出を作ってください。")
 
     submission = submissions[0]
-    included = {item["id"]: item for item in result.get("included", [])}
-    for ref in submission.get("relationships", {}).get("items", {}).get("data", []):
-        target = (included.get(ref["id"], {}).get("relationships", {})
-                  .get("inAppPurchaseV2", {}).get("data") or {})
-        if target.get("id") == iap["id"]:
-            print("  課金アイテムはすでに提出物に入っています。")
-            return 0
+    if any("課金アイテム" in label
+           for label in submission_item_labels(client, submission["id"])):
+        print("  課金アイテムはすでに提出物に入っています。")
+        return 0
 
     print(f"  提出物 {submission['id']} に {PRODUCT_ID} を追加します")
     if dry_run:

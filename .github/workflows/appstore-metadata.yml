@@ -9,14 +9,15 @@ name: App Store Metadata
 # mode:
 #   status … いまの登録状況を読むだけ（変更しない）
 #   push   … 原本を反映する。dry_run=true なら送信せず内容だけ表示する
+#   submit … 編集中のバージョンを審査へ提出する（画面の「審査へ提出」と同じ。dry_run で下見できる）
 
 on:
   workflow_dispatch:
     inputs:
       mode:
-        description: '動作（status=確認 / push=メタデータ / attach-build=ビルド / category=カテゴリ / review=審査情報）'
+        description: '動作（status=確認 / push=メタデータ / attach-build=ビルド / category=カテゴリ / review=審査情報 / submit=審査へ提出）'
         type: choice
-        options: [status, diagnose, push, attach-build, category, review]
+        options: [status, diagnose, push, attach-build, category, review, submit]
         default: status
       dry_run:
         description: 'push のとき、送信せず内容だけ表示する'

@@ -8,6 +8,7 @@ App Store Connect API で流し込める。7言語ぶんを手で貼り付ける
 やること:
   - `--mode status`: いまの登録状況を読み取って表示する（変更しない）
       アプリ / バージョン / 言語ごとの入力有無 / スクリーンショット / 審査に必要な項目
+  - `--mode submit`: 編集中のバージョンを審査へ提出する（画面の「審査へ提出」と同じ）
   - `--mode push`  : 原本のメタデータを反映する
       - App 情報（言語ごとの App 名・サブタイトル・プライバシーポリシーURL）
       - バージョン情報（説明・キーワード・プロモーション文・新機能・サポート/マーケティングURL）
@@ -376,6 +377,93 @@ def push(client: Client, bundle_id: str, version_string: str) -> int:
             })
 
     print("\n完了しました。スクリーンショット・年齢制限・価格・審査メモは App Store Connect で確認してください。")
+    return 0
+
+
+def submit_for_review(client: Client, bundle_id: str) -> int:
+    """編集中のバージョンを審査へ提出する。
+
+    App Store Connect の「審査へ提出」ボタンと同じことを API で行う。手順は3段階:
+      1. reviewSubmissions を作る（すでに未提出のものがあれば使い回す）
+      2. そこへ「このバージョンを審査してほしい」という項目を足す
+      3. submitted=true にして送り出す
+
+    提出前に、ビルドが紐づいているかを必ず確かめる。ビルド無しで送ると
+    Apple 側で弾かれ、提出の記録だけが中途半端に残るため。
+    """
+    app = find_app(client, bundle_id)
+    app_id = app["id"]
+    version = editable_version(client, app_id)
+    if version is None:
+        raise SystemExit("編集できるバージョンがありません。先に push でバージョンを作ってください。")
+
+    version_id = version["id"]
+    version_name = version["attributes"]["versionString"]
+    state = version["attributes"].get("appStoreState")
+
+    build = client.get(f"/v1/appStoreVersions/{version_id}/build").get("data")
+    if not build:
+        raise SystemExit(
+            f"バージョン {version_name} にビルドが紐づいていません。"
+            "先に --mode attach-build を実行してください。")
+    print(f"バージョン {version_name}（{state}） / build "
+          f"{build['attributes'].get('version')} を審査へ提出します")
+
+    # 1. まだ提出していない reviewSubmission があれば使い回す。
+    existing = client.get(f"/v1/apps/{app_id}/reviewSubmissions?limit=10").get("data", [])
+    pending = next((s for s in existing if not s["attributes"].get("submitted")), None)
+    if pending:
+        submission_id = pending["id"]
+        print(f"  未提出の提出枠を使います（状態 {pending['attributes'].get('state')}）")
+    else:
+        created = client.write("POST", "/v1/reviewSubmissions", {
+            "data": {
+                "type": "reviewSubmissions",
+                "attributes": {"platform": "IOS"},
+                "relationships": {"app": {"data": {"type": "apps", "id": app_id}}},
+            }
+        })
+        if client.dry_run:
+            print("  （dry-run のため、ここで終わります）")
+            return 0
+        submission_id = created["data"]["id"]
+        print("  提出枠を作りました")
+
+    # 2. このバージョンを提出物に加える（すでに入っていれば何もしない）。
+    items = client.get(
+        f"/v1/reviewSubmissions/{submission_id}/items?limit=20").get("data", [])
+    already = any(
+        (item.get("relationships", {}).get("appStoreVersion", {}).get("data") or {}).get("id")
+        == version_id for item in items)
+    if already:
+        print("  このバージョンは提出物に入っています")
+    else:
+        client.write("POST", "/v1/reviewSubmissionItems", {
+            "data": {
+                "type": "reviewSubmissionItems",
+                "relationships": {
+                    "reviewSubmission": {
+                        "data": {"type": "reviewSubmissions", "id": submission_id}},
+                    "appStoreVersion": {
+                        "data": {"type": "appStoreVersions", "id": version_id}},
+                },
+            }
+        })
+        print("  提出物にバージョンを追加しました")
+
+    # 3. 送り出す。
+    client.write("PATCH", f"/v1/reviewSubmissions/{submission_id}", {
+        "data": {
+            "type": "reviewSubmissions",
+            "id": submission_id,
+            "attributes": {"submitted": True},
+        }
+    })
+    if client.dry_run:
+        return 0
+
+    after = client.get(f"/v1/reviewSubmissions/{submission_id}")["data"]["attributes"]
+    print(f"提出しました。状態 {after.get('state')} / 提出日 {after.get('submittedDate')}")
     return 0
 
 
@@ -749,7 +837,7 @@ def main() -> int:
     parser.add_argument(
         "--mode",
         choices=["status", "push", "attach-build", "category", "review", "screenshots",
-                 "diagnose"],
+                 "diagnose", "submit"],
         default="status")
     parser.add_argument("--primary-category", default="EDUCATION")
     parser.add_argument("--screenshots-dir", default="screenshots",
@@ -779,6 +867,8 @@ def main() -> int:
             return show_status(client, args.bundle_id)
         if args.mode == "attach-build":
             return attach_build(client, args.bundle_id, args.build or None)
+        if args.mode == "submit":
+            return submit_for_review(client, args.bundle_id)
         if args.mode == "diagnose":
             return diagnose(client, args.bundle_id)
         if args.mode == "screenshots":

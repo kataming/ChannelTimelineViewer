@@ -1,0 +1,73 @@
+---
+// 実際の画面（App Store 提出時に撮ったスクリーンショット）を横に並べて見せる。
+// 画像は site/public/screens/<言語>/01..06.webp。用意が無い言語は英語版にフォールバックする。
+import { screensFor } from '../i18n/screens.js';
+
+const { lang, copy } = Astro.props;
+// 撮影できたカットだけを、対応するキャプションと組にして並べる。
+const shots = screensFor(lang).map((f) => ({ ...copy.shots[f.index], src: f.src }));
+---
+
+<div class="strip" role="list">
+  {shots.map((s, i) => (
+    <figure class="shot" role="listitem">
+      <a class="frame" href={s.src} target="_blank" rel="noopener" aria-label={s.title}>
+        <img
+          src={s.src}
+          width="440"
+          height="956"
+          alt={s.title}
+          loading={i < 2 ? 'eager' : 'lazy'}
+          decoding="async"
+        />
+      </a>
+      <figcaption>
+        <strong>{s.title}</strong>
+        <span>{s.body}</span>
+      </figcaption>
+    </figure>
+  ))}
+</div>
+
+<style>
+  .strip {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    /* セクションの左右の余白を無視して画面いっぱいに流す */
+    margin: 0 -20px;
+    padding: 4px 20px 18px;
+    scroll-padding-left: 20px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .shot {
+    margin: 0;
+    flex: 0 0 auto;
+    width: 216px;
+    scroll-snap-align: start;
+  }
+  .frame {
+    display: block;
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    overflow: hidden;
+    background: var(--bg-soft);
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.18);
+    line-height: 0;
+  }
+  .frame:hover { border-color: var(--muted); }
+  .frame img { width: 100%; height: auto; display: block; }
+  figcaption { display: block; margin-top: 14px; font-size: 0.88rem; }
+  figcaption strong { display: block; color: var(--text); }
+  figcaption span { display: block; color: var(--muted); margin-top: 2px; }
+
+  /* スクロールバーは細く、邪魔にならない見た目にする */
+  .strip::-webkit-scrollbar { height: 8px; }
+  .strip::-webkit-scrollbar-thumb { background: var(--line); border-radius: 999px; }
+  .strip::-webkit-scrollbar-track { background: transparent; }
+
+  @media (max-width: 520px) {
+    .shot { width: 62vw; max-width: 240px; }
+  }
+</style>

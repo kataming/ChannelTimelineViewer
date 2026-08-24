@@ -13,6 +13,9 @@ site/
   src/i18n/index.js       言語ヘルパ（パス・辞書・フォールバック）
   src/layouts/Base.astro  <head>（canonical / hreflang / OGP）とスタイル
   src/components/         Header / Footer / LangSelect（言語メニュー） / StoreBadges（ストアのバッジ）
+                          ScreenGallery（実機スクリーンショットの横並び）
+  src/i18n/screens.js     どの言語のスクリーンショットが揃っているか（自動生成・手で書かない）
+  public/screens/<言語>/  スクリーンショット（幅440px・WebP）
   src/pages/
     index.astro           / → ブラウザの言語で振り分け（JS 無しなら英語へ）
     [lang]/index.astro    トップ（機能・使い方・FAQ）
@@ -43,6 +46,21 @@ npm run check    # dist/ を点検（build のあとに実行する）
 | `PUBLIC_APP_STORE_URL` | App Store バッジの遷移先 | `https://apps.apple.com/jp/app/channel-timeline-viewer/id6792964082` |
 | `PUBLIC_PLAY_STORE_URL` | Google Play バッジの遷移先。空のあいだは「審査中」のバッジになる | 空（審査中） |
 | `PUBLIC_SUPPORT_EMAIL` | サポート／プライバシーの連絡先 | `support@jewelrysunflower.com` |
+
+## スクリーンショットを差し替えるとき
+
+トップの「使用イメージ」に出している画像は、App Store 提出用に撮ったものと同じ。
+
+1. GitHub Actions の **iOS Screenshots** を実行する（言語を選べる）。artifact
+   `app-store-screenshots-<言語>` を `build/screenshots-site/<言語>/` に展開する。
+2. `python scripts/prepare_site_screenshots.py --src build/screenshots-site`
+   （幅440pxのWebPに変換して `site/public/screens/` に置き、`src/i18n/screens.js` を作り直す）
+3. 変換前に**必ず目で確認する**。CI のシミュレーターは YouTube 側に
+   「Sign in to confirm you're not a bot」を出されることがあり、その画像は載せられない。
+   再生画面（4枚目）は `docs/AppStore/screenshots/<言語>/04-player-device.png` を自動で優先する。
+4. 撮れなかったカットはその言語だけ非表示になる。枚数が足りない言語は英語版の画像を出す。
+
+キャプションは `src/i18n/translations.js` の `shots`（App Store のキャプションと同じ文言）。
 
 ## 文言を直すとき
 

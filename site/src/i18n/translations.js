@@ -32,6 +32,16 @@ const en = {
     body:
       'Catching up on a channel with hundreds of uploads means scrolling to the bottom, remembering which video you stopped at, and finding it again tomorrow. Channel Timeline Viewer turns that into a list you can simply work down.',
   },
+  screensTitle: 'What it looks like',
+  screensLede: 'The same screens we submitted to the App Store, captured on an iPhone.',
+  shots: [
+    { title: 'Start every channel at video #1', body: 'Progress tracked per channel.' },
+    { title: 'Oldest first, always in order', body: 'Watched count and “up next” at a glance.' },
+    { title: 'Show only what you haven’t seen', body: 'Find the next video instantly.' },
+    { title: 'Official player, plus your notes', body: 'Keep the key points of every episode.' },
+    { title: 'Track it like a course', body: 'Percentage and resume keep you going.' },
+    { title: 'A companion, not the official app', body: 'Official embedded player. No downloads, no ad blocking, no background play.' },
+  ],
   featuresTitle: 'What it does',
   features: [
     { title: 'Oldest-first order', body: 'Enter a channel URL and every upload is listed by publication date. Flip to newest-first whenever you want.' },
@@ -171,6 +181,16 @@ const ja = {
     body:
       '何百本もあるチャンネルを追いかけようとすると、一番下までスクロールして、どこで止めたかを覚えて、翌日また探すことになります。Channel Timeline Viewer は、それを「上から順に消していけるリスト」に変えます。',
   },
+  screensTitle: '使用イメージ',
+  screensLede: 'App Store に提出したものと同じ画面を、iPhone で撮影しています。',
+  shots: [
+    { title: 'チャンネルを“最初から順番に”', body: 'お気に入りごとに進捗を管理します。' },
+    { title: '古い順で、続きから', body: '視聴済み数と「次に見る」がひと目で分かります。' },
+    { title: '未視聴だけ表示', body: '見るべき動画をすぐ見つけられます。' },
+    { title: '公式プレイヤーで再生＋メモ', body: '学習・シリーズ視聴の要点を動画ごとに残せます。' },
+    { title: '学習教材のように進捗管理', body: '進捗率と続きからで挫折しません。' },
+    { title: '公式アプリではない補助ツール', body: '再生は公式の埋め込みプレイヤー。ダウンロード・広告回避・バックグラウンド再生はしません。' },
+  ],
   featuresTitle: 'できること',
   features: [
     { title: '古い順に並べる', body: 'チャンネルURLを入れるだけで、投稿動画が公開日順に並びます。新しい順への切り替えも自由です。' },
@@ -310,6 +330,16 @@ const zh = {
     body:
       '想补看一个有几百个视频的频道，就得一直滑到最底部，记住自己停在哪里，第二天再重新找一遍。Channel Timeline Viewer 把这件事变成一份可以从上往下逐个完成的清单。',
   },
+  screensTitle: '实际界面',
+  screensLede: '与提交至 App Store 的相同界面，在 iPhone 上拍摄。',
+  shots: [
+    { title: '每个频道都从第 1 个视频开始', body: '按频道分别记录进度。' },
+    { title: '从旧到新，始终有序', body: '已观看数与“接下来”一目了然。' },
+    { title: '只看还没看过的', body: '立刻找到下一个视频。' },
+    { title: '官方播放器 ＋ 你的笔记', body: '记下每一集的要点。' },
+    { title: '像课程一样管理进度', body: '百分比与继续播放，不半途而废。' },
+    { title: '辅助工具，并非官方应用', body: '使用官方嵌入式播放器。不下载、不屏蔽广告、不后台播放。' },
+  ],
   featuresTitle: '功能一览',
   features: [
     { title: '从旧到新排列', body: '输入频道网址，投稿视频便按发布日期排列，也可随时切换为从新到旧。' },
@@ -449,6 +479,16 @@ const es = {
     body:
       'Ponerse al día con un canal de cientos de vídeos significa bajar hasta el final, recordar dónde lo dejaste y volver a buscarlo mañana. Channel Timeline Viewer lo convierte en una lista que simplemente vas tachando.',
   },
+  screensTitle: 'Así se ve',
+  screensLede: 'Las mismas pantallas que enviamos al App Store, capturadas en un iPhone.',
+  shots: [
+    { title: 'Empieza cada canal por el vídeo n.º 1', body: 'Progreso separado por canal.' },
+    { title: 'Del más antiguo, siempre en orden', body: 'Vídeos vistos y «siguiente» de un vistazo.' },
+    { title: 'Muestra solo lo que te falta', body: 'Encuentra el siguiente al instante.' },
+    { title: 'Reproductor oficial y tus notas', body: 'Guarda lo esencial de cada episodio.' },
+    { title: 'Contrólalo como un curso', body: 'Porcentaje y reanudar para no abandonar.' },
+    { title: 'Un complemento, no la app oficial', body: 'Reproductor incrustado oficial. Sin descargas, sin bloqueo de anuncios, sin segundo plano.' },
+  ],
   featuresTitle: 'Qué hace',
   features: [
     { title: 'Orden del más antiguo', body: 'Pega la URL de un canal y verás todas sus subidas por fecha. Cambia a «más recientes primero» cuando quieras.' },
@@ -588,6 +628,16 @@ const de = {
     body:
       'Einen Kanal mit Hunderten Videos nachzuholen heißt: bis ganz nach unten scrollen, sich merken, wo man aufgehört hat, und es morgen wieder suchen. Channel Timeline Viewer macht daraus eine Liste, die du einfach abarbeitest.',
   },
+  screensTitle: 'So sieht es aus',
+  screensLede: 'Dieselben Screens, die wir im App Store eingereicht haben – auf einem iPhone aufgenommen.',
+  shots: [
+    { title: 'Jeden Kanal bei Video 1 beginnen', body: 'Fortschritt je Kanal.' },
+    { title: 'Älteste zuerst, immer der Reihe nach', body: 'Gesehene Anzahl und „als Nächstes“ auf einen Blick.' },
+    { title: 'Nur Ungesehenes anzeigen', body: 'Das nächste Video sofort finden.' },
+    { title: 'Offizieller Player plus Notizen', body: 'Das Wichtigste jeder Folge festhalten.' },
+    { title: 'Wie einen Kurs verfolgen', body: 'Prozentwert und Fortsetzen halten dich dran.' },
+    { title: 'Begleiter, nicht die offizielle App', body: 'Offizieller eingebetteter Player. Kein Download, keine Werbeblockierung, kein Hintergrund.' },
+  ],
   featuresTitle: 'Was die App macht',
   features: [
     { title: 'Älteste zuerst', body: 'Kanal-URL eingeben – alle Uploads erscheinen nach Datum sortiert. Umschalten auf „neueste zuerst“ jederzeit möglich.' },
@@ -727,6 +777,16 @@ const fr = {
     body:
       'Rattraper une chaîne de plusieurs centaines de vidéos, c’est descendre jusqu’en bas, se souvenir où l’on s’est arrêté, puis la retrouver le lendemain. Channel Timeline Viewer transforme tout cela en une liste que l’on parcourt simplement.',
   },
+  screensTitle: 'À quoi ça ressemble',
+  screensLede: 'Les mêmes écrans que ceux envoyés à l’App Store, capturés sur un iPhone.',
+  shots: [
+    { title: 'Commencez chaque chaîne à la vidéo n° 1', body: 'Progression suivie par chaîne.' },
+    { title: 'De la plus ancienne, toujours dans l’ordre', body: 'Vidéos vues et « à suivre » d’un coup d’œil.' },
+    { title: 'N’afficher que le non-vu', body: 'Trouvez la suivante immédiatement.' },
+    { title: 'Lecteur officiel et vos notes', body: 'Retenez l’essentiel de chaque épisode.' },
+    { title: 'Suivez-la comme un cours', body: 'Pourcentage et reprise pour tenir la distance.' },
+    { title: 'Une app compagnon, pas l’app officielle', body: 'Lecteur intégré officiel. Sans téléchargement, sans blocage de pub, sans arrière-plan.' },
+  ],
   featuresTitle: 'Ce que fait l’app',
   features: [
     { title: 'Ordre chronologique', body: 'Collez l’URL d’une chaîne : toutes les vidéos apparaissent par date. Basculez en « plus récentes d’abord » quand vous voulez.' },
@@ -866,6 +926,16 @@ const ko = {
     body:
       '영상이 수백 개인 채널을 따라잡으려면 맨 아래까지 스크롤하고, 어디서 멈췄는지 기억하고, 다음 날 다시 찾아야 합니다. Channel Timeline Viewer는 그것을 위에서부터 차례로 지워 가는 목록으로 바꿔 줍니다.',
   },
+  screensTitle: '실제 화면',
+  screensLede: 'App Store에 제출한 것과 같은 화면을 iPhone에서 촬영했습니다.',
+  shots: [
+    { title: '모든 채널을 1번 영상부터', body: '채널별로 진행률을 관리합니다.' },
+    { title: '오래된 순으로, 언제나 순서대로', body: '시청 수와 ‘다음 시청’을 한눈에.' },
+    { title: '안 본 것만 표시', body: '다음에 볼 영상을 바로 찾습니다.' },
+    { title: '공식 플레이어 ＋ 내 메모', body: '회차마다 요점을 기록합니다.' },
+    { title: '강의처럼 진도 관리', body: '진행률과 이어 보기로 끝까지 갑니다.' },
+    { title: '공식 앱이 아닌 보조 도구', body: '공식 임베드 플레이어를 사용합니다. 다운로드·광고 차단·백그라운드 재생은 하지 않습니다.' },
+  ],
   featuresTitle: '주요 기능',
   features: [
     { title: '오래된 순 정렬', body: '채널 URL만 넣으면 업로드 동영상이 게시일순으로 정렬됩니다. 최신 순으로 전환도 자유롭습니다.' },

@@ -1,7 +1,9 @@
 ---
 import Base from '../../layouts/Base.astro';
 import StoreBadges from '../../components/StoreBadges.astro';
+import ScreenGallery from '../../components/ScreenGallery.astro';
 import { codes, langOf, t, path } from '../../i18n/index.js';
+import { screensFor } from '../../i18n/screens.js';
 
 export function getStaticPaths() {
   return codes.map((code) => ({ params: { lang: langOf(code).slug }, props: { code } }));
@@ -9,19 +11,28 @@ export function getStaticPaths() {
 
 const { code } = Astro.props;
 const copy = t(code);
+// hero に置く1枚は「動画一覧＋進捗」（shots[1]）。このアプリが何をするか一番よく分かる画面。
+// 撮れていなければ、その言語で用意できた最初の1枚を使う。
+const shots = screensFor(code);
+const hero = shots.find((s) => s.index === 1) || shots[0];
 ---
 
 <Base lang={code} page="" title={copy.meta.title} description={copy.meta.description}>
   <section class="hero">
-    <div class="wrap">
-      <p class="badge">{copy.hero.badge}</p>
-      <h1>{copy.hero.title}</h1>
-      <p class="lede">{copy.hero.subtitle}</p>
-      <div class="cta">
-        <StoreBadges copy={copy} />
+    <div class="wrap hero-grid">
+      <div>
+        <p class="badge">{copy.hero.badge}</p>
+        <h1>{copy.hero.title}</h1>
+        <p class="lede">{copy.hero.subtitle}</p>
+        <div class="cta">
+          <StoreBadges copy={copy} />
+        </div>
+        <p class="muted small">{copy.hero.ctaNote}</p>
+        <p class="muted small">{copy.store.androidNote}</p>
       </div>
-      <p class="muted small">{copy.hero.ctaNote}</p>
-      <p class="muted small">{copy.store.androidNote}</p>
+      <div class="hero-shot">
+        <img src={hero.src} width="440" height="956" alt={copy.shots[hero.index].title} decoding="async" />
+      </div>
     </div>
   </section>
 
@@ -29,6 +40,14 @@ const copy = t(code);
     <div class="wrap">
       <h2>{copy.problem.title}</h2>
       <p class="lede">{copy.problem.body}</p>
+    </div>
+  </section>
+
+  <section id="screens">
+    <div class="wrap">
+      <h2>{copy.screensTitle}</h2>
+      <p class="lede">{copy.screensLede}</p>
+      <ScreenGallery lang={code} copy={copy} />
     </div>
   </section>
 
@@ -107,6 +126,20 @@ const copy = t(code);
 
 <style>
   .hero { padding: 72px 0 56px; }
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) 264px; gap: 56px; align-items: center; }
+  .hero-shot img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border: 1px solid var(--line);
+    border-radius: 26px;
+    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.22);
+  }
+  /* 狭い画面では、まずボタンまで見えることを優先して1枚絵は畳む（下の一覧で全部見える）。 */
+  @media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 0; }
+    .hero-shot { display: none; }
+  }
   .badge {
     display: inline-block;
     font-size: 0.8rem;

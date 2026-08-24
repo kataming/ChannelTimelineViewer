@@ -409,9 +409,14 @@ def submit_for_review(client: Client, bundle_id: str) -> int:
     print(f"バージョン {version_name}（{state}） / build "
           f"{build['attributes'].get('version')} を審査へ提出します")
 
-    # 1. まだ提出していない reviewSubmission があれば使い回す。
+    # 1. 作りかけの reviewSubmission があれば使い回す。
+    #    使い回してよいのは READY_FOR_REVIEW（作ったが未提出）だけ。
+    #    過去の提出は COMPLETE などで残っており、submitted が返らないことがあるので
+    #    「submitted が偽」だけで判断すると完了済みの枠を掴んでしまう。
     existing = client.get(f"/v1/apps/{app_id}/reviewSubmissions?limit=10").get("data", [])
-    pending = next((s for s in existing if not s["attributes"].get("submitted")), None)
+    pending = next((s for s in existing
+                    if s["attributes"].get("state") == "READY_FOR_REVIEW"
+                    and not s["attributes"].get("submitted")), None)
     if pending:
         submission_id = pending["id"]
         print(f"  未提出の提出枠を使います（状態 {pending['attributes'].get('state')}）")

@@ -163,6 +163,20 @@ final class ScreenshotUITests: XCTestCase {
         Thread.sleep(forTimeInterval: 1.5)
     }
 
+    /// 再生画面に取り残されていたら一覧まで戻す。
+    ///
+    /// 視聴済みにする繰り返し（markSomeVideosAsWatched）の途中で「戻る」が空振りすると、
+    /// 以降の撮影がすべて再生画面になってしまう。一覧を撮る前に必ず通す。
+    private func backToVideoList() {
+        var attempts = 0
+        while !app.buttons[L("list.menu.a11y")].exists && attempts < 4 {
+            dismissTransientUI()
+            goBack()
+            attempts += 1
+        }
+        ensureVideoList()
+    }
+
     /// 一覧の指定行を開いて、再生画面が出るまで待つ。開けなければ false。
     ///
     /// 行番号は目安。押せない（画面外・メニューが開いている等）ときは後ろの行を順に試す。
@@ -249,6 +263,10 @@ final class ScreenshotUITests: XCTestCase {
 
         // --- 何本かを視聴済みにして、進捗バーに数字を出す ---
         markSomeVideosAsWatched()
+
+        // 最後の1本から戻れていないと、この先の撮影が全部再生画面になる。
+        backToVideoList()
+        scrollListToTop()
 
         // --- 02 動画一覧（進捗バー＋次に見る） ---
         capture("02-video-list-progress")

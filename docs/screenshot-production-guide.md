@@ -69,6 +69,22 @@ GitHub Actions のランナーはデータセンターのIPから接続するた
 - **04（再生画面＋メモ）は、実機（TestFlight 版）でスクリーンショットを撮って差し替えてください。**
   実機なら通常どおり再生されます。撮る内容は CI の 04 と同じ構図（プレイヤー＋タイトル＋移動ボタン＋メモ）。
 
+### 公式サイトにも同じ画像を使う
+
+`site/` のトップ「使用イメージ」は、ここで撮った画像をそのまま縮小して載せている。
+
+```
+python scripts/prepare_site_screenshots.py --src build/screenshots-site
+```
+
+- `--src` の下に `<言語>/` を作り、artifact の PNG を置く（`en` `ja` `zh-Hans` `es` `de` `fr` `ko`）。
+- 幅440pxのWebPにして `site/public/screens/<言語>/` に出力し、`site/src/i18n/screens.js` を作り直す。
+- **再生画面（04）は `docs/AppStore/screenshots/<言語>/04-player-device.png` を自動で優先する。**
+  上の理由でCIの04は使えないため、実機で撮ったこの画像が無い言語は、その言語だけ再生画面を載せない。
+  → **韓国語（ko）は未撮影**。実機を韓国語にして撮り、`docs/AppStore/screenshots/ko/04-player-device.png`
+  に置いて上のコマンドを流し直せば、サイトにもストアにも自動で載る。
+- 撮り直しは1言語だけでもよい（`iOS Screenshots` の `languages` に `en` など1つだけ指定する）。
+
 ### 撮影後
 
 - サイズが 6.9 インチ（1320×2868）等の要件を満たしているか確認する。

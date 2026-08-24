@@ -152,13 +152,29 @@ gh workflow run ui-preview.yml -R kataming/ChannelTimelineViewer
 
 - https://kataming.github.io/ChannelTimelineViewer/ui-preview/
 
-## Step 5（人手）App Store Connect で提出
+## Step 5 App Store Connect で提出
 
 アップロードから 5〜30 分ほどでビルドが処理されます。
 
+**メタデータの反映・ビルドの紐づけ・審査への提出は、すべて `App Store Metadata`
+ワークフローから実行できます**（App Store Connect の画面を開く必要はありません）。
+
+| やること | 実行 |
+|---|---|
+| いまの状態を見る | `mode=status` |
+| バージョンを作り、7言語のメタデータを反映 | `mode=push` / `version=1.1`（まず `dry_run=true` で下見） |
+| ビルドを紐づける | `mode=attach-build` / `build=29`（空なら最新の VALID） |
+| **審査へ提出** | `mode=submit`（`dry_run=true` で何が送られるか確認できる） |
+
+`mode=submit` は画面の「審査へ提出」と同じことを API で行います
+（reviewSubmissions を作る → バージョンを提出物に追加 → `submitted=true`）。
+ビルドが紐づいていない場合は提出前に止まります。
+
+提出の前に、実機での確認だけは人手で行ってください。
+
 1. **TestFlight** タブにビルドが表示される → 輸出コンプライアンス（暗号化の使用: 「いいえ」）に回答
 2. 内部テスターとして自分に配信 → 実機で [`manual-test-checklist.md`](manual-test-checklist.md) を実施
-3. 問題なければ **App Store** タブで提出
+3. 問題なければ `mode=submit` で提出（画面から出す場合は **App Store** タブ）
    - 説明文: [`AppStore/app-description.md`](AppStore/app-description.md)
    - 審査メモ: [`AppStore/review-notes.md`](AppStore/review-notes.md)
    - スクリーンショット: [`screenshot-production-guide.md`](screenshot-production-guide.md) / 文言は [`screenshot-copy.md`](screenshot-copy.md)

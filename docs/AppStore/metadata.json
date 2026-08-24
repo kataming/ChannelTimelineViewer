@@ -63,13 +63,13 @@
     "ko": "Channel Timeline Viewer는 채널의 업로드 동영상을 게시일순(오래된 순)으로 정리해, 과거 영상·강의·장기 시리즈를 처음부터 순서대로, 어디까지 봤는지 놓치지 않고 볼 수 있게 해 줍니다.\n\n■ 이런 분께\n・채널의 과거 영상을 처음부터 정주행하고 싶은 분\n・강의나 연속 강좌를 교재처럼 진도 관리하며 보고 싶은 분\n・어디까지 봤는지 정확히 알고 싶은 분\n\n■ 주요 기능\n・채널 URL 입력, 또는 YouTube 앱·Safari의 공유 시트에서 받기\n・업로드 동영상을 게시일순(오래된 순／최신 순)으로 목록 표시\n・채널별 진행률(시청 수／전체 수, 백분율, 진행 바)\n・‘다음 시청／이어 보기’로 멈춘 곳으로 바로 이동\n・마지막으로 멈춘 초부터 이어서 재생\n・종료 후 목록의 다음 동영상으로 넘어가는 자동 재생(기본 꺼짐)\n・반복 재생(한 편／전체)\n・시청함·건너뛰기 관리, 안 본 동영상만 재생\n・필터(전체／안 본 것／시청한 것)\n・동영상별 메모(학습·시리즈 시청용)\n・재생 속도와 자막을 플레이어 밖에서 조작\n・‘2026년 2월 27일 (1,034 / 3,500)’처럼 목록 내 위치 표시\n・이동 버튼 5개(처음／이전／되돌리기／다음／마지막). ‘되돌리기’는 직전 동영상과 재생 위치로 복귀\n・한 번 연 채널은 저장된 목록에서 바로 표시\n\n■ 재생에 대하여\n동영상은 YouTube 공식 임베드 플레이어(IFrame Player)로 재생됩니다.\n\n■ 무료와 Pro\n무료로 채널 1개를 저장할 수 있습니다. 저장한 채널 안에서는 정렬, 시청 완료 관리, 이어 보기, 이동 버튼, 메모, 진행률 표시, 공식 플레이어 재생을 제한 없이 사용할 수 있습니다.\n무료 상태에서 다른 채널로 교체할 수도 있지만, 그때 이전 채널의 시청 기록·진행 상황·메모가 삭제됩니다.\n여러 채널을 기록을 남긴 채 함께 보려면 Pro를 구매하세요. 구독이 아닌 1회 구매입니다.\n\n■ 유의 사항\n・이 앱은 YouTube 공식 앱이 아닙니다.\n・동영상 다운로드, 광고 차단, 백그라운드 재생을 하지 않습니다.\n・동영상 목록은 YouTube Data API v3로 가져옵니다.\n・자동 재생은 기본으로 꺼져 있으며, 열어 둔 목록의 다음 동영상으로만 이동합니다.\n・광고가 없고 구독도 없습니다(Pro는 1회 구매입니다).\n\n※ YouTube는 Google LLC의 상표입니다."
   },
   "whatsNew": {
-    "ja": "初回リリースです。チャンネルの投稿動画を公開日順（古い順）に並べて、進捗管理しながら順番に視聴できます。",
-    "en": "First release. Watch a channel's uploads in order, oldest first, while tracking your progress.",
-    "zh-Hans": "首次发布。按发布顺序（从旧到新）观看频道视频，并记录观看进度。",
-    "es": "Primera versión. Mira las subidas de un canal en orden, de las más antiguas a las más recientes, con seguimiento del progreso.",
-    "de": "Erste Version. Sieh dir die Uploads eines Kanals der Reihe nach an – die ältesten zuerst – und behalte deinen Fortschritt im Blick.",
-    "fr": "Première version. Regardez les vidéos d'une chaîne dans l'ordre, de la plus ancienne à la plus récente, en suivant votre progression.",
-    "ko": "첫 번째 릴리스입니다. 채널의 업로드 동영상을 오래된 순으로 보면서 진행률을 관리할 수 있습니다."
+    "ja": "拡大表示（横向きの全画面）で見ているときに、動画が終わると通常表示に戻ってしまう問題を直しました。自動再生がオンなら、拡大表示のまま次の動画へ続けて進みます。",
+    "en": "Fixed an issue where the player dropped out of full screen when a video ended while watching in landscape. With autoplay on, the next video now continues in full screen.",
+    "zh-Hans": "修复了在横屏全屏观看时，视频结束后会退回普通画面的问题。开启自动播放后，下一个视频会保持全屏继续播放。",
+    "es": "Se ha corregido un problema por el que el reproductor salía de la pantalla completa al terminar un vídeo en horizontal. Con la reproducción automática activada, el siguiente vídeo continúa en pantalla completa.",
+    "de": "Ein Problem wurde behoben, bei dem der Player den Vollbildmodus verließ, wenn ein Video im Querformat endete. Bei aktiviertem Autoplay läuft das nächste Video jetzt im Vollbild weiter.",
+    "fr": "Correction d’un problème qui faisait quitter le plein écran à la fin d’une vidéo regardée en mode paysage. Avec la lecture automatique activée, la vidéo suivante continue en plein écran.",
+    "ko": "가로 전체 화면으로 보는 중에 동영상이 끝나면 일반 화면으로 돌아가던 문제를 수정했습니다. 자동 재생이 켜져 있으면 다음 동영상도 전체 화면 그대로 이어집니다."
   },
   "supportURL": "https://channeltimeline.jewelrysunflower.com/{lang}/support/",
   "marketingURL": "https://channeltimeline.jewelrysunflower.com/{lang}/",

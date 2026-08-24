@@ -46,6 +46,9 @@ struct YouTubePlayerWebView: UIViewRepresentable {
     var onStateChange: ((YouTubePlayerState) -> Void)? = nil
     /// 再生位置の通知（videoId, 現在位置秒, 動画の長さ秒）。
     var onTimeUpdate: ((String, Double, Double) -> Void)? = nil
+    /// 動画が終わる直前の通知（videoId）。拡大表示（全画面）のまま次へ進むために使う。
+    /// 詳しくは PlayerViewModel.handleNearEnd(videoId:) を参照。
+    var onNearEnd: ((String) -> Void)? = nil
     /// 選べる再生速度・字幕トラックなどの通知（アプリ側の設定画面で使う）。
     var onOptions: ((PlayerOptions) -> Void)? = nil
     /// 再生できなかった場合に呼ばれる（IFrame API のエラーコード）。
@@ -223,6 +226,10 @@ struct YouTubePlayerWebView: UIViewRepresentable {
                    let seconds = (body["t"] as? Double) ?? (body["t"] as? NSNumber)?.doubleValue {
                     let duration = (body["d"] as? Double) ?? (body["d"] as? NSNumber)?.doubleValue ?? 0
                     parent.onTimeUpdate?(id, seconds, duration)
+                }
+            case "nearEnd":
+                if let id = body["v"] as? String, !id.isEmpty {
+                    parent.onNearEnd?(id)
                 }
             case "options":
                 parent.onOptions?(YouTubePlayerWebView.parseOptions(body))

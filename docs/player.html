@@ -262,10 +262,44 @@
     if (t > 0) { post({ event: 'time', v: currentId, t: t, d: d }); }
   }
 
-  // 再生中は定期的に通知（5秒ごと）。停止中は何もしない。
+  // 動画の終わりぎわに一度だけ知らせる（{ event: 'nearEnd', v, t, d }）。
+  //
+  // 【なぜ必要か】
+  // 公式プレイヤーを拡大表示（全画面・横向き）で見ているとき、動画が「終了」まで行くと
+  // iOS / Android 側がそこで全画面を閉じてしまう。そのあとで次の動画を読み込むと、
+  // 拡大していない元の表示に戻ってしまう。
+  // そこで「終了する直前」に知らせ、アプリ側が**終了する前に**次の動画へ差し替える。
+  // 差し替えは同じプレイヤー（同じ <video> 要素）の上で起きるので、拡大表示のまま続く。
+  //
+  // 古いアプリはこのイベントを知らないので無視するだけ（＝従来どおり終了後に切り替わる）。
+  var NEAR_END_LEAD = 0.5;   // 何秒前に知らせるか
+  var NEAR_END_MIN_DURATION = 5;  // これより短い動画では使わない（開始直後に鳴るため）
+  var nearEndPostedFor = null;
+
+  function checkNearEnd() {
+    if (!player || !player.getCurrentTime || !player.getDuration) { return; }
+    if (!player.getPlayerState || player.getPlayerState() !== 1) { return; }  // 再生中だけ
+    var d = player.getDuration() || 0;
+    var t = player.getCurrentTime() || 0;
+    if (!isFinite(d) || d < NEAR_END_MIN_DURATION) { return; }   // 生配信・長さ不明は対象外
+    var remaining = d - t;
+    // 巻き戻したり別の場所へ飛んだら、また知らせられるようにする。
+    if (remaining > NEAR_END_LEAD + 1.5) { nearEndPostedFor = null; return; }
+    if (remaining > NEAR_END_LEAD) { return; }
+    if (nearEndPostedFor === currentId) { return; }
+    nearEndPostedFor = currentId;
+    post({ event: 'nearEnd', v: currentId, t: t, d: d });
+  }
+
+  // 再生中は定期的に位置を通知（5秒ごと）。停止中は何もしない。
+  // 終わりぎわの判定はもっと細かく見る必要があるので、短い間隔で回して数を数える。
+  var timeTicks = 0;
   setInterval(function () {
+    checkNearEnd();
+    timeTicks++;
+    if (timeTicks % 20 !== 0) { return; }   // 250ms × 20 = 5秒ごと
     if (player && player.getPlayerState && player.getPlayerState() === 1) { postTime(); }
-  }, 5000);
+  }, 250);
 
   // 画面を離れるときにも最後の位置を残す。
   window.addEventListener('pagehide', postTime);

@@ -59,6 +59,7 @@ struct PlayerView: View {
                         onTimeUpdate: { id, seconds, duration in
                             viewModel.handleTimeUpdate(videoId: id, seconds: seconds, duration: duration)
                         },
+                        onNearEnd: { id in viewModel.handleNearEnd(videoId: id) },
                         onOptions: { options in viewModel.handleOptions(options) }
                     )
                     .aspectRatio(16.0 / 9.0, contentMode: .fit)

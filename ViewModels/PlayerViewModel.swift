@@ -293,14 +293,32 @@ final class PlayerViewModel: ObservableObject {
         guard hasStartedCurrentVideo else { return }
         // 同じ動画の終了通知が重複して届くことがあるので一度だけ処理する。
         guard endedHandledVideoId != video.id else { return }
-        endedHandledVideoId = video.id
+        finish(video, early: false)
+    }
 
-        // 見終わったので視聴済みにし、再開位置は破棄する。
-        markCurrentWatched()
-        positionStore.clear(videoId: video.id)
+    /// 中継ページから届く「もうすぐ終わる」通知。
+    ///
+    /// 公式プレイヤーを拡大表示（全画面・横向き）で見ているとき、動画が最後まで再生し終わると
+    /// iOS がそこで全画面を閉じてしまう。閉じたあとに次の動画を読み込むため、
+    /// 拡大していない元の表示に戻って再生が始まっていた。
+    /// そこで「終了する前」に次の動画へ差し替える。同じプレイヤーの上で差し替わるので、
+    /// 拡大表示のまま続けて見られる。
+    ///
+    /// 進む先が無いときは何もしない（そのまま最後まで再生し、終了後に案内を出す）。
+    func handleNearEnd(videoId: String) {
+        guard let video = currentVideo, video.id == videoId else { return }
+        guard hasStartedCurrentVideo else { return }
+        guard endedHandledVideoId != video.id else { return }
+        finish(video, early: true)
+    }
 
+    /// 動画を見終わったときの処理。
+    /// - Parameter early: 終了の直前に呼ばれたか（拡大表示を保つための先回り）。
+    ///   `true` のときは、次に進めない場合は何もしない（最後まで再生させてから案内を出す）。
+    private func finish(_ video: VideoItem, early: Bool) {
         // 1本リピートは自動再生の設定に関わらず、同じ動画を繰り返す。
         if settings.repeatMode == .one {
+            markWatchedAndClearPosition(video)
             endedHandledVideoId = nil        // 次の終了もまた処理する
             hasStartedCurrentVideo = false   // 再生開始の通知を待つ
             showEndedSuggestion = false
@@ -310,10 +328,24 @@ final class PlayerViewModel: ObservableObject {
 
         if settings.autoPlayNext, let next = nextIndexForAutoAdvance() {
             // 一覧の次の動画へ続けて再生する（スキップ指定と「未視聴のみ」を考慮）。
+            markWatchedAndClearPosition(video)
+            endedHandledVideoId = video.id
             move(to: next, autoAdvanced: true)
-        } else {
-            showEndedSuggestion = canGoNext
+            return
         }
+
+        // 次が無いなら先回りする意味はない。最後まで再生させ、終了通知を待つ。
+        guard !early else { return }
+
+        markWatchedAndClearPosition(video)
+        endedHandledVideoId = video.id
+        showEndedSuggestion = canGoNext
+    }
+
+    /// 見終わったので視聴済みにし、再開位置は破棄する。
+    private func markWatchedAndClearPosition(_ video: VideoItem) {
+        markCurrentWatched()
+        positionStore.clear(videoId: video.id)
     }
 
     /// 公式プレイヤーから通知された再生位置を保存する（続きから再生用）。

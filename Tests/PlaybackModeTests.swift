@@ -247,4 +247,104 @@ final class PlaybackModeTests: XCTestCase {
 
         XCTAssertEqual(f.vm.nextIndexForAutoAdvance(), 1)
     }
+
+    // MARK: - ④ 終了の直前に次へ進む（拡大表示を保つため）
+
+    /// 拡大表示（全画面）のまま次へ進めるよう、終了する前に切り替えること。
+    func testNearEndAdvancesBeforeVideoEnds() {
+        let f = makeFixture()
+        f.settings.autoPlayNext = true
+
+        f.vm.handleState(.playing)
+        f.vm.handleNearEnd(videoId: f.videos[0].id)
+
+        XCTAssertEqual(f.vm.currentIndex, 1, "終了を待たずに次の動画へ進む")
+        XCTAssertTrue(f.watch.isWatched(f.videos[0].id), "見終わった扱いにする")
+    }
+
+    /// 先回りで切り替えたあと、遅れて届いた元の動画の「終了」で1本飛ばさないこと。
+    func testLateEndedAfterNearEndDoesNotSkipAnother() {
+        let f = makeFixture()
+        f.settings.autoPlayNext = true
+
+        f.vm.handleState(.playing)
+        f.vm.handleNearEnd(videoId: f.videos[0].id)
+        f.vm.handleState(.ended)          // 前の動画の終了通知が遅れて届く
+
+        XCTAssertEqual(f.vm.currentIndex, 1, "次の動画のまま（さらに進まない）")
+    }
+
+    /// 次に進めないときは先回りしない（最後まで再生させ、終了後に案内を出す）。
+    func testNearEndDoesNothingWhenThereIsNoNextVideo() {
+        let f = makeFixture(count: 2, startIndex: 1)
+        f.settings.autoPlayNext = true
+
+        f.vm.handleState(.playing)
+        f.vm.handleNearEnd(videoId: f.videos[1].id)
+
+        XCTAssertEqual(f.vm.currentIndex, 1, "動かない")
+        XCTAssertFalse(f.watch.isWatched(f.videos[1].id), "まだ見終わっていない")
+        XCTAssertFalse(f.vm.showEndedSuggestion, "案内は終了してから")
+
+        f.vm.handleState(.ended)
+        XCTAssertTrue(f.watch.isWatched(f.videos[1].id), "終了したら見終わった扱い")
+    }
+
+    /// 自動再生がオフなら先回りしない（従来どおり終了まで再生する）。
+    func testNearEndDoesNothingWhenAutoPlayIsOff() {
+        let f = makeFixture()
+        f.settings.autoPlayNext = false
+
+        f.vm.handleState(.playing)
+        f.vm.handleNearEnd(videoId: f.videos[0].id)
+
+        XCTAssertEqual(f.vm.currentIndex, 0)
+        XCTAssertFalse(f.watch.isWatched(f.videos[0].id))
+    }
+
+    /// 1本リピートも終了の直前に先頭へ戻す（拡大表示のまま繰り返せる）。
+    func testNearEndReplaysWhenRepeatOne() {
+        let f = makeFixture()
+        f.settings.repeatMode = .one
+        f.settings.autoPlayNext = false
+
+        f.vm.handleState(.playing)
+        f.vm.handleNearEnd(videoId: f.videos[0].id)
+
+        XCTAssertEqual(f.vm.currentIndex, 0)
+        XCTAssertEqual(f.vm.command?.kind, .replay)
+    }
+
+    /// いま見ている動画以外の通知は無視する（切り替え直後の取り違え防止）。
+    func testNearEndIgnoresOtherVideo() {
+        let f = makeFixture()
+        f.settings.autoPlayNext = true
+
+        f.vm.handleState(.playing)
+        f.vm.handleNearEnd(videoId: f.videos[3].id)
+
+        XCTAssertEqual(f.vm.currentIndex, 0)
+    }
+
+    /// 再生が始まっていない動画の通知は無視する。
+    func testNearEndIgnoredBeforePlaybackStarts() {
+        let f = makeFixture()
+        f.settings.autoPlayNext = true
+
+        f.vm.handleNearEnd(videoId: f.videos[0].id)
+
+        XCTAssertEqual(f.vm.currentIndex, 0)
+    }
+
+    /// 先回りでもスキップ指定・未視聴のみの条件は変わらないこと。
+    func testNearEndRespectsSkipAndUnwatchedOnly() {
+        let f = makeFixture(count: 4)
+        f.settings.autoPlayNext = true
+        f.skip.markSkipped(f.videos[1].id)
+
+        f.vm.handleState(.playing)
+        f.vm.handleNearEnd(videoId: f.videos[0].id)
+
+        XCTAssertEqual(f.vm.currentIndex, 2, "スキップ指定は飛ばす")
+    }
 }

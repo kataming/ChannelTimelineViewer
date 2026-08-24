@@ -46,6 +46,7 @@ export const SCREEN_SHOTS = {
     1,
     2,
     3,
+    4,
     5,
     6
   ],

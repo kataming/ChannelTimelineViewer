@@ -34,7 +34,8 @@ Cloudflare の管理画面操作とドメインの DNS 設定は、アカウン�
 | 変数 | 値 | 備考 |
 | --- | --- | --- |
 | `PUBLIC_SITE_URL` | `https://channeltimeline.jewelrysunflower.com` | 既定値と同じなので省略可 |
-| `PUBLIC_APP_STORE_URL` | （App Store 公開後に設定） | 未設定の間はボタンが「公開準備中」表示になる |
+| `PUBLIC_APP_STORE_URL` | （既定でアプリページを指すので省略可） | 既定: `https://apps.apple.com/jp/app/channel-timeline-viewer/id6792964082` |
+| `PUBLIC_PLAY_STORE_URL` | （Google Play 公開後に設定） | 未設定の間は Google Play のバッジが「審査中」表示になる |
 | `PUBLIC_SUPPORT_EMAIL` | `support@jewelrysunflower.com` | 既定値と同じなので省略可 |
 
 5. **Save and Deploy** → 数分で `https://<project>.pages.dev` が出来る。ここで表示を確認する。

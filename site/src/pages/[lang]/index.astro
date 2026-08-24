@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
+import StoreBadges from '../../components/StoreBadges.astro';
 import { codes, langOf, t, path } from '../../i18n/index.js';
-import { APP_STORE_URL } from '../../config.js';
 
 export function getStaticPaths() {
   return codes.map((code) => ({ params: { lang: langOf(code).slug }, props: { code } }));
@@ -9,7 +9,6 @@ export function getStaticPaths() {
 
 const { code } = Astro.props;
 const copy = t(code);
-const hasStore = Boolean(APP_STORE_URL);
 ---
 
 <Base lang={code} page="" title={copy.meta.title} description={copy.meta.description}>
@@ -18,14 +17,11 @@ const hasStore = Boolean(APP_STORE_URL);
       <p class="badge">{copy.hero.badge}</p>
       <h1>{copy.hero.title}</h1>
       <p class="lede">{copy.hero.subtitle}</p>
-      <p class="cta">
-        {hasStore ? (
-          <a class="btn" href={APP_STORE_URL} rel="noopener">{copy.hero.cta}</a>
-        ) : (
-          <span class="btn" aria-disabled="true">{copy.hero.ctaPending}</span>
-        )}
-      </p>
+      <div class="cta">
+        <StoreBadges copy={copy} />
+      </div>
       <p class="muted small">{copy.hero.ctaNote}</p>
+      <p class="muted small">{copy.store.androidNote}</p>
     </div>
   </section>
 
@@ -61,6 +57,24 @@ const hasStore = Boolean(APP_STORE_URL);
           </article>
         ))}
       </div>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <div class="wrap">
+      <h2>{copy.pricing.title}</h2>
+      <p class="lede">{copy.pricing.lede}</p>
+      <div class="grid plans">
+        <article class="card">
+          <h3>{copy.pricing.freeTitle}</h3>
+          <p>{copy.pricing.freeBody}</p>
+        </article>
+        <article class="card plan-pro">
+          <h3>{copy.pricing.proTitle}</h3>
+          <p>{copy.pricing.proBody}</p>
+        </article>
+      </div>
+      <p class="muted small note">{copy.pricing.note}</p>
     </div>
   </section>
 
@@ -102,7 +116,10 @@ const hasStore = Boolean(APP_STORE_URL);
     padding: 4px 12px;
     margin: 0 0 18px;
   }
-  .cta { margin: 26px 0 8px; }
-  .small { font-size: 0.85rem; }
+  .cta { margin: 26px 0 12px; }
+  .small { font-size: 0.85rem; margin-bottom: 4px; }
   .more { margin-top: 22px; font-size: 0.92rem; }
+  .plans { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .plan-pro { border-color: var(--accent); }
+  .note { margin-top: 16px; }
 </style>

@@ -1,24 +1,154 @@
 ---
-// 言語切替。JavaScript が無くても動くよう、単なるリンクの集合にしている。
-import { languages, path } from '../i18n/index.js';
+// 言語切替。
+//  variant="menu"（ヘッダー）… 現在の言語だけを見せて、開いたときに一覧を出す
+//  variant="list"（フッター）… 全言語をそのまま並べる
+// どちらも中身は普通のリンクなので、JavaScript が無くても切り替えられる（<details> だけで開閉する）。
+// 選んだ言語は localStorage に覚えておき、次に「/」を開いたときの行き先に使う。
+import { languages, langOf, path } from '../i18n/index.js';
 
-const { lang, page = '' } = Astro.props;
+const { lang, page = '', variant = 'menu', label = '' } = Astro.props;
+const current = langOf(lang);
 ---
 
-<div class="langs">
-  {languages.map((l) => (
-    <a
-      href={path(l.code, page)}
-      hreflang={l.htmlLang}
-      lang={l.htmlLang}
-      aria-current={l.code === lang ? 'true' : undefined}
-    >{l.label}</a>
-  ))}
-</div>
+{variant === 'list' ? (
+  <div class="langs">
+    {languages.map((l) => (
+      <a
+        href={path(l.code, page)}
+        hreflang={l.htmlLang}
+        lang={l.htmlLang}
+        data-lang={l.code}
+        aria-current={l.code === lang ? 'true' : undefined}
+      >{l.label}</a>
+    ))}
+  </div>
+) : (
+  <details class="langpicker">
+    <summary aria-label={label || current.label}>
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" class="globe">
+        <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6" />
+        <path d="M3 12h18M12 3c2.5 2.6 2.5 15.4 0 18M12 3c-2.5 2.6-2.5 15.4 0 18"
+          fill="none" stroke="currentColor" stroke-width="1.6" />
+      </svg>
+      <span class="current" lang={current.htmlLang}>{current.label}</span>
+      <svg viewBox="0 0 12 8" aria-hidden="true" focusable="false" class="caret">
+        <path d="M1 1.5 6 6.5l5-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+      </svg>
+    </summary>
+    <div class="menu">
+      {languages.map((l) => (
+        <a
+          href={path(l.code, page)}
+          hreflang={l.htmlLang}
+          lang={l.htmlLang}
+          data-lang={l.code}
+          aria-current={l.code === lang ? 'true' : undefined}
+        >
+          <span>{l.label}</span>
+          {l.code === lang && <span class="tick" aria-hidden="true">✓</span>}
+        </a>
+      ))}
+    </div>
+  </details>
+)}
 
 <style>
+  /* --- フッター用: 素直に全部並べる --- */
   .langs { display: flex; gap: 10px; flex-wrap: wrap; font-size: 0.85rem; }
   .langs a { color: var(--muted); text-decoration: none; }
   .langs a[aria-current='true'] { color: var(--text); font-weight: 700; }
   .langs a:hover { color: var(--text); }
+
+  /* --- ヘッダー用: 現在の言語だけ見せるメニュー --- */
+  .langpicker { position: relative; }
+  .langpicker summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    cursor: pointer;
+    list-style: none;
+    color: var(--muted);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 5px 12px;
+    font-size: 0.86rem;
+    white-space: nowrap;
+    user-select: none;
+  }
+  .langpicker summary::-webkit-details-marker { display: none; }
+  .langpicker summary:hover { color: var(--text); border-color: var(--muted); }
+  .langpicker[open] summary { color: var(--text); }
+  .globe { width: 15px; height: 15px; flex: none; }
+  .caret { width: 10px; height: 7px; flex: none; transition: transform 0.15s ease; }
+  .langpicker[open] .caret { transform: rotate(180deg); }
+
+  /* 閉じているあいだは確実に消しておく（ブラウザによって閉じた <details> の中身が
+     わずかに描画され、ヘッダーの下線を欠けさせることがあるため）。 */
+  .langpicker:not([open]) .menu { display: none; }
+  .menu {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 8px);
+    min-width: 170px;
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 6px;
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.28);
+    z-index: 20;
+  }
+  .menu a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+  .menu a:hover { background: var(--bg); color: var(--text); }
+  .menu a[aria-current='true'] { color: var(--text); font-weight: 700; }
+  .tick { color: var(--accent); }
+
+  /* 画面が狭いときは、はみ出さないよう左寄せに切り替える */
+  @media (max-width: 420px) {
+    .menu { right: auto; left: 0; }
+  }
 </style>
+
+<script is:inline>
+  (function () {
+    if (window.__ctvLangReady) return;
+    window.__ctvLangReady = true;
+
+    // 選んだ言語を覚える（次回「/」を開いたときの行き先に使う）。
+    document.addEventListener('click', function (e) {
+      var a = e.target && e.target.closest ? e.target.closest('a[data-lang]') : null;
+      if (!a) return;
+      try {
+        localStorage.setItem('ctv-lang', a.getAttribute('data-lang'));
+      } catch (err) {
+        /* プライベートブラウズなどで保存できなくても、リンク自体は普通に動く */
+      }
+    });
+
+    // メニューの外を押したら閉じる。
+    document.addEventListener('click', function (e) {
+      document.querySelectorAll('details.langpicker[open]').forEach(function (d) {
+        if (!d.contains(e.target)) d.open = false;
+      });
+    });
+
+    // Esc で閉じて、開いていたボタンにフォーカスを戻す。
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape') return;
+      document.querySelectorAll('details.langpicker[open]').forEach(function (d) {
+        d.open = false;
+        var s = d.querySelector('summary');
+        if (s) s.focus();
+      });
+    });
+  })();
+</script>

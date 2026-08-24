@@ -14,9 +14,10 @@ const home = path(lang);
     <nav>
       <a href={`${home}#features`}>{copy.nav.features}</a>
       <a href={`${home}#how`}>{copy.nav.how}</a>
+      <a href={`${home}#pricing`}>{copy.nav.pricing}</a>
       <a href={`${home}#faq`}>{copy.nav.faq}</a>
       <a href={path(lang, 'support')}>{copy.nav.support}</a>
-      <LangSelect lang={lang} page={page} />
+      <LangSelect lang={lang} page={page} label={copy.footer.language} />
     </nav>
   </div>
 </header>
@@ -48,7 +49,9 @@ const home = path(lang);
   }
   nav a { color: var(--muted); text-decoration: none; }
   nav a:hover { color: var(--text); }
-  @media (max-width: 640px) {
-    nav a:not(:last-child) { display: none; }
+  /* 画面が狭いときはリンクを隠さず、詰めて2段に折り返す（言語切替は常に押せる）。 */
+  @media (max-width: 700px) {
+    .bar { gap: 10px; padding-top: 10px; padding-bottom: 10px; }
+    nav { gap: 12px; font-size: 0.86rem; }
   }
 </style>

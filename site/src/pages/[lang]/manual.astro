@@ -9,6 +9,7 @@ import Base from '../../layouts/Base.astro';
 import { codes, langOf, t, path } from '../../i18n/index.js';
 import { manualFor } from '../../i18n/manual/index.js';
 import { PLAY_STORE_URL } from '../../config.js';
+import { manualImage } from '../../i18n/manual/images.js';
 
 export function getStaticPaths() {
   return codes.map((code) => ({ params: { lang: langOf(code).slug }, props: { code } }));
@@ -21,6 +22,9 @@ const m = manualFor(code);
 // Google Play で公開されたら（PLAY_STORE_URL を入れたら）、1章の Android の項目を
 // 「審査中」から「Google Play から入れる」へ自動で差し替える。
 // 公開後にマニュアルの書き換えを忘れて「審査中」が残り続けるのを防ぐため。
+// その章に添える画面写真（機種ごと）。無い機種は null。
+const shots = (id) => ({ ios: manualImage('ios', code, id), android: manualImage('android', code, id) });
+
 const steps = (section) =>
   section.steps.map((step) =>
     PLAY_STORE_URL && step.id === 'store-android' && m.androidStorePublished
@@ -69,20 +73,38 @@ const steps = (section) =>
         </ol>
       </nav>
 
-      {m.sections.map((s) => (
-        <section class="chapter" id={s.id}>
-          <h2>{s.title}</h2>
-          {s.body && <p class="chapter-lede">{s.body}</p>}
-          <ol class="steps">
-            {steps(s).map((step) => (
-              <li class={step.only ? `only-${step.only}` : undefined}>
-                <p class="step-title">{step.title}</p>
-                <p class="step-body">{step.body}</p>
-              </li>
-            ))}
-          </ol>
-        </section>
-      ))}
+      {m.sections.map((s) => {
+        const shot = shots(s.id);
+        const hasShot = Boolean(shot.ios || shot.android);
+        return (
+          <section class="chapter" id={s.id}>
+            <h2>{s.title}</h2>
+            {s.body && <p class="chapter-lede">{s.body}</p>}
+            <div class={hasShot ? 'chapter-body has-shot' : 'chapter-body'}>
+              <ol class="steps">
+                {steps(s).map((step) => (
+                  <li class={step.only ? `only-${step.only}` : undefined}>
+                    <p class="step-title">{step.title}</p>
+                    <p class="step-body">{step.body}</p>
+                  </li>
+                ))}
+              </ol>
+              {hasShot && (
+                <figure class="shot">
+                  {shot.ios && (
+                    <img class="only-ios" src={shot.ios} alt={`${s.title} — ${m.badges.ios}`}
+                      width="400" height="868" loading="lazy" decoding="async" />
+                  )}
+                  {shot.android && (
+                    <img class="only-android" src={shot.android} alt={`${s.title} — ${m.badges.android}`}
+                      width="400" height="765" loading="lazy" decoding="async" />
+                  )}
+                </figure>
+              )}
+            </div>
+          </section>
+        );
+      })}
 
       <p class="more">
         <a href={path(code, 'support')}>{copy.nav.support}</a>
@@ -118,8 +140,8 @@ const steps = (section) =>
 
   /* 選ばれていない機種の手順は出さない。
      display:none の項目は番号（counter）も進めないので、番号は詰まったまま。 */
-  .manual:has(#pf-ios:checked) li.only-android { display: none; }
-  .manual:has(#pf-android:checked) li.only-ios { display: none; }
+  .manual:has(#pf-ios:checked) .only-android { display: none; }
+  .manual:has(#pf-android:checked) .only-ios { display: none; }
   /* :has() が使えない古いブラウザでは、両方そのまま出る（読めなくはならない） */
 
   .platform-note { color: var(--muted); font-size: 0.92rem; max-width: 74ch; margin: 0; }
@@ -137,6 +159,23 @@ const steps = (section) =>
   .chapter { padding: 40px 0 0; border-top: 1px solid var(--line); margin-top: 36px; }
   .chapter h2 { margin-bottom: 12px; }
   .chapter-lede { color: var(--muted); max-width: 74ch; }
+
+  /* 手順（左）と画面写真（右）。写真が無い章は1段のまま。 */
+  .chapter-body.has-shot {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 236px;
+    gap: 40px;
+    align-items: start;
+  }
+  .shot { margin: 18px 0 0; position: sticky; top: 84px; }
+  .shot img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.16);
+  }
 
   .steps { margin: 18px 0 0; padding-left: 0; list-style: none; counter-reset: step; }
   .steps > li {
@@ -167,6 +206,12 @@ const steps = (section) =>
   .step-body { margin: 0; color: var(--muted); font-size: 0.96rem; }
 
   .more { margin-top: 40px; font-size: 0.92rem; }
+
+  /* 狭い画面では写真を先に、手順をその下に。 */
+  @media (max-width: 780px) {
+    .chapter-body.has-shot { grid-template-columns: 1fr; gap: 0; }
+    .shot { position: static; order: -1; max-width: 230px; }
+  }
 
   @media (max-width: 520px) {
     .picker { display: flex; width: 100%; }

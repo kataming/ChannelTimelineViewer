@@ -16,6 +16,8 @@ site/
                           ScreenGallery（実機スクリーンショットの横並び）
   src/i18n/screens.js     どの言語のスクリーンショットが揃っているか（自動生成・手で書かない）
   src/i18n/manual/        操作マニュアルの文言（言語ごとに1ファイル）。構造は index.js のコメント参照
+  src/i18n/manual/images.js  章ごとの画面写真の一覧（自動生成・手で書かない）
+  public/manual/<機種>/<言語>/  マニュアルの画面写真（幅400px・WebP）
   public/screens/<言語>/  スクリーンショット（幅440px・WebP）
   src/pages/
     index.astro           / → ブラウザの言語で振り分け（JS 無しなら英語へ）
@@ -63,6 +65,20 @@ npm run check    # dist/ を点検（build のあとに実行する）
 4. 撮れなかったカットはその言語だけ非表示になる。枚数が足りない言語は英語版の画像を出す。
 
 キャプションは `src/i18n/translations.js` の `shots`（App Store のキャプションと同じ文言）。
+
+## マニュアルの画面写真を作り直すとき
+
+章ごとに1枚、実機・シミュレーターで撮った本物の画面を載せている（イラストは使わない）。
+
+```
+python scripts/prepare_manual_images.py
+```
+
+- iPhone は `build/screenshots-site/<言語>/` と `build/shots-dl/<言語>/`、
+  再生画面は `docs/AppStore/screenshots/<言語>/04-player-device.png` を使う。
+- Android は `docs/PlayStore/screenshots/<Playのロケール>/` を使う（リポジトリに入っている）。
+- 幅400pxのWebPにして `site/public/manual/` に置き、`src/i18n/manual/images.js` を作り直す。
+- **その言語の写真が無い章は、画像なしで出る**（別言語の画面は出さない。説明と食い違うため）。
 
 ## 文言を直すとき
 

@@ -22,7 +22,11 @@ const hero = shots.find((s) => s.index === 1) || shots[0];
     <div class="wrap hero-grid">
       <div>
         <p class="badge">{copy.hero.badge}</p>
-        <h1>{copy.hero.title}</h1>
+        <h1>
+          {copy.hero.titleLines
+            ? copy.hero.titleLines.map((line) => <span class="title-line">{line}</span>)
+            : copy.hero.title}
+        </h1>
         <p class="lede">{copy.hero.subtitle}</p>
         <div class="cta">
           <StoreBadges copy={copy} />
@@ -127,6 +131,8 @@ const hero = shots.find((s) => s.index === 1) || shots[0];
 
 <style>
   .hero { padding: 72px 0 56px; }
+  /* 見出しは指定した区切りでだけ改行する（単語の途中で割れないように）。 */
+  .title-line { display: inline-block; }
   .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) 264px; gap: 56px; align-items: center; }
   .hero-shot img {
     width: 100%;

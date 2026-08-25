@@ -170,6 +170,8 @@ const ja = {
   hero: {
     badge: 'iOS 17+ ・ 7言語対応',
     title: '観たいYouTubeチャンネルを順番に',
+    // 見出しの折り返し位置。指定した区切りでしか改行しない（「順番」が割れるのを防ぐ）。
+    titleLines: ['観たいYouTubeチャンネルを', '順番に'],
     subtitle:
       'Channel Timeline Viewer は、チャンネルの投稿動画を公開日順（古い順）に並べ、どこまで見たかを覚えておきます。過去動画の一気見、講座、長期連載に向いています。',
     cta: 'App Store でダウンロード',

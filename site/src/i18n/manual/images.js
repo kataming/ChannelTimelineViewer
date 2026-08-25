@@ -76,6 +76,7 @@ export const MANUAL_IMAGES = {
       "list",
       "play",
       "tools",
+      "pro",
       "limits"
     ],
     "ja": [

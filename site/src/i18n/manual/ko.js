@@ -6,6 +6,9 @@ export default {
   platformNote: '위의 버튼으로 iPhone판과 Android판을 전환할 수 있습니다. 대부분의 조작은 같으며, 다른 부분만 바뀝니다.',
   badges: { ios: 'iPhone', android: 'Android' },
   pickerLabel: '기기 선택',
+  // Google Play で公開されたら（config.js の PLAY_STORE_URL が入ったら）、
+  // 1章の Google Play の項目をこちらに差し替える。
+  androidStorePublished: { title: 'Google Play에서 설치', body: 'Google Play에서 ‘Channel Timeline Viewer’를 검색하거나, 이 사이트의 Google Play 버튼을 이용하세요.' },
   tocTitle: '목차',
   sections: [
     {
@@ -14,7 +17,7 @@ export default {
       body: '앱은 무료입니다. 계정 가입도 로그인도 필요 없습니다.',
       steps: [
         { title: 'App Store에서 설치', body: 'iOS 17 이상이 필요합니다. App Store에서 ‘Channel Timeline Viewer’를 검색하거나, 이 사이트의 App Store 버튼을 이용하세요.', only: 'ios' },
-        { title: 'Google Play 출시 준비 중', body: 'Android 버전은 Google Play에 제출되어 심사를 기다리고 있습니다. 공개되는 대로 이 사이트에 링크를 올립니다.', only: 'android' },
+        { title: 'Google Play 출시 준비 중', body: 'Android 버전은 Google Play에 제출되어 심사를 기다리고 있습니다. 공개되는 대로 이 사이트에 링크를 올립니다.', only: 'android', id: 'store-android' },
         { title: 'YouTube 계정 불필요', body: '로그인하지 않습니다. 앱은 YouTube 공식 API를 통해 공개된 동영상 정보만 읽습니다.' },
       ],
     },

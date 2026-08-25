@@ -8,6 +8,7 @@
 import Base from '../../layouts/Base.astro';
 import { codes, langOf, t, path } from '../../i18n/index.js';
 import { manualFor } from '../../i18n/manual/index.js';
+import { PLAY_STORE_URL } from '../../config.js';
 
 export function getStaticPaths() {
   return codes.map((code) => ({ params: { lang: langOf(code).slug }, props: { code } }));
@@ -16,6 +17,16 @@ export function getStaticPaths() {
 const { code } = Astro.props;
 const copy = t(code);
 const m = manualFor(code);
+
+// Google Play で公開されたら（PLAY_STORE_URL を入れたら）、1章の Android の項目を
+// 「審査中」から「Google Play から入れる」へ自動で差し替える。
+// 公開後にマニュアルの書き換えを忘れて「審査中」が残り続けるのを防ぐため。
+const steps = (section) =>
+  section.steps.map((step) =>
+    PLAY_STORE_URL && step.id === 'store-android' && m.androidStorePublished
+      ? { ...step, ...m.androidStorePublished }
+      : step
+  );
 ---
 
 <Base lang={code} page="manual" title={`${m.title} — Channel Timeline Viewer`} description={m.description}>
@@ -63,7 +74,7 @@ const m = manualFor(code);
           <h2>{s.title}</h2>
           {s.body && <p class="chapter-lede">{s.body}</p>}
           <ol class="steps">
-            {s.steps.map((step) => (
+            {steps(s).map((step) => (
               <li class={step.only ? `only-${step.only}` : undefined}>
                 <p class="step-title">{step.title}</p>
                 <p class="step-body">{step.body}</p>

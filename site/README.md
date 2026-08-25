@@ -46,7 +46,7 @@ npm run check    # dist/ を点検（build のあとに実行する）
 | --- | --- | --- |
 | `PUBLIC_SITE_URL` | canonical / hreflang / sitemap の絶対URL | `https://channeltimeline.jewelrysunflower.com` |
 | `PUBLIC_APP_STORE_URL` | App Store バッジの遷移先 | `https://apps.apple.com/jp/app/channel-timeline-viewer/id6792964082` |
-| `PUBLIC_PLAY_STORE_URL` | Google Play バッジの遷移先。空のあいだは「審査中」のバッジになる | 空（審査中） |
+| `PUBLIC_PLAY_STORE_URL` | Google Play バッジの遷移先。空のあいだは「審査中」のバッジになる。**入れるとマニュアル1章の Android の項目も「Google Play から入れる」へ自動で変わる** | 空（審査中） |
 | `PUBLIC_SUPPORT_EMAIL` | サポート／プライバシーの連絡先 | `support@jewelrysunflower.com` |
 
 ## スクリーンショットを差し替えるとき

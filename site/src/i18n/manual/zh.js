@@ -6,6 +6,9 @@ export default {
   platformNote: '可用上方的按钮在 iPhone 版与 Android 版之间切换。大部分操作相同，只有不同之处会随之变化。',
   badges: { ios: 'iPhone', android: 'Android' },
   pickerLabel: '选择设备',
+  // Google Play で公開されたら（config.js の PLAY_STORE_URL が入ったら）、
+  // 1章の Google Play の項目をこちらに差し替える。
+  androidStorePublished: { title: '从 Google Play 安装', body: '可在 Google Play 搜索「Channel Timeline Viewer」，或点击本站的 Google Play 按钮。' },
   tocTitle: '目录',
   sections: [
     {
@@ -14,7 +17,7 @@ export default {
       body: '应用本体免费，无需注册账号，也无需登录。',
       steps: [
         { title: '从 App Store 安装', body: '需要 iOS 17 或更高版本。可在 App Store 搜索「Channel Timeline Viewer」，或点击本站的 App Store 按钮。', only: 'ios' },
-        { title: 'Google Play 即将上线', body: 'Android 版已提交至 Google Play，正在等待审核。上线后本站会立即提供链接。', only: 'android' },
+        { title: 'Google Play 即将上线', body: 'Android 版已提交至 Google Play，正在等待审核。上线后本站会立即提供链接。', only: 'android', id: 'store-android' },
         { title: '无需 YouTube 账号', body: '不需要登录。应用只通过 YouTube 官方 API 读取公开的视频信息。' },
       ],
     },

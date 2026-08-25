@@ -3,8 +3,9 @@ export default {
   title: 'Bedienungsanleitung',
   description: 'So benutzt du Channel Timeline Viewer: Kanal hinzufügen, sortieren, Gesehen-Status, Fortsetzen, Notizen und Pro – für iPhone und Android.',
   lede: 'Channel Timeline Viewer sortiert die Uploads eines Kanals von den ältesten zu den neuesten, damit du sie der Reihe nach durcharbeiten kannst, ohne den Überblick zu verlieren. Hier ist jede Funktion Schritt für Schritt erklärt.',
-  platformNote: 'Die iPhone- und die Android-Version funktionieren fast gleich. Nur abweichende Schritte sind mit „iPhone“ oder „Android“ gekennzeichnet; alles ohne Kennzeichnung gilt für beide.',
+  platformNote: 'Mit den Schaltflächen oben wechselst du zwischen der iPhone- und der Android-Version. Die meisten Schritte sind gleich – nur die abweichenden ändern sich.',
   badges: { ios: 'iPhone', android: 'Android' },
+  pickerLabel: 'Gerät wählen',
   tocTitle: 'Inhalt',
   sections: [
     {

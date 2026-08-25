@@ -3,8 +3,9 @@ export default {
   title: 'Manuel d’utilisation',
   description: 'Comment utiliser Channel Timeline Viewer : ajouter une chaîne, trier, suivre les vidéos vues, reprendre, prendre des notes et passer à Pro — sur iPhone comme sur Android.',
   lede: 'Channel Timeline Viewer classe les vidéos d’une chaîne de la plus ancienne à la plus récente pour que vous les parcouriez dans l’ordre sans perdre le fil. Chaque fonction est expliquée ici, étape par étape.',
-  platformNote: 'Les versions iPhone et Android s’utilisent presque de la même façon. Seules les étapes qui diffèrent portent la mention « iPhone » ou « Android » ; tout ce qui n’est pas marqué vaut pour les deux.',
+  platformNote: 'Utilisez les boutons ci-dessus pour passer de la version iPhone à la version Android. La plupart des étapes sont identiques ; seules celles qui diffèrent changent.',
   badges: { ios: 'iPhone', android: 'Android' },
+  pickerLabel: 'Choisissez votre appareil',
   tocTitle: 'Sommaire',
   sections: [
     {

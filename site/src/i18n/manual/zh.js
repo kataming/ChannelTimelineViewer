@@ -3,8 +3,9 @@ export default {
   title: '使用手册',
   description: 'Channel Timeline Viewer 的使用方法：添加频道、排序、已观看管理、继续播放、备注与 Pro。涵盖 iPhone 版与 Android 版。',
   lede: '本应用会把频道的投稿视频按从旧到新排列，让你一边管理进度一边依次观看。这里逐项说明全部功能的操作方法。',
-  platformNote: 'iPhone 版与 Android 版的操作几乎相同。只有不同之处才标注「iPhone」或「Android」，没有标注的项目两者通用。',
+  platformNote: '可用上方的按钮在 iPhone 版与 Android 版之间切换。大部分操作相同，只有不同之处会随之变化。',
   badges: { ios: 'iPhone', android: 'Android' },
+  pickerLabel: '选择设备',
   tocTitle: '目录',
   sections: [
     {

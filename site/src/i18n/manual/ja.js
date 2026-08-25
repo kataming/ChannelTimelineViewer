@@ -4,8 +4,9 @@ export default {
   title: '操作マニュアル',
   description: 'Channel Timeline Viewer の使い方。チャンネルの登録から、並べ替え・視聴済み管理・続きから再生・メモ・Pro まで、iPhone 版と Android 版の操作をまとめています。',
   lede: 'チャンネルの投稿動画を古い順に並べて、どこまで見たかを管理しながら順番に見るためのアプリです。ここでは全機能の操作を順に説明します。',
-  platformNote: 'iPhone 版と Android 版は、ほとんどの操作が同じです。違うところだけ「iPhone」「Android」の印を付けています。印の無い項目は両方に共通です。',
+  platformNote: '上のボタンで iPhone 版と Android 版を切り替えられます。ほとんどの操作は共通で、違うところだけ切り替わります。',
   badges: { ios: 'iPhone', android: 'Android' },
+  pickerLabel: '機種を選ぶ',
   tocTitle: '目次',
   sections: [
     {

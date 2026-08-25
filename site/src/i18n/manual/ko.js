@@ -3,8 +3,9 @@ export default {
   title: '사용 설명서',
   description: 'Channel Timeline Viewer 사용 방법: 채널 추가, 정렬, 시청 완료 관리, 이어 보기, 메모, Pro까지 iPhone판과 Android판 조작을 정리했습니다.',
   lede: 'Channel Timeline Viewer는 채널의 업로드 동영상을 오래된 순으로 정리해, 어디까지 봤는지 관리하면서 차례대로 볼 수 있게 해 줍니다. 여기서는 모든 기능의 조작 방법을 순서대로 설명합니다.',
-  platformNote: 'iPhone판과 Android판은 대부분의 조작이 같습니다. 다른 부분에만 ‘iPhone’ 또는 ‘Android’ 표시를 했으며, 표시가 없는 항목은 양쪽 공통입니다.',
+  platformNote: '위의 버튼으로 iPhone판과 Android판을 전환할 수 있습니다. 대부분의 조작은 같으며, 다른 부분만 바뀝니다.',
   badges: { ios: 'iPhone', android: 'Android' },
+  pickerLabel: '기기 선택',
   tocTitle: '목차',
   sections: [
     {

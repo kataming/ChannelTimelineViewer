@@ -1,6 +1,10 @@
 ---
-// 操作マニュアル。iPhone 版と Android 版はほとんど同じなので1ページにまとめ、
-// 違うところだけ項目に「iPhone」「Android」の印を付ける。
+// 操作マニュアル。
+//
+// iPhone 版と Android 版はほとんどの操作が同じなので、文言は1つだけ持ち、
+// 上のボタンで「その機種向けの手順だけ」を表示する。
+// 切り替えはラジオボタン＋CSS で行うので、JavaScript が無くても動く
+//（JavaScript は「前回選んだ機種を覚える」「初回に端末を見て選ぶ」ためだけに使う）。
 import Base from '../../layouts/Base.astro';
 import { codes, langOf, t, path } from '../../i18n/index.js';
 import { manualFor } from '../../i18n/manual/index.js';
@@ -16,9 +20,33 @@ const m = manualFor(code);
 
 <Base lang={code} page="manual" title={`${m.title} — Channel Timeline Viewer`} description={m.description}>
   <section>
-    <div class="wrap">
+    <div class="wrap manual">
       <h1>{m.title}</h1>
       <p class="lede">{m.lede}</p>
+
+      <div class="picker" role="group" aria-label={m.pickerLabel}>
+        <input type="radio" name="platform" id="pf-ios" value="ios" checked />
+        <label for="pf-ios">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path
+              fill="currentColor"
+              d="M17.05 12.54c-.02-2.3 1.88-3.4 1.96-3.45-1.07-1.56-2.73-1.77-3.32-1.8-1.41-.14-2.76.83-3.47.83-.72 0-1.82-.81-3-.79-1.54.02-2.97.9-3.76 2.28-1.61 2.79-.41 6.92 1.16 9.18.77 1.11 1.68 2.35 2.88 2.31 1.16-.05 1.59-.75 2.99-.75 1.4 0 1.79.75 3.01.72 1.24-.02 2.03-1.13 2.79-2.24.88-1.29 1.24-2.54 1.26-2.6-.03-.01-2.44-.94-2.46-3.72zM14.78 5.39c.64-.77 1.07-1.85.95-2.92-.92.04-2.03.61-2.68 1.38-.59.68-1.1 1.78-.96 2.83 1.03.08 2.07-.52 2.69-1.29z"
+            />
+          </svg>
+          <span>{m.badges.ios}</span>
+        </label>
+
+        <input type="radio" name="platform" id="pf-android" value="android" />
+        <label for="pf-android">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path
+              fill="currentColor"
+              d="M17.6 9.48l1.84-3.18a.38.38 0 0 0-.14-.52.38.38 0 0 0-.52.14l-1.87 3.23a11.4 11.4 0 0 0-9.82 0L5.22 5.92a.38.38 0 0 0-.52-.14.38.38 0 0 0-.14.52L6.4 9.48A10.8 10.8 0 0 0 1 18h22a10.8 10.8 0 0 0-5.4-8.52zM7 14.75a1.04 1.04 0 1 1 0-2.08 1.04 1.04 0 0 1 0 2.08zm10 0a1.04 1.04 0 1 1 0-2.08 1.04 1.04 0 0 1 0 2.08z"
+            />
+          </svg>
+          <span>{m.badges.android}</span>
+        </label>
+      </div>
       <p class="platform-note">{m.platformNote}</p>
 
       <nav class="toc" aria-label={m.tocTitle}>
@@ -36,15 +64,8 @@ const m = manualFor(code);
           {s.body && <p class="chapter-lede">{s.body}</p>}
           <ol class="steps">
             {s.steps.map((step) => (
-              <li>
-                <p class="step-title">
-                  {step.title}
-                  {step.only && (
-                    <span class={`only only-${step.only}`}>
-                      {step.only === 'ios' ? m.badges.ios : m.badges.android}
-                    </span>
-                  )}
-                </p>
+              <li class={step.only ? `only-${step.only}` : undefined}>
+                <p class="step-title">{step.title}</p>
                 <p class="step-body">{step.body}</p>
               </li>
             ))}
@@ -63,30 +84,45 @@ const m = manualFor(code);
 
 <style>
   h1 { margin-bottom: 12px; }
-  .platform-note {
-    background: var(--bg-soft);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: 14px 18px;
-    color: var(--muted);
-    font-size: 0.95rem;
-    max-width: 74ch;
+
+  /* --- 機種の切り替え --- */
+  .picker { display: inline-flex; gap: 6px; margin: 26px 0 14px; padding: 5px;
+            background: var(--bg-soft); border: 1px solid var(--line); border-radius: 999px; }
+  /* ラジオ本体は見せない（キーボード操作のために残す） */
+  .picker input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+  .picker label {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 9px 20px; border-radius: 999px;
+    color: var(--muted); font-size: 0.95rem; font-weight: 600;
+    cursor: pointer; user-select: none; white-space: nowrap;
   }
+  .picker label:hover { color: var(--text); }
+  .picker svg { width: 17px; height: 17px; flex: none; }
+  /* 選ばれている方を塗る */
+  .manual:has(#pf-ios:checked) label[for='pf-ios'],
+  .manual:has(#pf-android:checked) label[for='pf-android'] {
+    background: var(--accent); color: var(--accent-ink);
+  }
+  .picker input:focus-visible + label { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* 選ばれていない機種の手順は出さない。
+     display:none の項目は番号（counter）も進めないので、番号は詰まったまま。 */
+  .manual:has(#pf-ios:checked) li.only-android { display: none; }
+  .manual:has(#pf-android:checked) li.only-ios { display: none; }
+  /* :has() が使えない古いブラウザでは、両方そのまま出る（読めなくはならない） */
+
+  .platform-note { color: var(--muted); font-size: 0.92rem; max-width: 74ch; margin: 0; }
 
   .toc { margin: 32px 0 8px; }
   .toc h2 { font-size: 1rem; margin: 0 0 10px; }
   .toc ol {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    display: grid;
-    gap: 6px 20px;
+    margin: 0; padding: 0; list-style: none;
+    display: grid; gap: 6px 20px;
     grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
   }
   .toc a { color: var(--muted); text-decoration: none; font-size: 0.94rem; }
   .toc a:hover { color: var(--text); text-decoration: underline; }
 
-  /* section の既定（上に区切り線・余白）を、章にも同じ調子で効かせる */
   .chapter { padding: 40px 0 0; border-top: 1px solid var(--line); margin-top: 36px; }
   .chapter h2 { margin-bottom: 12px; }
   .chapter-lede { color: var(--muted); max-width: 74ch; }
@@ -119,24 +155,42 @@ const m = manualFor(code);
   .step-title { margin: 0 0 4px; font-weight: 600; }
   .step-body { margin: 0; color: var(--muted); font-size: 0.96rem; }
 
-  .only {
-    display: inline-block;
-    margin-left: 8px;
-    padding: 1px 9px;
-    border-radius: 999px;
-    border: 1px solid var(--line);
-    font-size: 0.72rem;
-    font-weight: 700;
-    color: var(--muted);
-    vertical-align: 2px;
-    white-space: nowrap;
-  }
-  .only-ios { border-color: var(--accent); color: var(--accent); }
-
   .more { margin-top: 40px; font-size: 0.92rem; }
 
   @media (max-width: 520px) {
+    .picker { display: flex; width: 100%; }
+    .picker label { flex: 1; justify-content: center; padding: 10px 12px; }
     .steps > li { padding-left: 34px; }
     .steps > li::before { width: 23px; height: 23px; font-size: 0.76rem; }
   }
 </style>
+
+<script is:inline>
+  (function () {
+    var ios = document.getElementById('pf-ios');
+    var android = document.getElementById('pf-android');
+    if (!ios || !android) return;
+
+    // 前回選んだ機種を優先し、初めてなら端末を見て選ぶ。
+    var saved = null;
+    try {
+      saved = localStorage.getItem('ctv-platform');
+    } catch (e) {
+      /* プライベートブラウズなどで読めなくても、既定（iPhone）のまま動く */
+    }
+    var wanted = saved || (/Android/i.test(navigator.userAgent) ? 'android' : 'ios');
+    if (wanted === 'android') android.checked = true;
+
+    // 選んだ機種を覚える。
+    [ios, android].forEach(function (input) {
+      input.addEventListener('change', function () {
+        if (!input.checked) return;
+        try {
+          localStorage.setItem('ctv-platform', input.value);
+        } catch (e) {
+          /* 保存できなくても表示の切り替え自体は動く */
+        }
+      });
+    });
+  })();
+</script>

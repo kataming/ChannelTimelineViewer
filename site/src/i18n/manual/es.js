@@ -3,8 +3,9 @@ export default {
   title: 'Manual de uso',
   description: 'Cómo usar Channel Timeline Viewer: añadir un canal, ordenar, marcar vistos, reanudar, notas y Pro, tanto en iPhone como en Android.',
   lede: 'Channel Timeline Viewer ordena las subidas de un canal de las más antiguas a las más recientes para que las veas por orden sin perder de vista hasta dónde llegaste. Aquí se explica cada función paso a paso.',
-  platformNote: 'Las versiones de iPhone y Android funcionan casi igual. Solo se marcan como «iPhone» o «Android» los pasos que difieren; lo que no lleva marca vale para ambas.',
+  platformNote: 'Usa los botones de arriba para cambiar entre la versión de iPhone y la de Android. Casi todos los pasos son iguales: solo cambian los que difieren.',
   badges: { ios: 'iPhone', android: 'Android' },
+  pickerLabel: 'Elige tu dispositivo',
   tocTitle: 'Contenido',
   sections: [
     {

@@ -4,8 +4,9 @@ export default {
   title: 'User manual',
   description: 'How to use Channel Timeline Viewer: adding a channel, sorting, watched tracking, resume, notes, and Pro — for both iPhone and Android.',
   lede: 'Channel Timeline Viewer lists a channel’s uploads oldest-first so you can work through them while keeping track of how far you got. This page walks through every feature.',
-  platformNote: 'The iPhone and Android versions work almost identically. Only the steps that differ are marked “iPhone” or “Android”. Anything without a mark applies to both.',
+  platformNote: 'Use the buttons above to switch between the iPhone and Android versions. Most steps are the same — only the parts that differ change.',
   badges: { ios: 'iPhone', android: 'Android' },
+  pickerLabel: 'Choose your device',
   tocTitle: 'Contents',
   sections: [
     {

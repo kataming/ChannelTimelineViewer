@@ -15,8 +15,17 @@ final class ProScreenshotUITests: XCTestCase {
 
     private var app: XCUIApplication!
 
-    /// 審査担当者に見せるので英語で撮る。
-    private let language = "en"
+    /// 表示言語。既定は英語。
+    ///
+    /// この画面は**審査担当者に見せる**ためのものなので、何も指定しなければ英語で撮る
+    /// （`appstore-iap-screenshot.yml` は言語を渡さないため、審査用は常に英語のまま）。
+    /// 一方、公式サイトのマニュアルには各言語の画面を載せたいので、
+    /// `SCREENSHOT_LANGUAGE` が渡されたときはその言語で撮る。
+    private var language: String {
+        let value = ProcessInfo.processInfo.environment["SCREENSHOT_LANGUAGE"] ?? "en"
+        let allowed = value.filter { $0.isLetter || $0 == "-" }
+        return allowed.isEmpty ? "en" : allowed
+    }
 
     private lazy var strings: Bundle = {
         let testBundle = Bundle(for: type(of: self))

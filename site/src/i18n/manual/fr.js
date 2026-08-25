@@ -1,0 +1,115 @@
+// Manuel d’utilisation (français). Les formulations suivent celles de l’app (Localization/strings.json).
+export default {
+  title: 'Manuel d’utilisation',
+  description: 'Comment utiliser Channel Timeline Viewer : ajouter une chaîne, trier, suivre les vidéos vues, reprendre, prendre des notes et passer à Pro — sur iPhone comme sur Android.',
+  lede: 'Channel Timeline Viewer classe les vidéos d’une chaîne de la plus ancienne à la plus récente pour que vous les parcouriez dans l’ordre sans perdre le fil. Chaque fonction est expliquée ici, étape par étape.',
+  platformNote: 'Les versions iPhone et Android s’utilisent presque de la même façon. Seules les étapes qui diffèrent portent la mention « iPhone » ou « Android » ; tout ce qui n’est pas marqué vaut pour les deux.',
+  badges: { ios: 'iPhone', android: 'Android' },
+  tocTitle: 'Sommaire',
+  sections: [
+    {
+      id: 'install',
+      title: '1. Obtenir l’app',
+      body: 'L’app est gratuite. Aucun compte à créer, aucune connexion.',
+      steps: [
+        { title: 'Installer depuis l’App Store', body: 'iOS 17 ou version ultérieure requis. Cherchez « Channel Timeline Viewer » dans l’App Store ou utilisez le bouton App Store de ce site.', only: 'ios' },
+        { title: 'Bientôt sur Google Play', body: 'La version Android a été soumise à Google Play et attend sa validation. Le lien apparaîtra ici dès sa publication.', only: 'android' },
+        { title: 'Aucun compte YouTube nécessaire', body: 'Vous ne vous connectez jamais. L’app lit uniquement des informations publiques sur les vidéos via l’API officielle de YouTube.' },
+      ],
+    },
+    {
+      id: 'add',
+      title: '2. Ajouter une chaîne',
+      body: 'Deux méthodes, pour un même résultat.',
+      steps: [
+        { title: 'Coller une URL', body: 'Sur le premier écran, saisissez l’URL de la chaîne (par exemple youtube.com/@handle ou youtube.com/channel/UC…) dans le champ « URL de la chaîne », puis touchez « Charger les vidéos ». Une URL de vidéo convient aussi : l’app retrouve la chaîne qui l’a publiée.' },
+        { title: 'Les grandes chaînes prennent du temps', body: 'Le premier chargement récupère toutes les vidéos : plus la chaîne en compte, plus c’est long. Patientez tant que « Chargement des vidéos... » s’affiche.' },
+        { title: 'Partager depuis YouTube', body: 'Touchez le bouton de partage dans l’app YouTube ou dans Safari et choisissez « Ouvrir dans Channel Timeline ». iOS ne permet pas à une feuille de partage de lancer une app directement : autorisez les notifications et touchez celle qui apparaît juste après le partage. Sinon, ouvrez l’app et touchez « Ouvrir le lien partagé ».', only: 'ios' },
+        { title: 'La placer en tête de la feuille de partage', body: 'L’ordre est décidé par iOS, pas par l’app. Faites défiler la rangée d’apps jusqu’à droite → « Autres » → « Modifier » → touchez le « + » à côté de « Ouvrir dans Channel Timeline » → faites-la glisser tout en haut → « OK ».', only: 'ios' },
+        { title: 'Partager depuis YouTube', body: 'Touchez le bouton de partage dans l’app YouTube ou votre navigateur et choisissez « Ouvrir dans Channel Timeline » : la liste des vidéos de la chaîne s’ouvre directement, sans autorisation de notification.', only: 'android' },
+        { title: 'Les chaînes sont conservées', body: 'Les chaînes déjà ouvertes figurent dans « Chaînes récentes ». Elles s’ouvrent ensuite instantanément, les nouveautés étant vérifiées après coup.' },
+      ],
+    },
+    {
+      id: 'list',
+      title: '3. Utiliser la liste des vidéos',
+      body: 'La progression est en haut de la liste. C’est le cœur de l’app.',
+      steps: [
+        { title: 'Progression et « à suivre »', body: 'Tout en haut, « Progression » indique le nombre de vidéos vues, le total et le pourcentage. La ligne en dessous est la vidéo suivante : « Reprendre : n° N » si vous en avez laissé une en cours, sinon « À suivre : n° N ». Touchez-la pour démarrer là.' },
+        { title: 'Trier', body: 'Via l’icône en haut à droite → « Trier » → « Plus anciennes d’abord » ou « Plus récentes d’abord ». Par défaut, les plus anciennes.' },
+        { title: 'Filtrer', body: 'Dans le même menu, « Afficher » propose « Toutes », « Non vues uniquement » ou « Vues uniquement ». Une fois filtré, la liste indique « N affichées / N au total ».' },
+        { title: 'Récupérer les nouveautés', body: 'Le même menu propose « Rechercher de nouvelles vidéos », qui ne récupère que le nouveau. Si l’affichage semble incorrect, « Tout recharger » refait la liste complète.' },
+        { title: 'Marquer vue ou ignorée', body: 'Chaque ligne permet de basculer entre « Vue », « Marquer comme non vue », « Ignorer » et « Ne plus ignorer ». Les vidéos ignorées sont sautées en lecture automatique, mais s’ouvrent normalement avec le bouton « Suivante ».' },
+      ],
+    },
+    {
+      id: 'play',
+      title: '4. Lire les vidéos',
+      body: 'La lecture utilise le lecteur intégré officiel de YouTube. Les commandes se trouvent en dessous.',
+      steps: [
+        { title: 'Lecture automatique (désactivée par défaut)', body: 'Utilisez l’interrupteur de l’écran de lecture. Activée, elle indique « Lecture auto activée : passer à la vidéo suivante » et ne lit que la vidéo suivante de la liste ouverte ; elle ne vous emmène jamais vers des vidéos suggérées ni vers une autre chaîne. Désactivée, la lecture s’arrête à la fin et un bouton « Lire la vidéo suivante » apparaît.' },
+        { title: 'Lire seulement les non regardées', body: 'L’interrupteur juste en dessous. Activé, les vidéos déjà vues sont également sautées : seules les non vues sont lues.' },
+        { title: 'Répétition', body: 'Le badge en haut à droite alterne « Désactivée → Une → Toutes ». « Une » répète la même vidéo quel que soit le réglage de lecture automatique. « Toutes » revient à la première après la dernière (lecture automatique activée).' },
+        { title: 'Se déplacer', body: 'Cinq boutons : « Première », « Précédente », « Annuler », « Suivante », « Dernière ». « Annuler » revient sur le dernier saut et vous ramène à la vidéo et à la position d’avant — pratique en cas d’erreur.' },
+        { title: 'Reprendre', body: 'En rouvrant une vidéo laissée en cours, la lecture reprend à la seconde près avec la mention « Reprise à (0:00) ». Pour repartir du début, touchez « Depuis le début » à côté.' },
+      ],
+    },
+    {
+      id: 'tools',
+      title: '5. Notes et réglages de lecture',
+      steps: [
+        { title: 'Écrire des notes', body: 'Sous le lecteur, un champ « Notes (séries et apprentissage) » enregistre automatiquement au fil de la saisie. Touchez ailleurs ou « OK » pour terminer. Les notes sont propres à chaque vidéo.' },
+        { title: 'Vitesse et sous-titres', body: 'L’icône de curseurs en haut à droite ouvre les réglages de lecture (vitesse et sous-titres). Les sous-titres démarrent désactivés. La liste des sous-titres n’est préparée qu’une fois la lecture lancée : si elle est vide, démarrez la vidéo puis rouvrez la fiche.' },
+        { title: 'À propos de la qualité', body: 'YouTube ajuste la qualité automatiquement selon la connexion et le lecteur officiel ne permet pas à l’app de la fixer. Pour la choisir vous-même, lancez la lecture puis utilisez le bouton plein écran en bas à droite → roue dentée → Qualité.' },
+        { title: 'Ouvrir dans YouTube', body: '« Ouvrir dans YouTube » ouvre la vidéo dans l’app ou le site YouTube. Utilisez-le pour les vidéos dont l’auteur a bloqué la lecture en dehors de YouTube.' },
+      ],
+    },
+    {
+      id: 'fullscreen',
+      title: '6. Regarder en plein écran',
+      steps: [
+        { title: 'Passer en plein écran', body: 'Touchez le bouton plein écran en bas à droite du lecteur. Tournez le téléphone pour occuper tout l’écran.', only: 'ios' },
+        { title: 'Rester en plein écran d’une vidéo à l’autre', body: 'Depuis la version 1.1, avec la lecture automatique activée, la vidéo suivante continue en plein écran. Pour cela, l’app change de vidéo environ 0,5 seconde avant la fin.', only: 'ios' },
+        { title: 'Pas encore disponible', body: 'La version Android ne gère pas encore le plein écran. C’est prévu pour une mise à jour future.', only: 'android' },
+      ],
+    },
+    {
+      id: 'pro',
+      title: '7. Chaînes enregistrées et Pro',
+      body: 'L’app est gratuite et enregistre une chaîne. À l’intérieur de cette chaîne, rien n’est bridé.',
+      steps: [
+        { title: 'Ce que fait la version gratuite', body: 'Tri du plus ancien ou du plus récent, suivi des vidéos vues, reprise, boutons de saut, notes, progression et lecture dans le lecteur officiel — le tout sans limite.' },
+        { title: 'Quand vous ajoutez une deuxième chaîne', body: 'Une confirmation s’affiche. Choisir « Remplacer » supprime l’historique, la progression et les notes de la chaîne enregistrée, sans retour possible. Pour garder les deux, envisagez Pro.' },
+        { title: 'Pro (achat unique)', body: 'Ce n’est pas un abonnement : on paie une fois. Enregistrez plusieurs chaînes et conservez pour chacune l’historique, la progression et les notes. Le prix est celui affiché par la boutique.' },
+        { title: 'Restaurer l’achat', body: 'Après une réinstallation ou un changement d’appareil, ouvrez l’écran Pro et touchez « Restaurer l’achat ». Avec le même compte Apple, il revient. C’est un achat unique : vous n’êtes jamais débité deux fois.', only: 'ios' },
+        { title: 'Restaurer l’achat', body: 'Après une réinstallation ou un changement d’appareil, ouvrez l’écran Pro et touchez « Restaurer l’achat ». Avec le même compte Google, il revient. C’est un achat unique : vous n’êtes jamais débité deux fois.', only: 'android' },
+        { title: 'Retirer une chaîne', body: 'Balayez vers la gauche une ligne de « Chaînes récentes » pour la supprimer. La suppression efface aussi l’historique, la progression et les notes de cette chaîne.', only: 'ios' },
+        { title: 'Retirer une chaîne', body: 'Utilisez le bouton corbeille dans « Chaînes récentes ». Le retrait efface aussi l’historique, la progression et les notes de cette chaîne.', only: 'android' },
+      ],
+    },
+    {
+      id: 'trouble',
+      title: '8. En cas de problème',
+      steps: [
+        { title: 'L’URL de la chaîne est refusée', body: 'Utilisez l’URL de la page de la chaîne (youtube.com/@handle, youtube.com/channel/UC…). Une URL de vidéo convient aussi.' },
+        { title: 'La liste s’arrête ou affiche une erreur', body: 'Les très grandes chaînes prennent du temps au premier chargement. Si l’erreur mentionne un quota, réessayez plus tard : l’API YouTube a une limite quotidienne.' },
+        { title: 'Une vidéo ne se lit pas', body: 'Certaines vidéos sont bloquées hors de YouTube par leur auteur. Utilisez alors « Ouvrir dans YouTube ».' },
+        { title: 'Le partage n’ouvre pas l’app', body: 'iOS ne permet pas à une feuille de partage de lancer une app directement. Autorisez les notifications et touchez celle qui apparaît juste après le partage, ou ouvrez l’app et utilisez « Ouvrir le lien partagé ».', only: 'ios' },
+        { title: 'Le volume change d’une vidéo à l’autre', body: 'Cela vient du niveau d’enregistrement des vidéos elles-mêmes et l’app ne peut pas l’uniformiser. Le « Volume stable » de YouTube n’existe pas dans les lecteurs intégrés : utilisez « Ouvrir dans YouTube » pour les vidéos concernées.' },
+        { title: 'Ma progression a disparu', body: 'L’historique, la progression et les notes ne sont stockés que sur votre appareil. Ils disparaissent si vous supprimez l’app, ou si vous supprimez ou remplacez une chaîne, et sont irrécupérables.' },
+      ],
+    },
+    {
+      id: 'limits',
+      title: '9. Ce que l’app ne fait volontairement pas',
+      body: 'Pour respecter les conditions d’utilisation de YouTube, l’app ne fait jamais ce qui suit.',
+      steps: [
+        { title: 'Aucun téléchargement ni enregistrement hors ligne', body: 'Il n’existe aucun moyen de stocker une vidéo sur l’appareil.' },
+        { title: 'Aucun lecteur maison', body: 'La lecture se fait toujours dans le lecteur intégré officiel de YouTube.' },
+        { title: 'Aucun blocage de publicité ni contournement', body: 'La publicité n’est pas masquée et aucune restriction de lecture n’est contournée.' },
+        { title: 'Aucune lecture en arrière-plan', body: 'La lecture s’arrête dès que vous quittez l’app. Pendant la lecture, l’écran reste simplement allumé.' },
+        { title: 'Rien ne quitte votre appareil', body: 'Historique, progression, notes et positions de lecture restent sur l’appareil et ne sont jamais envoyés à nos serveurs.' },
+      ],
+    },
+  ],
+};

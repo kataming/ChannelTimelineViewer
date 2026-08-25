@@ -1,0 +1,142 @@
+---
+// 操作マニュアル。iPhone 版と Android 版はほとんど同じなので1ページにまとめ、
+// 違うところだけ項目に「iPhone」「Android」の印を付ける。
+import Base from '../../layouts/Base.astro';
+import { codes, langOf, t, path } from '../../i18n/index.js';
+import { manualFor } from '../../i18n/manual/index.js';
+
+export function getStaticPaths() {
+  return codes.map((code) => ({ params: { lang: langOf(code).slug }, props: { code } }));
+}
+
+const { code } = Astro.props;
+const copy = t(code);
+const m = manualFor(code);
+---
+
+<Base lang={code} page="manual" title={`${m.title} — Channel Timeline Viewer`} description={m.description}>
+  <section>
+    <div class="wrap">
+      <h1>{m.title}</h1>
+      <p class="lede">{m.lede}</p>
+      <p class="platform-note">{m.platformNote}</p>
+
+      <nav class="toc" aria-label={m.tocTitle}>
+        <h2>{m.tocTitle}</h2>
+        <ol>
+          {m.sections.map((s) => (
+            <li><a href={`#${s.id}`}>{s.title}</a></li>
+          ))}
+        </ol>
+      </nav>
+
+      {m.sections.map((s) => (
+        <section class="chapter" id={s.id}>
+          <h2>{s.title}</h2>
+          {s.body && <p class="chapter-lede">{s.body}</p>}
+          <ol class="steps">
+            {s.steps.map((step) => (
+              <li>
+                <p class="step-title">
+                  {step.title}
+                  {step.only && (
+                    <span class={`only only-${step.only}`}>
+                      {step.only === 'ios' ? m.badges.ios : m.badges.android}
+                    </span>
+                  )}
+                </p>
+                <p class="step-body">{step.body}</p>
+              </li>
+            ))}
+          </ol>
+        </section>
+      ))}
+
+      <p class="more">
+        <a href={path(code, 'support')}>{copy.nav.support}</a>
+        {' · '}
+        <a href={path(code, 'privacy')}>{copy.nav.privacy}</a>
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  h1 { margin-bottom: 12px; }
+  .platform-note {
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 14px 18px;
+    color: var(--muted);
+    font-size: 0.95rem;
+    max-width: 74ch;
+  }
+
+  .toc { margin: 32px 0 8px; }
+  .toc h2 { font-size: 1rem; margin: 0 0 10px; }
+  .toc ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 6px 20px;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  }
+  .toc a { color: var(--muted); text-decoration: none; font-size: 0.94rem; }
+  .toc a:hover { color: var(--text); text-decoration: underline; }
+
+  /* section の既定（上に区切り線・余白）を、章にも同じ調子で効かせる */
+  .chapter { padding: 40px 0 0; border-top: 1px solid var(--line); margin-top: 36px; }
+  .chapter h2 { margin-bottom: 12px; }
+  .chapter-lede { color: var(--muted); max-width: 74ch; }
+
+  .steps { margin: 18px 0 0; padding-left: 0; list-style: none; counter-reset: step; }
+  .steps > li {
+    counter-increment: step;
+    position: relative;
+    padding: 0 0 0 40px;
+    margin-bottom: 22px;
+    max-width: 74ch;
+  }
+  .steps > li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 1px;
+    width: 26px;
+    height: 26px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+  .step-title { margin: 0 0 4px; font-weight: 600; }
+  .step-body { margin: 0; color: var(--muted); font-size: 0.96rem; }
+
+  .only {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 1px 9px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--muted);
+    vertical-align: 2px;
+    white-space: nowrap;
+  }
+  .only-ios { border-color: var(--accent); color: var(--accent); }
+
+  .more { margin-top: 40px; font-size: 0.92rem; }
+
+  @media (max-width: 520px) {
+    .steps > li { padding-left: 34px; }
+    .steps > li::before { width: 23px; height: 23px; font-size: 0.76rem; }
+  }
+</style>

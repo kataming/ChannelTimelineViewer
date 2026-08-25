@@ -29,7 +29,7 @@ const s = copy.support;
       <h2>{s.contactTitle}</h2>
       <p>{s.contactBody} <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a></p>
       <p class="muted">{s.responseTitle}: {s.responseBody}</p>
-      <p><a href={REPOSITORY_URL} rel="noopener">{copy.footer.source}</a> · <a href={path(code, 'privacy')}>{copy.nav.privacy}</a></p>
+      <p><a href={path(code, 'manual')}>{copy.nav.manual}</a> · <a href={REPOSITORY_URL} rel="noopener">{copy.footer.source}</a> · <a href={path(code, 'privacy')}>{copy.nav.privacy}</a></p>
     </div>
   </section>
 </Base>

@@ -1,0 +1,115 @@
+// Bedienungsanleitung (Deutsch). Die Formulierungen folgen der App selbst (Localization/strings.json).
+export default {
+  title: 'Bedienungsanleitung',
+  description: 'So benutzt du Channel Timeline Viewer: Kanal hinzufügen, sortieren, Gesehen-Status, Fortsetzen, Notizen und Pro – für iPhone und Android.',
+  lede: 'Channel Timeline Viewer sortiert die Uploads eines Kanals von den ältesten zu den neuesten, damit du sie der Reihe nach durcharbeiten kannst, ohne den Überblick zu verlieren. Hier ist jede Funktion Schritt für Schritt erklärt.',
+  platformNote: 'Die iPhone- und die Android-Version funktionieren fast gleich. Nur abweichende Schritte sind mit „iPhone“ oder „Android“ gekennzeichnet; alles ohne Kennzeichnung gilt für beide.',
+  badges: { ios: 'iPhone', android: 'Android' },
+  tocTitle: 'Inhalt',
+  sections: [
+    {
+      id: 'install',
+      title: '1. Die App bekommen',
+      body: 'Die App ist kostenlos. Es gibt kein Konto und keine Anmeldung.',
+      steps: [
+        { title: 'Aus dem App Store laden', body: 'Erfordert iOS 17 oder neuer. Suche im App Store nach „Channel Timeline Viewer“ oder nutze die App-Store-Schaltfläche auf dieser Seite.', only: 'ios' },
+        { title: 'Demnächst bei Google Play', body: 'Die Android-Version wurde bei Google Play eingereicht und wartet auf die Prüfung. Sobald sie veröffentlicht ist, erscheint hier der Link.', only: 'android' },
+        { title: 'Kein YouTube-Konto nötig', body: 'Du meldest dich nie an. Die App liest über die offizielle YouTube-API nur öffentliche Informationen zu Videos.' },
+      ],
+    },
+    {
+      id: 'add',
+      title: '2. Einen Kanal hinzufügen',
+      body: 'Es gibt zwei Wege – beide führen zum selben Ergebnis.',
+      steps: [
+        { title: 'URL einfügen', body: 'Gib auf dem ersten Bildschirm im Feld „Kanal-URL“ die Adresse des Kanals ein (z. B. youtube.com/@handle oder youtube.com/channel/UC…) und tippe auf „Videos laden“. Eine Video-URL geht auch – die App findet den Kanal, der es veröffentlicht hat.' },
+        { title: 'Große Kanäle dauern', body: 'Beim ersten Laden werden alle Uploads geholt; je mehr Videos, desto länger dauert es. Warte einfach, solange „Videos werden geladen ...“ angezeigt wird.' },
+        { title: 'Aus YouTube teilen', body: 'Tippe in der YouTube-App oder in Safari auf Teilen und wähle „In Channel Timeline öffnen“. iOS erlaubt es nicht, aus dem Teilen-Menü direkt eine App zu starten. Erlaube deshalb Mitteilungen und tippe auf die Mitteilung, die direkt nach dem Teilen erscheint. Wenn du das nicht möchtest, öffne die App und tippe auf „Geteilten Link öffnen“.', only: 'ios' },
+        { title: 'Im Teilen-Menü nach vorne holen', body: 'Die Reihenfolge bestimmt iOS, nicht die App. Scrolle die App-Zeile ganz nach rechts → „Mehr“ → „Bearbeiten“ → auf das „+“ neben „In Channel Timeline öffnen“ tippen → nach ganz oben ziehen → „Fertig“.', only: 'ios' },
+        { title: 'Aus YouTube teilen', body: 'Tippe in der YouTube-App oder im Browser auf Teilen und wähle „In Channel Timeline öffnen“ – die Videoliste des Kanals öffnet sich direkt, ganz ohne Mitteilungsrechte.', only: 'android' },
+        { title: 'Kanäle bleiben erhalten', body: 'Geöffnete Kanäle erscheinen unter „Zuletzt verwendete Kanäle“. Beim nächsten Mal sind sie sofort da, neue Uploads werden danach geprüft.' },
+      ],
+    },
+    {
+      id: 'list',
+      title: '3. Die Videoliste nutzen',
+      body: 'Oben in der Liste steht der Fortschritt – das Herzstück der App.',
+      steps: [
+        { title: 'Fortschritt und „Als Nächstes“', body: 'Ganz oben steht „Fortschritt“ mit der Anzahl gesehener Videos, der Gesamtzahl und dem Prozentwert. Die Zeile darunter ist das nächste Video: „Fortsetzen: Nr. N“, wenn du eines angefangen hast, sonst „Als Nächstes: Nr. N“. Tippe darauf, um dort zu starten.' },
+        { title: 'Sortieren', body: 'Über das Symbol oben rechts → „Sortieren“ → „Älteste zuerst“ oder „Neueste zuerst“. Voreingestellt sind die ältesten zuerst.' },
+        { title: 'Filtern', body: 'Im selben Menü kannst du unter „Anzeigen“ zwischen „Alle“, „Nur ungesehene“ und „Nur gesehene“ wählen. Gefiltert erscheint über der Liste „N von N angezeigt“.' },
+        { title: 'Neue Uploads holen', body: 'Im selben Menü holt „Nach neuen Videos suchen“ nur das Neue. Sieht etwas falsch aus, lädt „Alles neu laden“ die Liste komplett neu.' },
+        { title: 'Als gesehen oder übersprungen markieren', body: 'In jeder Zeile kannst du zwischen „Gesehen“, „Als ungesehen markieren“, „Überspringen“ und „Nicht überspringen“ wechseln. Übersprungene Videos werden beim Autoplay ausgelassen, lassen sich aber mit „Nächstes“ ganz normal öffnen.' },
+      ],
+    },
+    {
+      id: 'play',
+      title: '4. Wiedergabe',
+      body: 'Die Wiedergabe läuft im offiziellen eingebetteten YouTube-Player. Die Bedienelemente liegen darunter.',
+      steps: [
+        { title: 'Autoplay (standardmäßig aus)', body: 'Mit dem Schalter auf dem Player-Bildschirm. Eingeschaltet steht dort „Autoplay ein: weiter zum nächsten Video“, und es läuft nur das nächste Video der geöffneten Liste – nie ähnliche Videos oder ein anderer Kanal. Ausgeschaltet stoppt die Wiedergabe am Ende und es erscheint „Nächstes Video“.' },
+        { title: 'Nur Ungesehenes abspielen', body: 'Der Schalter darunter. Eingeschaltet werden auch bereits gesehene Videos übersprungen, sodass nur Ungesehenes läuft.' },
+        { title: 'Wiederholen', body: 'Das Abzeichen oben rechts wechselt zwischen „Aus → Eins → Alle“. „Eins“ wiederholt dasselbe Video unabhängig vom Autoplay. „Alle“ springt nach dem letzten Video zurück zum ersten (wenn Autoplay an ist).' },
+        { title: 'Navigieren', body: 'Fünf Tasten: „Erstes“, „Vorheriges“, „Zurücknehmen“, „Nächstes“, „Letztes“. „Zurücknehmen“ macht den letzten Sprung rückgängig und bringt dich zu Video und Position davor – praktisch, wenn du dich vertippt hast.' },
+        { title: 'Fortsetzen', body: 'Öffnest du ein angefangenes Video erneut, geht es sekundengenau weiter und es steht „Wird ab (0:00) fortgesetzt“ da. Für den Anfang tippe daneben auf „Neu starten“.' },
+      ],
+    },
+    {
+      id: 'tools',
+      title: '5. Notizen und Wiedergabeeinstellungen',
+      steps: [
+        { title: 'Notizen schreiben', body: 'Unter dem Player gibt es das Feld „Notizen (für Serien und Lernen)“. Es speichert beim Tippen automatisch. Tippe woandershin oder auf „Fertig“, um die Eingabe zu beenden. Notizen gehören jeweils zu einem Video.' },
+        { title: 'Geschwindigkeit und Untertitel', body: 'Das Regler-Symbol oben rechts öffnet die Wiedergabeeinstellungen für Geschwindigkeit und Untertitel. Untertitel starten standardmäßig aus. Die Untertitelliste steht erst nach dem Start der Wiedergabe bereit – ist sie leer, starte das Video und öffne sie erneut.' },
+        { title: 'Zur Bildqualität', body: 'YouTube stellt die Qualität automatisch passend zur Verbindung ein; der offizielle Player lässt die App sie nicht festlegen. Willst du selbst wählen, starte die Wiedergabe und nutze die Vollbild-Schaltfläche unten rechts im Player → Zahnrad → Qualität.' },
+        { title: 'In YouTube öffnen', body: '„In YouTube öffnen“ öffnet das Video in der YouTube-App oder auf der Website. Nutze es für Videos, deren Uploader die Wiedergabe außerhalb von YouTube gesperrt hat.' },
+      ],
+    },
+    {
+      id: 'fullscreen',
+      title: '6. Im Vollbild ansehen',
+      steps: [
+        { title: 'Ins Vollbild wechseln', body: 'Tippe auf die Vollbild-Schaltfläche unten rechts im Player. Drehe das Telefon quer, um den Bildschirm ganz auszufüllen.', only: 'ios' },
+        { title: 'Im Vollbild zum nächsten Video', body: 'Ab Version 1.1 läuft bei eingeschaltetem Autoplay das nächste Video im Vollbild weiter. Damit das klappt, wechselt die App etwa 0,5 Sekunden vor dem Ende des Videos.', only: 'ios' },
+        { title: 'Noch nicht möglich', body: 'Die Android-Version unterstützt Vollbild noch nicht. Das ist für ein späteres Update geplant.', only: 'android' },
+      ],
+    },
+    {
+      id: 'pro',
+      title: '7. Gespeicherte Kanäle und Pro',
+      body: 'Die App ist kostenlos und speichert einen Kanal. Innerhalb dieses Kanals wird nichts beschnitten.',
+      steps: [
+        { title: 'Was die kostenlose Version kann', body: 'Sortierung nach ältesten oder neuesten, Gesehen-Status, Fortsetzen, die Sprungtasten, Notizen, Fortschritt und Wiedergabe im offiziellen Player – alles ohne Einschränkung.' },
+        { title: 'Wenn du einen zweiten Kanal hinzufügst', body: 'Es erscheint eine Rückfrage. Mit „Ersetzen“ werden Gesehen-Status, Fortschritt und Notizen des bisher gespeicherten Kanals gelöscht – das lässt sich nicht rückgängig machen. Willst du beide behalten, sieh dir Pro an.' },
+        { title: 'Pro (einmaliger Kauf)', body: 'Kein Abo, sondern einmalig bezahlt. Speichere mehrere Kanäle und behalte für jeden Gesehen-Status, Fortschritt und Notizen. Es gilt der Preis, den der Store anzeigt.' },
+        { title: 'Kauf wiederherstellen', body: 'Nach einer Neuinstallation oder einem Gerätewechsel öffne den Pro-Bildschirm und tippe auf „Kauf wiederherstellen“. Mit demselben Apple-Account kommt er zurück. Es ist ein einmaliger Kauf – doppelt bezahlt wird nie.', only: 'ios' },
+        { title: 'Kauf wiederherstellen', body: 'Nach einer Neuinstallation oder einem Gerätewechsel öffne den Pro-Bildschirm und tippe auf „Kauf wiederherstellen“. Mit demselben Google-Konto kommt er zurück. Es ist ein einmaliger Kauf – doppelt bezahlt wird nie.', only: 'android' },
+        { title: 'Kanal entfernen', body: 'Wische eine Zeile unter „Zuletzt verwendete Kanäle“ nach links, um sie zu löschen. Dabei verschwinden auch Gesehen-Status, Fortschritt und Notizen dieses Kanals.', only: 'ios' },
+        { title: 'Kanal entfernen', body: 'Nutze die Papierkorb-Schaltfläche unter „Zuletzt verwendete Kanäle“. Dabei verschwinden auch Gesehen-Status, Fortschritt und Notizen dieses Kanals.', only: 'android' },
+      ],
+    },
+    {
+      id: 'trouble',
+      title: '8. Wenn etwas nicht klappt',
+      steps: [
+        { title: 'Die Kanal-URL wird nicht akzeptiert', body: 'Nutze die URL der Kanalseite (youtube.com/@handle, youtube.com/channel/UC…). Eine Video-URL geht auch.' },
+        { title: 'Die Liste bricht ab oder zeigt einen Fehler', body: 'Sehr große Kanäle brauchen beim ersten Laden Zeit. Nennt der Fehler ein Kontingent (Quota), versuche es später erneut – die YouTube-API hat ein Tageslimit.' },
+        { title: 'Ein Video lässt sich nicht abspielen', body: 'Manche Videos sind vom Uploader außerhalb von YouTube gesperrt. Nutze dann „In YouTube öffnen“.' },
+        { title: 'Teilen öffnet die App nicht', body: 'iOS erlaubt es nicht, aus dem Teilen-Menü direkt eine App zu starten. Erlaube Mitteilungen und tippe auf die Mitteilung direkt nach dem Teilen – oder öffne die App und nutze „Geteilten Link öffnen“.', only: 'ios' },
+        { title: 'Die Lautstärke ist von Video zu Video verschieden', body: 'Das liegt am Aufnahmepegel der Videos selbst; die App kann das nicht angleichen. YouTubes „Konstante Lautstärke“ steht in eingebetteten Playern nicht zur Verfügung – nutze bei störenden Videos „In YouTube öffnen“.' },
+        { title: 'Mein Fortschritt ist weg', body: 'Gesehen-Status, Fortschritt und Notizen liegen nur auf deinem Gerät. Sie verschwinden, wenn du die App löschst oder einen Kanal löschst bzw. ersetzt, und lassen sich nicht wiederherstellen.' },
+      ],
+    },
+    {
+      id: 'limits',
+      title: '9. Was die App bewusst nicht tut',
+      body: 'Um die YouTube-Nutzungsbedingungen einzuhalten, tut die App Folgendes nie.',
+      steps: [
+        { title: 'Kein Download, keine Offline-Speicherung', body: 'Es gibt keine Möglichkeit, ein Video auf dem Gerät zu speichern.' },
+        { title: 'Kein eigener Player', body: 'Die Wiedergabe läuft immer im offiziellen eingebetteten YouTube-Player.' },
+        { title: 'Keine Werbeblockierung, kein Umgehen von Sperren', body: 'Werbung wird nicht ausgeblendet und keine Wiedergabesperre umgangen.' },
+        { title: 'Keine Hintergrundwiedergabe', body: 'Beim Verlassen der App stoppt die Wiedergabe. Während des Abspielens bleibt lediglich der Bildschirm an.' },
+        { title: 'Nichts verlässt dein Gerät', body: 'Gesehen-Status, Fortschritt, Notizen und Wiedergabepositionen bleiben auf dem Gerät und werden nie an unsere Server gesendet.' },
+      ],
+    },
+  ],
+};

@@ -15,10 +15,12 @@ site/
   src/components/         Header / Footer / LangSelect（言語メニュー） / StoreBadges（ストアのバッジ）
                           ScreenGallery（実機スクリーンショットの横並び）
   src/i18n/screens.js     どの言語のスクリーンショットが揃っているか（自動生成・手で書かない）
+  src/i18n/manual/        操作マニュアルの文言（言語ごとに1ファイル）。構造は index.js のコメント参照
   public/screens/<言語>/  スクリーンショット（幅440px・WebP）
   src/pages/
     index.astro           / → ブラウザの言語で振り分け（JS 無しなら英語へ）
     [lang]/index.astro    トップ（機能・使い方・FAQ）
+    [lang]/manual.astro   操作マニュアル（iPhone / Android の違いは項目の印で示す）
     [lang]/support.astro  サポート
     [lang]/privacy.astro  プライバシーポリシー
     sitemap.xml.js        言語 × ページの全URL

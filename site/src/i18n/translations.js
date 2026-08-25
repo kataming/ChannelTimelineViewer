@@ -17,7 +17,7 @@ const en = {
     description:
       'An iOS viewing companion that lists a channel’s uploads oldest-first, tracks how far you have watched, and resumes exactly where you stopped. Playback uses YouTube’s official embedded player.',
   },
-  nav: { features: 'Features', how: 'How it works', pricing: 'Pricing', faq: 'FAQ', support: 'Support', privacy: 'Privacy' },
+  nav: { features: 'Features', how: 'How it works', pricing: 'Pricing', manual: 'Manual', faq: 'FAQ', support: 'Support', privacy: 'Privacy' },
   hero: {
     badge: 'iOS 17+ · 7 languages',
     title: 'The YouTube channel you want to watch, in order.',
@@ -166,7 +166,7 @@ const ja = {
     description:
       'チャンネルの投稿動画を公開日順（古い順）に並べ、どこまで見たかを管理し、止めた秒数から再生を再開する iOS 視聴補助アプリ。再生は YouTube 公式の埋め込みプレイヤーを使用します。',
   },
-  nav: { features: '機能', how: '使い方', pricing: '料金', faq: 'よくある質問', support: 'サポート', privacy: 'プライバシー' },
+  nav: { features: '機能', how: '使い方', pricing: '料金', manual: 'マニュアル', faq: 'よくある質問', support: 'サポート', privacy: 'プライバシー' },
   hero: {
     badge: 'iOS 17+ ・ 7言語対応',
     title: '観たいYouTubeチャンネルを順番に',
@@ -315,7 +315,7 @@ const zh = {
     description:
       '一款 iOS 观看辅助应用：将频道的投稿视频按发布日期（从旧到新）排列，记录你看到哪里，并从上次停止的秒数继续播放。播放使用 YouTube 官方嵌入式播放器。',
   },
-  nav: { features: '功能', how: '使用方法', pricing: '价格', faq: '常见问题', support: '支持', privacy: '隐私' },
+  nav: { features: '功能', how: '使用方法', pricing: '价格', manual: '使用手册', faq: '常见问题', support: '支持', privacy: '隐私' },
   hero: {
     badge: 'iOS 17+ ・ 支持 7 种语言',
     title: '想看的 YouTube 频道，按顺序看完。',
@@ -464,7 +464,7 @@ const es = {
     description:
       'App complementaria para iOS que ordena las subidas de un canal de las más antiguas a las más recientes, registra hasta dónde has visto y reanuda en el segundo exacto. La reproducción usa el reproductor incrustado oficial de YouTube.',
   },
-  nav: { features: 'Funciones', how: 'Cómo funciona', pricing: 'Precio', faq: 'Preguntas', support: 'Soporte', privacy: 'Privacidad' },
+  nav: { features: 'Funciones', how: 'Cómo funciona', pricing: 'Precio', manual: 'Manual', faq: 'Preguntas', support: 'Soporte', privacy: 'Privacidad' },
   hero: {
     badge: 'iOS 17+ · 7 idiomas',
     title: 'El canal de YouTube que quieres ver, en orden.',
@@ -613,7 +613,7 @@ const de = {
     description:
       'iOS-Begleit-App, die die Uploads eines Kanals nach Datum sortiert (älteste zuerst), deinen Fortschritt festhält und sekundengenau fortsetzt. Die Wiedergabe nutzt den offiziellen eingebetteten YouTube-Player.',
   },
-  nav: { features: 'Funktionen', how: 'So funktioniert’s', pricing: 'Preise', faq: 'FAQ', support: 'Support', privacy: 'Datenschutz' },
+  nav: { features: 'Funktionen', how: 'So funktioniert’s', pricing: 'Preise', manual: 'Anleitung', faq: 'FAQ', support: 'Support', privacy: 'Datenschutz' },
   hero: {
     badge: 'iOS 17+ · 7 Sprachen',
     title: 'Der YouTube-Kanal, den du sehen willst – der Reihe nach.',
@@ -762,7 +762,7 @@ const fr = {
     description:
       'App compagnon iOS qui classe les vidéos d’une chaîne de la plus ancienne à la plus récente, suit votre progression et reprend à la seconde près. La lecture utilise le lecteur intégré officiel de YouTube.',
   },
-  nav: { features: 'Fonctions', how: 'Comment ça marche', pricing: 'Tarif', faq: 'FAQ', support: 'Assistance', privacy: 'Confidentialité' },
+  nav: { features: 'Fonctions', how: 'Comment ça marche', pricing: 'Tarif', manual: 'Manuel', faq: 'FAQ', support: 'Assistance', privacy: 'Confidentialité' },
   hero: {
     badge: 'iOS 17+ · 7 langues',
     title: 'La chaîne YouTube que vous voulez voir, dans l’ordre.',
@@ -911,7 +911,7 @@ const ko = {
     description:
       '채널의 업로드 동영상을 게시일순(오래된 순)으로 정리하고, 어디까지 봤는지 관리하며, 멈춘 초부터 이어서 재생하는 iOS 시청 보조 앱. 재생에는 YouTube 공식 임베드 플레이어를 사용합니다.',
   },
-  nav: { features: '기능', how: '사용 방법', pricing: '가격', faq: '자주 묻는 질문', support: '지원', privacy: '개인정보' },
+  nav: { features: '기능', how: '사용 방법', pricing: '가격', manual: '설명서', faq: '자주 묻는 질문', support: '지원', privacy: '개인정보' },
   hero: {
     badge: 'iOS 17+ · 7개 언어',
     title: '보고 싶은 YouTube 채널을 순서대로.',

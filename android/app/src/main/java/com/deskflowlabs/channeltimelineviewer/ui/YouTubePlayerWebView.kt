@@ -1,15 +1,28 @@
 package com.deskflowlabs.channeltimelineviewer.ui
 
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Context
+import android.content.ContextWrapper
+import android.content.pm.ActivityInfo
 import android.net.Uri
+import android.view.View
+import android.view.ViewGroup
 import android.webkit.JavascriptInterface
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.FrameLayout
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import com.deskflowlabs.channeltimelineviewer.BuildConfig
 import com.deskflowlabs.channeltimelineviewer.viewmodel.PlayerCommand
 import com.deskflowlabs.channeltimelineviewer.viewmodel.PlayerOptions
@@ -34,10 +47,17 @@ fun YouTubePlayerWebView(
     onStateChange: (PlayerState) -> Unit,
     onTimeUpdate: (videoId: String, seconds: Double, duration: Double) -> Unit,
     onOptions: (PlayerOptions) -> Unit,
+    onNearEnd: (videoId: String) -> Unit = {},
+    fullscreen: FullscreenState? = null,
     modifier: Modifier = Modifier,
 ) {
     // 直前に読み込んだ動画・処理済みのコマンドを覚えておき、無駄な再読み込みを避ける。
     val state = remember { PlayerViewState() }
+
+    // 画面を離れるときは、全画面のままにしない（システムバーと向きを戻す）。
+    DisposableEffect(fullscreen) {
+        onDispose { fullscreen?.exit() }
+    }
 
     AndroidView(
         modifier = modifier,
@@ -58,9 +78,10 @@ fun YouTubePlayerWebView(
                 webViewClient = WebViewClient()
                 // HTML5 の動画を描画するには WebChromeClient が要る。
                 // 未設定だと「音は出るのに画面が真っ黒」になる（Android の WebView の仕様）。
-                webChromeClient = WebChromeClient()
+                // 公式プレイヤーの全画面ボタンを効かせるには、さらに onShowCustomView が要る。
+                webChromeClient = FullscreenWebChromeClient(context.findActivity(), fullscreen)
                 addJavascriptInterface(
-                    PlayerBridge(onStateChange, onTimeUpdate, onOptions),
+                    PlayerBridge(onStateChange, onTimeUpdate, onOptions, onNearEnd),
                     "ytAndroid",
                 )
                 state.load(this, videoId, startSeconds, autoplayOnLoad)
@@ -142,6 +163,7 @@ private class PlayerBridge(
     private val onStateChange: (PlayerState) -> Unit,
     private val onTimeUpdate: (String, Double, Double) -> Unit,
     private val onOptions: (PlayerOptions) -> Unit,
+    private val onNearEnd: (String) -> Unit,
 ) {
     @JavascriptInterface
     fun postMessage(json: String) {
@@ -155,6 +177,11 @@ private class PlayerBridge(
                 if (id.isNotEmpty()) {
                     onTimeUpdate(id, body.optDouble("t", 0.0), body.optDouble("d", 0.0))
                 }
+            }
+            "nearEnd" -> {
+                // 終了の直前に届く。全画面のまま次の動画へ進むために使う。
+                val id = body.optString("v")
+                if (id.isNotEmpty()) onNearEnd(id)
             }
             "options" -> onOptions(parseOptions(body))
         }
@@ -195,4 +222,114 @@ private class PlayerBridge(
             )
         }
     }
+}
+
+
+/**
+ * 公式プレイヤーの全画面表示を受け止める状態。
+ *
+ * WebView の中の動画を全画面にすると、Android は「この View を画面いっぱいに出してほしい」と
+ * [WebChromeClient.onShowCustomView] で渡してくる。アプリ側で置き場所を用意しないと
+ * 全画面ボタンを押しても何も起きないため、ここで面倒を見る。
+ *
+ * 画面（PlayerScreen）は [isFullscreen] を見て「戻る」の扱いを変え、
+ * 離脱時には [exit] で元に戻す。
+ */
+class FullscreenState {
+    internal var client: FullscreenWebChromeClient? = null
+
+    /** いま全画面か。 */
+    var isFullscreen by mutableStateOf(false)
+        internal set
+
+    /** 全画面なら解除して true。もともと全画面でなければ false。 */
+    fun exit(): Boolean = client?.exitFullscreen() ?: false
+}
+
+@Composable
+fun rememberFullscreenState(): FullscreenState = remember { FullscreenState() }
+
+/**
+ * 全画面の出し入れを行う WebChromeClient。
+ *
+ * - 渡された View を Activity の一番上（android.R.id.content）に重ねる
+ * - システムバーを隠し、横向きに固定する（動画は横長のため）
+ * - 解除時は元の向きとシステムバーに戻す
+ */
+internal class FullscreenWebChromeClient(
+    private val activity: Activity?,
+    private val state: FullscreenState?,
+) : WebChromeClient() {
+
+    private var customView: View? = null
+    private var callback: CustomViewCallback? = null
+    private var originalOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+
+    init {
+        state?.client = this
+    }
+
+    override fun onShowCustomView(view: View, cb: CustomViewCallback) {
+        val activity = activity
+        if (activity == null || customView != null) {
+            // 置き場所が無い／すでに全画面なら、受け取らずに返す（重ねると戻せなくなる）。
+            cb.onCustomViewHidden()
+            return
+        }
+        customView = view
+        callback = cb
+        originalOrientation = activity.requestedOrientation
+
+        val root = activity.findViewById<FrameLayout>(android.R.id.content)
+        root.addView(
+            view,
+            FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT,
+            ),
+        )
+        systemBars(show = false)
+        activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
+        state?.isFullscreen = true
+    }
+
+    override fun onHideCustomView() {
+        exitFullscreen()
+    }
+
+    /** 全画面を解除する。もともと全画面でなければ何もせず false。 */
+    fun exitFullscreen(): Boolean {
+        val view = customView ?: return false
+        val activity = activity ?: return false
+        (activity.findViewById<FrameLayout>(android.R.id.content)).removeView(view)
+        customView = null
+        callback?.onCustomViewHidden()
+        callback = null
+        systemBars(show = true)
+        activity.requestedOrientation = originalOrientation
+        state?.isFullscreen = false
+        return true
+    }
+
+    private fun systemBars(show: Boolean) {
+        val activity = activity ?: return
+        val controller = WindowInsetsControllerCompat(activity.window, activity.window.decorView)
+        if (show) {
+            controller.show(WindowInsetsCompat.Type.systemBars())
+        } else {
+            controller.hide(WindowInsetsCompat.Type.systemBars())
+            controller.systemBarsBehavior =
+                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        }
+    }
+}
+
+/** Compose の Context から Activity を取り出す（見つからなければ null）。 */
+internal fun Context.findActivity(): Activity? {
+    var context = this
+    while (context is ContextWrapper) {
+        if (context is Activity) return context
+        context = context.baseContext
+    }
+    return null
 }

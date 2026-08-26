@@ -11,10 +11,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ChannelTimelineViewer">
 
+        <!-- configChanges: 画面の向きが変わっても Activity を作り直さない。
+             作り直すと WebView が捨てられ、全画面にして横向きにした瞬間に再生が
+             止まってしまう（Compose 側は向きの変化に自分で追随する）。 -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:launchMode="singleTask"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|keyboardHidden|uiMode|density"
             android:theme="@style/Theme.ChannelTimelineViewer">
 
             <intent-filter>

@@ -283,4 +283,112 @@ class PlaybackModeTest {
         assertEquals("1,034", PlayerViewModel.grouped(1034))
         assertEquals("3,500", PlayerViewModel.grouped(3500))
     }
+
+    // MARK: - 終了の直前に次へ進む（全画面を保つため）
+
+    /** 全画面のまま次へ進めるよう、終了する前に切り替えること。 */
+    @Test
+    fun nearEndAdvancesBeforeVideoEnds() {
+        val f = fixture()
+        f.settings.setAutoPlayNext(true)
+
+        f.vm.handleState(PlayerState.Playing)
+        f.vm.handleNearEnd(f.videos[0].id)
+
+        assertEquals(1, f.vm.currentIndex.value)
+        assertTrue(f.watch.isWatched(f.videos[0].id))
+    }
+
+    /** 先回りしたあと、遅れて届いた元の動画の「終了」で1本飛ばさないこと。 */
+    @Test
+    fun lateEndedAfterNearEndDoesNotSkipAnother() {
+        val f = fixture()
+        f.settings.setAutoPlayNext(true)
+
+        f.vm.handleState(PlayerState.Playing)
+        f.vm.handleNearEnd(f.videos[0].id)
+        f.vm.handleState(PlayerState.Ended)
+
+        assertEquals(1, f.vm.currentIndex.value)
+    }
+
+    /** 次に進めないときは先回りしない（最後まで再生させ、終了後に案内を出す）。 */
+    @Test
+    fun nearEndDoesNothingWhenThereIsNoNextVideo() {
+        val f = fixture(count = 2, startIndex = 1)
+        f.settings.setAutoPlayNext(true)
+
+        f.vm.handleState(PlayerState.Playing)
+        f.vm.handleNearEnd(f.videos[1].id)
+
+        assertEquals(1, f.vm.currentIndex.value)
+        assertFalse(f.watch.isWatched(f.videos[1].id))
+        assertFalse(f.vm.showEndedSuggestion.value)
+
+        f.vm.handleState(PlayerState.Ended)
+        assertTrue(f.watch.isWatched(f.videos[1].id))
+    }
+
+    /** 自動再生がオフなら先回りしない。 */
+    @Test
+    fun nearEndDoesNothingWhenAutoPlayIsOff() {
+        val f = fixture()
+        f.settings.setAutoPlayNext(false)
+
+        f.vm.handleState(PlayerState.Playing)
+        f.vm.handleNearEnd(f.videos[0].id)
+
+        assertEquals(0, f.vm.currentIndex.value)
+        assertFalse(f.watch.isWatched(f.videos[0].id))
+    }
+
+    /** 1本リピートも終了の直前に先頭へ戻す。 */
+    @Test
+    fun nearEndReplaysWhenRepeatOne() {
+        val f = fixture()
+        f.settings.setRepeatMode(RepeatMode.One)
+        f.settings.setAutoPlayNext(false)
+
+        f.vm.handleState(PlayerState.Playing)
+        f.vm.handleNearEnd(f.videos[0].id)
+
+        assertEquals(0, f.vm.currentIndex.value)
+        assertTrue(f.vm.command.value is PlayerCommand.Replay)
+    }
+
+    /** いま見ている動画以外の通知は無視する。 */
+    @Test
+    fun nearEndIgnoresOtherVideo() {
+        val f = fixture()
+        f.settings.setAutoPlayNext(true)
+
+        f.vm.handleState(PlayerState.Playing)
+        f.vm.handleNearEnd(f.videos[3].id)
+
+        assertEquals(0, f.vm.currentIndex.value)
+    }
+
+    /** 再生が始まっていない動画の通知は無視する。 */
+    @Test
+    fun nearEndIgnoredBeforePlaybackStarts() {
+        val f = fixture()
+        f.settings.setAutoPlayNext(true)
+
+        f.vm.handleNearEnd(f.videos[0].id)
+
+        assertEquals(0, f.vm.currentIndex.value)
+    }
+
+    /** 先回りでもスキップ指定は効くこと。 */
+    @Test
+    fun nearEndRespectsSkip() {
+        val f = fixture(count = 4)
+        f.settings.setAutoPlayNext(true)
+        f.skip.markSkipped(f.videos[1].id)
+
+        f.vm.handleState(PlayerState.Playing)
+        f.vm.handleNearEnd(f.videos[0].id)
+
+        assertEquals(2, f.vm.currentIndex.value)
+    }
 }

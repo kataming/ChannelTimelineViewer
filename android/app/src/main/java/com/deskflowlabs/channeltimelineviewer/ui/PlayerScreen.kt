@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -107,6 +108,11 @@ fun PlayerScreen(
 
     val video = viewModel.currentVideo
     var menuOpen by remember { mutableStateOf(false) }
+
+    // 公式プレイヤーの全画面表示。全画面のあいだは「戻る」で全画面だけを閉じる
+    // （画面ごと戻ってしまうと、拡大していたつもりが再生も終わってしまうため）。
+    val fullscreen = rememberFullscreenState()
+    BackHandler(enabled = fullscreen.isFullscreen) { fullscreen.exit() }
 
     // 再生中だけ画面を消さない（置いたまま見ていて消えるのを防ぐ）。
     // バックグラウンド再生ではないので、画面を離れれば再生も止まる。
@@ -211,6 +217,8 @@ fun PlayerScreen(
                 onStateChange = viewModel::handleState,
                 onTimeUpdate = viewModel::handleTimeUpdate,
                 onOptions = viewModel::handleOptions,
+                onNearEnd = viewModel::handleNearEnd,
+                fullscreen = fullscreen,
                 modifier = Modifier
                     .fillMaxWidth()
                     .aspectRatio(16f / 9f)

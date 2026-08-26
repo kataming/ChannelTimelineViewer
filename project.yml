@@ -12,8 +12,10 @@ options:
 settings:
   base:
     SWIFT_VERSION: "5.0"
-    MARKETING_VERSION: "1.1"
-    CURRENT_PROJECT_VERSION: "1"
+    MARKETING_VERSION: "1.1.1"
+    # 公開済みは 1.1(29)。同じ番号は再アップロードできないので 30 から。
+    # CI（ios-release.yml）は build_number 入力で上書きするため、そちらでも同じ値を渡す。
+    CURRENT_PROJECT_VERSION: "30"
     # === 提出準備中 ===
     # Bundle ID は App Store Connect 登録済みの値に設定済み(下のターゲット設定)。
     # DEVELOPMENT_TEAM は Team ID(10桁) を入れると署名が有効になる。空のままなら従来どおり

@@ -50,7 +50,8 @@ fun uploadKeystorePassword(): String? {
 
 android {
     namespace = "com.deskflowlabs.channeltimelineviewer"
-    compileSdk = 35
+    // Google Play の対象APIレベル要件（2026-08-31 期限）に合わせて 36（Android 16）。
+    compileSdk = 36
 
     signingConfigs {
         // デバッグ用の署名鍵をリポジトリに固定で置く（秘密情報ではない）。
@@ -80,7 +81,7 @@ android {
     defaultConfig {
         applicationId = "com.deskflowlabs.channeltimelineviewer"
         minSdk = 26
-        targetSdk = 35
+        targetSdk = 36
         // Play は versionCode の重複を拒否するので、CI からは実行番号を渡す。
         versionCode = (System.getenv("ANDROID_VERSION_CODE") ?: "1").toInt()
         versionName = System.getenv("ANDROID_VERSION_NAME") ?: "1.0"

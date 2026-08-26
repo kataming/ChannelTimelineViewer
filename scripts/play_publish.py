@@ -272,26 +272,26 @@ def upsert_product(api, dry_run: bool) -> int:
 
 # 初回リリースの説明（Play のロケール名で持つ。500字まで）。
 RELEASE_NOTES = {
-    "ja-JP": "初回リリースです。チャンネルの投稿動画を公開日順（古い順）に並べ、"
-             "続きから再生・視聴済み管理・メモ・進捗表示で順番に見ていけます。"
-             "無料で1チャンネル、Pro（買い切り）で複数チャンネルを保存できます。",
-    "en-US": "First release. Line up a channel's uploads oldest first and work through them with "
-             "resume, watched tracking, notes, and progress. Save one channel for free, or "
-             "several with Pro (a one-time purchase).",
-    "zh-CN": "首个版本。将频道的投稿视频按发布日期从旧到新排列，可继续播放、管理已观看、"
-             "记录备注并查看进度。免费可保存 1 个频道，购买 Pro（一次性买断）可保存多个频道。",
-    "es-ES": "Primera versión. Ordena las subidas de un canal de la más antigua a la más reciente y "
-             "avanza con reanudación, control de vistos, notas y progreso. Guarda un canal gratis o "
-             "varios con Pro (compra única).",
-    "de-DE": "Erste Version. Sortiere die Uploads eines Kanals von den ältesten zu den neuesten und "
-             "arbeite dich mit Fortsetzen, Gesehen-Status, Notizen und Fortschritt durch. Ein Kanal "
-             "kostenlos, mehrere mit Pro (einmaliger Kauf).",
-    "fr-FR": "Première version. Classez les vidéos d'une chaîne de la plus ancienne à la plus récente "
-             "et avancez avec la reprise, le suivi des vidéos vues, les notes et la progression. "
-             "Une chaîne gratuitement, plusieurs avec Pro (achat unique).",
-    "ko-KR": "첫 번째 릴리스입니다. 채널의 업로드 영상을 오래된 순으로 정렬해 이어 보기, 시청 완료 관리, "
-             "메모, 진행률 표시와 함께 차례대로 볼 수 있습니다. 무료로 채널 1개, "
-             "Pro(1회 구매)로 여러 채널을 저장할 수 있습니다.",
+    "ja-JP": "全画面表示に対応しました。プレイヤー右下の全画面ボタンで拡大でき、"
+             "自動再生がオンなら拡大したまま次の動画へ進みます。"
+             "全画面のあいだの「戻る」は全画面だけを閉じます。",
+    "en-US": "Full screen is now supported. Tap the full-screen button at the bottom right of the "
+             "player to expand, and with autoplay on the next video continues in full screen. "
+             "While full screen, Back closes only the full-screen view.",
+    "zh-CN": "新增全屏支持。点按播放器右下角的全屏按钮即可放大；开启自动播放后，"
+             "下一个视频会保持全屏继续播放。全屏时按返回键只会关闭全屏。",
+    "es-ES": "Ahora es compatible con la pantalla completa. Toca el botón de pantalla completa abajo "
+             "a la derecha del reproductor y, con la reproducción automática activada, el siguiente "
+             "vídeo continúa a pantalla completa. En pantalla completa, Atrás solo la cierra.",
+    "de-DE": "Vollbild wird jetzt unterstützt. Tippe unten rechts im Player auf die "
+             "Vollbild-Schaltfläche; bei eingeschaltetem Autoplay läuft das nächste Video im "
+             "Vollbild weiter. Im Vollbild schließt „Zurück“ nur das Vollbild.",
+    "fr-FR": "Le plein écran est désormais pris en charge. Touchez le bouton plein écran en bas à "
+             "droite du lecteur ; avec la lecture automatique activée, la vidéo suivante continue "
+             "en plein écran. En plein écran, Retour ferme seulement le plein écran.",
+    "ko-KR": "전체 화면을 지원합니다. 플레이어 오른쪽 아래의 전체 화면 버튼으로 확대할 수 있고, "
+             "자동 재생이 켜져 있으면 전체 화면 그대로 다음 동영상으로 이어집니다. "
+             "전체 화면에서 ‘뒤로’는 전체 화면만 닫습니다.",
 }
 
 

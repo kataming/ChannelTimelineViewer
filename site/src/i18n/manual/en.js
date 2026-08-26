@@ -75,7 +75,9 @@ export default {
       steps: [
         { title: 'Going full screen', body: 'Tap the full-screen button at the bottom right of the player. Turn the phone sideways to fill the screen.', only: 'ios' },
         { title: 'Staying full screen between videos', body: 'From version 1.1, with autoplay on, the next video continues in full screen. To keep it that way the app switches about 0.5 seconds before the current video ends.', only: 'ios' },
-        { title: 'Not supported yet', body: 'The Android version does not support full screen yet. It is planned for a future update.', only: 'android' },
+        { title: 'Going full screen', body: 'Tap the full-screen button at the bottom right of the player. The screen turns sideways automatically and fills the display.', only: 'android' },
+        { title: 'Staying full screen between videos', body: 'With autoplay on, the next video continues in full screen. To keep it that way the app switches about 0.5 seconds before the current video ends.', only: 'android' },
+        { title: 'Leaving full screen', body: 'Press Back to close full screen only — the player screen stays open.', only: 'android' },
       ],
     },
     {

@@ -74,7 +74,9 @@ export default {
       steps: [
         { title: 'Ins Vollbild wechseln', body: 'Tippe auf die Vollbild-Schaltfläche unten rechts im Player. Drehe das Telefon quer, um den Bildschirm ganz auszufüllen.', only: 'ios' },
         { title: 'Im Vollbild zum nächsten Video', body: 'Ab Version 1.1 läuft bei eingeschaltetem Autoplay das nächste Video im Vollbild weiter. Damit das klappt, wechselt die App etwa 0,5 Sekunden vor dem Ende des Videos.', only: 'ios' },
-        { title: 'Noch nicht möglich', body: 'Die Android-Version unterstützt Vollbild noch nicht. Das ist für ein späteres Update geplant.', only: 'android' },
+        { title: 'Ins Vollbild wechseln', body: 'Tippe auf die Vollbild-Schaltfläche unten rechts im Player. Der Bildschirm dreht sich automatisch quer und wird ganz ausgefüllt.', only: 'android' },
+        { title: 'Im Vollbild zum nächsten Video', body: 'Bei eingeschaltetem Autoplay läuft das nächste Video im Vollbild weiter. Damit das klappt, wechselt die App etwa 0,5 Sekunden vor dem Ende des Videos.', only: 'android' },
+        { title: 'Vollbild verlassen', body: 'Mit „Zurück“ schließt du nur das Vollbild – der Player-Bildschirm bleibt offen.', only: 'android' },
       ],
     },
     {

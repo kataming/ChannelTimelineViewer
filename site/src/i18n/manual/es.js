@@ -74,7 +74,9 @@ export default {
       steps: [
         { title: 'Pasar a pantalla completa', body: 'Toca el botón de pantalla completa abajo a la derecha del reproductor. Gira el teléfono para ocupar toda la pantalla.', only: 'ios' },
         { title: 'Seguir a pantalla completa entre vídeos', body: 'Desde la versión 1.1, con la reproducción automática activada, el siguiente vídeo continúa a pantalla completa. Para conseguirlo, la app cambia unos 0,5 segundos antes de que termine el vídeo.', only: 'ios' },
-        { title: 'Todavía no disponible', body: 'La versión para Android aún no admite la pantalla completa. Está previsto para una actualización futura.', only: 'android' },
+        { title: 'Pasar a pantalla completa', body: 'Toca el botón de pantalla completa abajo a la derecha del reproductor. La pantalla gira sola y ocupa todo el espacio.', only: 'android' },
+        { title: 'Seguir a pantalla completa entre vídeos', body: 'Con la reproducción automática activada, el siguiente vídeo continúa a pantalla completa. Para conseguirlo, la app cambia unos 0,5 segundos antes de que termine el vídeo.', only: 'android' },
+        { title: 'Salir de la pantalla completa', body: 'Pulsa Atrás para cerrar solo la pantalla completa: la pantalla del reproductor sigue abierta.', only: 'android' },
       ],
     },
     {

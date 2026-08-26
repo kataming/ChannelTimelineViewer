@@ -74,7 +74,9 @@ export default {
       steps: [
         { title: 'Passer en plein écran', body: 'Touchez le bouton plein écran en bas à droite du lecteur. Tournez le téléphone pour occuper tout l’écran.', only: 'ios' },
         { title: 'Rester en plein écran d’une vidéo à l’autre', body: 'Depuis la version 1.1, avec la lecture automatique activée, la vidéo suivante continue en plein écran. Pour cela, l’app change de vidéo environ 0,5 seconde avant la fin.', only: 'ios' },
-        { title: 'Pas encore disponible', body: 'La version Android ne gère pas encore le plein écran. C’est prévu pour une mise à jour future.', only: 'android' },
+        { title: 'Passer en plein écran', body: 'Touchez le bouton plein écran en bas à droite du lecteur. L’écran bascule tout seul en paysage et occupe tout l’espace.', only: 'android' },
+        { title: 'Rester en plein écran d’une vidéo à l’autre', body: 'Avec la lecture automatique activée, la vidéo suivante continue en plein écran. Pour cela, l’app change de vidéo environ 0,5 seconde avant la fin.', only: 'android' },
+        { title: 'Quitter le plein écran', body: 'Appuyez sur Retour pour fermer seulement le plein écran : l’écran de lecture reste ouvert.', only: 'android' },
       ],
     },
     {

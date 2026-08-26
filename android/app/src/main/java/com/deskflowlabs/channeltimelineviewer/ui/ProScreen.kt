@@ -187,8 +187,11 @@ private fun SectionCard(header: String, body: String, extra: String? = null) {
     }
 }
 
-/** 購入フローを開くには Activity が要る。Compose の Context から辿る。 */
-private fun Context.findActivity(): Activity? {
+/**
+ * Compose の Context から Activity を辿る。
+ * 購入フロー（Activity が要る）と、プレイヤーの全画面表示（重ねる先が要る）で使う。
+ */
+internal fun Context.findActivity(): Activity? {
     var context: Context? = this
     while (context is ContextWrapper) {
         if (context is Activity) return context

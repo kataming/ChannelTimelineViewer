@@ -2,8 +2,6 @@ package com.deskflowlabs.channeltimelineviewer.ui
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Context
-import android.content.ContextWrapper
 import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.view.View
@@ -322,14 +320,4 @@ internal class FullscreenWebChromeClient(
                 WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         }
     }
-}
-
-/** Compose の Context から Activity を取り出す（見つからなければ null）。 */
-internal fun Context.findActivity(): Activity? {
-    var context = this
-    while (context is ContextWrapper) {
-        if (context is Activity) return context
-        context = context.baseContext
-    }
-    return null
 }

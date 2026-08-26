@@ -19,7 +19,7 @@ Channel Timeline Viewer
 <!-- 27 / 30 文字 -->
 
 ```
-Ver canales del más antiguo
+En orden, retoma donde ibas
 ```
 
 ## プロモーション用テキスト（Promotional Text）
@@ -37,7 +37,7 @@ cronologico,canal,progreso,serie,curso,estudio,archivo,antiguo,seguimiento,linea
 ```
 
 ## 説明（Description）
-<!-- 1941 / 4000 文字 -->
+<!-- 2342 / 4000 文字 -->
 
 ```
 Channel Timeline Viewer ordena las subidas de un canal por fecha de publicación —de las más antiguas a las más recientes— para que recorras un archivo, un curso o una serie larga desde el principio sin perder el hilo.
@@ -66,19 +66,24 @@ FUNCIONES PRINCIPALES
 REPRODUCCIÓN
 Los vídeos se reproducen en el reproductor incrustado oficial de YouTube (IFrame Player).
 
+GRATIS Y PRO
+Puedes guardar un canal gratis. Dentro de ese canal todo funciona sin límites: ordenación, control de vistos, reanudar, botones de salto, notas, progreso y reproducción en el reproductor oficial.
+Puedes cambiar de canal gratis, pero al hacerlo se eliminan el historial de vistos, el progreso y las notas del anterior.
+Para seguir varios canales a la vez y conservar todos los registros, compra Pro. Es una compra única, no una suscripción.
+
 AVISOS
 • Esta app no es la app oficial de YouTube.
 • No descarga vídeos, no bloquea anuncios y no reproduce en segundo plano.
 • Las listas de vídeos se obtienen con la API de datos de YouTube v3.
 • La reproducción automática está desactivada por defecto y solo avanza al siguiente vídeo de la lista abierta.
-• Sin compras dentro de la app, sin suscripciones y sin anuncios. Todo el mundo recibe la misma versión completa.
+• Sin anuncios y sin suscripciones: Pro es una compra única.
 
 YouTube es una marca comercial de Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 126 / 4000 文字 -->
+<!-- 79 / 4000 文字 -->
 
 ```
-Primera versión. Mira las subidas de un canal en orden, de las más antiguas a las más recientes, con seguimiento del progreso.
+Hemos revisado cómo se describe la app en el App Store. La app en sí no cambia.
 ```

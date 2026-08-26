@@ -16,10 +16,10 @@ Channel Timeline Viewer
 ```
 
 ## サブタイトル（Subtitle）
-<!-- 24 / 30 文字 -->
+<!-- 27 / 30 文字 -->
 
 ```
-Vos chaînes dans l’ordre
+Dans l’ordre, où vous étiez
 ```
 
 ## プロモーション用テキスト（Promotional Text）
@@ -37,7 +37,7 @@ chronologique,chaine,progression,serie,cours,etude,archive,ancien,suivi,chronolo
 ```
 
 ## 説明（Description）
-<!-- 1994 / 4000 文字 -->
+<!-- 2418 / 4000 文字 -->
 
 ```
 Channel Timeline Viewer classe les vidéos d'une chaîne par date de publication — de la plus ancienne à la plus récente — pour parcourir des archives, un cours ou une longue série depuis le tout début sans perdre le fil.
@@ -66,19 +66,24 @@ FONCTIONS PRINCIPALES
 LECTURE
 Les vidéos sont lues dans le lecteur intégré officiel de YouTube (IFrame Player).
 
+GRATUIT ET PRO
+Vous pouvez enregistrer une chaîne gratuitement. Dans cette chaîne, tout fonctionne sans limite : tri, suivi des vidéos vues, reprise, boutons de saut, notes, progression et lecture dans le lecteur officiel.
+Vous pouvez changer de chaîne gratuitement, mais l’historique, la progression et les notes de la précédente sont alors supprimés.
+Pour suivre plusieurs chaînes en parallèle et tout conserver, achetez Pro : un achat unique, pas un abonnement.
+
 À NOTER
 • Cette app n'est pas l'app officielle YouTube.
 • Elle ne télécharge pas les vidéos, ne bloque pas la publicité et ne lit pas en arrière-plan.
 • Les listes de vidéos proviennent de l'API YouTube Data v3.
 • La lecture automatique est désactivée par défaut et ne passe qu'à la vidéo suivante de la liste ouverte.
-• Aucun achat intégré, aucun abonnement, aucune publicité. Tout le monde dispose des mêmes fonctionnalités.
+• Aucune publicité et aucun abonnement : Pro est un achat unique.
 
 YouTube est une marque de Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 133 / 4000 文字 -->
+<!-- 84 / 4000 文字 -->
 
 ```
-Première version. Regardez les vidéos d'une chaîne dans l'ordre, de la plus ancienne à la plus récente, en suivant votre progression.
+La présentation de l’app sur l’App Store a été revue. L’app elle-même ne change pas.
 ```

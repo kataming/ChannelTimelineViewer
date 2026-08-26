@@ -16,10 +16,10 @@ Channel Timeline Viewer
 ```
 
 ## サブタイトル（Subtitle）
-<!-- 28 / 30 文字 -->
+<!-- 30 / 30 文字 -->
 
 ```
-Watch a channel oldest-first
+Watch in order, resume anytime
 ```
 
 ## プロモーション用テキスト（Promotional Text）
@@ -37,7 +37,7 @@ chronological,oldest,channel,progress,series,course,study,archive,tracker,binge,
 ```
 
 ## 説明（Description）
-<!-- 1725 / 4000 文字 -->
+<!-- 2152 / 4000 文字 -->
 
 ```
 Channel Timeline Viewer lists a channel's uploads by publication date — oldest first — so you can work through an archive, a course, or a long-running series from the very beginning without losing your place.
@@ -66,19 +66,24 @@ MAIN FEATURES
 PLAYBACK
 Videos play in YouTube's official embedded player (IFrame Player).
 
+FREE AND PRO
+You can save one channel for free. Inside that channel everything works without limits: sorting, watched tracking, resume, jump buttons, notes, progress, and playback in the official player.
+You can swap in a different channel for free, but doing so deletes the watched history, progress, and notes of the previous one.
+To follow several channels side by side and keep every record, buy Pro. It is a one-time purchase, not a subscription.
+
 PLEASE NOTE
 • This app is not the official YouTube app.
 • It does not download videos, block ads, or play in the background.
 • Video lists are retrieved via the YouTube Data API v3.
 • Autoplay is off by default and only moves to the next video in the list you opened.
-• No in-app purchases, no subscriptions, no ads. Everyone gets the same full feature set.
+• No ads. No subscriptions either — Pro is a one-time purchase.
 
 YouTube is a trademark of Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 94 / 4000 文字 -->
+<!-- 89 / 4000 文字 -->
 
 ```
-First release. Watch a channel's uploads in order, oldest first, while tracking your progress.
+Updated how the app is described on the App Store. Nothing in the app itself has changed.
 ```

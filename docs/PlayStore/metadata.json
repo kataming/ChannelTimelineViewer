@@ -33,13 +33,13 @@
     "ko-KR": "Channel Timeline Viewer"
   },
   "shortDescription": {
-    "ja-JP": "チャンネルの動画を公開日順（古い順）に並べ、進捗を管理しながら順番に視聴",
-    "en-US": "Watch a channel's uploads oldest-first and track how far you have watched.",
-    "zh-CN": "将频道视频按发布顺序（从旧到新）排列，边记录进度边依次观看。",
-    "es-ES": "Mira las subidas de un canal de las más antiguas a las nuevas, con progreso.",
-    "de-DE": "Kanal-Uploads chronologisch ansehen – mit Fortschritt und Fortsetzen.",
-    "fr-FR": "Regardez les vidéos d'une chaîne dans l'ordre, avec suivi de progression.",
-    "ko-KR": "채널 동영상을 오래된 순으로 정렬해 진행률을 관리하며 순서대로 시청하세요."
+    "ja-JP": "観たいチャンネルを順番に、続きから。公開日順に並べて、どこまで見たかを管理できます。",
+    "en-US": "Watch the channels you want in order, and resume right where you left off.",
+    "zh-CN": "想看的频道按顺序看，并从上次停下的位置继续。按发布顺序排列，进度一目了然。",
+    "es-ES": "Mira tus canales en orden y retoma justo donde lo dejaste, con tu progreso.",
+    "de-DE": "Kanäle der Reihe nach ansehen und genau dort weitermachen, wo du warst.",
+    "fr-FR": "Regardez vos chaînes dans l’ordre et reprenez là où vous vous étiez arrêté.",
+    "ko-KR": "보고 싶은 채널을 순서대로, 멈춘 곳부터 이어서. 진행률도 함께 관리합니다."
   },
   "fullDescription": {
     "ja-JP": "Channel Timeline Viewer は、チャンネルの投稿動画を「公開日順（古い順）」に並べ、最初の動画から順番に視聴・学習できるようにする視聴補助アプリです。解説シリーズ・講座・連載のように「最初から順に追いたい」動画に向いています。\n\n■ こんな方に\n・チャンネルの過去動画を最初から順番に見たい\n・講座や講義を、教材のように進捗管理しながら見たい\n・シリーズものを抜け漏れなく視聴したい\n\n■ 主な機能\n・チャンネルURLを入力、または YouTube アプリ／ブラウザの共有から開く\n・投稿動画を公開日順（古い順／新しい順）に一覧表示\n・チャンネルごとの進捗（視聴済み数／総数・進捗率・進捗バー）\n・「次に見る／続きから」で、止めたところにすぐ戻れる\n・前回停止した秒数からの続き再生\n・終了後に一覧の次の動画へ進む自動再生（初期状態はオフ）\n・リピート（1本／全体）\n・視聴済み・スキップの管理、未視聴のみ再生\n・フィルター（すべて／未視聴のみ／視聴済みのみ）\n・動画ごとのメモ（学習・シリーズ視聴用）\n・再生速度と字幕をプレイヤー外から操作\n・「2026年2月27日（1,034 / 3,500）」のように一覧内の位置を表示\n・移動ボタン5つ（最初へ／前へ／戻す／次へ／最後へ）。「戻す」は直前の動画と再生位置に復帰\n・一度開いたチャンネルは保存した一覧からすぐ表示\n・日本語・英語・中国語（簡体）・スペイン語・ドイツ語・フランス語・韓国語に対応\n\n■ 再生について\n動画の再生には YouTube 公式の埋め込みプレイヤー（IFrame Player）を使用します。\n\n■ 無料でできること / Pro\n無料で1つのチャンネルを保存できます。保存したチャンネルの中では、並べ替え・視聴済み管理・続きから再生・移動ボタン・メモ・進捗表示・公式プレイヤーでの再生を制限なく使えます。\n無料のまま別のチャンネルに入れ替えることもできますが、そのときは前のチャンネルの視聴済み・進捗・メモが消えます。\n複数のチャンネルを、記録を残したまま並行して見たいときは Pro をご購入ください。買い切りで、サブスクリプションではありません。\n\n■ ご注意\n・本アプリは YouTube 公式アプリではありません。\n・動画のダウンロード、広告回避、バックグラウンド再生は行いません。\n・動画一覧の取得には YouTube Data API v3 を使用します。\n・自動再生は初期状態でオフで、進むのは開いている一覧の次の動画だけです。\n・アプリ内に広告はありません。サブスクリプションもありません（Pro は買い切りです）。\n・視聴履歴・進捗・メモ・再生位置は端末内にのみ保存され、外部へ送信されません。\n\n※ YouTube は Google LLC の商標です。",

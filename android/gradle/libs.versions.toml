@@ -16,7 +16,7 @@ junit = "4.13.2"
 androidxJunit = "1.2.1"
 androidxTestCore = "1.6.1"
 espresso = "3.6.1"
-robolectric = "4.14.1"
+robolectric = "4.16.1"
 coroutinesTest = "1.9.0"
 
 [libraries]

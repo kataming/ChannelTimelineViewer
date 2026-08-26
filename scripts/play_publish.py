@@ -272,26 +272,18 @@ def upsert_product(api, dry_run: bool) -> int:
 
 # 初回リリースの説明（Play のロケール名で持つ。500字まで）。
 RELEASE_NOTES = {
-    "ja-JP": "全画面表示に対応しました。プレイヤー右下の全画面ボタンで拡大でき、"
-             "自動再生がオンなら拡大したまま次の動画へ進みます。"
-             "全画面のあいだの「戻る」は全画面だけを閉じます。",
-    "en-US": "Full screen is now supported. Tap the full-screen button at the bottom right of the "
-             "player to expand, and with autoplay on the next video continues in full screen. "
-             "While full screen, Back closes only the full-screen view.",
-    "zh-CN": "新增全屏支持。点按播放器右下角的全屏按钮即可放大；开启自动播放后，"
-             "下一个视频会保持全屏继续播放。全屏时按返回键只会关闭全屏。",
-    "es-ES": "Ahora es compatible con la pantalla completa. Toca el botón de pantalla completa abajo "
-             "a la derecha del reproductor y, con la reproducción automática activada, el siguiente "
-             "vídeo continúa a pantalla completa. En pantalla completa, Atrás solo la cierra.",
-    "de-DE": "Vollbild wird jetzt unterstützt. Tippe unten rechts im Player auf die "
-             "Vollbild-Schaltfläche; bei eingeschaltetem Autoplay läuft das nächste Video im "
-             "Vollbild weiter. Im Vollbild schließt „Zurück“ nur das Vollbild.",
-    "fr-FR": "Le plein écran est désormais pris en charge. Touchez le bouton plein écran en bas à "
-             "droite du lecteur ; avec la lecture automatique activée, la vidéo suivante continue "
-             "en plein écran. En plein écran, Retour ferme seulement le plein écran.",
-    "ko-KR": "전체 화면을 지원합니다. 플레이어 오른쪽 아래의 전체 화면 버튼으로 확대할 수 있고, "
-             "자동 재생이 켜져 있으면 전체 화면 그대로 다음 동영상으로 이어집니다. "
-             "전체 화면에서 ‘뒤로’는 전체 화면만 닫습니다.",
+    "ja-JP": "最新の Android（Android 16）に対応しました。"
+             "アプリの機能や画面に変更はありません。",
+    "en-US": "Updated for the latest Android (Android 16). "
+             "Nothing about how the app works has changed.",
+    "zh-CN": "已适配最新的 Android（Android 16）。应用的功能与界面没有变化。",
+    "es-ES": "Compatibilidad actualizada con la última versión de Android (Android 16). "
+             "El funcionamiento de la app no cambia.",
+    "de-DE": "Für das neueste Android (Android 16) aktualisiert. "
+             "An der Funktionsweise der App ändert sich nichts.",
+    "fr-FR": "Mise à jour pour la dernière version d'Android (Android 16). "
+             "Le fonctionnement de l'app ne change pas.",
+    "ko-KR": "최신 Android(Android 16)에 대응했습니다. 앱의 기능과 화면에는 변경이 없습니다.",
 }
 
 

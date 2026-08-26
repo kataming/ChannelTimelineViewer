@@ -13,14 +13,27 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: '動作（status=確認のみ / listing=掲載情報と画像を反映）'
+        description: '動作（status=確認のみ / listing=掲載情報と画像を反映 / promote=既存ビルドを別トラックへ下書きで載せる）'
         type: choice
-        options: [status, listing]
+        options: [status, listing, promote]
         default: status
       dry_run:
         description: '送信せず、何をするかだけ表示する'
         type: boolean
         default: true
+      track:
+        description: 'promote の送り先トラック'
+        type: choice
+        options: [production, beta, alpha, internal]
+        default: production
+      version_code:
+        description: 'promote するビルド番号（空なら最新）'
+        required: false
+        default: ''
+      release_name:
+        description: 'promote するリリースの表示名（例 1.6）'
+        required: false
+        default: ''
 
 jobs:
   metadata:
@@ -43,10 +56,18 @@ jobs:
           GOOGLE_PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
           MODE: ${{ inputs.mode }}
           DRY_RUN: ${{ inputs.dry_run }}
+          TRACK: ${{ inputs.track }}
+          VERSION_CODE: ${{ inputs.version_code }}
+          RELEASE_NAME: ${{ inputs.release_name }}
         run: |
           set -euo pipefail
           ARGS="--mode $MODE"
           if [ "$MODE" != "status" ] && [ "$DRY_RUN" = "true" ]; then
             ARGS="$ARGS --dry-run"
+          fi
+          if [ "$MODE" = "promote" ]; then
+            ARGS="$ARGS --track ${TRACK:-production}"
+            [ -n "${VERSION_CODE:-}" ] && ARGS="$ARGS --version-code $VERSION_CODE"
+            [ -n "${RELEASE_NAME:-}" ] && ARGS="$ARGS --release-name $RELEASE_NAME"
           fi
           python scripts/play_publish.py $ARGS

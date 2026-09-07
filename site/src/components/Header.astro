@@ -12,6 +12,7 @@ const home = path(lang);
   <div class="wrap bar">
     <a class="brand" href={home}>{APP_NAME}</a>
     <nav>
+      <a class="try" href={path(lang, 'try')}>{copy.nav.try}</a>
       <a href={`${home}#features`}>{copy.nav.features}</a>
       <a href={`${home}#how`}>{copy.nav.how}</a>
       <a href={`${home}#pricing`}>{copy.nav.pricing}</a>
@@ -49,6 +50,15 @@ const home = path(lang);
     font-size: 0.92rem;
   }
   nav a { color: var(--muted); text-decoration: none; }
+  /* 体験版は入口なので、ほかのリンクより目立たせる。 */
+  nav a.try {
+    color: var(--accent);
+    font-weight: 700;
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    padding: 3px 12px;
+  }
+  nav a.try:hover { background: var(--accent); color: var(--accent-ink); }
   nav a:hover { color: var(--text); }
   /* 画面が狭いときはリンクを隠さず、詰めて2段に折り返す（言語切替は常に押せる）。 */
   @media (max-width: 700px) {

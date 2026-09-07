@@ -17,7 +17,7 @@ const en = {
     description:
       'An iOS viewing companion that lists a channel’s uploads oldest-first, tracks how far you have watched, and resumes exactly where you stopped. Playback uses YouTube’s official embedded player.',
   },
-  nav: { features: 'Features', how: 'How it works', pricing: 'Pricing', manual: 'Manual', faq: 'FAQ', support: 'Support', privacy: 'Privacy' },
+  nav: { try: 'Try in browser', features: 'Features', how: 'How it works', pricing: 'Pricing', manual: 'Manual', faq: 'FAQ', support: 'Support', privacy: 'Privacy' },
   hero: {
     badge: 'iOS 17+ · 7 languages',
     title: 'The YouTube channel you want to watch, in order.',
@@ -151,7 +151,13 @@ const en = {
         'Channel Timeline Viewer is free and offers a single optional one-time in-app purchase called “Pro”. Purchases are handled entirely by Apple through the App Store; we never see or receive your payment details. The app only asks the operating system whether that purchase belongs to your account and stores the answer on the device so it also works offline. There is no subscription and no recurring charge.'] },
       { title: '8. Tracking', body: ['The app does not use the advertising identifier (IDFA) and does not use App Tracking Transparency, because it does not track you.'] },
       { title: '9. Children', body: ['The app does not knowingly collect personal information from children.'] },
-      { title: '10. This website', body: ['This site is a set of static pages. It sets no cookies and runs no analytics.'] },
+      { title: '10. This website', body: [
+        'This site is a set of static pages. It sets no cookies and runs no analytics.',
+        'The web trial page (/try/) is interactive, and this is what it does:',
+        '• The channel you enter, the videos you mark as watched or skipped, your progress, your notes, and playback positions are stored in your browser (localStorage) on the device you are using. They are never sent to us, are not shared with the app on your phone, and are deleted when you clear the site data for this site.',
+        '• To build the video list, the page asks a small relay on this site, which calls the YouTube Data API v3 with our key. Only the channel or playlist identifier is passed on; nothing about you is sent.',
+        '• Playback uses YouTube’s official embedded player, and video thumbnails are loaded from YouTube’s servers. While you use the player, YouTube and Google may collect and process information under their own policies.',
+        '• There is no account, no sign-in, and no payment on this website.'] },
       { title: '11. Changes', body: ['This policy may be updated. Significant changes will be announced with an app update.'] },
       { title: '12. Contact', body: ['Email:'] },
     ],
@@ -166,7 +172,7 @@ const ja = {
     description:
       'チャンネルの投稿動画を公開日順（古い順）に並べ、どこまで見たかを管理し、止めた秒数から再生を再開する iOS 視聴補助アプリ。再生は YouTube 公式の埋め込みプレイヤーを使用します。',
   },
-  nav: { features: '機能', how: '使い方', pricing: '料金', manual: 'マニュアル', faq: 'よくある質問', support: 'サポート', privacy: 'プライバシー' },
+  nav: { try: 'Web体験版', features: '機能', how: '使い方', pricing: '料金', manual: 'マニュアル', faq: 'よくある質問', support: 'サポート', privacy: 'プライバシー' },
   hero: {
     badge: 'iOS 17+ ・ 7言語対応',
     title: '観たいYouTubeチャンネルを順番に',
@@ -302,7 +308,13 @@ const ja = {
         'Channel Timeline Viewer は無料で、任意の買い切りアプリ内課金「Pro」を1つだけ用意しています。購入手続きはすべて Apple（App Store）が行い、当方が支払い情報を受け取ることはありません。アプリは「その購入がお客様のアカウントのものか」を OS に問い合わせ、その結果だけを端末内に保存します（オフラインでも動くようにするためです）。サブスクリプションや継続課金はありません。'] },
       { title: '8. トラッキング', body: ['広告識別子（IDFA）は使用せず、App Tracking Transparency も使用しません（トラッキングを行わないため）。'] },
       { title: '9. 子どものプライバシー', body: ['本アプリは、子どもから個人情報を意図的に収集することはありません。'] },
-      { title: '10. このウェブサイトについて', body: ['本サイトは静的ページのみで構成されており、Cookie の設定やアクセス解析は行っていません。'] },
+      { title: '10. このウェブサイトについて', body: [
+        '本サイトは静的ページで構成されており、Cookie の設定やアクセス解析は行っていません。',
+        'Web体験版のページ（/try/）だけは操作できるページで、次のように動きます。',
+        '• 入力したチャンネル、視聴済み・スキップの印、進捗、メモ、再生位置は、お使いの端末のブラウザ内（localStorage）にのみ保存されます。当方には送信されず、スマートフォンのアプリとも共有されません。本サイトのサイトデータを消すと削除されます。',
+        '• 動画一覧を作るために、本サイト上の小さな中継を経由して YouTube Data API v3 を呼び出します。渡すのはチャンネルまたはプレイリストの識別子だけで、利用者に関する情報は送信しません。',
+        '• 再生には YouTube 公式の埋め込みプレイヤーを使用し、サムネイル画像も YouTube のサーバーから読み込みます。プレイヤーの利用中、YouTube および Google が各社のポリシーに基づき情報を取得・処理することがあります。',
+        '• 本ウェブサイトにはアカウント・ログイン・支払いはありません。'] },
       { title: '11. ポリシーの変更', body: ['本ポリシーは必要に応じて更新されることがあります。重要な変更はアプリの更新等でお知らせします。'] },
       { title: '12. お問い合わせ', body: ['メール:'] },
     ],
@@ -317,7 +329,7 @@ const zh = {
     description:
       '一款 iOS 观看辅助应用：将频道的投稿视频按发布日期（从旧到新）排列，记录你看到哪里，并从上次停止的秒数继续播放。播放使用 YouTube 官方嵌入式播放器。',
   },
-  nav: { features: '功能', how: '使用方法', pricing: '价格', manual: '使用手册', faq: '常见问题', support: '支持', privacy: '隐私' },
+  nav: { try: '网页试用', features: '功能', how: '使用方法', pricing: '价格', manual: '使用手册', faq: '常见问题', support: '支持', privacy: '隐私' },
   hero: {
     badge: 'iOS 17+ ・ 支持 7 种语言',
     title: '想看的 YouTube 频道，按顺序看完。',
@@ -451,7 +463,13 @@ const zh = {
         'Channel Timeline Viewer 免费提供，并设有一项可选的一次性应用内购买“Pro”。购买流程全部由 Apple（App Store）处理，我们不会看到或接收你的支付信息。应用只会向系统询问该购买是否属于你的账户，并将结果保存在设备上（以便离线时也能使用）。没有订阅，也没有周期性扣费。'] },
       { title: '8. 追踪', body: ['本应用不使用广告标识符（IDFA），也不使用 App Tracking Transparency，因为它不会追踪你。'] },
       { title: '9. 儿童隐私', body: ['本应用不会有意收集儿童的个人信息。'] },
-      { title: '10. 关于本网站', body: ['本网站由静态页面构成，不设置 Cookie，也不进行访问分析。'] },
+      { title: '10. 关于本网站', body: [
+        '本网站由静态页面构成，不设置 Cookie，也不进行访问分析。',
+        '只有网页试用版页面（/try/）可以操作，其运作方式如下：',
+        '• 你输入的频道、已观看／跳过的标记、进度、笔记和播放位置，只保存在你所用设备的浏览器中（localStorage）。这些不会发送给我们，也不会与手机上的应用共享，清除本站的网站数据后即被删除。',
+        '• 为了生成视频列表，页面会通过本站的一个小型中继调用 YouTube Data API v3。传递的只有频道或播放列表的标识符，不会发送与你有关的信息。',
+        '• 播放使用 YouTube 官方嵌入式播放器，缩略图也从 YouTube 的服务器加载。在你使用播放器期间，YouTube 和 Google 可能依据其各自的政策收集和处理信息。',
+        '• 本网站没有账号、登录和付款。'] },
       { title: '11. 政策变更', body: ['本政策可能会更新。重要变更将随应用更新一并说明。'] },
       { title: '12. 联系我们', body: ['电子邮件：'] },
     ],
@@ -466,7 +484,7 @@ const es = {
     description:
       'App complementaria para iOS que ordena las subidas de un canal de las más antiguas a las más recientes, registra hasta dónde has visto y reanuda en el segundo exacto. La reproducción usa el reproductor incrustado oficial de YouTube.',
   },
-  nav: { features: 'Funciones', how: 'Cómo funciona', pricing: 'Precio', manual: 'Manual', faq: 'Preguntas', support: 'Soporte', privacy: 'Privacidad' },
+  nav: { try: 'Probar', features: 'Funciones', how: 'Cómo funciona', pricing: 'Precio', manual: 'Manual', faq: 'Preguntas', support: 'Soporte', privacy: 'Privacidad' },
   hero: {
     badge: 'iOS 17+ · 7 idiomas',
     title: 'El canal de YouTube que quieres ver, en orden.',
@@ -600,7 +618,13 @@ const es = {
         'Channel Timeline Viewer es gratuita y ofrece una única compra dentro de la app, opcional y de pago único, llamada «Pro». Las compras las gestiona íntegramente Apple a través del App Store; nosotros nunca vemos ni recibimos tus datos de pago. La app solo pregunta al sistema si esa compra pertenece a tu cuenta y guarda la respuesta en el dispositivo para que también funcione sin conexión. No hay suscripciones ni cargos recurrentes.'] },
       { title: '8. Rastreo', body: ['La app no usa el identificador de publicidad (IDFA) ni App Tracking Transparency, porque no te rastrea.'] },
       { title: '9. Menores', body: ['La app no recopila conscientemente información personal de menores.'] },
-      { title: '10. Este sitio web', body: ['Este sitio son páginas estáticas. No usa cookies ni analítica.'] },
+      { title: '10. Este sitio web', body: [
+        'Este sitio son páginas estáticas. No usa cookies ni analítica.',
+        'La página de prueba web (/try/) sí es interactiva y funciona así:',
+        '• El canal que introduces, las marcas de visto u omitido, tu progreso, tus notas y las posiciones de reproducción se guardan en el navegador (localStorage) del dispositivo que estés usando. No se nos envían, no se comparten con la app del móvil y se borran al eliminar los datos de este sitio.',
+        '• Para construir la lista de vídeos, la página consulta un pequeño relé de este sitio que llama a la YouTube Data API v3 con nuestra clave. Solo se transmite el identificador del canal o de la lista de reproducción; no se envía nada sobre ti.',
+        '• La reproducción usa el reproductor incrustado oficial de YouTube y las miniaturas se cargan desde los servidores de YouTube. Mientras usas el reproductor, YouTube y Google pueden recopilar y tratar información conforme a sus propias políticas.',
+        '• En este sitio web no hay cuenta, ni inicio de sesión, ni pagos.'] },
       { title: '11. Cambios', body: ['Esta política puede actualizarse. Los cambios relevantes se anunciarán con una actualización de la app.'] },
       { title: '12. Contacto', body: ['Correo:'] },
     ],
@@ -615,7 +639,7 @@ const de = {
     description:
       'iOS-Begleit-App, die die Uploads eines Kanals nach Datum sortiert (älteste zuerst), deinen Fortschritt festhält und sekundengenau fortsetzt. Die Wiedergabe nutzt den offiziellen eingebetteten YouTube-Player.',
   },
-  nav: { features: 'Funktionen', how: 'So funktioniert’s', pricing: 'Preise', manual: 'Anleitung', faq: 'FAQ', support: 'Support', privacy: 'Datenschutz' },
+  nav: { try: 'Testen', features: 'Funktionen', how: 'So funktioniert’s', pricing: 'Preise', manual: 'Anleitung', faq: 'FAQ', support: 'Support', privacy: 'Datenschutz' },
   hero: {
     badge: 'iOS 17+ · 7 Sprachen',
     title: 'Der YouTube-Kanal, den du sehen willst – der Reihe nach.',
@@ -749,7 +773,13 @@ const de = {
         'Channel Timeline Viewer ist kostenlos und bietet genau einen optionalen einmaligen In-App-Kauf namens „Pro“. Käufe wickelt ausschließlich Apple über den App Store ab; wir sehen und erhalten deine Zahlungsdaten nie. Die App fragt lediglich beim System nach, ob der Kauf zu deinem Account gehört, und speichert die Antwort auf dem Gerät, damit alles auch offline funktioniert. Es gibt kein Abo und keine wiederkehrende Zahlung.'] },
       { title: '8. Tracking', body: ['Die App nutzt weder den Werbe-Identifier (IDFA) noch App Tracking Transparency, weil sie dich nicht trackt.'] },
       { title: '9. Kinder', body: ['Die App erhebt wissentlich keine personenbezogenen Daten von Kindern.'] },
-      { title: '10. Diese Website', body: ['Diese Website besteht aus statischen Seiten. Sie setzt keine Cookies und nutzt keine Analyse.'] },
+      { title: '10. Diese Website', body: [
+        'Diese Website besteht aus statischen Seiten. Sie setzt keine Cookies und nutzt keine Analyse.',
+        'Nur die Seite der Web-Testversion (/try/) ist interaktiv. Sie funktioniert so:',
+        '• Der eingegebene Kanal, Gesehen- und Übersprungen-Markierungen, dein Fortschritt, deine Notizen und die Wiedergabepositionen werden ausschließlich im Browser (localStorage) des genutzten Geräts gespeichert. Sie werden nicht an uns gesendet, nicht mit der App auf dem Smartphone geteilt und beim Löschen der Websitedaten entfernt.',
+        '• Für die Videoliste fragt die Seite eine kleine Weiterleitung auf dieser Website, die mit unserem Schlüssel die YouTube Data API v3 aufruft. Weitergegeben wird nur die Kanal- oder Playlist-Kennung; nichts über dich wird gesendet.',
+        '• Die Wiedergabe nutzt den offiziellen eingebetteten YouTube-Player, und die Vorschaubilder werden von den Servern von YouTube geladen. Während der Nutzung des Players können YouTube und Google nach ihren eigenen Richtlinien Informationen erheben und verarbeiten.',
+        '• Auf dieser Website gibt es kein Konto, keine Anmeldung und keine Zahlung.'] },
       { title: '11. Änderungen', body: ['Diese Erklärung kann aktualisiert werden. Wesentliche Änderungen werden mit einem App-Update mitgeteilt.'] },
       { title: '12. Kontakt', body: ['E-Mail:'] },
     ],
@@ -764,7 +794,7 @@ const fr = {
     description:
       'App compagnon iOS qui classe les vidéos d’une chaîne de la plus ancienne à la plus récente, suit votre progression et reprend à la seconde près. La lecture utilise le lecteur intégré officiel de YouTube.',
   },
-  nav: { features: 'Fonctions', how: 'Comment ça marche', pricing: 'Tarif', manual: 'Manuel', faq: 'FAQ', support: 'Assistance', privacy: 'Confidentialité' },
+  nav: { try: 'Essayer', features: 'Fonctions', how: 'Comment ça marche', pricing: 'Tarif', manual: 'Manuel', faq: 'FAQ', support: 'Assistance', privacy: 'Confidentialité' },
   hero: {
     badge: 'iOS 17+ · 7 langues',
     title: 'La chaîne YouTube que vous voulez voir, dans l’ordre.',
@@ -898,7 +928,13 @@ const fr = {
         'Channel Timeline Viewer est gratuite et propose un seul achat intégré, facultatif et unique, appelé « Pro ». Les achats sont entièrement gérés par Apple via l’App Store ; nous ne voyons ni ne recevons jamais vos informations de paiement. L’app demande simplement au système si cet achat appartient à votre compte et conserve la réponse sur l’appareil pour fonctionner aussi hors ligne. Il n’y a ni abonnement ni prélèvement récurrent.'] },
       { title: '8. Suivi', body: ['L’app n’utilise pas l’identifiant publicitaire (IDFA) ni App Tracking Transparency, car elle ne vous suit pas.'] },
       { title: '9. Enfants', body: ['L’app ne collecte pas sciemment de données personnelles auprès d’enfants.'] },
-      { title: '10. Ce site web', body: ['Ce site est constitué de pages statiques. Il ne dépose pas de cookies et n’utilise pas d’analytique.'] },
+      { title: '10. Ce site web', body: [
+        'Ce site est constitué de pages statiques. Il ne dépose pas de cookies et n’utilise pas d’analytique.',
+        'Seule la page d’essai web (/try/) est interactive. Voici ce qu’elle fait :',
+        '• La chaîne que vous saisissez, les marques « regardé » ou « ignoré », votre progression, vos notes et les positions de lecture sont enregistrées uniquement dans le navigateur (localStorage) de l’appareil utilisé. Elles ne nous sont pas envoyées, ne sont pas partagées avec l’app du téléphone et sont supprimées lorsque vous effacez les données de ce site.',
+        '• Pour construire la liste des vidéos, la page interroge un petit relais hébergé sur ce site, qui appelle l’API YouTube Data v3 avec notre clé. Seul l’identifiant de la chaîne ou de la playlist est transmis ; rien vous concernant n’est envoyé.',
+        '• La lecture utilise le lecteur intégré officiel de YouTube et les miniatures sont chargées depuis les serveurs de YouTube. Pendant l’utilisation du lecteur, YouTube et Google peuvent collecter et traiter des informations selon leurs propres politiques.',
+        '• Ce site web ne comporte ni compte, ni connexion, ni paiement.'] },
       { title: '11. Modifications', body: ['Cette politique peut être mise à jour. Les changements importants seront annoncés avec une mise à jour de l’app.'] },
       { title: '12. Contact', body: ['E-mail :'] },
     ],
@@ -913,7 +949,7 @@ const ko = {
     description:
       '채널의 업로드 동영상을 게시일순(오래된 순)으로 정리하고, 어디까지 봤는지 관리하며, 멈춘 초부터 이어서 재생하는 iOS 시청 보조 앱. 재생에는 YouTube 공식 임베드 플레이어를 사용합니다.',
   },
-  nav: { features: '기능', how: '사용 방법', pricing: '가격', manual: '설명서', faq: '자주 묻는 질문', support: '지원', privacy: '개인정보' },
+  nav: { try: '웹 체험', features: '기능', how: '사용 방법', pricing: '가격', manual: '설명서', faq: '자주 묻는 질문', support: '지원', privacy: '개인정보' },
   hero: {
     badge: 'iOS 17+ · 7개 언어',
     title: '보고 싶은 YouTube 채널을 순서대로.',
@@ -1047,7 +1083,13 @@ const ko = {
         'Channel Timeline Viewer는 무료이며, 선택 사항인 1회 결제 인앱 상품 ‘Pro’ 하나만 제공합니다. 결제는 전부 Apple(App Store)이 처리하며 저희가 결제 정보를 보거나 전달받는 일은 없습니다. 앱은 해당 구매가 이용자의 계정에 속하는지를 운영체제에 문의하고, 그 결과만 기기에 저장합니다(오프라인에서도 동작하도록 하기 위해서입니다). 구독이나 반복 결제는 없습니다.'] },
       { title: '8. 추적', body: ['이 앱은 광고 식별자(IDFA)를 사용하지 않으며, 추적을 하지 않으므로 App Tracking Transparency도 사용하지 않습니다.'] },
       { title: '9. 아동의 개인정보', body: ['이 앱은 아동으로부터 개인정보를 의도적으로 수집하지 않습니다.'] },
-      { title: '10. 이 웹사이트', body: ['이 사이트는 정적 페이지로만 구성되어 있으며 쿠키를 설정하거나 접속 분석을 하지 않습니다.'] },
+      { title: '10. 이 웹사이트', body: [
+        '이 사이트는 정적 페이지로 구성되어 있으며 쿠키를 설정하거나 접속 분석을 하지 않습니다.',
+        '웹 체험판 페이지(/try/)만 조작할 수 있는 페이지이며, 다음과 같이 동작합니다.',
+        '• 입력한 채널, 시청함·건너뜀 표시, 진행 상황, 메모, 재생 위치는 사용 중인 기기의 브라우저 안(localStorage)에만 저장됩니다. 당사로 전송되지 않고 휴대폰 앱과도 공유되지 않으며, 이 사이트의 사이트 데이터를 지우면 삭제됩니다.',
+        '• 동영상 목록을 만들기 위해 이 사이트의 작은 중계를 거쳐 YouTube Data API v3를 호출합니다. 전달되는 것은 채널 또는 재생목록 식별자뿐이며, 이용자에 관한 정보는 보내지 않습니다.',
+        '• 재생에는 YouTube 공식 임베드 플레이어를 사용하고 미리보기 이미지도 YouTube 서버에서 불러옵니다. 플레이어 이용 중 YouTube와 Google이 각사의 정책에 따라 정보를 수집·처리할 수 있습니다.',
+        '• 이 웹사이트에는 계정·로그인·결제가 없습니다.'] },
       { title: '11. 변경', body: ['이 방침은 필요에 따라 업데이트될 수 있습니다. 중요한 변경은 앱 업데이트로 안내합니다.'] },
       { title: '12. 문의', body: ['이메일:'] },
     ],

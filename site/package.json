@@ -8,7 +8,9 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "node scripts/check-build.mjs"
+    "check": "node scripts/check-build.mjs",
+    "test": "node scripts/test-trial.mjs",
+    "dev:api": "npx wrangler pages dev dist --port 8788"
   },
   "devDependencies": {
     "astro": "^4.16.18"

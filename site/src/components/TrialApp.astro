@@ -1,0 +1,247 @@
+---
+// Web体験版の中身（1チャンネル分の視聴補助）。
+//
+// 同じものを2か所で使う:
+//   variant="full"   … /{lang}/try/ のページ（横に広く、プレイヤーと一覧を左右に並べる）
+//   variant="phone"  … トップページのヒーロー（スマホの枠の中で実際に動かせる）
+//
+// 中身（HTML・id）はどちらも同じで、見た目だけ `#ctv[data-variant]` で切り替える。
+// そのため src/trial/app.js は変更なしで両方に効く。保存先も同じ localStorage なので、
+// ヒーローで試したチャンネルはそのまま /try/ でも続きから使える。
+import StoreBadges from './StoreBadges.astro';
+import { t } from '../i18n/index.js';
+import { trialCopy } from '../i18n/trial.js';
+import '../trial/trial.css';
+
+const { code, variant = 'full' } = Astro.props;
+const copy = t(code);
+const trial = trialCopy(code);
+const htmlLang = Astro.props.htmlLang || code;
+
+// ブラウザ側へ渡す文言（差し込みが要るものだけ）。<script> を閉じさせないようにエスケープする。
+const i18nJSON = JSON.stringify({ ui: trial.ui }).replace(/</g, '\\u003c');
+---
+
+<div id="ctv" data-lang={htmlLang} data-variant={variant}>
+  <script type="application/json" id="ctv-i18n" set:html={i18nJSON}></script>
+
+  <div class="ctv-frame">
+    <div class="ctv-scroll">
+      <noscript>
+        <p class="ctv-help">{trial.ui.errNotConfigured}</p>
+      </noscript>
+
+      <p id="ctv-unsupported" class="ctv-error" hidden>{trial.storageNote}</p>
+
+      <!-- 入力（保存中のチャンネルが無いときに出る） -->
+      <div class="ctv-setup" id="ctv-setup" hidden>
+        <h3>{trial.ui.inputLabel}</h3>
+        <p class="ctv-help">{trial.ui.inputHelp}</p>
+        <form id="ctv-form" novalidate>
+          <div class="ctv-field">
+            <input
+              id="ctv-input"
+              type="text"
+              inputmode="url"
+              autocomplete="off"
+              spellcheck="false"
+              placeholder={trial.ui.inputPlaceholder}
+              aria-label={trial.ui.inputLabel}
+            />
+            <button type="submit" id="ctv-submit" class="ctv-btn ctv-btn-primary">
+              <span id="ctv-submit-label">{trial.ui.fetch}</span>
+            </button>
+            <button type="button" id="ctv-setup-cancel" class="ctv-btn" hidden>{trial.ui.proCancel}</button>
+          </div>
+        </form>
+        <p class="ctv-error" id="ctv-form-error" hidden></p>
+        <p class="ctv-help">{trial.limitLine}</p>
+      </div>
+
+      <!-- 保存中のチャンネル -->
+      <div id="ctv-workspace" hidden>
+        <div class="ctv-channel">
+          <img id="ctv-ch-thumb" width="56" height="56" alt="" hidden />
+          <div class="ctv-channel-body">
+            <h3 id="ctv-ch-title"></h3>
+            <a class="ctv-channel-link" id="ctv-ch-link" href="https://www.youtube.com/" rel="noopener nofollow" target="_blank">YouTube</a>
+
+            <div class="ctv-progress">
+              <strong>{trial.ui.progressTitle}</strong>
+              <span id="ctv-progress-text"></span>
+              <span
+                class="ctv-bar"
+                id="ctv-bar"
+                role="progressbar"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                aria-valuenow="0"
+                aria-label={trial.ui.progressTitle}
+              ><span id="ctv-bar-fill"></span></span>
+            </div>
+
+            <p class="ctv-upnext">
+              <span id="ctv-next-label"></span>
+              <button type="button" class="ctv-btn" id="ctv-next-btn" hidden></button>
+            </p>
+
+          </div>
+        </div>
+
+        <div class="ctv-tools">
+          <div class="ctv-channel-tools">
+            <button type="button" class="ctv-btn" id="ctv-check-new">{trial.ui.checkNew}</button>
+            <button type="button" class="ctv-btn" id="ctv-reload">{trial.ui.reloadAll}</button>
+            <button type="button" class="ctv-btn" id="ctv-change">{trial.ui.changeChannel}</button>
+            <button type="button" class="ctv-btn ctv-btn-danger" id="ctv-remove">{trial.ui.removeChannel}</button>
+          </div>
+          <span class="ctv-updated" id="ctv-updated"></span>
+        </div>
+
+        <div class="ctv-status" id="ctv-status" data-kind="none" role="status" hidden>
+          <span id="ctv-status-text"></span>
+          <button type="button" class="ctv-btn" id="ctv-status-retry" hidden>{trial.ui.retry}</button>
+        </div>
+
+        <div class="ctv-main">
+          <!-- プレイヤー -->
+          <div class="ctv-player-col">
+            <p class="ctv-empty-player" id="ctv-player-empty">{trial.ui.playerEmpty}</p>
+
+            <div id="ctv-player-wrap" hidden>
+              <div class="ctv-video"><div id="ctv-player-mount"></div></div>
+
+              <div class="ctv-now">
+                <h3 id="ctv-now-title"></h3>
+                <p class="ctv-now-meta" id="ctv-now-meta"></p>
+              </div>
+
+              <p class="ctv-notice" id="ctv-resume-notice" hidden>
+                <span id="ctv-resume-text"></span>
+                <button type="button" class="ctv-btn" id="ctv-resume-restart">{trial.ui.resumeRestart}</button>
+              </p>
+
+              <p class="ctv-notice" id="ctv-auto-advanced" hidden>{trial.ui.autoAdvanced}</p>
+
+              <p class="ctv-notice" id="ctv-ended" hidden>
+                <span>{trial.ui.endedTitle}</span>
+                <strong id="ctv-ended-next"></strong>
+                <button type="button" class="ctv-btn" id="ctv-play-next">{trial.ui.endedPlayNext}</button>
+              </p>
+
+              <div class="ctv-nav">
+                <button type="button" class="ctv-btn" id="ctv-first">⏮ {trial.ui.first}</button>
+                <button type="button" class="ctv-btn" id="ctv-prev">← {trial.ui.prev}</button>
+                <button type="button" class="ctv-btn" id="ctv-next-video">{trial.ui.next} →</button>
+                <button type="button" class="ctv-btn" id="ctv-last">{trial.ui.last} ⏭</button>
+              </div>
+
+              <div class="ctv-actions">
+                <button type="button" class="ctv-chip" id="ctv-toggle-watched"></button>
+                <button type="button" class="ctv-chip" id="ctv-toggle-skip"></button>
+                <button type="button" class="ctv-btn" id="ctv-restart">{trial.ui.restart}</button>
+                <a class="ctv-btn" id="ctv-open-yt" href="https://www.youtube.com/" rel="noopener nofollow" target="_blank">{trial.ui.openInYouTube}</a>
+              </div>
+
+              <div class="ctv-settings">
+                <label class="ctv-toggle">
+                  <input type="checkbox" id="ctv-autoplay" />
+                  <span class="ctv-toggle-text">
+                    <span id="ctv-autoplay-title"></span>
+                    <span class="ctv-toggle-detail" id="ctv-autoplay-detail"></span>
+                  </span>
+                </label>
+
+                <label class="ctv-toggle">
+                  <input type="checkbox" id="ctv-unwatched-only" />
+                  <span class="ctv-toggle-text">
+                    <span>{trial.ui.unwatchedOnly}</span>
+                    <span class="ctv-toggle-detail">{trial.ui.unwatchedOnlyDetail}</span>
+                  </span>
+                </label>
+
+                <label class="ctv-toggle">
+                  <input type="checkbox" id="ctv-resume-pref" />
+                  <span class="ctv-toggle-text">
+                    <span>{trial.ui.resumeSetting}</span>
+                    <span class="ctv-toggle-detail">{trial.ui.resumeDetail}</span>
+                  </span>
+                </label>
+
+                <p class="ctv-repeat-row">
+                  <span>{trial.ui.repeatLabel}</span>
+                  <button type="button" class="ctv-btn" id="ctv-repeat" aria-pressed="false">
+                    <span id="ctv-repeat-value"></span>
+                  </button>
+                  <span class="ctv-toggle-detail" id="ctv-repeat-detail"></span>
+                </p>
+
+                <p class="ctv-toggle-detail">{trial.ui.skipDetail}</p>
+              </div>
+
+              <div class="ctv-memo">
+                <h4>{trial.ui.memoTitle}</h4>
+                <textarea id="ctv-memo" rows="4" placeholder={trial.ui.memoPlaceholder}></textarea>
+                <p class="ctv-help">{trial.ui.memoAutosave}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 一覧 -->
+          <div class="ctv-list-col">
+            <div class="ctv-toolbar">
+              <div class="ctv-seg" role="group" aria-label={trial.ui.sort}>
+                <button type="button" class="ctv-chip" data-sort="oldest" aria-pressed="true">{trial.ui.sortOldest}</button>
+                <button type="button" class="ctv-chip" data-sort="newest" aria-pressed="false">{trial.ui.sortNewest}</button>
+              </div>
+              <div class="ctv-seg" role="group" aria-label={trial.ui.progressTitle}>
+                <button type="button" class="ctv-chip" data-filter="all" aria-pressed="true">{trial.ui.filterAll}</button>
+                <button type="button" class="ctv-chip" data-filter="unwatched" aria-pressed="false">{trial.ui.filterUnwatched}</button>
+                <button type="button" class="ctv-chip" data-filter="watched" aria-pressed="false">{trial.ui.filterWatched}</button>
+              </div>
+              <span class="ctv-count" id="ctv-count"></span>
+            </div>
+
+            <p class="ctv-empty-list" id="ctv-list-empty" hidden></p>
+            <ul class="ctv-list" id="ctv-list"></ul>
+            <div class="ctv-list-foot">
+              <button type="button" class="ctv-btn" id="ctv-show-more" hidden>{trial.ui.showMore}</button>
+            </div>
+            <div id="ctv-sentinel" aria-hidden="true"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {variant === 'full' && (
+    <Fragment>
+      <p class="ctv-fineprint">{trial.storageNote}</p>
+      <p class="ctv-fineprint">{trial.ui.playerNote}</p>
+    </Fragment>
+  )}
+
+  <!-- 2チャンネル目を保存しようとしたときの案内 -->
+  <dialog class="ctv-dialog" id="ctv-pro" aria-labelledby="ctv-pro-title">
+    <h3 id="ctv-pro-title">{trial.ui.proTitle}</h3>
+    <p><strong id="ctv-pro-target"></strong></p>
+    <p class="ctv-warning" id="ctv-pro-warning"></p>
+    <p>{trial.ui.proBody}</p>
+    <div class="ctv-dialog-actions">
+      {/* 「Proの内容を見る」を先に置く（入れ替えより上）。 */}
+      <div class="ctv-store">
+        <p class="ctv-help">{trial.ui.proViewPro}</p>
+        <StoreBadges copy={copy} />
+      </div>
+      <div class="ctv-row-buttons">
+        <button type="button" class="ctv-btn" id="ctv-pro-cancel">{trial.ui.proCancel}</button>
+        <button type="button" class="ctv-btn ctv-btn-danger" id="ctv-pro-replace">{trial.ui.proReplace}</button>
+      </div>
+    </div>
+  </dialog>
+</div>
+
+<script>
+  import { startTrial } from '../trial/app.js';
+  startTrial();
+</script>

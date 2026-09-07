@@ -22,12 +22,18 @@ site/
   src/pages/
     index.astro           / → ブラウザの言語で振り分け（JS 無しなら英語へ）
     [lang]/index.astro    トップ（機能・使い方・FAQ）
+    [lang]/try.astro      Web体験版（1チャンネル無料）※下記
     [lang]/manual.astro   操作マニュアル（iPhone / Android の違いは項目の印で示す）
     [lang]/support.astro  サポート
     [lang]/privacy.astro  プライバシーポリシー
     sitemap.xml.js        言語 × ページの全URL
     robots.txt.js
+  src/components/TrialApp.astro  Web体験版の中身（トップのヒーローと /try/ で共用）
+  src/i18n/trial.js       Web体験版の文言（7言語）。アプリの訳を流用している
+  src/trial/              Web体験版のブラウザ側コード（下記）
+  functions/api/youtube.js  Cloudflare Pages Functions（APIキーを隠すための中継）
   scripts/check-build.mjs dist/ の点検（言語・hreflang・翻訳漏れ）
+  scripts/test-trial.mjs  Web体験版の点検（URL解析・計算・画面と処理の対応・7言語）
 ```
 
 言語は `en / ja / zh / es / de / fr / ko` の7つ。URL は `/{lang}/...`、`zh` の hreflang は `zh-Hans`。
@@ -40,6 +46,17 @@ npm install
 npm run dev      # http://localhost:4321
 npm run build    # dist/ に出力
 npm run check    # dist/ を点検（build のあとに実行する）
+npm test         # Web体験版の点検（ビルド不要）
+```
+
+Web体験版の中継（`/api/youtube`）は Astro の dev サーバーでは動かない。動かして試すときは
+Cloudflare Pages と同じ環境を使う:
+
+```
+cd site
+echo YOUTUBE_API_KEY=<キー> > .dev.vars   # ← .gitignore 済み。絶対にコミットしない
+npm run build
+npx wrangler pages dev dist --port 8788        # = npm run dev:api（wrangler が入っていれば）
 ```
 
 ## 環境変数（任意）
@@ -50,6 +67,11 @@ npm run check    # dist/ を点検（build のあとに実行する）
 | `PUBLIC_APP_STORE_URL` | App Store バッジの遷移先 | `https://apps.apple.com/jp/app/channel-timeline-viewer/id6792964082` |
 | `PUBLIC_PLAY_STORE_URL` | Google Play バッジの遷移先。空のあいだは「審査中」のバッジになる。**入れるとマニュアル1章の Android の項目も「Google Play から入れる」へ自動で変わる** | 空（審査中） |
 | `PUBLIC_SUPPORT_EMAIL` | サポート／プライバシーの連絡先 | `support@jewelrysunflower.com` |
+| `YOUTUBE_API_KEY` | **Web体験版が使う YouTube Data API v3 のキー（サーバー側・秘密）**。未設定でもサイトは壊れず、体験版だけが「ただいまご利用いただけません」になる | なし |
+
+⚠️ `YOUTUBE_API_KEY` は **iOS / Android アプリが使っているキーとは別のキー**にする。
+Web の利用でアプリ側の日次 quota（10,000 units/日）を使い切ってしまわないようにするため。
+これだけは `PUBLIC_` を付けない（付けるとブラウザ側に埋め込まれてしまう）。
 
 ## スクリーンショットを差し替えるとき
 
@@ -88,3 +110,69 @@ python scripts/prepare_manual_images.py
 ## 公開
 
 Cloudflare Pages に接続する手順は [`../docs/website-deploy-guide.md`](../docs/website-deploy-guide.md) を参照。
+
+## Web体験版（`/{lang}/try/`）
+
+公式サイト上で **1チャンネルだけ**を実際に使える無料体験版。位置づけは
+「PCで価値を試す入口 → App Store / Google Play への導線」で、スマホアプリの代わりではない。
+
+**同じものを2か所に置いている**（中身も保存先も同じなので、ヒーローで試した続きを `/try/` で見られる）:
+
+| 置き場所 | variant | 見た目 |
+| --- | --- | --- |
+| トップページのヒーロー右側 | `phone` | スマホの枠の中。**静止画ではなく実際に動く**。狭いので縦1列にし、一覧を先に見せる |
+| `/{lang}/try/` | `full` | 横に広く、プレイヤーと一覧を左右に並べる |
+
+ヒーローのスマホは高さを `clamp(420px, calc(100svh - 150px), 660px)` にしてあり、
+ページの一番上で**スマホ全体が画面に収まる**（切れない）ようにしている。
+幅は高さから決める（≒9:19.5）ので、中身の量で幅が変わらない。
+画面幅 900px 以下ではヒーローの体験版は畳み、`/try/` へ誘導する。
+
+- 制限するのは**保存できるチャンネル数（1件）だけ**。その1件の中では何も削らない
+  （古い順/新しい順・視聴済み・スキップ・進捗・メモ・続きから再生・自動再生・繰り返し）
+- 2チャンネル目を保存しようとすると **アプリ版Proの案内**を出す
+  （「Proの内容を見る」を「入れ替える」より上に置き、消えることは赤字・太字で警告する）
+- **Web課金・アカウント・同期・複数チャンネル保存は実装しない**（アプリ版Proの価値を壊さないため）
+- 記録は**そのブラウザの localStorage だけ**。サーバーには何も送らない
+- 再生は **YouTube 公式の埋め込みプレイヤー**。ダウンロード・広告回避・
+  バックグラウンド再生・スクレイピングはしない
+
+### 構成
+
+```
+src/components/TrialApp.astro  画面の中身（静的HTML・7言語）。CSS と起動もここが持つ
+                               ので、使う側は <TrialApp code variant /> を置くだけでよい
+src/pages/[lang]/try.astro  体験版のページ（variant="full"）
+src/pages/[lang]/index.astro トップ。ヒーローに variant="phone" を置いている
+src/i18n/trial.js           文言（7言語）。アプリの Localization/strings.json の訳を流用
+src/trial/resolve.js        入力URLの解析（アプリの ChannelResolver と同じ規則）
+src/trial/model.js          並べ替え・絞り込み・進捗・自動再生の行き先・再生位置の規則
+src/trial/storage.js        localStorage（チャンネル1件 / 一覧 / 視聴状態 / 再生設定）
+src/trial/api.js            /api/youtube を呼ぶところ
+src/trial/player.js         公式 IFrame Player のラッパー（nearEnd の先回りを含む）
+src/trial/app.js            画面との配線
+functions/api/youtube.js    中継（APIキーはここだけが持つ・エッジにキャッシュ）
+```
+
+見た目の切り替えは `#ctv[data-variant]` だけで行い、HTML と id は2か所で完全に同じにしてある。
+そのため `app.js` は分岐を持たない（唯一の例外は「続きを描く」判定の基準で、
+`phone` のときだけスクロールするのが枠の中になるため `.ctv-scroll` を見る）。
+
+`app.js` が触る id が `TrialApp.astro` に無い、使っている文言キーが7言語のどれかに無い、
+といった食い違いは `npm test` が落ちて教えてくれる。
+
+### quota について
+
+中継が通すのは `channels.list` / `playlistItems.list` / `videos.list`（各 1 unit）だけ。
+古いカスタムURL（`youtube.com/SomeName`）でハンドルとして引けなかったときだけ
+`search.list`（100 unit）を1回使う。同じ問い合わせが Google まで届かないよう、
+成功した応答はエッジ（Cache API）に置いてから返す（チャンネル12時間・一覧6時間）。
+
+1チャンネルの初回読み込みは「50件で1 unit」なので、1000本のチャンネルで 20 units。
+上限は 100ページ（5000本）で、それを超えるチャンネルは先頭までを表示して案内を出す。
+
+### 再生について
+
+アプリ（iOS / Android）は `docs/player.html` という中継ページ越しに公式プレイヤーを出しているが、
+**Web体験版は自分のオリジンから直接 IFrame Player API を読み込む**（Referer の問題が起きないため）。
+`docs/player.html` は公開済みアプリ専用なので、体験版のために変更しないこと。

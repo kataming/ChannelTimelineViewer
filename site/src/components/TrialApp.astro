@@ -2,12 +2,14 @@
 // Web体験版の中身（1チャンネル分の視聴補助）。
 //
 // 同じものを2か所で使う:
-//   variant="full"   … /{lang}/try/ のページ（横に広く、プレイヤーと一覧を左右に並べる）
+//   variant="full"   … /{lang}/try/ のページ（横に広く、一覧とプレイヤーを左右に並べる）
 //   variant="phone"  … トップページのヒーロー（スマホの枠の中で実際に動かせる）
 //
-// 中身（HTML・id）はどちらも同じで、見た目だけ `#ctv[data-variant]` で切り替える。
-// そのため src/trial/app.js は変更なしで両方に効く。保存先も同じ localStorage なので、
-// ヒーローで試したチャンネルはそのまま /try/ でも続きから使える。
+// 見た目は **iPhone / Android アプリの画面に合わせてある**:
+//   上部バー（戻る / チャンネル名 / ⋯メニュー）、スイッチ、丸い移動ボタン、
+//   全幅の「YouTubeで開く」、メモ欄。phone のときは一覧画面と再生画面を行き来する。
+// 中身（HTML・id）はどちらの variant でも同じで、切り替えは
+// `#ctv[data-variant]` と `#ctv[data-screen]` の CSS だけで行う。
 import StoreBadges from './StoreBadges.astro';
 import { t } from '../i18n/index.js';
 import { trialCopy } from '../i18n/trial.js';
@@ -22,7 +24,7 @@ const htmlLang = Astro.props.htmlLang || code;
 const i18nJSON = JSON.stringify({ ui: trial.ui }).replace(/</g, '\\u003c');
 ---
 
-<div id="ctv" data-lang={htmlLang} data-variant={variant}>
+<div id="ctv" data-lang={htmlLang} data-variant={variant} data-screen="list">
   <script type="application/json" id="ctv-i18n" set:html={i18nJSON}></script>
 
   <div class="ctv-frame">
@@ -60,14 +62,38 @@ const i18nJSON = JSON.stringify({ ui: trial.ui }).replace(/</g, '\\u003c');
 
       <!-- 保存中のチャンネル -->
       <div id="ctv-workspace" hidden>
-        <div class="ctv-channel">
-          <img id="ctv-ch-thumb" width="56" height="56" alt="" hidden />
-          <div class="ctv-channel-body">
-            <h3 id="ctv-ch-title"></h3>
-            <a class="ctv-channel-link" id="ctv-ch-link" href="https://www.youtube.com/" rel="noopener nofollow" target="_blank">YouTube</a>
+        <!-- 上部バー（アプリのナビゲーションバーと同じ並び） -->
+        <div class="ctv-appbar">
+          <button type="button" class="ctv-icon-btn" id="ctv-back" aria-label={trial.ui.backToList} hidden>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <img id="ctv-ch-thumb" class="ctv-appbar-avatar" width="28" height="28" alt="" hidden />
+          <span class="ctv-appbar-title" id="ctv-ch-title"></span>
+          <details class="ctv-menu" id="ctv-list-menu">
+            <summary class="ctv-icon-btn" aria-label={trial.ui.moreMenu}>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.9"/><circle cx="12" cy="12" r="1.9"/><circle cx="19" cy="12" r="1.9"/></svg>
+            </summary>
+            <div class="ctv-menu-body">
+              <button type="button" id="ctv-check-new">{trial.ui.checkNew}</button>
+              <button type="button" id="ctv-reload">{trial.ui.reloadAll}</button>
+              <a id="ctv-ch-link" href="https://www.youtube.com/" rel="noopener nofollow" target="_blank">{trial.ui.openChannelInYouTube}</a>
+              <button type="button" id="ctv-change">{trial.ui.changeChannel}</button>
+              <button type="button" id="ctv-remove" class="is-danger">{trial.ui.removeChannel}</button>
+              <span class="ctv-updated" id="ctv-updated"></span>
+            </div>
+          </details>
+        </div>
 
+        <div class="ctv-status" id="ctv-status" data-kind="none" role="status" hidden>
+          <span id="ctv-status-text"></span>
+          <button type="button" class="ctv-btn" id="ctv-status-retry" hidden>{trial.ui.retry}</button>
+        </div>
+
+        <div class="ctv-main">
+          <!-- 一覧の画面 -->
+          <div class="ctv-list-col">
             <div class="ctv-progress">
-              <strong>{trial.ui.progressTitle}</strong>
+              <span class="ctv-progress-label">{trial.ui.progressTitle}</span>
               <span id="ctv-progress-text"></span>
               <span
                 class="ctv-bar"
@@ -80,31 +106,42 @@ const i18nJSON = JSON.stringify({ ui: trial.ui }).replace(/</g, '\\u003c');
               ><span id="ctv-bar-fill"></span></span>
             </div>
 
-            <p class="ctv-upnext">
-              <span id="ctv-next-label"></span>
-              <button type="button" class="ctv-btn" id="ctv-next-btn" hidden></button>
-            </p>
+            <!-- 「次に見る」（アプリと同じカード） -->
+            <button type="button" class="ctv-next-card" id="ctv-next-btn" hidden>
+              <img class="ctv-next-thumb" id="ctv-next-thumb" width="320" height="180" alt="" />
+              <span class="ctv-next-text">
+                <span class="ctv-next-label" id="ctv-next-label"></span>
+                <span class="ctv-next-title" id="ctv-next-title"></span>
+              </span>
+              <span class="ctv-next-play" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>
+              </span>
+            </button>
+            <p class="ctv-allwatched" id="ctv-allwatched" hidden>{trial.ui.allWatched}</p>
 
+            <div class="ctv-toolbar">
+              <button type="button" class="ctv-sort" id="ctv-sort-toggle">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4v16m0 0l-3.2-3.4M7 20l3.2-3.4M17 20V4m0 0l-3.2 3.4M17 4l3.2 3.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span id="ctv-sort-label">{trial.ui.sortOldest}</span>
+              </button>
+              <span class="ctv-count" id="ctv-count"></span>
+            </div>
+
+            <div class="ctv-seg" role="group" aria-label={trial.ui.progressTitle}>
+              <button type="button" class="ctv-chip" data-filter="all" aria-pressed="true">{trial.ui.filterAll}</button>
+              <button type="button" class="ctv-chip" data-filter="unwatched" aria-pressed="false">{trial.ui.filterUnwatched}</button>
+              <button type="button" class="ctv-chip" data-filter="watched" aria-pressed="false">{trial.ui.filterWatched}</button>
+            </div>
+
+            <p class="ctv-empty-list" id="ctv-list-empty" hidden></p>
+            <ul class="ctv-list" id="ctv-list"></ul>
+            <div class="ctv-list-foot">
+              <button type="button" class="ctv-btn" id="ctv-show-more" hidden>{trial.ui.showMore}</button>
+            </div>
+            <div id="ctv-sentinel" aria-hidden="true"></div>
           </div>
-        </div>
 
-        <div class="ctv-tools">
-          <div class="ctv-channel-tools">
-            <button type="button" class="ctv-btn" id="ctv-check-new">{trial.ui.checkNew}</button>
-            <button type="button" class="ctv-btn" id="ctv-reload">{trial.ui.reloadAll}</button>
-            <button type="button" class="ctv-btn" id="ctv-change">{trial.ui.changeChannel}</button>
-            <button type="button" class="ctv-btn ctv-btn-danger" id="ctv-remove">{trial.ui.removeChannel}</button>
-          </div>
-          <span class="ctv-updated" id="ctv-updated"></span>
-        </div>
-
-        <div class="ctv-status" id="ctv-status" data-kind="none" role="status" hidden>
-          <span id="ctv-status-text"></span>
-          <button type="button" class="ctv-btn" id="ctv-status-retry" hidden>{trial.ui.retry}</button>
-        </div>
-
-        <div class="ctv-main">
-          <!-- プレイヤー -->
+          <!-- 再生の画面 -->
           <div class="ctv-player-col">
             <p class="ctv-empty-player" id="ctv-player-empty">{trial.ui.playerEmpty}</p>
 
@@ -116,9 +153,9 @@ const i18nJSON = JSON.stringify({ ui: trial.ui }).replace(/</g, '\\u003c');
                 <p class="ctv-now-meta" id="ctv-now-meta"></p>
               </div>
 
-              <p class="ctv-notice" id="ctv-resume-notice" hidden>
+              <p class="ctv-resume" id="ctv-resume-notice" hidden>
                 <span id="ctv-resume-text"></span>
-                <button type="button" class="ctv-btn" id="ctv-resume-restart">{trial.ui.resumeRestart}</button>
+                <button type="button" class="ctv-pill" id="ctv-resume-restart">{trial.ui.resumeRestart}</button>
               </p>
 
               <p class="ctv-notice" id="ctv-auto-advanced" hidden>{trial.ui.autoAdvanced}</p>
@@ -126,88 +163,96 @@ const i18nJSON = JSON.stringify({ ui: trial.ui }).replace(/</g, '\\u003c');
               <p class="ctv-notice" id="ctv-ended" hidden>
                 <span>{trial.ui.endedTitle}</span>
                 <strong id="ctv-ended-next"></strong>
-                <button type="button" class="ctv-btn" id="ctv-play-next">{trial.ui.endedPlayNext}</button>
+                <button type="button" class="ctv-pill" id="ctv-play-next">{trial.ui.endedPlayNext}</button>
               </p>
 
-              <div class="ctv-nav">
-                <button type="button" class="ctv-btn" id="ctv-first">⏮ {trial.ui.first}</button>
-                <button type="button" class="ctv-btn" id="ctv-prev">← {trial.ui.prev}</button>
-                <button type="button" class="ctv-btn" id="ctv-next-video">{trial.ui.next} →</button>
-                <button type="button" class="ctv-btn" id="ctv-last">{trial.ui.last} ⏭</button>
-              </div>
-
-              <div class="ctv-actions">
-                <button type="button" class="ctv-chip" id="ctv-toggle-watched"></button>
-                <button type="button" class="ctv-chip" id="ctv-toggle-skip"></button>
-                <button type="button" class="ctv-btn" id="ctv-restart">{trial.ui.restart}</button>
-                <a class="ctv-btn" id="ctv-open-yt" href="https://www.youtube.com/" rel="noopener nofollow" target="_blank">{trial.ui.openInYouTube}</a>
-              </div>
-
+              <!-- 再生設定（アプリと同じカード＋スイッチ） -->
               <div class="ctv-settings">
                 <label class="ctv-toggle">
-                  <input type="checkbox" id="ctv-autoplay" />
                   <span class="ctv-toggle-text">
                     <span id="ctv-autoplay-title"></span>
                     <span class="ctv-toggle-detail" id="ctv-autoplay-detail"></span>
                   </span>
+                  <input type="checkbox" id="ctv-autoplay" />
+                  <span class="ctv-switch" aria-hidden="true"></span>
                 </label>
 
                 <label class="ctv-toggle">
-                  <input type="checkbox" id="ctv-unwatched-only" />
                   <span class="ctv-toggle-text">
                     <span>{trial.ui.unwatchedOnly}</span>
                     <span class="ctv-toggle-detail">{trial.ui.unwatchedOnlyDetail}</span>
                   </span>
+                  <input type="checkbox" id="ctv-unwatched-only" />
+                  <span class="ctv-switch" aria-hidden="true"></span>
                 </label>
 
                 <label class="ctv-toggle">
-                  <input type="checkbox" id="ctv-resume-pref" />
                   <span class="ctv-toggle-text">
                     <span>{trial.ui.resumeSetting}</span>
                     <span class="ctv-toggle-detail">{trial.ui.resumeDetail}</span>
                   </span>
+                  <input type="checkbox" id="ctv-resume-pref" />
+                  <span class="ctv-switch" aria-hidden="true"></span>
                 </label>
 
-                <p class="ctv-repeat-row">
-                  <span>{trial.ui.repeatLabel}</span>
-                  <button type="button" class="ctv-btn" id="ctv-repeat" aria-pressed="false">
+                <div class="ctv-repeat-row">
+                  <span class="ctv-toggle-text">
+                    <span>{trial.ui.repeatLabel}</span>
+                    <span class="ctv-toggle-detail" id="ctv-repeat-detail"></span>
+                  </span>
+                  <button type="button" class="ctv-pill" id="ctv-repeat" aria-pressed="false">
                     <span id="ctv-repeat-value"></span>
                   </button>
-                  <span class="ctv-toggle-detail" id="ctv-repeat-detail"></span>
-                </p>
+                </div>
 
-                <p class="ctv-toggle-detail">{trial.ui.skipDetail}</p>
+                <p class="ctv-settings-note">{trial.ui.skipDetail}</p>
               </div>
 
+              <!-- 移動（アプリと同じ丸ボタンの並び） -->
+              <div class="ctv-nav">
+                <button type="button" class="ctv-nav-btn" id="ctv-first">
+                  <span class="ctv-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6v12L9 12zM7 6h2v12H7z" fill="currentColor"/></svg></span>
+                  <span class="ctv-nav-label">{trial.ui.first}</span>
+                </button>
+                <button type="button" class="ctv-nav-btn" id="ctv-prev">
+                  <span class="ctv-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                  <span class="ctv-nav-label">{trial.ui.prev}</span>
+                </button>
+                <details class="ctv-menu ctv-nav-menu" id="ctv-player-menu">
+                  <summary class="ctv-nav-btn" aria-label={trial.ui.moreMenu}>
+                    <span class="ctv-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.9"/><circle cx="12" cy="12" r="1.9"/><circle cx="19" cy="12" r="1.9"/></svg></span>
+                    <span class="ctv-nav-label">{trial.ui.moreMenu}</span>
+                  </summary>
+                  <div class="ctv-menu-body">
+                    <button type="button" id="ctv-toggle-watched"></button>
+                    <button type="button" id="ctv-toggle-skip"></button>
+                    <button type="button" id="ctv-restart">{trial.ui.restart}</button>
+                  </div>
+                </details>
+                <button type="button" class="ctv-nav-btn" id="ctv-next-video">
+                  <span class="ctv-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                  <span class="ctv-nav-label">{trial.ui.next}</span>
+                </button>
+                <button type="button" class="ctv-nav-btn" id="ctv-last">
+                  <span class="ctv-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6v12l9-6zM15 6h2v12h-2z" fill="currentColor"/></svg></span>
+                  <span class="ctv-nav-label">{trial.ui.last}</span>
+                </button>
+              </div>
+
+              <a class="ctv-yt" id="ctv-open-yt" href="https://www.youtube.com/" rel="noopener nofollow" target="_blank">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>
+                {trial.ui.openInYouTube}
+              </a>
+
               <div class="ctv-memo">
-                <h4>{trial.ui.memoTitle}</h4>
+                <h4>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+                  <span>{trial.ui.memoTitle}</span>
+                </h4>
                 <textarea id="ctv-memo" rows="4" placeholder={trial.ui.memoPlaceholder}></textarea>
                 <p class="ctv-help">{trial.ui.memoAutosave}</p>
               </div>
             </div>
-          </div>
-
-          <!-- 一覧 -->
-          <div class="ctv-list-col">
-            <div class="ctv-toolbar">
-              <div class="ctv-seg" role="group" aria-label={trial.ui.sort}>
-                <button type="button" class="ctv-chip" data-sort="oldest" aria-pressed="true">{trial.ui.sortOldest}</button>
-                <button type="button" class="ctv-chip" data-sort="newest" aria-pressed="false">{trial.ui.sortNewest}</button>
-              </div>
-              <div class="ctv-seg" role="group" aria-label={trial.ui.progressTitle}>
-                <button type="button" class="ctv-chip" data-filter="all" aria-pressed="true">{trial.ui.filterAll}</button>
-                <button type="button" class="ctv-chip" data-filter="unwatched" aria-pressed="false">{trial.ui.filterUnwatched}</button>
-                <button type="button" class="ctv-chip" data-filter="watched" aria-pressed="false">{trial.ui.filterWatched}</button>
-              </div>
-              <span class="ctv-count" id="ctv-count"></span>
-            </div>
-
-            <p class="ctv-empty-list" id="ctv-list-empty" hidden></p>
-            <ul class="ctv-list" id="ctv-list"></ul>
-            <div class="ctv-list-foot">
-              <button type="button" class="ctv-btn" id="ctv-show-more" hidden>{trial.ui.showMore}</button>
-            </div>
-            <div id="ctv-sentinel" aria-hidden="true"></div>
           </div>
         </div>
       </div>

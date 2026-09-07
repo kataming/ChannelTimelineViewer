@@ -32,6 +32,12 @@ const CHUNK = 60;
 
 const $ = (id) => document.getElementById(id);
 
+/** 一覧の印に使う記号（中身は固定。ここに外から来た文字列は入れない）。 */
+const ICON_CHECK =
+  '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const ICON_SKIP =
+  '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6v12l8-6zM16 6h2v12h-2z" fill="currentColor"/></svg>';
+
 export function startTrial() {
   const root = $('ctv');
   if (!root) return;
@@ -49,6 +55,8 @@ class Trial {
     this.state = null;
     this.prefs = store.loadPrefs();
 
+    // phone のときだけ、一覧画面と再生画面を行き来する（アプリと同じ）。
+    this.screen = 'list';
     this.current = null; // { id, index }（index は古い順での位置）
     this.hasStarted = false;
     this.endedHandledFor = null;
@@ -116,14 +124,15 @@ class Trial {
     $('ctv-remove').addEventListener('click', () => this.removeChannel());
     $('ctv-status-retry').addEventListener('click', () => this.fetchAll());
 
-    // 並び替え・絞り込み
-    this.root.querySelectorAll('[data-sort]').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        if (!this.state) return;
-        this.state.sort = btn.dataset.sort;
-        this.persistState();
-        this.renderAll();
-      });
+    // 一覧に戻る（再生画面から）
+    $('ctv-back').addEventListener('click', () => this.setScreen('list'));
+
+    // 並び替えは1つのボタンで「古い順 ⇄ 新しい順」を切り替える（アプリのメニューと同じ2択）
+    $('ctv-sort-toggle').addEventListener('click', () => {
+      if (!this.state) return;
+      this.state.sort = this.state.sort === 'newest' ? 'oldest' : 'newest';
+      this.persistState();
+      this.renderAll();
     });
     this.root.querySelectorAll('[data-filter]').forEach((btn) => {
       btn.addEventListener('click', () => {
@@ -188,6 +197,14 @@ class Trial {
       const next = this.pendingChannel;
       this.closePro();
       if (next) this.adopt(next, { replacing: true });
+    });
+
+    // メニューは項目を押したら閉じる。外を押しても閉じる。
+    this.root.addEventListener('click', (e) => {
+      const inside = e.target.closest ? e.target.closest('.ctv-menu') : null;
+      this.root.querySelectorAll('details.ctv-menu[open]').forEach((d) => {
+        if (d !== inside || e.target.closest('.ctv-menu-body')) d.open = false;
+      });
     });
 
     // 一覧のスクロールで続きを描く
@@ -303,7 +320,18 @@ class Trial {
     show($('ctv-workspace'), false);
     show($('ctv-setup'), true);
     show($('ctv-setup-cancel'), false);
+    this.setScreen('list');
     $('ctv-input').focus();
+  }
+
+  /** phone のときだけ、一覧画面と再生画面を切り替える。 */
+  setScreen(name) {
+    this.screen = name;
+    if (this.root.dataset.variant !== 'phone') return;
+    this.root.dataset.screen = name;
+    show($('ctv-back'), name === 'player');
+    // 画面が変わったら枠の中は先頭から見せる（アプリの画面遷移と同じ感覚にする）。
+    if (this.scroller) this.scroller.scrollTo({ top: 0 });
   }
 
   enterWorkspace() {
@@ -459,9 +487,8 @@ class Trial {
       isWatched: this.isWatched,
     });
 
-    this.root.querySelectorAll('[data-sort]').forEach((b) => {
-      b.setAttribute('aria-pressed', String(b.dataset.sort === this.state.sort));
-    });
+    $('ctv-sort-label').textContent =
+      this.state.sort === 'newest' ? this.t.ui.sortNewest : this.t.ui.sortOldest;
     this.root.querySelectorAll('[data-filter]').forEach((b) => {
       b.setAttribute('aria-pressed', String(b.dataset.filter === this.state.filter));
     });
@@ -516,7 +543,7 @@ class Trial {
     thumb.width = 320;
     thumb.height = 180;
     thumb.alt = '';
-    thumb.src = `https://i.ytimg.com/vi/${video.id}/mqdefault.jpg`;
+    thumb.src = thumbURL(video.id);
 
     const text = document.createElement('span');
     text.className = 'ctv-row-text';
@@ -535,20 +562,20 @@ class Trial {
     const actions = document.createElement('div');
     actions.className = 'ctv-row-actions';
 
-    // 一覧の行は狭いので、印は記号だけにして、意味は読み上げ（aria-label）と
+    // 印はアプリと同じ丸い記号ボタン。意味は読み上げ（aria-label）と
     // ツールチップ（title）と行の説明文に持たせる。
     const watched = document.createElement('button');
     watched.type = 'button';
-    watched.className = 'ctv-chip ctv-chip-icon';
+    watched.className = 'ctv-mark';
     watched.dataset.act = 'watched';
-    watched.textContent = '✓';
+    watched.innerHTML = ICON_CHECK;
     watched.addEventListener('click', () => this.toggleWatched(video.id));
 
     const skip = document.createElement('button');
     skip.type = 'button';
-    skip.className = 'ctv-chip ctv-chip-icon';
+    skip.className = 'ctv-mark';
     skip.dataset.act = 'skip';
-    skip.textContent = '⏭';
+    skip.innerHTML = ICON_SKIP;
     skip.addEventListener('click', () => this.toggleSkipped(video.id));
 
     actions.append(watched, skip);
@@ -568,11 +595,19 @@ class Trial {
     li.classList.toggle('is-skipped', skipped);
     li.classList.toggle('is-current', Boolean(this.current && this.current.id === id));
 
-    const parts = [this.dateFormat.format(new Date(video.published))];
-    if (watched) parts.push(this.t.ui.watched);
-    if (skipped) parts.push(this.t.ui.skippedBadge);
-    if (this.hasMemo(id)) parts.push(this.t.ui.hasMemo);
-    li.querySelector('.ctv-row-meta').textContent = parts.join(' · ');
+    // 日付と印は分けて入れる（狭い枠では「視聴済み」の文字を消して、緑の丸だけで示す）。
+    const meta = li.querySelector('.ctv-row-meta');
+    meta.replaceChildren();
+    const add = (text, className) => {
+      const span = document.createElement('span');
+      if (className) span.className = className;
+      span.textContent = text;
+      meta.appendChild(span);
+    };
+    add(this.dateFormat.format(new Date(video.published)), 'ctv-badge-date');
+    if (watched) add(this.t.ui.watched, 'ctv-badge ctv-badge-watched');
+    if (skipped) add(this.t.ui.skippedBadge, 'ctv-badge');
+    if (this.hasMemo(id)) add(this.t.ui.hasMemo, 'ctv-badge');
 
     const watchedBtn = li.querySelector('[data-act="watched"]');
     const watchedLabel = watched ? this.t.ui.markUnwatched : this.t.ui.markWatched;
@@ -616,15 +651,17 @@ class Trial {
     const nextIndex = nextUnwatchedIndex(this.videos, this.isWatched, this.isSkipped);
     const nextBtn = $('ctv-next-btn');
     if (nextIndex < 0) {
-      $('ctv-next-label').textContent = this.t.ui.allWatched;
       show(nextBtn, false);
+      show($('ctv-allwatched'), this.videos.length > 0);
     } else {
       const video = this.videos[nextIndex];
       const saved = this.state.p[video.id];
       const label = saved ? this.t.ui.resumeFormat : this.t.ui.upNextFormat;
       $('ctv-next-label').textContent = fmt(label, String(nextIndex + 1));
-      nextBtn.textContent = this.t.ui.goToUpNext;
+      $('ctv-next-title').textContent = video.title || this.t.ui.untitled;
+      $('ctv-next-thumb').src = thumbURL(video.id);
       show(nextBtn, true);
+      show($('ctv-allwatched'), false);
     }
   }
 
@@ -636,6 +673,8 @@ class Trial {
   }
 
   scrollToVideo(id) {
+    // 再生画面を出しているあいだ（phone）は一覧が隠れているので何もしない。
+    if (this.screen === 'player' && this.root.dataset.variant === 'phone') return;
     const position = this.visible.findIndex((v) => v.id === id);
     if (position < 0) return;
     while (this.rendered <= position && this.rendered < this.visible.length) this.appendChunk();
@@ -692,7 +731,9 @@ class Trial {
     const index = this.videos.findIndex((v) => v.id === this.state.last);
     if (index < 0) return;
     // 前回開いていた動画を「選んだ状態」にしておく（自動では再生しない）。
+    // 画面はアプリと同じく一覧から始める。
     this.select(index, { autoplay: false });
+    this.setScreen('list');
   }
 
   openVideo(id) {
@@ -721,6 +762,7 @@ class Trial {
     show($('ctv-player-wrap'), true);
     show($('ctv-ended'), false);
     show($('ctv-auto-advanced'), autoAdvanced);
+    this.setScreen('player');
 
     const start = resumeSeconds(this.state.p[video.id], this.prefs.resume);
     if (!this.player) {
@@ -896,6 +938,11 @@ class Trial {
     if (typeof dialog.close === 'function') dialog.close();
     else dialog.removeAttribute('open');
   }
+}
+
+/** 動画IDからサムネイルURLを作る（保存はしないので毎回組み立てる）。 */
+function thumbURL(videoId) {
+  return `https://i.ytimg.com/vi/${videoId}/mqdefault.jpg`;
 }
 
 /** UC… のチャンネルIDから uploads プレイリストID（UU…）を作る（保険）。 */

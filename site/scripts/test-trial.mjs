@@ -144,13 +144,26 @@ for (const id of usedIds) {
   if (!pageIds.has(id)) fail(`app.js が触る id が TrialApp.astro に無い: #${id}`);
 }
 
-// data-sort / data-filter の値
-for (const value of ['oldest', 'newest']) {
-  if (!pageSource.includes(`data-sort="${value}"`)) fail(`TrialApp.astro に data-sort="${value}" が無い`);
-}
+// 絞り込みの値（並び替えは #ctv-sort-toggle の1ボタンで切り替える）
 for (const value of ['all', 'unwatched', 'watched']) {
   if (!pageSource.includes(`data-filter="${value}"`)) fail(`TrialApp.astro に data-filter="${value}" が無い`);
 }
+
+// アプリに寄せた部品が揃っているか（作り直しで欠けやすいところ）
+const parts = {
+  '上部バー': 'class="ctv-appbar"',
+  '戻るボタン': 'id="ctv-back"',
+  'iOS風スイッチ': 'class="ctv-switch"',
+  '丸い移動ボタン': 'class="ctv-nav-btn"',
+  '「次に見る」カード': 'class="ctv-next-card"',
+  '全幅のYouTubeボタン': 'class="ctv-yt"',
+};
+for (const [name, needle] of Object.entries(parts)) {
+  if (!pageSource.includes(needle)) fail(`TrialApp.astro に${name}（${needle}）が無い`);
+}
+// 一覧画面と再生画面を切り替える土台
+if (!pageSource.includes('data-screen="list"')) fail('TrialApp.astro に data-screen が無い');
+if (!appSource.includes('setScreen(')) fail('app.js に setScreen() が無い');
 
 // 文言キー（app.js が使うものが7言語すべてに在るか）
 const usedKeys = new Set([...appSource.matchAll(/\bui\.([A-Za-z][A-Za-z0-9]*)/g)].map((m) => m[1]));

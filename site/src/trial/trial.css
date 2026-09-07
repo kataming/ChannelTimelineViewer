@@ -1,19 +1,40 @@
-/* Web体験版の見た目。サイト共通の色（Base.astro の :root）をそのまま使う。
+/* Web体験版の見た目。
+   iPhone / Android アプリの画面に合わせてある（上部バー・スイッチ・丸い移動ボタン・
+   全幅の「YouTubeで開く」・メモ欄）。サイト共通の色（Base.astro の :root）を使う。
    セレクタは #ctv / .ctv-* に限定して、他のページに影響しないようにする。 */
 
 #ctv {
   --ctv-gap: 18px;
+  /* アプリの色に寄せた、体験版の中だけで使う色。 */
+  --ctv-card: var(--bg-soft);
+  --ctv-line: var(--line);
+  --ctv-link: #2f7de1;
+  --ctv-danger: #d64545;
+  --ctv-switch-off: #c8ced7;
+}
+
+@media (prefers-color-scheme: dark) {
+  #ctv {
+    --ctv-link: #6fb0ff;
+    --ctv-switch-off: #3b4552;
+  }
 }
 
 #ctv [hidden] {
   display: none !important;
 }
 
+#ctv svg {
+  width: 1em;
+  height: 1em;
+  flex: none;
+}
+
 /* --- 入力パネル --- */
 
 .ctv-setup {
-  background: var(--bg-soft);
-  border: 1px solid var(--line);
+  background: var(--ctv-card);
+  border: 1px solid var(--ctv-line);
   border-radius: var(--radius);
   padding: 20px;
   margin-bottom: var(--ctv-gap);
@@ -35,7 +56,7 @@
   min-width: 0;
   padding: 12px 14px;
   border-radius: 10px;
-  border: 1px solid var(--line);
+  border: 1px solid var(--ctv-line);
   background: var(--bg);
   color: var(--text);
   font-size: 1rem;
@@ -66,103 +87,145 @@
   }
 }
 
-/* --- チャンネルの見出しと進捗 --- */
+/* --- 上部バー（アプリのナビゲーションバー） --- */
 
-.ctv-channel {
-  display: flex;
-  gap: 16px;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  background: var(--bg-soft);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 18px 20px;
-}
-
-.ctv-channel img {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  flex: none;
-  object-fit: cover;
-}
-
-.ctv-channel-body {
-  flex: 1 1 260px;
-  min-width: 0;
-}
-
-.ctv-channel h3 {
-  margin: 0 0 2px;
-  font-size: 1.1rem;
-}
-
-.ctv-channel-link {
-  font-size: 0.8rem;
-  color: var(--muted);
-}
-
-.ctv-progress {
-  margin-top: 10px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-  font-size: 0.9rem;
-}
-
-.ctv-bar {
-  flex: 1 1 180px;
-  height: 8px;
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--muted) 25%, transparent);
-  overflow: hidden;
-}
-
-.ctv-bar span {
-  display: block;
-  height: 100%;
-  width: 0;
-  background: var(--accent);
-  border-radius: 999px;
-  transition: width 0.25s ease;
-}
-
-.ctv-upnext {
+.ctv-appbar {
   display: flex;
   align-items: center;
   gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 10px;
-  font-size: 0.9rem;
-  color: var(--muted);
+  padding: 8px 4px 12px;
+  border-bottom: 1px solid var(--ctv-line);
 }
 
-.ctv-tools {
-  margin-top: 12px;
+.ctv-appbar-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex: none;
 }
 
-.ctv-channel-tools {
+.ctv-appbar-title {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-weight: 700;
+  font-size: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ctv-icon-btn {
+  width: 32px;
+  height: 32px;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 0;
+  background: color-mix(in srgb, var(--muted) 16%, transparent);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 18px;
+  padding: 0;
+  list-style: none;
+}
+
+.ctv-icon-btn::-webkit-details-marker {
+  display: none;
+}
+
+.ctv-icon-btn:hover {
+  background: color-mix(in srgb, var(--muted) 28%, transparent);
+}
+
+/* --- メニュー（<details> だけで開閉する） --- */
+
+/* サイト共通の details（FAQ用の下線と余白）が効いてしまうので、ここで打ち消す。 */
+#ctv details.ctv-menu {
+  border: 0;
+  padding: 0;
+}
+
+#ctv details.ctv-menu > summary {
+  font-weight: inherit;
+}
+
+.ctv-menu {
+  position: relative;
+  flex: none;
+}
+
+.ctv-menu > summary {
+  cursor: pointer;
+}
+
+.ctv-menu:not([open]) .ctv-menu-body {
+  display: none;
+}
+
+.ctv-menu-body {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  z-index: 30;
+  min-width: 190px;
   display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  background: var(--bg);
+  border: 1px solid var(--ctv-line);
+  border-radius: 12px;
+  padding: 6px;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.26);
+}
+
+.ctv-menu-body button,
+.ctv-menu-body a {
+  appearance: none;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 0.86rem;
+  color: var(--text);
+  text-align: start;
+  text-decoration: none;
+  padding: 9px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.ctv-menu-body button:hover,
+.ctv-menu-body a:hover {
+  background: var(--ctv-card);
+}
+
+.ctv-menu-body .is-danger {
+  color: var(--ctv-danger);
+}
+
+.ctv-menu-body .ctv-updated {
+  padding: 6px 12px 2px;
+  border-top: 1px solid var(--ctv-line);
+  margin-top: 4px;
 }
 
 .ctv-updated {
   color: var(--muted);
-  font-size: 0.78rem;
-  margin-top: 8px;
+  font-size: 0.75rem;
   display: block;
 }
 
-/* --- ボタン類 --- */
+/* --- ボタン --- */
 
 .ctv-btn,
-.ctv-chip {
+.ctv-chip,
+.ctv-pill {
   font: inherit;
   font-size: 0.85rem;
   border-radius: 999px;
-  border: 1px solid var(--line);
+  border: 1px solid var(--ctv-line);
   background: var(--bg);
   color: var(--text);
   padding: 7px 14px;
@@ -170,8 +233,15 @@
   white-space: nowrap;
 }
 
+.ctv-pill {
+  font-size: 0.78rem;
+  padding: 5px 12px;
+  flex: none;
+}
+
 .ctv-btn:hover:not(:disabled),
-.ctv-chip:hover:not(:disabled) {
+.ctv-chip:hover:not(:disabled),
+.ctv-pill:hover:not(:disabled) {
   border-color: var(--muted);
 }
 
@@ -181,8 +251,8 @@
   cursor: default;
 }
 
-.ctv-btn[aria-pressed='true'],
-.ctv-chip[aria-pressed='true'] {
+.ctv-chip[aria-pressed='true'],
+.ctv-pill[aria-pressed='true'] {
   background: var(--accent);
   border-color: var(--accent);
   color: var(--accent-ink);
@@ -199,13 +269,23 @@
 }
 
 .ctv-btn-danger {
-  color: #d64545;
+  color: var(--ctv-danger);
 }
 
 .ctv-seg {
-  display: inline-flex;
+  display: flex;
   gap: 6px;
-  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.ctv-seg .ctv-chip {
+  flex: 1 1 0;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 6px 8px;
+  font-size: 0.8rem;
+  text-align: center;
 }
 
 /* --- 状態バナー --- */
@@ -215,29 +295,29 @@
   align-items: center;
   gap: 12px;
   flex-wrap: wrap;
-  margin: var(--ctv-gap) 0 0;
-  padding: 12px 16px;
+  margin: 12px 0 0;
+  padding: 10px 14px;
   border-radius: 10px;
-  border: 1px solid var(--line);
-  background: var(--bg-soft);
-  font-size: 0.9rem;
+  border: 1px solid var(--ctv-line);
+  background: var(--ctv-card);
+  font-size: 0.85rem;
 }
 
 .ctv-status[data-kind='error'] {
-  border-color: #d64545;
+  border-color: var(--ctv-danger);
 }
 
 .ctv-status[data-kind='warn'] {
   border-color: #c98a1b;
 }
 
-/* --- 本体（プレイヤー ＋ 一覧） --- */
+/* --- 本体 --- */
 
 .ctv-main {
   display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
-  gap: 24px;
-  margin-top: var(--ctv-gap);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: 26px;
+  margin-top: 14px;
   align-items: start;
 }
 
@@ -258,196 +338,167 @@
   }
 }
 
-.ctv-video {
-  aspect-ratio: 16 / 9;
-  width: 100%;
-  background: #000;
-  border-radius: 12px;
-  overflow: hidden;
-  border: 1px solid var(--line);
-}
+/* --- 進捗 --- */
 
-.ctv-video iframe {
-  width: 100%;
-  height: 100%;
-  border: 0;
-  display: block;
-}
-
-.ctv-empty-player {
-  aspect-ratio: 16 / 9;
+.ctv-progress {
   display: flex;
   align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 20px;
-  color: var(--muted);
-  background: var(--bg-soft);
-  border: 1px dashed var(--line);
-  border-radius: 12px;
-}
-
-.ctv-now h3 {
-  margin: 14px 0 2px;
-  font-size: 1.05rem;
-}
-
-.ctv-now-meta {
-  color: var(--muted);
+  gap: 10px;
   font-size: 0.85rem;
+  margin-bottom: 12px;
 }
 
-.ctv-notice {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 10px;
-  padding: 10px 14px;
-  border-radius: 10px;
-  background: var(--bg-soft);
-  border: 1px solid var(--line);
-  font-size: 0.88rem;
-}
-
-.ctv-nav {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-top: 12px;
-}
-
-.ctv-actions {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-top: 8px;
-}
-
-.ctv-actions a.ctv-btn {
-  text-decoration: none;
-}
-
-/* 再生設定 */
-
-.ctv-settings {
-  margin-top: 14px;
-  padding: 14px 16px;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  background: var(--bg-soft);
-}
-
-.ctv-toggle {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  padding: 8px 0;
-  cursor: pointer;
-}
-
-.ctv-toggle + .ctv-toggle {
-  border-top: 1px solid var(--line);
-}
-
-.ctv-toggle input {
-  margin-top: 3px;
-  width: 18px;
-  height: 18px;
-  accent-color: var(--accent);
+.ctv-progress-label {
+  font-weight: 700;
   flex: none;
 }
 
-.ctv-toggle-text {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  font-size: 0.9rem;
+.ctv-bar {
+  flex: 1 1 80px;
+  height: 6px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--muted) 25%, transparent);
+  overflow: hidden;
 }
 
-.ctv-toggle-detail {
-  color: var(--muted);
-  font-size: 0.8rem;
+.ctv-bar span {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--accent);
+  border-radius: 999px;
+  transition: width 0.25s ease;
 }
 
-.ctv-repeat-row {
+/* --- 「次に見る」カード --- */
+
+.ctv-next-card {
   display: flex;
   align-items: center;
   gap: 10px;
-  flex-wrap: wrap;
-  padding: 10px 0 2px;
-  border-top: 1px solid var(--line);
-  font-size: 0.9rem;
-}
-
-/* メモ */
-
-.ctv-memo {
-  margin-top: 14px;
-}
-
-.ctv-memo h4 {
-  margin: 0 0 6px;
-  font-size: 0.95rem;
-}
-
-.ctv-memo textarea {
   width: 100%;
-  min-height: 96px;
-  resize: vertical;
-  padding: 12px 14px;
-  border-radius: 10px;
-  border: 1px solid var(--line);
-  background: var(--bg);
-  color: var(--text);
+  text-align: start;
   font: inherit;
-  font-size: 0.92rem;
+  cursor: pointer;
+  padding: 8px;
+  margin-bottom: 12px;
+  border: 1px solid var(--ctv-line);
+  border-radius: 12px;
+  background: var(--ctv-card);
+  color: inherit;
 }
 
-.ctv-memo textarea:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 1px;
+.ctv-next-card:hover {
+  border-color: var(--accent);
 }
 
-/* --- 一覧 --- */
+.ctv-next-thumb {
+  width: 84px;
+  height: 47px;
+  border-radius: 6px;
+  object-fit: cover;
+  background: var(--bg);
+  flex: none;
+}
+
+.ctv-next-text {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ctv-next-label {
+  font-size: 0.72rem;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.ctv-next-title {
+  font-size: 0.85rem;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.ctv-next-play {
+  width: 30px;
+  height: 30px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--ctv-link);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+}
+
+.ctv-allwatched {
+  margin: 0 0 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  font-size: 0.85rem;
+}
+
+/* --- 一覧のツールバー --- */
 
 .ctv-toolbar {
   display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
+  gap: 10px;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
+}
+
+.ctv-sort {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font: inherit;
+  font-size: 0.8rem;
+  border: 1px solid var(--ctv-line);
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--text);
+  padding: 5px 12px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.ctv-sort:hover {
+  border-color: var(--muted);
 }
 
 .ctv-count {
   color: var(--muted);
-  font-size: 0.82rem;
+  font-size: 0.78rem;
+  white-space: nowrap;
 }
+
+/* --- 一覧 --- */
 
 .ctv-list {
   list-style: none;
   margin: 0;
   padding: 0;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  overflow: hidden;
+  border-top: 1px solid var(--ctv-line);
 }
 
 .ctv-row {
   display: flex;
   gap: 10px;
   align-items: center;
-  padding: 8px 10px;
-  border-bottom: 1px solid var(--line);
-}
-
-.ctv-row:last-child {
-  border-bottom: 0;
+  padding: 8px 2px;
+  border-bottom: 1px solid var(--ctv-line);
 }
 
 .ctv-row.is-current {
-  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
 }
 
 .ctv-row.is-watched .ctv-row-title {
@@ -455,7 +506,7 @@
 }
 
 .ctv-row.is-skipped {
-  opacity: 0.6;
+  opacity: 0.55;
 }
 
 .ctv-row-main {
@@ -475,10 +526,10 @@
 
 .ctv-num {
   flex: none;
-  min-width: 2.6em;
+  min-width: 2.4em;
   text-align: end;
   color: var(--muted);
-  font-size: 0.78rem;
+  font-size: 0.74rem;
   font-variant-numeric: tabular-nums;
 }
 
@@ -488,19 +539,19 @@
   height: 47px;
   object-fit: cover;
   border-radius: 6px;
-  background: var(--bg-soft);
+  background: var(--ctv-card);
 }
 
 .ctv-row-text {
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 3px;
 }
 
 .ctv-row-title {
-  font-size: 0.92rem;
-  line-height: 1.4;
+  font-size: 0.86rem;
+  line-height: 1.35;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -509,30 +560,54 @@
 
 .ctv-row-meta {
   color: var(--muted);
-  font-size: 0.76rem;
+  font-size: 0.72rem;
 }
 
 .ctv-row-actions {
   display: flex;
-  gap: 6px;
+  align-items: center;
+  gap: 4px;
   flex: none;
 }
 
-.ctv-row-actions .ctv-chip {
-  font-size: 0.75rem;
-  padding: 5px 10px;
-}
-
-/* 行の印は記号だけ（意味は aria-label / title と行の説明文が持つ）。 */
-.ctv-chip-icon {
-  width: 30px;
-  height: 30px;
-  padding: 0;
+/* 視聴済み・スキップの印（アプリの緑チェックに寄せた丸ボタン） */
+.ctv-mark {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid var(--ctv-line);
+  background: var(--bg);
+  color: var(--muted);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.9rem;
+  font-size: 13px;
   line-height: 1;
+  cursor: pointer;
+  padding: 0;
+}
+
+.ctv-mark:hover {
+  border-color: var(--muted);
+}
+
+.ctv-mark[aria-pressed='true'] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+/* 行の右端の「>」（アプリと同じ） */
+.ctv-row::after {
+  content: '';
+  flex: none;
+  width: 7px;
+  height: 7px;
+  margin-inline-start: 2px;
+  border-top: 1.6px solid var(--muted);
+  border-right: 1.6px solid var(--muted);
+  transform: rotate(45deg);
+  opacity: 0.6;
 }
 
 .ctv-list-foot {
@@ -543,14 +618,313 @@
 
 .ctv-empty-list {
   color: var(--muted);
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   padding: 18px 4px;
+}
+
+/* --- プレイヤー --- */
+
+.ctv-video {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  background: #000;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.ctv-video iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+.ctv-empty-player {
+  aspect-ratio: 16 / 9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  color: var(--muted);
+  background: var(--ctv-card);
+  border: 1px dashed var(--ctv-line);
+  border-radius: 10px;
+}
+
+.ctv-now h3 {
+  margin: 12px 0 3px;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.ctv-now-meta {
+  color: var(--muted);
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+.ctv-resume {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 8px 0 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.ctv-notice {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--ctv-card);
+  border: 1px solid var(--ctv-line);
+  font-size: 0.83rem;
+}
+
+/* --- 再生設定のカード（アプリと同じ見た目） --- */
+
+.ctv-settings {
+  margin-top: 14px;
+  border: 1px solid var(--ctv-line);
+  border-radius: 12px;
+  background: var(--ctv-card);
+  padding: 0 14px;
+}
+
+.ctv-toggle,
+.ctv-repeat-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+  cursor: pointer;
+}
+
+.ctv-toggle + .ctv-toggle,
+.ctv-repeat-row {
+  border-top: 1px solid var(--ctv-line);
+}
+
+.ctv-toggle-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 0.86rem;
+  min-width: 0;
+}
+
+.ctv-toggle-detail {
+  color: var(--muted);
+  font-size: 0.75rem;
+  line-height: 1.45;
+}
+
+.ctv-settings-note {
+  margin: 0;
+  padding: 10px 0 12px;
+  border-top: 1px solid var(--ctv-line);
+  color: var(--muted);
+  font-size: 0.73rem;
+  line-height: 1.5;
+}
+
+/* iOS 風のスイッチ */
+.ctv-toggle input[type='checkbox'] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.ctv-switch {
+  flex: none;
+  width: 46px;
+  height: 27px;
+  border-radius: 999px;
+  background: var(--ctv-switch-off);
+  position: relative;
+  transition: background 0.18s ease;
+}
+
+.ctv-switch::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 23px;
+  height: 23px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  transition: transform 0.18s ease;
+}
+
+.ctv-toggle input:checked ~ .ctv-switch {
+  background: var(--accent);
+}
+
+.ctv-toggle input:checked ~ .ctv-switch::after {
+  transform: translateX(19px);
+}
+
+.ctv-toggle input:focus-visible ~ .ctv-switch {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* --- 移動（丸ボタンの並び） --- */
+
+.ctv-nav {
+  display: flex;
+  align-items: flex-start; /* <details> が他のボタンの高さに引き伸ばされないように */
+  justify-content: space-between;
+  gap: 4px;
+  margin-top: 16px;
+}
+
+.ctv-nav-btn {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: var(--text);
+  cursor: pointer;
+  list-style: none;
+}
+
+.ctv-nav-btn::-webkit-details-marker {
+  display: none;
+}
+
+.ctv-nav-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid var(--ctv-line);
+  background: var(--bg);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 19px;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.ctv-nav-btn:hover:not(:disabled) .ctv-nav-icon {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.ctv-nav-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.ctv-nav-label {
+  font-size: 0.68rem;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.ctv-nav-menu {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.ctv-nav-menu .ctv-menu-body {
+  right: auto;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: calc(100% + 6px);
+  top: auto;
+}
+
+/* --- YouTubeで開く（全幅） --- */
+
+.ctv-yt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 11px 16px;
+  border: 1px solid var(--ctv-line);
+  border-radius: 10px;
+  color: var(--ctv-link);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.ctv-yt:hover {
+  border-color: var(--ctv-link);
+}
+
+.ctv-yt svg {
+  font-size: 18px;
+}
+
+/* --- メモ --- */
+
+.ctv-memo {
+  margin-top: 18px;
+}
+
+.ctv-memo h4 {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0 0 8px;
+  font-size: 0.9rem;
+}
+
+.ctv-memo h4 svg {
+  font-size: 16px;
+  color: var(--muted);
+}
+
+.ctv-memo textarea {
+  width: 100%;
+  min-height: 90px;
+  resize: vertical;
+  padding: 11px 13px;
+  border-radius: 10px;
+  border: 1px solid var(--ctv-line);
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.88rem;
+}
+
+.ctv-memo textarea:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.ctv-memo .ctv-help {
+  margin-top: 6px;
+  font-size: 0.75rem;
 }
 
 /* --- Pro 案内 --- */
 
 .ctv-dialog {
-  border: 1px solid var(--line);
+  border: 1px solid var(--ctv-line);
   border-radius: var(--radius);
   background: var(--bg-soft);
   color: var(--text);
@@ -573,7 +947,7 @@
 
 /* 消えることは必ず赤字・太字で伝える。 */
 .ctv-warning {
-  color: #d64545;
+  color: var(--ctv-danger);
   font-weight: 700;
 }
 
@@ -614,10 +988,10 @@
 /* =====================================================================
    スマホの枠の中で動かす版（トップページのヒーロー）
    ---------------------------------------------------------------------
-   中身（HTML・id）は /try/ とまったく同じで、ここで見た目だけを狭い画面向けに詰める。
-   画面幅ではなく「枠の中」に合わせたいので、メディアクエリではなく
-   #ctv[data-variant='phone'] で切り替える（枠は広い画面の中の小さな箱なので、
-   @media では判定できない）。
+   中身（HTML・id）は /try/ とまったく同じ。ここでは
+   「枠に収める」ことと「アプリと同じ2画面（一覧⇄再生）にする」ことだけを行う。
+   画面幅ではなく枠の中に合わせたいので、メディアクエリではなく
+   #ctv[data-variant='phone'] で切り替える。
    ===================================================================== */
 
 #ctv[data-variant='phone'] {
@@ -627,8 +1001,7 @@
 
 [data-variant='phone'] .ctv-frame {
   height: var(--ctv-phone-h);
-  /* 幅は高さから決める（≒ 9:19.5）。中身の量で幅が変わらないよう、
-     aspect-ratio ではなく実寸で持たせる。狭すぎ・広すぎは clamp で止める。 */
+  /* 幅は高さから決める（≒ 9:19.5）。中身の量で幅が変わらないようにする。 */
   width: clamp(252px, calc(var(--ctv-phone-h) * 0.47), 320px);
   padding: 10px;
   background: #0b0d10;
@@ -644,13 +1017,12 @@
   overscroll-behavior: contain;
   background: var(--bg);
   border-radius: 29px;
-  padding: 12px;
+  padding: 10px 12px 14px;
 }
 
-/* 縦に積む（プレイヤーの下に一覧） */
+/* 一覧と再生を1画面ずつ出す（アプリと同じ行き来） */
 [data-variant='phone'] .ctv-main {
-  grid-template-columns: 1fr;
-  gap: 14px;
+  display: block;
   margin-top: 12px;
 }
 
@@ -658,30 +1030,42 @@
   position: static;
 }
 
+[data-variant='phone'][data-screen='list'] .ctv-player-col {
+  display: none;
+}
+
+[data-variant='phone'][data-screen='player'] .ctv-list-col {
+  display: none;
+}
+
+/* 再生画面では、上部バーは「戻る」だけを見せる（アプリと同じ） */
+[data-variant='phone'][data-screen='player'] .ctv-appbar-avatar,
+[data-variant='phone'][data-screen='player'] #ctv-list-menu {
+  display: none;
+}
+
+/* 上部バーは枠の上に貼り付けておく（スクロールしても戻れるように） */
+[data-variant='phone'] .ctv-appbar {
+  position: sticky;
+  top: -10px;
+  z-index: 5;
+  margin: -10px -12px 0;
+  padding: 12px 12px 10px;
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  backdrop-filter: blur(8px);
+}
+
+[data-variant='phone'] .ctv-appbar-title {
+  font-size: 0.92rem;
+}
+
 /* 余白と文字を詰める */
-[data-variant='phone'] .ctv-setup,
-[data-variant='phone'] .ctv-channel {
-  padding: 12px;
+[data-variant='phone'] .ctv-setup {
+  padding: 14px;
 }
 
-[data-variant='phone'] .ctv-setup h3,
-[data-variant='phone'] .ctv-channel h3,
-[data-variant='phone'] .ctv-now h3 {
+[data-variant='phone'] .ctv-setup h3 {
   font-size: 0.95rem;
-}
-
-[data-variant='phone'] .ctv-channel {
-  gap: 10px;
-}
-
-[data-variant='phone'] .ctv-channel img {
-  width: 38px;
-  height: 38px;
-}
-
-/* 枠が狭いと、既定の flex-basis ではアイコンとチャンネル名が上下に割れてしまう。 */
-[data-variant='phone'] .ctv-channel-body {
-  flex: 1 1 140px;
 }
 
 [data-variant='phone'] .ctv-field {
@@ -702,121 +1086,117 @@
 [data-variant='phone'] .ctv-help,
 [data-variant='phone'] .ctv-toggle-detail,
 [data-variant='phone'] .ctv-count,
-[data-variant='phone'] .ctv-updated {
-  font-size: 0.72rem;
-}
-
-[data-variant='phone'] .ctv-btn,
-[data-variant='phone'] .ctv-chip {
-  font-size: 0.75rem;
-  padding: 5px 11px;
+[data-variant='phone'] .ctv-settings-note {
+  font-size: 0.7rem;
 }
 
 [data-variant='phone'] .ctv-progress,
-[data-variant='phone'] .ctv-upnext,
-[data-variant='phone'] .ctv-notice,
 [data-variant='phone'] .ctv-toggle-text,
-[data-variant='phone'] .ctv-repeat-row {
+[data-variant='phone'] .ctv-resume {
   font-size: 0.78rem;
 }
 
-[data-variant='phone'] .ctv-channel-tools {
-  gap: 6px;
-  margin-top: 10px;
+[data-variant='phone'] .ctv-now h3 {
+  font-size: 0.9rem;
+}
+
+[data-variant='phone'] .ctv-now-meta {
+  font-size: 0.72rem;
 }
 
 [data-variant='phone'] .ctv-settings {
-  padding: 10px 12px;
-  margin-top: 10px;
+  padding: 0 12px;
+  margin-top: 12px;
+}
+
+[data-variant='phone'] .ctv-switch {
+  width: 40px;
+  height: 24px;
+}
+
+[data-variant='phone'] .ctv-switch::after {
+  width: 20px;
+  height: 20px;
+}
+
+[data-variant='phone'] .ctv-toggle input:checked ~ .ctv-switch::after {
+  transform: translateX(16px);
+}
+
+[data-variant='phone'] .ctv-nav-icon {
+  width: 36px;
+  height: 36px;
+  font-size: 16px;
+}
+
+[data-variant='phone'] .ctv-nav-label {
+  font-size: 0.6rem;
+}
+
+[data-variant='phone'] .ctv-yt {
+  margin-top: 14px;
+  padding: 9px 12px;
+  font-size: 0.82rem;
 }
 
 [data-variant='phone'] .ctv-memo textarea {
   min-height: 70px;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
 }
 
-[data-variant='phone'] .ctv-toolbar {
-  gap: 8px;
-  margin-bottom: 8px;
+[data-variant='phone'] .ctv-memo h4 {
+  font-size: 0.82rem;
 }
 
-/* 一覧の行 */
-[data-variant='phone'] .ctv-row {
-  padding: 6px 6px;
-  gap: 8px;
-}
-
+/* 一覧の行（アプリの一覧に寄せる。通し番号は「次に見る」で分かるので出さない） */
 [data-variant='phone'] .ctv-num {
-  min-width: 2em;
-  font-size: 0.68rem;
+  display: none;
 }
 
-[data-variant='phone'] .ctv-thumb {
-  width: 60px;
-  height: 34px;
+[data-variant='phone'] .ctv-thumb,
+[data-variant='phone'] .ctv-next-thumb {
+  width: 68px;
+  height: 38px;
 }
 
-[data-variant='phone'] .ctv-row-title {
-  font-size: 0.8rem;
+[data-variant='phone'] .ctv-row-title,
+[data-variant='phone'] .ctv-next-title {
+  font-size: 0.78rem;
 }
 
 [data-variant='phone'] .ctv-row-meta {
-  font-size: 0.67rem;
+  font-size: 0.66rem;
 }
 
-[data-variant='phone'] .ctv-chip-icon {
+[data-variant='phone'] .ctv-mark {
+  width: 24px;
+  height: 24px;
+  font-size: 12px;
+}
+
+/* スキップの印は一覧では出さない（再生画面の⋯から付け外しできる） */
+[data-variant='phone'] .ctv-row-actions [data-act='skip'] {
+  display: none;
+}
+
+[data-variant='phone'] .ctv-seg .ctv-chip {
+  font-size: 0.7rem;
+  padding: 5px 4px;
+}
+
+[data-variant='phone'] .ctv-sort {
+  font-size: 0.72rem;
+  padding: 4px 10px;
+}
+
+[data-variant='phone'] .ctv-next-card {
+  padding: 7px;
+}
+
+[data-variant='phone'] .ctv-next-play {
   width: 26px;
   height: 26px;
-  font-size: 0.8rem;
-}
-
-[data-variant='phone'] .ctv-empty-player {
-  font-size: 0.8rem;
-  padding: 12px;
-}
-
-/* 狭い枠では、アプリと同じ「進捗 → 一覧」の並びを優先する。
-   チャンネルの操作ボタンは一番下へ回し、再生前のプレイヤー枠は出さない。 */
-[data-variant='phone'] #ctv-workspace {
-  display: flex;
-  flex-direction: column;
-}
-
-[data-variant='phone'] .ctv-channel {
-  order: 1;
-}
-
-[data-variant='phone'] .ctv-status {
-  order: 2;
-}
-
-[data-variant='phone'] .ctv-main {
-  order: 3;
-}
-
-[data-variant='phone'] .ctv-tools {
-  order: 4;
-  margin-top: 14px;
-  padding-top: 12px;
-  border-top: 1px solid var(--line);
-}
-
-[data-variant='phone'] .ctv-channel-tools {
-  gap: 6px;
-}
-
-[data-variant='phone'] .ctv-channel-tools .ctv-btn {
-  font-size: 0.7rem;
-  padding: 4px 9px;
-}
-
-/* まだ何も再生していないうちは、プレイヤーの枠ぶんの余白を作らない。 */
-[data-variant='phone'] #ctv-player-empty {
-  display: none;
-}
-
-[data-variant='phone'] .ctv-player-col:has(> #ctv-player-wrap[hidden]) {
-  display: none;
+  font-size: 15px;
 }
 
 /* 保存中のチャンネルが無いあいだは、入力を枠の中央に置く。 */
@@ -826,27 +1206,72 @@
   justify-content: center;
 }
 
-/* 枠が狭いぶん、行はアプリの一覧に寄せる:
-   通し番号は「次に見る：第N本目」で分かるので出さず、印は視聴済みだけにする
-   （スキップは再生中の操作から付け外しできる）。こうしてタイトルに幅を回す。 */
-[data-variant='phone'] .ctv-num {
-  display: none;
+/* --- 狭い枠での詰め（折り返しや切れが出やすいところ） --- */
+
+/* 進捗は「進捗 12 / 1,138本（1%）」を1行、バーはその下に全幅で置く。 */
+[data-variant='phone'] .ctv-progress {
+  flex-wrap: wrap;
+  gap: 6px 8px;
+  margin-bottom: 10px;
 }
 
-[data-variant='phone'] .ctv-row-actions [data-act='skip'] {
-  display: none;
+[data-variant='phone'] .ctv-bar {
+  flex: 1 0 100%;
 }
 
-[data-variant='phone'] .ctv-thumb {
-  width: 56px;
-  height: 32px;
+/* 絞り込みは均等割りにすると長い語が切れるので、必要な幅だけ使う。 */
+[data-variant='phone'] .ctv-seg {
+  justify-content: flex-start;
+  gap: 4px;
 }
 
 [data-variant='phone'] .ctv-seg .ctv-chip {
-  font-size: 0.7rem;
-  padding: 4px 9px;
+  flex: 0 1 auto;
+  font-size: 0.66rem;
+  padding: 5px 8px;
 }
 
-[data-variant='phone'] .ctv-toolbar {
-  gap: 6px;
+/* 「次に見る：第13本目」は折り返さない。 */
+[data-variant='phone'] .ctv-next-label {
+  font-size: 0.66rem;
+  white-space: nowrap;
+}
+
+/* 行の説明（日付・視聴済み）は1行に収める。 */
+[data-variant='phone'] .ctv-row-meta {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 設定カードは説明文が長いので、枠の中では少し詰める。 */
+[data-variant='phone'] .ctv-toggle,
+[data-variant='phone'] .ctv-repeat-row {
+  padding: 10px 0;
+  gap: 10px;
+}
+
+[data-variant='phone'] .ctv-toggle-detail {
+  font-size: 0.67rem;
+  line-height: 1.4;
+}
+
+/* 行の説明は「日付」と「印」を分けて置く（印の前に中黒を出す）。 */
+.ctv-row-meta .ctv-badge::before {
+  content: ' · ';
+}
+
+/* 絞り込みは切らずに折り返す（言語によって語の長さが違うため）。 */
+[data-variant='phone'] .ctv-seg {
+  flex-wrap: wrap;
+}
+
+[data-variant='phone'] .ctv-seg .ctv-chip {
+  flex: 0 0 auto;
+  overflow: visible;
+}
+
+/* 狭い枠では「視聴済み」の文字は出さない（右の緑の丸で分かるため）。 */
+[data-variant='phone'] .ctv-badge-watched {
+  display: none;
 }

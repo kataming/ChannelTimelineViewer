@@ -140,6 +140,34 @@
   background: color-mix(in srgb, var(--muted) 28%, transparent);
 }
 
+/* 繰り返しのバッジ（アプリの上部バーにある緑の「ALL」と同じ役割） */
+.ctv-repeat-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex: none;
+  border: 1px solid var(--ctv-line);
+  background: var(--bg);
+  color: var(--muted);
+  border-radius: 8px;
+  padding: 4px 8px;
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.ctv-repeat-badge svg {
+  font-size: 13px;
+}
+
+.ctv-repeat-badge[aria-pressed='true'] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
 /* --- メニュー（<details> だけで開閉する） --- */
 
 /* サイト共通の details（FAQ用の下線と余白）が効いてしまうので、ここで打ち消す。 */
@@ -658,6 +686,12 @@
   line-height: 1.4;
 }
 
+.ctv-now-channel {
+  color: var(--ctv-link);
+  font-size: 0.82rem;
+  margin: 0 0 2px;
+}
+
 .ctv-now-meta {
   color: var(--muted);
   font-size: 0.8rem;
@@ -996,7 +1030,7 @@
 
 #ctv[data-variant='phone'] {
   /* 上に余白を作りすぎるとスマホの下が画面から切れる。ここで高さを画面に合わせる。 */
-  --ctv-phone-h: clamp(420px, calc(100svh - 150px), 660px);
+  --ctv-phone-h: clamp(420px, calc(100svh - 118px), 680px);
 }
 
 [data-variant='phone'] .ctv-frame {
@@ -1056,7 +1090,7 @@
 }
 
 [data-variant='phone'] .ctv-appbar-title {
-  font-size: 0.92rem;
+  font-size: 0.72rem;
 }
 
 /* 余白と文字を詰める */
@@ -1083,69 +1117,106 @@
   font-size: 0.88rem;
 }
 
-[data-variant='phone'] .ctv-help,
-[data-variant='phone'] .ctv-toggle-detail,
 [data-variant='phone'] .ctv-count,
 [data-variant='phone'] .ctv-settings-note {
-  font-size: 0.7rem;
+  font-size: 0.55rem;
+}
+
+[data-variant='phone'] .ctv-help {
+  font-size: 0.66rem;
 }
 
 [data-variant='phone'] .ctv-progress,
 [data-variant='phone'] .ctv-toggle-text,
 [data-variant='phone'] .ctv-resume {
-  font-size: 0.78rem;
+  font-size: 0.62rem;
 }
 
 [data-variant='phone'] .ctv-now h3 {
-  font-size: 0.9rem;
-}
-
-[data-variant='phone'] .ctv-now-meta {
   font-size: 0.72rem;
+  margin: 7px 0 2px;
+  line-height: 1.35;
+  /* アプリの再生画面と同じく1行で切る（続きはタイトル属性で読める）。 */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-[data-variant='phone'] .ctv-settings {
-  padding: 0 12px;
-  margin-top: 12px;
-}
-
-[data-variant='phone'] .ctv-switch {
-  width: 40px;
-  height: 24px;
-}
-
-[data-variant='phone'] .ctv-switch::after {
-  width: 20px;
-  height: 20px;
-}
-
-[data-variant='phone'] .ctv-toggle input:checked ~ .ctv-switch::after {
-  transform: translateX(16px);
-}
-
-[data-variant='phone'] .ctv-nav-icon {
-  width: 36px;
-  height: 36px;
-  font-size: 16px;
-}
-
-[data-variant='phone'] .ctv-nav-label {
+[data-variant='phone'] .ctv-now-channel {
   font-size: 0.6rem;
 }
 
+[data-variant='phone'] .ctv-now-meta {
+  font-size: 0.55rem;
+}
+
+[data-variant='phone'] .ctv-settings {
+  padding: 0 10px;
+  margin-top: 7px;
+  border-radius: 9px;
+}
+
+[data-variant='phone'] .ctv-switch {
+  width: 33px;
+  height: 20px;
+}
+
+[data-variant='phone'] .ctv-switch::after {
+  width: 16px;
+  height: 16px;
+}
+
+[data-variant='phone'] .ctv-toggle input:checked ~ .ctv-switch::after {
+  transform: translateX(13px);
+}
+
+[data-variant='phone'] .ctv-nav {
+  margin-top: 8px;
+  gap: 2px;
+}
+
+[data-variant='phone'] .ctv-nav-icon {
+  width: 29px;
+  height: 29px;
+  font-size: 13px;
+}
+
+[data-variant='phone'] .ctv-nav-btn {
+  gap: 3px;
+}
+
+[data-variant='phone'] .ctv-nav-label {
+  font-size: 0.5rem;
+}
+
 [data-variant='phone'] .ctv-yt {
-  margin-top: 14px;
-  padding: 9px 12px;
-  font-size: 0.82rem;
+  margin-top: 8px;
+  padding: 7px 12px;
+  font-size: 0.62rem;
+  border-radius: 8px;
+}
+
+[data-variant='phone'] .ctv-yt svg {
+  font-size: 13px;
+}
+
+[data-variant='phone'] .ctv-memo {
+  margin-top: 12px;
 }
 
 [data-variant='phone'] .ctv-memo textarea {
-  min-height: 70px;
-  font-size: 0.82rem;
+  min-height: 56px;
+  font-size: 0.62rem;
+  padding: 8px 10px;
 }
 
 [data-variant='phone'] .ctv-memo h4 {
-  font-size: 0.82rem;
+  font-size: 0.62rem;
+  margin-bottom: 5px;
+}
+
+[data-variant='phone'] .ctv-memo h4 svg {
+  font-size: 13px;
 }
 
 /* 一覧の行（アプリの一覧に寄せる。通し番号は「次に見る」で分かるので出さない） */
@@ -1155,23 +1226,23 @@
 
 [data-variant='phone'] .ctv-thumb,
 [data-variant='phone'] .ctv-next-thumb {
-  width: 68px;
-  height: 38px;
+  width: 62px;
+  height: 35px;
 }
 
 [data-variant='phone'] .ctv-row-title,
 [data-variant='phone'] .ctv-next-title {
-  font-size: 0.78rem;
+  font-size: 0.62rem;
 }
 
 [data-variant='phone'] .ctv-row-meta {
-  font-size: 0.66rem;
+  font-size: 0.53rem;
 }
 
 [data-variant='phone'] .ctv-mark {
-  width: 24px;
-  height: 24px;
-  font-size: 12px;
+  width: 21px;
+  height: 21px;
+  font-size: 10px;
 }
 
 /* スキップの印は一覧では出さない（再生画面の⋯から付け外しできる） */
@@ -1180,13 +1251,13 @@
 }
 
 [data-variant='phone'] .ctv-seg .ctv-chip {
-  font-size: 0.7rem;
-  padding: 5px 4px;
+  font-size: 0.56rem;
+  padding: 4px 8px;
 }
 
 [data-variant='phone'] .ctv-sort {
-  font-size: 0.72rem;
-  padding: 4px 10px;
+  font-size: 0.56rem;
+  padding: 3px 9px;
 }
 
 [data-variant='phone'] .ctv-next-card {
@@ -1194,9 +1265,9 @@
 }
 
 [data-variant='phone'] .ctv-next-play {
-  width: 26px;
-  height: 26px;
-  font-size: 15px;
+  width: 23px;
+  height: 23px;
+  font-size: 13px;
 }
 
 /* 保存中のチャンネルが無いあいだは、入力を枠の中央に置く。 */
@@ -1233,7 +1304,7 @@
 
 /* 「次に見る：第13本目」は折り返さない。 */
 [data-variant='phone'] .ctv-next-label {
-  font-size: 0.66rem;
+  font-size: 0.53rem;
   white-space: nowrap;
 }
 
@@ -1245,15 +1316,14 @@
 }
 
 /* 設定カードは説明文が長いので、枠の中では少し詰める。 */
-[data-variant='phone'] .ctv-toggle,
-[data-variant='phone'] .ctv-repeat-row {
-  padding: 10px 0;
-  gap: 10px;
+[data-variant='phone'] .ctv-toggle {
+  padding: 6px 0;
+  gap: 8px;
 }
 
 [data-variant='phone'] .ctv-toggle-detail {
-  font-size: 0.67rem;
-  line-height: 1.4;
+  font-size: 0.53rem;
+  line-height: 1.3;
 }
 
 /* 行の説明は「日付」と「印」を分けて置く（印の前に中黒を出す）。 */
@@ -1274,4 +1344,67 @@
 /* 狭い枠では「視聴済み」の文字は出さない（右の緑の丸で分かるため）。 */
 [data-variant='phone'] .ctv-badge-watched {
   display: none;
+}
+
+/* --- 上部バーの出し分け（アプリと同じ） --- */
+
+/* 再生画面では、チャンネル名は動画のすぐ下に出るので上部バーには出さない。 */
+[data-variant='phone'][data-screen='player'] .ctv-appbar-title {
+  visibility: hidden;
+}
+
+/* 繰り返しのバッジは再生画面だけに出す。 */
+[data-variant='phone'][data-screen='list'] .ctv-repeat-badge {
+  display: none;
+}
+
+[data-variant='phone'] .ctv-repeat-badge {
+  font-size: 0.55rem;
+  padding: 3px 6px;
+}
+
+[data-variant='phone'] .ctv-repeat-badge svg {
+  font-size: 11px;
+}
+
+[data-variant='phone'] .ctv-icon-btn {
+  width: 26px;
+  height: 26px;
+  font-size: 15px;
+}
+
+[data-variant='phone'] .ctv-appbar {
+  gap: 7px;
+  padding: 10px 12px 8px;
+}
+
+[data-variant='phone'] .ctv-appbar-avatar {
+  width: 22px;
+  height: 22px;
+}
+
+/* 「続きから再生する」の説明は、アプリの再生画面にも無いので狭い枠では省く。 */
+[data-variant='phone'] .ctv-detail-optional {
+  display: none;
+}
+
+/* 動画のすぐ下から詰めて、「YouTubeで開く」まで1画面に収める。 */
+[data-variant='phone'] .ctv-main {
+  margin-top: 8px;
+}
+
+[data-variant='phone'] .ctv-resume {
+  margin-top: 5px;
+}
+
+[data-variant='phone'] .ctv-notice {
+  margin-top: 6px;
+  padding: 7px 10px;
+  font-size: 0.6rem;
+}
+
+/* カード下の注記も詰める（2行に収める）。 */
+[data-variant='phone'] .ctv-settings-note {
+  padding: 7px 0 9px;
+  line-height: 1.4;
 }

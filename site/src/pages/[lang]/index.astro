@@ -143,13 +143,13 @@ const L = langOf(code);
 </Base>
 
 <style>
-  /* スマホ全体が画面に収まるよう、上の余白は詰めておく（下が切れないように）。 */
-  .hero { padding: 24px 0 40px; }
+  /* スマホ全体が画面に収まるよう、上下の余白は詰めておく（下が切れないように）。 */
+  .hero { padding: 16px 0 32px; }
   /* 見出しは指定した区切りでだけ改行する（単語の途中で割れないように）。 */
   .title-line { display: inline-block; }
   .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 48px; align-items: center; }
-  .hero-demo { display: flex; flex-direction: column; align-items: center; gap: 10px; }
-  .demo-note { margin: 0; font-size: 0.85rem; }
+  .hero-demo { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .demo-note { margin: 0; font-size: 0.82rem; line-height: 1.4; }
   .demo-note a { color: var(--accent); font-weight: 700; }
   /* 狭い画面では、まずボタンまで見えることを優先して体験版は畳む
      （下の「PCでも1チャンネルを無料で試せます」から /try/ へ行ける）。 */

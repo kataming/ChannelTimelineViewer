@@ -69,6 +69,10 @@ const i18nJSON = JSON.stringify({ ui: trial.ui }).replace(/</g, '\\u003c');
           </button>
           <img id="ctv-ch-thumb" class="ctv-appbar-avatar" width="28" height="28" alt="" hidden />
           <span class="ctv-appbar-title" id="ctv-ch-title"></span>
+          <button type="button" class="ctv-repeat-badge" id="ctv-repeat" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h13l-3-3M20 15H7l3 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span id="ctv-repeat-value"></span>
+          </button>
           <details class="ctv-menu" id="ctv-list-menu">
             <summary class="ctv-icon-btn" aria-label={trial.ui.moreMenu}>
               <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.9"/><circle cx="12" cy="12" r="1.9"/><circle cx="19" cy="12" r="1.9"/></svg>
@@ -150,6 +154,7 @@ const i18nJSON = JSON.stringify({ ui: trial.ui }).replace(/</g, '\\u003c');
 
               <div class="ctv-now">
                 <h3 id="ctv-now-title"></h3>
+                <p class="ctv-now-channel" id="ctv-now-channel"></p>
                 <p class="ctv-now-meta" id="ctv-now-meta"></p>
               </div>
 
@@ -189,23 +194,16 @@ const i18nJSON = JSON.stringify({ ui: trial.ui }).replace(/</g, '\\u003c');
                 <label class="ctv-toggle">
                   <span class="ctv-toggle-text">
                     <span>{trial.ui.resumeSetting}</span>
-                    <span class="ctv-toggle-detail">{trial.ui.resumeDetail}</span>
+                    <span class="ctv-toggle-detail ctv-detail-optional">{trial.ui.resumeDetail}</span>
                   </span>
                   <input type="checkbox" id="ctv-resume-pref" />
                   <span class="ctv-switch" aria-hidden="true"></span>
                 </label>
 
-                <div class="ctv-repeat-row">
-                  <span class="ctv-toggle-text">
-                    <span>{trial.ui.repeatLabel}</span>
-                    <span class="ctv-toggle-detail" id="ctv-repeat-detail"></span>
-                  </span>
-                  <button type="button" class="ctv-pill" id="ctv-repeat" aria-pressed="false">
-                    <span id="ctv-repeat-value"></span>
-                  </button>
-                </div>
-
-                <p class="ctv-settings-note">{trial.ui.skipDetail}</p>
+                <p class="ctv-settings-note">
+                  {trial.ui.skipDetail}
+                  <span id="ctv-repeat-detail"></span>
+                </p>
               </div>
 
               <!-- 移動（アプリと同じ丸ボタンの並び） -->

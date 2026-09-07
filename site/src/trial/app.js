@@ -788,6 +788,7 @@ class Trial {
     const ui = this.t.ui;
 
     $('ctv-now-title').textContent = video.title || ui.untitled;
+    $('ctv-now-channel').textContent = (this.channel && this.channel.title) || '';
     $('ctv-now-meta').textContent = `${fmt(
       ui.positionFormat,
       String(this.current.index + 1),
@@ -916,7 +917,7 @@ class Trial {
     $('ctv-repeat').setAttribute('aria-pressed', String(this.prefs.repeat !== 'off'));
     const detail =
       this.prefs.repeat === 'one' ? ui.repeatOneDetail : this.prefs.repeat === 'all' ? ui.repeatAllDetail : '';
-    $('ctv-repeat-detail').textContent = detail;
+    $('ctv-repeat-detail').textContent = detail ? ` ${detail}` : '';
   }
 
   // ---------------------------------------------------------------- Pro 案内

@@ -29,6 +29,9 @@ const MAX_PAGES = 100;
 const NEW_CHECK_PAGES = 5;
 /** 一覧を一度に描く行数（残りはスクロールで足す）。 */
 const CHUNK = 60;
+/** スマホ枠の中でプレイヤーを描かせる幅（実機の画面幅に合わせる）。
+    公式プレイヤーは狭いほど操作ボタンを大きく描くので、ここで描かせて縮小する。 */
+const PHONE_PLAYER_WIDTH = 390;
 
 const $ = (id) => document.getElementById(id);
 
@@ -219,6 +222,20 @@ class Trial {
       this.observer.observe(sentinel);
     }
     $('ctv-show-more').addEventListener('click', () => this.appendChunk());
+
+    // 窓の大きさが変わるとスマホ枠の幅も変わるので、縮小率を取り直す。
+    window.addEventListener('resize', () => {
+      clearTimeout(this.resizeTimer);
+      this.resizeTimer = setTimeout(() => this.updatePlayerScale(), 120);
+    });
+
+    // 全画面のあいだは縮小しない。
+    document.addEventListener('fullscreenchange', () => {
+      const full = Boolean(document.fullscreenElement);
+      if (full) this.root.dataset.fullscreen = 'true';
+      else delete this.root.dataset.fullscreen;
+      this.updatePlayerScale();
+    });
   }
 
   // ---------------------------------------------------------------- 入力
@@ -330,8 +347,21 @@ class Trial {
     if (this.root.dataset.variant !== 'phone') return;
     this.root.dataset.screen = name;
     show($('ctv-back'), name === 'player');
+    this.updatePlayerScale();
     // 画面が変わったら枠の中は先頭から見せる（アプリの画面遷移と同じ感覚にする）。
     if (this.scroller) this.scroller.scrollTo({ top: 0 });
+  }
+
+  /**
+   * スマホ枠のプレイヤーの縮小率を決める。
+   * 枠の幅 ÷ 390 を CSS 変数に入れるだけ（見た目の計算は CSS 側）。
+   */
+  updatePlayerScale() {
+    if (this.root.dataset.variant !== 'phone') return;
+    const box = this.root.querySelector('.ctv-video');
+    const width = box ? box.clientWidth : 0;
+    if (!width) return;
+    this.root.style.setProperty('--ctv-player-scale', String(width / PHONE_PLAYER_WIDTH));
   }
 
   enterWorkspace() {
@@ -773,6 +803,7 @@ class Trial {
         onError: () => this.setStatus('warn', this.t.ui.errUnknown),
       });
     }
+    this.updatePlayerScale();
     this.player.load(video.id, start, autoplay).catch(() => {
       this.setStatus('error', this.t.ui.errNetwork);
     });

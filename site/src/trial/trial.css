@@ -660,6 +660,14 @@
   overflow: hidden;
 }
 
+/* プレイヤーの入れ物は必ず枠と同じ大きさにする。
+   高さを指定しないと iframe が既定の 150px のままになり、枠からはみ出して
+   切り取られる（＝映像がずれて拡大されて見える）。 */
+#ctv-player-mount {
+  width: 100%;
+  height: 100%;
+}
+
 .ctv-video iframe {
   width: 100%;
   height: 100%;
@@ -1386,6 +1394,32 @@
 /* 「続きから再生する」の説明は、アプリの再生画面にも無いので狭い枠では省く。 */
 [data-variant='phone'] .ctv-detail-optional {
   display: none;
+}
+
+/* --- プレイヤーは実機と同じ幅で描かせて縮小する ---
+   公式プレイヤーは埋め込みが狭いほど操作ボタンを大きく描くため、枠の幅のまま
+   描かせると実機より大きくなってしまう。390px（実機の画面幅）で描かせて
+   `--ctv-player-scale`（= 枠の幅 ÷ 390。app.js が入れる）で縮める。 */
+[data-variant='phone'] .ctv-video {
+  position: relative;
+}
+
+[data-variant='phone'] #ctv-player-mount {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 390px;
+  height: 219.375px; /* 390 × 9 / 16 */
+  transform: scale(var(--ctv-player-scale, 0.55));
+  transform-origin: top left;
+}
+
+/* 全画面のあいだは縮小しない（縮小は枠に収めるためのものなので）。 */
+[data-variant='phone'][data-fullscreen='true'] #ctv-player-mount {
+  position: static;
+  width: 100%;
+  height: 100%;
+  transform: none;
 }
 
 /* 動画のすぐ下から詰めて、「YouTubeで開く」まで1画面に収める。 */

@@ -28,6 +28,7 @@ import json
 import os
 import re
 import sys
+import time
 import urllib.request
 from pathlib import Path
 
@@ -145,22 +146,30 @@ def apple_prices_from_store_pages(territories: list[str]) -> dict:
             continue
         country, currency = where
         url = f"https://apps.apple.com/{country}/app/id{APP_ID}"
-        request = urllib.request.Request(url, headers={"User-Agent": UA})
-        try:
-            with urllib.request.urlopen(request, timeout=30) as response:
-                html = response.read().decode("utf-8", "ignore")
-        except Exception as error:  # noqa: BLE001
-            print(f"    {territory}: ページを取得できませんでした（{type(error).__name__}）")
-            continue
-        pairs = [pair for pair in PAIR_RE.findall(html) if PRODUCT_NAME in pair[0]]
+        # 続けて取りに行くと弾かれることがあるので、間を空けて数回試す。
+        pairs = []
+        for attempt in range(3):
+            if attempt:
+                time.sleep(5 * attempt)
+            request = urllib.request.Request(url, headers={"User-Agent": UA})
+            try:
+                with urllib.request.urlopen(request, timeout=30) as response:
+                    html = response.read().decode("utf-8", "ignore")
+            except Exception as error:  # noqa: BLE001
+                print(f"    {territory}: ページを取得できませんでした（{type(error).__name__}）")
+                continue
+            pairs = [pair for pair in PAIR_RE.findall(html) if PRODUCT_NAME in pair[0]]
+            if pairs:
+                break
         if not pairs:
-            print(f"    {territory}: アプリ内課金の価格が見つかりません（未配信か表示が変わった）")
+            print(f"    {territory}: アプリ内課金の価格が見つかりません（未配信か、続けて取りすぎて弾かれた）")
             continue
         amount = parse_amount(pairs[0][1])
         if amount is None:
             print(f"    {territory}: 金額を読み取れません（{pairs[0][1]}）")
             continue
         out[territory] = {"currency": currency, "amount": amount}
+        time.sleep(2)
     print(f"  App Store（商品ページ）: {len(out)} か国の価格を取得")
     return out
 
@@ -269,6 +278,8 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--print", dest="only_print", action="store_true",
                         help="取得した価格を表示するだけ（ファイルを書き換えない）")
+    parser.add_argument("--allow-partial", action="store_true",
+                        help="片方のストアぶんしか取れていなくても書き出す（通常は使わない）")
     args = parser.parse_args()
 
     print("Pro の現在価格を取得します。")
@@ -291,6 +302,21 @@ def main() -> int:
     missing = [lang for lang in LANGUAGE_TERRITORIES if lang not in table]
     if missing:
         print(f"\n⚠️ 価格を取得できなかった言語: {', '.join(missing)}")
+
+    # 片方のストアぶんしか取れていない言語があると、サイトには
+    # 「Google Play だけ」の金額が正常な顔で出てしまう。気づけないので止める。
+    half = [
+        lang for lang, where in LANGUAGE_TERRITORIES.items()
+        if where["apple"] and where["play"]
+        and lang in table and ("ios" not in table[lang] or "android" not in table[lang])
+    ]
+    if (missing or half) and not args.allow_partial:
+        raise SystemExit(
+            "\n両方のストアの価格が揃っていません: "
+            + ", ".join(sorted(set(missing) | set(half)))
+            + "\n時間をおいて実行し直すか、承知のうえなら --allow-partial を付けてください。"
+            "\n（片方だけの金額を載せると、もう片方のストアの利用者に誤った価格を見せてしまいます）"
+        )
 
     if args.only_print:
         print("\n--print なのでファイルは書き換えていません。")

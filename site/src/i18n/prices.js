@@ -40,7 +40,7 @@ export const proPrices = {
     },
     "android": {
       "currency": "EUR",
-      "amount": 4.99
+      "amount": 5.99
     }
   },
   "de": {
@@ -50,7 +50,7 @@ export const proPrices = {
     },
     "android": {
       "currency": "EUR",
-      "amount": 4.99
+      "amount": 5.99
     }
   },
   "fr": {
@@ -60,7 +60,7 @@ export const proPrices = {
     },
     "android": {
       "currency": "EUR",
-      "amount": 4.99
+      "amount": 5.99
     }
   },
   "ko": {
@@ -70,7 +70,7 @@ export const proPrices = {
     },
     "android": {
       "currency": "KRW",
-      "amount": 7500.0
+      "amount": 7700.0
     }
   }
 };

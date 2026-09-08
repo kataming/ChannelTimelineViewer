@@ -102,6 +102,37 @@ python scripts/prepare_manual_images.py
 - 幅400pxのWebPにして `site/public/manual/` に置き、`src/i18n/manual/images.js` を作り直す。
 - **その言語の写真が無い章は、画像なしで出る**（別言語の画面は出さない。説明と食い違うため）。
 
+## Pro の価格を出し直すとき
+
+料金セクションの Pro カードには、**その言語の国の現在価格**を出している。
+数字は手で書かず、ストアから取り直す:
+
+```
+cd ..
+set PLAY_SERVICE_ACCOUNT_FILE=<play-service-account.json のパス>   # PowerShell は $env:...
+python scripts/fetch_store_prices.py
+```
+
+- `site/src/i18n/prices.js` を作り直す（**自動生成なので手で編集しない**）
+- Google Play は API から、App Store は API（`ASC_KEY_ID` 等がある場合）か、
+  無ければ**商品ページに実際に表示されている金額**から取る
+- 表示は `src/components/ProPrice.astro`。金額の書式は `Intl.NumberFormat` で言語ごとに作る
+
+⚠️ **Apple と Google で金額が違う**（2026-09-08 時点）。
+片方だけを載せると間違いになるので、違うときはストア名を添えて両方出している。
+
+| | App Store | Google Play |
+| --- | --- | --- |
+| en（米国） | $4.99 | $4.99 |
+| ja（日本） | ¥800 | ¥800 |
+| zh（中国本土） | ¥38.00 | （Google Play 未提供） |
+| es / de / fr（ユーロ圏） | 5,99 € | 4,99 € |
+| ko（韓国） | ₩7,700 | ₩7,500 |
+
+**ストアで価格を変えたら、このスクリプトを流し直して push する**（サイトだけ古い金額のまま
+残らないように）。`npm run check` は7言語すべてに価格が出ているかを見るので、
+取得に失敗したまま公開することはない。
+
 ## 文言を直すとき
 
 `src/i18n/translations.js` だけを直す（ページ側に文言を書かない）。7言語すべてに同じキーがあること。

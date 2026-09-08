@@ -56,6 +56,20 @@ for (const l of languages) {
   }
 }
 
+// Pro の価格が7言語すべてに出ているか。
+// prices.js は scripts/fetch_store_prices.py が作る自動生成ファイルなので、
+// 取得に失敗したまま公開してしまわないよう、ここで出力を見て確かめる。
+for (const l of languages) {
+  const html = await read(`${l.slug}/index.html`);
+  if (!html) continue;
+  const block = html.match(/class="pro-price"[^>]*>([\s\S]*?)<\/p>/);
+  if (!block) {
+    note(`${l.slug}/index.html: Pro の価格が出ていない（python scripts/fetch_store_prices.py で作り直す）`);
+    continue;
+  }
+  if (!/\d/.test(block[1])) note(`${l.slug}/index.html: Pro の価格に数字が無い`);
+}
+
 const sitemap = await read('sitemap.xml');
 if (sitemap) {
   const count = (sitemap.match(/<loc>/g) || []).length;

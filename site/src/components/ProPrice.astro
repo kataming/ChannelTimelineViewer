@@ -1,0 +1,94 @@
+---
+// Pro（買い切り）の金額を、その言語の国の通貨・書式で出す。
+//
+// 金額の原本は `src/i18n/prices.js`（自動生成）。
+//   python scripts/fetch_store_prices.py
+// で App Store Connect / Google Play の**現在の価格**を読み直して作り直す。
+// 手で数字を書かないこと（ストアで値上げしたときにサイトだけ古くなるため）。
+//
+// 2つのストアで金額が違うことがある（Apple と Google で税の扱い・価格表が違うため）。
+// 同じならひとつだけ、違えばストア名を添えて両方出す。
+import { langOf, t } from '../i18n/index.js';
+import { priceFor } from '../i18n/prices.js';
+
+const { lang } = Astro.props;
+const copy = t(lang);
+const L = langOf(lang);
+// 金額の書式に使うロケール（en_US → en-US）。
+const locale = L.ogLocale.replace('_', '-');
+
+const money = (value) =>
+  new Intl.NumberFormat(locale, { style: 'currency', currency: value.currency }).format(value.amount);
+
+const price = priceFor(lang);
+const same = price && price.same ? money(price.same) : null;
+const perStore = !same && price
+  ? [
+      price.ios ? { label: copy.store.iosName, text: money(price.ios) } : null,
+      price.android ? { label: copy.store.androidName, text: money(price.android) } : null,
+    ].filter(Boolean)
+  : [];
+---
+
+{same && (
+  <p class="pro-price">
+    <strong>{same}</strong>
+    <span class="pro-price-kind">{copy.pricing.priceKind}</span>
+  </p>
+)}
+
+{!same && perStore.length > 0 && (
+  <p class="pro-price">
+    {perStore.map((row, i) => (
+      <>
+        {i > 0 && <span class="pro-price-sep" aria-hidden="true">/</span>}
+        <span class="pro-price-store">
+          <span class="pro-price-store-name">{row.label}</span>
+          <strong>{row.text}</strong>
+        </span>
+      </>
+    ))}
+    <span class="pro-price-kind">{copy.pricing.priceKind}</span>
+  </p>
+)}
+
+{price && <p class="pro-price-note">{copy.pricing.priceNote}</p>}
+
+<style>
+  .pro-price {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 4px 0 8px;
+  }
+  .pro-price strong {
+    font-size: 1.6rem;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+  .pro-price-store {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+  .pro-price-store-name {
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+  .pro-price-store strong {
+    font-size: 1.3rem;
+  }
+  .pro-price-sep {
+    color: var(--muted);
+  }
+  .pro-price-kind {
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  .pro-price-note {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin: 0 0 10px;
+  }
+</style>

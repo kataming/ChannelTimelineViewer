@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import StoreBadges from '../../components/StoreBadges.astro';
 import ScreenGallery from '../../components/ScreenGallery.astro';
 import TrialApp from '../../components/TrialApp.astro';
+import ProPrice from '../../components/ProPrice.astro';
 import { codes, langOf, t, path } from '../../i18n/index.js';
 import { trialCopy } from '../../i18n/trial.js';
 
@@ -108,6 +109,7 @@ const L = langOf(code);
         </article>
         <article class="card plan-pro">
           <h3>{copy.pricing.proTitle}</h3>
+          <ProPrice lang={code} />
           <p>{copy.pricing.proBody}</p>
         </article>
       </div>

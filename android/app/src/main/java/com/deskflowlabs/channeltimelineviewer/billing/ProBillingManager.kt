@@ -14,6 +14,7 @@ import com.android.billingclient.api.Purchase
 import com.android.billingclient.api.QueryProductDetailsParams
 import com.android.billingclient.api.QueryPurchasesParams
 import com.deskflowlabs.channeltimelineviewer.R
+import com.deskflowlabs.channeltimelineviewer.analytics.Analytics
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -33,6 +34,7 @@ import kotlinx.coroutines.flow.asStateFlow
 class ProBillingManager(
     context: Context,
     private val entitlement: ProEntitlementStore,
+    private val analytics: Analytics = Analytics.Noop,
 ) {
 
     private val appContext = context.applicationContext
@@ -75,6 +77,7 @@ class ProBillingManager(
 
     /** 「購入を復元」。結果をメッセージで知らせる点だけ [refresh] と違う。 */
     fun restore() {
+        analytics.log(Analytics.Event.PRO_RESTORE)
         _isBusy.value = true
         connectThen(
             onUnavailable = {
@@ -89,6 +92,7 @@ class ProBillingManager(
     /** 購入フローを開く。Play に繋がらないときは何もせずメッセージだけ返す。 */
     fun purchase(activity: Activity) {
         if (_isBusy.value) return
+        analytics.log(Analytics.Event.PRO_PURCHASE_START)
         _isBusy.value = true
         connectThen(
             onUnavailable = {
@@ -258,10 +262,19 @@ class ProBillingManager(
                 when {
                     owned.any { it.purchaseState == Purchase.PurchaseState.PURCHASED } -> {
                         entitlement.grant()
+                        analytics.log(
+                            Analytics.Event.PRO_PURCHASE_END,
+                            Analytics.Param.RESULT to Analytics.Result.PURCHASED,
+                        )
                         _messageRes.value = R.string.pro_owned
                     }
-                    owned.any { it.purchaseState == Purchase.PurchaseState.PENDING } ->
+                    owned.any { it.purchaseState == Purchase.PurchaseState.PENDING } -> {
+                        analytics.log(
+                            Analytics.Event.PRO_PURCHASE_END,
+                            Analytics.Param.RESULT to Analytics.Result.PENDING,
+                        )
                         _messageRes.value = R.string.pro_pending
+                    }
                 }
             }
 

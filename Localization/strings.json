@@ -1519,6 +1519,36 @@
     "fr": "À propos de cette app",
     "ko": "이 앱에 대하여"
   },
+  "about.analytics.header": {
+    "comment": "見出し: 利用状況の記録（Android版のみ）",
+    "ja": "利用状況の記録（Android版）",
+    "en": "Usage measurement (Android)",
+    "zh-Hans": "使用情况统计（Android 版）",
+    "es": "Medición de uso (Android)",
+    "de": "Nutzungsmessung (Android)",
+    "fr": "Mesure d’utilisation (Android)",
+    "ko": "사용 현황 기록(Android)"
+  },
+  "about.analytics.body": {
+    "comment": "説明: 何を数えていて、何を送らないか",
+    "ja": "どの画面・どの操作がどれくらい使われたかを Google アナリティクス（Firebase）で数えています。送るのは画面名と操作の種類だけで、見ているチャンネル・動画・メモ・入力したURLは送りません。広告用の識別子も使いません。下の切り替えでいつでも止められます。",
+    "en": "We count how often each screen and action is used, using Google Analytics for Firebase. Only the screen name and the kind of action are sent — never the channels or videos you watch, your notes, or the URLs you enter. No advertising identifier is used. You can turn it off below at any time.",
+    "zh-Hans": "我们使用 Google Analytics for Firebase 统计各画面和操作的使用次数。仅发送画面名称和操作类型，不会发送你观看的频道、视频、备忘或输入的网址，也不使用广告标识符。可随时用下方开关关闭。",
+    "es": "Contamos con qué frecuencia se usa cada pantalla y cada acción mediante Google Analytics para Firebase. Solo se envían el nombre de la pantalla y el tipo de acción: nunca los canales o vídeos que ves, tus notas ni las URL que introduces. No se usa ningún identificador publicitario. Puedes desactivarlo abajo cuando quieras.",
+    "de": "Mit Google Analytics für Firebase zählen wir, wie oft welcher Bildschirm und welche Aktion genutzt wird. Übertragen werden nur der Bildschirmname und die Art der Aktion – nie die Kanäle oder Videos, die Sie ansehen, Ihre Notizen oder eingegebene URLs. Eine Werbe-ID wird nicht verwendet. Sie können es unten jederzeit ausschalten.",
+    "fr": "Nous comptons la fréquence d’utilisation de chaque écran et de chaque action avec Google Analytics pour Firebase. Seuls le nom de l’écran et le type d’action sont envoyés — jamais les chaînes ou vidéos que vous regardez, vos notes ni les URL saisies. Aucun identifiant publicitaire n’est utilisé. Vous pouvez le désactiver ci-dessous à tout moment.",
+    "ko": "Google 애널리틱스(Firebase)로 어떤 화면과 조작이 얼마나 사용되는지 세고 있습니다. 보내는 것은 화면 이름과 조작 종류뿐이며, 보고 있는 채널·동영상·메모·입력한 URL은 보내지 않습니다. 광고 식별자도 사용하지 않습니다. 아래 스위치로 언제든지 끌 수 있습니다."
+  },
+  "about.analytics.toggle": {
+    "comment": "切り替え: 利用状況の記録を許可する",
+    "ja": "利用状況の記録を許可する",
+    "en": "Allow usage measurement",
+    "zh-Hans": "允许统计使用情况",
+    "es": "Permitir la medición de uso",
+    "de": "Nutzungsmessung erlauben",
+    "fr": "Autoriser la mesure d’utilisation",
+    "ko": "사용 현황 기록 허용"
+  },
   "common.close": {
     "comment": "閉じる",
     "ja": "閉じる",

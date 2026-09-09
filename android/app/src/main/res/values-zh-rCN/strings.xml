@@ -2,6 +2,9 @@
 <!-- このファイルは scripts/build_android_strings.py が生成します。直接編集しないこと。 -->
 <!-- language: zh-Hans -->
 <resources>
+    <string name="about_analytics_body">我们使用 Google Analytics for Firebase 统计各画面和操作的使用次数。仅发送画面名称和操作类型，不会发送你观看的频道、视频、备忘或输入的网址，也不使用广告标识符。可随时用下方开关关闭。</string>
+    <string name="about_analytics_header">使用情况统计（Android 版）</string>
+    <string name="about_analytics_toggle">允许统计使用情况</string>
     <string name="about_autoplay_body">自动播放默认关闭：视频结束后会停止并显示“播放下一个视频”按钮。只有你在播放界面自行开启“结束后自动播放下一个”时才会继续播放。即使开启，也只会前进到已打开频道列表中的下一个视频，不会跳转到相关或推荐视频。不进行后台播放，因此关闭应用后播放与自动播放都会停止。</string>
     <string name="about_autoplay_header">自动播放（可选，默认关闭）</string>
     <string name="about_data_body">视频列表通过 YouTube Data API v3 获取。播放直接嵌入 YouTube 官方播放器。不进行抓取，也不使用自制播放器。</string>

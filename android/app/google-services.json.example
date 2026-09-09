@@ -1,0 +1,39 @@
+{
+  "_comment": [
+    "Firebase（Google Analytics for Firebase）の設定ファイルの見本です。",
+    "ここに書いてある値は**すべて偽物**で、どこにもデータは届きません。",
+    "CI（Android Build）はこの見本を google-services.json にコピーして、",
+    "設定ファイルがある側のビルド経路が壊れていないかだけを確かめます。",
+    "",
+    "本物は Firebase コンソール（プロジェクトの設定 > マイアプリ > google-services.json）から",
+    "取得して android/app/google-services.json に置いてください（.gitignore 済み・コミット禁止）。",
+    "手順は docs/android-firebase-analytics.md にあります。"
+  ],
+  "project_info": {
+    "project_number": "000000000000",
+    "project_id": "example-not-a-real-project",
+    "storage_bucket": "example-not-a-real-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:000000000000:android:0000000000000000000000",
+        "android_client_info": {
+          "package_name": "com.deskflowlabs.channeltimelineviewer"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyExampleKeyNotRealDoNotUse0000000000"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

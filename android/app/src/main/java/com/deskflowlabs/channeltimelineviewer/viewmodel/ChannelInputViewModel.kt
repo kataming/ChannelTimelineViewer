@@ -2,6 +2,7 @@ package com.deskflowlabs.channeltimelineviewer.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.deskflowlabs.channeltimelineviewer.analytics.Analytics
 import com.deskflowlabs.channeltimelineviewer.billing.ChannelSlotPolicy
 import com.deskflowlabs.channeltimelineviewer.data.ActiveChannelStore
 import com.deskflowlabs.channeltimelineviewer.data.ChannelDataRemover
@@ -30,10 +31,18 @@ class ChannelInputViewModel(
     private val isPro: StateFlow<Boolean>,
     private val dataRemover: ChannelDataRemover,
     private val activeChannel: ActiveChannelStore,
+    private val analytics: Analytics = Analytics.Noop,
 ) : ViewModel() {
 
-    /** 保存上限に当たったチャンネルと、いま保存しているチャンネル名。 */
-    data class PendingUpgrade(val channel: Channel, val savedChannelTitle: String)
+    /**
+     * 保存上限に当たったチャンネルと、いま保存しているチャンネル名。
+     * [source] は「どこから開こうとしたか」で、入れ替え・購入後にそのまま開くときに使い回す。
+     */
+    data class PendingUpgrade(
+        val channel: Channel,
+        val savedChannelTitle: String,
+        val source: String = Analytics.Source.URL,
+    )
 
     private val _urlText = MutableStateFlow("")
     val urlText: StateFlow<String> = _urlText.asStateFlow()
@@ -72,7 +81,7 @@ class ChannelInputViewModel(
         val target = _pendingUnlock.value ?: return
         _pendingUnlock.value = null
         activeChannel.set(target.id)
-        openResolved(target.toChannel())
+        openResolved(target.toChannel(), Analytics.Source.SWITCH)
     }
 
     /** いま使えるチャンネルの名前（切り替えの説明に出す）。 */
@@ -97,6 +106,7 @@ class ChannelInputViewModel(
         val target = _pendingDeletion.value ?: return
         _pendingDeletion.value = null
         dataRemover.removeChannel(target.id)
+        analytics.log(Analytics.Event.CHANNEL_REMOVE)
     }
 
     fun setUrlText(value: String) {
@@ -120,13 +130,13 @@ class ChannelInputViewModel(
             _errorRes.value = YouTubeApiError.InvalidChannelUrl.messageRes
             return
         }
-        resolve(input)
+        resolve(input, Analytics.Source.URL)
     }
 
     /** 共有で受け取った URL からチャンネルを開く（動画URLなら投稿チャンネルを特定する）。 */
     fun openSharedLink(url: String) {
         _urlText.value = url
-        resolve(url)
+        resolve(url, Analytics.Source.SHARE)
     }
 
     /** お気に入り（最近使った）から開く。ロック中なら開かずに案内を出す。 */
@@ -136,7 +146,7 @@ class ChannelInputViewModel(
             return
         }
         activeChannel.set(favorite.id)
-        openResolved(favorite.toChannel())
+        openResolved(favorite.toChannel(), Analytics.Source.SAVED)
     }
 
     fun dismissPendingUpgrade() {
@@ -150,36 +160,40 @@ class ChannelInputViewModel(
      * 画面で警告してから呼ぶこと。消さずに複数を持ちたい場合が Pro。
      */
     fun replaceSavedChannel() {
-        val pending = _pendingUpgrade.value?.channel ?: return
+        val pending = _pendingUpgrade.value ?: return
         val savedNewestFirst = favorites.favorites.value.map { it.id }
         ChannelSlotPolicy.idsToRemoveForReplacement(savedNewestFirst)
             .forEach(dataRemover::removeChannel)
         _pendingUpgrade.value = null
-        openResolved(pending)
+        analytics.log(Analytics.Event.CHANNEL_REPLACE)
+        openResolved(pending.channel, pending.source)
     }
 
     /** Pro を買ったあとに、保留していたチャンネルをそのまま開く。 */
     fun retryPendingUpgradeIfUnlocked() {
-        val pending = _pendingUpgrade.value?.channel ?: return
+        val pending = _pendingUpgrade.value ?: return
         if (!isPro.value) return
         _pendingUpgrade.value = null
-        openResolved(pending)
+        openResolved(pending.channel, pending.source)
     }
 
-    private fun openResolved(channel: Channel) {
+    private fun openResolved(channel: Channel, source: String) {
         // 無料のときは「いま使うチャンネル」も更新する（1件だけなら常にこれ）。
         if (!isPro.value) activeChannel.set(channel.id)
         favorites.touch(channel)
+        // 送るのは「どこから開いたか」だけ。チャンネルIDや名前は送らない。
+        analytics.log(Analytics.Event.CHANNEL_OPEN, Analytics.Param.SOURCE to source)
         _resolvedChannel.value = channel
     }
 
     /** 保存上限に当たっていないか見て、開くか案内を出すか決める。 */
-    private fun openOrAskForPro(channel: Channel) {
+    private fun openOrAskForPro(channel: Channel, source: String) {
         val saved = favorites.favorites.value
         if (ChannelSlotPolicy.canOpen(saved.map { it.id }, channel.id, isPro.value)) {
-            openResolved(channel)
+            openResolved(channel, source)
             return
         }
+        analytics.log(Analytics.Event.CHANNEL_LIMIT_HIT, Analytics.Param.SOURCE to source)
         // 警告に出す名前は「実際に外れるチャンネル」。以前から複数保存している人は
         // 複数まとめて外れるので、その全部を並べる（消える範囲を偽らないため）。
         val leaving = ChannelSlotPolicy.idsToRemoveForReplacement(saved.map { it.id }).toSet()
@@ -188,16 +202,17 @@ class ChannelInputViewModel(
             savedChannelTitle = saved.filter { it.id in leaving }
                 .joinToString("、") { it.title }
                 .ifEmpty { saved.firstOrNull()?.title.orEmpty() },
+            source = source,
         )
     }
 
-    private fun resolve(input: String) {
+    private fun resolve(input: String, source: String) {
         if (_isLoading.value) return
         _errorRes.value = null
         _isLoading.value = true
         viewModelScope.launch {
             try {
-                openOrAskForPro(api.resolveChannel(input))
+                openOrAskForPro(api.resolveChannel(input), source)
             } catch (e: YouTubeApiException) {
                 _errorRes.value = e.error.messageRes
             } catch (e: Exception) {

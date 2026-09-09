@@ -21,6 +21,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
@@ -37,6 +38,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.deskflowlabs.channeltimelineviewer.BuildConfig
 import com.deskflowlabs.channeltimelineviewer.R
 import com.deskflowlabs.channeltimelineviewer.viewmodel.PlayerViewModel
+import kotlinx.coroutines.flow.StateFlow
 
 /**
  * 再生設定（速度・字幕）。公式プレイヤーの設定メニューは埋め込みの中で切れてしまうため、
@@ -138,11 +140,19 @@ private fun OptionRow(label: String, selected: Boolean, onClick: () -> Unit) {
 
 /**
  * 「このアプリについて」。規約順守に関わる注意事項を明示する画面で、内容は iOS 版と同じ。
+ *
+ * Android 版だけ、末尾に「利用状況の記録」（Google Analytics for Firebase）の説明と
+ * 切り替えを置いている。既定はオンで、ここでいつでもオフにできる。
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AboutScreen(onBack: () -> Unit) {
+fun AboutScreen(
+    analyticsEnabled: StateFlow<Boolean>,
+    onAnalyticsEnabledChange: (Boolean) -> Unit,
+    onBack: () -> Unit,
+) {
     val context = LocalContext.current
+    val isAnalyticsEnabled by analyticsEnabled.collectAsStateWithLifecycle()
 
     Scaffold(
         topBar = {
@@ -185,6 +195,21 @@ fun AboutScreen(onBack: () -> Unit) {
 
             Header(stringResource(R.string.about_resume_header))
             Body(stringResource(R.string.about_resume_body))
+
+            // 利用状況の記録（Android 版のみ）。何を送っていないかまで書く。
+            Header(stringResource(R.string.about_analytics_header))
+            Body(stringResource(R.string.about_analytics_body))
+            Row(
+                modifier = Modifier.fillMaxWidth().padding(top = 4.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Text(
+                    stringResource(R.string.about_analytics_toggle),
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.weight(1f),
+                )
+                Switch(checked = isAnalyticsEnabled, onCheckedChange = onAnalyticsEnabledChange)
+            }
 
             TextButton(onClick = {
                 context.startActivity(

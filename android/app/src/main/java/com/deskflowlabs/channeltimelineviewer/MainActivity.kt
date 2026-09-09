@@ -5,6 +5,7 @@ import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -21,6 +22,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.deskflowlabs.channeltimelineviewer.analytics.Analytics
 import com.deskflowlabs.channeltimelineviewer.model.Channel
 import com.deskflowlabs.channeltimelineviewer.model.VideoItem
 import com.deskflowlabs.channeltimelineviewer.network.SharedLinkParser
@@ -49,6 +51,11 @@ class MainActivity : ComponentActivity() {
     private val sharedUrl = MutableStateFlow<String?>(null)
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // 画面の端から端まで描く（Android 15 以降は既定の挙動。それより前の端末でも見た目を揃える）。
+        // 各画面は Scaffold の余白をそのまま使っているので、上下のバーに文字が潜り込むことはない。
+        // 全画面再生（onShowCustomView）は WindowInsetsControllerCompat でバーを隠す作りなので、
+        // この設定と両立する。
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         container = AppContainer(this)
         container.billing.start()
@@ -147,6 +154,7 @@ private fun AppRoot(container: AppContainer, sharedUrl: MutableStateFlow<String?
                 isPro = container.proEntitlement.isPro,
                 dataRemover = container.channelDataRemover,
                 activeChannel = container.activeChannel,
+                analytics = container.analytics,
             )
         }
     )
@@ -173,6 +181,19 @@ private fun AppRoot(container: AppContainer, sharedUrl: MutableStateFlow<String?
         screen = Screen.Videos(channel)
     }
 
+    // 画面表示を記録する（名前だけ。開いているチャンネルや動画は送らない）。
+    LaunchedEffect(screen) {
+        container.analytics.logScreen(
+            when (screen) {
+                is Screen.Input -> Analytics.Screen.INPUT
+                is Screen.About -> Analytics.Screen.ABOUT
+                is Screen.Pro -> Analytics.Screen.PRO
+                is Screen.Videos -> Analytics.Screen.VIDEO_LIST
+                is Screen.Play -> Analytics.Screen.PLAYER
+            }
+        )
+    }
+
     when (val current = screen) {
         is Screen.Input -> ChannelInputScreen(
             viewModel = inputViewModel,
@@ -185,7 +206,11 @@ private fun AppRoot(container: AppContainer, sharedUrl: MutableStateFlow<String?
             onOpenFavorite = { favorite -> inputViewModel.open(favorite) },
         )
 
-        is Screen.About -> AboutScreen(onBack = { screen = Screen.Input })
+        is Screen.About -> AboutScreen(
+            analyticsEnabled = container.analyticsSettings.isEnabled,
+            onAnalyticsEnabledChange = container::setAnalyticsEnabled,
+            onBack = { screen = Screen.Input },
+        )
 
         is Screen.Pro -> ProScreen(
             billing = container.billing,
@@ -213,6 +238,7 @@ private fun AppRoot(container: AppContainer, sharedUrl: MutableStateFlow<String?
                         skipStore = container.skipStore,
                         positionStore = container.positionStore,
                         settings = container.settings,
+                        analytics = container.analytics,
                     )
                 },
             )

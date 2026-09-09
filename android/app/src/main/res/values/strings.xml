@@ -3,6 +3,12 @@
 <!-- language: en -->
 <resources xmlns:tools="http://schemas.android.com/tools" tools:locale="en">
     <string name="app_name" translatable="false">Channel Timeline Viewer</string>
+    <!-- 説明: 何を数えていて、何を送らないか -->
+    <string name="about_analytics_body">We count how often each screen and action is used, using Google Analytics for Firebase. Only the screen name and the kind of action are sent — never the channels or videos you watch, your notes, or the URLs you enter. No advertising identifier is used. You can turn it off below at any time.</string>
+    <!-- 見出し: 利用状況の記録（Android版のみ） -->
+    <string name="about_analytics_header">Usage measurement (Android)</string>
+    <!-- 切り替え: 利用状況の記録を許可する -->
+    <string name="about_analytics_toggle">Allow usage measurement</string>
     <!-- 自動再生の説明 -->
     <string name="about_autoplay_body">Autoplay is off by default: playback stops when a video ends and a “Play next video” button appears. It continues only if you turn on “Autoplay next when the video ends” yourself on the player screen. Even then it moves only to the next video in the channel list you opened — never to related or recommended videos. There is no background playback, so closing the app stops both playback and autoplay.</string>
     <!-- 見出し: 自動再生 -->

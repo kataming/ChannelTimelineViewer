@@ -4,4 +4,13 @@ build/
 .idea/
 *.iml
 .cxx/
+# Kotlin デーモンの作業ディレクトリ（ビルドすると勝手にできる）
+.kotlin/
+# JVM が落ちたときに残るダンプ（メモリ不足などで出る。中身は環境依存）
+hs_err_pid*.log
+replay_pid*.log
 keystore/
+
+# Firebase（Analytics）の設定ファイル。**本物はコミットしない**。
+# 置き方は docs/android-firebase-analytics.md を参照。CI は Secrets から復元する。
+app/google-services.json

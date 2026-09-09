@@ -8,6 +8,21 @@ plugins {
 }
 
 /**
+ * Google Analytics for Firebase の設定ファイル。
+ * YouTube API キーと同じ扱いで、**リポジトリには入れない**。次のいずれかで置く。
+ *   1. android/app/google-services.json（各自の端末用・gitignore 済み）
+ *   2. CI は Secrets の GOOGLE_SERVICES_JSON_B64 から同じ場所へ復元する
+ *
+ * 無くてもビルドは通り、その場合 Firebase は初期化されない＝計測は完全に止まる
+ * （ローカルの試し打ちビルドや、公開リポジトリの CI から本番の数字を汚さないため）。
+ */
+val firebaseConfigFile = file("google-services.json")
+val hasFirebaseConfig = firebaseConfigFile.exists()
+if (hasFirebaseConfig) {
+    apply(plugin = libs.plugins.google.services.get().pluginId)
+}
+
+/**
  * YouTube Data API v3 のキー。iOS 版の `Resources/Config.plist` と同じ扱いで、
  * **リポジトリには入れない**。次のいずれかで渡す。
  *   1. android/local.properties に `YOUTUBE_API_KEY=...`（各自の端末用・gitignore 済み）
@@ -104,7 +119,11 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            // Play Console の「アプリの最適化がしきい値を下回っています（難読化 0%）」対策。
+            // ⚠️ 難読化で **WebView の JavaScript ブリッジが壊れると再生と自動送りが止まる**。
+            //    残す指定は proguard-rules.pro にあるので、消さないこと。
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             signingConfig = signingConfigs.findByName("release")
         }
@@ -132,6 +151,15 @@ android {
 }
 
 dependencies {
+    // Play Billing（→ play-services-base）が androidx.fragment 1.1.0（2019年）を連れてくる。
+    // このアプリは Fragment を使っていないが、Play Console が「古い SDK バージョン」として
+    // 警告するため版だけ引き上げる。constraints なので依存を新たに足すわけではない。
+    constraints {
+        implementation(libs.androidx.fragment) {
+            because("Play Console の「古い SDK バージョン」警告（billing → play-services-base 経由の 1.1.0）")
+        }
+    }
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
@@ -148,6 +176,11 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.billing)
+
+    // Google Analytics for Firebase（Android 版のみ）。
+    // google-services.json が無いビルドでも依存だけは入る（実行時に初期化されないだけ）。
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
 
     debugImplementation(libs.androidx.ui.tooling)
 

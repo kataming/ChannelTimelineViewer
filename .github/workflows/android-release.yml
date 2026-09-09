@@ -8,6 +8,8 @@ name: Android Release
 #   ANDROID_KEYSTORE_PASSWORD       その合言葉
 #   ANDROID_KEY_ALIAS               鍵の別名（既定 upload）
 #   YOUTUBE_API_KEY_ANDROID         Android アプリ制限つきの API キー
+#   GOOGLE_SERVICES_JSON_B64        Firebase の google-services.json の base64
+#                                   （Google Analytics for Firebase。無いと計測が入らないので必須）
 #   GOOGLE_PLAY_SERVICE_ACCOUNT_JSON  Play へ自動アップロードする場合のみ（Play Console の
 #                                     サービスアカウントの JSON。他プロジェクトと同じものが使える）
 #
@@ -65,6 +67,22 @@ jobs:
           mkdir -p "$RUNNER_TEMP/signing"
           echo "$KEYSTORE_B64" | base64 -d > "$RUNNER_TEMP/signing/upload.jks"
           echo "ANDROID_KEYSTORE_PATH=$RUNNER_TEMP/signing/upload.jks" >> "$GITHUB_ENV"
+
+      # Google Analytics for Firebase の設定。入れ忘れると「計測しないアプリ」を
+      # 気づかないまま出してしまうので、ここで止める。
+      - name: Firebase の設定ファイルを復元
+        env:
+          GOOGLE_SERVICES_JSON_B64: ${{ secrets.GOOGLE_SERVICES_JSON_B64 }}
+        run: |
+          set -euo pipefail
+          if [ -z "$GOOGLE_SERVICES_JSON_B64" ]; then
+            echo "::error::GOOGLE_SERVICES_JSON_B64 が未設定です（計測が入らないビルドになります）"
+            echo "設定方法は docs/android-firebase-analytics.md を参照してください。"
+            exit 1
+          fi
+          echo "$GOOGLE_SERVICES_JSON_B64" | base64 -d > app/google-services.json
+          # 中身は表示しない（プロジェクトIDだけ確認する）。
+          python3 -c "import json;print('firebase project:', json.load(open('app/google-services.json'))['project_info']['project_id'])"
 
       - name: 署名済み AAB / APK をビルド
         env:

@@ -1,9 +1,12 @@
 package com.deskflowlabs.channeltimelineviewer
 
 import android.content.Context
+import com.deskflowlabs.channeltimelineviewer.analytics.Analytics
+import com.deskflowlabs.channeltimelineviewer.analytics.FirebaseAnalyticsTracker
 import com.deskflowlabs.channeltimelineviewer.billing.ProBillingManager
 import com.deskflowlabs.channeltimelineviewer.billing.ProEntitlementStore
 import com.deskflowlabs.channeltimelineviewer.data.ActiveChannelStore
+import com.deskflowlabs.channeltimelineviewer.data.AnalyticsSettingsStore
 import com.deskflowlabs.channeltimelineviewer.data.ChannelDataRemover
 import com.deskflowlabs.channeltimelineviewer.data.ChannelProgressStore
 import com.deskflowlabs.channeltimelineviewer.data.FavoriteChannelStore
@@ -50,9 +53,29 @@ class AppContainer(context: Context) {
         positionStore = positionStore,
     )
 
+    // 利用状況の記録（Android 版のみ）。ユーザーが切っていれば Firebase ごと止める。
+    val analyticsSettings = AnalyticsSettingsStore(prefs)
+    val analytics: Analytics = FirebaseAnalyticsTracker.create(
+        context = context.applicationContext,
+        enabled = analyticsSettings.isEnabled.value,
+    )
+
+    /**
+     * 「このアプリについて」の切り替えから呼ぶ。設定の保存と計測の入り切りをまとめて行う。
+     *
+     * ここで「オンに戻した」イベントは送らない。`setAnalyticsCollectionEnabled(true)` の反映は
+     * 非同期で、直後に `logEvent` しても「まだ無効」と判定されて**捨てられる**ため
+     * （実機で確認済み）。待ち時間を入れれば通るが、タイミング頼みの記録は残さない。
+     * オンに戻したことは、次の画面移動の `screen_view` が再び記録され始めることで分かる。
+     */
+    fun setAnalyticsEnabled(enabled: Boolean) {
+        analyticsSettings.setEnabled(enabled)
+        analytics.setCollectionEnabled(enabled)
+    }
+
     // 買い切り Pro（複数チャンネル保存）。正は Google Play 側の購入情報で、ここはその写し。
     val proEntitlement = ProEntitlementStore(prefs)
-    val billing = ProBillingManager(context.applicationContext, proEntitlement)
+    val billing = ProBillingManager(context.applicationContext, proEntitlement, analytics)
 
     /** APIキーが設定されているか（未設定なら入力画面で警告を出す）。 */
     val isApiConfigured: Boolean get() = BuildConfig.YOUTUBE_API_KEY.isNotBlank()

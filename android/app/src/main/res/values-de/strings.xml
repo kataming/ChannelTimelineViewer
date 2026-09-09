@@ -2,6 +2,9 @@
 <!-- このファイルは scripts/build_android_strings.py が生成します。直接編集しないこと。 -->
 <!-- language: de -->
 <resources>
+    <string name="about_analytics_body">Mit Google Analytics für Firebase zählen wir, wie oft welcher Bildschirm und welche Aktion genutzt wird. Übertragen werden nur der Bildschirmname und die Art der Aktion – nie die Kanäle oder Videos, die Sie ansehen, Ihre Notizen oder eingegebene URLs. Eine Werbe-ID wird nicht verwendet. Sie können es unten jederzeit ausschalten.</string>
+    <string name="about_analytics_header">Nutzungsmessung (Android)</string>
+    <string name="about_analytics_toggle">Nutzungsmessung erlauben</string>
     <string name="about_autoplay_body">Autoplay ist standardmäßig aus: Am Ende eines Videos stoppt die Wiedergabe und die Schaltfläche „Nächstes Video abspielen“ erscheint. Es geht nur weiter, wenn du auf dem Player-Bildschirm selbst „Am Ende automatisch das nächste Video abspielen“ einschaltest. Auch dann wird nur zum nächsten Video der geöffneten Kanalliste gewechselt – nie zu ähnlichen oder empfohlenen Videos. Es gibt keine Hintergrundwiedergabe; beim Schließen der App stoppt alles.</string>
     <string name="about_autoplay_header">Autoplay (optional, standardmäßig aus)</string>
     <string name="about_data_body">Videolisten stammen aus der YouTube Data API v3. Die Wiedergabe bettet den offiziellen Player unverändert ein. Kein Scraping, kein eigener Player.</string>

@@ -34,6 +34,13 @@ jobs:
       - name: Gradle を用意（キャッシュあり）
         uses: gradle/actions/setup-gradle@v4
 
+      # 本物の設定ファイルは Secrets にあり、この workflow の成果物（APK）は誰でも
+      # ダウンロードできる。そのため CI では**偽物の見本**を使い、
+      # 「設定ファイルがある側のビルド経路が壊れていないか」だけを確かめる。
+      # 偽のプロジェクトIDなので、どこにもデータは届かない。
+      - name: Firebase の設定ファイル（見本）を置く
+        run: cp app/google-services.json.example app/google-services.json
+
       - name: 翻訳が最新か確認（strings.json から生成したものと一致するか）
         working-directory: .
         run: |

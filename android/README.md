@@ -27,6 +27,7 @@ iOS 版と同じ考え方の Android アプリ（Kotlin / Jetpack Compose）。
 - スクレイピングをしない（一覧は YouTube Data API v3）
 - バックグラウンド再生をしない（再生中だけ画面を消さない設定にしている）
 - 自動再生は**既定オフ**で、ユーザーがトグルをオンにしたときだけ、開いている一覧の次の動画へ進む
+- 利用状況の記録（Android のみ）は「アプリの使われ方」だけを数える。見ているチャンネル・動画は送らず、アプリ内でいつでもオフにできる
 
 ## ビルド
 
@@ -36,6 +37,10 @@ cd android
 ./gradlew assembleDebug        # デバッグ APK
 ./gradlew lintDebug            # lint
 ```
+
+リリースビルドは **R8（難読化・圧縮）が有効**。`app/proguard-rules.pro` の keep 指定は
+消さないこと（WebView の JavaScript ブリッジと kotlinx.serialization のモデル）。理由と
+確認方法は同ファイルのコメントと [`../CLAUDE.md`](../CLAUDE.md) を参照。
 
 APIキーは**リポジトリに入れない**。次のどちらかで渡す（未設定でもビルドは通り、アプリが警告を出す）。
 
@@ -47,6 +52,18 @@ APIキーは**リポジトリに入れない**。次のどちらかで渡す（�
 ```
 sdk.dir=C:/Users/<ユーザー名>/AppData/Local/Android/Sdk
 ```
+
+### 利用状況の記録（Google Analytics for Firebase）
+
+Android 版だけに入れている。設定ファイル `android/app/google-services.json` も
+**リポジトリに入れない**（gitignore 済み）。置いていない環境では Firebase が初期化されず、
+計測は完全に止まる（ビルドはそのまま通る）。
+
+置き方・送っている中身の一覧・Play の「データセーフティ」申告・
+Firebase BOM を上げるときの注意は [`../docs/android-firebase-analytics.md`](../docs/android-firebase-analytics.md)。
+
+**送るのは画面名と操作の種類だけ**で、見ているチャンネル・動画・メモ・入力したURLは送らない。
+ユーザーは「ⓘ このアプリについて」の切り替えでいつでもオフにできる。
 
 ## 文言（7言語）
 

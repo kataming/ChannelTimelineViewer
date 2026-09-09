@@ -2,6 +2,9 @@
 <!-- このファイルは scripts/build_android_strings.py が生成します。直接編集しないこと。 -->
 <!-- language: es -->
 <resources>
+    <string name="about_analytics_body">Contamos con qué frecuencia se usa cada pantalla y cada acción mediante Google Analytics para Firebase. Solo se envían el nombre de la pantalla y el tipo de acción: nunca los canales o vídeos que ves, tus notas ni las URL que introduces. No se usa ningún identificador publicitario. Puedes desactivarlo abajo cuando quieras.</string>
+    <string name="about_analytics_header">Medición de uso (Android)</string>
+    <string name="about_analytics_toggle">Permitir la medición de uso</string>
     <string name="about_autoplay_body">La reproducción automática está desactivada por defecto: al terminar un vídeo se detiene y aparece un botón «Reproducir el siguiente». Solo continúa si activas «Reproducir el siguiente automáticamente al terminar» en la pantalla del reproductor. Aun así, solo avanza al siguiente vídeo de la lista del canal abierto, nunca a vídeos relacionados o recomendados. No hay reproducción en segundo plano: al cerrar la app se detiene todo.</string>
     <string name="about_autoplay_header">Reproducción automática (opcional, desactivada por defecto)</string>
     <string name="about_data_body">Las listas de vídeos se obtienen con la API de datos de YouTube v3. La reproducción incrusta el reproductor oficial tal cual. Sin scraping ni reproductor propio.</string>

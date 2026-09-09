@@ -294,6 +294,12 @@ cd android
 `python scripts/build_android_strings.py` で生成します。CI は
 [`.github/workflows/android-build.yml`](.github/workflows/android-build.yml)（Linux ランナー）。
 
+Android 版だけ **Google Analytics for Firebase** で「アプリの使われ方」（画面名・操作の種類）を
+数えています。**見ているチャンネル・動画・メモ・入力したURLは送らず**、広告IDも使いません。
+アプリ内の「ⓘ このアプリについて」でいつでもオフにできます（既定オン）。
+設定ファイルの置き方と送っている中身の一覧は
+[`docs/android-firebase-analytics.md`](docs/android-firebase-analytics.md)。iOS 版に解析ツールは入れていません。
+
 ## 公式サイト
 
 `site/` に Astro 製の静的サイト（7言語）があります。公開先は

@@ -128,7 +128,7 @@ fun PlayerScreen(
                 actions = {
                     RepeatBadgeButton(
                         mode = repeatMode,
-                        onClick = { settings.cycleRepeatMode() },
+                        onClick = { viewModel.cycleRepeatMode() },
                     )
                     IconButton(onClick = onOpenOptions) {
                         Icon(Icons.Default.Tune, stringResource(R.string.player_options_a11y))
@@ -173,7 +173,7 @@ fun PlayerScreen(
                                 }
                             },
                             onClick = {
-                                settings.setResumeFromLastPosition(!resumeFromLastPosition)
+                                viewModel.setResumeFromLastPosition(!resumeFromLastPosition)
                                 menuOpen = false
                             },
                         )
@@ -189,6 +189,7 @@ fun PlayerScreen(
                             onClick = {
                                 menuOpen = false
                                 video?.let {
+                                    viewModel.logOpenedInYouTube()
                                     context.startActivity(
                                         Intent(Intent.ACTION_VIEW, Uri.parse(it.watchUrl))
                                     )
@@ -295,8 +296,8 @@ fun PlayerScreen(
                     autoPlayNext = autoPlayNext,
                     unwatchedOnly = unwatchedOnly,
                     repeatMode = repeatMode,
-                    onAutoPlayChange = settings::setAutoPlayNext,
-                    onUnwatchedOnlyChange = settings::setPlayUnwatchedOnly,
+                    onAutoPlayChange = viewModel::setAutoPlayNext,
+                    onUnwatchedOnlyChange = viewModel::setPlayUnwatchedOnly,
                 )
 
                 NavigationButtons(
@@ -322,6 +323,7 @@ fun PlayerScreen(
 
                 OutlinedButton(
                     onClick = {
+                        viewModel.logOpenedInYouTube()
                         context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(video.watchUrl)))
                     },
                     modifier = Modifier.fillMaxWidth(),

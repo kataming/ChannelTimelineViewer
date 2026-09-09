@@ -37,6 +37,15 @@ INFO_PLIST_KEYS = {
     source for output in INFO_PLIST_OUTPUTS for source in output["entries"].values()
 }
 
+# Android 版だけで使う文言（iOS には出番が無い）。翻訳の原本は共通の strings.json に
+# 置きつつ、iOS の Localizable.strings には書き出さない。
+# ※ Android 側（build_android_strings.py）には SKIP_PREFIXES という逆向きの仕組みがある。
+ANDROID_ONLY_PREFIXES = ("about.analytics.",)
+
+
+def is_android_only(key: str) -> bool:
+    return key.startswith(ANDROID_ONLY_PREFIXES)
+
 
 def escape(value: str) -> str:
     """.strings のリテラルとして安全な形にする。
@@ -70,7 +79,9 @@ def write_strings(data: dict) -> None:
             f"/* language: {lang} */",
             "",
         ]
-        for key in sorted(k for k in data if k not in INFO_PLIST_KEYS):
+        for key in sorted(
+            k for k in data if k not in INFO_PLIST_KEYS and not is_android_only(k)
+        ):
             entry = data[key]
             comment = entry.get("comment")
             if comment:

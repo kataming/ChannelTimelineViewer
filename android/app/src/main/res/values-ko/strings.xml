@@ -2,6 +2,9 @@
 <!-- このファイルは scripts/build_android_strings.py が生成します。直接編集しないこと。 -->
 <!-- language: ko -->
 <resources>
+    <string name="about_analytics_body">Google 애널리틱스(Firebase)로 어떤 화면과 조작이 얼마나 사용되는지 세고 있습니다. 보내는 것은 화면 이름과 조작 종류뿐이며, 보고 있는 채널·동영상·메모·입력한 URL은 보내지 않습니다. 광고 식별자도 사용하지 않습니다. 아래 스위치로 언제든지 끌 수 있습니다.</string>
+    <string name="about_analytics_header">사용 현황 기록(Android)</string>
+    <string name="about_analytics_toggle">사용 현황 기록 허용</string>
     <string name="about_autoplay_body">자동 재생은 기본적으로 꺼져 있습니다. 기본값에서는 재생이 끝나면 정지하고 ‘다음 동영상 재생’ 버튼을 표시합니다. 재생 화면에서 ‘종료 시 다음 동영상 자동 재생’을 직접 켠 경우에만 이어서 재생합니다. 켜더라도 이동하는 곳은 열어 둔 채널 목록의 다음 동영상뿐이며 관련 동영상·추천 동영상으로 이동하지 않습니다. 백그라운드 재생을 하지 않으므로 앱을 닫으면 재생과 자동 이동도 멈춥니다.</string>
     <string name="about_autoplay_header">자동 재생 (선택 사항, 기본 꺼짐)</string>
     <string name="about_data_body">동영상 목록은 YouTube Data API v3로 가져옵니다. 재생은 YouTube 공식 플레이어를 그대로 임베드해 표시합니다. 스크래핑이나 자체 플레이어 재생은 하지 않습니다.</string>

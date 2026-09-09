@@ -2,6 +2,9 @@
 <!-- このファイルは scripts/build_android_strings.py が生成します。直接編集しないこと。 -->
 <!-- language: fr -->
 <resources>
+    <string name="about_analytics_body">Nous comptons la fréquence d’utilisation de chaque écran et de chaque action avec Google Analytics pour Firebase. Seuls le nom de l’écran et le type d’action sont envoyés — jamais les chaînes ou vidéos que vous regardez, vos notes ni les URL saisies. Aucun identifiant publicitaire n’est utilisé. Vous pouvez le désactiver ci-dessous à tout moment.</string>
+    <string name="about_analytics_header">Mesure d’utilisation (Android)</string>
+    <string name="about_analytics_toggle">Autoriser la mesure d’utilisation</string>
     <string name="about_autoplay_body">La lecture automatique est désactivée par défaut : à la fin d’une vidéo, la lecture s’arrête et un bouton « Lire la vidéo suivante » apparaît. Elle ne continue que si vous activez vous-même « Lire automatiquement la suivante à la fin » sur l’écran du lecteur. Même alors, elle passe uniquement à la vidéo suivante de la liste de la chaîne ouverte, jamais aux vidéos associées ou recommandées. Il n’y a pas de lecture en arrière-plan : fermer l’app arrête tout.</string>
     <string name="about_autoplay_header">Lecture automatique (facultative, désactivée par défaut)</string>
     <string name="about_data_body">Les listes de vidéos proviennent de l’API YouTube Data v3. La lecture intègre le lecteur officiel tel quel. Ni scraping, ni lecteur maison.</string>

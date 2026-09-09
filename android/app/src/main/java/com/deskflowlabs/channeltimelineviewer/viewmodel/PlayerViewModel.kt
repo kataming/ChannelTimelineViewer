@@ -1,6 +1,7 @@
 package com.deskflowlabs.channeltimelineviewer.viewmodel
 
 import androidx.lifecycle.ViewModel
+import com.deskflowlabs.channeltimelineviewer.analytics.Analytics
 import com.deskflowlabs.channeltimelineviewer.data.PlaybackPositionStore
 import com.deskflowlabs.channeltimelineviewer.data.PlaybackSettingsStore
 import com.deskflowlabs.channeltimelineviewer.data.RepeatMode
@@ -48,6 +49,7 @@ class PlayerViewModel(
     private val skipStore: SkippedVideoStore,
     private val positionStore: PlaybackPositionStore,
     private val settings: PlaybackSettingsStore,
+    private val analytics: Analytics = Analytics.Noop,
 ) : ViewModel() {
 
     private val _currentIndex = MutableStateFlow(
@@ -105,6 +107,12 @@ class PlayerViewModel(
         val seconds = resumeSeconds(currentVideo)
         _startSecondsForCurrent.value = seconds
         currentPlaybackSeconds = seconds
+        // 一覧から開いた1本目。本数だけ添える（動画IDやタイトルは送らない）。
+        analytics.log(
+            Analytics.Event.VIDEO_OPEN,
+            Analytics.Param.SOURCE to Analytics.Source.LIST,
+            Analytics.Param.VIDEO_COUNT to videos.size,
+        )
     }
 
     val currentVideo: VideoItem? get() = videos.getOrNull(_currentIndex.value)
@@ -168,6 +176,11 @@ class PlayerViewModel(
         val seconds = startSeconds ?: resumeSeconds(currentVideo)
         _startSecondsForCurrent.value = seconds
         currentPlaybackSeconds = seconds
+        analytics.log(
+            Analytics.Event.VIDEO_OPEN,
+            Analytics.Param.SOURCE to
+                if (autoAdvanced) Analytics.Source.AUTO_ADVANCE else Analytics.Source.NAVIGATION,
+        )
     }
 
     /**
@@ -212,6 +225,53 @@ class PlayerViewModel(
     /** 設定画面を開いたときに、選べる速度・字幕トラックを取り直す。 */
     fun refreshOptions() {
         _command.value = PlayerCommand.RefreshOptions(nextCommandId())
+    }
+
+    /**
+     * 自動再生の入り切り。**既定はオフ**で、ユーザーが明示的にオンにしたときだけ働く。
+     * 記録するのは「切り替えた」という事実だけ。
+     */
+    fun setAutoPlayNext(enabled: Boolean) {
+        settings.setAutoPlayNext(enabled)
+        logSetting(Analytics.Setting.AUTOPLAY_NEXT, Analytics.onOff(enabled))
+    }
+
+    /** 「未視聴のみ再生」の入り切り。 */
+    fun setPlayUnwatchedOnly(enabled: Boolean) {
+        settings.setPlayUnwatchedOnly(enabled)
+        logSetting(Analytics.Setting.UNWATCHED_ONLY, Analytics.onOff(enabled))
+    }
+
+    /** 「続きから再生」の入り切り（既定オン）。 */
+    fun setResumeFromLastPosition(enabled: Boolean) {
+        settings.setResumeFromLastPosition(enabled)
+        logSetting(Analytics.Setting.RESUME, Analytics.onOff(enabled))
+    }
+
+    /** 繰り返しの種類を次へ進める（オフ → 1本 → 全体 → オフ）。 */
+    fun cycleRepeatMode() {
+        val next = settings.cycleRepeatMode()
+        logSetting(
+            Analytics.Setting.REPEAT,
+            when (next) {
+                RepeatMode.Off -> Analytics.RepeatValue.OFF
+                RepeatMode.One -> Analytics.RepeatValue.ONE
+                RepeatMode.All -> Analytics.RepeatValue.ALL
+            },
+        )
+    }
+
+    /** 「YouTubeで開く」を押した。 */
+    fun logOpenedInYouTube() {
+        analytics.log(Analytics.Event.OPEN_IN_YOUTUBE)
+    }
+
+    private fun logSetting(setting: String, value: String) {
+        analytics.log(
+            Analytics.Event.PLAYBACK_SETTING,
+            Analytics.Param.SETTING to setting,
+            Analytics.Param.VALUE to value,
+        )
     }
 
     /** 選べる再生速度。プレイヤーから届く前は一般的な候補を出す。 */
@@ -316,6 +376,7 @@ class PlayerViewModel(
     private fun finish(video: VideoItem, early: Boolean) {
         // 1本リピートは自動再生の設定に関わらず、同じ動画を繰り返す。
         if (settings.repeatMode.value == RepeatMode.One) {
+            logFinish(Analytics.Result.REPEAT_ONE)
             markWatchedAndClearPosition(video)
             endedHandledVideoId = null      // 次の終了もまた処理する
             hasStartedCurrentVideo = false  // 再生開始の通知を待つ
@@ -327,6 +388,7 @@ class PlayerViewModel(
         val next = if (settings.autoPlayNext.value) nextIndexForAutoAdvance() else null
         if (next != null) {
             // 一覧の次の動画へ続けて再生する（スキップ指定と「未視聴のみ」を考慮）。
+            logFinish(Analytics.Result.AUTO_NEXT)
             markWatchedAndClearPosition(video)
             endedHandledVideoId = video.id
             move(next, autoAdvanced = true)
@@ -336,9 +398,15 @@ class PlayerViewModel(
         // 次が無いなら先回りする意味はない。最後まで再生させ、終了通知を待つ。
         if (early) return
 
+        logFinish(Analytics.Result.STOPPED)
         markWatchedAndClearPosition(video)
         endedHandledVideoId = video.id
         _showEndedSuggestion.value = canGoNext
+    }
+
+    /** 見終わったあと、どうなったかだけを記録する。 */
+    private fun logFinish(result: String) {
+        analytics.log(Analytics.Event.VIDEO_FINISH, Analytics.Param.RESULT to result)
     }
 
     /** 見終わったので視聴済みにし、再開位置は破棄する。 */

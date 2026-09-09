@@ -2,6 +2,9 @@
 <!-- このファイルは scripts/build_android_strings.py が生成します。直接編集しないこと。 -->
 <!-- language: ja -->
 <resources>
+    <string name="about_analytics_body">どの画面・どの操作がどれくらい使われたかを Google アナリティクス（Firebase）で数えています。送るのは画面名と操作の種類だけで、見ているチャンネル・動画・メモ・入力したURLは送りません。広告用の識別子も使いません。下の切り替えでいつでも止められます。</string>
+    <string name="about_analytics_header">利用状況の記録（Android版）</string>
+    <string name="about_analytics_toggle">利用状況の記録を許可する</string>
     <string name="about_autoplay_body">自動再生は初期状態ではオフです。既定では再生が終わるとそこで停止し、「次の動画を再生」ボタンを表示します。再生画面の「終了したら次を自動再生」をご自身でオンにした場合のみ、続けて再生します。オンにした場合でも、進むのは開いているチャンネル一覧の次の動画だけで、関連動画やおすすめ動画へ移動することはありません。バックグラウンド再生は行わないため、アプリを閉じると再生も自動送りも止まります。</string>
     <string name="about_autoplay_header">自動再生（任意・初期状態はオフ）</string>
     <string name="about_data_body">動画一覧の取得には YouTube Data API v3 を使用します。再生は YouTube 公式プレイヤーをそのまま埋め込んで表示します。スクレイピングや独自プレイヤーでの再生は行いません。</string>

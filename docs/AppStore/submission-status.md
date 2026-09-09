@@ -40,6 +40,11 @@ GitHub → Actions → App Store Metadata → Run workflow → mode: status
   - 解析 SDK・広告 SDK・IDFA いずれも不使用。サーバーへの送信なし
   - YouTube Data API / 公式埋め込みプレイヤーの利用は Google 側のポリシーに従う（プライバシーポリシーに記載済み）
 
+> ⚠️ これは **iOS 版**の申告。**Android 版だけ** Google Analytics for Firebase を入れているため、
+> Play Console の「データセーフティ」は「データを収集していません」ではない。
+> 申告内容は [`../android-firebase-analytics.md`](../android-firebase-analytics.md) を参照。
+> iOS 版に解析 SDK を入れる予定は無い（入れたらこの欄も直すこと）。
+
 ## 使えるワークフロー
 
 | ワークフロー | mode / 入力 | 何をするか |

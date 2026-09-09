@@ -26,6 +26,14 @@ const s = copy.support;
         </details>
       ))}
 
+      {/* Play Console の「データセーフティ」から
+          /{lang}/support/#data-deletion で直接ここへ来る。id を変えないこと。 */}
+      <h2 id="data-deletion">{s.deletion.title}</h2>
+      {s.deletion.body.map((line) => (
+        <p>{line}</p>
+      ))}
+      <p>{s.deletion.contact} <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a></p>
+
       <h2>{s.contactTitle}</h2>
       <p>{s.contactBody} <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a></p>
       <p class="muted">{s.responseTitle}: {s.responseBody}</p>

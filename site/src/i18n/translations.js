@@ -105,6 +105,16 @@ const en = {
     source: 'Source code',
   },
   support: {
+    deletion: {
+      title: 'Requesting deletion of your data',
+      body: [
+        'The app does not create an account. Your watched history, progress, notes, and playback positions are stored only on your device and are removed when you delete the app — no request is needed.',
+        'The Android version measures how the app itself is used (screen names and the kind of action) with Google Analytics for Firebase. You can switch it off at any time in the app under “About this app” → “Allow usage measurement”. Nothing further is sent once it is off.',
+        'If you would like the usage data already sent to be deleted, write to the address below and we will take care of it. That data is not linked to an account or an email address — it is handled under a randomly generated per-installation identifier — so we may ask roughly when you used the app, your device model, and your country in order to locate the records.',
+        'Even without a request, the records are deleted automatically once the retention period set in Google Analytics has passed.',
+      ],
+      contact: 'Deletion requests:',
+    },
     title: 'Support',
     description: 'How to get help with Channel Timeline Viewer.',
     intro: 'If something does not work as expected, get in touch — include your iOS version, the app version, and what you were doing.',
@@ -124,9 +134,9 @@ const en = {
   privacy: {
     title: 'Privacy Policy',
     description: 'What Channel Timeline Viewer stores and what it does not.',
-    updated: 'Last updated: 24 August 2026',
+    updated: 'Last updated: 9 September 2026',
     sections: [
-      { title: '1. Summary', body: ['Channel Timeline Viewer keeps your data on your device. There is no account, no analytics in the app, and no server operated by us that receives your information.'] },
+      { title: '1. Summary', body: ['Channel Timeline Viewer keeps your data on your device. There is no account, and no server operated by us receives what you watch. The Android version measures how the app itself is used (Google Analytics for Firebase) so we can improve it: it records screen names and the kind of action, never the channels or videos you watch, and you can switch it off in the app. The iOS version contains no analytics at all.'] },
       { title: '2. What is stored on your device', body: [
         'The following are saved locally (iOS UserDefaults / app cache) and never sent to us:',
         '• Identifiers of videos you marked as watched or skipped, with timestamps',
@@ -151,7 +161,13 @@ const en = {
         'iOS does not allow a share sheet to launch an app directly. If — and only if — you allow notifications, the app posts one local notification right after you share, so you can tap it to open the channel. It contains only the shared YouTube URL and is handled on the device. No promotional, re-engagement, or server push notifications are ever sent.'] },
       { title: '7. Purchases (Pro)', body: [
         'Channel Timeline Viewer is free and offers a single optional one-time in-app purchase called “Pro”. Purchases are handled entirely by Apple through the App Store; we never see or receive your payment details. The app only asks the operating system whether that purchase belongs to your account and stores the answer on the device so it also works offline. There is no subscription and no recurring charge.'] },
-      { title: '8. Tracking', body: ['The app does not use the advertising identifier (IDFA) and does not use App Tracking Transparency, because it does not track you.'] },
+      { title: '8. Tracking and usage measurement', body: [
+        'The app does not use the advertising identifier (IDFA on iOS, Advertising ID on Android) and does not use App Tracking Transparency, because it does not track you.',
+        'The Android version includes Google Analytics for Firebase to count how often each screen and action is used. What is sent is limited to: the screen name; the kind of action (for example “a channel was opened”, “autoplay was switched on”, “a video finished”); the number of videos in the list; and the information Google Analytics collects automatically (app version, OS version, device model, coarse location such as country, and a randomly generated app instance ID). The channels and videos you watch, your notes, and the URLs you enter are never sent.',
+        'Advertising ID collection and ad personalisation signals are switched off, and the app does not request the AD_ID permission.',
+        'You can turn this off at any time in the app: “About this app” → “Allow usage measurement”. Turning it off stops the measurement completely.',
+        'Data collected this way is processed by Google on our behalf; see the Google privacy policy linked above.',
+        'The iOS version contains no analytics.'] },
       { title: '9. Children', body: ['The app does not knowingly collect personal information from children.'] },
       { title: '10. This website', body: [
         'This site is a set of static pages. It sets no cookies and runs no analytics.',
@@ -264,6 +280,16 @@ const ja = {
     source: 'ソースコード',
   },
   support: {
+    deletion: {
+      title: 'データの削除をリクエストする',
+      body: [
+        '本アプリはアカウントを作りません。視聴済み・進捗・メモ・再生位置などの記録は、お使いの端末の中だけにあります。アプリを削除すれば一緒に消えるため、削除のご依頼は必要ありません。',
+        'Android 版のみ、アプリの改善のために利用状況（画面名と操作の種類）を Google アナリティクスで数えています。これはアプリ内の「ⓘ このアプリについて」→「利用状況の記録を許可する」でいつでもオフにでき、オフにした時点から先は何も送られません。',
+        'すでに送られた利用状況の記録の削除をご希望の場合は、下記のメールアドレスへご連絡ください。こちらで削除の手続きを行います。この記録はアカウントやメールアドレスとは結びついておらず、インストールごとに作られるランダムな識別子で扱われるため、記録を特定するために、おおよその利用時期・端末の機種・国などをうかがう場合があります。',
+        'ご依頼がない場合も、記録は Google アナリティクスで設定している保持期間を過ぎると自動的に削除されます。',
+      ],
+      contact: '削除のご依頼はこちら:',
+    },
     title: 'サポート',
     description: 'Channel Timeline Viewer の困りごとの連絡先と、よくある確認事項。',
     intro: '思ったとおりに動かないときはご連絡ください。iOS のバージョン・アプリのバージョン・操作内容を書き添えていただけると助かります。',
@@ -283,9 +309,9 @@ const ja = {
   privacy: {
     title: 'プライバシーポリシー',
     description: 'Channel Timeline Viewer が保存するもの・しないこと。',
-    updated: '最終更新日: 2026年8月24日',
+    updated: '最終更新日: 2026年9月9日',
     sections: [
-      { title: '1. 概要', body: ['Channel Timeline Viewer は、利用者のデータを端末内に保存します。アカウントはなく、アプリ内に解析ツールもなく、当方が運営するサーバーが利用者の情報を受け取ることもありません。'] },
+      { title: '1. 概要', body: ['Channel Timeline Viewer は、利用者のデータを端末内に保存します。アカウントはなく、当方が運営するサーバーが「何を見たか」を受け取ることもありません。Android 版のみ、アプリを改善するために「アプリ自体がどう使われているか」を Google アナリティクス（Firebase）で数えています。記録するのは画面名と操作の種類だけで、見ているチャンネルや動画は記録せず、アプリ内でいつでも止められます。iOS 版に解析ツールは入っていません。'] },
       { title: '2. 端末内に保存する情報', body: [
         '次の情報は端末内（iOS の UserDefaults／アプリのキャッシュ）にのみ保存し、当方へ送信しません。',
         '・視聴済み／スキップにした動画の識別子と日時',
@@ -310,7 +336,13 @@ const ja = {
         'iOS の仕様上、共有シートからアプリを直接起動できません。通知を許可いただいた場合に限り、共有した直後に「タップして開く」ためのローカル通知を1件だけ表示します。内容は共有された YouTube の URL のみで、端末内で処理します。お知らせ・宣伝・再訪を促す通知や、サーバーからのプッシュ通知は一切送りません。'] },
       { title: '7. アプリ内課金（Pro）について', body: [
         'Channel Timeline Viewer は無料で、任意の買い切りアプリ内課金「Pro」を1つだけ用意しています。購入手続きはすべて Apple（App Store）が行い、当方が支払い情報を受け取ることはありません。アプリは「その購入がお客様のアカウントのものか」を OS に問い合わせ、その結果だけを端末内に保存します（オフラインでも動くようにするためです）。サブスクリプションや継続課金はありません。'] },
-      { title: '8. トラッキング', body: ['広告識別子（IDFA）は使用せず、App Tracking Transparency も使用しません（トラッキングを行わないため）。'] },
+      { title: '8. トラッキングと利用状況の記録', body: [
+        '広告識別子（iOS の IDFA、Android の広告ID）は使用せず、App Tracking Transparency も使用しません（トラッキングを行わないため）。',
+        'Android 版には、どの画面・どの操作がどれくらい使われたかを数えるために Google アナリティクス（Firebase）を入れています。送るのは次のものに限られます: 画面名、操作の種類（例:「チャンネルを開いた」「自動再生をオンにした」「動画を見終わった」）、一覧の本数、および Google アナリティクスが自動で集める情報（アプリのバージョン・OSのバージョン・端末の機種・国などの大まかな地域・アプリごとにランダムに作られる識別子）。見ているチャンネルや動画、メモの中身、入力したURLは送りません。',
+        '広告IDの収集と広告のパーソナライズ用シグナルは無効にしてあり、アプリは AD_ID 権限を要求しません。',
+        'アプリ内の「ⓘ このアプリについて」→「利用状況の記録を許可する」でいつでもオフにできます。オフにすると記録は完全に止まります。',
+        'こうして集めた情報は、当方に代わって Google が処理します。上に挙げた Google のプライバシーポリシーをご確認ください。',
+        'iOS 版に解析ツールは入っていません。'] },
       { title: '9. 子どものプライバシー', body: ['本アプリは、子どもから個人情報を意図的に収集することはありません。'] },
       { title: '10. このウェブサイトについて', body: [
         '本サイトは静的ページで構成されており、Cookie の設定やアクセス解析は行っていません。',
@@ -421,6 +453,16 @@ const zh = {
     source: '源代码',
   },
   support: {
+    deletion: {
+      title: '请求删除你的数据',
+      body: [
+        '本应用不会创建账号。已观看记录、进度、备忘和播放位置仅保存在你的设备中，删除应用时会一并消失，无需提出删除请求。',
+        '仅 Android 版为了改进应用，使用 Google Analytics for Firebase 统计应用本身的使用情况（画面名称和操作类型）。你可以随时在应用内「关于本应用」→「允许统计使用情况」中关闭，关闭后不会再发送任何内容。',
+        '如果你希望删除已经发送的使用情况记录，请发邮件到下方地址，我们会为你处理。这些记录不与账号或邮箱关联，而是以每次安装随机生成的标识符来处理，因此我们可能会询问你大致的使用时间、设备型号和所在国家/地区，以便定位相应记录。',
+        '即使不提出请求，超过 Google Analytics 中设置的保留期限后，这些记录也会被自动删除。',
+      ],
+      contact: '删除请求请联系：',
+    },
     title: '支持',
     description: '如何获得 Channel Timeline Viewer 的帮助。',
     intro: '如果运行不符合预期，请联系我们，并附上 iOS 版本、应用版本以及当时的操作。',
@@ -440,9 +482,9 @@ const zh = {
   privacy: {
     title: '隐私政策',
     description: 'Channel Timeline Viewer 会保存什么，不会做什么。',
-    updated: '最后更新：2026 年 8 月 24 日',
+    updated: '最后更新：2026 年 9 月 9 日',
     sections: [
-      { title: '1. 概述', body: ['Channel Timeline Viewer 将你的数据保存在设备中。没有账号，应用内没有分析工具，我们也没有接收你信息的服务器。'] },
+      { title: '1. 概述', body: ['Channel Timeline Viewer 将你的数据保存在设备中。没有账号，我们也没有接收「你看了什么」的服务器。仅 Android 版为了改进应用，使用 Google Analytics for Firebase 统计「应用本身如何被使用」。记录的只是画面名称和操作类型，不记录你观看的频道或视频，并且可在应用内随时关闭。iOS 版不含任何分析工具。'] },
       { title: '2. 保存在设备上的信息', body: [
         '以下内容仅保存在本地（iOS UserDefaults／应用缓存），不会发送给我们：',
         '• 标记为已观看或跳过的视频标识符与时间',
@@ -467,7 +509,13 @@ const zh = {
         '由于 iOS 的限制，分享面板无法直接启动应用。仅当你允许通知时，应用会在分享后立即发送一条本地通知，点按即可打开频道。通知只包含所分享的 YouTube 网址，并在设备上处理。我们绝不发送宣传、召回类通知或服务器推送通知。'] },
       { title: '7. 关于应用内购买（Pro）', body: [
         'Channel Timeline Viewer 免费提供，并设有一项可选的一次性应用内购买“Pro”。购买流程全部由 Apple（App Store）处理，我们不会看到或接收你的支付信息。应用只会向系统询问该购买是否属于你的账户，并将结果保存在设备上（以便离线时也能使用）。没有订阅，也没有周期性扣费。'] },
-      { title: '8. 追踪', body: ['本应用不使用广告标识符（IDFA），也不使用 App Tracking Transparency，因为它不会追踪你。'] },
+      { title: '8. 追踪与使用情况统计', body: [
+        '本应用不使用广告标识符（iOS 的 IDFA、Android 的广告 ID），也不使用 App Tracking Transparency，因为它不会追踪你。',
+        'Android 版内置 Google Analytics for Firebase，用于统计各画面和操作的使用次数。发送的内容仅限于：画面名称；操作类型（例如「打开了频道」「开启了自动播放」「看完了视频」）；列表中的视频数量；以及 Google Analytics 自动收集的信息（应用版本、系统版本、设备型号、国家等粗略地区、以及为每个应用实例随机生成的标识符）。不会发送你观看的频道和视频、备忘内容或你输入的网址。',
+        '已关闭广告 ID 的收集与广告个性化信号，应用也不申请 AD_ID 权限。',
+        '你可以随时在应用内「关于本应用」→「允许统计使用情况」中关闭。关闭后统计会完全停止。',
+        '以此方式收集的信息由 Google 代表我们处理，详见上文链接的 Google 隐私政策。',
+        'iOS 版不含任何分析工具。'] },
       { title: '9. 儿童隐私', body: ['本应用不会有意收集儿童的个人信息。'] },
       { title: '10. 关于本网站', body: [
         '本网站由静态页面构成，不设置 Cookie，也不进行访问分析。',
@@ -578,6 +626,16 @@ const es = {
     source: 'Código fuente',
   },
   support: {
+    deletion: {
+      title: 'Solicitar la eliminación de tus datos',
+      body: [
+        'La app no crea ninguna cuenta. Tu historial de vistos, el progreso, las notas y las posiciones de reproducción se guardan solo en tu dispositivo y desaparecen al desinstalar la app, así que no hace falta ninguna solicitud.',
+        'Solo la versión de Android mide cómo se usa la propia app (nombre de la pantalla y tipo de acción) con Google Analytics para Firebase. Puedes desactivarlo cuando quieras en «Acerca de esta app» → «Permitir la medición de uso»; a partir de ese momento no se envía nada más.',
+        'Si quieres que se eliminen los datos de uso ya enviados, escríbenos a la dirección de abajo y nos encargaremos. Esos datos no están vinculados a una cuenta ni a un correo electrónico: se tratan con un identificador aleatorio por instalación, así que puede que te preguntemos cuándo usaste la app aproximadamente, el modelo de tu dispositivo y tu país para localizar los registros.',
+        'Aunque no lo solicites, los registros se eliminan automáticamente una vez transcurrido el periodo de conservación configurado en Google Analytics.',
+      ],
+      contact: 'Solicitudes de eliminación:',
+    },
     title: 'Soporte',
     description: 'Cómo obtener ayuda con Channel Timeline Viewer.',
     intro: 'Si algo no funciona como esperabas, escríbenos e incluye tu versión de iOS, la versión de la app y qué estabas haciendo.',
@@ -597,9 +655,9 @@ const es = {
   privacy: {
     title: 'Política de privacidad',
     description: 'Qué guarda Channel Timeline Viewer y qué no hace.',
-    updated: 'Última actualización: 24 de agosto de 2026',
+    updated: 'Última actualización: 9 de septiembre de 2026',
     sections: [
-      { title: '1. Resumen', body: ['Channel Timeline Viewer guarda tus datos en tu dispositivo. No hay cuentas, no hay analítica dentro de la app y no existe un servidor nuestro que reciba tu información.'] },
+      { title: '1. Resumen', body: ['Channel Timeline Viewer guarda tus datos en tu dispositivo. No hay cuentas y ningún servidor nuestro recibe lo que ves. Solo la versión de Android mide cómo se usa la propia app (Google Analytics para Firebase) para poder mejorarla: registra el nombre de la pantalla y el tipo de acción, nunca los canales o vídeos que ves, y puedes desactivarlo dentro de la app. La versión de iOS no incluye ninguna analítica.'] },
       { title: '2. Qué se guarda en tu dispositivo', body: [
         'Lo siguiente se guarda localmente (UserDefaults de iOS y caché de la app) y nunca se nos envía:',
         '• Identificadores de vídeos marcados como vistos u omitidos, con su fecha',
@@ -624,7 +682,13 @@ const es = {
         'iOS no permite que una hoja para compartir abra una app directamente. Solo si permites las notificaciones, la app envía una notificación local justo después de compartir para que puedas tocarla y abrir el canal. Contiene únicamente la URL de YouTube compartida y se procesa en el dispositivo. Nunca se envían notificaciones promocionales, de reenganche ni push desde servidores.'] },
       { title: '7. Compras (Pro)', body: [
         'Channel Timeline Viewer es gratuita y ofrece una única compra dentro de la app, opcional y de pago único, llamada «Pro». Las compras las gestiona íntegramente Apple a través del App Store; nosotros nunca vemos ni recibimos tus datos de pago. La app solo pregunta al sistema si esa compra pertenece a tu cuenta y guarda la respuesta en el dispositivo para que también funcione sin conexión. No hay suscripciones ni cargos recurrentes.'] },
-      { title: '8. Rastreo', body: ['La app no usa el identificador de publicidad (IDFA) ni App Tracking Transparency, porque no te rastrea.'] },
+      { title: '8. Rastreo y medición de uso', body: [
+        'La app no usa el identificador de publicidad (IDFA en iOS, Advertising ID en Android) ni App Tracking Transparency, porque no te rastrea.',
+        'La versión de Android incluye Google Analytics para Firebase para contar con qué frecuencia se usa cada pantalla y cada acción. Lo que se envía se limita a: el nombre de la pantalla; el tipo de acción (por ejemplo «se abrió un canal», «se activó la reproducción automática», «se terminó un vídeo»); el número de vídeos de la lista; y la información que Google Analytics recoge automáticamente (versión de la app, versión del sistema, modelo del dispositivo, ubicación aproximada como el país y un identificador aleatorio por instalación). Los canales y vídeos que ves, tus notas y las URL que introduces nunca se envían.',
+        'La recogida del Advertising ID y las señales de personalización de anuncios están desactivadas, y la app no solicita el permiso AD_ID.',
+        'Puedes desactivarlo cuando quieras en la app: «Acerca de esta app» → «Permitir la medición de uso». Al desactivarlo, la medición se detiene por completo.',
+        'Los datos recogidos así los trata Google por cuenta nuestra; consulta la política de privacidad de Google enlazada más arriba.',
+        'La versión de iOS no incluye ninguna analítica.'] },
       { title: '9. Menores', body: ['La app no recopila conscientemente información personal de menores.'] },
       { title: '10. Este sitio web', body: [
         'Este sitio son páginas estáticas. No usa cookies ni analítica.',
@@ -735,6 +799,16 @@ const de = {
     source: 'Quellcode',
   },
   support: {
+    deletion: {
+      title: 'Löschung deiner Daten anfordern',
+      body: [
+        'Die App legt kein Konto an. Gesehen-Status, Fortschritt, Notizen und Wiedergabepositionen liegen nur auf deinem Gerät und verschwinden, wenn du die App löschst — eine Anfrage ist dafür nicht nötig.',
+        'Nur die Android-Version misst mit Google Analytics für Firebase, wie die App selbst genutzt wird (Bildschirmname und Art der Aktion). Du kannst das jederzeit in der App unter „Über diese App“ → „Nutzungsmessung erlauben“ abschalten; danach wird nichts mehr gesendet.',
+        'Wenn du möchtest, dass bereits gesendete Nutzungsdaten gelöscht werden, schreib uns an die Adresse unten — wir kümmern uns darum. Diese Daten sind weder mit einem Konto noch mit einer E-Mail-Adresse verknüpft, sondern werden unter einer zufällig erzeugten Kennung je Installation geführt. Daher fragen wir eventuell nach, wann du die App ungefähr genutzt hast, welches Gerätemodell du verwendest und in welchem Land du bist, um die Einträge zu finden.',
+        'Auch ohne Anfrage werden die Einträge automatisch gelöscht, sobald der in Google Analytics eingestellte Aufbewahrungszeitraum abgelaufen ist.',
+      ],
+      contact: 'Löschanfragen:',
+    },
     title: 'Support',
     description: 'So bekommst du Hilfe zu Channel Timeline Viewer.',
     intro: 'Wenn etwas nicht wie erwartet funktioniert, schreib uns – mit iOS-Version, App-Version und dem, was du gerade gemacht hast.',
@@ -754,9 +828,9 @@ const de = {
   privacy: {
     title: 'Datenschutzerklärung',
     description: 'Was Channel Timeline Viewer speichert – und was nicht.',
-    updated: 'Zuletzt aktualisiert: 24. August 2026',
+    updated: 'Zuletzt aktualisiert: 9. September 2026',
     sections: [
-      { title: '1. Kurzfassung', body: ['Channel Timeline Viewer speichert deine Daten auf deinem Gerät. Es gibt kein Konto, keine Analyse in der App und keinen von uns betriebenen Server, der deine Informationen erhält.'] },
+      { title: '1. Kurzfassung', body: ['Channel Timeline Viewer speichert deine Daten auf deinem Gerät. Es gibt kein Konto, und kein von uns betriebener Server erfährt, was du ansiehst. Nur die Android-Version misst mit Google Analytics für Firebase, wie die App selbst genutzt wird, damit wir sie verbessern können: erfasst werden Bildschirmnamen und die Art der Aktion, nie die Kanäle oder Videos, die du ansiehst – und du kannst es in der App abschalten. Die iOS-Version enthält keinerlei Analyse.'] },
       { title: '2. Was auf dem Gerät gespeichert wird', body: [
         'Folgendes wird lokal gespeichert (iOS UserDefaults / App-Cache) und nie an uns gesendet:',
         '• Kennungen der als gesehen oder übersprungen markierten Videos samt Zeitstempel',
@@ -781,7 +855,13 @@ const de = {
         'iOS erlaubt es nicht, aus dem Teilen-Menü direkt eine App zu starten. Nur wenn du Mitteilungen erlaubst, sendet die App direkt nach dem Teilen eine lokale Mitteilung, die du antippen kannst, um den Kanal zu öffnen. Sie enthält nur die geteilte YouTube-URL und wird auf dem Gerät verarbeitet. Werbe-, Reaktivierungs- oder Server-Push-Mitteilungen werden nie gesendet.'] },
       { title: '7. Käufe (Pro)', body: [
         'Channel Timeline Viewer ist kostenlos und bietet genau einen optionalen einmaligen In-App-Kauf namens „Pro“. Käufe wickelt ausschließlich Apple über den App Store ab; wir sehen und erhalten deine Zahlungsdaten nie. Die App fragt lediglich beim System nach, ob der Kauf zu deinem Account gehört, und speichert die Antwort auf dem Gerät, damit alles auch offline funktioniert. Es gibt kein Abo und keine wiederkehrende Zahlung.'] },
-      { title: '8. Tracking', body: ['Die App nutzt weder den Werbe-Identifier (IDFA) noch App Tracking Transparency, weil sie dich nicht trackt.'] },
+      { title: '8. Tracking und Nutzungsmessung', body: [
+        'Die App nutzt weder den Werbe-Identifier (IDFA unter iOS, Advertising ID unter Android) noch App Tracking Transparency, weil sie dich nicht trackt.',
+        'Die Android-Version enthält Google Analytics für Firebase, um zu zählen, wie oft welcher Bildschirm und welche Aktion genutzt wird. Übertragen wird ausschließlich: der Bildschirmname; die Art der Aktion (zum Beispiel „ein Kanal wurde geöffnet“, „Autoplay wurde eingeschaltet“, „ein Video wurde zu Ende gesehen“); die Anzahl der Videos in der Liste; sowie die Angaben, die Google Analytics automatisch erhebt (App-Version, Betriebssystemversion, Gerätemodell, grober Standort wie das Land und eine zufällig erzeugte Kennung je Installation). Die Kanäle und Videos, die du ansiehst, deine Notizen und eingegebene URLs werden nie übertragen.',
+        'Die Erfassung der Advertising ID und Signale zur Werbepersonalisierung sind abgeschaltet, und die App fordert die Berechtigung AD_ID nicht an.',
+        'Du kannst das jederzeit in der App abschalten: „Über diese App“ → „Nutzungsmessung erlauben“. Danach wird nichts mehr gemessen.',
+        'Die so erhobenen Daten verarbeitet Google in unserem Auftrag; siehe die oben verlinkte Google-Datenschutzerklärung.',
+        'Die iOS-Version enthält keine Analyse.'] },
       { title: '9. Kinder', body: ['Die App erhebt wissentlich keine personenbezogenen Daten von Kindern.'] },
       { title: '10. Diese Website', body: [
         'Diese Website besteht aus statischen Seiten. Sie setzt keine Cookies und nutzt keine Analyse.',
@@ -892,6 +972,16 @@ const fr = {
     source: 'Code source',
   },
   support: {
+    deletion: {
+      title: 'Demander la suppression de vos données',
+      body: [
+        'L’app ne crée aucun compte. Votre historique des vidéos vues, votre progression, vos notes et vos positions de lecture sont enregistrés uniquement sur votre appareil et disparaissent lorsque vous supprimez l’app : aucune demande n’est nécessaire.',
+        'Seule la version Android mesure la façon dont l’app elle-même est utilisée (nom de l’écran et type d’action) avec Google Analytics pour Firebase. Vous pouvez la désactiver à tout moment dans l’app, via « À propos de cette app » → « Autoriser la mesure d’utilisation » ; plus rien n’est envoyé ensuite.',
+        'Si vous souhaitez la suppression des données d’utilisation déjà envoyées, écrivez-nous à l’adresse ci-dessous et nous nous en chargerons. Ces données ne sont liées ni à un compte ni à une adresse e-mail : elles sont traitées sous un identifiant aléatoire propre à chaque installation. Nous pourrons donc vous demander à quelle période vous avez utilisé l’app, le modèle de votre appareil et votre pays afin de retrouver les enregistrements.',
+        'Même sans demande de votre part, les enregistrements sont supprimés automatiquement une fois écoulée la durée de conservation définie dans Google Analytics.',
+      ],
+      contact: 'Demandes de suppression :',
+    },
     title: 'Assistance',
     description: 'Comment obtenir de l’aide pour Channel Timeline Viewer.',
     intro: 'Si quelque chose ne fonctionne pas comme prévu, écrivez-nous en précisant votre version d’iOS, la version de l’app et ce que vous faisiez.',
@@ -911,9 +1001,9 @@ const fr = {
   privacy: {
     title: 'Politique de confidentialité',
     description: 'Ce que Channel Timeline Viewer enregistre, et ce qu’il ne fait pas.',
-    updated: 'Dernière mise à jour : 24 août 2026',
+    updated: 'Dernière mise à jour : 9 septembre 2026',
     sections: [
-      { title: '1. En bref', body: ['Channel Timeline Viewer conserve vos données sur votre appareil. Il n’y a pas de compte, pas d’analytique dans l’app, et aucun serveur exploité par nous ne reçoit vos informations.'] },
+      { title: '1. En bref', body: ['Channel Timeline Viewer conserve vos données sur votre appareil. Il n’y a pas de compte, et aucun serveur exploité par nous ne reçoit ce que vous regardez. Seule la version Android mesure la façon dont l’app elle-même est utilisée (Google Analytics pour Firebase) afin de l’améliorer : elle enregistre le nom de l’écran et le type d’action, jamais les chaînes ni les vidéos que vous regardez, et vous pouvez la désactiver dans l’app. La version iOS ne contient aucune analytique.'] },
       { title: '2. Ce qui est enregistré sur votre appareil', body: [
         'Les éléments suivants sont enregistrés localement (UserDefaults iOS / cache de l’app) et ne nous sont jamais transmis :',
         '• Identifiants des vidéos marquées comme regardées ou ignorées, avec l’horodatage',
@@ -938,7 +1028,13 @@ const fr = {
         'iOS ne permet pas à une feuille de partage de lancer une app directement. Uniquement si vous autorisez les notifications, l’app envoie une notification locale juste après le partage afin que vous puissiez la toucher pour ouvrir la chaîne. Elle ne contient que l’URL YouTube partagée et est traitée sur l’appareil. Aucune notification promotionnelle, de relance ou push depuis un serveur n’est jamais envoyée.'] },
       { title: '7. Achats (Pro)', body: [
         'Channel Timeline Viewer est gratuite et propose un seul achat intégré, facultatif et unique, appelé « Pro ». Les achats sont entièrement gérés par Apple via l’App Store ; nous ne voyons ni ne recevons jamais vos informations de paiement. L’app demande simplement au système si cet achat appartient à votre compte et conserve la réponse sur l’appareil pour fonctionner aussi hors ligne. Il n’y a ni abonnement ni prélèvement récurrent.'] },
-      { title: '8. Suivi', body: ['L’app n’utilise pas l’identifiant publicitaire (IDFA) ni App Tracking Transparency, car elle ne vous suit pas.'] },
+      { title: '8. Suivi et mesure d’utilisation', body: [
+        'L’app n’utilise pas l’identifiant publicitaire (IDFA sous iOS, Advertising ID sous Android) ni App Tracking Transparency, car elle ne vous suit pas.',
+        'La version Android intègre Google Analytics pour Firebase afin de compter la fréquence d’utilisation de chaque écran et de chaque action. Ce qui est envoyé se limite à : le nom de l’écran ; le type d’action (par exemple « une chaîne a été ouverte », « la lecture automatique a été activée », « une vidéo s’est terminée ») ; le nombre de vidéos de la liste ; et les informations que Google Analytics collecte automatiquement (version de l’app, version du système, modèle d’appareil, localisation approximative comme le pays et un identifiant aléatoire par installation). Les chaînes et vidéos que vous regardez, vos notes et les URL saisies ne sont jamais envoyées.',
+        'La collecte de l’Advertising ID et les signaux de personnalisation publicitaire sont désactivés, et l’app ne demande pas l’autorisation AD_ID.',
+        'Vous pouvez la désactiver à tout moment dans l’app : « À propos de cette app » → « Autoriser la mesure d’utilisation ». La mesure s’arrête alors complètement.',
+        'Les données ainsi collectées sont traitées par Google pour notre compte ; voir la politique de confidentialité de Google indiquée plus haut.',
+        'La version iOS ne contient aucune analytique.'] },
       { title: '9. Enfants', body: ['L’app ne collecte pas sciemment de données personnelles auprès d’enfants.'] },
       { title: '10. Ce site web', body: [
         'Ce site est constitué de pages statiques. Il ne dépose pas de cookies et n’utilise pas d’analytique.',
@@ -1049,6 +1145,16 @@ const ko = {
     source: '소스 코드',
   },
   support: {
+    deletion: {
+      title: '데이터 삭제 요청하기',
+      body: [
+        '이 앱은 계정을 만들지 않습니다. 시청 기록·진행 상황·메모·재생 위치는 사용자의 기기 안에만 저장되며, 앱을 삭제하면 함께 지워지므로 별도의 요청은 필요하지 않습니다.',
+        'Android 버전만, 앱을 개선하기 위해 앱 자체의 사용 현황(화면 이름과 조작 종류)을 Google 애널리틱스(Firebase)로 셉니다. 앱 안의 「이 앱에 대하여」 → 「사용 현황 기록 허용」에서 언제든지 끌 수 있으며, 끈 시점부터는 아무것도 전송되지 않습니다.',
+        '이미 전송된 사용 현황 기록의 삭제를 원하시면 아래 이메일 주소로 연락해 주세요. 저희가 삭제 절차를 진행합니다. 이 기록은 계정이나 이메일 주소와 연결되어 있지 않고 설치마다 무작위로 만들어지는 식별자로 처리되기 때문에, 기록을 찾기 위해 대략적인 사용 시기·기기 모델·국가 등을 여쭤볼 수 있습니다.',
+        '요청하지 않으셔도, 기록은 Google 애널리틱스에 설정된 보관 기간이 지나면 자동으로 삭제됩니다.',
+      ],
+      contact: '삭제 요청은 이쪽으로:',
+    },
     title: '지원',
     description: 'Channel Timeline Viewer 도움말과 문의 방법.',
     intro: '예상대로 동작하지 않으면 연락 주세요. iOS 버전, 앱 버전, 당시 조작 내용을 함께 알려 주시면 도움이 됩니다.',
@@ -1068,9 +1174,9 @@ const ko = {
   privacy: {
     title: '개인정보 처리방침',
     description: 'Channel Timeline Viewer가 저장하는 것과 하지 않는 것.',
-    updated: '최종 업데이트: 2026년 8월 24일',
+    updated: '최종 업데이트: 2026년 9월 9일',
     sections: [
-      { title: '1. 요약', body: ['Channel Timeline Viewer는 데이터를 기기에 저장합니다. 계정이 없고, 앱 내 분석 도구도 없으며, 이용자의 정보를 받는 자체 서버도 없습니다.'] },
+      { title: '1. 요약', body: ['Channel Timeline Viewer는 데이터를 기기에 저장합니다. 계정이 없고, 무엇을 보는지 받아 가는 자체 서버도 없습니다. Android 버전만, 앱을 개선하기 위해 「앱 자체가 어떻게 사용되는지」를 Google 애널리틱스(Firebase)로 셉니다. 기록하는 것은 화면 이름과 조작 종류뿐이며, 보고 있는 채널이나 동영상은 기록하지 않고 앱 안에서 언제든지 끌 수 있습니다. iOS 버전에는 분석 도구가 들어 있지 않습니다.'] },
       { title: '2. 기기에 저장하는 정보', body: [
         '다음 정보는 기기에만 저장되며(iOS UserDefaults·앱 캐시) 저희에게 전송되지 않습니다.',
         '• 시청함·건너뛰기로 표시한 동영상 식별자와 시각',
@@ -1095,7 +1201,13 @@ const ko = {
         'iOS 사양상 공유 시트에서 앱을 직접 실행할 수 없습니다. 알림을 허용한 경우에 한해, 공유 직후 탭하여 열 수 있는 로컬 알림을 한 건만 표시합니다. 내용은 공유된 YouTube URL뿐이며 기기에서 처리합니다. 홍보·재방문 유도 알림이나 서버 푸시 알림은 보내지 않습니다.'] },
       { title: '7. 인앱 결제(Pro)', body: [
         'Channel Timeline Viewer는 무료이며, 선택 사항인 1회 결제 인앱 상품 ‘Pro’ 하나만 제공합니다. 결제는 전부 Apple(App Store)이 처리하며 저희가 결제 정보를 보거나 전달받는 일은 없습니다. 앱은 해당 구매가 이용자의 계정에 속하는지를 운영체제에 문의하고, 그 결과만 기기에 저장합니다(오프라인에서도 동작하도록 하기 위해서입니다). 구독이나 반복 결제는 없습니다.'] },
-      { title: '8. 추적', body: ['이 앱은 광고 식별자(IDFA)를 사용하지 않으며, 추적을 하지 않으므로 App Tracking Transparency도 사용하지 않습니다.'] },
+      { title: '8. 추적과 사용 현황 기록', body: [
+        '이 앱은 광고 식별자(iOS의 IDFA, Android의 광고 ID)를 사용하지 않으며, 추적을 하지 않으므로 App Tracking Transparency도 사용하지 않습니다.',
+        'Android 버전에는 어떤 화면과 조작이 얼마나 사용되는지 세기 위해 Google 애널리틱스(Firebase)가 들어 있습니다. 보내는 것은 다음으로 한정됩니다: 화면 이름, 조작 종류(예: 「채널을 열었다」 「자동 재생을 켰다」 「동영상을 끝까지 봤다」), 목록의 동영상 수, 그리고 Google 애널리틱스가 자동으로 수집하는 정보(앱 버전, OS 버전, 기기 모델, 국가 등 대략적인 지역, 설치마다 무작위로 만들어지는 식별자). 보고 있는 채널과 동영상, 메모 내용, 입력한 URL은 보내지 않습니다.',
+        '광고 ID 수집과 광고 개인 맞춤 신호는 꺼져 있으며, 앱은 AD_ID 권한을 요청하지 않습니다.',
+        '앱 안의 「이 앱에 대하여」 → 「사용 현황 기록 허용」에서 언제든지 끌 수 있습니다. 끄면 기록은 완전히 멈춥니다.',
+        '이렇게 수집된 정보는 저희를 대신해 Google이 처리합니다. 위에 안내한 Google 개인정보처리방침을 확인해 주세요.',
+        'iOS 버전에는 분석 도구가 들어 있지 않습니다.'] },
       { title: '9. 아동의 개인정보', body: ['이 앱은 아동으로부터 개인정보를 의도적으로 수집하지 않습니다.'] },
       { title: '10. 이 웹사이트', body: [
         '이 사이트는 정적 페이지로 구성되어 있으며 쿠키를 설정하거나 접속 분석을 하지 않습니다.',

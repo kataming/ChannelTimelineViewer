@@ -270,20 +270,29 @@ def upsert_product(api, dry_run: bool) -> int:
     return 0
 
 
-# 初回リリースの説明（Play のロケール名で持つ。500字まで）。
+# リリースの説明（Play のロケール名で持つ。500字まで）。
+#
+# ⚠️ バージョンを上げるたびに**ここを書き直すこと**。前の版の文章が残ったまま公開されると、
+#    利用者への説明が実態と食い違う（1.8 では計測の追加＝利用者に見える変更が入った）。
+#    文言はアプリ内「このアプリについて」の説明（Localization/strings.json の about.analytics.*）と
+#    そろえる。画面名も各言語の about.title と同じ表記を使う。
+#
+# 1.9 (versionCode 11): Pro 購入の計測を「購入開始」と「購入成立」に分けた。
+#                       利用者から見える変更は無いので、内部の改善としてだけ書く
+#                       （記録の中身は 1.8 から増えていない＝画面名と操作の種類だけ）。
 RELEASE_NOTES = {
-    "ja-JP": "最新の Android（Android 16）に対応しました。"
-             "アプリの機能や画面に変更はありません。",
-    "en-US": "Updated for the latest Android (Android 16). "
-             "Nothing about how the app works has changed.",
-    "zh-CN": "已适配最新的 Android（Android 16）。应用的功能与界面没有变化。",
-    "es-ES": "Compatibilidad actualizada con la última versión de Android (Android 16). "
-             "El funcionamiento de la app no cambia.",
-    "de-DE": "Für das neueste Android (Android 16) aktualisiert. "
-             "An der Funktionsweise der App ändert sich nichts.",
-    "fr-FR": "Mise à jour pour la dernière version d'Android (Android 16). "
-             "Le fonctionnement de l'app ne change pas.",
-    "ko-KR": "최신 Android(Android 16)에 대응했습니다. 앱의 기능과 화면에는 변경이 없습니다.",
+    "ja-JP": "アプリを改善するための内部的な修正を行いました。"
+             "機能・画面・記録する内容に変更はありません。",
+    "en-US": "Internal improvements to help us improve the app. "
+             "Nothing about the features, the screens, or what is measured has changed.",
+    "zh-CN": "进行了用于改进应用的内部调整。功能、界面以及统计内容均无变化。",
+    "es-ES": "Mejoras internas para seguir mejorando la app. "
+             "No cambian las funciones, las pantallas ni lo que se mide.",
+    "de-DE": "Interne Verbesserungen zur Weiterentwicklung der App. "
+             "An den Funktionen, den Bildschirmen und dem, was gemessen wird, ändert sich nichts.",
+    "fr-FR": "Améliorations internes pour continuer à améliorer l’app. "
+             "Les fonctionnalités, les écrans et ce qui est mesuré ne changent pas.",
+    "ko-KR": "앱 개선을 위한 내부 수정을 했습니다. 기능·화면·기록하는 내용에는 변경이 없습니다.",
 }
 
 

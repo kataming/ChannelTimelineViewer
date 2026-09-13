@@ -73,15 +73,40 @@ interface Analytics {
         /** 「YouTubeで開く」を押した。 */
         const val OPEN_IN_YOUTUBE = "open_in_youtube"
 
-        /** Pro の購入を始めた。 */
+        /**
+         * Pro の購入フローを始めた（＝購入ボタンを押した）。
+         * **売れた数ではない。** 実売は [PRO_PURCHASE_SUCCESS] で数える。
+         */
         const val PRO_PURCHASE_START = "pro_purchase_start"
 
-        /** Pro の購入が終わった。[Param.RESULT] に purchased / pending。 */
-        const val PRO_PURCHASE_END = "pro_purchase_end"
+        /**
+         * ★実売★ Pro の購入が本当に成立した。
+         *
+         * Play が PURCHASED を返し、対象商品で、Pro 権限を付与した瞬間だけ送る。
+         * 保留・キャンセル・エラー・復元・起動時の既購入検出では**送らない**。
+         * 同じ購入で二重に送らないよう [com.deskflowlabs.channeltimelineviewer.billing.ReportedPurchaseStore]
+         * で端末に控えている。詳しくは docs/analytics/CTV_PURCHASE_ANALYTICS.md。
+         */
+        const val PRO_PURCHASE_SUCCESS = "pro_purchase_success"
 
-        /** 「購入を復元」を押した。 */
+        /** 購入画面を本人がやめた（USER_CANCELED）。エラーとは区別する。 */
+        const val PRO_PURCHASE_CANCEL = "pro_purchase_cancel"
+
+        /** 購入が失敗した。[Param.REASON] に [ErrorReason] の決まった文字だけを入れる。 */
+        const val PRO_PURCHASE_ERROR = "pro_purchase_error"
+
+        /** 購入が保留になった（コンビニ払いなど）。**まだ売れていない。** */
+        const val PRO_PURCHASE_PENDING = "pro_purchase_pending"
+
+        /** 「購入を復元」を押した。**実売ではない**（すでに買った人の再適用）。 */
         const val PRO_RESTORE = "pro_restore"
 
+        /**
+         * GA4 標準の購入イベント。収益レポートに載せるために
+         * [PRO_PURCHASE_SUCCESS] と**同じ瞬間・同じ重複防止**で併送する。
+         * 金額は Play が返す商品情報からのみ取る（コードに価格を持たない）。
+         */
+        const val PURCHASE = "purchase"
     }
 
     /** 引数の名前。値は列挙した短い文字列か数値だけにする。 */
@@ -95,11 +120,43 @@ interface Analytics {
         /** 設定の名前。値は [Setting]。 */
         const val SETTING = "setting"
 
-        /** 設定の値（オン/オフは "on" / "off"、繰り返しは [RepeatValue]）。 */
+        /**
+         * 設定の値（オン/オフは "on" / "off"、繰り返しは [RepeatValue]）。
+         * [Event.PURCHASE] では GA4 標準の売上金額としても使う。
+         */
         const val VALUE = "value"
 
         /** 一覧の本数（1本ずつではなく、規模を知るために使う）。 */
         const val VIDEO_COUNT = "video_count"
+
+        /** 失敗の種類。値は [ErrorReason] に列挙したものだけ。生の例外文は入れない。 */
+        const val REASON = "reason"
+
+        /** 通貨コード（GA4 標準の [Event.PURCHASE] 用。Play が返す値をそのまま使う）。 */
+        const val CURRENCY = "currency"
+    }
+
+    /**
+     * 購入が失敗した理由。**決まった短い文字だけ**を送る。
+     *
+     * Play が返す `debugMessage` や例外の中身は、端末やアカウントの事情が混ざるため
+     * Analytics へは絶対に出さない（ログには出してよい）。
+     */
+    object ErrorReason {
+        /** Play ストアに繋がらない・切断された。 */
+        const val SERVICE_UNAVAILABLE = "service_unavailable"
+
+        /** その端末/アカウントで課金そのものが使えない。 */
+        const val BILLING_UNAVAILABLE = "billing_unavailable"
+
+        /** 商品が見つからない（Play Console 側で未公開など）。 */
+        const val ITEM_UNAVAILABLE = "item_unavailable"
+
+        /** こちらの実装・設定の誤り。 */
+        const val DEVELOPER_ERROR = "developer_error"
+
+        /** 上のどれでもない失敗。 */
+        const val GENERIC_ERROR = "generic_error"
     }
 
     object Source {
@@ -134,12 +191,6 @@ interface Analytics {
 
         /** そこで止まって次の案内を出した。 */
         const val STOPPED = "stopped"
-
-        /** 購入できた。 */
-        const val PURCHASED = "purchased"
-
-        /** 保留中（コンビニ払いなど）。 */
-        const val PENDING = "pending"
     }
 
     object Setting {

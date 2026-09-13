@@ -1,0 +1,21 @@
+<en-US>
+Internal improvements to help us improve the app. Nothing about the features, the screens, or what is measured has changed.
+</en-US>
+<ja-JP>
+アプリを改善するための内部的な修正を行いました。機能・画面・記録する内容に変更はありません。
+</ja-JP>
+<zh-CN>
+进行了用于改进应用的内部调整。功能、界面以及统计内容均无变化。
+</zh-CN>
+<es-ES>
+Mejoras internas para seguir mejorando la app. No cambian las funciones, las pantallas ni lo que se mide.
+</es-ES>
+<de-DE>
+Interne Verbesserungen zur Weiterentwicklung der App. An den Funktionen, den Bildschirmen und dem, was gemessen wird, ändert sich nichts.
+</de-DE>
+<fr-FR>
+Améliorations internes pour continuer à améliorer l’app. Les fonctionnalités, les écrans et ce qui est mesuré ne changent pas.
+</fr-FR>
+<ko-KR>
+앱 개선을 위한 내부 수정을 했습니다. 기능·화면·기록하는 내용에는 변경이 없습니다.
+</ko-KR>

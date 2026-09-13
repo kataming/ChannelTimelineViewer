@@ -5,6 +5,7 @@ import com.deskflowlabs.channeltimelineviewer.analytics.Analytics
 import com.deskflowlabs.channeltimelineviewer.analytics.FirebaseAnalyticsTracker
 import com.deskflowlabs.channeltimelineviewer.billing.ProBillingManager
 import com.deskflowlabs.channeltimelineviewer.billing.ProEntitlementStore
+import com.deskflowlabs.channeltimelineviewer.billing.ReportedPurchaseStore
 import com.deskflowlabs.channeltimelineviewer.data.ActiveChannelStore
 import com.deskflowlabs.channeltimelineviewer.data.AnalyticsSettingsStore
 import com.deskflowlabs.channeltimelineviewer.data.ChannelDataRemover
@@ -75,7 +76,16 @@ class AppContainer(context: Context) {
 
     // 買い切り Pro（複数チャンネル保存）。正は Google Play 側の購入情報で、ここはその写し。
     val proEntitlement = ProEntitlementStore(prefs)
-    val billing = ProBillingManager(context.applicationContext, proEntitlement, analytics)
+
+    // 「この購入はもう実売として数えた」の控え。同じ購入を何度通知されても1回だけ数えるため。
+    private val reportedPurchases = ReportedPurchaseStore(prefs)
+
+    val billing = ProBillingManager(
+        context = context.applicationContext,
+        entitlement = proEntitlement,
+        analytics = analytics,
+        reportedPurchases = reportedPurchases,
+    )
 
     /** APIキーが設定されているか（未設定なら入力画面で警告を出す）。 */
     val isApiConfigured: Boolean get() = BuildConfig.YOUTUBE_API_KEY.isNotBlank()

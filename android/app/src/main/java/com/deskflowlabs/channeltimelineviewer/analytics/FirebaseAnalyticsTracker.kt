@@ -19,7 +19,7 @@ class FirebaseAnalyticsTracker private constructor(
 
     override fun setCollectionEnabled(enabled: Boolean) {
         // Firebase 側がこの値を端末に覚えるので、次回起動時は呼ぶ前から反映されている。
-        firebase.setAnalyticsCollectionEnabled(enabled)
+        failOpen { firebase.setAnalyticsCollectionEnabled(enabled) }
     }
 
     override fun logScreen(screenName: String) {
@@ -27,7 +27,15 @@ class FirebaseAnalyticsTracker private constructor(
     }
 
     override fun log(event: String, vararg params: Pair<String, Any>) {
-        firebase.logEvent(event, params.toBundle())
+        failOpen { firebase.logEvent(event, params.toBundle()) }
+    }
+
+    /**
+     * 記録は**おまけ**であって、アプリの仕事ではない。
+     * ここで例外が出ても、購入・権限付与・復元・再生・保存を巻き込ませない（fail-open）。
+     */
+    private inline fun failOpen(block: () -> Unit) {
+        runCatching(block).onFailure { Log.w(TAG, "記録できませんでした（処理は続行します）", it) }
     }
 
     private fun Array<out Pair<String, Any>>.toBundle(): Bundle? {

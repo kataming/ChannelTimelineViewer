@@ -43,9 +43,18 @@ Android 版だけに入れている **Google Analytics for Firebase** の仕組�
 | `video_finish` | 動画を最後まで見た | `result` = `auto_next` / `repeat_one` / `stopped` |
 | `playback_setting` | 再生設定を切り替えた | `setting` = `autoplay_next` / `resume` / `repeat` / `unwatched_only`、`value` = `on` / `off` / `one` / `all` |
 | `open_in_youtube` | 「YouTubeで開く」を押した | なし |
-| `pro_purchase_start` | Pro の購入を始めた | なし |
-| `pro_purchase_end` | Pro の購入が終わった | `result` = `purchased` / `pending` |
-| `pro_restore` | 「購入を復元」を押した | なし |
+| `pro_purchase_start` | Pro の購入フローを始めた（**売れた数ではない**） | なし |
+| **`pro_purchase_success`** | **★実売★ 購入が成立し Pro 権限を付与した** | なし |
+| `pro_purchase_cancel` | 本人が購入画面をやめた | なし |
+| `pro_purchase_error` | 購入が失敗した | `reason`（決まった5種のみ） |
+| `pro_purchase_pending` | 保留になった（コンビニ払いなど。まだ売れていない） | なし |
+| `pro_restore` | 「購入を復元」を押した（**実売ではない**） | なし |
+| `purchase` | GA4 標準の収益イベント。`pro_purchase_success` と同時 | `value` / `currency` |
+
+> **1.9 で `pro_purchase_end` は廃止した。** 保留と成立を同じ名前で送っていて実売の数として
+> 使えなかったため、上の5つに分けた（1.8 までに購入は1件も無く、失われるデータは無い）。
+> **売れた人数を見るのは `pro_purchase_success`。** 発火条件・重複防止・国別の見方は
+> [`analytics/CTV_PURCHASE_ANALYTICS.md`](./analytics/CTV_PURCHASE_ANALYTICS.md) にまとめてある。
 
 このほかに Google アナリティクスが自動で集めるもの（`first_open`・`session_start`・
 アプリのバージョン・OSのバージョン・機種・国などの大まかな地域・アプリごとの識別子）がある。

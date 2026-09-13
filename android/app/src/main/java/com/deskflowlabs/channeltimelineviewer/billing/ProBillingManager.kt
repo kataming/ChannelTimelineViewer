@@ -34,10 +34,17 @@ import kotlinx.coroutines.flow.asStateFlow
 class ProBillingManager(
     context: Context,
     private val entitlement: ProEntitlementStore,
-    private val analytics: Analytics = Analytics.Noop,
+    analytics: Analytics = Analytics.Noop,
+    reportedPurchases: ReportedPurchaseStore,
 ) {
 
     private val appContext = context.applicationContext
+
+    /**
+     * 「何を実売として数えるか」の判断はすべて [ProPurchaseReporter] に置いてある。
+     * この manager は Play とのやり取りに集中し、数え方の分岐は持たない。
+     */
+    private val reporter = ProPurchaseReporter(analytics, reportedPurchases)
 
     private val _priceText = MutableStateFlow<String?>(null)
     /** 「¥700」のような Play が返す表示用の価格。取れていなければ null。 */
@@ -77,7 +84,7 @@ class ProBillingManager(
 
     /** 「購入を復元」。結果をメッセージで知らせる点だけ [refresh] と違う。 */
     fun restore() {
-        analytics.log(Analytics.Event.PRO_RESTORE)
+        reporter.restoreRequested()
         _isBusy.value = true
         connectThen(
             onUnavailable = {
@@ -92,11 +99,13 @@ class ProBillingManager(
     /** 購入フローを開く。Play に繋がらないときは何もせずメッセージだけ返す。 */
     fun purchase(activity: Activity) {
         if (_isBusy.value) return
-        analytics.log(Analytics.Event.PRO_PURCHASE_START)
+        reporter.purchaseStarted()
         _isBusy.value = true
         connectThen(
             onUnavailable = {
                 _isBusy.value = false
+                // 購入ボタンを押したのに Play へ繋がらなかった＝購入の失敗として数える。
+                reporter.purchaseFailedBeforeFlow(Analytics.ErrorReason.SERVICE_UNAVAILABLE)
                 _messageRes.value = R.string.pro_error_unavailable
             },
         ) {
@@ -106,6 +115,7 @@ class ProBillingManager(
                 queryProductDetails { fetched ->
                     if (fetched == null) {
                         _isBusy.value = false
+                        reporter.purchaseFailedBeforeFlow(Analytics.ErrorReason.ITEM_UNAVAILABLE)
                         _messageRes.value = R.string.pro_error_unavailable
                     } else {
                         launchFlow(activity, fetched)
@@ -140,6 +150,11 @@ class ProBillingManager(
         val result = runCatching { client.launchBillingFlow(activity, params) }.getOrNull()
         if (result == null || result.responseCode != BillingClient.BillingResponseCode.OK) {
             _isBusy.value = false
+            // 画面が開けなかった。この先 onPurchasesUpdated は呼ばれないので、ここで数える。
+            reporter.purchaseFailedBeforeFlow(
+                result?.responseCode?.let(reporter::reasonFor)
+                    ?: Analytics.ErrorReason.GENERIC_ERROR
+            )
             _messageRes.value = R.string.pro_error_failed
         }
         // OK のときは onPurchasesUpdated 側で isBusy を戻す。
@@ -235,6 +250,11 @@ class ProBillingManager(
                 }
                 entitlement.applyPlayQuery(hasEntitlement)
 
+                // ここは復元・起動時の問い合わせ。**実売としては数えない。**
+                // ただし「数えた印」だけは付けておく。そうしないと、アプリを閉じている間に
+                // 成立した購入を、次に Play が再通知したときへ持ち越して二重に数えてしまう。
+                reporter.markSeenWithoutCounting(owned.map { it.toSnapshot() })
+
                 if (reportResult) {
                     _isBusy.value = false
                     _messageRes.value = when {
@@ -255,6 +275,10 @@ class ProBillingManager(
 
     private fun onPurchasesUpdated(result: BillingResult, purchases: List<Purchase>?) {
         _isBusy.value = false
+
+        // 先に権限とメッセージ（＝利用者にとっての本筋）を確定させ、記録はそのあと。
+        // こうしておけば記録側で何が起きても購入の扱いは変わらない。
+        var entitlementGranted = false
         when (result.responseCode) {
             BillingClient.BillingResponseCode.OK -> {
                 val owned = purchases.orEmpty().filter { it.isProUnlock() }
@@ -262,19 +286,11 @@ class ProBillingManager(
                 when {
                     owned.any { it.purchaseState == Purchase.PurchaseState.PURCHASED } -> {
                         entitlement.grant()
-                        analytics.log(
-                            Analytics.Event.PRO_PURCHASE_END,
-                            Analytics.Param.RESULT to Analytics.Result.PURCHASED,
-                        )
+                        entitlementGranted = true
                         _messageRes.value = R.string.pro_owned
                     }
-                    owned.any { it.purchaseState == Purchase.PurchaseState.PENDING } -> {
-                        analytics.log(
-                            Analytics.Event.PRO_PURCHASE_END,
-                            Analytics.Param.RESULT to Analytics.Result.PENDING,
-                        )
+                    owned.any { it.purchaseState == Purchase.PurchaseState.PENDING } ->
                         _messageRes.value = R.string.pro_pending
-                    }
                 }
             }
 
@@ -298,7 +314,29 @@ class ProBillingManager(
                 _messageRes.value = R.string.pro_error_failed
             }
         }
+
+        reporter.purchasesUpdated(
+            responseCode = result.responseCode,
+            purchases = purchases.orEmpty().map { it.toSnapshot() },
+            entitlementGranted = entitlementGranted,
+            price = currentPrice(),
+        )
     }
+
+    /** Play が返した値段。取れていなければ null（GA4 標準の購入イベントは送られない）。 */
+    private fun currentPrice(): ProPurchaseReporter.PriceInfo? =
+        productDetails?.oneTimePurchaseOfferDetails?.let {
+            ProPurchaseReporter.PriceInfo(
+                amountMicros = it.priceAmountMicros,
+                currencyCode = it.priceCurrencyCode,
+            )
+        }
+
+    private fun Purchase.toSnapshot() = ProPurchaseReporter.PurchaseSnapshot(
+        isProUnlock = isProUnlock(),
+        state = purchaseState,
+        purchaseToken = purchaseToken,
+    )
 
     /**
      * 確認（acknowledge）は**必ず**行う。3日以内に確認しないと Google が自動で返金し、

@@ -28,6 +28,10 @@ Channel Timeline Viewer Android 版の収益化は **アプリ本体は無料＋
 
 制限するのは **同時に保存できるチャンネル数だけ**。視聴体験そのものは削らない。
 
+> **何人に売れたかを見るには** `pro_purchase_success` を数える（`pro_purchase_start` は
+> 購入ボタンを押した数であって売上ではない）。発火条件・重複防止・国別の見方は
+> [`analytics/CTV_PURCHASE_ANALYTICS.md`](./analytics/CTV_PURCHASE_ANALYTICS.md)。
+
 ## 2. アプリ側の実装
 
 | 役割 | ファイル |
@@ -35,6 +39,8 @@ Channel Timeline Viewer Android 版の収益化は **アプリ本体は無料＋
 | 保存件数の判定（純ロジック・テスト対象） | `android/app/src/main/java/.../billing/ChannelSlotPolicy.kt` |
 | Pro 所有状態の保持 | `.../billing/ProEntitlementStore.kt` |
 | Google Play Billing の入口 | `.../billing/ProBillingManager.kt` |
+| **実売として数える判断（Analytics）** | `.../billing/ProPurchaseReporter.kt` |
+| 実売の重複防止（トークンの SHA-256 を端末に控える） | `.../billing/ReportedPurchaseStore.kt` |
 | 購入画面 | `.../ui/ProScreen.kt` |
 | 2件目保存時の案内ダイアログ・Pro への入口 | `.../ui/ChannelInputScreen.kt` |
 | 上限判定の呼び出し | `.../viewmodel/ChannelInputViewModel.kt` |

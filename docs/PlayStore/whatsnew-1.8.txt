@@ -1,0 +1,21 @@
+<en-US>
+Added usage measurement to help improve the app. Only the screen name and the kind of action are sent — never the channels or videos you watch, your notes, or the URLs you enter. No advertising identifier is used. You can turn it off at any time from “About this app”. The display now extends to the edges of the screen.
+</en-US>
+<ja-JP>
+アプリの改善のために、利用状況の記録を追加しました。送るのは画面名と操作の種類だけで、見ているチャンネル・動画・メモ・入力したURLは送りません。広告用の識別子も使いません。「このアプリについて」からいつでもオフにできます。あわせて、画面の端まで表示するよう調整しました。
+</ja-JP>
+<zh-CN>
+新增使用情况统计，用于改进应用。仅发送画面名称和操作类型，不会发送你观看的频道、视频、备忘或输入的网址，也不使用广告标识符。可随时在“关于本应用”中关闭。此外，界面现已延伸至屏幕边缘。
+</zh-CN>
+<es-ES>
+Hemos añadido la medición de uso para mejorar la app. Solo se envían el nombre de la pantalla y el tipo de acción: nunca los canales o vídeos que ves, tus notas ni las URL que introduces. No se usa ningún identificador publicitario. Puedes desactivarla cuando quieras desde «Acerca de esta app». Además, la interfaz ahora llega hasta los bordes de la pantalla.
+</es-ES>
+<de-DE>
+Zur Verbesserung der App wurde eine Nutzungsmessung hinzugefügt. Übertragen werden nur der Bildschirmname und die Art der Aktion – nie die Kanäle oder Videos, die Sie ansehen, Ihre Notizen oder eingegebene URLs. Eine Werbe-ID wird nicht verwendet. Sie können sie jederzeit unter „Über diese App“ ausschalten. Außerdem reicht die Darstellung jetzt bis an die Bildschirmränder.
+</de-DE>
+<fr-FR>
+Ajout d’une mesure d’utilisation pour améliorer l’app. Seuls le nom de l’écran et le type d’action sont envoyés — jamais les chaînes ou vidéos que vous regardez, vos notes ni les URL saisies. Aucun identifiant publicitaire n’est utilisé. Vous pouvez la désactiver à tout moment depuis « À propos de cette app ». L’affichage s’étend désormais jusqu’aux bords de l’écran.
+</fr-FR>
+<ko-KR>
+앱 개선을 위해 사용 현황 기록을 추가했습니다. 보내는 것은 화면 이름과 조작 종류뿐이며, 보고 있는 채널·동영상·메모·입력한 URL은 보내지 않습니다. 광고 식별자도 사용하지 않습니다. ‘이 앱에 대하여’에서 언제든지 끌 수 있습니다. 또한 화면 가장자리까지 표시되도록 조정했습니다.
+</ko-KR>

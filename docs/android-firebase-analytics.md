@@ -168,8 +168,22 @@ Analytics を入れたので、**申告の更新が必要**。次の内容で申
 
 > ⚠️ Play は `AD_ID` 権限の有無を自動で見ている。将来 Firebase の別のライブラリ（広告系）を
 > 足すと権限が復活することがある。足したときは必ずマージ後のマニフェストを確認すること。
-> 確認: `android/app/build/intermediates/merged_manifest/*/AndroidManifest.xml` を
-> `AD_ID` で検索し、`com.google.android.gms.permission.AD_ID` が**無い**こと。
+>
+> **確認は完全一致で行う**（`AD_ID` で検索すると別物を拾って紛らわしい）:
+>
+> ```bash
+> grep -c "com.google.android.gms.permission.AD_ID" \
+>   android/app/build/intermediates/merged_manifest/release/processReleaseMainManifest/AndroidManifest.xml
+> ```
+>
+> **0 なら正しい。** 1 以上なら広告IDの申告が必要になるので、そのまま出してはいけない。
+>
+> なお `android.permission.ACCESS_ADSERVICES_AD_ID` と
+> `android.permission.ACCESS_ADSERVICES_ATTRIBUTION` は**入ったままで正しい**。
+> これは `play-services-measurement` が自動で足す Privacy Sandbox 用の権限で、
+> Play が広告IDの自動チェックで見ている `gms.permission.AD_ID` とは別物。
+> `google_analytics_adid_collection_enabled=false` も入れてあるので、
+> 「広告IDを収集しない」の申告はこのままでよい（2026-09-12 に 1.8 の実APKで確認済み）。
 
 ---
 

@@ -84,6 +84,11 @@ jobs:
           # 中身は表示しない（プロジェクトIDだけ確認する）。
           python3 -c "import json;print('firebase project:', json.load(open('app/google-services.json'))['project_info']['project_id'])"
 
+      # 出す前に必ず通す。ここを飛ばすと、壊れたものをそのまま Play へ上げてしまう
+      # （android-build.yml は push のときだけ動くので、リリース時に走るとは限らない）。
+      - name: ユニットテスト
+        run: ./gradlew --no-daemon testDebugUnitTest
+
       - name: 署名済み AAB / APK をビルド
         env:
           ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
@@ -93,6 +98,51 @@ jobs:
           ANDROID_VERSION_CODE: ${{ github.run_number }}
           ANDROID_VERSION_NAME: ${{ inputs.version_name }}
         run: ./gradlew --no-daemon bundleRelease assembleRelease
+
+      # R8 の難読化で壊れると「例外も出ないのに再生が止まる／記録が読めなくなる」形で
+      # 表面化する。出す前に mapping.txt で機械的に確かめる。
+      # 理由と対処は android/app/proguard-rules.pro のコメントを見ること。
+      - name: 難読化で壊れていないか確認
+        run: |
+          set -euo pipefail
+          MAP=app/build/outputs/mapping/release/mapping.txt
+          if [ ! -f "$MAP" ]; then
+            echo "::error::$MAP がありません（R8 が動いていない可能性）"
+            exit 1
+          fi
+
+          # 1. WebView の JavaScript ブリッジ。中継ページが名前で呼ぶので改名されると再生が止まる。
+          if ! grep -qE "void postMessage\(java\.lang\.String\).* -> postMessage$" "$MAP"; then
+            echo "::error::JavaScript ブリッジの postMessage が難読化で改名されています。"
+            echo "このまま出すと全端末で再生と自動送りが止まります。"
+            echo "proguard-rules.pro の @JavascriptInterface の keep 指定を確認してください。"
+            exit 1
+          fi
+
+          # 2. 端末内に保存している記録のモデル。改名されると既存利用者の記録が読めなくなる。
+          for CLASS in Channel ChannelProgress FavoriteChannel PlaybackPosition VideoItem; do
+            FQ="com.deskflowlabs.channeltimelineviewer.model.$CLASS"
+            if ! grep -qE "^$FQ -> $FQ:" "$MAP"; then
+              echo "::error::$FQ が難読化で改名されています。"
+              echo "このまま出すと既存利用者の視聴済み・進捗・メモが読めなくなります。"
+              exit 1
+            fi
+          done
+          echo "ブリッジと保存モデルは保持されています。"
+
+      # Play は gms.permission.AD_ID の有無を自動で見ている。広告SDKを足すと復活するので、
+      # 「広告IDを収集しない」の申告と食い違わないよう毎回確かめる。
+      - name: 広告ID権限が復活していないか確認
+        run: |
+          set -euo pipefail
+          MANIFEST=$(find app/build/intermediates/merged_manifest/release -name AndroidManifest.xml | head -1)
+          if grep -q "com.google.android.gms.permission.AD_ID" "$MANIFEST"; then
+            echo "::error::gms.permission.AD_ID が復活しています。"
+            echo "Play の「データセーフティ」で広告IDの申告が必要になります。"
+            echo "AndroidManifest.xml の tools:node=\"remove\" を確認してください。"
+            exit 1
+          fi
+          echo "広告ID権限は入っていません。"
 
       - name: 署名を確認
         run: |

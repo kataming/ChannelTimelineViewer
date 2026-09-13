@@ -13,7 +13,8 @@ fragment = "1.8.9"
 coil = "2.7.0"
 okhttp = "4.12.0"
 serialization = "1.7.3"
-# Play Billing: 2026-08-31 以降の新規アプリ・更新は 8 以降が必須。9.x は compileSdk 35 が要る（本アプリは 35）。
+# Play Billing: 2026-08-31 以降の新規アプリ・更新は 8 以降が必須。
+# 9.x は compileSdk 35 以上が要る（本アプリは 36 なので条件を満たす）。
 billing = "9.1.0"
 # Firebase（Android 版のみ）。BOM で個々のライブラリの版を揃える。
 # ⚠️ 33.7.0 で止めているのは Kotlin の版に縛られているため。

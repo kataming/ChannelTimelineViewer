@@ -5,17 +5,22 @@
 # ---------------------------------------------------------------------------
 # ⚠️ 最重要: WebView の JavaScript ブリッジ
 # ---------------------------------------------------------------------------
-# 中継ページ（docs/player.html）は `window.ytAndroid.onState(...)` のように
+# 中継ページ（docs/player.html）は `window.ytAndroid.postMessage(...)` のように
 # **名前で** アプリ側のメソッドを呼ぶ。難読化でメソッド名が変わると呼び出しが届かず、
 # 再生状態の通知・再生位置の保存・自動送り（nearEnd）がすべて止まる。
 # しかも例外は出ず「なぜか次に進まない」という形で表面化するので、必ず残す。
+#
+# ブリッジを守っているのは**この1つだけ**。JS が名前で参照するのはメソッド名
+# （postMessage）と、addJavascriptInterface に渡した名前（ytAndroid）であって、
+# クラス名は参照しない。だからクラスは改名されて構わない
+# （実測: ui.PlayerBridge -> ui.m に改名されるが postMessage は保持される）。
 -keepclassmembers class * {
     @android.webkit.JavascriptInterface <methods>;
 }
-# ブリッジのクラス自体も、addJavascriptInterface に渡す形のまま残す。
--keep class com.deskflowlabs.channeltimelineviewer.ui.**$* {
-    @android.webkit.JavascriptInterface <methods>;
-}
+# 確認方法: リリースビルド後に mapping.txt を見る。
+#   grep -E "void postMessage\(java.lang.String\).* -> postMessage$" \
+#     app/build/outputs/mapping/release/mapping.txt
+# が1件以上あれば効いている。0件ならブリッジが壊れているので出してはいけない。
 
 # ---------------------------------------------------------------------------
 # kotlinx.serialization（端末内に保存している視聴済み・進捗・メモなどの読み書き）

@@ -200,7 +200,6 @@
     <string name="tutorial_step2_image_a11y">菜单中“分享”被标出的画面</string>
     <string name="tutorial_step2_title">点按“分享”</string>
     <string name="tutorial_step3_body">在分享目标列表中选择 %s，即可添加该频道。</string>
-    <string name="tutorial_step3_body_ios">在分享面板中向下找到并选择 %s 以传递链接。返回应用后点按“打开共享的网址”即可添加。</string>
     <string name="tutorial_step3_image_a11y">分享列表中 %s 被标出的画面</string>
     <string name="tutorial_step3_title">选择 %s</string>
     <string name="tutorial_title">添加频道的方法</string>

@@ -50,6 +50,10 @@ SKIP_KEYS = {
     "pro.restore.none.apple",
     "pro.price.failed",
     "pro.price.retry",
+    # チュートリアルの手順3は、共有の受け取り方が iOS だけ違うので文章を分けてある
+    # （Android は共有先を選ぶと直接開く。iOS はクリップボード経由で一手間かかる）。
+    # Android 側に入れると使われないまま残り、lint が UnusedResources を出す。
+    "tutorial.step3.body.ios",
 }
 
 

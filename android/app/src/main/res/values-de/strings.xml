@@ -200,7 +200,6 @@
     <string name="tutorial_step2_image_a11y">Das Menü mit hervorgehobenem „Teilen“</string>
     <string name="tutorial_step2_title">Auf „Teilen“ tippen</string>
     <string name="tutorial_step3_body">Wähle %s aus der App-Liste, um den Kanal hinzuzufügen.</string>
-    <string name="tutorial_step3_body_ios">Scrolle im Teilen-Menü und wähle %s, um den Link zu übergeben. Tippe zurück in der App auf „Geteilte URL öffnen“.</string>
     <string name="tutorial_step3_image_a11y">Das Teilen-Menü mit hervorgehobenem %s</string>
     <string name="tutorial_step3_title">%s auswählen</string>
     <string name="tutorial_title">So fügst du einen Kanal hinzu</string>

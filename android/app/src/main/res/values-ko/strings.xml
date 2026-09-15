@@ -200,7 +200,6 @@
     <string name="tutorial_step2_image_a11y">메뉴에서 ‘공유’가 강조된 화면</string>
     <string name="tutorial_step2_title">‘공유’를 탭합니다</string>
     <string name="tutorial_step3_body">공유 대상 목록에서 %s 을(를) 선택하면 채널이 추가됩니다.</string>
-    <string name="tutorial_step3_body_ios">공유 시트를 내려 %s 을(를) 선택하면 링크가 전달됩니다. 앱으로 돌아와 ‘공유된 URL 열기’를 누르면 추가됩니다.</string>
     <string name="tutorial_step3_image_a11y">공유 목록에서 %s 이(가) 강조된 화면</string>
     <string name="tutorial_step3_title">%s 을(를) 선택합니다</string>
     <string name="tutorial_title">채널 추가 방법</string>

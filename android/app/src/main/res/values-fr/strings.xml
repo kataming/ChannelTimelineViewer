@@ -200,7 +200,6 @@
     <string name="tutorial_step2_image_a11y">Le menu avec Partager mis en évidence</string>
     <string name="tutorial_step2_title">Appuyez sur Partager</string>
     <string name="tutorial_step3_body">Choisissez %s dans la liste des applications pour ajouter la chaîne.</string>
-    <string name="tutorial_step3_body_ios">Faites défiler la feuille de partage et choisissez %s pour transmettre le lien. De retour dans l’app, appuyez sur « Ouvrir l’URL partagée ».</string>
     <string name="tutorial_step3_image_a11y">La feuille de partage avec %s mis en évidence</string>
     <string name="tutorial_step3_title">Choisissez %s</string>
     <string name="tutorial_title">Comment ajouter une chaîne</string>

@@ -399,8 +399,6 @@
     <string name="tutorial_step2_title">Tap Share</string>
     <!-- 手順3の説明（Android・共有先から選ぶ） -->
     <string name="tutorial_step3_body">Pick %s from the list of apps to add the channel.</string>
-    <!-- 手順3の説明（iOS・共有シートから選ぶ） -->
-    <string name="tutorial_step3_body_ios">Scroll the share sheet and choose %s to hand over the link. Back in the app, tap “Open the shared URL” to add the channel.</string>
     <!-- 読み上げ: 手順3の画像（アプリ名を %@ で入れる） -->
     <string name="tutorial_step3_image_a11y">The share sheet with %s highlighted</string>
     <!-- 手順3の見出し（アプリ名を %@ で入れる） -->

@@ -200,7 +200,6 @@
     <string name="tutorial_step2_image_a11y">メニューの中の「共有」が囲まれている画面</string>
     <string name="tutorial_step2_title">「共有」をタップ</string>
     <string name="tutorial_step3_body">共有先の一覧から %s を選ぶと、チャンネルが追加されます。</string>
-    <string name="tutorial_step3_body_ios">共有シートを下にたどって %s を選ぶと、リンクが渡されます。アプリに戻ると「共有されたURLを開く」が出るので、それを押すと追加できます。</string>
     <string name="tutorial_step3_image_a11y">共有先の一覧で %s が囲まれている画面</string>
     <string name="tutorial_step3_title">%s を選ぶ</string>
     <string name="tutorial_title">チャンネルの追加方法</string>

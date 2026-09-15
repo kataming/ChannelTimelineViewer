@@ -200,7 +200,6 @@
     <string name="tutorial_step2_image_a11y">El menú con Compartir resaltado</string>
     <string name="tutorial_step2_title">Toca Compartir</string>
     <string name="tutorial_step3_body">Elige %s en la lista de apps para añadir el canal.</string>
-    <string name="tutorial_step3_body_ios">Desplázate por la hoja de compartir y elige %s para pasar el enlace. De vuelta en la app, toca «Abrir la URL compartida» para añadirlo.</string>
     <string name="tutorial_step3_image_a11y">La hoja de compartir con %s resaltado</string>
     <string name="tutorial_step3_title">Elige %s</string>
     <string name="tutorial_title">Cómo añadir un canal</string>

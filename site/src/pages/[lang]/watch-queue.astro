@@ -1,0 +1,46 @@
+---
+// Watch Queue モード（/{lang}/watch-queue/#v=1&ids=…）。
+//
+// 外部から Queue Launch Contract V1 のリンクで来たときだけ使う第2の再生モード。
+// 画面はトップページのヒーローと同じ Web版スマホVIEWER（TrialApp variant="phone"）を mode="queue" で使う。
+//
+// ⚠️ 通常サイトの一部ではない:
+//   - どのページからもリンクしない（ナビ・トップ・フッター・マニュアルに出さない）
+//   - 検索に載せない（noindex・sitemap の PAGES に入れない）
+//   - 文言（i18n/watchQueue.js）とスタイル（trial/queue.css）はこのページだけが読み込む
+import Base from '../../layouts/Base.astro';
+import TrialApp from '../../components/TrialApp.astro';
+import { codes, langOf } from '../../i18n/index.js';
+import { trialCopy } from '../../i18n/trial.js';
+import { watchQueueCopy } from '../../i18n/watchQueue.js';
+import '../../trial/queue.css';
+
+export function getStaticPaths() {
+  return codes.map((code) => ({ params: { lang: langOf(code).slug }, props: { code } }));
+}
+
+const { code } = Astro.props;
+const L = langOf(code);
+const trial = trialCopy(code);
+const queue = watchQueueCopy(code);
+---
+
+<Base lang={code} page="watch-queue" title={queue.meta.title} description={queue.meta.description} noindex>
+  <section class="queue-page">
+    <div class="wrap queue-wrap">
+      <TrialApp code={code} htmlLang={L.htmlLang} variant="phone" mode="queue" />
+      <p class="queue-note">{trial.ui.playerNote}</p>
+    </div>
+  </section>
+</Base>
+
+<script>
+  import { startQueue } from '../../trial/queue.js';
+  startQueue();
+</script>
+
+<style>
+  .queue-page { padding: 20px 0 40px; }
+  .queue-wrap { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .queue-note { max-width: 46ch; margin: 0; font-size: 0.8rem; line-height: 1.5; color: var(--muted); text-align: center; }
+</style>

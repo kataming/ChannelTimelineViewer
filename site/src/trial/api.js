@@ -38,6 +38,22 @@ async function call(params) {
   return data;
 }
 
+/**
+ * 動画IDの一覧から、一覧と再生画面に出す公開情報を引く（Watch Queue モード用。50件ずつ）。
+ * Data API が返さなかった動画（非公開・削除済み）は Map に入らない。
+ * @returns {Map<string,{id:string,title:string,channelTitle:string,published:string|null,embeddable:boolean}>}
+ */
+export async function fetchVideoInfo(ids) {
+  const found = new Map();
+  for (let i = 0; i < ids.length; i += 50) {
+    const data = await call({ op: 'videoInfo', ids: ids.slice(i, i + 50).join(',') });
+    for (const item of data.items || []) {
+      if (item && item.id) found.set(item.id, item);
+    }
+  }
+  return found;
+}
+
 /** 動画IDから、その動画を投稿したチャンネルIDを引く。 */
 export async function channelIdForVideo(videoId) {
   const data = await call({ op: 'videoChannel', v: videoId });

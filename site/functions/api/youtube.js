@@ -7,7 +7,8 @@
  * （＝この関数）でキーをサーバー側に置き、必要な呼び出しだけを通す。
  *
  * 【やっていないこと】
- * - 汎用プロキシではない。`op` で決まった3種類の呼び出ししか通さない（任意のURLは転送しない）。
+ * - 汎用プロキシではない。`op` で決まった4種類の呼び出ししか通さない（任意のURLは転送しない）。
+ *   channel / videos / videoChannel は体験版、videoInfo は Watch Queue モード（/{lang}/watch-queue/）が使う。
  * - スクレイピングはしない。公式の Data API v3 だけを使う。
  * - 動画そのものの取得・保存はしない。返すのは一覧に出すための公開情報だけ。
  *
@@ -30,6 +31,7 @@ const TTL = {
   videos: 60 * 60 * 6, // 6時間（新着は「新着を確認」で取り直せる）
   video: 60 * 60 * 24 * 7, // 7日（動画→投稿チャンネルの対応は変わらない）
   search: 60 * 60 * 24, // 24時間（100 unit なので長めに持つ）
+  videoInfo: 60 * 60 * 6, // 6時間（Watch Queue モードのタイトル表示用）
 };
 
 const ID_RE = /^[A-Za-z0-9_-]{1,64}$/;
@@ -213,6 +215,40 @@ async function handleVideos(searchParams, key, ctx) {
   return json({ items, next: r.data.nextPageToken || null }, 200, TTL.videos);
 }
 
+const VIDEO_ID_RE = /^[A-Za-z0-9_-]{11}$/;
+
+/**
+ * Watch Queue モード用: 動画IDの一覧（最大50件）のタイトル・チャンネル名・公開日・埋め込み可否。
+ * videos.list は 1 unit。非公開・削除済みの動画は Data API が返さないので items に入らない。
+ */
+async function handleVideoInfo(searchParams, key, ctx) {
+  const ids = (searchParams.get('ids') || '').split(',').filter(Boolean);
+  if (!ids.length || ids.length > 50 || !ids.every((id) => VIDEO_ID_RE.test(id))) return fail('invalid');
+
+  const r = await callAPI(
+    'videos',
+    { part: 'snippet,status', id: ids.join(','), maxResults: 50 },
+    key,
+    TTL.videoInfo,
+    ctx
+  );
+  if (!r.ok) return fail(r.error, r.status);
+
+  const items = [];
+  for (const item of r.data.items || []) {
+    const snippet = item.snippet || {};
+    const status = item.status || {};
+    items.push({
+      id: item.id,
+      title: snippet.title || '',
+      channelTitle: snippet.channelTitle || '',
+      published: snippet.publishedAt || null,
+      embeddable: status.embeddable !== false,
+    });
+  }
+  return json({ items }, 200, TTL.videoInfo);
+}
+
 async function handleVideoChannel(searchParams, key, ctx) {
   const v = searchParams.get('v');
   if (!v || !ID_RE.test(v)) return fail('invalid');
@@ -241,6 +277,8 @@ export async function onRequestGet(context) {
       return handleVideos(searchParams, key, context);
     case 'videoChannel':
       return handleVideoChannel(searchParams, key, context);
+    case 'videoInfo':
+      return handleVideoInfo(searchParams, key, context);
     default:
       return fail('invalid');
   }

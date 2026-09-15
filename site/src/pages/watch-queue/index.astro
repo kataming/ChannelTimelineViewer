@@ -1,0 +1,29 @@
+---
+// Watch Queue の入口（/watch-queue/#v=1&ids=…）。
+// 外部（YouTube Watch Queue 拡張など）から Queue Launch Contract V1 のリンクで来たときだけ使われる。
+// サイトのどこからもリンクしない・検索に載せない（noindex・sitemap に入れない）。
+//
+// ここでは言語を振り分けるだけ。処理はルート（/）と同じ LangRedirect で、# 以降のキューを引き継ぐ。
+// meta refresh は付けない（付けると # が落ちてキューが消える）。
+import { path, DEFAULT_CODE } from '../../i18n/index.js';
+import LangRedirect from '../../components/LangRedirect.astro';
+
+const fallback = path(DEFAULT_CODE, 'watch-queue');
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Channel Timeline Viewer</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <LangRedirect page="watch-queue" keepHash />
+  </head>
+  <body>
+    <p style="font-family: system-ui; padding: 24px;">
+      <a href={fallback}>Channel Timeline Viewer</a>
+    </p>
+  </body>
+</html>

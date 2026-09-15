@@ -1,13 +1,12 @@
 ---
 // ルート（/）は言語別ページへの入口。ブラウザの言語で振り分け、
 // JavaScript が無い場合や未対応言語のときは英語版へ送る。
+// 振り分けの処理は LangRedirect.astro（/watch-queue/ と共通）。
 import { languages, path, DEFAULT_CODE } from '../i18n/index.js';
 import { SITE_URL } from '../config.js';
+import LangRedirect from '../components/LangRedirect.astro';
 
 const fallback = path(DEFAULT_CODE);
-const map = Object.fromEntries(languages.map((l) => [l.htmlLang.toLowerCase(), path(l.code)]));
-// 言語コード → パス。言語切替で覚えた値（ctv-lang）を引くのに使う。
-const slugs = Object.fromEntries(languages.map((l) => [l.code, path(l.code)]));
 ---
 
 <!doctype html>
@@ -23,27 +22,7 @@ const slugs = Object.fromEntries(languages.map((l) => [l.code, path(l.code)]));
       <link rel="alternate" hreflang={l.htmlLang} href={SITE_URL + path(l.code)} />
     ))}
     <link rel="alternate" hreflang="x-default" href={SITE_URL + fallback} />
-    <script is:inline define:vars={{ map, fallback, slugs }}>
-      (function () {
-        // 一度でも言語を選んでいれば、その言語を最優先にする。
-        try {
-          var saved = localStorage.getItem('ctv-lang');
-          if (saved && slugs[saved]) { location.replace(slugs[saved]); return; }
-        } catch (err) {
-          /* 保存が読めなくてもブラウザの言語で振り分ければよい */
-        }
-        var wanted = (navigator.languages || [navigator.language || 'en']).map(function (l) {
-          return String(l).toLowerCase();
-        });
-        for (var i = 0; i < wanted.length; i++) {
-          var full = wanted[i];
-          var base = full.split('-')[0];
-          var hit = map[full] || map[base] || (base === 'zh' ? map['zh-hans'] : null);
-          if (hit) { location.replace(hit); return; }
-        }
-        location.replace(fallback);
-      })();
-    </script>
+    <LangRedirect />
   </head>
   <body>
     <p style="font-family: system-ui; padding: 24px;">

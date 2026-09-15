@@ -1,0 +1,40 @@
+---
+// 言語の振り分け（ルート「/」と Watch Queue の入口「/watch-queue/」で共通）。
+//
+// 順番は変えないこと:
+//   1) 言語切替で覚えた言語（localStorage の ctv-lang）
+//   2) ブラウザの言語（navigator.languages）
+//   3) 英語
+// keepHash を付けると、振り分け先に今の # 以降をそのまま引き継ぐ（Watch Queue のキューを失わないため）。
+import { languages, path, DEFAULT_CODE } from '../i18n/index.js';
+
+const { page = '', keepHash = false } = Astro.props;
+
+const fallback = path(DEFAULT_CODE, page);
+const map = Object.fromEntries(languages.map((l) => [l.htmlLang.toLowerCase(), path(l.code, page)]));
+// 言語コード → パス。言語切替で覚えた値（ctv-lang）を引くのに使う。
+const slugs = Object.fromEntries(languages.map((l) => [l.code, path(l.code, page)]));
+---
+
+<script is:inline define:vars={{ map, fallback, slugs, keepHash }}>
+  (function () {
+    var suffix = keepHash ? location.hash : '';
+    // 一度でも言語を選んでいれば、その言語を最優先にする。
+    try {
+      var saved = localStorage.getItem('ctv-lang');
+      if (saved && slugs[saved]) { location.replace(slugs[saved] + suffix); return; }
+    } catch (err) {
+      /* 保存が読めなくてもブラウザの言語で振り分ければよい */
+    }
+    var wanted = (navigator.languages || [navigator.language || 'en']).map(function (l) {
+      return String(l).toLowerCase();
+    });
+    for (var i = 0; i < wanted.length; i++) {
+      var full = wanted[i];
+      var base = full.split('-')[0];
+      var hit = map[full] || map[base] || (base === 'zh' ? map['zh-hans'] : null);
+      if (hit) { location.replace(hit + suffix); return; }
+    }
+    location.replace(fallback + suffix);
+  })();
+</script>

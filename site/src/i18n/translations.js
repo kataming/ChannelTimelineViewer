@@ -134,7 +134,7 @@ const en = {
   privacy: {
     title: 'Privacy Policy',
     description: 'What Channel Timeline Viewer stores and what it does not.',
-    updated: 'Last updated: 9 September 2026',
+    updated: 'Last updated: 16 September 2026',
     sections: [
       { title: '1. Summary', body: ['Channel Timeline Viewer keeps your data on your device. There is no account, and no server operated by us receives what you watch. The Android version measures how the app itself is used (Google Analytics for Firebase) so we can improve it: it records screen names and the kind of action, never the channels or videos you watch, and you can switch it off in the app. The iOS version contains no analytics at all.'] },
       { title: '2. What is stored on your device', body: [
@@ -171,9 +171,9 @@ const en = {
       { title: '9. Children', body: ['The app does not knowingly collect personal information from children.'] },
       { title: '10. This website', body: [
         'This site is a set of static pages. It sets no cookies and runs no analytics.',
-        'The web trial page (/try/) is interactive, and this is what it does:',
+        'The interactive pages of this site, such as the web trial (/try/), work as follows:',
         '• The channel you enter, the videos you mark as watched or skipped, your progress, your notes, and playback positions are stored in your browser (localStorage) on the device you are using. They are never sent to us, are not shared with the app on your phone, and are deleted when you clear the site data for this site.',
-        '• To build the video list, the page asks a small relay on this site, which calls the YouTube Data API v3 with our key. Only the channel or playlist identifier is passed on; nothing about you is sent.',
+        '• To build the video list, the page asks a small relay on this site, which calls the YouTube Data API v3 with our key. Only the identifiers of the channel, playlist, or videos to show are passed on; nothing about you is sent.',
         '• Playback uses YouTube’s official embedded player, and video thumbnails are loaded from YouTube’s servers. While you use the player, YouTube and Google may collect and process information under their own policies.',
         '• There is no account, no sign-in, and no payment on this website.'] },
       { title: '11. Changes', body: ['This policy may be updated. Significant changes will be announced with an app update.'] },
@@ -309,7 +309,7 @@ const ja = {
   privacy: {
     title: 'プライバシーポリシー',
     description: 'Channel Timeline Viewer が保存するもの・しないこと。',
-    updated: '最終更新日: 2026年9月9日',
+    updated: '最終更新日: 2026年9月16日',
     sections: [
       { title: '1. 概要', body: ['Channel Timeline Viewer は、利用者のデータを端末内に保存します。アカウントはなく、当方が運営するサーバーが「何を見たか」を受け取ることもありません。Android 版のみ、アプリを改善するために「アプリ自体がどう使われているか」を Google アナリティクス（Firebase）で数えています。記録するのは画面名と操作の種類だけで、見ているチャンネルや動画は記録せず、アプリ内でいつでも止められます。iOS 版に解析ツールは入っていません。'] },
       { title: '2. 端末内に保存する情報', body: [
@@ -346,9 +346,9 @@ const ja = {
       { title: '9. 子どものプライバシー', body: ['本アプリは、子どもから個人情報を意図的に収集することはありません。'] },
       { title: '10. このウェブサイトについて', body: [
         '本サイトは静的ページで構成されており、Cookie の設定やアクセス解析は行っていません。',
-        'Web体験版のページ（/try/）だけは操作できるページで、次のように動きます。',
+        'Web体験版（/try/）など、操作できるページは次のように動きます。',
         '• 入力したチャンネル、視聴済み・スキップの印、進捗、メモ、再生位置は、お使いの端末のブラウザ内（localStorage）にのみ保存されます。当方には送信されず、スマートフォンのアプリとも共有されません。本サイトのサイトデータを消すと削除されます。',
-        '• 動画一覧を作るために、本サイト上の小さな中継を経由して YouTube Data API v3 を呼び出します。渡すのはチャンネルまたはプレイリストの識別子だけで、利用者に関する情報は送信しません。',
+        '• 動画一覧を作るために、本サイト上の小さな中継を経由して YouTube Data API v3 を呼び出します。渡すのは表示するチャンネル・プレイリスト・動画の識別子だけで、利用者に関する情報は送信しません。',
         '• 再生には YouTube 公式の埋め込みプレイヤーを使用し、サムネイル画像も YouTube のサーバーから読み込みます。プレイヤーの利用中、YouTube および Google が各社のポリシーに基づき情報を取得・処理することがあります。',
         '• 本ウェブサイトにはアカウント・ログイン・支払いはありません。'] },
       { title: '11. ポリシーの変更', body: ['本ポリシーは必要に応じて更新されることがあります。重要な変更はアプリの更新等でお知らせします。'] },
@@ -482,7 +482,7 @@ const zh = {
   privacy: {
     title: '隐私政策',
     description: 'Channel Timeline Viewer 会保存什么，不会做什么。',
-    updated: '最后更新：2026 年 9 月 9 日',
+    updated: '最后更新：2026 年 9 月 16 日',
     sections: [
       { title: '1. 概述', body: ['Channel Timeline Viewer 将你的数据保存在设备中。没有账号，我们也没有接收「你看了什么」的服务器。仅 Android 版为了改进应用，使用 Google Analytics for Firebase 统计「应用本身如何被使用」。记录的只是画面名称和操作类型，不记录你观看的频道或视频，并且可在应用内随时关闭。iOS 版不含任何分析工具。'] },
       { title: '2. 保存在设备上的信息', body: [
@@ -519,9 +519,9 @@ const zh = {
       { title: '9. 儿童隐私', body: ['本应用不会有意收集儿童的个人信息。'] },
       { title: '10. 关于本网站', body: [
         '本网站由静态页面构成，不设置 Cookie，也不进行访问分析。',
-        '只有网页试用版页面（/try/）可以操作，其运作方式如下：',
+        '网页试用版（/try/）等可以操作的页面，其运作方式如下：',
         '• 你输入的频道、已观看／跳过的标记、进度、笔记和播放位置，只保存在你所用设备的浏览器中（localStorage）。这些不会发送给我们，也不会与手机上的应用共享，清除本站的网站数据后即被删除。',
-        '• 为了生成视频列表，页面会通过本站的一个小型中继调用 YouTube Data API v3。传递的只有频道或播放列表的标识符，不会发送与你有关的信息。',
+        '• 为了生成视频列表，页面会通过本站的一个小型中继调用 YouTube Data API v3。传递的只有要显示的频道、播放列表或视频的标识符，不会发送与你有关的信息。',
         '• 播放使用 YouTube 官方嵌入式播放器，缩略图也从 YouTube 的服务器加载。在你使用播放器期间，YouTube 和 Google 可能依据其各自的政策收集和处理信息。',
         '• 本网站没有账号、登录和付款。'] },
       { title: '11. 政策变更', body: ['本政策可能会更新。重要变更将随应用更新一并说明。'] },
@@ -655,7 +655,7 @@ const es = {
   privacy: {
     title: 'Política de privacidad',
     description: 'Qué guarda Channel Timeline Viewer y qué no hace.',
-    updated: 'Última actualización: 9 de septiembre de 2026',
+    updated: 'Última actualización: 16 de septiembre de 2026',
     sections: [
       { title: '1. Resumen', body: ['Channel Timeline Viewer guarda tus datos en tu dispositivo. No hay cuentas y ningún servidor nuestro recibe lo que ves. Solo la versión de Android mide cómo se usa la propia app (Google Analytics para Firebase) para poder mejorarla: registra el nombre de la pantalla y el tipo de acción, nunca los canales o vídeos que ves, y puedes desactivarlo dentro de la app. La versión de iOS no incluye ninguna analítica.'] },
       { title: '2. Qué se guarda en tu dispositivo', body: [
@@ -692,9 +692,9 @@ const es = {
       { title: '9. Menores', body: ['La app no recopila conscientemente información personal de menores.'] },
       { title: '10. Este sitio web', body: [
         'Este sitio son páginas estáticas. No usa cookies ni analítica.',
-        'La página de prueba web (/try/) sí es interactiva y funciona así:',
+        'Las páginas interactivas de este sitio, como la prueba web (/try/), funcionan así:',
         '• El canal que introduces, las marcas de visto u omitido, tu progreso, tus notas y las posiciones de reproducción se guardan en el navegador (localStorage) del dispositivo que estés usando. No se nos envían, no se comparten con la app del móvil y se borran al eliminar los datos de este sitio.',
-        '• Para construir la lista de vídeos, la página consulta un pequeño relé de este sitio que llama a la YouTube Data API v3 con nuestra clave. Solo se transmite el identificador del canal o de la lista de reproducción; no se envía nada sobre ti.',
+        '• Para construir la lista de vídeos, la página consulta un pequeño relé de este sitio que llama a la YouTube Data API v3 con nuestra clave. Solo se transmiten los identificadores del canal, la lista de reproducción o los vídeos que se muestran; no se envía nada sobre ti.',
         '• La reproducción usa el reproductor incrustado oficial de YouTube y las miniaturas se cargan desde los servidores de YouTube. Mientras usas el reproductor, YouTube y Google pueden recopilar y tratar información conforme a sus propias políticas.',
         '• En este sitio web no hay cuenta, ni inicio de sesión, ni pagos.'] },
       { title: '11. Cambios', body: ['Esta política puede actualizarse. Los cambios relevantes se anunciarán con una actualización de la app.'] },
@@ -828,7 +828,7 @@ const de = {
   privacy: {
     title: 'Datenschutzerklärung',
     description: 'Was Channel Timeline Viewer speichert – und was nicht.',
-    updated: 'Zuletzt aktualisiert: 9. September 2026',
+    updated: 'Zuletzt aktualisiert: 16. September 2026',
     sections: [
       { title: '1. Kurzfassung', body: ['Channel Timeline Viewer speichert deine Daten auf deinem Gerät. Es gibt kein Konto, und kein von uns betriebener Server erfährt, was du ansiehst. Nur die Android-Version misst mit Google Analytics für Firebase, wie die App selbst genutzt wird, damit wir sie verbessern können: erfasst werden Bildschirmnamen und die Art der Aktion, nie die Kanäle oder Videos, die du ansiehst – und du kannst es in der App abschalten. Die iOS-Version enthält keinerlei Analyse.'] },
       { title: '2. Was auf dem Gerät gespeichert wird', body: [
@@ -865,9 +865,9 @@ const de = {
       { title: '9. Kinder', body: ['Die App erhebt wissentlich keine personenbezogenen Daten von Kindern.'] },
       { title: '10. Diese Website', body: [
         'Diese Website besteht aus statischen Seiten. Sie setzt keine Cookies und nutzt keine Analyse.',
-        'Nur die Seite der Web-Testversion (/try/) ist interaktiv. Sie funktioniert so:',
+        'Die interaktiven Seiten dieser Website, etwa die Web-Testversion (/try/), funktionieren so:',
         '• Der eingegebene Kanal, Gesehen- und Übersprungen-Markierungen, dein Fortschritt, deine Notizen und die Wiedergabepositionen werden ausschließlich im Browser (localStorage) des genutzten Geräts gespeichert. Sie werden nicht an uns gesendet, nicht mit der App auf dem Smartphone geteilt und beim Löschen der Websitedaten entfernt.',
-        '• Für die Videoliste fragt die Seite eine kleine Weiterleitung auf dieser Website, die mit unserem Schlüssel die YouTube Data API v3 aufruft. Weitergegeben wird nur die Kanal- oder Playlist-Kennung; nichts über dich wird gesendet.',
+        '• Für die Videoliste fragt die Seite eine kleine Weiterleitung auf dieser Website, die mit unserem Schlüssel die YouTube Data API v3 aufruft. Weitergegeben werden nur die Kennungen des Kanals, der Playlist oder der angezeigten Videos; nichts über dich wird gesendet.',
         '• Die Wiedergabe nutzt den offiziellen eingebetteten YouTube-Player, und die Vorschaubilder werden von den Servern von YouTube geladen. Während der Nutzung des Players können YouTube und Google nach ihren eigenen Richtlinien Informationen erheben und verarbeiten.',
         '• Auf dieser Website gibt es kein Konto, keine Anmeldung und keine Zahlung.'] },
       { title: '11. Änderungen', body: ['Diese Erklärung kann aktualisiert werden. Wesentliche Änderungen werden mit einem App-Update mitgeteilt.'] },
@@ -1001,7 +1001,7 @@ const fr = {
   privacy: {
     title: 'Politique de confidentialité',
     description: 'Ce que Channel Timeline Viewer enregistre, et ce qu’il ne fait pas.',
-    updated: 'Dernière mise à jour : 9 septembre 2026',
+    updated: 'Dernière mise à jour : 16 septembre 2026',
     sections: [
       { title: '1. En bref', body: ['Channel Timeline Viewer conserve vos données sur votre appareil. Il n’y a pas de compte, et aucun serveur exploité par nous ne reçoit ce que vous regardez. Seule la version Android mesure la façon dont l’app elle-même est utilisée (Google Analytics pour Firebase) afin de l’améliorer : elle enregistre le nom de l’écran et le type d’action, jamais les chaînes ni les vidéos que vous regardez, et vous pouvez la désactiver dans l’app. La version iOS ne contient aucune analytique.'] },
       { title: '2. Ce qui est enregistré sur votre appareil', body: [
@@ -1038,9 +1038,9 @@ const fr = {
       { title: '9. Enfants', body: ['L’app ne collecte pas sciemment de données personnelles auprès d’enfants.'] },
       { title: '10. Ce site web', body: [
         'Ce site est constitué de pages statiques. Il ne dépose pas de cookies et n’utilise pas d’analytique.',
-        'Seule la page d’essai web (/try/) est interactive. Voici ce qu’elle fait :',
+        'Les pages interactives de ce site, comme l’essai web (/try/), fonctionnent ainsi :',
         '• La chaîne que vous saisissez, les marques « regardé » ou « ignoré », votre progression, vos notes et les positions de lecture sont enregistrées uniquement dans le navigateur (localStorage) de l’appareil utilisé. Elles ne nous sont pas envoyées, ne sont pas partagées avec l’app du téléphone et sont supprimées lorsque vous effacez les données de ce site.',
-        '• Pour construire la liste des vidéos, la page interroge un petit relais hébergé sur ce site, qui appelle l’API YouTube Data v3 avec notre clé. Seul l’identifiant de la chaîne ou de la playlist est transmis ; rien vous concernant n’est envoyé.',
+        '• Pour construire la liste des vidéos, la page interroge un petit relais hébergé sur ce site, qui appelle l’API YouTube Data v3 avec notre clé. Seuls les identifiants de la chaîne, de la playlist ou des vidéos affichées sont transmis ; rien vous concernant n’est envoyé.',
         '• La lecture utilise le lecteur intégré officiel de YouTube et les miniatures sont chargées depuis les serveurs de YouTube. Pendant l’utilisation du lecteur, YouTube et Google peuvent collecter et traiter des informations selon leurs propres politiques.',
         '• Ce site web ne comporte ni compte, ni connexion, ni paiement.'] },
       { title: '11. Modifications', body: ['Cette politique peut être mise à jour. Les changements importants seront annoncés avec une mise à jour de l’app.'] },
@@ -1174,7 +1174,7 @@ const ko = {
   privacy: {
     title: '개인정보 처리방침',
     description: 'Channel Timeline Viewer가 저장하는 것과 하지 않는 것.',
-    updated: '최종 업데이트: 2026년 9월 9일',
+    updated: '최종 업데이트: 2026년 9월 16일',
     sections: [
       { title: '1. 요약', body: ['Channel Timeline Viewer는 데이터를 기기에 저장합니다. 계정이 없고, 무엇을 보는지 받아 가는 자체 서버도 없습니다. Android 버전만, 앱을 개선하기 위해 「앱 자체가 어떻게 사용되는지」를 Google 애널리틱스(Firebase)로 셉니다. 기록하는 것은 화면 이름과 조작 종류뿐이며, 보고 있는 채널이나 동영상은 기록하지 않고 앱 안에서 언제든지 끌 수 있습니다. iOS 버전에는 분석 도구가 들어 있지 않습니다.'] },
       { title: '2. 기기에 저장하는 정보', body: [
@@ -1211,9 +1211,9 @@ const ko = {
       { title: '9. 아동의 개인정보', body: ['이 앱은 아동으로부터 개인정보를 의도적으로 수집하지 않습니다.'] },
       { title: '10. 이 웹사이트', body: [
         '이 사이트는 정적 페이지로 구성되어 있으며 쿠키를 설정하거나 접속 분석을 하지 않습니다.',
-        '웹 체험판 페이지(/try/)만 조작할 수 있는 페이지이며, 다음과 같이 동작합니다.',
+        '웹 체험판(/try/) 등 조작할 수 있는 페이지는 다음과 같이 동작합니다.',
         '• 입력한 채널, 시청함·건너뜀 표시, 진행 상황, 메모, 재생 위치는 사용 중인 기기의 브라우저 안(localStorage)에만 저장됩니다. 당사로 전송되지 않고 휴대폰 앱과도 공유되지 않으며, 이 사이트의 사이트 데이터를 지우면 삭제됩니다.',
-        '• 동영상 목록을 만들기 위해 이 사이트의 작은 중계를 거쳐 YouTube Data API v3를 호출합니다. 전달되는 것은 채널 또는 재생목록 식별자뿐이며, 이용자에 관한 정보는 보내지 않습니다.',
+        '• 동영상 목록을 만들기 위해 이 사이트의 작은 중계를 거쳐 YouTube Data API v3를 호출합니다. 전달되는 것은 표시할 채널·재생목록·동영상의 식별자뿐이며, 이용자에 관한 정보는 보내지 않습니다.',
         '• 재생에는 YouTube 공식 임베드 플레이어를 사용하고 미리보기 이미지도 YouTube 서버에서 불러옵니다. 플레이어 이용 중 YouTube와 Google이 각사의 정책에 따라 정보를 수집·처리할 수 있습니다.',
         '• 이 웹사이트에는 계정·로그인·결제가 없습니다.'] },
       { title: '11. 변경', body: ['이 방침은 필요에 따라 업데이트될 수 있습니다. 중요한 변경은 앱 업데이트로 안내합니다.'] },

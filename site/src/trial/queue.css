@@ -1,0 +1,73 @@
+/* =====================================================================
+   Watch Queue モード（#ctv[data-mode='queue']）だけの見た目。
+   ---------------------------------------------------------------------
+   /{lang}/watch-queue/ のページだけが読み込む。通常ページ（トップ・体験版）には入らない。
+   画面の部品は体験版（trial.css）のものをそのまま使い、ここでは
+   「キューでは使わない部品を隠す」「キュー用の案内を足す」ことだけを行う。
+   ===================================================================== */
+
+#ctv[data-mode='queue'] [hidden] {
+  display: none !important;
+}
+
+/* チャンネル単位の機能（進捗・並び替え・絞り込み・メニュー・メモ・繰り返し）はキューでは使わない */
+#ctv[data-mode='queue'] .ctv-progress,
+#ctv[data-mode='queue'] .ctv-sort,
+#ctv[data-mode='queue'] .ctv-seg,
+#ctv[data-mode='queue'] .ctv-memo,
+#ctv[data-mode='queue'] .ctv-settings-note {
+  display: none !important;
+}
+
+#ctv[data-mode='queue'] .ctv-toolbar {
+  justify-content: flex-start;
+}
+
+/* 空・無効なキュー */
+.ctv-queue-invalid {
+  padding: 36px 10px;
+  text-align: center;
+}
+
+.ctv-queue-invalid h3 {
+  margin: 0 0 10px;
+  font-size: 1rem;
+}
+
+/* 再生できない動画・キューの終わり（体験版の .ctv-notice と同じ枠に、行を足す） */
+#ctv[data-mode='queue'] .ctv-queue-notice {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+#ctv[data-mode='queue'] .ctv-queue-notice .ctv-help {
+  margin: 0;
+}
+
+#ctv[data-mode='queue'] .ctv-badge-unplayable {
+  color: #d93025;
+  border-color: currentColor;
+}
+
+/* 実際のスマホで開いたときは、スマホの枠をやめて画面いっぱいに使う */
+@media (max-width: 560px) {
+  #ctv[data-mode='queue'][data-variant='phone'] {
+    --ctv-phone-h: calc(100svh - 96px);
+    width: 100%;
+  }
+
+  #ctv[data-mode='queue'][data-variant='phone'] .ctv-frame {
+    width: 100%;
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  #ctv[data-mode='queue'][data-variant='phone'] .ctv-scroll {
+    border-radius: 0;
+    padding: 6px 2px 14px;
+  }
+}

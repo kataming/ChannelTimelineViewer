@@ -5,7 +5,7 @@ import { SITE_URL, APP_NAME, REPOSITORY_URL } from '../config.js';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
-const { lang, page = '', title, description } = Astro.props;
+const { lang, page = '', title, description, noindex = false } = Astro.props;
 const L = langOf(lang);
 const copy = t(lang);
 const canonical = SITE_URL + path(lang, page);
@@ -18,6 +18,7 @@ const canonical = SITE_URL + path(lang, page);
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 

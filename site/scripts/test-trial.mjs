@@ -192,6 +192,90 @@ if (!/<TrialApp[^>]*variant="phone"/.test(homePage)) fail('index.astro が Trial
 if (!pageSource.includes("import '../trial/trial.css'")) fail('TrialApp.astro が trial.css を読み込んでいない');
 if (!pageSource.includes('startTrial()')) fail('TrialApp.astro が startTrial() を呼んでいない');
 
+// ---------------------------------------------------------------- 4) Watch Queue モード
+
+const queueModel = await import('../src/trial/queue-model.js');
+const { watchQueue } = await import('../src/i18n/watchQueue.js');
+
+const A = 'aaaaaaaaaa1';
+const B = 'bbbbbbbbbb2';
+const C = 'cc-cc_cccc3';
+eq(queueModel.parseQueueHash(`#v=1&ids=${A},${B},${C}`), { ok: true, ids: [A, B, C], truncated: false }, 'キュー: 正規形');
+eq(queueModel.parseQueueHash(`v=1&ids=${A}`), { ok: true, ids: [A], truncated: false }, 'キュー: # なし');
+eq(queueModel.parseQueueHash(`#ids=${A}&v=1`), { ok: true, ids: [A], truncated: false }, 'キュー: 並び順が逆');
+eq(
+  queueModel.parseQueueHash(`#v=1&ids=${B},bad,${A},${B},%3Cx%3E,${C}`),
+  { ok: true, ids: [B, A, C], truncated: false },
+  'キュー: 不正・重複を捨てて順番は守る'
+);
+eq(queueModel.parseQueueHash(`#v=1&ids=${A}%2C${B}`), { ok: true, ids: [A, B], truncated: false }, 'キュー: カンマがエンコード');
+eq(queueModel.parseQueueHash(''), { ok: false, reason: 'missing' }, 'キュー: 空');
+eq(queueModel.parseQueueHash('#'), { ok: false, reason: 'missing' }, 'キュー: # だけ');
+eq(queueModel.parseQueueHash(`#v=2&ids=${A}`), { ok: false, reason: 'version' }, 'キュー: 未知の版');
+eq(queueModel.parseQueueHash(`#ids=${A}`), { ok: false, reason: 'version' }, 'キュー: 版なし');
+eq(queueModel.parseQueueHash('#v=1&ids='), { ok: false, reason: 'empty' }, 'キュー: ids 空');
+eq(queueModel.parseQueueHash('#v=1&ids=bad,worse'), { ok: false, reason: 'empty' }, 'キュー: 有効な ID なし');
+{
+  const many = Array.from({ length: queueModel.QUEUE_MAX_IDS + 3 }, (_, i) => `v${String(i).padStart(10, '0')}`);
+  const r = queueModel.parseQueueHash(`#v=1&ids=${many.join(',')}`);
+  eq([r.ok, r.ids.length, r.truncated], [true, queueModel.QUEUE_MAX_IDS, true], 'キュー: 上限で打ち切り');
+}
+
+const unplayable = new Set([1, 3]);
+eq(queueModel.nextPlayableIndex(5, 0, (i) => unplayable.has(i)), 2, 'キュー: 再生できない動画を飛ばす');
+eq(queueModel.nextPlayableIndex(5, 3, (i) => unplayable.has(i)), 4, 'キュー: 次');
+eq(queueModel.nextPlayableIndex(5, 4), -1, 'キュー: 末尾で終わり');
+eq(queueModel.nextPlayableIndex(3, -1, (i) => i === 0), 1, 'キュー: 先頭から探す');
+eq(queueModel.upNextIndex(4, (i) => i < 2, (i) => i === 2), 3, 'キュー: 次に見る');
+eq(queueModel.upNextIndex(2, () => true), -1, 'キュー: 全部再生済み');
+
+eq(queueModel.countText(watchQueue.en, 1, 'en'), '1 video', '件数: en 単数');
+eq(queueModel.countText(watchQueue.en, 3, 'en'), '3 videos', '件数: en 複数');
+eq(queueModel.countText(watchQueue.ja, 3, 'ja'), '3本', '件数: ja');
+eq(queueModel.countText(watchQueue.de, 1200, 'de'), '1.200 Videos', '件数: de 桁区切り');
+
+// 文言: 7言語すべてに同じキー・空でない・差し込みの数が同じ
+const placeholders = (s) => (String(s).match(/\{\d+\}/g) || []).sort().join(',');
+for (const code of Object.keys(trial)) {
+  const dict = watchQueue[code];
+  if (!dict) {
+    fail(`watchQueue.js に ${code} が無い`);
+    continue;
+  }
+  for (const key of Object.keys(watchQueue.en)) {
+    if (key === 'meta') continue;
+    if (!(key in dict)) fail(`watchQueue.js(${code}) に ${key} が無い`);
+    else if (!String(dict[key]).trim()) fail(`watchQueue.js(${code}).${key} が空`);
+    else if (placeholders(dict[key]) !== placeholders(watchQueue.en[key])) fail(`watchQueue.js(${code}).${key} の差し込みが英語と違う`);
+  }
+  for (const key of ['title', 'description']) {
+    if (!dict.meta || !String(dict.meta[key] || '').trim()) fail(`watchQueue.js(${code}).meta.${key} が空`);
+  }
+}
+if (Object.keys(watchQueue).length !== Object.keys(trial).length) fail('watchQueue.js の言語数が trial.js と違う');
+
+// queue.js と画面・文言の対応（未翻訳キーの露出を防ぐ）
+const queueSource = await readFile(path.join(root, 'src/trial/queue.js'), 'utf8');
+for (const id of new Set([...queueSource.matchAll(/\$\('([^']+)'\)/g)].map((m) => m[1]))) {
+  if (!pageIds.has(id)) fail(`queue.js が触る id が TrialApp.astro に無い: #${id}`);
+}
+for (const key of new Set([...queueSource.matchAll(/\bui\.([A-Za-z][A-Za-z0-9]*)/g)].map((m) => m[1]))) {
+  if (!(key in trial.en.ui)) fail(`queue.js が使う文言キーが trial.js(en) に無い: ui.${key}`);
+}
+for (const key of new Set([...queueSource.matchAll(/\bq\.([A-Za-z][A-Za-z0-9]*)/g)].map((m) => m[1]))) {
+  if (!(key in watchQueue.en)) fail(`queue.js が使う文言キーが watchQueue.js(en) に無い: q.${key}`);
+}
+for (const id of ['ctv-queue-invalid', 'ctv-queue-unplayable', 'ctv-queue-completed', 'ctv-queue-skip', 'ctv-queue-restart']) {
+  if (!pageIds.has(id)) fail(`TrialApp.astro に #${id} が無い`);
+}
+if (!appSource.includes("root.dataset.mode === 'queue'")) fail('app.js が Watch Queue モードで体験版を起動しないようになっていない');
+
+// Watch Queue は通常ページから参照しない
+for (const rel of ['src/pages/[lang]/index.astro', 'src/pages/[lang]/try.astro', 'src/pages/[lang]/manual.astro', 'src/pages/[lang]/support.astro', 'src/pages/[lang]/privacy.astro', 'src/components/Header.astro', 'src/components/Footer.astro', 'src/i18n/pages.js']) {
+  const source = await readFile(path.join(root, rel), 'utf8');
+  if (/watch-queue|watchQueue|mode="queue"/.test(source)) fail(`${rel} が Watch Queue を参照している（通常ページに出さない）`);
+}
+
 // ---------------------------------------------------------------- 結果
 
 if (failures) {

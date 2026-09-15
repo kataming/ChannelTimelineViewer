@@ -13,27 +13,38 @@
 import StoreBadges from './StoreBadges.astro';
 import { t } from '../i18n/index.js';
 import { trialCopy } from '../i18n/trial.js';
+import { watchQueueCopy } from '../i18n/watchQueue.js';
 import '../trial/trial.css';
 
-const { code, variant = 'full' } = Astro.props;
+// mode="queue" は /{lang}/watch-queue/ だけが使う（Watch Queue モード。処理は trial/queue.js）。
+// 既定の mode="trial" では、出力される HTML は Watch Queue を足す前とまったく同じにしてある。
+const { code, variant = 'full', mode = 'trial' } = Astro.props;
 const copy = t(code);
 const trial = trialCopy(code);
+const queue = mode === 'queue' ? watchQueueCopy(code) : null;
 const htmlLang = Astro.props.htmlLang || code;
 
 // ブラウザ側へ渡す文言（差し込みが要るものだけ）。<script> を閉じさせないようにエスケープする。
-const i18nJSON = JSON.stringify({ ui: trial.ui }).replace(/</g, '\\u003c');
+const i18nJSON = JSON.stringify(queue ? { ui: trial.ui, queue } : { ui: trial.ui }).replace(/</g, '\\u003c');
 ---
 
-<div id="ctv" data-lang={htmlLang} data-variant={variant} data-screen="list">
+<div id="ctv" data-lang={htmlLang} data-variant={variant} data-screen="list" data-mode={queue ? 'queue' : undefined}>
   <script type="application/json" id="ctv-i18n" set:html={i18nJSON}></script>
 
   <div class="ctv-frame">
     <div class="ctv-scroll">
       <noscript>
-        <p class="ctv-help">{trial.ui.errNotConfigured}</p>
+        <p class="ctv-help">{queue ? queue.noscript : trial.ui.errNotConfigured}</p>
       </noscript>
 
       <p id="ctv-unsupported" class="ctv-error" hidden>{trial.storageNote}</p>
+
+      {queue && (
+        <div class="ctv-queue-invalid" id="ctv-queue-invalid" role="alert" hidden>
+          <h3>{queue.invalidTitle}</h3>
+          <p class="ctv-help">{queue.invalidDetail}</p>
+        </div>
+      )}
 
       <!-- 入力（保存中のチャンネルが無いときに出る） -->
       <div class="ctv-setup" id="ctv-setup" hidden>
@@ -170,6 +181,21 @@ const i18nJSON = JSON.stringify({ ui: trial.ui }).replace(/</g, '\\u003c');
                 <strong id="ctv-ended-next"></strong>
                 <button type="button" class="ctv-pill" id="ctv-play-next">{trial.ui.endedPlayNext}</button>
               </p>
+
+              {queue && (
+                <Fragment>
+                  <div class="ctv-notice ctv-queue-notice" id="ctv-queue-unplayable" role="status" hidden>
+                    <strong>{queue.unplayable}</strong>
+                    <span class="ctv-help">{queue.unplayableDetail}</span>
+                    <button type="button" class="ctv-pill" id="ctv-queue-skip">{trial.ui.endedPlayNext}</button>
+                  </div>
+                  <div class="ctv-notice ctv-queue-notice" id="ctv-queue-completed" role="status" hidden>
+                    <strong>{queue.completed}</strong>
+                    <span class="ctv-help">{queue.completedDetail}</span>
+                    <button type="button" class="ctv-pill" id="ctv-queue-restart">{trial.ui.restart}</button>
+                  </div>
+                </Fragment>
+              )}
 
               <!-- 再生設定（アプリと同じカード＋スイッチ） -->
               <div class="ctv-settings">

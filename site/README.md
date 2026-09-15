@@ -149,6 +149,22 @@ Google Play は $4.99 を**自動換算**して €4.99 だった。税を抜く
 
 Cloudflare Pages に接続する手順は [`../docs/website-deploy-guide.md`](../docs/website-deploy-guide.md) を参照。
 
+## Watch Queue モード（`/watch-queue/`・`/{lang}/watch-queue/`）
+
+外部（Chrome 拡張 YouTube Watch Queue）から `/watch-queue#v=1&ids=…` で来たときだけ使う第2の再生モード。
+**通常ページからはリンクしない・sitemap に入れない・noindex**（通常サイトで宣伝しないため）。
+
+| ファイル | 役割 |
+| --- | --- |
+| `src/pages/watch-queue/index.astro` | 入口。ルートと同じ `LangRedirect` で言語を振り分け、`#` を引き継ぐ |
+| `src/pages/[lang]/watch-queue.astro` | `TrialApp variant="phone" mode="queue"`（既存スマホVIEWERの再利用） |
+| `src/trial/queue.js` / `queue-model.js` | キューの解析と順番再生（プレイヤー・移動・自動再生スイッチは体験版と共通） |
+| `src/trial/queue.css` | キューでは使わない部品を隠す（このページだけが読み込む） |
+| `src/i18n/watchQueue.js` | 新しく必要になった文言（7言語）。同じ意味の文言は `trial.js` の `ui.*` を使う |
+| `functions/api/youtube.js` の `op=videoInfo` | タイトル・チャンネル名・埋め込み可否（`videos.list`、50件ずつ） |
+
+仕様と点検の詳細は [`../docs/watch-queue-mode.md`](../docs/watch-queue-mode.md)。
+
 ## Web体験版（`/{lang}/try/`）
 
 公式サイト上で **1チャンネルだけ**を実際に使える無料体験版。位置づけは

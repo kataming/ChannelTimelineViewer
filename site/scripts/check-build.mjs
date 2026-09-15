@@ -79,6 +79,59 @@ if (sitemap) {
 if (!(await read('robots.txt'))) note('robots.txt が無い');
 if (!(await read('404.html'))) note('404.html が無い');
 
+// ---- Watch Queue モード（/watch-queue/ と /{lang}/watch-queue/）
+// 外部からのリンク専用。通常ページ・sitemap には一切出さず、キューのページは検索に載せない。
+const { watchQueue } = await import('../src/i18n/watchQueue.js');
+const WATCH_QUEUE_MARKERS = ['watch-queue', 'Watch Queue', 'data-mode="queue"', 'ctv-queue-'];
+
+const entry = await read('watch-queue/index.html');
+if (entry) {
+  if (!entry.includes('name="robots" content="noindex"')) note('watch-queue/index.html: noindex が無い');
+  if (!entry.includes('location.hash')) note('watch-queue/index.html: # を引き継いで振り分けていない');
+  if (/http-equiv="refresh"/.test(entry)) note('watch-queue/index.html: meta refresh があると # が落ちる');
+}
+
+for (const l of languages) {
+  const rel = `${l.slug}/watch-queue/index.html`;
+  const html = await read(rel);
+  if (!html) continue;
+  checked += 1;
+  const copy = watchQueue[l.code];
+  if (!html.includes(`<html lang="${l.htmlLang}"`)) note(`${rel}: <html lang> が ${l.htmlLang} でない`);
+  if (!html.includes('name="robots" content="noindex"')) note(`${rel}: noindex が無い`);
+  if (!html.includes('data-mode="queue"')) note(`${rel}: Watch Queue モードで出力されていない`);
+  // 文言は HTML 実体参照にされることがあるので、JSON 側（ブラウザへ渡す文言）で確かめる
+  const json = html.match(/<script type="application\/json" id="ctv-i18n">([\s\S]*?)<\/script>/);
+  let passed = null;
+  try {
+    passed = json ? JSON.parse(json[1]) : null;
+  } catch {
+    passed = null;
+  }
+  if (!passed || !passed.queue) note(`${rel}: Watch Queue の文言がブラウザへ渡されていない`);
+  else {
+    for (const key of Object.keys(watchQueue.en)) {
+      if (key === 'meta') continue;
+      if (passed.queue[key] !== copy[key]) note(`${rel}: 文言 ${key} が ${l.code} の訳になっていない`);
+    }
+  }
+  if (l.code !== 'en' && html.includes(watchQueue.en.invalidTitle)) note(`${rel}: 英語の文言が残っている（翻訳漏れ）`);
+}
+
+// 通常ページ（sitemap の全ページ・ルート・404）に Watch Queue の痕跡が無いこと
+const normalPages = ['index.html', '404.html'];
+for (const page of PAGES) {
+  for (const l of languages) normalPages.push(page ? `${l.slug}/${page}/index.html` : `${l.slug}/index.html`);
+}
+for (const rel of normalPages) {
+  const html = await read(rel);
+  if (!html) continue;
+  for (const marker of WATCH_QUEUE_MARKERS) {
+    if (html.includes(marker)) note(`${rel}: 通常ページに Watch Queue の表示・参照がある（${marker}）`);
+  }
+}
+if (sitemap && sitemap.includes('watch-queue')) note('sitemap.xml: watch-queue が入っている');
+
 if (problems.length) {
   console.error(`問題が ${problems.length} 件あります:`);
   for (const p of problems) console.error('  -', p);

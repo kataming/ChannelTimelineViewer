@@ -44,6 +44,8 @@ const ICON_SKIP =
 export function startTrial() {
   const root = $('ctv');
   if (!root) return;
+  // Watch Queue モード（/{lang}/watch-queue/）は queue.js が動かす。体験版の保存には触らない。
+  if (root.dataset.mode === 'queue') return;
   new Trial(root).init();
 }
 

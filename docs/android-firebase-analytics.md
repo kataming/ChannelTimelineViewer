@@ -60,6 +60,11 @@ Android 版だけに入れている **Google Analytics for Firebase** の仕組�
 アプリのバージョン・OSのバージョン・機種・国などの大まかな地域・アプリごとの識別子）がある。
 自動収集は個別に切れないので、**オフにしたい人にはオプトアウトを使ってもらう**。
 
+> `in_app_purchase` も自動収集イベントで、**コードからは送れない**（予約語。手動送信は
+> Analytics SDK 23.2.0+ が要るが、本アプリは 22.1.2）。取るには Firebase アプリを
+> Google Play にリンクする設定が要る。手順と、`pro_purchase_success` / `purchase` との
+> 使い分けは [`analytics/CTV_PURCHASE_ANALYTICS.md`](./analytics/CTV_PURCHASE_ANALYTICS.md) 第9章。
+
 > 「記録をオンに戻した」イベントは**あえて置いていない**。`setAnalyticsCollectionEnabled(true)` の反映は非同期で、直後に `logEvent` しても
 > 「まだ無効」と判定されて捨てられるため（実機で確認済み）。待ち時間を入れれば通るが、
 > タイミング頼みの記録は入れない方針。オンに戻ったことは `screen_view` が再開することで分かる。

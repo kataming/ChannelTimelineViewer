@@ -12,10 +12,14 @@ struct ChannelInputView: View {
     @EnvironmentObject private var positionStore: PlaybackPositionStore
     @EnvironmentObject private var pro: ProEntitlementStore
     @EnvironmentObject private var activeChannel: ActiveChannelStore
+    @EnvironmentObject private var channelTutorial: ChannelTutorialStore
     @StateObject private var viewModel = ChannelInputViewModel()
     @State private var showAbout = false
     @State private var showPro = false
     @State private var showFreeChannelPicker = false
+    @State private var showTutorial = false
+    /// 案内を自分で開き直したのか（初回の自動表示と区別する）。
+    @State private var tutorialWasManual = false
     @State private var clipboardMessage: String?
     @Environment(\.scenePhase) private var scenePhase
 
@@ -198,10 +202,28 @@ struct ChannelInputView: View {
                 guard phase == .active else { return }
                 Task { await pro.refreshEntitlement() }
             }
+            // 「チャンネルの追加方法」の案内。
+            // 出すのは**初めて追加しようとしたとき**だけ（起動のたびには出さない）。
+            // 判定: まだ見ていない かつ 保存チャンネルが1件も無い＝まだ1つも追加できていない人。
+            .task {
+                guard !channelTutorial.isCompleted,
+                      favoriteStore.favorites.isEmpty else { return }
+                tutorialWasManual = false
+                showTutorial = true
+            }
+            .sheet(isPresented: $showTutorial) {
+                ChannelTutorialView(
+                    onComplete: { completeTutorialIfFirstTime() },
+                    onSkip: { _ in completeTutorialIfFirstTime() })
+            }
             .sheet(isPresented: $showAbout) {
                 // シートにも明示的に渡しておく（環境の引き継ぎに依存しない）。
-                AboutView()
-                    .environmentObject(notificationPermission)
+                AboutView(onShowTutorial: {
+                    showAbout = false
+                    tutorialWasManual = true
+                    showTutorial = true
+                })
+                .environmentObject(notificationPermission)
             }
             // 共有シートから起動された場合（コールドスタート／起動済みのどちらも）に処理する。
             .onAppear { consumeSharedLinkIfNeeded() }
@@ -364,6 +386,16 @@ struct ChannelInputView: View {
         Task { @MainActor in
             await viewModel.openSharedLink(link, context: context)
         }
+    }
+
+    /// 案内を閉じたときの後始末。
+    ///
+    /// 見終わってもスキップしても「見た」扱いにする（同じ案内を二度出さない）。
+    /// ただし**自分で開き直したときは印を変えない**。手で見直しただけで状態が変わると、
+    /// 説明が要る人かどうかの区別がつかなくなるため。
+    private func completeTutorialIfFirstTime() {
+        guard !tutorialWasManual else { return }
+        channelTutorial.markCompleted()
     }
 
     /// 共有された YouTube URL があれば取り込んで一覧を開く。

@@ -411,6 +411,44 @@
 "shareTips.pin.label" = "② Im Teilen-Menü nach oben anheften";
 /* 共有シート固定の手順（%@ にアプリ名） */
 "shareTips.pin.steps" = "1. Auf „Teilen“ tippen\n2. Die App-Symbolzeile ganz nach rechts scrollen → „Mehr“\n3. Oben rechts auf „Bearbeiten“ tippen\n4. Links neben „%@“ auf „+“ tippen\n5. In den Favoriten nach ganz oben ziehen → „Fertig“";
+/* 前へ */
+"tutorial.back" = "Zurück";
+/* 閉じる */
+"tutorial.close" = "Schließen";
+/* 最後のボタン: YouTubeを開いて試す */
+"tutorial.cta" = "YouTube öffnen und ausprobieren";
+/* 例示の注記: 提携を示すものではないこと */
+"tutorial.example.note" = "Die Screenshots zeigen beispielhaft den öffentlichen Kanal der NASA. Diese App steht in keiner Verbindung zu YouTube oder NASA und wird von ihnen weder unterstützt noch gesponsert.";
+/* 次へ */
+"tutorial.next" = "Weiter";
+/* 読み上げ: チュートリアルを開く */
+"tutorial.open.a11y" = "Ansehen, wie man einen Kanal hinzufügt";
+/* 進み具合（%1$@ / %2$@） */
+"tutorial.progress.format" = "%1$@ von %2$@";
+/* スキップ */
+"tutorial.skip" = "Überspringen";
+/* 手順1の説明 */
+"tutorial.step1.body" = "Öffne in der YouTube-App die Seite des Kanals, den du hinzufügen möchtest.";
+/* 読み上げ: 手順1の画像 */
+"tutorial.step1.image.a11y" = "Die Kanalseite in YouTube";
+/* 手順1の見出し */
+"tutorial.step1.title" = "Öffne den Kanal in YouTube";
+/* 手順2の説明 */
+"tutorial.step2.body" = "Öffne das Menü oben rechts und tippe auf „Teilen“.";
+/* 読み上げ: 手順2の画像 */
+"tutorial.step2.image.a11y" = "Das Menü mit hervorgehobenem „Teilen“";
+/* 手順2の見出し */
+"tutorial.step2.title" = "Auf „Teilen“ tippen";
+/* 手順3の説明（Android・共有先から選ぶ） */
+"tutorial.step3.body" = "Wähle %@ aus der App-Liste, um den Kanal hinzuzufügen.";
+/* 手順3の説明（iOS・共有シートから選ぶ） */
+"tutorial.step3.body.ios" = "Scrolle im Teilen-Menü und wähle %@, um den Link zu übergeben. Tippe zurück in der App auf „Geteilte URL öffnen“.";
+/* 読み上げ: 手順3の画像（アプリ名を %@ で入れる） */
+"tutorial.step3.image.a11y" = "Das Teilen-Menü mit hervorgehobenem %@";
+/* 手順3の見出し（アプリ名を %@ で入れる） */
+"tutorial.step3.title" = "%@ auswählen";
+/* 画面名: チャンネルの追加方法 */
+"tutorial.title" = "So fügst du einen Kanal hinzu";
 /* スワイプ: 未視聴に戻す */
 "video.markUnwatched" = "Als ungesehen markieren";
 /* スキップ */

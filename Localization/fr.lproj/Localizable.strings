@@ -411,6 +411,44 @@
 "shareTips.pin.label" = "② L’épingler en haut de la feuille de partage";
 /* 共有シート固定の手順（%@ にアプリ名） */
 "shareTips.pin.steps" = "1. Touchez le bouton Partager\n2. Faites défiler la rangée d’icônes jusqu’au bout → « Plus »\n3. Touchez « Modifier » en haut à droite\n4. Touchez « + » à gauche de « %@ »\n5. Faites-la glisser en haut des Favoris → « OK »";
+/* 前へ */
+"tutorial.back" = "Précédent";
+/* 閉じる */
+"tutorial.close" = "Fermer";
+/* 最後のボタン: YouTubeを開いて試す */
+"tutorial.cta" = "Ouvrir YouTube et essayer";
+/* 例示の注記: 提携を示すものではないこと */
+"tutorial.example.note" = "Les captures utilisent la chaîne publique de la NASA à titre d’exemple. Cette app n’est ni affiliée, ni approuvée, ni sponsorisée par YouTube ou la NASA.";
+/* 次へ */
+"tutorial.next" = "Suivant";
+/* 読み上げ: チュートリアルを開く */
+"tutorial.open.a11y" = "Voir comment ajouter une chaîne";
+/* 進み具合（%1$@ / %2$@） */
+"tutorial.progress.format" = "%1$@ sur %2$@";
+/* スキップ */
+"tutorial.skip" = "Passer";
+/* 手順1の説明 */
+"tutorial.step1.body" = "Dans l’application YouTube, ouvrez la page de la chaîne à ajouter.";
+/* 読み上げ: 手順1の画像 */
+"tutorial.step1.image.a11y" = "La page de la chaîne ouverte dans YouTube";
+/* 手順1の見出し */
+"tutorial.step1.title" = "Ouvrez la chaîne dans YouTube";
+/* 手順2の説明 */
+"tutorial.step2.body" = "Ouvrez le menu en haut à droite et appuyez sur Partager.";
+/* 読み上げ: 手順2の画像 */
+"tutorial.step2.image.a11y" = "Le menu avec Partager mis en évidence";
+/* 手順2の見出し */
+"tutorial.step2.title" = "Appuyez sur Partager";
+/* 手順3の説明（Android・共有先から選ぶ） */
+"tutorial.step3.body" = "Choisissez %@ dans la liste des applications pour ajouter la chaîne.";
+/* 手順3の説明（iOS・共有シートから選ぶ） */
+"tutorial.step3.body.ios" = "Faites défiler la feuille de partage et choisissez %@ pour transmettre le lien. De retour dans l’app, appuyez sur « Ouvrir l’URL partagée ».";
+/* 読み上げ: 手順3の画像（アプリ名を %@ で入れる） */
+"tutorial.step3.image.a11y" = "La feuille de partage avec %@ mis en évidence";
+/* 手順3の見出し（アプリ名を %@ で入れる） */
+"tutorial.step3.title" = "Choisissez %@";
+/* 画面名: チャンネルの追加方法 */
+"tutorial.title" = "Comment ajouter une chaîne";
 /* スワイプ: 未視聴に戻す */
 "video.markUnwatched" = "Marquer non regardée";
 /* スキップ */

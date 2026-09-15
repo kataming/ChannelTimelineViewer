@@ -2138,5 +2138,195 @@
     "de": "Preis neu laden",
     "fr": "Recharger le prix",
     "ko": "가격 다시 불러오기"
+  },
+  "tutorial.title": {
+    "comment": "画面名: チャンネルの追加方法",
+    "ja": "チャンネルの追加方法",
+    "en": "How to Add a Channel",
+    "zh-Hans": "添加频道的方法",
+    "es": "Cómo añadir un canal",
+    "de": "So fügst du einen Kanal hinzu",
+    "fr": "Comment ajouter une chaîne",
+    "ko": "채널 추가 방법"
+  },
+  "tutorial.step1.title": {
+    "comment": "手順1の見出し",
+    "ja": "YouTubeで観たいチャンネルを開く",
+    "en": "Open the channel in YouTube",
+    "zh-Hans": "在 YouTube 中打开想看的频道",
+    "es": "Abre el canal en YouTube",
+    "de": "Öffne den Kanal in YouTube",
+    "fr": "Ouvrez la chaîne dans YouTube",
+    "ko": "YouTube에서 보고 싶은 채널을 엽니다"
+  },
+  "tutorial.step1.body": {
+    "comment": "手順1の説明",
+    "ja": "YouTubeアプリで、追加したいチャンネルのページを開きます。",
+    "en": "In the YouTube app, open the page of the channel you want to add.",
+    "zh-Hans": "在 YouTube 应用中打开想添加的频道页面。",
+    "es": "En la app de YouTube, abre la página del canal que quieres añadir.",
+    "de": "Öffne in der YouTube-App die Seite des Kanals, den du hinzufügen möchtest.",
+    "fr": "Dans l’application YouTube, ouvrez la page de la chaîne à ajouter.",
+    "ko": "YouTube 앱에서 추가하려는 채널 페이지를 엽니다."
+  },
+  "tutorial.step2.title": {
+    "comment": "手順2の見出し",
+    "ja": "「共有」をタップ",
+    "en": "Tap Share",
+    "zh-Hans": "点按“分享”",
+    "es": "Toca Compartir",
+    "de": "Auf „Teilen“ tippen",
+    "fr": "Appuyez sur Partager",
+    "ko": "‘공유’를 탭합니다"
+  },
+  "tutorial.step2.body": {
+    "comment": "手順2の説明",
+    "ja": "チャンネル画面の右上のメニューから「共有」をタップします。",
+    "en": "Open the menu at the top right of the channel page and tap Share.",
+    "zh-Hans": "点按频道页面右上角的菜单，然后选择“分享”。",
+    "es": "Abre el menú de la esquina superior derecha y toca Compartir.",
+    "de": "Öffne das Menü oben rechts und tippe auf „Teilen“.",
+    "fr": "Ouvrez le menu en haut à droite et appuyez sur Partager.",
+    "ko": "채널 화면 오른쪽 위 메뉴에서 ‘공유’를 탭합니다."
+  },
+  "tutorial.step3.title": {
+    "comment": "手順3の見出し（アプリ名を %@ で入れる）",
+    "ja": "%@ を選ぶ",
+    "en": "Choose %@",
+    "zh-Hans": "选择 %@",
+    "es": "Elige %@",
+    "de": "%@ auswählen",
+    "fr": "Choisissez %@",
+    "ko": "%@ 을(를) 선택합니다"
+  },
+  "tutorial.step3.body": {
+    "comment": "手順3の説明（Android・共有先から選ぶ）",
+    "ja": "共有先の一覧から %@ を選ぶと、チャンネルが追加されます。",
+    "en": "Pick %@ from the list of apps to add the channel.",
+    "zh-Hans": "在分享目标列表中选择 %@，即可添加该频道。",
+    "es": "Elige %@ en la lista de apps para añadir el canal.",
+    "de": "Wähle %@ aus der App-Liste, um den Kanal hinzuzufügen.",
+    "fr": "Choisissez %@ dans la liste des applications pour ajouter la chaîne.",
+    "ko": "공유 대상 목록에서 %@ 을(를) 선택하면 채널이 추가됩니다."
+  },
+  "tutorial.step3.body.ios": {
+    "comment": "手順3の説明（iOS・共有シートから選ぶ）",
+    "ja": "共有シートを下にたどって %@ を選ぶと、リンクが渡されます。アプリに戻ると「共有されたURLを開く」が出るので、それを押すと追加できます。",
+    "en": "Scroll the share sheet and choose %@ to hand over the link. Back in the app, tap “Open the shared URL” to add the channel.",
+    "zh-Hans": "在分享面板中向下找到并选择 %@ 以传递链接。返回应用后点按“打开共享的网址”即可添加。",
+    "es": "Desplázate por la hoja de compartir y elige %@ para pasar el enlace. De vuelta en la app, toca «Abrir la URL compartida» para añadirlo.",
+    "de": "Scrolle im Teilen-Menü und wähle %@, um den Link zu übergeben. Tippe zurück in der App auf „Geteilte URL öffnen“.",
+    "fr": "Faites défiler la feuille de partage et choisissez %@ pour transmettre le lien. De retour dans l’app, appuyez sur « Ouvrir l’URL partagée ».",
+    "ko": "공유 시트를 내려 %@ 을(를) 선택하면 링크가 전달됩니다. 앱으로 돌아와 ‘공유된 URL 열기’를 누르면 추가됩니다."
+  },
+  "tutorial.cta": {
+    "comment": "最後のボタン: YouTubeを開いて試す",
+    "ja": "YouTubeを開いて試す",
+    "en": "Open YouTube and Try",
+    "zh-Hans": "打开 YouTube 试试",
+    "es": "Abrir YouTube y probar",
+    "de": "YouTube öffnen und ausprobieren",
+    "fr": "Ouvrir YouTube et essayer",
+    "ko": "YouTube를 열어 해보기"
+  },
+  "tutorial.skip": {
+    "comment": "スキップ",
+    "ja": "スキップ",
+    "en": "Skip",
+    "zh-Hans": "跳过",
+    "es": "Omitir",
+    "de": "Überspringen",
+    "fr": "Passer",
+    "ko": "건너뛰기"
+  },
+  "tutorial.next": {
+    "comment": "次へ",
+    "ja": "次へ",
+    "en": "Next",
+    "zh-Hans": "下一步",
+    "es": "Siguiente",
+    "de": "Weiter",
+    "fr": "Suivant",
+    "ko": "다음"
+  },
+  "tutorial.back": {
+    "comment": "前へ",
+    "ja": "前へ",
+    "en": "Back",
+    "zh-Hans": "上一步",
+    "es": "Atrás",
+    "de": "Zurück",
+    "fr": "Précédent",
+    "ko": "이전"
+  },
+  "tutorial.close": {
+    "comment": "閉じる",
+    "ja": "閉じる",
+    "en": "Close",
+    "zh-Hans": "关闭",
+    "es": "Cerrar",
+    "de": "Schließen",
+    "fr": "Fermer",
+    "ko": "닫기"
+  },
+  "tutorial.progress.format": {
+    "comment": "進み具合（%1$@ / %2$@）",
+    "ja": "%1$@ / %2$@",
+    "en": "%1$@ of %2$@",
+    "zh-Hans": "%1$@ / %2$@",
+    "es": "%1$@ de %2$@",
+    "de": "%1$@ von %2$@",
+    "fr": "%1$@ sur %2$@",
+    "ko": "%1$@ / %2$@"
+  },
+  "tutorial.example.note": {
+    "comment": "例示の注記: 提携を示すものではないこと",
+    "ja": "画面は例として NASA の公開チャンネルを使っています。本アプリは YouTube および NASA とは関係がなく、提携・公認を受けたものではありません。",
+    "en": "The screenshots use NASA’s public channel as an example. This app is not affiliated with, endorsed by, or sponsored by YouTube or NASA.",
+    "zh-Hans": "截图以 NASA 的公开频道作为示例。本应用与 YouTube 及 NASA 无关，未获得其认可或赞助。",
+    "es": "Las capturas usan el canal público de la NASA como ejemplo. Esta app no está afiliada a YouTube ni a la NASA, ni cuenta con su respaldo o patrocinio.",
+    "de": "Die Screenshots zeigen beispielhaft den öffentlichen Kanal der NASA. Diese App steht in keiner Verbindung zu YouTube oder NASA und wird von ihnen weder unterstützt noch gesponsert.",
+    "fr": "Les captures utilisent la chaîne publique de la NASA à titre d’exemple. Cette app n’est ni affiliée, ni approuvée, ni sponsorisée par YouTube ou la NASA.",
+    "ko": "스크린샷은 예시로 NASA의 공개 채널을 사용합니다. 이 앱은 YouTube 및 NASA와 관련이 없으며 승인이나 후원을 받지 않았습니다."
+  },
+  "tutorial.open.a11y": {
+    "comment": "読み上げ: チュートリアルを開く",
+    "ja": "チャンネルの追加方法を見る",
+    "en": "See how to add a channel",
+    "zh-Hans": "查看添加频道的方法",
+    "es": "Ver cómo añadir un canal",
+    "de": "Ansehen, wie man einen Kanal hinzufügt",
+    "fr": "Voir comment ajouter une chaîne",
+    "ko": "채널 추가 방법 보기"
+  },
+  "tutorial.step1.image.a11y": {
+    "comment": "読み上げ: 手順1の画像",
+    "ja": "YouTubeでチャンネルのページを開いた画面",
+    "en": "The channel page open in YouTube",
+    "zh-Hans": "在 YouTube 中打开的频道页面",
+    "es": "La página del canal abierta en YouTube",
+    "de": "Die Kanalseite in YouTube",
+    "fr": "La page de la chaîne ouverte dans YouTube",
+    "ko": "YouTube에서 연 채널 페이지"
+  },
+  "tutorial.step2.image.a11y": {
+    "comment": "読み上げ: 手順2の画像",
+    "ja": "メニューの中の「共有」が囲まれている画面",
+    "en": "The menu with Share highlighted",
+    "zh-Hans": "菜单中“分享”被标出的画面",
+    "es": "El menú con Compartir resaltado",
+    "de": "Das Menü mit hervorgehobenem „Teilen“",
+    "fr": "Le menu avec Partager mis en évidence",
+    "ko": "메뉴에서 ‘공유’가 강조된 화면"
+  },
+  "tutorial.step3.image.a11y": {
+    "comment": "読み上げ: 手順3の画像（アプリ名を %@ で入れる）",
+    "ja": "共有先の一覧で %@ が囲まれている画面",
+    "en": "The share sheet with %@ highlighted",
+    "zh-Hans": "分享列表中 %@ 被标出的画面",
+    "es": "La hoja de compartir con %@ resaltado",
+    "de": "Das Teilen-Menü mit hervorgehobenem %@",
+    "fr": "La feuille de partage avec %@ mis en évidence",
+    "ko": "공유 목록에서 %@ 이(가) 강조된 화면"
   }
 }

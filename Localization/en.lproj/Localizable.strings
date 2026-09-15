@@ -411,6 +411,44 @@
 "shareTips.pin.label" = "② Pin it to the top of the share sheet";
 /* 共有シート固定の手順（%@ にアプリ名） */
 "shareTips.pin.steps" = "1. Tap the Share button\n2. Scroll the app icon row to the far right → “More”\n3. Tap “Edit” at the top right\n4. Tap “+” to the left of “%@”\n5. Drag it to the top of Favorites → “Done”";
+/* 前へ */
+"tutorial.back" = "Back";
+/* 閉じる */
+"tutorial.close" = "Close";
+/* 最後のボタン: YouTubeを開いて試す */
+"tutorial.cta" = "Open YouTube and Try";
+/* 例示の注記: 提携を示すものではないこと */
+"tutorial.example.note" = "The screenshots use NASA’s public channel as an example. This app is not affiliated with, endorsed by, or sponsored by YouTube or NASA.";
+/* 次へ */
+"tutorial.next" = "Next";
+/* 読み上げ: チュートリアルを開く */
+"tutorial.open.a11y" = "See how to add a channel";
+/* 進み具合（%1$@ / %2$@） */
+"tutorial.progress.format" = "%1$@ of %2$@";
+/* スキップ */
+"tutorial.skip" = "Skip";
+/* 手順1の説明 */
+"tutorial.step1.body" = "In the YouTube app, open the page of the channel you want to add.";
+/* 読み上げ: 手順1の画像 */
+"tutorial.step1.image.a11y" = "The channel page open in YouTube";
+/* 手順1の見出し */
+"tutorial.step1.title" = "Open the channel in YouTube";
+/* 手順2の説明 */
+"tutorial.step2.body" = "Open the menu at the top right of the channel page and tap Share.";
+/* 読み上げ: 手順2の画像 */
+"tutorial.step2.image.a11y" = "The menu with Share highlighted";
+/* 手順2の見出し */
+"tutorial.step2.title" = "Tap Share";
+/* 手順3の説明（Android・共有先から選ぶ） */
+"tutorial.step3.body" = "Pick %@ from the list of apps to add the channel.";
+/* 手順3の説明（iOS・共有シートから選ぶ） */
+"tutorial.step3.body.ios" = "Scroll the share sheet and choose %@ to hand over the link. Back in the app, tap “Open the shared URL” to add the channel.";
+/* 読み上げ: 手順3の画像（アプリ名を %@ で入れる） */
+"tutorial.step3.image.a11y" = "The share sheet with %@ highlighted";
+/* 手順3の見出し（アプリ名を %@ で入れる） */
+"tutorial.step3.title" = "Choose %@";
+/* 画面名: チャンネルの追加方法 */
+"tutorial.title" = "How to Add a Channel";
 /* スワイプ: 未視聴に戻す */
 "video.markUnwatched" = "Mark unwatched";
 /* スキップ */

@@ -369,6 +369,44 @@
     <string name="repeat_off">Off</string>
     <!-- リピート: 1本 -->
     <string name="repeat_one">One</string>
+    <!-- 前へ -->
+    <string name="tutorial_back">Back</string>
+    <!-- 閉じる -->
+    <string name="tutorial_close">Close</string>
+    <!-- 最後のボタン: YouTubeを開いて試す -->
+    <string name="tutorial_cta">Open YouTube and Try</string>
+    <!-- 例示の注記: 提携を示すものではないこと -->
+    <string name="tutorial_example_note">The screenshots use NASA’s public channel as an example. This app is not affiliated with, endorsed by, or sponsored by YouTube or NASA.</string>
+    <!-- 次へ -->
+    <string name="tutorial_next">Next</string>
+    <!-- 読み上げ: チュートリアルを開く -->
+    <string name="tutorial_open_a11y">See how to add a channel</string>
+    <!-- 進み具合（%1$@ / %2$@） -->
+    <string name="tutorial_progress_format">%1$s of %2$s</string>
+    <!-- スキップ -->
+    <string name="tutorial_skip">Skip</string>
+    <!-- 手順1の説明 -->
+    <string name="tutorial_step1_body">In the YouTube app, open the page of the channel you want to add.</string>
+    <!-- 読み上げ: 手順1の画像 -->
+    <string name="tutorial_step1_image_a11y">The channel page open in YouTube</string>
+    <!-- 手順1の見出し -->
+    <string name="tutorial_step1_title">Open the channel in YouTube</string>
+    <!-- 手順2の説明 -->
+    <string name="tutorial_step2_body">Open the menu at the top right of the channel page and tap Share.</string>
+    <!-- 読み上げ: 手順2の画像 -->
+    <string name="tutorial_step2_image_a11y">The menu with Share highlighted</string>
+    <!-- 手順2の見出し -->
+    <string name="tutorial_step2_title">Tap Share</string>
+    <!-- 手順3の説明（Android・共有先から選ぶ） -->
+    <string name="tutorial_step3_body">Pick %s from the list of apps to add the channel.</string>
+    <!-- 手順3の説明（iOS・共有シートから選ぶ） -->
+    <string name="tutorial_step3_body_ios">Scroll the share sheet and choose %s to hand over the link. Back in the app, tap “Open the shared URL” to add the channel.</string>
+    <!-- 読み上げ: 手順3の画像（アプリ名を %@ で入れる） -->
+    <string name="tutorial_step3_image_a11y">The share sheet with %s highlighted</string>
+    <!-- 手順3の見出し（アプリ名を %@ で入れる） -->
+    <string name="tutorial_step3_title">Choose %s</string>
+    <!-- 画面名: チャンネルの追加方法 -->
+    <string name="tutorial_title">How to Add a Channel</string>
     <!-- スワイプ: 未視聴に戻す -->
     <string name="video_markunwatched">Mark unwatched</string>
     <!-- スキップ -->

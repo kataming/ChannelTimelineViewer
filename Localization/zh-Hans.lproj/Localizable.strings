@@ -411,6 +411,44 @@
 "shareTips.pin.label" = "② 将其固定在分享面板顶部";
 /* 共有シート固定の手順（%@ にアプリ名） */
 "shareTips.pin.steps" = "1. 点按分享按钮\n2. 将应用图标行滑到最右端 →“更多”\n3. 点按右上角的“编辑”\n4. 点按“%@”左侧的“+”\n5. 在“个人收藏”中拖到最上方 →“完成”";
+/* 前へ */
+"tutorial.back" = "上一步";
+/* 閉じる */
+"tutorial.close" = "关闭";
+/* 最後のボタン: YouTubeを開いて試す */
+"tutorial.cta" = "打开 YouTube 试试";
+/* 例示の注記: 提携を示すものではないこと */
+"tutorial.example.note" = "截图以 NASA 的公开频道作为示例。本应用与 YouTube 及 NASA 无关，未获得其认可或赞助。";
+/* 次へ */
+"tutorial.next" = "下一步";
+/* 読み上げ: チュートリアルを開く */
+"tutorial.open.a11y" = "查看添加频道的方法";
+/* 進み具合（%1$@ / %2$@） */
+"tutorial.progress.format" = "%1$@ / %2$@";
+/* スキップ */
+"tutorial.skip" = "跳过";
+/* 手順1の説明 */
+"tutorial.step1.body" = "在 YouTube 应用中打开想添加的频道页面。";
+/* 読み上げ: 手順1の画像 */
+"tutorial.step1.image.a11y" = "在 YouTube 中打开的频道页面";
+/* 手順1の見出し */
+"tutorial.step1.title" = "在 YouTube 中打开想看的频道";
+/* 手順2の説明 */
+"tutorial.step2.body" = "点按频道页面右上角的菜单，然后选择“分享”。";
+/* 読み上げ: 手順2の画像 */
+"tutorial.step2.image.a11y" = "菜单中“分享”被标出的画面";
+/* 手順2の見出し */
+"tutorial.step2.title" = "点按“分享”";
+/* 手順3の説明（Android・共有先から選ぶ） */
+"tutorial.step3.body" = "在分享目标列表中选择 %@，即可添加该频道。";
+/* 手順3の説明（iOS・共有シートから選ぶ） */
+"tutorial.step3.body.ios" = "在分享面板中向下找到并选择 %@ 以传递链接。返回应用后点按“打开共享的网址”即可添加。";
+/* 読み上げ: 手順3の画像（アプリ名を %@ で入れる） */
+"tutorial.step3.image.a11y" = "分享列表中 %@ 被标出的画面";
+/* 手順3の見出し（アプリ名を %@ で入れる） */
+"tutorial.step3.title" = "选择 %@";
+/* 画面名: チャンネルの追加方法 */
+"tutorial.title" = "添加频道的方法";
 /* スワイプ: 未視聴に戻す */
 "video.markUnwatched" = "标记为未观看";
 /* スキップ */

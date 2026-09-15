@@ -3,6 +3,9 @@ import SwiftUI
 /// アプリの説明・重要な注意事項・プライバシーポリシーを表示する情報画面。
 /// App Store 提出時、YouTube 公式アプリではないこと等を明示するために使う。
 struct AboutView: View {
+    /// 「チャンネルの追加方法」をもう一度見る。閉じてから案内を出すので呼び元で順番を決める。
+    var onShowTutorial: (() -> Void)? = nil
+
     @Environment(\.dismiss) private var dismiss
     @Environment(\.openURL) private var openURL
     @EnvironmentObject private var notificationPermission: NotificationPermission
@@ -92,6 +95,17 @@ struct AboutView: View {
                     Text("about.resume.body")
                         .font(.footnote)
                         .foregroundStyle(.secondary)
+                }
+
+                // 追加方法は初回に一度だけ自動で出る。あとから見直せる場所がここ。
+                if let onShowTutorial {
+                    Section {
+                        Button {
+                            onShowTutorial()
+                        } label: {
+                            Label("tutorial.open.a11y", systemImage: "questionmark.circle")
+                        }
+                    }
                 }
 
                 if let url = ConfigLoader.privacyPolicyURL() {

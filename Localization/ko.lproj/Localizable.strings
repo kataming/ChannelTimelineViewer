@@ -411,6 +411,44 @@
 "shareTips.pin.label" = "② 공유 시트 맨 앞에 고정하기";
 /* 共有シート固定の手順（%@ にアプリ名） */
 "shareTips.pin.steps" = "1. 공유 버튼을 누릅니다\n2. 앱 아이콘 줄을 오른쪽 끝까지 스크롤 → ‘기타’\n3. 오른쪽 위 ‘편집’을 탭합니다\n4. ‘%@’ 왼쪽의 ‘+’를 누릅니다\n5. ‘즐겨찾는 항목’에서 맨 위로 드래그 → ‘완료’";
+/* 前へ */
+"tutorial.back" = "이전";
+/* 閉じる */
+"tutorial.close" = "닫기";
+/* 最後のボタン: YouTubeを開いて試す */
+"tutorial.cta" = "YouTube를 열어 해보기";
+/* 例示の注記: 提携を示すものではないこと */
+"tutorial.example.note" = "스크린샷은 예시로 NASA의 공개 채널을 사용합니다. 이 앱은 YouTube 및 NASA와 관련이 없으며 승인이나 후원을 받지 않았습니다.";
+/* 次へ */
+"tutorial.next" = "다음";
+/* 読み上げ: チュートリアルを開く */
+"tutorial.open.a11y" = "채널 추가 방법 보기";
+/* 進み具合（%1$@ / %2$@） */
+"tutorial.progress.format" = "%1$@ / %2$@";
+/* スキップ */
+"tutorial.skip" = "건너뛰기";
+/* 手順1の説明 */
+"tutorial.step1.body" = "YouTube 앱에서 추가하려는 채널 페이지를 엽니다.";
+/* 読み上げ: 手順1の画像 */
+"tutorial.step1.image.a11y" = "YouTube에서 연 채널 페이지";
+/* 手順1の見出し */
+"tutorial.step1.title" = "YouTube에서 보고 싶은 채널을 엽니다";
+/* 手順2の説明 */
+"tutorial.step2.body" = "채널 화면 오른쪽 위 메뉴에서 ‘공유’를 탭합니다.";
+/* 読み上げ: 手順2の画像 */
+"tutorial.step2.image.a11y" = "메뉴에서 ‘공유’가 강조된 화면";
+/* 手順2の見出し */
+"tutorial.step2.title" = "‘공유’를 탭합니다";
+/* 手順3の説明（Android・共有先から選ぶ） */
+"tutorial.step3.body" = "공유 대상 목록에서 %@ 을(를) 선택하면 채널이 추가됩니다.";
+/* 手順3の説明（iOS・共有シートから選ぶ） */
+"tutorial.step3.body.ios" = "공유 시트를 내려 %@ 을(를) 선택하면 링크가 전달됩니다. 앱으로 돌아와 ‘공유된 URL 열기’를 누르면 추가됩니다.";
+/* 読み上げ: 手順3の画像（アプリ名を %@ で入れる） */
+"tutorial.step3.image.a11y" = "공유 목록에서 %@ 이(가) 강조된 화면";
+/* 手順3の見出し（アプリ名を %@ で入れる） */
+"tutorial.step3.title" = "%@ 을(를) 선택합니다";
+/* 画面名: チャンネルの追加方法 */
+"tutorial.title" = "채널 추가 방법";
 /* スワイプ: 未視聴に戻す */
 "video.markUnwatched" = "안 본 항목으로";
 /* スキップ */

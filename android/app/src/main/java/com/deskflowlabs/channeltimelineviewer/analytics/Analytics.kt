@@ -102,6 +102,19 @@ interface Analytics {
         const val PRO_RESTORE = "pro_restore"
 
         /**
+         * 「チャンネルの追加方法」の案内を開いた。
+         * [Param.SOURCE] に [Source.FIRST_TIME]（初回の自動表示）か
+         * [Source.MANUAL]（「このアプリについて」から開き直した）。
+         */
+        const val CHANNEL_TUTORIAL_VIEW = "channel_tutorial_view"
+
+        /** 案内を最後まで見て、CTA を押した。 */
+        const val CHANNEL_TUTORIAL_COMPLETE = "channel_tutorial_complete"
+
+        /** 案内を途中でやめた。[Param.VALUE] に、やめた時点の手順の番号。 */
+        const val CHANNEL_TUTORIAL_SKIP = "channel_tutorial_skip"
+
+        /**
          * GA4 標準の購入イベント。収益レポートに載せるために
          * [PRO_PURCHASE_SUCCESS] と**同じ瞬間・同じ重複防止**で併送する。
          * 金額は Play が返す商品情報からのみ取る（コードに価格を持たない）。
@@ -180,6 +193,12 @@ interface Analytics {
 
         /** 移動ボタン（次/前/最初/最後/戻す）で移動した。 */
         const val NAVIGATION = "navigation"
+
+        /** 初めてチャンネルを追加しようとしたので、こちらから出した。 */
+        const val FIRST_TIME = "first_time"
+
+        /** 「このアプリについて」から、自分で開き直した。 */
+        const val MANUAL = "manual"
     }
 
     object Result {

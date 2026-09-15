@@ -24,6 +24,8 @@ struct ChannelTimelineViewerApp: App {
     @StateObject private var notificationPermission = NotificationPermission()
     // 共有シートから直接アプリを開けない iOS 仕様のため、クリップボード経由でも拾えるようにする。
     @StateObject private var clipboardDetector = ClipboardLinkDetector()
+    /// 「チャンネルの追加方法」の案内を見終わったか（初回だけ自動で出すための印）。
+    @StateObject private var channelTutorial = ChannelTutorialStore()
     @Environment(\.scenePhase) private var scenePhase
 
     var body: some Scene {
@@ -41,6 +43,7 @@ struct ChannelTimelineViewerApp: App {
                 .environmentObject(sharedLinkRouter)
                 .environmentObject(clipboardDetector)
                 .environmentObject(notificationPermission)
+                .environmentObject(channelTutorial)
                 .onOpenURL { url in
                     // channeltimelineviewer://share?url=... 以外は無視する。
                     sharedLinkRouter.handle(url)

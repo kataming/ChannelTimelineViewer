@@ -9,6 +9,7 @@ import com.deskflowlabs.channeltimelineviewer.billing.ReportedPurchaseStore
 import com.deskflowlabs.channeltimelineviewer.data.ActiveChannelStore
 import com.deskflowlabs.channeltimelineviewer.data.AnalyticsSettingsStore
 import com.deskflowlabs.channeltimelineviewer.data.ChannelDataRemover
+import com.deskflowlabs.channeltimelineviewer.data.ChannelTutorialStore
 import com.deskflowlabs.channeltimelineviewer.data.ChannelProgressStore
 import com.deskflowlabs.channeltimelineviewer.data.FavoriteChannelStore
 import com.deskflowlabs.channeltimelineviewer.data.PlaybackPositionStore
@@ -53,6 +54,9 @@ class AppContainer(context: Context) {
         memoStore = memoStore,
         positionStore = positionStore,
     )
+
+    // 「チャンネルの追加方法」の案内を見終わったか（初回だけ自動で出すための印）。
+    val channelTutorial = ChannelTutorialStore(prefs)
 
     // 利用状況の記録（Android 版のみ）。ユーザーが切っていれば Firebase ごと止める。
     val analyticsSettings = AnalyticsSettingsStore(prefs)

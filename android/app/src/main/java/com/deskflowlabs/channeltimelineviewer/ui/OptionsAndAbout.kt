@@ -149,6 +149,7 @@ private fun OptionRow(label: String, selected: Boolean, onClick: () -> Unit) {
 fun AboutScreen(
     analyticsEnabled: StateFlow<Boolean>,
     onAnalyticsEnabledChange: (Boolean) -> Unit,
+    onShowTutorial: () -> Unit,
     onBack: () -> Unit,
 ) {
     val context = LocalContext.current
@@ -195,6 +196,14 @@ fun AboutScreen(
 
             Header(stringResource(R.string.about_resume_header))
             Body(stringResource(R.string.about_resume_body))
+
+            // 追加方法は初回に一度だけ自動で出る。あとから見直せる場所がここ。
+            TextButton(
+                onClick = onShowTutorial,
+                modifier = Modifier.padding(top = 4.dp),
+            ) {
+                Text(stringResource(R.string.tutorial_open_a11y))
+            }
 
             // 利用状況の記録（Android 版のみ）。何を送っていないかまで書く。
             Header(stringResource(R.string.about_analytics_header))

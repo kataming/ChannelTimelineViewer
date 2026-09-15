@@ -411,6 +411,44 @@
 "shareTips.pin.label" = "② Fíjala arriba en la hoja para compartir";
 /* 共有シート固定の手順（%@ にアプリ名） */
 "shareTips.pin.steps" = "1. Toca el botón Compartir\n2. Desplaza la fila de iconos hasta el final → «Más»\n3. Toca «Editar» arriba a la derecha\n4. Toca «+» a la izquierda de «%@»\n5. Arrástrala arriba del todo en Favoritos → «OK»";
+/* 前へ */
+"tutorial.back" = "Atrás";
+/* 閉じる */
+"tutorial.close" = "Cerrar";
+/* 最後のボタン: YouTubeを開いて試す */
+"tutorial.cta" = "Abrir YouTube y probar";
+/* 例示の注記: 提携を示すものではないこと */
+"tutorial.example.note" = "Las capturas usan el canal público de la NASA como ejemplo. Esta app no está afiliada a YouTube ni a la NASA, ni cuenta con su respaldo o patrocinio.";
+/* 次へ */
+"tutorial.next" = "Siguiente";
+/* 読み上げ: チュートリアルを開く */
+"tutorial.open.a11y" = "Ver cómo añadir un canal";
+/* 進み具合（%1$@ / %2$@） */
+"tutorial.progress.format" = "%1$@ de %2$@";
+/* スキップ */
+"tutorial.skip" = "Omitir";
+/* 手順1の説明 */
+"tutorial.step1.body" = "En la app de YouTube, abre la página del canal que quieres añadir.";
+/* 読み上げ: 手順1の画像 */
+"tutorial.step1.image.a11y" = "La página del canal abierta en YouTube";
+/* 手順1の見出し */
+"tutorial.step1.title" = "Abre el canal en YouTube";
+/* 手順2の説明 */
+"tutorial.step2.body" = "Abre el menú de la esquina superior derecha y toca Compartir.";
+/* 読み上げ: 手順2の画像 */
+"tutorial.step2.image.a11y" = "El menú con Compartir resaltado";
+/* 手順2の見出し */
+"tutorial.step2.title" = "Toca Compartir";
+/* 手順3の説明（Android・共有先から選ぶ） */
+"tutorial.step3.body" = "Elige %@ en la lista de apps para añadir el canal.";
+/* 手順3の説明（iOS・共有シートから選ぶ） */
+"tutorial.step3.body.ios" = "Desplázate por la hoja de compartir y elige %@ para pasar el enlace. De vuelta en la app, toca «Abrir la URL compartida» para añadirlo.";
+/* 読み上げ: 手順3の画像（アプリ名を %@ で入れる） */
+"tutorial.step3.image.a11y" = "La hoja de compartir con %@ resaltado";
+/* 手順3の見出し（アプリ名を %@ で入れる） */
+"tutorial.step3.title" = "Elige %@";
+/* 画面名: チャンネルの追加方法 */
+"tutorial.title" = "Cómo añadir un canal";
 /* スワイプ: 未視聴に戻す */
 "video.markUnwatched" = "Marcar como no visto";
 /* スキップ */

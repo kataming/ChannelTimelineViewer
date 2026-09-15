@@ -14,6 +14,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
@@ -29,6 +30,7 @@ import com.deskflowlabs.channeltimelineviewer.network.SharedLinkParser
 import com.deskflowlabs.channeltimelineviewer.ui.AboutScreen
 import com.deskflowlabs.channeltimelineviewer.ui.BadgePreviewScreen
 import com.deskflowlabs.channeltimelineviewer.ui.ChannelInputScreen
+import com.deskflowlabs.channeltimelineviewer.ui.ChannelTutorialSheet
 import com.deskflowlabs.channeltimelineviewer.ui.PlaybackOptionsSheet
 import com.deskflowlabs.channeltimelineviewer.ui.PlayerScreen
 import com.deskflowlabs.channeltimelineviewer.ui.ProScreen
@@ -194,6 +196,50 @@ private fun AppRoot(container: AppContainer, sharedUrl: MutableStateFlow<String?
         )
     }
 
+    // ---- 「チャンネルの追加方法」の案内 ----
+    // 出すのは**初めて追加しようとしたとき**だけ。起動のたびには出さない。
+    // 判定: まだ見ていない かつ 保存チャンネルが1件も無い（＝まだ1つも追加できていない人）。
+    val tutorialDone by container.channelTutorial.isCompleted.collectAsStateWithLifecycle()
+    val savedChannels by container.favorites.favorites.collectAsStateWithLifecycle()
+    var tutorialShown by rememberSaveable { mutableStateOf(false) }
+    var tutorialSource by remember { mutableStateOf(Analytics.Source.FIRST_TIME) }
+
+    LaunchedEffect(tutorialDone, savedChannels.isEmpty(), screen) {
+        if (screen !is Screen.Input) return@LaunchedEffect
+        if (tutorialDone || savedChannels.isNotEmpty() || tutorialShown) return@LaunchedEffect
+        tutorialSource = Analytics.Source.FIRST_TIME
+        tutorialShown = true
+        container.analytics.log(
+            Analytics.Event.CHANNEL_TUTORIAL_VIEW,
+            Analytics.Param.SOURCE to Analytics.Source.FIRST_TIME,
+        )
+    }
+
+    if (tutorialShown) {
+        ChannelTutorialSheet(
+            onDismiss = { tutorialShown = false },
+            onComplete = {
+                tutorialShown = false
+                // 自分で開き直したときは印を変えない（説明が要る人かどうかが分からなくなる）。
+                if (tutorialSource == Analytics.Source.FIRST_TIME) {
+                    container.channelTutorial.markCompleted()
+                }
+                container.analytics.log(Analytics.Event.CHANNEL_TUTORIAL_COMPLETE)
+            },
+            onSkip = { stepNumber ->
+                tutorialShown = false
+                // スキップも見終わったのと同じ扱い。同じ案内を二度出さない。
+                if (tutorialSource == Analytics.Source.FIRST_TIME) {
+                    container.channelTutorial.markCompleted()
+                }
+                container.analytics.log(
+                    Analytics.Event.CHANNEL_TUTORIAL_SKIP,
+                    Analytics.Param.VALUE to stepNumber,
+                )
+            },
+        )
+    }
+
     when (val current = screen) {
         is Screen.Input -> ChannelInputScreen(
             viewModel = inputViewModel,
@@ -209,6 +255,14 @@ private fun AppRoot(container: AppContainer, sharedUrl: MutableStateFlow<String?
         is Screen.About -> AboutScreen(
             analyticsEnabled = container.analyticsSettings.isEnabled,
             onAnalyticsEnabledChange = container::setAnalyticsEnabled,
+            onShowTutorial = {
+                tutorialSource = Analytics.Source.MANUAL
+                tutorialShown = true
+                container.analytics.log(
+                    Analytics.Event.CHANNEL_TUTORIAL_VIEW,
+                    Analytics.Param.SOURCE to Analytics.Source.MANUAL,
+                )
+            },
             onBack = { screen = Screen.Input },
         )
 

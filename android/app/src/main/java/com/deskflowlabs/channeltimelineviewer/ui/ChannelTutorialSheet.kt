@@ -49,9 +49,11 @@ import com.deskflowlabs.channeltimelineviewer.R
  * 出すのは**初めてチャンネルを追加しようとしたとき**だけ（起動のたびには出さない）。
  * あとは「このアプリについて」からいつでも開き直せる。
  *
- * 画像は実機で撮った本物の画面（YouTube アプリと Android の共有シート）。
- * **説明文は画像に焼き込まず**、ここでローカライズして出す。
- * そうしておけば同じ画像を7言語で使い回せる（docs/onboarding/CHANNEL_ADD_TUTORIAL.md）。
+ * 画像は実機（エミュレータ）で撮った本物の画面を**7言語ぶん**用意してある。
+ * 端末の言語に合わせて Android が drawable-<言語>-nodpi から自動で選ぶので、
+ * ここでは R.drawable.tutorial_step1 のように既定の名前だけ見ればよい。
+ * **説明文は画像に焼き込まない**（同じ絵を使い回すのではなく、絵も文字も言語を揃える）。
+ * 詳しくは docs/onboarding/CHANNEL_ADD_TUTORIAL.md。
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -176,20 +178,26 @@ private fun tutorialSteps(): List<TutorialStep> = remember {
         TutorialStep(
             title = R.string.tutorial_step1_title,
             body = R.string.tutorial_step1_body,
-            image = R.drawable.tutorial_youtube_channel,
+            image = R.drawable.tutorial_step1,
             imageDescription = R.string.tutorial_step1_image_a11y,
         ),
         TutorialStep(
             title = R.string.tutorial_step2_title,
             body = R.string.tutorial_step2_body,
-            image = R.drawable.tutorial_youtube_share,
+            image = R.drawable.tutorial_step2,
             imageDescription = R.string.tutorial_step2_image_a11y,
         ),
         TutorialStep(
             title = R.string.tutorial_step3_title,
             body = R.string.tutorial_step3_body,
-            image = R.drawable.tutorial_android_share_sheet,
+            image = R.drawable.tutorial_step3,
             imageDescription = R.string.tutorial_step3_image_a11y,
+        ),
+        TutorialStep(
+            title = R.string.tutorial_step4_title,
+            body = R.string.tutorial_step4_body,
+            image = R.drawable.tutorial_step4,
+            imageDescription = R.string.tutorial_step4_image_a11y,
         ),
     )
 }

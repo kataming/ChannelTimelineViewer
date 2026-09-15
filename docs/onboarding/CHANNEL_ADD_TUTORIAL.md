@@ -61,41 +61,45 @@
 | 画面 | `Views/ChannelTutorialView.swift`（`.sheet`） | `ui/ChannelTutorialSheet.kt`（`ModalBottomSheet`） |
 | 保存 | `Services/ChannelTutorialStore.swift`（`UserDefaults`） | `data/ChannelTutorialStore.kt`（`SharedPreferences`） |
 | キー | `channelTutorialCompleted` | `channel_tutorial_completed_v1` |
-| STEP3 の文言 | `tutorial.step3.body.ios` | `tutorial.step3.body` |
-| STEP3 の画像 | **無し**（第7節） | `tutorial_android_share_sheet` |
+| 手順3・4の文言 | `tutorial.step3.body.ios` / `tutorial.step4.body.ios` | `tutorial.step3.body` / `tutorial.step4.body` |
+| 画像の選び方 | `tutorial_step1_ja` のように**名前に言語**を入れ、コードで組み立てる | `drawable-ja-nodpi/` などに置き、**Android が自動で選ぶ** |
 | 計測 | **無し**（iOS に解析SDKを入れない方針） | あり（第9節） |
 
-STEP3 の文章が別なのは、**受け取り方がそもそも違う**ため:
+手順3・4の文章が別なのは、**受け取り方がそもそも違う**ため:
 
-- **Android**: 共有先にアプリが出る → 選ぶと直接一覧が開く
-- **iOS**: 共有シートで選ぶとリンクがクリップボード経由で渡り、
-  アプリに戻って「共有されたURLを開く」を押す（iOS の制約。`SharedLinkRouter` 参照）
+- **Android**: 共有先でアプリを選ぶと、**そのまま**一覧が開く
+- **iOS**: 共有シートで選ぶとリンクが渡り、**通知が出る**。それをタップして一覧が開く
+  （iOS の制約。`SharedLinkNotifier` / `SharedLinkRouter` 参照）
 
-## 7. 使用画像
+## 7. 使用画像（4手順 × 7言語 = 28枚 × 2OS）
 
-| ファイル名（両OS共通） | 中身 | 出どころ |
-| --- | --- | --- |
-| `tutorial_youtube_channel` | YouTube で @nasa のチャンネルページを開いた画面 | Android エミュレータの実画面 |
-| `tutorial_youtube_share` | メニューの中の「Share」を枠で囲んだもの | 同上 |
-| `tutorial_android_share_sheet` | Android の共有シートで本アプリを枠で囲んだもの | 同上 |
+**画像の中の文字も、その言語のものを使う。** 説明文だけ翻訳して絵は英語のまま、
+という作りにはしていない（絵と文字が食い違うと、かえって迷わせるため）。
+
+| 手順 | 中身 |
+| --- | --- |
+| 1 | YouTube で動画（またはチャンネル）を開いた画面。**共有ボタンを枠で囲む** |
+| 2 | 共有シート／メニュー。**押す場所を枠で囲む** |
+| 3 | OS の共有シート。**本アプリを枠で囲む** |
+| 4 | iOS は通知、Android は開いた一覧 |
 
 置き場所:
 
-- Android … `android/app/src/main/res/drawable-nodpi/`
-- iOS … `Resources/Assets.xcassets/<名前>.imageset/`
-- 素材（加工前）… `docs/tutorial/raw/`
+- iOS … `Resources/Assets.xcassets/tutorial_step<n>_<lang>.imageset/`
+  （**7言語 × 4枚 = 28枚・約475KB**。実機で撮った素材から生成）
+- Android … `android/app/src/main/res/drawable[-<lang>]-nodpi/tutorial_step<n>.jpg`
+  （**いまは英語と日本語だけ**・約341KB）
 
-合計 **約162KB**（3枚・幅720px・PNG 256色）。ビルドサイズへの影響は無視できる大きさ。
+> ⚠️ **Android の残り5言語（中国語・スペイン語・ドイツ語・フランス語・韓国語）は未取得。**
+> 撮影用のエミュレータが**メモリ不足でOSに繰り返し落とされた**ため、途中で打ち切った。
+> 用意が無い言語は Android の仕組みで `drawable-nodpi/`（英語）が使われるので、
+> **壊れはしない**（文字はその言語、画像だけ英語という状態になる）。
+> 埋めるには第11節の手順で `python scripts/capture_android_tutorial.py --lang <言語>` を流す。
+> 仕組み自体は英語と日本語で動作を確認済み。
+- 素材（加工前）… iOS は `docs/tutorial/ss/`、Android は `docs/tutorial/raw/`
 
-### ⚠️ iOS の共有シート画像が無い
-
-**未取得。** 開発機が Windows で、iOS シミュレータも実機も無く、**本物を撮れなかった**。
-
-作り物の共有シートを描くことはしていない（Apple の UI を偽装することになり、
-「架空UI化は禁止」という方針にも反するため）。代わりに iOS の STEP3 は、
-**自前のUIで「共有 → このアプリを選ぶ」だけを示す**図と、文章で説明している。
-
-本物を入れるときは第11節の手順で差し替える。
+書き出しは `python scripts/build_tutorial_images.py`。クロップと枠の座標は
+そのスクリプトに**素材のピクセル座標**で書いてある。
 
 ## 8. @nasa を例に使った理由と、提携でないことの明示
 
@@ -158,40 +162,47 @@ Android ユニットテスト全体: **114件 / 失敗0**。
 
 ## 11. 画像を差し替えるとき
 
-素材を `docs/tutorial/raw/` に置き直して、次を実行する:
-
 ```
-python scripts/build_tutorial_images.py
-```
-
-クロップ位置と枠の座標は `scripts/build_tutorial_images.py` の `main()` に
-**元画像のピクセル座標**で書いてある。撮り直したらそこだけ直す。
-
-### Android の素材を撮り直す
-
-```
-emulator -avd <AVD名> &
-adb install -r android/app/build/outputs/apk/release/app-release.apk
-adb shell am start -a android.intent.action.VIEW -d "https://www.youtube.com/@nasa" -p com.google.android.youtube
-adb exec-out screencap -p > docs/tutorial/raw/android-channel.png
+python scripts/build_tutorial_images.py            # 両OS
+python scripts/build_tutorial_images.py --ios      # iOS だけ
+python scripts/build_tutorial_images.py --android  # Android だけ
 ```
 
-メニュー（右上の ⋮）→ Share → More と進んで、同じ手順で撮る。
-**自アプリを入れておく**こと（共有シートに出ないと STEP3 の意味が無い）。
+クロップ位置と枠の座標は `scripts/build_tutorial_images.py` の `IOS_STEPS` /
+`ANDROID_STEPS` に**元画像のピクセル座標**で書いてある。撮り直したらそこだけ直す。
 
-### iOS の共有シートを撮る（未実施）
+### iOS の素材を撮り直す（実機）
 
-実機の iPhone で:
+`docs/tutorial/ss/<言語名><番号>.jpg` に置く（言語名は `日本語` `英語` `中国語`
+`スペイン語` `ドイツ語` `フランス語` `韓国語`、番号は 1〜4）。
 
-1. YouTube アプリで `@nasa` を開く → 共有 → 共有シートを出す
-2. **Channel Timeline Viewer が見えている状態**でスクリーンショット
-3. `docs/tutorial/raw/ios-share-sheet.png` として置く
-4. `scripts/build_tutorial_images.py` に STEP3(iOS) の書き出しを足す
-   （`tutorial_ios_share_sheet` を iOS の imageset へ）
-5. `Views/ChannelTutorialView.swift` の STEP3 の `image` を
-   `nil` から `"tutorial_ios_share_sheet"` に変える
+**端末の言語を切り替えながら**、同じ機種・同じ流れで4枚ずつ撮る:
 
-⚠️ 自分の名前・アイコン・通知など、個人のものが写り込んでいないか確認してから入れること。
+1. YouTube で NASA の動画を開く（共有ボタンが見える状態）
+2. 共有をタップ（YouTube 自身の共有シート）
+3. 「その他」→ iOS の共有シート（**Channel Timeline Viewer が見えている状態**）
+4. 共有したあとに出る**通知**
+
+⚠️ 自分の名前・アイコン・他アプリの通知など、個人のものが写り込んでいないか
+確認してから入れること。
+
+### Android の素材を撮り直す（エミュレータ）
+
+```
+python scripts/capture_android_tutorial.py            # 7言語
+python scripts/capture_android_tutorial.py --lang ja  # 1言語だけ
+```
+
+システム言語を切り替えながら自動で撮る。仕組みと注意:
+
+- Play ストア入りのイメージでは `adb root` も `setprop persist.sys.locale` も使えないので、
+  **設定アプリの「言語」画面を自動操作**して切り替えている
+- 共有シートは OS の画面なので、アプリ単位の言語設定では切り替わらない
+- 座標の決め打ちをやめ、**画面の文字から要素を探して**押している
+  （動画の中身でボタンの位置が変わるため）
+- ⚠️ **本アプリを `force-stop` しないこと。** 停止状態のアプリは共有先の一覧に出なくなり、
+  次の言語で「本アプリが見つからない」になる（実際にそれで失敗した）
+- 共有シートのアイコンの並びは使った回数で変わる。見つからなければ列を左へ送って探し直す
 
 ## 12. 次回リリース時の確認事項
 

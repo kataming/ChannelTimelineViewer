@@ -428,25 +428,33 @@
 /* スキップ */
 "tutorial.skip" = "跳过";
 /* 手順1の説明 */
-"tutorial.step1.body" = "在 YouTube 应用中打开想添加的频道页面。";
+"tutorial.step1.body" = "在 YouTube 应用中打开想添加的频道的视频，或该频道的页面。";
 /* 読み上げ: 手順1の画像 */
 "tutorial.step1.image.a11y" = "在 YouTube 中打开的频道页面";
 /* 手順1の見出し */
-"tutorial.step1.title" = "在 YouTube 中打开想看的频道";
-/* 手順2の説明 */
-"tutorial.step2.body" = "点按频道页面右上角的菜单，然后选择“分享”。";
+"tutorial.step1.title" = "在 YouTube 中打开想看的内容";
+/* 手順2の説明（共有ボタンの場所） */
+"tutorial.step2.body" = "点按视频下方的“分享”，或频道页面菜单中的“分享”。";
 /* 読み上げ: 手順2の画像 */
-"tutorial.step2.image.a11y" = "菜单中“分享”被标出的画面";
+"tutorial.step2.image.a11y" = "“分享”被标出的画面";
 /* 手順2の見出し */
 "tutorial.step2.title" = "点按“分享”";
-/* 手順3の説明（Android・共有先から選ぶ） */
-"tutorial.step3.body" = "在分享目标列表中选择 %@，即可添加该频道。";
-/* 手順3の説明（iOS・共有シートから選ぶ） */
-"tutorial.step3.body.ios" = "在分享面板中向下找到并选择 %@ 以传递链接。返回应用后点按“打开共享的网址”即可添加。";
+/* 手順3の説明（Android） */
+"tutorial.step3.body" = "在分享目标列表中选择 %@。如果没看到，请打开“更多”。";
+/* 手順3の説明（iOS） */
+"tutorial.step3.body.ios" = "在分享面板中向下找到并选择 %@。如果没看到，可在“更多”中查找。";
 /* 読み上げ: 手順3の画像（アプリ名を %@ で入れる） */
 "tutorial.step3.image.a11y" = "分享列表中 %@ 被标出的画面";
 /* 手順3の見出し（アプリ名を %@ で入れる） */
 "tutorial.step3.title" = "选择 %@";
+/* 手順4の説明（Android） */
+"tutorial.step4.body" = "该频道的视频会立即按发布时间从旧到新打开，可以依次观看。";
+/* 手順4の説明（iOS・通知をタップ） */
+"tutorial.step4.body.ios" = "会出现一条通知，提示已收到共享的频道。点按它即可按发布时间从旧到新打开列表。";
+/* 読み上げ: 手順4の画像（アプリ名を %@ で入れる） */
+"tutorial.step4.image.a11y" = "%@ 打开视频列表的画面";
+/* 手順4の見出し */
+"tutorial.step4.title" = "视频列表随即打开";
 /* 画面名: チャンネルの追加方法 */
 "tutorial.title" = "添加频道的方法";
 /* スワイプ: 未視聴に戻す */

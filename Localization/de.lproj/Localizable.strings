@@ -428,25 +428,33 @@
 /* スキップ */
 "tutorial.skip" = "Überspringen";
 /* 手順1の説明 */
-"tutorial.step1.body" = "Öffne in der YouTube-App die Seite des Kanals, den du hinzufügen möchtest.";
+"tutorial.step1.body" = "Öffne in der YouTube-App ein Video des gewünschten Kanals oder die Kanalseite.";
 /* 読み上げ: 手順1の画像 */
 "tutorial.step1.image.a11y" = "Die Kanalseite in YouTube";
 /* 手順1の見出し */
-"tutorial.step1.title" = "Öffne den Kanal in YouTube";
-/* 手順2の説明 */
-"tutorial.step2.body" = "Öffne das Menü oben rechts und tippe auf „Teilen“.";
+"tutorial.step1.title" = "Öffne in YouTube, was du sehen willst";
+/* 手順2の説明（共有ボタンの場所） */
+"tutorial.step2.body" = "Tippe unter dem Video auf „Teilen“ oder im Menü der Kanalseite.";
 /* 読み上げ: 手順2の画像 */
-"tutorial.step2.image.a11y" = "Das Menü mit hervorgehobenem „Teilen“";
+"tutorial.step2.image.a11y" = "Die Schaltfläche „Teilen“ hervorgehoben";
 /* 手順2の見出し */
 "tutorial.step2.title" = "Auf „Teilen“ tippen";
-/* 手順3の説明（Android・共有先から選ぶ） */
-"tutorial.step3.body" = "Wähle %@ aus der App-Liste, um den Kanal hinzuzufügen.";
-/* 手順3の説明（iOS・共有シートから選ぶ） */
-"tutorial.step3.body.ios" = "Scrolle im Teilen-Menü und wähle %@, um den Link zu übergeben. Tippe zurück in der App auf „Geteilte URL öffnen“.";
+/* 手順3の説明（Android） */
+"tutorial.step3.body" = "Wähle %@ aus der App-Liste. Falls es fehlt, öffne „Mehr“.";
+/* 手順3の説明（iOS） */
+"tutorial.step3.body.ios" = "Scrolle im Teilen-Menü und wähle %@. Falls es fehlt, schau unter „Mehr“.";
 /* 読み上げ: 手順3の画像（アプリ名を %@ で入れる） */
 "tutorial.step3.image.a11y" = "Das Teilen-Menü mit hervorgehobenem %@";
 /* 手順3の見出し（アプリ名を %@ で入れる） */
 "tutorial.step3.title" = "%@ auswählen";
+/* 手順4の説明（Android） */
+"tutorial.step4.body" = "Die Videos des Kanals öffnen sich sofort, älteste zuerst.";
+/* 手順4の説明（iOS・通知をタップ） */
+"tutorial.step4.body.ios" = "Eine Mitteilung erscheint, dass der Kanal bereit ist. Tippe darauf, um die Liste zu öffnen – älteste zuerst.";
+/* 読み上げ: 手順4の画像（アプリ名を %@ で入れる） */
+"tutorial.step4.image.a11y" = "%@ mit der Videoliste";
+/* 手順4の見出し */
+"tutorial.step4.title" = "Die Videoliste öffnet sich";
 /* 画面名: チャンネルの追加方法 */
 "tutorial.title" = "So fügst du einen Kanal hinzu";
 /* スワイプ: 未視聴に戻す */

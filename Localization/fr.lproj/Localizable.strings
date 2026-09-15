@@ -428,25 +428,33 @@
 /* スキップ */
 "tutorial.skip" = "Passer";
 /* 手順1の説明 */
-"tutorial.step1.body" = "Dans l’application YouTube, ouvrez la page de la chaîne à ajouter.";
+"tutorial.step1.body" = "Dans l’app YouTube, ouvrez une vidéo de la chaîne à ajouter, ou la page de la chaîne.";
 /* 読み上げ: 手順1の画像 */
 "tutorial.step1.image.a11y" = "La page de la chaîne ouverte dans YouTube";
 /* 手順1の見出し */
-"tutorial.step1.title" = "Ouvrez la chaîne dans YouTube";
-/* 手順2の説明 */
-"tutorial.step2.body" = "Ouvrez le menu en haut à droite et appuyez sur Partager.";
+"tutorial.step1.title" = "Ouvrez dans YouTube ce que vous voulez voir";
+/* 手順2の説明（共有ボタンの場所） */
+"tutorial.step2.body" = "Appuyez sur Partager sous la vidéo, ou dans le menu de la page de la chaîne.";
 /* 読み上げ: 手順2の画像 */
-"tutorial.step2.image.a11y" = "Le menu avec Partager mis en évidence";
+"tutorial.step2.image.a11y" = "Le bouton Partager mis en évidence";
 /* 手順2の見出し */
 "tutorial.step2.title" = "Appuyez sur Partager";
-/* 手順3の説明（Android・共有先から選ぶ） */
-"tutorial.step3.body" = "Choisissez %@ dans la liste des applications pour ajouter la chaîne.";
-/* 手順3の説明（iOS・共有シートから選ぶ） */
-"tutorial.step3.body.ios" = "Faites défiler la feuille de partage et choisissez %@ pour transmettre le lien. De retour dans l’app, appuyez sur « Ouvrir l’URL partagée ».";
+/* 手順3の説明（Android） */
+"tutorial.step3.body" = "Choisissez %@ dans la liste des applications. S’il n’apparaît pas, ouvrez « Plus ».";
+/* 手順3の説明（iOS） */
+"tutorial.step3.body.ios" = "Faites défiler la feuille de partage et choisissez %@. S’il n’apparaît pas, cherchez dans « Plus ».";
 /* 読み上げ: 手順3の画像（アプリ名を %@ で入れる） */
 "tutorial.step3.image.a11y" = "La feuille de partage avec %@ mis en évidence";
 /* 手順3の見出し（アプリ名を %@ で入れる） */
 "tutorial.step3.title" = "Choisissez %@";
+/* 手順4の説明（Android） */
+"tutorial.step4.body" = "Les vidéos de la chaîne s’ouvrent aussitôt, de la plus ancienne à la plus récente.";
+/* 手順4の説明（iOS・通知をタップ） */
+"tutorial.step4.body.ios" = "Une notification indique que la chaîne est prête. Appuyez dessus pour ouvrir la liste, de la plus ancienne à la plus récente.";
+/* 読み上げ: 手順4の画像（アプリ名を %@ で入れる） */
+"tutorial.step4.image.a11y" = "%@ affichant la liste des vidéos";
+/* 手順4の見出し */
+"tutorial.step4.title" = "La liste des vidéos s’ouvre";
 /* 画面名: チャンネルの追加方法 */
 "tutorial.title" = "Comment ajouter une chaîne";
 /* スワイプ: 未視聴に戻す */

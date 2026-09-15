@@ -386,23 +386,29 @@
     <!-- スキップ -->
     <string name="tutorial_skip">Skip</string>
     <!-- 手順1の説明 -->
-    <string name="tutorial_step1_body">In the YouTube app, open the page of the channel you want to add.</string>
+    <string name="tutorial_step1_body">In the YouTube app, open a video from the channel you want to add, or the channel page itself.</string>
     <!-- 読み上げ: 手順1の画像 -->
     <string name="tutorial_step1_image_a11y">The channel page open in YouTube</string>
     <!-- 手順1の見出し -->
-    <string name="tutorial_step1_title">Open the channel in YouTube</string>
-    <!-- 手順2の説明 -->
-    <string name="tutorial_step2_body">Open the menu at the top right of the channel page and tap Share.</string>
+    <string name="tutorial_step1_title">Open what you want to watch in YouTube</string>
+    <!-- 手順2の説明（共有ボタンの場所） -->
+    <string name="tutorial_step2_body">Tap Share under the video, or in the menu on the channel page.</string>
     <!-- 読み上げ: 手順2の画像 -->
-    <string name="tutorial_step2_image_a11y">The menu with Share highlighted</string>
+    <string name="tutorial_step2_image_a11y">The Share button highlighted</string>
     <!-- 手順2の見出し -->
     <string name="tutorial_step2_title">Tap Share</string>
-    <!-- 手順3の説明（Android・共有先から選ぶ） -->
-    <string name="tutorial_step3_body">Pick %s from the list of apps to add the channel.</string>
+    <!-- 手順3の説明（Android） -->
+    <string name="tutorial_step3_body">Pick %s from the list of apps. If you don’t see it, open “More”.</string>
     <!-- 読み上げ: 手順3の画像（アプリ名を %@ で入れる） -->
     <string name="tutorial_step3_image_a11y">The share sheet with %s highlighted</string>
     <!-- 手順3の見出し（アプリ名を %@ で入れる） -->
     <string name="tutorial_step3_title">Choose %s</string>
+    <!-- 手順4の説明（Android） -->
+    <string name="tutorial_step4_body">The channel’s videos open right away, oldest first, ready to work through in order.</string>
+    <!-- 読み上げ: 手順4の画像（アプリ名を %@ で入れる） -->
+    <string name="tutorial_step4_image_a11y">%s showing the video list</string>
+    <!-- 手順4の見出し -->
+    <string name="tutorial_step4_title">The video list opens</string>
     <!-- 画面名: チャンネルの追加方法 -->
     <string name="tutorial_title">How to Add a Channel</string>
     <!-- スワイプ: 未視聴に戻す -->

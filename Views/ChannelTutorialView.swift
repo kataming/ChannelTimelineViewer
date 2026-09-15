@@ -9,8 +9,9 @@ import UIKit
 /// 出すのは**初めてチャンネルを追加しようとしたとき**だけ（起動のたびには出さない）。
 /// あとは「ⓘ このアプリについて」からいつでも開き直せる。
 ///
-/// 画像は実機で撮った本物の画面。**説明文は画像に焼き込まず**ここでローカライズして出すので、
-/// 同じ画像を7言語で使い回せる（docs/onboarding/CHANNEL_ADD_TUTORIAL.md）。
+/// 画像は実機で撮った本物の画面を**7言語ぶん**用意してある（`tutorial_step1_ja` など）。
+/// **説明文は画像に焼き込まない**ので、絵と文字の言語がいつも揃う。
+/// 詳しくは docs/onboarding/CHANNEL_ADD_TUTORIAL.md。
 struct ChannelTutorialView: View {
     /// 最後まで見て CTA を押した。
     let onComplete: () -> Void
@@ -20,51 +21,53 @@ struct ChannelTutorialView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var index = 0
 
-    /// 1手順ぶんの中身。
-    private struct Step {
-        let title: LocalizedStringKey
-        let body: LocalizedStringKey
-        /// アセット名。iOS の共有シートだけは本物を撮れていないので nil。
-        let image: String?
-        let imageDescription: LocalizedStringKey
+    /// 手順の数。画像も文言も 1〜4 で揃えてある。
+    private let stepCount = 4
+
+    /// いまの表示言語に合う画像の名前。
+    ///
+    /// asset catalog は言語で切り替わらないので、`tutorial_step1_ja` のように
+    /// **名前に言語を入れて**持ち、ここで組み立てる。用意が無い言語は英語に落とす
+    /// （アプリの文言も同じ規則で英語に落ちるので、絵と文字がちぐはぐにならない）。
+    private var imageLanguage: String {
+        let available = ["en", "ja", "zh_Hans", "es", "de", "fr", "ko"]
+        let preferred = Locale.preferredLanguages.first ?? "en"
+        let code = Locale(identifier: preferred).language.languageCode?.identifier ?? "en"
+        if code == "zh" { return available.contains("zh_Hans") ? "zh_Hans" : "en" }
+        return available.contains(code) ? code : "en"
     }
 
-    private var steps: [Step] {
-        [
-            Step(title: "tutorial.step1.title",
-                 body: "tutorial.step1.body",
-                 image: "tutorial_youtube_channel",
-                 imageDescription: "tutorial.step1.image.a11y"),
-            Step(title: "tutorial.step2.title",
-                 body: "tutorial.step2.body",
-                 image: "tutorial_youtube_share",
-                 imageDescription: "tutorial.step2.image.a11y"),
-            // iOS の共有シートは端末ごとに並びが変わるうえ、本物を撮れていない。
-            // 作り物の共有シートを描くのは誤解のもとなので、絵は出さずに文章で説明する。
-            Step(title: "tutorial.step3.title",
-                 body: "tutorial.step3.body.ios",
-                 image: nil,
-                 imageDescription: "tutorial.step3.image.a11y"),
-        ]
+    private func imageName(for step: Int) -> String {
+        "tutorial_step\(step)_\(imageLanguage)"
     }
 
-    private var step: Step { steps[index] }
-    private var isLast: Bool { index == steps.count - 1 }
+    /// 書式に %@（アプリ名）が入るキーがあるので、String(format:) を通すために生キーで持つ。
+    private func titleKey(_ step: Int) -> String { "tutorial.step\(step).title" }
+
+    /// 手順3と4は、共有の受け取り方が iOS だけ違うので別の文章を使う。
+    private func bodyKey(_ step: Int) -> String {
+        step >= 3 ? "tutorial.step\(step).body.ios" : "tutorial.step\(step).body"
+    }
+
+    private func imageA11yKey(_ step: Int) -> String { "tutorial.step\(step).image.a11y" }
+
+    private var isLast: Bool { index == stepCount - 1 }
+    private var step: Int { index + 1 }
 
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 14) {
                     Text(String(format: String(localized: "tutorial.progress.format"),
-                                "\(index + 1)", "\(steps.count)"))
+                                "\(step)", "\(stepCount)"))
                         .font(.footnote)
                         .foregroundStyle(.secondary)
 
-                    Text(String(format: NSLocalizedString(titleKey, comment: ""),
+                    Text(String(format: NSLocalizedString(titleKey(step), comment: ""),
                                 AppInfo.displayName))
                         .font(.title3.bold())
 
-                    Text(String(format: NSLocalizedString(bodyKey, comment: ""),
+                    Text(String(format: NSLocalizedString(bodyKey(step), comment: ""),
                                 AppInfo.displayName))
                         .font(.body)
                         .fixedSize(horizontal: false, vertical: true)
@@ -96,19 +99,13 @@ struct ChannelTutorialView: View {
         }
     }
 
-    // 書式に %@（アプリ名）が入るキーがあるので、String(format:) を通すために生キーで持つ。
-    private var titleKey: String {
-        ["tutorial.step1.title", "tutorial.step2.title", "tutorial.step3.title"][index]
-    }
-
-    private var bodyKey: String {
-        ["tutorial.step1.body", "tutorial.step2.body", "tutorial.step3.body.ios"][index]
-    }
-
     /// 画像。読み込めなくても案内は続けられる（説明は上の文章で完結している）。
+    ///
+    /// 言語ぶんの絵が無い端末では英語の絵が出る（[imageLanguage]）。それも無ければ
+    /// 何も出さずに文章だけにする。**作り物の画面は描かない。**
     @ViewBuilder
     private var stepImage: some View {
-        if let name = step.image, let uiImage = UIImage(named: name) {
+        if let uiImage = UIImage(named: imageName(for: step)) {
             Image(uiImage: uiImage)
                 .resizable()
                 .scaledToFit()
@@ -117,34 +114,8 @@ struct ChannelTutorialView: View {
                     RoundedRectangle(cornerRadius: 12)
                         .stroke(Color.secondary.opacity(0.25), lineWidth: 1))
                 .accessibilityLabel(
-                    Text(String(format: NSLocalizedString("tutorial.step\(index + 1).image.a11y",
-                                                          comment: ""),
+                    Text(String(format: NSLocalizedString(imageA11yKey(step), comment: ""),
                                 AppInfo.displayName)))
-        } else {
-            // 本物の共有シートを載せられない手順。作り物の画面は描かず、
-            // 「このアプリを選ぶ」ことだけを自分のUIで示す。
-            HStack(spacing: 12) {
-                Image(systemName: "square.and.arrow.up")
-                    .font(.title2)
-                    .foregroundStyle(.secondary)
-                Image(systemName: "arrow.right")
-                    .font(.footnote)
-                    .foregroundStyle(.secondary)
-                Label(AppInfo.displayName, systemImage: "list.bullet.rectangle.portrait")
-                    .font(.subheadline.bold())
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 8)
-                    .background(Color.accentColor.opacity(0.12),
-                                in: RoundedRectangle(cornerRadius: 10))
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(14)
-            .background(Color(.secondarySystemBackground),
-                        in: RoundedRectangle(cornerRadius: 12))
-            .accessibilityElement(children: .combine)
-            .accessibilityLabel(
-                Text(String(format: NSLocalizedString("tutorial.step3.image.a11y", comment: ""),
-                            AppInfo.displayName)))
         }
     }
 

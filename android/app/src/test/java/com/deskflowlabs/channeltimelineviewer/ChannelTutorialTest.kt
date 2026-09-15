@@ -145,7 +145,7 @@ class ChannelTutorialTest {
             Analytics.Param.SOURCE to Analytics.Source.FIRST_TIME,
         )
         recorder.log(Analytics.Event.CHANNEL_TUTORIAL_COMPLETE)
-        recorder.log(Analytics.Event.CHANNEL_TUTORIAL_SKIP, Analytics.Param.VALUE to 2)
+        recorder.log(Analytics.Event.CHANNEL_TUTORIAL_SKIP, Analytics.Param.VALUE to 3)
 
         assertEquals(1, recorder.count(Analytics.Event.CHANNEL_TUTORIAL_VIEW))
         assertEquals(1, recorder.count(Analytics.Event.CHANNEL_TUTORIAL_COMPLETE))
@@ -159,6 +159,37 @@ class ChannelTutorialTest {
             everything.forEach {
                 assertFalse("記録に '" + secret + "' が混ざっている", it.contains(secret))
             }
+        }
+    }
+
+    // ---- 4手順ぶんの文言が7言語そろっているか ----
+
+    @Test
+    fun `手順の文言が4つぶん用意されている`() {
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        val ids = listOf(
+            R.string.tutorial_step1_title to R.string.tutorial_step1_body,
+            R.string.tutorial_step2_title to R.string.tutorial_step2_body,
+            R.string.tutorial_step3_title to R.string.tutorial_step3_body,
+            R.string.tutorial_step4_title to R.string.tutorial_step4_body,
+        )
+        ids.forEachIndexed { index, (title, body) ->
+            assertTrue("手順${index + 1}の見出しが空", context.getString(title, "App").isNotBlank())
+            assertTrue("手順${index + 1}の説明が空", context.getString(body, "App").isNotBlank())
+        }
+    }
+
+    @Test
+    fun `手順の画像が4つぶん入っている`() {
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        listOf(
+            R.drawable.tutorial_step1,
+            R.drawable.tutorial_step2,
+            R.drawable.tutorial_step3,
+            R.drawable.tutorial_step4,
+        ).forEachIndexed { index, id ->
+            assertTrue("手順${index + 1}の画像が引けない",
+                context.resources.getResourceEntryName(id).startsWith("tutorial_step"))
         }
     }
 }

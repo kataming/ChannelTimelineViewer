@@ -428,25 +428,33 @@
 /* スキップ */
 "tutorial.skip" = "건너뛰기";
 /* 手順1の説明 */
-"tutorial.step1.body" = "YouTube 앱에서 추가하려는 채널 페이지를 엽니다.";
+"tutorial.step1.body" = "YouTube 앱에서 추가하려는 채널의 동영상이나 채널 페이지를 엽니다.";
 /* 読み上げ: 手順1の画像 */
 "tutorial.step1.image.a11y" = "YouTube에서 연 채널 페이지";
 /* 手順1の見出し */
-"tutorial.step1.title" = "YouTube에서 보고 싶은 채널을 엽니다";
-/* 手順2の説明 */
-"tutorial.step2.body" = "채널 화면 오른쪽 위 메뉴에서 ‘공유’를 탭합니다.";
+"tutorial.step1.title" = "YouTube에서 보고 싶은 것을 엽니다";
+/* 手順2の説明（共有ボタンの場所） */
+"tutorial.step2.body" = "동영상 아래 또는 채널 화면 메뉴의 ‘공유’를 탭합니다.";
 /* 読み上げ: 手順2の画像 */
-"tutorial.step2.image.a11y" = "메뉴에서 ‘공유’가 강조된 화면";
+"tutorial.step2.image.a11y" = "‘공유’가 강조된 화면";
 /* 手順2の見出し */
 "tutorial.step2.title" = "‘공유’를 탭합니다";
-/* 手順3の説明（Android・共有先から選ぶ） */
-"tutorial.step3.body" = "공유 대상 목록에서 %@ 을(를) 선택하면 채널이 추가됩니다.";
-/* 手順3の説明（iOS・共有シートから選ぶ） */
-"tutorial.step3.body.ios" = "공유 시트를 내려 %@ 을(를) 선택하면 링크가 전달됩니다. 앱으로 돌아와 ‘공유된 URL 열기’를 누르면 추가됩니다.";
+/* 手順3の説明（Android） */
+"tutorial.step3.body" = "공유 대상 목록에서 %@ 을(를) 선택합니다. 보이지 않으면 ‘더보기’를 엽니다.";
+/* 手順3の説明（iOS） */
+"tutorial.step3.body.ios" = "공유 시트를 내려 %@ 을(를) 선택합니다. 보이지 않으면 ‘더보기’에서 찾을 수 있습니다.";
 /* 読み上げ: 手順3の画像（アプリ名を %@ で入れる） */
 "tutorial.step3.image.a11y" = "공유 목록에서 %@ 이(가) 강조된 화면";
 /* 手順3の見出し（アプリ名を %@ で入れる） */
 "tutorial.step3.title" = "%@ 을(를) 선택합니다";
+/* 手順4の説明（Android） */
+"tutorial.step4.body" = "채널의 동영상이 바로 오래된 순서로 열립니다.";
+/* 手順4の説明（iOS・通知をタップ） */
+"tutorial.step4.body.ios" = "공유된 채널이 준비되었다는 알림이 표시됩니다. 탭하면 오래된 순서로 목록이 열립니다.";
+/* 読み上げ: 手順4の画像（アプリ名を %@ で入れる） */
+"tutorial.step4.image.a11y" = "%@ 이(가) 동영상 목록을 연 화면";
+/* 手順4の見出し */
+"tutorial.step4.title" = "동영상 목록이 열립니다";
 /* 画面名: チャンネルの追加方法 */
 "tutorial.title" = "채널 추가 방법";
 /* スワイプ: 未視聴に戻す */

@@ -153,9 +153,6 @@ const en = {
     errUnknown: 'Something went wrong.',
     errNotConfigured:
       'The web trial is not available right now. The iPhone and Android apps work as usual.',
-    errTooMany:
-      'This channel has more videos than the web trial can hold. The first {1} are shown; the app handles the rest.',
-    // Pro 案内
     proTitle: 'You can save one channel',
     proWarningFormat:
       'Replacing it deletes the watched history, progress, and notes of “{1}” kept in this browser.',
@@ -312,8 +309,6 @@ const ja = {
     errUnknown: '不明なエラーが発生しました',
     errNotConfigured:
       'Web体験版はただいまご利用いただけません。iPhone / Android のアプリは通常どおりお使いいただけます。',
-    errTooMany:
-      'このチャンネルはWeb体験版で扱える本数を超えています。先頭の{1}本を表示しています（アプリでは続きも扱えます）。',
     proTitle: '保存できるチャンネルは1件です',
     proWarningFormat:
       '入れ替えると、このブラウザに残っている「{1}」の視聴済み・進捗・メモは削除されます。',
@@ -465,7 +460,6 @@ const zh = {
     errNetwork: '网络连接失败。',
     errUnknown: '发生了未知错误。',
     errNotConfigured: '网页试用版暂时无法使用。iPhone / Android 应用可正常使用。',
-    errTooMany: '该频道的视频数量超出了网页试用版的上限，仅显示前 {1} 个（应用可处理更多）。',
     proTitle: '可保存 1 个频道',
     proWarningFormat: '替换后，浏览器中保存的“{1}”的已观看记录、进度和笔记将被删除。',
     proBody:
@@ -619,8 +613,6 @@ const es = {
     errUnknown: 'Se produjo un error desconocido.',
     errNotConfigured:
       'La prueba web no está disponible ahora mismo. Las apps de iPhone y Android funcionan con normalidad.',
-    errTooMany:
-      'Este canal tiene más vídeos de los que admite la prueba web. Se muestran los primeros {1}; la app maneja el resto.',
     proTitle: 'Puedes guardar un canal',
     proWarningFormat:
       'Si lo sustituyes, se borrarán el historial, el progreso y las notas de «{1}» guardados en este navegador.',
@@ -776,8 +768,6 @@ const de = {
     errUnknown: 'Ein unbekannter Fehler ist aufgetreten.',
     errNotConfigured:
       'Die Web-Testversion ist gerade nicht verfügbar. Die iPhone- und Android-Apps funktionieren wie gewohnt.',
-    errTooMany:
-      'Dieser Kanal hat mehr Videos, als die Web-Testversion fassen kann. Die ersten {1} werden gezeigt; die App schafft den Rest.',
     proTitle: 'Du kannst einen Kanal speichern',
     proWarningFormat:
       'Beim Ersetzen werden Gesehen-Status, Fortschritt und Notizen von „{1}“ aus diesem Browser gelöscht.',
@@ -933,8 +923,6 @@ const fr = {
     errUnknown: 'Une erreur inconnue s’est produite.',
     errNotConfigured:
       'L’essai web n’est pas disponible pour le moment. Les apps iPhone et Android fonctionnent normalement.',
-    errTooMany:
-      'Cette chaîne compte plus de vidéos que l’essai web ne peut en contenir. Les {1} premières sont affichées ; l’application gère le reste.',
     proTitle: 'Vous pouvez enregistrer une chaîne',
     proWarningFormat:
       'Si vous la remplacez, l’historique, la progression et les notes de « {1} » conservés dans ce navigateur seront supprimés.',
@@ -1089,8 +1077,6 @@ const ko = {
     errUnknown: '알 수 없는 오류가 발생했습니다.',
     errNotConfigured:
       '웹 체험판은 현재 이용할 수 없습니다. iPhone / Android 앱은 평소대로 사용할 수 있습니다.',
-    errTooMany:
-      '이 채널은 웹 체험판이 다룰 수 있는 개수를 넘습니다. 앞의 {1}개를 표시합니다(앱에서는 나머지도 다룹니다).',
     proTitle: '저장할 수 있는 채널은 1개입니다',
     proWarningFormat:
       '교체하면 이 브라우저에 남아 있는 「{1}」의 시청 기록·진행 상황·메모가 삭제됩니다.',

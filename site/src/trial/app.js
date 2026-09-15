@@ -422,10 +422,13 @@ class Trial {
       this.setStatus('error', this.t.ui.empty);
       return;
     }
+    // 上限（MAX_PAGES × 50本）で打ち切ったときも、何も知らせない。
+    // ⚠️ 以前はここで「アプリでは続きも扱えます」と出していたが、**それは嘘だった**。
+    //    スマホアプリ側も同じ 50件×100ページ＝5,000本で打ち切る
+    //    （android/.../network/YouTubeApiClient.kt の MAX_PAGES）。
+    //    体験版だけの制限であるかのように見せないため、黙って先頭ぶんを出す。
     if (failure) this.setStatus('warn', this.messageFor(failure));
-    else if (truncated) {
-      this.setStatus('warn', fmt(this.t.ui.errTooMany, this.videos.length.toLocaleString(this.lang)));
-    } else this.setStatus('none', '');
+    else this.setStatus('none', '');
     this.renderAll();
     // すでに何か開いているなら、取り直しで巻き戻さない。
     if (!this.current) this.restoreLastVideo();

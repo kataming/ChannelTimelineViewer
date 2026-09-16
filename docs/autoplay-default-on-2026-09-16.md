@@ -1,0 +1,118 @@
+# 自動再生トグルの見直し（2026-09-16）
+
+再生画面の自動再生トグルについて、**表示の分かりにくさ**と**既定値**の2点を直した作業の記録。
+同じ場所を触るときは、まずここと [`CLAUDE.md`](../CLAUDE.md) の「連続再生についての方針」を読むこと。
+
+## 何が問題だったか
+
+ユーザーからの指摘:
+
+> 既存の機能の「自動再生オフ：終了後に停止」がデフォルトがオフに設定されていますがわかりにくいです。
+> オフにするというのオンオフスイッチがあったらオンがオフに思える
+
+見出しが **状態を含む文**（「自動再生**オフ**：終了後に停止」）で、その横にオン/オフのスイッチが並んでいた。
+そのため **「『自動再生オフ』がオフ」＝自動再生オン？** と読める二重否定になっていた。
+
+## やったこと
+
+### 1. 見出しから状態を外した（コミット `4a9a6a6`）
+
+| | 変更前（状態で切り替わる） | 変更後 |
+| --- | --- | --- |
+| 見出し | 「自動再生オフ：終了後に停止」／「自動再生オン：終了後に次の動画へ」 | **「自動再生」**（固定） |
+| 説明（オフ時） | 終了したら「次の動画を再生」ボタンを表示します | **終了したら停止し、**「次の動画を再生」ボタンを表示します |
+| 説明（オン時） | この一覧の次の動画だけを続けて再生します | **終了したら、**この一覧の次の動画だけを続けて再生します |
+
+いまの状態を表すのは **スイッチ本体と説明文だけ**。説明文は両方「終了したら…」で書き出しを揃えたので、
+スイッチを見なくても現在の挙動が読み取れる。
+
+文言キーは `player.autoPlay.on/off.title` を廃止し、`player.autoPlay.title` 1本にまとめた。
+反映先は iOS `PlayerView.autoPlayControl` / Android `PlaybackToggles` / Web体験版の3か所。
+
+### 2. 既定をオフ → オンにした（コミット `2c6f663`）
+
+ユーザー判断:
+
+> まずこのアプリは連続再生が一番の売りのアプリなので、オンにしたい強い理由があります。
+> 既存のユーザーの設定が勝手に変わるのでなければ、アップデートでオンなら問題ないです。
+
+2026-08-15 に決めた「既定オフ」を更新した。
+
+## ⚠️ 既存ユーザーの設定を上書きしない仕組み
+
+**既定値は「キーが保存されていない＝一度も操作していない人」にだけ効く。**
+
+| 端末の状態 | 更新後 |
+| --- | --- |
+| 一度も触っていない | **オン**（新しい既定） |
+| 自分でオンにした | オンのまま |
+| 自分でオフにした | **オフのまま**（既定オンで上書きしない） |
+
+| プラットフォーム | 未操作の見分け方 | 壊す書き方（使わないこと） |
+| --- | --- | --- |
+| iOS | `defaults.object(forKey:) as? Bool ?? true` | `defaults.bool(forKey:)` |
+| Android | `prefs.getBoolean(key, true)`（第2引数はキーが無いときだけ使われる） | 保存を `init` で行う |
+| Web体験版 | `raw.autoplay !== false` | `raw.autoplay === true` |
+
+回帰テスト:
+
+- iOS `Tests/PlaybackResumeTests.swift` → `testExplicitlyTurnedOffSurvivesTheNewDefault`
+- Android `PlaybackModeTest.kt` → `explicitlyTurnedOffSurvivesTheNewDefault`
+
+### 3. 外向きの文言を7言語そろえた
+
+「初期状態はオフ」はアプリ内・ストア・サイトに書いてあったので、片方だけ直すと**記載と実物が食い違う**。
+これが審査で突かれうる唯一の現実的なリスクなので全部そろえた。
+
+- アプリ内: `about.autoPlay.header` / `about.autoPlay.body`
+- App Store: `docs/AppStore/review-notes.md`・`review-notes-en.md`・`metadata/*.md`・`metadata.json`
+- Google Play: `docs/PlayStore/listing/*/full_description.txt`・`listing/*.md`・`metadata.json`
+- 公式サイト: `site/src/i18n/translations.js`・`site/src/i18n/manual/*.js`
+- Web体験版: `site/src/trial/storage.js` の `DEFAULT_PREFS.autoplay`
+- 手順書: `README.md`・`android/README.md`・`docs/manual-test-checklist.md`・
+  `docs/testflight-checklist.md`・`docs/android-device-test-guide.md`・`docs/watch-queue-mode.md`
+
+審査メモには **「1.2.0 で変更。それ以前は初期状態オフでした」** と経緯も明記した。
+
+## 審査リスクの確認（2026-09-16）
+
+ユーザーからの質問「審査が通らない可能性はありますか？」に対して、
+[YouTube API Services Developer Policies](https://developers.google.com/youtube/terms/developer-policies) を直接確認した。
+
+- 自動再生について定めているのは **III.I.9「表示されていないプレイヤーでの再生の禁止」**（＝バックグラウンド再生）と、
+  **「プレイヤーが画面に半分以上見えるまで自動再生を始めないこと」** の2点だけ
+- **「次の動画へ自動で進むこと」自体を禁じる条項は無い**
+- Apple・Google の審査ガイドラインにも、自動再生の初期値を定めた項目は無い
+
+本アプリは前面の見えているプレイヤーでしか再生せず、進む先は開いている一覧の次の動画だけ（`rel=0`）なので
+どちらにも当たらない。**2026-08-15 の「既定オフ」は規約上の要請ではなく、念のための自主ルールだった**
+（`docs/feedback/feedback-log.md` の FB-004 も「ユーザーからの指示・審査リスク低減」と記録。
+実際にリジェクトを受けた履歴は無い）。
+
+## 承知のうえのトレードオフ
+
+拡大表示を保つため、自動再生オンのときは各動画の**最後の約0.5秒が再生されない**
+（`docs/player.html` の `NEAR_END_LEAD`）。既定オンになったことで、これが全利用者の初期状態になる。
+ユーザー確認済み（「全く問題ないです」）。気になったときは `player.html` の秒数調整だけで直せる（アプリ更新は不要）。
+
+## 検証
+
+- GitHub Actions: iOS Build / Android Build / Site Build すべて success（`2c6f663`）
+- GitHub Actions: iOS Release run#35074505476 success（Archive / Upload to App Store Connect ともに success）
+- `./gradlew testDebugUnitTest` 成功
+- `npm test` / `npm run check` / `npm run build` 成功
+- 「既定オフ」を主張する記述が残っていないことを7言語ぶん grep で確認
+
+## リリース状況
+
+- iOS **1.2.0 (33)** を TestFlight へアップロード済み（コミット `1549fb8`）。**審査提出はしていない。**
+  - 32 = チャンネル追加の案内（ユーザー確認済み）
+  - 33 = 自動再生トグルの見出し修正＋既定オン
+- Android は未リリース。
+
+## 残っている課題
+
+**Android の次回リリースノートが古い。**
+`scripts/play_publish.py` の `RELEASE_NOTES` と `docs/PlayStore/whatsnew-1.9.txt` は 1.9（Firebase 対応）の
+「内部的な修正のみ・機能に変更はありません」のままで、チュートリアル追加と自動再生の既定変更を反映していない。
+直近の製品版は **1.9**（2026-09-13・run#34765127856）なので、次は **1.10** として7言語ぶん書き直すこと。

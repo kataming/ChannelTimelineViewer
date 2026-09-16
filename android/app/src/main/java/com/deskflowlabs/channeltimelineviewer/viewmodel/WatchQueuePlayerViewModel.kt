@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.deskflowlabs.channeltimelineviewer.data.PlaybackSettingsStore
 import com.deskflowlabs.channeltimelineviewer.network.WatchQueue
 import com.deskflowlabs.channeltimelineviewer.network.WatchQueueItem
-import com.deskflowlabs.channeltimelineviewer.ui.PlayerState
+// PlayerState は同じ viewmodel パッケージ（PlayerViewModel.kt）にあるので import は要らない。
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

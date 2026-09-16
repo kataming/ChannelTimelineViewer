@@ -6,7 +6,7 @@ import com.deskflowlabs.channeltimelineviewer.data.PlaybackSettingsStore
 import com.deskflowlabs.channeltimelineviewer.data.WatchQueueStore
 import com.deskflowlabs.channeltimelineviewer.network.WatchQueue
 import com.deskflowlabs.channeltimelineviewer.network.WatchQueueItem
-import com.deskflowlabs.channeltimelineviewer.ui.PlayerState
+import com.deskflowlabs.channeltimelineviewer.viewmodel.PlayerState
 import com.deskflowlabs.channeltimelineviewer.viewmodel.WatchQueuePlayerViewModel
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse

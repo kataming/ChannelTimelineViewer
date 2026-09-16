@@ -26,8 +26,6 @@ struct ChannelTimelineViewerApp: App {
     @StateObject private var clipboardDetector = ClipboardLinkDetector()
     /// 「チャンネルの追加方法」の案内を見終わったか（初回だけ自動で出すための印）。
     @StateObject private var channelTutorial = ChannelTutorialStore()
-    /// Watch Queue（V2）。サーバーの Feature Flag が ON で、かつ接続した人にだけ現れる。
-    @StateObject private var watchQueueStore = WatchQueueStore()
     @Environment(\.scenePhase) private var scenePhase
 
     var body: some Scene {
@@ -46,7 +44,6 @@ struct ChannelTimelineViewerApp: App {
                 .environmentObject(clipboardDetector)
                 .environmentObject(notificationPermission)
                 .environmentObject(channelTutorial)
-                .environmentObject(watchQueueStore)
                 .onOpenURL { url in
                     // channeltimelineviewer://share?url=... 以外は無視する。
                     sharedLinkRouter.handle(url)
@@ -55,15 +52,12 @@ struct ChannelTimelineViewerApp: App {
                 .task {
                     await clipboardDetector.refresh()
                     await notificationPermission.refresh()
-                    // Feature Flag の確認。取れないときは「出さない」ままにする。
-                    await watchQueueStore.refreshAvailability()
                 }
                 .onChange(of: scenePhase) { _, phase in
                     guard phase == .active else { return }
                     Task {
                         await clipboardDetector.refresh()
                         await notificationPermission.refresh()
-                        await watchQueueStore.refreshAvailability()
                     }
                 }
         }

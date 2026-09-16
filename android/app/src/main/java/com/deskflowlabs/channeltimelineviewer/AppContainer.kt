@@ -18,7 +18,6 @@ import com.deskflowlabs.channeltimelineviewer.data.SkippedVideoStore
 import com.deskflowlabs.channeltimelineviewer.data.VideoListCache
 import com.deskflowlabs.channeltimelineviewer.data.VideoMemoStore
 import com.deskflowlabs.channeltimelineviewer.data.WatchHistoryStore
-import com.deskflowlabs.channeltimelineviewer.data.WatchQueueStore
 import com.deskflowlabs.channeltimelineviewer.data.storePrefs
 import com.deskflowlabs.channeltimelineviewer.network.AndroidAppIdentity
 import com.deskflowlabs.channeltimelineviewer.network.YouTubeApiClient
@@ -58,9 +57,6 @@ class AppContainer(context: Context) {
 
     // 「チャンネルの追加方法」の案内を見終わったか（初回だけ自動で出すための印）。
     val channelTutorial = ChannelTutorialStore(prefs)
-
-    // Watch Queue（V2）。サーバーの Feature Flag が ON で、かつ接続した人にだけ現れる。
-    val watchQueue = WatchQueueStore(prefs)
 
     // 利用状況の記録（Android 版のみ）。ユーザーが切っていれば Firebase ごと止める。
     val analyticsSettings = AnalyticsSettingsStore(prefs)

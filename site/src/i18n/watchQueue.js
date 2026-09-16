@@ -25,8 +25,6 @@ const en = {
   unplayableDetail: 'It may be private or deleted, or its owner doesn’t allow playback on other sites.',
   invalidTitle: 'This queue is empty or invalid',
   invalidDetail: 'Check the link and open it again.',
-  syncUnavailable: 'This queue can’t be loaded right now',
-  syncUnavailableDetail: 'The sync service could not be reached. Check your connection and try again.',
   truncatedFormat: 'Only the first {1} videos are shown.',
   noscript: 'Turn on JavaScript to play this queue.',
 };
@@ -45,8 +43,6 @@ const ja = {
   unplayableDetail: '非公開・削除済み、または投稿者がほかのサイトでの再生を許可していない可能性があります。',
   invalidTitle: 'キューが空か、リンクが正しくありません',
   invalidDetail: 'リンクを確認して、もう一度開いてください。',
-  syncUnavailable: 'いまこのキューを読み込めません',
-  syncUnavailableDetail: '同期サービスに接続できませんでした。通信状況を確かめて、もう一度お試しください。',
   truncatedFormat: '最初の{1}本だけを表示しています。',
   noscript: 'このキューを再生するには JavaScript を有効にしてください。',
 };
@@ -65,8 +61,6 @@ const zh = {
   unplayableDetail: '该视频可能已设为私享或被删除，或者上传者不允许在其他网站上播放。',
   invalidTitle: '队列为空或链接无效',
   invalidDetail: '请检查链接后重新打开。',
-  syncUnavailable: '暂时无法加载此队列',
-  syncUnavailableDetail: '无法连接同步服务。请检查网络连接后重试。',
   truncatedFormat: '仅显示前 {1} 个视频。',
   noscript: '请启用 JavaScript 以播放此队列。',
 };
@@ -85,8 +79,6 @@ const es = {
   unplayableDetail: 'Puede ser privado o haberse eliminado, o su propietario no permite reproducirlo en otros sitios.',
   invalidTitle: 'La cola está vacía o no es válida',
   invalidDetail: 'Comprueba el enlace y vuelve a abrirlo.',
-  syncUnavailable: 'Ahora mismo no se puede cargar esta cola',
-  syncUnavailableDetail: 'No se pudo contactar con el servicio de sincronización. Comprueba tu conexión e inténtalo de nuevo.',
   truncatedFormat: 'Solo se muestran los primeros {1} vídeos.',
   noscript: 'Activa JavaScript para reproducir esta cola.',
 };
@@ -105,8 +97,6 @@ const de = {
   unplayableDetail: 'Es ist womöglich privat oder gelöscht, oder die Wiedergabe auf anderen Websites ist nicht erlaubt.',
   invalidTitle: 'Die Warteschlange ist leer oder ungültig',
   invalidDetail: 'Prüfe den Link und öffne ihn erneut.',
-  syncUnavailable: 'Diese Warteschlange kann gerade nicht geladen werden',
-  syncUnavailableDetail: 'Der Sync-Dienst war nicht erreichbar. Prüfe deine Verbindung und versuche es erneut.',
   truncatedFormat: 'Es werden nur die ersten {1} Videos angezeigt.',
   noscript: 'Aktiviere JavaScript, um diese Warteschlange abzuspielen.',
 };
@@ -125,8 +115,6 @@ const fr = {
   unplayableDetail: 'Elle est peut-être privée ou supprimée, ou son propriétaire n’autorise pas la lecture sur d’autres sites.',
   invalidTitle: 'La file d’attente est vide ou non valide',
   invalidDetail: 'Vérifiez le lien et ouvrez-le à nouveau.',
-  syncUnavailable: 'Impossible de charger cette file d’attente pour le moment',
-  syncUnavailableDetail: 'Le service de synchronisation est injoignable. Vérifiez votre connexion et réessayez.',
   truncatedFormat: 'Seules les {1} premières vidéos sont affichées.',
   noscript: 'Activez JavaScript pour lire cette file d’attente.',
 };
@@ -145,8 +133,6 @@ const ko = {
   unplayableDetail: '비공개 또는 삭제된 동영상이거나, 업로더가 다른 사이트에서의 재생을 허용하지 않았을 수 있습니다.',
   invalidTitle: '대기열이 비어 있거나 올바르지 않습니다',
   invalidDetail: '링크를 확인한 뒤 다시 열어 주세요.',
-  syncUnavailable: '지금은 이 대기열을 불러올 수 없습니다',
-  syncUnavailableDetail: '동기화 서비스에 연결하지 못했습니다. 연결 상태를 확인한 뒤 다시 시도해 주세요.',
   truncatedFormat: '처음 {1}개만 표시합니다.',
   noscript: '이 대기열을 재생하려면 JavaScript를 켜 주세요.',
 };

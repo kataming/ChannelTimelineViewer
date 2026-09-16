@@ -40,8 +40,6 @@ interface Analytics {
         const val PRO = "pro"
         const val VIDEO_LIST = "video_list"
         const val PLAYER = "player"
-        const val WATCH_QUEUE = "watch_queue"
-        const val WATCH_QUEUE_PLAYER = "watch_queue_player"
     }
 
     /**

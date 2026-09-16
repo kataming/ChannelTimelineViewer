@@ -56,11 +56,6 @@ SKIP_KEYS = {
     "tutorial.step3.body.ios",
     "tutorial.step4.body.ios",
     "tutorial.step4.title.ios",
-    # Watch Queue: Android には出番が無いもの。
-    # 再生できない動画の判定は iOS のプレイヤーにしかある通知（onError）が要るため Android では出せない。
-    # 「接続済み」の副題も iOS の入口だけに出る。入れると未使用リソースとして lint が失敗する。
-    "watchQueue.unplayable",
-    "watchQueue.entry.subtitle.connected",
 }
 
 

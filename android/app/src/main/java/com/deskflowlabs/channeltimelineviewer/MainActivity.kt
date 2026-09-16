@@ -145,12 +145,6 @@ private sealed interface Screen {
     data object Pro : Screen
     data class Videos(val channel: Channel) : Screen
     data class Play(val channel: Channel, val videos: List<VideoItem>, val index: Int) : Screen
-
-    // Watch Queue（V2）。サーバーの Feature Flag が ON のときだけ入口が出る。
-    data object WatchQueue : Screen
-    data class WatchQueuePlay(
-        val queue: com.deskflowlabs.channeltimelineviewer.network.WatchQueue,
-    ) : Screen
 }
 
 @Composable
@@ -206,15 +200,9 @@ private fun AppRoot(
                 is Screen.Pro -> Analytics.Screen.PRO
                 is Screen.Videos -> Analytics.Screen.VIDEO_LIST
                 is Screen.Play -> Analytics.Screen.PLAYER
-                is Screen.WatchQueue -> Analytics.Screen.WATCH_QUEUE
-                is Screen.WatchQueuePlay -> Analytics.Screen.WATCH_QUEUE_PLAYER
             }
         )
     }
-
-    // Watch Queue（V2）の Feature Flag。取れないときは「出さない」ままにする。
-    val watchQueueEnabled by container.watchQueue.remoteEnabled.collectAsStateWithLifecycle()
-    LaunchedEffect(Unit) { container.watchQueue.refreshAvailability() }
 
     // ---- 「チャンネルの追加方法」の案内 ----
     // 出すのは**初めて追加しようとしたとき**だけ。起動のたびには出さない。
@@ -271,34 +259,7 @@ private fun AppRoot(
             onOpenAbout = { screen = Screen.About },
             onOpenPro = { screen = Screen.Pro },
             onOpenFavorite = { favorite -> inputViewModel.open(favorite) },
-            showWatchQueue = watchQueueEnabled,
-            onOpenWatchQueue = { screen = Screen.WatchQueue },
         )
-
-        is Screen.WatchQueue -> com.deskflowlabs.channeltimelineviewer.ui.WatchQueueScreen(
-            store = container.watchQueue,
-            isPro = isPro,
-            savedChannelCount = savedChannels.size,
-            onBack = { screen = Screen.Input },
-            onOpenQueue = { queue -> screen = Screen.WatchQueuePlay(queue) },
-        )
-
-        is Screen.WatchQueuePlay -> {
-            val queueViewModel: com.deskflowlabs.channeltimelineviewer.viewmodel.WatchQueuePlayerViewModel = viewModel(
-                factory = simpleFactory {
-                    com.deskflowlabs.channeltimelineviewer.viewmodel.WatchQueuePlayerViewModel(
-                        queue = current.queue,
-                        settings = container.settings,
-                    )
-                },
-                key = "watch-queue-${current.queue.queueId}",
-            )
-            com.deskflowlabs.channeltimelineviewer.ui.WatchQueuePlayerScreen(
-                viewModel = queueViewModel,
-                settings = container.settings,
-                onBack = { screen = Screen.WatchQueue },
-            )
-        }
 
         is Screen.About -> AboutScreen(
             analyticsEnabled = container.analyticsSettings.isEnabled,

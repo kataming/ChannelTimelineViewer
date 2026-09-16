@@ -43,7 +43,9 @@ LANGUAGE_DIRS = {
 EXTRA_STRINGS = {"app_name": "Channel Timeline Viewer"}
 
 # iOS 専用の文言（Android では出番が無い）は入れない。
-SKIP_PREFIXES = ("handoff.", "shareTips.", "share.", "openExtension.", "notification.")
+# ⚠️ "watchQueue." は iOS 先行で追加したため、Android が使い始めるまでは入れない
+#    （未使用リソースとして lint（UnusedResources）が失敗するため）。Android 実装時にここから外す。
+SKIP_PREFIXES = ("handoff.", "shareTips.", "share.", "openExtension.", "notification.", "watchQueue.")
 # iOS だけで使う文言（Apple アカウント・価格取得の再試行）。Android 側には出さない。
 SKIP_KEYS = {
     "pro.restore.hint.apple",

@@ -467,3 +467,67 @@
 "video.untitled" = "(No title)";
 /* 視聴済み */
 "video.watched" = "Watched";
+/* Watch Queue: 自動再生スイッチ（体験版と同じ設定） */
+"watchQueue.autoplay" = "Autoplay";
+/* Watch Queue: すべて再生し終えた */
+"watchQueue.completed" = "Queue completed";
+/* Watch Queue: すべて再生し終えた説明 */
+"watchQueue.completed.detail" = "All videos in this queue have been played.";
+/* Watch Queue: 接続済みの表示 */
+"watchQueue.connected" = "Connected";
+/* Watch Queue: 件数（%1$@=本数） */
+"watchQueue.count.format" = "%1$@ videos";
+/* Watch Queue: 接続解除 */
+"watchQueue.disconnect" = "Disconnect";
+/* Watch Queue: 接続解除の確認 */
+"watchQueue.disconnect.confirm" = "Disconnect this device?";
+/* Watch Queue: 接続解除の説明（消えないものを明示する） */
+"watchQueue.disconnect.detail" = "Only this device is disconnected. Your saved channels, watch records and purchase stay.";
+/* Watch Queue: キューが無いときの説明 */
+"watchQueue.empty.detail" = "Videos you save with the extension on your computer appear here.";
+/* Watch Queue: キューが無いとき */
+"watchQueue.empty.title" = "No queues yet";
+/* Watch Queue: 入口の説明（未接続） */
+"watchQueue.entry.subtitle" = "Watch the queue you saved on your computer, in order.";
+/* Watch Queue: 入口の説明（接続済み） */
+"watchQueue.entry.subtitle.connected" = "Connected";
+/* Watch Queue: 入口のボタン */
+"watchQueue.entry.title" = "Open Watch Queue";
+/* Watch Queue: コードが違う */
+"watchQueue.error.code" = "That code doesn’t match. Check the code shown on your computer.";
+/* Watch Queue: サーバー側で止まっている */
+"watchQueue.error.disabled" = "This feature isn’t available yet.";
+/* Watch Queue: コードの期限切れ */
+"watchQueue.error.expired" = "The code expired. Show a new code on your computer.";
+/* Watch Queue: そのほかの失敗 */
+"watchQueue.error.generic" = "That didn’t work. Please try again.";
+/* Watch Queue: 通信できない */
+"watchQueue.error.network" = "Couldn’t connect. Check your connection and try again.";
+/* Watch Queue: 試行しすぎ */
+"watchQueue.error.tooMany" = "Too many attempts. Please wait a moment and try again.";
+/* Watch Queue: 端末の接続が解除されている */
+"watchQueue.error.unauthorized" = "This device was disconnected. Please connect again.";
+/* Watch Queue: 使用済みのコード */
+"watchQueue.error.used" = "That code was already used. Show a new code on your computer.";
+/* Watch Queue: 一覧の見出し */
+"watchQueue.list.header" = "Queues";
+/* Watch Queue: 接続ボタン */
+"watchQueue.pair.button" = "Connect";
+/* Watch Queue: 接続の説明 */
+"watchQueue.pair.detail" = "Enter the code shown in the extension on your computer.";
+/* Watch Queue: コード入力欄 */
+"watchQueue.pair.field" = "Code";
+/* Watch Queue: 接続の見出し */
+"watchQueue.pair.title" = "Connect";
+/* Watch Queue: 次の動画を再生 */
+"watchQueue.playNext" = "Play next video";
+/* Watch Queue: 再読み込み */
+"watchQueue.refresh" = "Refresh";
+/* Watch Queue: 最初から再生 */
+"watchQueue.restart" = "Play from the start";
+/* Watch Queue: 画面のタイトル（機能名なので訳さない） */
+"watchQueue.title" = "Watch Queue";
+/* Watch Queue: 再生できない動画 */
+"watchQueue.unplayable" = "This video can’t be played";
+/* Watch Queue: タイトルが取れなかった動画 */
+"watchQueue.untitled" = "Untitled";

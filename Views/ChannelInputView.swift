@@ -13,7 +13,9 @@ struct ChannelInputView: View {
     @EnvironmentObject private var pro: ProEntitlementStore
     @EnvironmentObject private var activeChannel: ActiveChannelStore
     @EnvironmentObject private var channelTutorial: ChannelTutorialStore
+    @EnvironmentObject private var watchQueue: WatchQueueStore
     @StateObject private var viewModel = ChannelInputViewModel()
+    @State private var showWatchQueue = false
     @State private var showAbout = false
     @State private var showPro = false
     @State private var showFreeChannelPicker = false
@@ -164,6 +166,29 @@ struct ChannelInputView: View {
                     }
                 }
 
+                // Watch Queue（V2）。サーバーの Feature Flag が ON のときだけ現れる。
+                // OFF のあいだ、この画面は V2 以前とまったく同じ。
+                if watchQueue.isAvailable {
+                    Section {
+                        Button {
+                            showWatchQueue = true
+                        } label: {
+                            Label {
+                                VStack(alignment: .leading, spacing: 2) {
+                                    Text("watchQueue.entry.title")
+                                    Text(watchQueue.isPaired
+                                         ? "watchQueue.entry.subtitle.connected"
+                                         : "watchQueue.entry.subtitle")
+                                        .font(.footnote)
+                                        .foregroundStyle(.secondary)
+                                }
+                            } icon: {
+                                Image(systemName: "list.and.film")
+                            }
+                        }
+                    }
+                }
+
                 Section {
                     Text("disclaimer.short")
                         .font(.caption)
@@ -215,6 +240,10 @@ struct ChannelInputView: View {
                 ChannelTutorialView(
                     onComplete: { completeTutorialIfFirstTime() },
                     onSkip: { _ in completeTutorialIfFirstTime() })
+            }
+            .sheet(isPresented: $showWatchQueue) {
+                WatchQueueView()
+                    .environmentObject(watchQueue)
             }
             .sheet(isPresented: $showAbout) {
                 // シートにも明示的に渡しておく（環境の引き継ぎに依存しない）。

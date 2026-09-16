@@ -467,3 +467,67 @@
 "video.untitled" = "(タイトルなし)";
 /* 視聴済み */
 "video.watched" = "視聴済み";
+/* Watch Queue: 自動再生スイッチ（体験版と同じ設定） */
+"watchQueue.autoplay" = "自動再生";
+/* Watch Queue: すべて再生し終えた */
+"watchQueue.completed" = "キューの再生が完了しました";
+/* Watch Queue: すべて再生し終えた説明 */
+"watchQueue.completed.detail" = "このキューの動画をすべて再生しました。";
+/* Watch Queue: 接続済みの表示 */
+"watchQueue.connected" = "接続済みです";
+/* Watch Queue: 件数（%1$@=本数） */
+"watchQueue.count.format" = "%1$@本";
+/* Watch Queue: 接続解除 */
+"watchQueue.disconnect" = "接続を解除";
+/* Watch Queue: 接続解除の確認 */
+"watchQueue.disconnect.confirm" = "接続を解除しますか？";
+/* Watch Queue: 接続解除の説明（消えないものを明示する） */
+"watchQueue.disconnect.detail" = "解除されるのはこの端末だけです。保存したチャンネル・視聴の記録・購入は消えません。";
+/* Watch Queue: キューが無いときの説明 */
+"watchQueue.empty.detail" = "パソコンの拡張機能で動画を保存すると、ここに出ます。";
+/* Watch Queue: キューが無いとき */
+"watchQueue.empty.title" = "キューがありません";
+/* Watch Queue: 入口の説明（未接続） */
+"watchQueue.entry.subtitle" = "パソコンで保存したキューを順番に観る";
+/* Watch Queue: 入口の説明（接続済み） */
+"watchQueue.entry.subtitle.connected" = "接続済み";
+/* Watch Queue: 入口のボタン */
+"watchQueue.entry.title" = "Watch Queue を開く";
+/* Watch Queue: コードが違う */
+"watchQueue.error.code" = "コードが違うようです。表示されているコードを確かめてください。";
+/* Watch Queue: サーバー側で止まっている */
+"watchQueue.error.disabled" = "この機能はまだ利用できません。";
+/* Watch Queue: コードの期限切れ */
+"watchQueue.error.expired" = "コードの有効期限が切れました。新しいコードを表示してください。";
+/* Watch Queue: そのほかの失敗 */
+"watchQueue.error.generic" = "うまくいきませんでした。もう一度お試しください。";
+/* Watch Queue: 通信できない */
+"watchQueue.error.network" = "接続できませんでした。通信状況を確かめて、もう一度お試しください。";
+/* Watch Queue: 試行しすぎ */
+"watchQueue.error.tooMany" = "試行回数が多すぎます。しばらく待ってからお試しください。";
+/* Watch Queue: 端末の接続が解除されている */
+"watchQueue.error.unauthorized" = "接続が解除されました。もう一度接続してください。";
+/* Watch Queue: 使用済みのコード */
+"watchQueue.error.used" = "そのコードは使用済みです。新しいコードを表示してください。";
+/* Watch Queue: 一覧の見出し */
+"watchQueue.list.header" = "キュー";
+/* Watch Queue: 接続ボタン */
+"watchQueue.pair.button" = "接続する";
+/* Watch Queue: 接続の説明 */
+"watchQueue.pair.detail" = "パソコンの拡張機能に表示されたコードを入力してください。";
+/* Watch Queue: コード入力欄 */
+"watchQueue.pair.field" = "コード";
+/* Watch Queue: 接続の見出し */
+"watchQueue.pair.title" = "接続する";
+/* Watch Queue: 次の動画を再生 */
+"watchQueue.playNext" = "次の動画を再生";
+/* Watch Queue: 再読み込み */
+"watchQueue.refresh" = "最新の状態にする";
+/* Watch Queue: 最初から再生 */
+"watchQueue.restart" = "最初から再生";
+/* Watch Queue: 画面のタイトル（機能名なので訳さない） */
+"watchQueue.title" = "Watch Queue";
+/* Watch Queue: 再生できない動画 */
+"watchQueue.unplayable" = "この動画は再生できません";
+/* Watch Queue: タイトルが取れなかった動画 */
+"watchQueue.untitled" = "タイトルなし";

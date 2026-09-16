@@ -60,7 +60,7 @@ LANGUAGES = {
 
 # 手順の番号。iOS は 1〜4（4＝通知）、Android は 1〜3 と 5（一覧が直接開くので4が無い）。
 # 画面に出す通し番号は別で振り直す（アプリ側で 1/4・1/3 のように数える）。
-IOS_STEP_FILES = (1, 2, 3, 4)
+IOS_STEP_FILES = (1, 2, 3, 4, 5)
 ANDROID_STEP_FILES = (1, 2, 3, 5)
 
 # 本アプリのアイコンの緑。共有シートの中でこの色はほぼ本アプリだけなので、
@@ -75,10 +75,13 @@ HIGHLIGHT = (46, 125, 50, 255)
 # すべて素材のピクセル座標。7言語とも同じ機種・同じ流れで撮ってあるので位置は共通。
 # 撮り直したらここだけ直す。
 IOS_STEPS = {
-    1: dict(crop=(628, 890), box=(505, 780, 585, 850), arrow=None),
-    2: dict(crop=(900, 1240), box=(575, 1045, 692, 1190), arrow=None),
-    3: dict(crop=(600, 890), box=(556, 618, 692, 872), arrow=None),
-    4: dict(crop=(60, 240), box=(14, 78, 726, 222), arrow=None),
+    1: dict(crop=(628, 890), box=(505, 780, 585, 850)),
+    2: dict(crop=(900, 1240), box=(575, 1045, 692, 1190)),
+    3: dict(crop=(600, 890), box=(556, 618, 692, 872)),
+    4: dict(crop=(60, 240), box=(14, 78, 726, 222)),
+    # 5 だけはシミュレーターで撮ったもので、大きさが違う（1320x2868）。
+    # ピクセルではなく割合で指定する。押す場所は無いので囲まない。
+    5: dict(crop=None, ratio=(0.03, 0.62), box=None),
 }
 
 
@@ -170,18 +173,23 @@ def save_ios(img: Image.Image, step: int, lang: str) -> int:
 
 
 def build_ios() -> int:
-    print("== iOS（実機の素材から）==")
+    print("== iOS（実機とシミュレーターの素材から）==")
     total = 0
     for lang, (jp_name, _) in LANGUAGES.items():
-        for step, spec in IOS_STEPS.items():
+        for step in IOS_STEP_FILES:
+            spec = IOS_STEPS[step]
+            # 実機で撮った 1〜4 は .jpg、5 はシミュレーターから取り込んだ .jpg。
             src = load(IOS_RAW / f"{jp_name}{step}.jpg")
-            top, bottom = spec["crop"]
+            if spec["crop"]:
+                top, bottom = spec["crop"]
+            else:
+                top, bottom = (int(src.height * v) for v in spec["ratio"])
             img = src.crop((0, top, src.width, bottom))
             if spec["box"]:
                 x0, y0, x1, y1 = spec["box"]
                 img = rounded_box(img, (x0, y0 - top, x1, y1 - top))
             total += save_ios(finish(img), step, lang)
-        print(f"  {lang}: 4枚")
+        print(f"  {lang}: {len(IOS_STEP_FILES)}枚")
     print(f"  iOS 合計 {total // 1024}KB")
     return total
 

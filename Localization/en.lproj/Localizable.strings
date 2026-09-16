@@ -455,6 +455,8 @@
 "tutorial.step4.image.a11y" = "%@ showing the video list";
 /* 手順4の見出し */
 "tutorial.step4.title" = "The video list opens";
+/* 手順4の見出し（iOS・通知をタップする） */
+"tutorial.step4.title.ios" = "Tap the notification";
 /* 画面名: チャンネルの追加方法 */
 "tutorial.title" = "How to Add a Channel";
 /* スワイプ: 未視聴に戻す */

@@ -71,39 +71,37 @@
 - **iOS**: 共有シートで選ぶとリンクが渡り、**通知が出る**。それをタップして一覧が開く
   （iOS の制約。`SharedLinkNotifier` / `SharedLinkRouter` 参照）
 
-## 7. 使用画像（4手順 × 7言語 = 28枚 × 2OS）
+## 7. 使用画像（すべて NASA・実機/シミュレーター・7言語）
+
+**手順の数は OS で違う。これは本物の違いで、揃えてはいけない。**
+
+| 手順 | iOS（5つ） | Android（4つ） |
+| --- | --- | --- |
+| 1 | 動画ページ（**共有ボタン**を囲む） | 同じ |
+| 2 | YouTube の共有シート（**その他**を囲む） | 同じ |
+| 3 | OS の共有シート（**本アプリ**を囲む） | 同じ |
+| 4 | **通知をタップ** | （無い） |
+| 5 | 一覧が開く | ← Android はここが手順4 |
+
+iOS だけ手順4があるのは、共有しただけでは終わらず**通知をタップして初めて一覧が開く**ため
+（`SharedLinkNotifier` / `SharedLinkRouter`）。Android は共有先を選ぶと直接開く。
 
 **画像の中の文字も、その言語のものを使う。** 説明文だけ翻訳して絵は英語のまま、
 という作りにはしていない（絵と文字が食い違うと、かえって迷わせるため）。
 
-| 手順 | 中身 |
-| --- | --- |
-| 1 | YouTube で動画（またはチャンネル）を開いた画面。**共有ボタンを枠で囲む** |
-| 2 | 共有シート／メニュー。**押す場所を枠で囲む** |
-| 3 | OS の共有シート。**本アプリを枠で囲む** |
-| 4 | iOS は通知、Android は開いた一覧 |
+| | 枚数 | 置き場所 | 素材 |
+| --- | --- | --- | --- |
+| iOS | 5 × 7 = **35枚**（830KB） | `Resources/Assets.xcassets/tutorial_step<n>_<lang>.imageset/` | `docs/tutorial/ss/` |
+| Android | 4 × 7 = **28枚**（657KB） | `res/drawable[-<lang>]-nodpi/tutorial_step<n>.jpg` | `docs/tutorial/ssa/` |
 
-置き場所:
+素材の1〜4（iOS）と1〜3（Android）は**実機で撮ったもの**。
+iOS の5（一覧）だけは iOS シミュレーターで7言語ぶん撮った（`ios-screenshots.yml`）。
 
-- iOS … `Resources/Assets.xcassets/tutorial_step<n>_<lang>.imageset/`
-  （**7言語 × 4枚 = 28枚・約475KB**。実機で撮った素材から生成）
-- Android … `android/app/src/main/res/drawable[-<lang>]-nodpi/tutorial_step<n>.jpg`
-  （**いまは英語と日本語だけ**・約341KB）
+> ⚠️ **例に使うチャンネルは NASA で統一する。** 以前はストア用スクリーンショットを
+> 流用していて iOS の一覧だけ別チャンネルだったが、**他人の著作物を説明素材に使わない**ため
+> NASA（パブリックドメイン中心の公的機関）で撮り直した。差し替えるときも NASA を使うこと。
 
-> ⚠️ **Android の残り5言語（中国語・スペイン語・ドイツ語・フランス語・韓国語）は未取得。**
-> エミュレータのシステム言語は切り替えられる（OS の共有シートや許可ダイアログはその言語で出る）が、
-> **YouTube アプリだけがシステム言語に追随しない**ことを確認した。
-> システムを de-AT にして許可ダイアログが「Zulassen」でも、YouTube の中は日本語のままだった。
-> `set-app-locales`（指定・空の両方）と `pm clear` を試しても変わらない。
-> **実機で撮るのが確実**（iOS の素材はそうやって用意されている）。
-> 用意が無い言語は Android の仕組みで `drawable-nodpi/`（英語）が使われるので、
-> **壊れはしない**（文字はその言語、画像だけ英語という状態になる）。
-> 埋めるには第11節の手順で `python scripts/capture_android_tutorial.py --lang <言語>` を流す。
-> 仕組み自体は英語と日本語で動作を確認済み。
-- 素材（加工前）… iOS は `docs/tutorial/ss/`、Android は `docs/tutorial/raw/`
-
-書き出しは `python scripts/build_tutorial_images.py`。クロップと枠の座標は
-そのスクリプトに**素材のピクセル座標**で書いてある。
+書き出しは `python scripts/build_tutorial_images.py`。
 
 ## 8. @nasa を例に使った理由と、提携でないことの明示
 

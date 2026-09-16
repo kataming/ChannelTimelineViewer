@@ -21,8 +21,9 @@ struct ChannelTutorialView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var index = 0
 
-    /// 手順の数。画像も文言も 1〜4 で揃えてある。
-    private let stepCount = 4
+    /// 手順の数。iOS は**5つ**（共有したあと通知をタップして初めて一覧が開くため）。
+    /// Android は通知が無く直接開くので4つ。数が違うのは本物の違い。
+    private let stepCount = 5
 
     /// いまの表示言語に合う画像の名前。
     ///
@@ -42,14 +43,27 @@ struct ChannelTutorialView: View {
     }
 
     /// 書式に %@（アプリ名）が入るキーがあるので、String(format:) を通すために生キーで持つ。
-    private func titleKey(_ step: Int) -> String { "tutorial.step\(step).title" }
-
-    /// 手順3と4は、共有の受け取り方が iOS だけ違うので別の文章を使う。
-    private func bodyKey(_ step: Int) -> String {
-        step >= 3 ? "tutorial.step\(step).body.ios" : "tutorial.step\(step).body"
+    private func titleKey(_ step: Int) -> String {
+        switch step {
+        case 4: return "tutorial.step4.title.ios"   // 通知をタップ（iOS だけの手順）
+        case 5: return "tutorial.step4.title"       // 一覧が開く
+        default: return "tutorial.step\(step).title"
+        }
     }
 
-    private func imageA11yKey(_ step: Int) -> String { "tutorial.step\(step).image.a11y" }
+    /// 手順3・4は、共有の受け取り方が iOS だけ違うので別の文章を使う。
+    /// 手順5（一覧が開く）は Android の手順4と同じ文章でよい。
+    private func bodyKey(_ step: Int) -> String {
+        switch step {
+        case 3, 4: return "tutorial.step\(step).body.ios"
+        case 5: return "tutorial.step4.body"
+        default: return "tutorial.step\(step).body"
+        }
+    }
+
+    private func imageA11yKey(_ step: Int) -> String {
+        step == 5 ? "tutorial.step4.image.a11y" : "tutorial.step\(step).image.a11y"
+    }
 
     private var isLast: Bool { index == stepCount - 1 }
     private var step: Int { index + 1 }

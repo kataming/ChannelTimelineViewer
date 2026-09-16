@@ -55,6 +55,7 @@ SKIP_KEYS = {
     # Android 側に入れると使われないまま残り、lint が UnusedResources を出す。
     "tutorial.step3.body.ios",
     "tutorial.step4.body.ios",
+    "tutorial.step4.title.ios",
 }
 
 

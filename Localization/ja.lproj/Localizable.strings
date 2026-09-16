@@ -455,6 +455,8 @@
 "tutorial.step4.image.a11y" = "%@ が動画一覧を開いた画面";
 /* 手順4の見出し */
 "tutorial.step4.title" = "一覧が開きます";
+/* 手順4の見出し（iOS・通知をタップする） */
+"tutorial.step4.title.ios" = "通知をタップ";
 /* 画面名: チャンネルの追加方法 */
 "tutorial.title" = "チャンネルの追加方法";
 /* スワイプ: 未視聴に戻す */

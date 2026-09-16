@@ -455,6 +455,8 @@
 "tutorial.step4.image.a11y" = "%@ mit der Videoliste";
 /* 手順4の見出し */
 "tutorial.step4.title" = "Die Videoliste öffnet sich";
+/* 手順4の見出し（iOS・通知をタップする） */
+"tutorial.step4.title.ios" = "Auf die Mitteilung tippen";
 /* 画面名: チャンネルの追加方法 */
 "tutorial.title" = "So fügst du einen Kanal hinzu";
 /* スワイプ: 未視聴に戻す */

@@ -2368,5 +2368,15 @@
     "de": "%@ mit der Videoliste",
     "fr": "%@ affichant la liste des vidéos",
     "ko": "%@ 이(가) 동영상 목록을 연 화면"
+  },
+  "tutorial.step4.title.ios": {
+    "comment": "手順4の見出し（iOS・通知をタップする）",
+    "ja": "通知をタップ",
+    "en": "Tap the notification",
+    "zh-Hans": "点按通知",
+    "es": "Toca la notificación",
+    "de": "Auf die Mitteilung tippen",
+    "fr": "Appuyez sur la notification",
+    "ko": "알림을 탭합니다"
   }
 }

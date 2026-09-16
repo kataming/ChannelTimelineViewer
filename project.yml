@@ -17,8 +17,10 @@ settings:
     # ⚠️ この番号を置いても、提出しなければ公開はされない。
     MARKETING_VERSION: "1.2.0"
     # 公開済みは 1.1.1(30)。同じ番号は再アップロードできないので 31 以降。
+    # 32 = チャンネル追加の案内（TestFlight で確認済み）。
+    # 33 = 自動再生トグルの見出し修正＋既定オン。
     # CI（ios-release.yml）は build_number 入力（既定は実行番号）で上書きする。
-    CURRENT_PROJECT_VERSION: "32"
+    CURRENT_PROJECT_VERSION: "33"
     # === 提出準備中 ===
     # Bundle ID は App Store Connect 登録済みの値に設定済み(下のターゲット設定)。
     # DEVELOPMENT_TEAM は Team ID(10桁) を入れると署名が有効になる。空のままなら従来どおり

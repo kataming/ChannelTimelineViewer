@@ -277,22 +277,42 @@ def upsert_product(api, dry_run: bool) -> int:
 #    文言はアプリ内「このアプリについて」の説明（Localization/strings.json の about.analytics.*）と
 #    そろえる。画面名も各言語の about.title と同じ表記を使う。
 #
-# 1.9 (versionCode 11): Pro 購入の計測を「購入開始」と「購入成立」に分けた。
-#                       利用者から見える変更は無いので、内部の改善としてだけ書く
-#                       （記録の中身は 1.8 から増えていない＝画面名と操作の種類だけ）。
+# 1.9 (versionCode 11): Pro 購入の計測を「購入開始」と「購入成立」に分けた（公開済み）。
+#
+# 1.10: 利用者から見える変更が2つ入る。**必ず両方書くこと**。
+#   - チャンネルの追加方法の案内（初回チュートリアル）を追加
+#   - 自動再生の初期状態をオフ→オンに変更。
+#     ⚠️ **「すでにご自分で切り替えた方の設定はそのまま」を必ず書く。**
+#     これが抜けると「勝手に設定を変えられた」と受け取られる。実装も実際にそうなっていて、
+#     新しい既定が効くのは**一度も操作していない端末だけ**（PlaybackSettingsStore）。
 RELEASE_NOTES = {
-    "ja-JP": "アプリを改善するための内部的な修正を行いました。"
-             "機能・画面・記録する内容に変更はありません。",
-    "en-US": "Internal improvements to help us improve the app. "
-             "Nothing about the features, the screens, or what is measured has changed.",
-    "zh-CN": "进行了用于改进应用的内部调整。功能、界面以及统计内容均无变化。",
-    "es-ES": "Mejoras internas para seguir mejorando la app. "
-             "No cambian las funciones, las pantallas ni lo que se mide.",
-    "de-DE": "Interne Verbesserungen zur Weiterentwicklung der App. "
-             "An den Funktionen, den Bildschirmen und dem, was gemessen wird, ändert sich nichts.",
-    "fr-FR": "Améliorations internes pour continuer à améliorer l’app. "
-             "Les fonctionnalités, les écrans et ce qui est mesuré ne changent pas.",
-    "ko-KR": "앱 개선을 위한 내부 수정을 했습니다. 기능·화면·기록하는 내용에는 변경이 없습니다.",
+    "ja-JP": "・チャンネルの追加方法を、初めての方に画面つきでご案内するようにしました。\n"
+             "・自動再生の初期状態をオンにしました。すでにご自分で切り替えた方の設定はそのままです。"
+             "再生画面のトグルでいつでも変更できます。\n"
+             "・自動再生トグルの表示を分かりやすくしました。",
+    "en-US": "• Added a short, illustrated guide showing new users how to add a channel.\n"
+             "• Autoplay is now on by default. If you have already chosen a setting it stays as it is, "
+             "and you can change it any time on the player screen.\n"
+             "• Made the autoplay toggle easier to read.",
+    "zh-CN": "・新增带图示的引导，向初次使用的用户说明如何添加频道。\n"
+             "・自动播放的初始状态改为开启。已自行设置过的用户将保持原有设置，可随时在播放界面更改。\n"
+             "・让自动播放开关的显示更易理解。",
+    "es-ES": "• Nueva guía ilustrada que explica a quienes empiezan cómo añadir un canal.\n"
+             "• La reproducción automática ahora viene activada. Si ya habías elegido un ajuste se mantiene, "
+             "y puedes cambiarlo cuando quieras en la pantalla del reproductor.\n"
+             "• El interruptor de reproducción automática ahora se entiende mejor.",
+    "de-DE": "• Neue bebilderte Anleitung, die neuen Nutzern zeigt, wie man einen Kanal hinzufügt.\n"
+             "• Autoplay ist jetzt standardmäßig an. Wer bereits eine Einstellung gewählt hat, behält sie "
+             "und kann sie jederzeit im Player ändern.\n"
+             "• Der Autoplay-Schalter ist jetzt leichter zu verstehen.",
+    "fr-FR": "• Nouveau guide illustré expliquant aux nouveaux utilisateurs comment ajouter une chaîne.\n"
+             "• La lecture automatique est désormais activée par défaut. Si vous aviez déjà choisi un réglage, "
+             "il est conservé et reste modifiable à tout moment depuis le lecteur.\n"
+             "• L’interrupteur de lecture automatique est plus clair.",
+    "ko-KR": "・채널을 추가하는 방법을 처음 쓰는 분께 그림과 함께 안내합니다.\n"
+             "・자동 재생의 초기 상태를 켜짐으로 바꿨습니다. 이미 직접 설정한 분은 그대로 유지되며, "
+             "재생 화면에서 언제든지 바꿀 수 있습니다.\n"
+             "・자동 재생 토글 표시를 알아보기 쉽게 다듬었습니다.",
 }
 
 

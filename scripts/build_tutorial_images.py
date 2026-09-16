@@ -42,7 +42,7 @@ from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parent.parent
 IOS_RAW = ROOT / "docs" / "tutorial" / "ss"
-ANDROID_RAW = ROOT / "docs" / "tutorial" / "raw"
+ANDROID_RAW = ROOT / "docs" / "tutorial" / "ssa"
 ANDROID_RES = ROOT / "android" / "app" / "src" / "main" / "res"
 IOS_ASSETS = ROOT / "Resources" / "Assets.xcassets"
 
@@ -57,6 +57,15 @@ LANGUAGES = {
     "fr": ("フランス語", "fr"),
     "ko": ("韓国語", "ko"),
 }
+
+# 手順の番号。iOS は 1〜4（4＝通知）、Android は 1〜3 と 5（一覧が直接開くので4が無い）。
+# 画面に出す通し番号は別で振り直す（アプリ側で 1/4・1/3 のように数える）。
+IOS_STEP_FILES = (1, 2, 3, 4)
+ANDROID_STEP_FILES = (1, 2, 3, 5)
+
+# 本アプリのアイコンの緑。共有シートの中でこの色はほぼ本アプリだけなので、
+# **色を手がかりに位置を見つける**（並び順は言語で変わるため、座標では追えない）。
+APP_ICON_GREEN = (23, 145, 74)
 
 OUT_WIDTH = 640
 # ハイライトの色。YouTube の赤や NASA の色と紛れないよう、アプリの緑を使う。
@@ -78,6 +87,51 @@ def load(path: Path) -> Image.Image:
         raise SystemExit(f"素材がありません: {path}\n"
                          f"取り直しの手順は docs/onboarding/CHANNEL_ADD_TUTORIAL.md を参照。")
     return Image.open(path).convert("RGB")
+
+
+def find_app_icon(img: Image.Image, tolerance: int = 18) -> tuple[int, int, int, int] | None:
+    """共有シートの中から本アプリのアイコンを、色を手がかりに探す。
+
+    共有先の並び順は**言語で変わる**（アプリ名の並び替えが言語依存のため）。
+    座標で決め打ちにできないので、アイコンの緑を探して位置を決める。
+
+    ⚠️ 似た緑を持つアプリが混ざる（CamScanner の帯は (0,199,162)）。
+       そこで許容差を狭くしたうえで、**いちばん大きな塊だけ**を採る。
+       見つからなければ None を返し、呼び出し側は枠を描かずに済ませる。
+    """
+    tr, tg, tb = APP_ICON_GREEN
+    pixels = img.load()
+    hits = []
+    for y in range(0, img.height, 2):
+        for x in range(0, img.width, 2):
+            r, g, b = pixels[x, y][:3]
+            if (abs(r - tr) < tolerance and abs(g - tg) < tolerance
+                    and abs(b - tb) < tolerance):
+                hits.append((x, y))
+    if len(hits) < 60:
+        return None
+
+    # 近い点どうしをまとめる（縦横に離れていれば別のアプリのアイコン）。
+    gap = max(12, img.width // 40)
+    groups: list[list[tuple[int, int]]] = []
+    for point in sorted(hits):
+        for group in groups:
+            gx0 = min(p[0] for p in group)
+            gx1 = max(p[0] for p in group)
+            gy0 = min(p[1] for p in group)
+            gy1 = max(p[1] for p in group)
+            if gx0 - gap <= point[0] <= gx1 + gap and gy0 - gap <= point[1] <= gy1 + gap:
+                group.append(point)
+                break
+        else:
+            groups.append([point])
+
+    biggest = max(groups, key=len)
+    if len(biggest) < 60:
+        return None
+    xs = [p[0] for p in biggest]
+    ys = [p[1] for p in biggest]
+    return min(xs), min(ys), max(xs), max(ys)
 
 
 def rounded_box(img: Image.Image, box, width: int = 6, radius: int = 18) -> Image.Image:
@@ -133,23 +187,43 @@ def build_ios() -> int:
 
 
 def build_android() -> int:
-    print("== Android（エミュレータの素材から）==")
+    """実機で撮ってもらった素材（docs/tutorial/ssa/）から作る。
+
+    手順3だけは、アプリの位置が言語で変わるので**アイコンを探して**枠を描く。
+    """
+    print("== Android（実機の素材から）==")
     total = 0
     missing = []
-    for lang, (_, qualifier) in LANGUAGES.items():
-        for step in (1, 2, 3, 4):
-            src_path = ANDROID_RAW / f"android-{lang}-{step}.png"
+    for lang, (jp_name, qualifier) in LANGUAGES.items():
+        made = 0
+        for index, step in enumerate(ANDROID_STEP_FILES, start=1):
+            src_path = ANDROID_RAW / f"{jp_name}{step}a.png"
             if not src_path.exists():
                 missing.append(src_path.name)
                 continue
             src = load(src_path)
             (top, bottom), box = to_pixels(ANDROID_STEPS[step], src.width, src.height)
+            if step == 3:
+                # 共有先の一覧。アイコンを探して、その下の名前まで含めて囲む。
+                found = find_app_icon(src)
+                box = None
+                if found:
+                    x0, y0, x1, y1 = found
+                    pad = int(src.width * 0.018)
+                    label = int(src.height * 0.045)   # アイコンの下にある名前のぶん
+                    box = (x0 - pad, y0 - pad, x1 + pad, y1 + label)
+                    # 囲む場所が見えるように、切り出す範囲をそこへ寄せる。
+                    top = max(0, y0 - int(src.height * 0.055))
+                    bottom = min(src.height, y1 + int(src.height * 0.085))
+                else:
+                    print(f"    ⚠️ {lang}: 共有シートで本アプリを見つけられず、枠なしで出す")
             img = src.crop((0, top, src.width, bottom))
             if box:
                 x0, y0, x1, y1 = box
                 img = rounded_box(img, (x0, y0 - top, x1, y1 - top))
-            total += save_android(finish(img), step, qualifier)
-        print(f"  {lang}: {'4枚' if not missing else '素材待ち'}")
+            total += save_android(finish(img), index, qualifier)
+            made += 1
+        print(f"  {lang}: {made}枚")
     if missing:
         print(f"  ⚠️ 未取得の素材 {len(missing)} 件（例: {missing[0]}）")
     print(f"  Android 合計 {total // 1024}KB")
@@ -165,10 +239,15 @@ def build_android() -> int:
 #   1 動画ページ（共有ボタンが見える） 2 YouTube の共有シート
 #   3 Android の共有シート            4 本アプリが開いた一覧
 ANDROID_STEPS = {
-    1: dict(crop=(0.26, 0.42), box=(0.62, 0.325, 0.78, 0.385)),
-    2: dict(crop=(0.52, 0.72), box=(0.42, 0.575, 0.58, 0.675)),
-    3: dict(crop=(0.82, 0.99), box=(0.21, 0.845, 0.41, 0.975)),
-    4: dict(crop=(0.05, 0.73), box=None),
+    # 1: 動画ページ。タイトルと操作の並びが入り、**共有ボタン（↪）**を囲む。
+    1: dict(crop=(0.30, 0.46), box=(0.695, 0.405, 0.785, 0.445)),
+    # 2: YouTube 自身の共有シート。ここでは押す場所を指さず、
+    #    「共有先の一覧が出る」ことだけを見せる（機種で「その他」の有無が変わるため）。
+    2: dict(crop=(0.46, 0.70), box=None),
+    # 3: Android の共有シート。枠は find_app_icon が見つけた位置に描く（ここの値は使わない）。
+    3: dict(crop=(0.0, 1.0), box=None),
+    # 5: 本アプリが開いた一覧。上部バー・進捗・最初の数本が入る高さ。
+    5: dict(crop=(0.02, 0.62), box=None),
 }
 
 

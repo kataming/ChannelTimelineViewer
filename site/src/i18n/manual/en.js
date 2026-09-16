@@ -52,7 +52,7 @@ export default {
       title: '4. Playing videos',
       body: 'Playback uses YouTube’s official embedded player. The controls sit below it.',
       steps: [
-        { title: 'Autoplay (off by default)', body: 'Use the toggle on the player screen. Turned on, it reads “Autoplay on: continue to the next video” and plays only the next video in the list you have open. It never sends you to related videos or another channel. Left off, playback stops at the end and a “Play next video” button appears.' },
+        { title: 'Autoplay (on by default)', body: 'Use the “Autoplay” toggle on the player screen. While it is on, only the next video in the list you have open plays next. It never sends you to related videos or another channel. Switch it off and playback stops at the end, with a “Play next video” button instead. Your choice is saved on the device and kept when the app updates.' },
         { title: 'Play unwatched only', body: 'The toggle below autoplay. Turned on, videos you have already watched are passed over as well, so only unwatched ones play.' },
         { title: 'Repeat', body: 'The badge at the top right cycles through “Off → One → All”. “One” repeats the same video regardless of the autoplay setting. “All” returns to the first video after the last one (when autoplay is on).' },
         { title: 'Moving around', body: 'Five buttons: “First”, “Previous”, “Undo”, “Next”, “Last”. “Undo” reverses your last jump and returns you to the video and position you were at — useful when you tap the wrong button.' },

@@ -11,7 +11,7 @@ HAUPTFUNKTIONEN
 • Fortschritt pro Kanal: gesehene Videos, Prozentwert, Fortschrittsbalken
 • „Als Nächstes / Weiter“ bringt dich sofort zurück zur Unterbrechung
 • Fortsetzen auf die Sekunde genau
-• Optionales Autoplay zum nächsten Video der Liste (standardmäßig aus)
+• Autoplay zum nächsten Video der Liste (standardmäßig an, jederzeit abschaltbar)
 • Wiederholen: ein Video oder alle
 • Videos als gesehen oder übersprungen markieren; nur ungesehene abspielen
 • Filter: alle / ungesehen / gesehen
@@ -34,7 +34,7 @@ HINWEISE
 • Diese App ist nicht die offizielle YouTube-App.
 • Sie lädt keine Videos herunter, blockiert keine Werbung und spielt nicht im Hintergrund.
 • Videolisten stammen aus der YouTube Data API v3.
-• Autoplay ist standardmäßig aus und wechselt nur zum nächsten Video der geöffneten Liste.
+• Autoplay ist standardmäßig an, wechselt aber nur zum nächsten Video der geöffneten Liste und lässt sich im Player jederzeit abschalten.
 • Keine Werbung und keine Abos – Pro ist ein einmaliger Kauf.
 • Verlauf, Fortschritt, Notizen und Positionen bleiben auf deinem Gerät.
 

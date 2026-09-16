@@ -1,10 +1,10 @@
 /* このファイルは scripts/build_localizations.py が生成します。直接編集しないこと。 */
 /* language: en */
 
-/* 自動再生の説明 */
-"about.autoPlay.body" = "Autoplay is off by default: playback stops when a video ends and a “Play next video” button appears. It continues only if you turn on “Autoplay” yourself on the player screen. Even then it moves only to the next video in the channel list you opened — never to related or recommended videos. There is no background playback, so closing the app stops both playback and autoplay.";
-/* 見出し: 自動再生 */
-"about.autoPlay.header" = "Autoplay (optional, off by default)";
+/* このアプリについて: 自動再生の説明。既定オン・進む先は開いている一覧の次だけ・いつでもオフ・自分で選んだ設定は更新後も引き継ぐ、の4点を必ず含めること */
+"about.autoPlay.body" = "Autoplay is on by default: when a video ends, playback continues to the next video in the channel list you have open. It moves only to the next video in that list — never to related or recommended videos. You can switch it off at any time with the “Autoplay” toggle on the player screen; playback then stops when a video ends and a “Play next video” button appears. Your own choice is saved on the device and is kept when the app updates. There is no background playback, so closing the app stops both playback and autoplay.";
+/* このアプリについて: 自動再生の見出し（既定オン） */
+"about.autoPlay.header" = "Autoplay (on by default, switch it off any time)";
 /* データの説明 */
 "about.data.body" = "Video lists come from the YouTube Data API v3. Playback embeds YouTube’s official player as-is. No scraping and no custom player.";
 /* 見出し: データの取得と再生について */

@@ -238,8 +238,8 @@ struct PlayerView: View {
         }
     }
 
-    /// 主操作：終了後に次へ進むかどうかを、**再生中に**選べるようにする（既定オフ）。
-    /// ユーザーが明示的にオンにした場合だけ、一覧の次の動画へ進む。
+    /// 主操作：終了後に次へ進むかどうかを、**再生中に**選べるようにする（既定オン）。
+    /// 進む先は一覧の次の動画だけで、いつでもオフにできる。
     private var autoPlayControl: some View {
         VStack(alignment: .leading, spacing: 10) {
             Toggle(isOn: $settings.autoPlayNext) {

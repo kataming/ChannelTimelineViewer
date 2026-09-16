@@ -51,7 +51,7 @@ export default {
       title: '4. Reproducir',
       body: 'La reproducción usa el reproductor incrustado oficial de YouTube. Los controles están debajo.',
       steps: [
-        { title: 'Reproducción automática (desactivada por defecto)', body: 'Se controla con el interruptor de la pantalla del reproductor. Activada, muestra «Reproducción automática activada: sigue con el siguiente vídeo» y solo reproduce el siguiente vídeo de la lista abierta; nunca te lleva a vídeos relacionados ni a otro canal. Desactivada, la reproducción se detiene y aparece el botón «Reproducir siguiente».' },
+        { title: 'Reproducción automática (activada por defecto)', body: 'Se controla con el interruptor «Reproducción automática» de la pantalla del reproductor. Mientras está activada, solo reproduce el siguiente vídeo de la lista abierta; nunca te lleva a vídeos relacionados ni a otro canal. Si la desactivas, la reproducción se detiene al terminar y aparece el botón «Reproducir siguiente». Tu elección se guarda en el dispositivo y se mantiene al actualizar la app.' },
         { title: 'Reproducir solo no vistos', body: 'Es el interruptor de debajo. Activado, también se saltan los vídeos ya vistos y solo se reproducen los pendientes.' },
         { title: 'Repetir', body: 'La insignia de arriba a la derecha alterna «Desactivado → Uno → Todos». «Uno» repite el mismo vídeo independientemente de la reproducción automática. «Todos» vuelve al primero al terminar el último (con la reproducción automática activada).' },
         { title: 'Desplazarse', body: 'Cinco botones: «Primero», «Anterior», «Deshacer», «Siguiente» y «Último». «Deshacer» revierte el último salto y te devuelve al vídeo y la posición donde estabas, útil si te equivocas de botón.' },

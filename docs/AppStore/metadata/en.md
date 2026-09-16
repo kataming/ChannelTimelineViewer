@@ -53,7 +53,7 @@ MAIN FEATURES
 • Per-channel progress: watched count, percentage, progress bar
 • "Up next / Continue" takes you straight back to where you stopped
 • Resume from the exact second you left off
-• Optional autoplay to the next video in the list (off by default)
+• Autoplay to the next video in the list (on by default, and you can turn it off at any time)
 • Repeat one or repeat all
 • Mark videos watched or skipped; play unwatched only
 • Filters: all / unwatched / watched
@@ -75,7 +75,7 @@ PLEASE NOTE
 • This app is not the official YouTube app.
 • It does not download videos, block ads, or play in the background.
 • Video lists are retrieved via the YouTube Data API v3.
-• Autoplay is off by default and only moves to the next video in the list you opened.
+• Autoplay is on by default, but it only moves to the next video in the list you opened, and you can turn it off on the player screen at any time.
 • No ads. No subscriptions either — Pro is a one-time purchase.
 
 YouTube is a trademark of Google LLC.

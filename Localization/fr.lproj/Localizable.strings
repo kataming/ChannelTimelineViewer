@@ -1,10 +1,10 @@
 /* このファイルは scripts/build_localizations.py が生成します。直接編集しないこと。 */
 /* language: fr */
 
-/* 自動再生の説明 */
-"about.autoPlay.body" = "La lecture automatique est désactivée par défaut : à la fin d’une vidéo, la lecture s’arrête et un bouton « Lire la vidéo suivante » apparaît. Elle ne continue que si vous activez vous-même « Lecture automatique » sur l’écran du lecteur. Même alors, elle passe uniquement à la vidéo suivante de la liste de la chaîne ouverte, jamais aux vidéos associées ou recommandées. Il n’y a pas de lecture en arrière-plan : fermer l’app arrête tout.";
-/* 見出し: 自動再生 */
-"about.autoPlay.header" = "Lecture automatique (facultative, désactivée par défaut)";
+/* このアプリについて: 自動再生の説明。既定オン・進む先は開いている一覧の次だけ・いつでもオフ・自分で選んだ設定は更新後も引き継ぐ、の4点を必ず含めること */
+"about.autoPlay.body" = "La lecture automatique est activée par défaut : à la fin d’une vidéo, la lecture continue avec la vidéo suivante de la liste de la chaîne ouverte. Elle passe uniquement à la vidéo suivante de cette liste, jamais aux vidéos associées ou recommandées. Vous pouvez la désactiver à tout moment avec l’interrupteur « Lecture automatique » de l’écran du lecteur ; la lecture s’arrête alors à la fin et un bouton « Lire la vidéo suivante » apparaît. Votre choix est enregistré sur l’appareil et conservé lors des mises à jour. Il n’y a pas de lecture en arrière-plan : fermer l’app arrête tout.";
+/* このアプリについて: 自動再生の見出し（既定オン） */
+"about.autoPlay.header" = "Lecture automatique (activée par défaut, modifiable à tout moment)";
 /* データの説明 */
 "about.data.body" = "Les listes de vidéos proviennent de l’API YouTube Data v3. La lecture intègre le lecteur officiel tel quel. Ni scraping, ni lecteur maison.";
 /* 見出し: データの取得と再生について */

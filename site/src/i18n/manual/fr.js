@@ -51,7 +51,7 @@ export default {
       title: '4. Lire les vidéos',
       body: 'La lecture utilise le lecteur intégré officiel de YouTube. Les commandes se trouvent en dessous.',
       steps: [
-        { title: 'Lecture automatique (désactivée par défaut)', body: 'Utilisez l’interrupteur de l’écran de lecture. Activée, elle indique « Lecture auto activée : passer à la vidéo suivante » et ne lit que la vidéo suivante de la liste ouverte ; elle ne vous emmène jamais vers des vidéos suggérées ni vers une autre chaîne. Désactivée, la lecture s’arrête à la fin et un bouton « Lire la vidéo suivante » apparaît.' },
+        { title: 'Lecture automatique (activée par défaut)', body: 'Utilisez l’interrupteur « Lecture automatique » de l’écran de lecture. Tant qu’elle est activée, seule la vidéo suivante de la liste ouverte est lue ; elle ne vous emmène jamais vers des vidéos suggérées ni vers une autre chaîne. Désactivée, la lecture s’arrête à la fin et un bouton « Lire la vidéo suivante » apparaît. Votre choix est enregistré sur l’appareil et conservé lors des mises à jour.' },
         { title: 'Lire seulement les non regardées', body: 'L’interrupteur juste en dessous. Activé, les vidéos déjà vues sont également sautées : seules les non vues sont lues.' },
         { title: 'Répétition', body: 'Le badge en haut à droite alterne « Désactivée → Une → Toutes ». « Une » répète la même vidéo quel que soit le réglage de lecture automatique. « Toutes » revient à la première après la dernière (lecture automatique activée).' },
         { title: 'Se déplacer', body: 'Cinq boutons : « Première », « Précédente », « Annuler », « Suivante », « Dernière ». « Annuler » revient sur le dernier saut et vous ramène à la vidéo et à la position d’avant — pratique en cas d’erreur.' },

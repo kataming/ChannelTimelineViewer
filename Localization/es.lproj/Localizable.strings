@@ -1,10 +1,10 @@
 /* このファイルは scripts/build_localizations.py が生成します。直接編集しないこと。 */
 /* language: es */
 
-/* 自動再生の説明 */
-"about.autoPlay.body" = "La reproducción automática está desactivada por defecto: al terminar un vídeo se detiene y aparece un botón «Reproducir el siguiente». Solo continúa si activas «Reproducción automática» en la pantalla del reproductor. Aun así, solo avanza al siguiente vídeo de la lista del canal abierto, nunca a vídeos relacionados o recomendados. No hay reproducción en segundo plano: al cerrar la app se detiene todo.";
-/* 見出し: 自動再生 */
-"about.autoPlay.header" = "Reproducción automática (opcional, desactivada por defecto)";
+/* このアプリについて: 自動再生の説明。既定オン・進む先は開いている一覧の次だけ・いつでもオフ・自分で選んだ設定は更新後も引き継ぐ、の4点を必ず含めること */
+"about.autoPlay.body" = "La reproducción automática está activada por defecto: al terminar un vídeo, continúa con el siguiente de la lista del canal que tienes abierta. Solo avanza al siguiente vídeo de esa lista, nunca a vídeos relacionados o recomendados. Puedes desactivarla cuando quieras con el interruptor «Reproducción automática» de la pantalla del reproductor; entonces la reproducción se detiene al terminar y aparece un botón «Reproducir el siguiente». Tu elección se guarda en el dispositivo y se mantiene al actualizar la app. No hay reproducción en segundo plano: al cerrar la app se detiene todo.";
+/* このアプリについて: 自動再生の見出し（既定オン） */
+"about.autoPlay.header" = "Reproducción automática (activada por defecto, puedes cambiarla cuando quieras)";
 /* データの説明 */
 "about.data.body" = "Las listas de vídeos se obtienen con la API de datos de YouTube v3. La reproducción incrusta el reproductor oficial tal cual. Sin scraping ni reproductor propio.";
 /* 見出し: データの取得と再生について */

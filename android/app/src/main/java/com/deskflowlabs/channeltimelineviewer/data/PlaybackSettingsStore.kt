@@ -40,14 +40,16 @@ enum class RepeatMode {
  * 再生に関するユーザー設定（端末内に保存）。iOS 版 `Services/PlaybackSettingsStore.swift` の移植。
  *
  * - `resumeFromLastPosition`: 前回停止した位置から再生する（**既定オン**）
- * - `autoPlayNext`: 再生終了時に一覧の次の動画を続けて再生する（**既定オフ＝任意機能**）
+ * - `autoPlayNext`: 再生終了時に一覧の次の動画を続けて再生する（**既定オン**・2026-09-16 変更）
  *
- * 自動再生は既定オフで、**ユーザーが再生画面のトグルで明示的にオンにしたときだけ**有効になる。
- * 対象は**ユーザーが開いたチャンネル一覧の中の「次の動画」だけ**で、YouTube の関連動画・
- * おすすめへは進まない。バックグラウンド再生は行わない。
+ * 自動再生が進む先は**ユーザーが開いたチャンネル一覧の中の「次の動画」だけ**で、YouTube の
+ * 関連動画・おすすめへは進まない。再生画面の「自動再生」トグルでいつでもオフにできる。
+ * バックグラウンド再生は行わない。
  *
- * 保存は「ユーザーが操作したときだけ」行う。未操作の端末には値が保存されず、
- * アップデートで既定値が変わっても**勝手にオンにはならない**。
+ * ⚠️ **既定値は「まだ一度も操作していない人」にだけ効く。**
+ * 保存はユーザーが操作したときだけ行うので、キーの有無で「未操作」と「自分で選んだ」を見分けられる。
+ * 自分でオフにした人は**オフのまま**、オンにした人は**オンのまま**引き継がれ、既定値の変更で
+ * 上書きされることはない（`getBoolean` の第2引数はキーが無いときだけ使われる）。
  */
 class PlaybackSettingsStore(private val prefs: SharedPreferences) {
 
@@ -59,7 +61,8 @@ class PlaybackSettingsStore(private val prefs: SharedPreferences) {
     private val _resumeFromLastPosition = MutableStateFlow(prefs.getBoolean(resumeKey, true))
     val resumeFromLastPosition: StateFlow<Boolean> = _resumeFromLastPosition.asStateFlow()
 
-    private val _autoPlayNext = MutableStateFlow(prefs.getBoolean(autoPlayNextKey, false))
+    // 既定オン。自分で切り替えた人はキーが保存されているので、その選択がそのまま使われる。
+    private val _autoPlayNext = MutableStateFlow(prefs.getBoolean(autoPlayNextKey, true))
     val autoPlayNext: StateFlow<Boolean> = _autoPlayNext.asStateFlow()
 
     private val _repeatMode = MutableStateFlow(

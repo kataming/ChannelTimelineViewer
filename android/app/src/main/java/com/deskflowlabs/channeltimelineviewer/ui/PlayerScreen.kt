@@ -373,7 +373,7 @@ private fun StatusLine(text: String, color: Color) {
 }
 
 /**
- * 自動再生・未視聴のみ再生のトグル。自動再生は**既定オフ**で、ここでオンにした場合だけ働く。
+ * 自動再生・未視聴のみ再生のトグル。自動再生は**既定オン**で、ここでいつでもオフにできる。
  */
 @Composable
 private fun PlaybackToggles(

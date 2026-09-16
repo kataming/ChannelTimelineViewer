@@ -53,15 +53,18 @@ enum RepeatMode: String, CaseIterable, Identifiable, Codable {
 /// 再生に関するユーザー設定（端末内に保存）。
 ///
 /// - `resumeFromLastPosition`: 前回停止した位置から再生する（**既定オン**）
-/// - `autoPlayNext`: 再生終了時に一覧の次の動画を続けて再生する（**既定オフ＝任意機能**）
+/// - `autoPlayNext`: 再生終了時に一覧の次の動画を続けて再生する（**既定オン**・2026-09-16 変更）
 ///
-/// 自動再生は既定でオフで、**ユーザーが再生画面のトグルで明示的にオンにしたときだけ**有効になる。
-/// 対象は**ユーザーが開いたチャンネル一覧の中の「次の動画」だけ**で、YouTube の関連動画・
-/// おすすめへは進まない。バックグラウンド再生は行わない（アプリを閉じると再生も止まる）。
+/// 自動再生が進む先は**ユーザーが開いたチャンネル一覧の中の「次の動画」だけ**で、
+/// YouTube の関連動画・おすすめへは進まない。再生画面の「自動再生」トグルでいつでもオフにできる。
+/// バックグラウンド再生は行わない（アプリを閉じると再生も止まる）。
 ///
-/// 保存は「ユーザーが操作したときだけ」行う（`didSet` は init では呼ばれない）。
-/// そのため未操作の端末には値が保存されず、アップデートで既定値が変わっても
-/// **勝手にオンにはならない**。逆に、自分でオンにした人の設定は保持される。
+/// ⚠️ **既定値は「まだ一度も操作していない人」にだけ効く。**
+/// 保存は `didSet`＝ユーザーが操作したときだけ行う（init では呼ばれない）ので、
+/// `defaults.object(forKey:)` が nil かどうかで「未操作」と「自分で選んだ」を見分けられる。
+/// 自分でオフにした人は**オフのまま**、オンにした人は**オンのまま**引き継がれ、
+/// 既定値の変更で上書きされることはない。ここを `defaults.bool(forKey:)` に変えると
+/// 区別がつかなくなり、利用者が選んだ設定を踏み潰すので**変えないこと**。
 @MainActor
 final class PlaybackSettingsStore: ObservableObject {
     private let defaults: UserDefaults
@@ -75,7 +78,7 @@ final class PlaybackSettingsStore: ObservableObject {
         didSet { defaults.set(resumeFromLastPosition, forKey: resumeKey) }
     }
 
-    /// 終了時に次の動画を自動で再生する（任意機能・既定オフ）。
+    /// 終了時に次の動画を自動で再生する（既定オン。いつでもオフにできる）。
     @Published var autoPlayNext: Bool {
         didSet { defaults.set(autoPlayNext, forKey: autoPlayNextKey) }
     }
@@ -94,8 +97,8 @@ final class PlaybackSettingsStore: ObservableObject {
         self.defaults = defaults
         // 続きから再生は既定オン。
         self.resumeFromLastPosition = defaults.object(forKey: resumeKey) as? Bool ?? true
-        // 自動再生は既定オフ。ユーザーが明示的にオンにした場合のみ true が保存されている。
-        self.autoPlayNext = defaults.object(forKey: autoPlayNextKey) as? Bool ?? false
+        // 自動再生は既定オン。自分で切り替えた人だけ値が保存されているので、その選択を優先する。
+        self.autoPlayNext = defaults.object(forKey: autoPlayNextKey) as? Bool ?? true
         self.repeatMode = (defaults.string(forKey: repeatModeKey))
             .flatMap(RepeatMode.init(rawValue:)) ?? .off
         self.playUnwatchedOnly = defaults.object(forKey: unwatchedOnlyKey) as? Bool ?? false

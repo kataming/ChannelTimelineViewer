@@ -11,7 +11,7 @@ FUNCIONES PRINCIPALES
 • Progreso por canal: vídeos vistos, porcentaje y barra de progreso
 • «Siguiente / Continuar» te devuelve justo donde lo dejaste
 • Reanudación en el segundo exacto en que paraste
-• Reproducción automática opcional del siguiente vídeo (desactivada por defecto)
+• Reproducción automática del siguiente vídeo (activada por defecto; puedes desactivarla cuando quieras)
 • Repetir uno o repetir todo
 • Marca vídeos como vistos u omitidos; reproduce solo los no vistos
 • Filtros: todos / no vistos / vistos
@@ -34,7 +34,7 @@ AVISOS
 • Esta app no es la app oficial de YouTube.
 • No descarga vídeos, no bloquea anuncios y no reproduce en segundo plano.
 • Las listas de vídeos se obtienen con la API de datos de YouTube v3.
-• La reproducción automática está desactivada por defecto y solo avanza al siguiente vídeo de la lista abierta.
+• La reproducción automática está activada por defecto, pero solo avanza al siguiente vídeo de la lista abierta y puedes desactivarla en cualquier momento desde la pantalla del reproductor.
 • Sin anuncios y sin suscripciones: Pro es una compra única.
 • El historial, el progreso, las notas y las posiciones se quedan en tu dispositivo.
 

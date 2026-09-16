@@ -68,10 +68,24 @@ final class PlaybackResumeTests: XCTestCase {
 
     // MARK: - 設定
 
-    func testAutoPlayIsOffByDefaultAndResumeIsOn() {
+    func testAutoPlayIsOnByDefaultAndResumeIsOn() {
         let settings = PlaybackSettingsStore(defaults: makeDefaults("settings"))
-        XCTAssertFalse(settings.autoPlayNext, "自動再生は任意機能なので既定オフ")
+        XCTAssertTrue(settings.autoPlayNext, "自動再生は既定オン（2026-09-16 変更）")
         XCTAssertTrue(settings.resumeFromLastPosition, "続きから再生は既定オン")
+    }
+
+    /// 既定値を変えても、**自分でオフにした人はオフのまま**であること。
+    ///
+    /// ここが壊れると、利用者が選んだ設定をアップデートで踏み潰すことになる。
+    /// 実装が `defaults.object(forKey:)`（未設定を nil で見分ける）でなく
+    /// `defaults.bool(forKey:)` に変わると、このテストが落ちる。
+    func testExplicitlyTurnedOffSurvivesTheNewDefault() {
+        let defaults = makeDefaults("settings.explicit.off")
+        let settings = PlaybackSettingsStore(defaults: defaults)
+        settings.autoPlayNext = false   // 既定と同じ値でも「自分で選んだ」ことを保存する
+
+        let reloaded = PlaybackSettingsStore(defaults: defaults)
+        XCTAssertFalse(reloaded.autoPlayNext, "自分でオフにした設定を既定オンで上書きしてはいけない")
     }
 
     func testSettingsPersist() {
@@ -85,14 +99,18 @@ final class PlaybackResumeTests: XCTestCase {
         XCTAssertFalse(reloaded.resumeFromLastPosition)
     }
 
-    /// 未操作の端末には値が保存されず、アップデートで勝手にオンにならないこと。
-    func testUntouchedSettingIsNotPersistedAndStaysOff() {
+    /// 画面を開いただけでは値を保存しないこと。
+    ///
+    /// ここが保存してしまうと「未操作」と「自分で選んだ」の区別が消え、
+    /// 次に既定値を変えたときに利用者の選択を踏み潰すことになる。
+    func testUntouchedSettingIsNotPersisted() {
         let defaults = makeDefaults("settings")
         _ = PlaybackSettingsStore(defaults: defaults)   // 生成しただけ（ユーザー操作なし）
 
         XCTAssertNil(defaults.object(forKey: "setting_autoplay_next_v1"),
-                     "既定値は保存しない（あとで既定を変えても上書きしない）")
-        XCTAssertFalse(PlaybackSettingsStore(defaults: defaults).autoPlayNext)
+                     "ユーザーが操作するまで値を保存しない")
+        XCTAssertTrue(PlaybackSettingsStore(defaults: defaults).autoPlayNext,
+                      "未操作なら既定（オン）が使われる")
     }
 
     // MARK: - 続きから再生
@@ -188,11 +206,12 @@ final class PlaybackResumeTests: XCTestCase {
         XCTAssertEqual(vm.currentIndex, 2)
     }
 
-    /// 既定（オフ）のままなら、終了後は停止して手動ボタンを出す。
-    func testStopsAndShowsManualButtonByDefault() {
+    /// 自分でオフにしたら、終了後は停止して手動ボタンを出す。
+    func testStopsAndShowsManualButtonWhenTurnedOff() {
         let positions = PlaybackPositionStore(defaults: makeDefaults("pos"))
         let settings = PlaybackSettingsStore(defaults: makeDefaults("settings"))
-        XCTAssertFalse(settings.autoPlayNext, "既定オフのまま検証する")
+        settings.autoPlayNext = false
+        XCTAssertFalse(settings.autoPlayNext, "オフにした状態で検証する")
         let videos = makeVideos(3)
         let vm = makeViewModel(videos: videos, positionStore: positions, settings: settings)
 

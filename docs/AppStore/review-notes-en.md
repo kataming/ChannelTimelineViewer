@@ -21,10 +21,13 @@ HOW VIDEOS ARE PLAYED
 - Playback uses the official YouTube IFrame Player embedded in a WKWebView.
 - The app never downloads video files, never uses a custom player, and never blocks or skips ads.
 
-AUTOPLAY (OPTIONAL, OFF BY DEFAULT)
-- Autoplay is off by default. When a video ends the app stops and shows a "Play next video" button.
-- The player screen always shows a visible toggle. Only if the user turns it on does playback continue.
-- Even then it advances only to the next video of the channel list the user opened.
+AUTOPLAY (ON BY DEFAULT, CAN BE TURNED OFF AT ANY TIME)
+- Autoplay is on by default (changed in 1.2.0; it was off by default before). When a video ends, playback continues to the next video in the channel list the user has open.
+- It can be switched off at any time on the player screen. When off, playback stops at the end of a video and a "Play next video" button is shown.
+- Users who have already chosen a setting keep it: the value is stored on the device and is never overwritten by the change of default.
+- The player screen always shows a visible toggle, so the setting can be changed at any moment
+  (the user is never asked only after a video has ended).
+- Even when it is on, it advances only to the next video of the channel list the user opened.
   It never navigates to related or recommended videos (the embed uses rel=0).
 - No background playback: closing the app or locking the screen stops playback (no UIBackgroundModes,
   no AVAudioSession, no AVPlayer). While a video is playing the app only disables the idle timer so the

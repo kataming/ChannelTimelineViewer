@@ -124,8 +124,8 @@ export function saveState(channelId, state) {
 // --- 再生の設定（チャンネルに紐づかない） ---
 
 const DEFAULT_PREFS = {
-  // 自動再生は既定オフ。ユーザーが再生画面のトグルで明示的にオンにしたときだけ働く。
-  autoplay: false,
+  // 自動再生は既定オン（アプリ版と揃える）。いつでも再生画面のトグルでオフにできる。
+  autoplay: true,
   // 続きから再生は既定オン。
   resume: true,
   repeat: 'off',
@@ -136,7 +136,8 @@ export function loadPrefs() {
   const raw = readJSON(K_PREFS, null);
   if (!raw) return { ...DEFAULT_PREFS };
   return {
-    autoplay: raw.autoplay === true,
+    // 既定オン。自分でオフにした人は false が保存されているので、その選択を残す。
+    autoplay: raw.autoplay !== false,
     resume: raw.resume !== false,
     repeat: ['off', 'one', 'all'].includes(raw.repeat) ? raw.repeat : 'off',
     unwatchedOnly: raw.unwatchedOnly === true,

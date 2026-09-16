@@ -11,7 +11,7 @@ FONCTIONS PRINCIPALES
 • Progression par chaîne : vidéos vues, pourcentage, barre de progression
 • « À suivre / Reprendre » vous ramène exactement là où vous vous étiez arrêté
 • Reprise à la seconde près
-• Lecture automatique facultative de la vidéo suivante (désactivée par défaut)
+• Lecture automatique de la vidéo suivante (activée par défaut, désactivable à tout moment)
 • Répétition d'une vidéo ou de toute la liste
 • Marquez les vidéos comme regardées ou ignorées ; ne lisez que les non vues
 • Filtres : toutes / non vues / vues
@@ -34,7 +34,7 @@ Pour suivre plusieurs chaînes en parallèle et tout conserver, achetez Pro : un
 • Cette app n'est pas l'app officielle YouTube.
 • Elle ne télécharge pas les vidéos, ne bloque pas la publicité et ne lit pas en arrière-plan.
 • Les listes de vidéos proviennent de l'API YouTube Data v3.
-• La lecture automatique est désactivée par défaut et ne passe qu'à la vidéo suivante de la liste ouverte.
+• La lecture automatique est activée par défaut, mais elle ne passe qu'à la vidéo suivante de la liste ouverte et peut être désactivée à tout moment depuis le lecteur.
 • Aucune publicité et aucun abonnement : Pro est un achat unique.
 • Historique, progression, notes et positions restent sur votre appareil.
 

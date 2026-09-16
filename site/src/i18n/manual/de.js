@@ -51,7 +51,7 @@ export default {
       title: '4. Wiedergabe',
       body: 'Die Wiedergabe läuft im offiziellen eingebetteten YouTube-Player. Die Bedienelemente liegen darunter.',
       steps: [
-        { title: 'Autoplay (standardmäßig aus)', body: 'Mit dem Schalter auf dem Player-Bildschirm. Eingeschaltet steht dort „Autoplay ein: weiter zum nächsten Video“, und es läuft nur das nächste Video der geöffneten Liste – nie ähnliche Videos oder ein anderer Kanal. Ausgeschaltet stoppt die Wiedergabe am Ende und es erscheint „Nächstes Video“.' },
+        { title: 'Autoplay (standardmäßig an)', body: 'Mit dem Schalter „Autoplay“ auf dem Player-Bildschirm. Solange er an ist, läuft nur das nächste Video der geöffneten Liste – nie ähnliche Videos oder ein anderer Kanal. Ausgeschaltet stoppt die Wiedergabe am Ende und es erscheint „Nächstes Video“. Deine Einstellung wird auf dem Gerät gespeichert und bleibt nach einem Update erhalten.' },
         { title: 'Nur Ungesehenes abspielen', body: 'Der Schalter darunter. Eingeschaltet werden auch bereits gesehene Videos übersprungen, sodass nur Ungesehenes läuft.' },
         { title: 'Wiederholen', body: 'Das Abzeichen oben rechts wechselt zwischen „Aus → Eins → Alle“. „Eins“ wiederholt dasselbe Video unabhängig vom Autoplay. „Alle“ springt nach dem letzten Video zurück zum ersten (wenn Autoplay an ist).' },
         { title: 'Navigieren', body: 'Fünf Tasten: „Erstes“, „Vorheriges“, „Zurücknehmen“, „Nächstes“, „Letztes“. „Zurücknehmen“ macht den letzten Sprung rückgängig und bringt dich zu Video und Position davor – praktisch, wenn du dich vertippt hast.' },

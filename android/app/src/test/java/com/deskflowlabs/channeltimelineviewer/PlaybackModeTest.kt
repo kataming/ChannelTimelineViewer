@@ -76,8 +76,23 @@ class PlaybackModeTest {
         val settings = PlaybackSettingsStore(prefs("settings"))
         assertEquals(RepeatMode.Off, settings.repeatMode.value)
         assertFalse(settings.playUnwatchedOnly.value)
-        assertFalse("自動再生は既定オフ", settings.autoPlayNext.value)
+        assertTrue("自動再生は既定オン（2026-09-16 変更）", settings.autoPlayNext.value)
         assertTrue("続きから再生は既定オン", settings.resumeFromLastPosition.value)
+    }
+
+    /**
+     * 既定値を変えても、**自分でオフにした人はオフのまま**であること。
+     *
+     * ここが壊れると、利用者が選んだ設定をアップデートで踏み潰すことになる。
+     * `getBoolean` の第2引数はキーが無いときだけ使われる、という前提を守るためのテスト。
+     */
+    @Test
+    fun explicitlyTurnedOffSurvivesTheNewDefault() {
+        val shared = prefs("settings_explicit_off")
+        PlaybackSettingsStore(shared).setAutoPlayNext(false)  // 既定と同じ値でも保存される
+
+        val reloaded = PlaybackSettingsStore(shared)
+        assertFalse("自分でオフにした設定を既定オンで上書きしてはいけない", reloaded.autoPlayNext.value)
     }
 
     @Test

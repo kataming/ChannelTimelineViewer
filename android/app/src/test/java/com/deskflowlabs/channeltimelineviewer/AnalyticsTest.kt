@@ -199,10 +199,11 @@ class AnalyticsTest {
     }
 
     @Test
-    fun autoPlayStaysOffByDefault() {
-        // 記録を足したせいで「勝手にオンになる」ことが起きていないかの念押し。
+    fun autoPlayDefaultIsNotChangedByAnalytics() {
+        // 記録を足したせいで再生の既定値が変わっていないかの念押し。
+        // 自動再生は既定オン（2026-09-16 変更）、リピートは既定オフのまま。
         val settings = PlaybackSettingsStore(prefs("settings"))
-        assertFalse(settings.autoPlayNext.value)
+        assertTrue(settings.autoPlayNext.value)
         assertEquals(RepeatMode.Off, settings.repeatMode.value)
     }
 

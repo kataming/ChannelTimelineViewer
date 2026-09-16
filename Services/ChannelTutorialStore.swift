@@ -21,6 +21,14 @@ final class ChannelTutorialStore: ObservableObject {
         self.isCompleted = defaults.bool(forKey: key)
     }
 
+    /// UI テストやスクリーンショット撮影で、案内を出さずに始めたいときに使う。
+    ///
+    /// 起動引数 `-channelTutorialCompleted YES` を渡すと `UserDefaults` がその値を返すので、
+    /// 上の `init` がそのまま「見終わった」状態で始まる。つまりこの型に細工は要らない。
+    /// ここに書いてあるのは**そう動く理由**であって、忘れると
+    /// 「テストだけ URL 欄が押せない」という形で表面化する（実際に起きた）。
+    static let launchArgumentToSkip = ["-channelTutorialCompleted", "YES"]
+
     /// 見終わった（またはスキップした）。
     ///
     /// 「このアプリについて」から自分で開き直したときは**呼ばない**。

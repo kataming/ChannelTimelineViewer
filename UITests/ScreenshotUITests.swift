@@ -93,6 +93,9 @@ final class ScreenshotUITests: XCTestCase {
         app = XCUIApplication()
         // 表示言語をアプリ側にも明示する（-testLanguage に頼らず、テストと確実に揃える）。
         app.launchArguments += ["-AppleLanguages", "(\(language))", "-AppleLocale", locale]
+        // 「チャンネルの追加方法」の案内は初回だけ自動で開く。撮影では邪魔なので出さない
+        // （これが無いと URL 欄が案内に隠れて押せず、撮影が丸ごと失敗する）。
+        app.launchArguments += ChannelTutorialStore.launchArgumentToSkip
         app.launch()
     }
 

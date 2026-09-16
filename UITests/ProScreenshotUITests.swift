@@ -44,6 +44,9 @@ final class ProScreenshotUITests: XCTestCase {
         continueAfterFailure = true
         app = XCUIApplication()
         app.launchArguments += ["-AppleLanguages", "(\(language))", "-AppleLocale", "en_US"]
+        // 「チャンネルの追加方法」の案内は初回だけ自動で開く。撮影では邪魔なので出さない
+        // （これが無いと URL 欄が案内に隠れて押せず、撮影が丸ごと失敗する）。
+        app.launchArguments += ChannelTutorialStore.launchArgumentToSkip
         app.launch()
     }
 

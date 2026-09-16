@@ -87,7 +87,9 @@ def launch(app_locale: str, share_url: str | None = None) -> None:
     """指定の言語でアプリを開く。share_url を渡すと、そのチャンネルを直接開く。"""
     adb("shell", "am", "force-stop", PACKAGE)
     time.sleep(1)
-    args = ["shell", "am", "start", "-n", ACTIVITY, "--es", "locale", app_locale]
+    args = ["shell", "am", "start", "-n", ACTIVITY, "--es", "locale", app_locale,
+            # 初回起動で「チャンネルの追加方法」の案内が前に出ると入力欄が隠れる。
+            "--ez", "skipTutorial", "true"]
     if share_url:
         # 共有と同じ経路で開く。行の位置に依存しないので、言語が変わっても確実に同じ画面になる。
         args = [
@@ -96,6 +98,7 @@ def launch(app_locale: str, share_url: str | None = None) -> None:
             "-t", "text/plain",
             "--es", "android.intent.extra.TEXT", share_url,
             "--es", "locale", app_locale,
+            "--ez", "skipTutorial", "true",
             "-n", ACTIVITY,
         ]
     adb(*args)

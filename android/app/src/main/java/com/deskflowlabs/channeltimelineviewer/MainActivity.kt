@@ -68,6 +68,10 @@ class MainActivity : ComponentActivity() {
         //   --es locale ja      … 表示言語を切り替える（ストア用スクショを言語別に撮るため）
         val previewName = if (BuildConfig.DEBUG) intent?.getStringExtra("preview") else null
         val localeTag = if (BuildConfig.DEBUG) intent?.getStringExtra("locale") else null
+        // スクリーンショット撮影では「チャンネルの追加方法」の案内が邪魔になる。
+        // 初回起動で自動的に前に出るため、これが無いと入力欄が隠れて撮影が失敗する
+        // （iOS 側で実際に起きた。--ez skipTutorial true で止める）。
+        val skipTutorial = BuildConfig.DEBUG && intent?.getBooleanExtra("skipTutorial", false) == true
 
         setContent {
             WithLocale(localeTag) {
@@ -76,7 +80,7 @@ class MainActivity : ComponentActivity() {
                         if (previewName == "badge") {
                             BadgePreviewScreen()
                         } else {
-                            AppRoot(container, sharedUrl)
+                            AppRoot(container, sharedUrl, skipTutorial)
                         }
                     }
                 }
@@ -144,7 +148,11 @@ private sealed interface Screen {
 }
 
 @Composable
-private fun AppRoot(container: AppContainer, sharedUrl: MutableStateFlow<String?>) {
+private fun AppRoot(
+    container: AppContainer,
+    sharedUrl: MutableStateFlow<String?>,
+    skipTutorial: Boolean = false,
+) {
     var screen by remember { mutableStateOf<Screen>(Screen.Input) }
     var showOptions by remember { mutableStateOf(false) }
 
@@ -206,6 +214,7 @@ private fun AppRoot(container: AppContainer, sharedUrl: MutableStateFlow<String?
 
     LaunchedEffect(tutorialDone, savedChannels.isEmpty(), screen) {
         if (screen !is Screen.Input) return@LaunchedEffect
+        if (skipTutorial) return@LaunchedEffect
         if (tutorialDone || savedChannels.isNotEmpty() || tutorialShown) return@LaunchedEffect
         tutorialSource = Analytics.Source.FIRST_TIME
         tutorialShown = true

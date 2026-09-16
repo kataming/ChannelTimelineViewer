@@ -19,6 +19,22 @@ root の要らない方法として、設定アプリの「言語」画面を自
     python scripts/capture_android_tutorial.py --lang ja  # 1言語だけ
 
 前提: エミュレータが起動していて、本アプリの APK が入っていること。
+
+⚠️ **分かっている限界（2026-09-16）**
+  システム言語の切り替えと、OS の画面（共有シート・許可ダイアログ）の言語切り替えは
+  この仕組みで動く。実際に英語と日本語は最後まで撮れた。
+
+  ところが **YouTube アプリだけがシステム言語に追随しない**ことがある。
+  システムを de-AT にして許可ダイアログが「Zulassen」になっていても、
+  YouTube の中は日本語のまま、という状態を確認した。次はすべて試して効かなかった:
+    - cmd locale set-app-locales com.google.android.youtube --locales de-DE
+    - 同 --locales（空にしてシステムへ従わせる）
+    - pm clear com.google.android.youtube（データごと消す）
+
+  そのため中国語・スペイン語・ドイツ語・フランス語・韓国語は撮れていない。
+  **実機で撮るのが確実**（iOS 版の素材はそうやって用意した）。
+  撮ったら docs/tutorial/raw/android-<言語>-<番号>.png に置けば、
+  build_tutorial_images.py がそのまま加工する。
 """
 from __future__ import annotations
 
@@ -148,6 +164,20 @@ def find_app_in_sheet(label: str, row_y: int = 2140) -> tuple[int, int] | None:
     return None
 
 
+# YouTube を入れ直すと最初に通知の許可を聞いてくる。7言語ぶんの「許可しない」。
+DENY_NOTICE = ("Don't allow", "許可しない", "不允许", "No permitir",
+               "Nicht zulassen", "Ne pas autoriser", "허용 안 함")
+
+
+def dismiss_notice() -> None:
+    """通知の許可ダイアログが出ていたら断る。出ていなければ何もしない。"""
+    for deny in DENY_NOTICE:
+        spot = find(deny, tries=1)
+        if spot:
+            tap(spot[0], spot[1], 4)
+            return
+
+
 def current_locale() -> str:
     return sh("shell", "getprop", "persist.sys.locale")
 
@@ -230,8 +260,11 @@ def capture(lang: str) -> bool:
     print(f"  [{lang}]")
     words = LANGUAGES[lang]
     tag = words["locale"]
-    sh("shell", "cmd", "locale", "set-app-locales", YOUTUBE, "--locales", tag)
-    sh("shell", "cmd", "locale", "set-app-locales", PACKAGE, "--locales", tag)
+    # ⚠️ アプリ単位の言語設定は**システム言語より強い**。前の言語のまま残っていると
+    #    システムを切り替えても画面がその言語のままになる（実際に日本語が残っていた）。
+    #    ここでは一切使わず、必ず空にしてシステム言語に従わせる。
+    sh("shell", "cmd", "locale", "set-app-locales", YOUTUBE, "--locales")
+    sh("shell", "cmd", "locale", "set-app-locales", PACKAGE, "--locales")
 
     # 前の言語のまま動いているプロセスを畳んでから、一度だけ起動し直す。
     #   force-stop だけだと「停止状態」になり共有先の一覧から消えてしまうので、
@@ -244,17 +277,28 @@ def capture(lang: str) -> bool:
     time.sleep(2)
 
     # 1. YouTube でチャンネルを開く
+    # ⚠️ YouTube は**自分で表示言語を覚えている**。システム言語を変えても前の言語のまま
+    #    出ることがあるので、データごと消してシステムに従わせる
+    #    （アプリ単位のロケール設定を空にするだけでは足りなかった）。
+    sh("shell", "pm", "clear", YOUTUBE, timeout=180)
+    time.sleep(3)
     sh("shell", "am", "force-stop", YOUTUBE)
-    sh("shell", "am", "start", "-a", "android.intent.action.VIEW",
-       "-d", CHANNEL_URL, "-p", YOUTUBE)
-    time.sleep(24)
-    # 通知の許可を聞かれたら断る（初回だけ出る）。
-    for deny in ("Don't allow", "許可しない", "不允许", "No permitir", "Nicht zulassen",
-                 "Ne pas autoriser", "허용 안 함"):
-        spot = find(deny, tries=1)
-        if spot:
-            tap(spot[0], spot[1], 4)
+    # 冷えた状態から深いリンクを開くと、ホームだけ出て終わることがある。
+    # チャンネル名が出るまで確かめ、出なければもう一度投げる。
+    opened = False
+    for attempt in range(3):
+        sh("shell", "am", "start", "-a", "android.intent.action.VIEW",
+           "-d", CHANNEL_URL, "-p", YOUTUBE)
+        time.sleep(20 if attempt == 0 else 14)
+        dismiss_notice()          # 通知の許可が被っていると中が読めない
+        if find("NASA", tries=2):
+            opened = True
             break
+        print(f"    チャンネルが開かなかったので投げ直す（{attempt + 1}回目）")
+    if not opened:
+        print("    × チャンネルページを開けなかった")
+        return False
+    dismiss_notice()
     shot(f"android-{lang}-1.png")
 
     # 2. 右上の ⋮ → メニューの「共有」が見えている状態

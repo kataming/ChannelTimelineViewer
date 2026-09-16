@@ -143,11 +143,10 @@ def build_android() -> int:
                 missing.append(src_path.name)
                 continue
             src = load(src_path)
-            spec = ANDROID_STEPS[step]
-            top, bottom = spec["crop"]
+            (top, bottom), box = to_pixels(ANDROID_STEPS[step], src.width, src.height)
             img = src.crop((0, top, src.width, bottom))
-            if spec["box"]:
-                x0, y0, x1, y1 = spec["box"]
+            if box:
+                x0, y0, x1, y1 = box
                 img = rounded_box(img, (x0, y0 - top, x1, y1 - top))
             total += save_android(finish(img), step, qualifier)
         print(f"  {lang}: {'4枚' if not missing else '素材待ち'}")
@@ -157,19 +156,30 @@ def build_android() -> int:
     return total
 
 
-# --- Android の素材（エミュレータ 1080x2400）の切り出し位置 -------------------
-# 撮り方は docs/onboarding/CHANNEL_ADD_TUTORIAL.md の「素材を撮り直す」を参照。
+# --- Android の素材の切り出し位置 -------------------------------------------
+# iOS と違い、Android は**実機の機種が決まっていない**（撮る人の端末による）ので、
+# ピクセルではなく**画面に対する割合**で持つ。0.0 が上端、1.0 が下端。
+# これなら 1080x2400 でも 1440x3120 でも同じ指定で切り出せる。
+#
+# 撮る流れは iOS とそろえる（docs/onboarding/CHANNEL_ADD_TUTORIAL.md 第11節）:
+#   1 動画ページ（共有ボタンが見える） 2 YouTube の共有シート
+#   3 Android の共有シート            4 本アプリが開いた一覧
 ANDROID_STEPS = {
-    # 1: チャンネルページの上部（名前・ハンドル・登録者数）。押す場所はまだ無い。
-    1: dict(crop=(130, 1250), box=None),
-    # 2: ⋮ のメニュー。先頭の「共有」を囲む。
-    2: dict(crop=(1800, 2340), box=(40, 1925, 1040, 2045)),
-    # 3: 共有シートのアイコン列。本アプリ（左から2番目）を囲む。
-    3: dict(crop=(1985, 2375), box=(232, 2040, 440, 2330)),
-    # 4: 開いた一覧。上部バー・進捗・最初の数本が入る高さにする
-    #    （読み込み中の空白を写さないよう、行が始まるところまで下げる）。
-    4: dict(crop=(130, 1750), box=None),
+    1: dict(crop=(0.26, 0.42), box=(0.62, 0.325, 0.78, 0.385)),
+    2: dict(crop=(0.52, 0.72), box=(0.42, 0.575, 0.58, 0.675)),
+    3: dict(crop=(0.82, 0.99), box=(0.21, 0.845, 0.41, 0.975)),
+    4: dict(crop=(0.05, 0.73), box=None),
 }
+
+
+def to_pixels(spec: dict, width: int, height: int) -> tuple[tuple[int, int], tuple | None]:
+    """割合で書いた指定を、その画像の実ピクセルに直す。"""
+    top, bottom = (int(height * v) for v in spec["crop"])
+    box = None
+    if spec["box"]:
+        x0, y0, x1, y1 = spec["box"]
+        box = (int(width * x0), int(height * y0), int(width * x1), int(height * y1))
+    return (top, bottom), box
 
 
 def main() -> int:

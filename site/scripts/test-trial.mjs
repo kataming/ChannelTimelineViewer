@@ -200,18 +200,25 @@ const { watchQueue } = await import('../src/i18n/watchQueue.js');
 const A = 'aaaaaaaaaa1';
 const B = 'bbbbbbbbbb2';
 const C = 'cc-cc_cccc3';
-eq(queueModel.parseQueueHash(`#v=1&ids=${A},${B},${C}`), { ok: true, ids: [A, B, C], truncated: false }, 'キュー: 正規形');
-eq(queueModel.parseQueueHash(`v=1&ids=${A}`), { ok: true, ids: [A], truncated: false }, 'キュー: # なし');
-eq(queueModel.parseQueueHash(`#ids=${A}&v=1`), { ok: true, ids: [A], truncated: false }, 'キュー: 並び順が逆');
+eq(queueModel.parseQueueHash(`#v=1&ids=${A},${B},${C}`), { ok: true, version: 1, ids: [A, B, C], truncated: false }, 'キュー: 正規形');
+eq(queueModel.parseQueueHash(`v=1&ids=${A}`), { ok: true, version: 1, ids: [A], truncated: false }, 'キュー: # なし');
+eq(queueModel.parseQueueHash(`#ids=${A}&v=1`), { ok: true, version: 1, ids: [A], truncated: false }, 'キュー: 並び順が逆');
 eq(
   queueModel.parseQueueHash(`#v=1&ids=${B},bad,${A},${B},%3Cx%3E,${C}`),
-  { ok: true, ids: [B, A, C], truncated: false },
+  { ok: true, version: 1, ids: [B, A, C], truncated: false },
   'キュー: 不正・重複を捨てて順番は守る'
 );
-eq(queueModel.parseQueueHash(`#v=1&ids=${A}%2C${B}`), { ok: true, ids: [A, B], truncated: false }, 'キュー: カンマがエンコード');
+eq(queueModel.parseQueueHash(`#v=1&ids=${A}%2C${B}`), { ok: true, version: 1, ids: [A, B], truncated: false }, 'キュー: カンマがエンコード');
 eq(queueModel.parseQueueHash(''), { ok: false, reason: 'missing' }, 'キュー: 空');
 eq(queueModel.parseQueueHash('#'), { ok: false, reason: 'missing' }, 'キュー: # だけ');
-eq(queueModel.parseQueueHash(`#v=2&ids=${A}`), { ok: false, reason: 'version' }, 'キュー: 未知の版');
+// V2: キュー本体は同期サーバーにあり、URL には queueId だけが載る
+{
+  const queueId = '7f1d9a2c-0b44-4f6e-9a11-2c3d4e5f6a7b';
+  eq(queueModel.parseQueueHash(`#v=2&q=${queueId}`), { ok: true, version: 2, queueId }, 'キュー: V2 は queueId を受け取る');
+}
+eq(queueModel.parseQueueHash('#v=2'), { ok: false, reason: 'empty' }, 'キュー: V2 で queueId が無い');
+eq(queueModel.parseQueueHash('#v=2&q=bad%20id!'), { ok: false, reason: 'empty' }, 'キュー: V2 の queueId が不正');
+eq(queueModel.parseQueueHash(`#v=3&ids=${A}`), { ok: false, reason: 'version' }, 'キュー: 未知の版');
 eq(queueModel.parseQueueHash(`#ids=${A}`), { ok: false, reason: 'version' }, 'キュー: 版なし');
 eq(queueModel.parseQueueHash('#v=1&ids='), { ok: false, reason: 'empty' }, 'キュー: ids 空');
 eq(queueModel.parseQueueHash('#v=1&ids=bad,worse'), { ok: false, reason: 'empty' }, 'キュー: 有効な ID なし');

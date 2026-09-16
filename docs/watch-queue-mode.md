@@ -27,7 +27,7 @@ https://channeltimeline.jewelrysunflower.com/watch-queue#v=1&ids=VIDEO_ID1,VIDEO
 | 項目 | 規則 |
 |---|---|
 | 置き場所 | URL のフラグメント（`#` 以降）。ブラウザはフラグメントをサーバーへ送らない |
-| `v` | `1` 固定。それ以外（無し・`2` など）は **無効なキュー**として扱う（将来の版を誤解釈しない） |
+| `v` | `1` または `2`（下の V2 を参照）。知らない版（無し・`3` など）は **無効なキュー**として扱う |
 | `ids` | YouTube の動画ID（`/^[A-Za-z0-9_-]{11}$/`）をカンマ区切り。**並び順＝再生順** |
 | 不正なID・重複 | 捨てる。残りの順番はそのまま守る |
 | 上限 | 500 本。超えた分は無視し「最初の500本だけを表示しています」と出す |
@@ -36,6 +36,28 @@ https://channeltimeline.jewelrysunflower.com/watch-queue#v=1&ids=VIDEO_ID1,VIDEO
 
 送り手（拡張）は同じ規則で URL を作る（`youtube-watch-queue/src/shared/queueLaunch.ts`）。
 解析は `site/src/trial/queue-model.js` の `parseQueueHash()`（`npm test` で点検）。
+
+## Queue Launch Contract V2（2026-09-16 追加・拡張が接続済みのときだけ）
+
+```
+https://channeltimeline.jewelrysunflower.com/watch-queue#v=2&q=QUEUE_ID
+```
+
+| 項目 | 規則 |
+|---|---|
+| `q` | キューID（`/^[A-Za-z0-9_-]{4,64}$/`。拡張が `crypto.randomUUID()` で作る推測不能な値） |
+| キュー本体 | URL には入れない。同期サーバーから取り寄せる（常に最新の並びになる） |
+| 取得先 | `GET https://watch-queue-sync.atamitrading.workers.dev/v2/shared/queues/<queueId>` |
+| 認証 | **なし**。ウェブVIEWERはペアリングしていないため、**推測不能な queueId そのものを鍵として扱う**（V1 で動画IDを URL に全部並べていたのと同じ脅威モデルで、露出する情報はむしろ少ない） |
+| 返るもの | `{queueId, name, version, updatedAt, videoIds[]}` だけ。端末・購入状態・ほかのキューは返さない |
+| 書き込み | できない（読み取り専用。書き込みは端末トークンを持つ拡張だけ） |
+| 取得できないとき | 404（リンクが古い・キューが削除された）→「キューが空か、リンクが正しくありません」。<br>通信不能・503（Feature Flag OFF）・429 →「いまこのキューを読み込めません」（`syncUnavailable`） |
+| Feature Flag | サーバー側が OFF の間は 503 を返す。V2 のリンクは開けないが、V1 のリンクと通常サイトは影響を受けない |
+| 保存 | しない（キューIDも動画IDもブラウザに保存しない）。体験版の保存には触らない |
+
+- キュー名が返ったときは上部バーにその名前を出す（無ければ従来どおり「Watch Queue」）。
+- タイトル等は V1 と同じく自サイトの中継（`op=videoInfo`）から引く。**同期サーバーには視聴の情報を集めない**。
+- 実装: `site/src/trial/queue-sync.js`（このモードでしか読み込まれない）。
 
 ## 入口と言語
 

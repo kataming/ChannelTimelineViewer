@@ -17,6 +17,8 @@ import * as store from './storage.js';
 import { fmt } from './model.js';
 import { countText, nextPlayableIndex, parseQueueHash, upNextIndex } from './queue-model.js';
 import { TrialPlayer } from './player.js';
+// V2（#v=2&q=…）で来たときだけ使う。V1 のリンクではこの通信は起きない。
+import { fetchSharedQueue } from './queue-sync.js';
 
 /** スマホ枠の中でプレイヤーを描かせる幅（体験版と同じ）。 */
 const PHONE_PLAYER_WIDTH = 390;
@@ -49,6 +51,7 @@ class QueueViewer {
     this.player = null;
     this.infoLoaded = false;
     this.truncated = false;
+    this.queueName = ''; // V2 で同期サーバーが返したキュー名（V1 では空）
     this.rows = [];
 
     this.dateFormat = new Intl.DateTimeFormat(this.lang, { dateStyle: 'medium' });
@@ -57,7 +60,7 @@ class QueueViewer {
 
   // ---------------------------------------------------------------- 起動
 
-  init() {
+  async init() {
     this.keepQueueOnLanguageLinks();
     // 同じページのままキューだけ変わったときは、最初から読み直す。
     window.addEventListener('hashchange', () => location.reload());
@@ -68,8 +71,15 @@ class QueueViewer {
       return;
     }
 
-    this.items = parsed.ids.map((id) => ({ id, title: '', channel: '', published: 0, unplayable: false }));
-    this.truncated = parsed.truncated;
+    // V1 は URL に動画IDが並ぶ。V2 は鍵になる queueId だけなので、並びを同期サーバーから取り寄せる。
+    let ids = parsed.ids;
+    if (parsed.version === 2) {
+      ids = await this.loadSharedQueue(parsed.queueId);
+      if (!ids) return; // 失敗の表示は loadSharedQueue の中で出している
+    }
+
+    this.items = ids.map((id) => ({ id, title: '', channel: '', published: 0, unplayable: false }));
+    this.truncated = Boolean(parsed.truncated);
     this.bind();
     this.prepareChrome();
     this.renderList();
@@ -85,9 +95,32 @@ class QueueViewer {
     });
   }
 
-  showInvalid() {
+  /**
+   * V2: キュー本体を同期サーバーから取る。取れなければ理由を出して null を返す。
+   * 取りに行くのは「動画IDの並びとキュー名」だけで、タイトルはこれまでどおり自サイトの中継から引く。
+   */
+  async loadSharedQueue(queueId) {
+    try {
+      const queue = await fetchSharedQueue(queueId);
+      this.queueName = queue.name || '';
+      return queue.videoIds;
+    } catch (err) {
+      const code = err instanceof TrialApiError ? err.code : 'unknown';
+      // 見つからない＝リンクが古いか、キューが消された。それ以外は通信かサービス側の問題。
+      this.showInvalid(
+        code === 'notFound' ? null : { title: this.q.syncUnavailable, detail: this.q.syncUnavailableDetail },
+      );
+      return null;
+    }
+  }
+
+  showInvalid(copy) {
     show($('ctv-setup'), false);
     show($('ctv-workspace'), false);
+    if (copy) {
+      $('ctv-queue-invalid-title').textContent = copy.title;
+      $('ctv-queue-invalid-detail').textContent = copy.detail;
+    }
     show($('ctv-queue-invalid'), true);
   }
 
@@ -95,7 +128,8 @@ class QueueViewer {
     show($('ctv-setup'), false);
     show($('ctv-workspace'), true);
     show($('ctv-ch-thumb'), false);
-    $('ctv-ch-title').textContent = this.q.title;
+    // V2 で名前が来ていればそれを、無ければ機能名を出す。
+    $('ctv-ch-title').textContent = this.queueName || this.q.title;
 
     // チャンネル単位の操作と、記録を使う設定は Watch Queue では使わない。
     for (const id of ['ctv-repeat', 'ctv-list-menu', 'ctv-toggle-watched', 'ctv-toggle-skip']) show($(id), false);

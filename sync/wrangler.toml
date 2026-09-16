@@ -1,0 +1,41 @@
+# Watch Queue Sync — Cloudflare Worker + D1
+#
+# 稼働中の公式サイト（Cloudflare Pages プロジェクト channel-timeline-viewer）とは**別のデプロイ**。
+# サイトが壊れないよう、同期 API はこの Worker だけに閉じてある。
+#
+#   npm install
+#   npx wrangler d1 create watch_queue_sync          # 初回のみ（database_id を下に書く）
+#   npx wrangler d1 migrations apply watch_queue_sync --remote
+#   npx wrangler deploy
+#
+# Feature Flag は WATCH_QUEUE_V2_ENABLED（下の vars）と、D1 の settings テーブルの上書きで決まる。
+# OFF にすると全クライアントが pre-V2 の挙動に戻る。
+
+name = "watch-queue-sync"
+main = "src/index.js"
+compatibility_date = "2026-09-01"
+workers_dev = true
+
+[vars]
+# 既定は OFF。モバイルの新バージョンがストアで入手可能になってから ON にする。
+WATCH_QUEUE_V2_ENABLED = "false"
+# CORS / 書き込みを許可するオリジン（カンマ区切り）。拡張の ID は Web Store 公開後に追記する。
+ALLOWED_ORIGINS = "https://channeltimeline.jewelrysunflower.com"
+# 1グループあたりのキュー数と、1キューあたりの動画数の上限。
+MAX_QUEUES_PER_GROUP = "20"
+MAX_ITEMS_PER_QUEUE = "500"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "watch_queue_sync"
+database_id = "3ac5a913-6d9e-48cb-a8a0-c83b9f0f82f1"
+migrations_dir = "migrations"
+
+[env.production]
+vars = { WATCH_QUEUE_V2_ENABLED = "false", ALLOWED_ORIGINS = "https://channeltimeline.jewelrysunflower.com", MAX_QUEUES_PER_GROUP = "20", MAX_ITEMS_PER_QUEUE = "500" }
+
+[[env.production.d1_databases]]
+binding = "DB"
+database_name = "watch_queue_sync"
+database_id = "3ac5a913-6d9e-48cb-a8a0-c83b9f0f82f1"
+migrations_dir = "migrations"

@@ -41,8 +41,8 @@ const i18nJSON = JSON.stringify(queue ? { ui: trial.ui, queue } : { ui: trial.ui
 
       {queue && (
         <div class="ctv-queue-invalid" id="ctv-queue-invalid" role="alert" hidden>
-          <h3>{queue.invalidTitle}</h3>
-          <p class="ctv-help">{queue.invalidDetail}</p>
+          <h3 id="ctv-queue-invalid-title">{queue.invalidTitle}</h3>
+          <p class="ctv-help" id="ctv-queue-invalid-detail">{queue.invalidDetail}</p>
         </div>
       )}
 

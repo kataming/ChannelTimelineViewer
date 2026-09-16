@@ -116,11 +116,12 @@ final class WatchQueueStore: ObservableObject {
     // MARK: - キュー
 
     func loadQueues() async {
-        guard isAvailable, let token else { return }
+        // プロパティと同じ名前で束縛すると、失効時に token を消せなくなるので別名にする。
+        guard isAvailable, let deviceToken = token else { return }
         isBusy = true
         defer { isBusy = false }
         do {
-            let response = try await client.fetchQueues(token: token)
+            let response = try await client.fetchQueues(token: deviceToken)
             queues = response.queues
             entitlement = response.entitlement
             messageKey = nil

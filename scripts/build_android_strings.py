@@ -43,9 +43,7 @@ LANGUAGE_DIRS = {
 EXTRA_STRINGS = {"app_name": "Channel Timeline Viewer"}
 
 # iOS 専用の文言（Android では出番が無い）は入れない。
-# ⚠️ "watchQueue." は iOS 先行で追加したため、Android が使い始めるまでは入れない
-#    （未使用リソースとして lint（UnusedResources）が失敗するため）。Android 実装時にここから外す。
-SKIP_PREFIXES = ("handoff.", "shareTips.", "share.", "openExtension.", "notification.", "watchQueue.")
+SKIP_PREFIXES = ("handoff.", "shareTips.", "share.", "openExtension.", "notification.")
 # iOS だけで使う文言（Apple アカウント・価格取得の再試行）。Android 側には出さない。
 SKIP_KEYS = {
     "pro.restore.hint.apple",
@@ -58,6 +56,11 @@ SKIP_KEYS = {
     "tutorial.step3.body.ios",
     "tutorial.step4.body.ios",
     "tutorial.step4.title.ios",
+    # Watch Queue: Android には出番が無いもの。
+    # 再生できない動画の判定は iOS のプレイヤーにしかある通知（onError）が要るため Android では出せない。
+    # 「接続済み」の副題も iOS の入口だけに出る。入れると未使用リソースとして lint が失敗する。
+    "watchQueue.unplayable",
+    "watchQueue.entry.subtitle.connected",
 }
 
 

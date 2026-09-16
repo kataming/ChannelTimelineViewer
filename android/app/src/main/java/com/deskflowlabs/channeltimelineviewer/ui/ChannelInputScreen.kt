@@ -68,6 +68,9 @@ fun ChannelInputScreen(
     onOpenAbout: () -> Unit,
     onOpenPro: () -> Unit,
     onOpenFavorite: (FavoriteChannel) -> Unit,
+    // Watch Queue（V2）。Feature Flag が OFF のあいだは false で、入口ごと現れない。
+    showWatchQueue: Boolean = false,
+    onOpenWatchQueue: () -> Unit = {},
 ) {
     val urlText by viewModel.urlText.collectAsStateWithLifecycle()
     val isLoading by viewModel.isLoading.collectAsStateWithLifecycle()
@@ -183,6 +186,12 @@ fun ChannelInputScreen(
 
             item {
                 ProEntryCard(isPro = isPro, onOpen = onOpenPro)
+            }
+
+            if (showWatchQueue) {
+                item {
+                    WatchQueueEntryCard(onOpen = onOpenWatchQueue)
+                }
             }
 
             if (favoriteList.isNotEmpty()) {
@@ -373,6 +382,24 @@ private fun ProEntryCard(isPro: Boolean, onOpen: () -> Unit) {
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
+        }
+    }
+}
+
+/** Watch Queue（V2）への入口。Feature Flag が ON のときだけ置かれる。 */
+@Composable
+private fun WatchQueueEntryCard(onOpen: () -> Unit) {
+    Card(modifier = Modifier.fillMaxWidth().clickable(onClick = onOpen)) {
+        Column(Modifier.padding(12.dp)) {
+            Text(
+                stringResource(R.string.watchqueue_entry_title),
+                style = MaterialTheme.typography.titleSmall,
+            )
+            Text(
+                stringResource(R.string.watchqueue_entry_subtitle),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
         }
     }
 }

@@ -2,7 +2,7 @@
 /* language: fr */
 
 /* 自動再生の説明 */
-"about.autoPlay.body" = "La lecture automatique est désactivée par défaut : à la fin d’une vidéo, la lecture s’arrête et un bouton « Lire la vidéo suivante » apparaît. Elle ne continue que si vous activez vous-même « Lire automatiquement la suivante à la fin » sur l’écran du lecteur. Même alors, elle passe uniquement à la vidéo suivante de la liste de la chaîne ouverte, jamais aux vidéos associées ou recommandées. Il n’y a pas de lecture en arrière-plan : fermer l’app arrête tout.";
+"about.autoPlay.body" = "La lecture automatique est désactivée par défaut : à la fin d’une vidéo, la lecture s’arrête et un bouton « Lire la vidéo suivante » apparaît. Elle ne continue que si vous activez vous-même « Lecture automatique » sur l’écran du lecteur. Même alors, elle passe uniquement à la vidéo suivante de la liste de la chaîne ouverte, jamais aux vidéos associées ou recommandées. Il n’y a pas de lecture en arrière-plan : fermer l’app arrête tout.";
 /* 見出し: 自動再生 */
 "about.autoPlay.header" = "Lecture automatique (facultative, désactivée par défaut)";
 /* データの説明 */
@@ -215,14 +215,12 @@
 "player.autoAdvanced" = "Passage à la vidéo suivante";
 /* 読み上げ: 自動再生トグル */
 "player.autoPlay.a11y" = "Lire automatiquement la suivante à la fin";
-/* 自動再生オフの説明 */
-"player.autoPlay.off.detail" = "Affiche un bouton « Lire la vidéo suivante » à la fin";
-/* 自動再生オフの見出し */
-"player.autoPlay.off.title" = "Lecture auto désactivée : arrêt à la fin";
-/* 自動再生オンの説明 */
-"player.autoPlay.on.detail" = "Lit uniquement la vidéo suivante de cette liste";
-/* 自動再生オンの見出し */
-"player.autoPlay.on.title" = "Lecture auto activée : passer à la vidéo suivante";
+/* 自動再生オフのときの説明（いまどう動くかを書く） */
+"player.autoPlay.off.detail" = "À la fin, s’arrête et affiche un bouton « Lire la vidéo suivante »";
+/* 自動再生オンのときの説明（いまどう動くかを書く） */
+"player.autoPlay.on.detail" = "À la fin, lit uniquement la vidéo suivante de cette liste";
+/* 自動再生トグルの見出し。⚠️ここに「オン」「オフ」と状態を書かないこと。スイッチの入切と二重否定になり、『「自動再生オフ」がオフ＝自動再生オン？』と読めてしまう（2026-09-16・ユーザー指摘）。状態は下の説明文とスイッチに任せる。 */
+"player.autoPlay.title" = "Lecture automatique";
 /* 次の動画を再生ボタン */
 "player.ended.playNext" = "Lire la vidéo suivante";
 /* 終了時の案内 */

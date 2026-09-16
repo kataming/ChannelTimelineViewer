@@ -699,45 +699,35 @@
     "fr": "Depuis le début",
     "ko": "처음부터"
   },
-  "player.autoPlay.on.title": {
-    "comment": "自動再生オンの見出し",
-    "ja": "自動再生オン：終了後に次の動画へ",
-    "en": "Autoplay on: continue to the next video",
-    "zh-Hans": "自动播放开启：结束后播放下一个",
-    "es": "Reproducción automática activada: sigue con el siguiente vídeo",
-    "de": "Autoplay ein: weiter zum nächsten Video",
-    "fr": "Lecture auto activée : passer à la vidéo suivante",
-    "ko": "자동 재생 켜짐: 종료 후 다음 동영상으로"
-  },
-  "player.autoPlay.off.title": {
-    "comment": "自動再生オフの見出し",
-    "ja": "自動再生オフ：終了後に停止",
-    "en": "Autoplay off: stop when the video ends",
-    "zh-Hans": "自动播放关闭：结束后停止",
-    "es": "Reproducción automática desactivada: se detiene al terminar",
-    "de": "Autoplay aus: am Ende anhalten",
-    "fr": "Lecture auto désactivée : arrêt à la fin",
-    "ko": "자동 재생 꺼짐: 종료 후 정지"
+  "player.autoPlay.title": {
+    "comment": "自動再生トグルの見出し。⚠️ここに「オン」「オフ」と状態を書かないこと。スイッチの入切と二重否定になり、『「自動再生オフ」がオフ＝自動再生オン？』と読めてしまう（2026-09-16・ユーザー指摘）。状態は下の説明文とスイッチに任せる。",
+    "ja": "自動再生",
+    "en": "Autoplay",
+    "zh-Hans": "自动播放",
+    "es": "Reproducción automática",
+    "de": "Autoplay",
+    "fr": "Lecture automatique",
+    "ko": "자동 재생"
   },
   "player.autoPlay.on.detail": {
-    "comment": "自動再生オンの説明",
-    "ja": "この一覧の次の動画だけを続けて再生します",
-    "en": "Plays only the next video in this list",
-    "zh-Hans": "只会继续播放此列表中的下一个视频",
-    "es": "Solo reproduce el siguiente vídeo de esta lista",
-    "de": "Spielt nur das nächste Video dieser Liste ab",
-    "fr": "Lit uniquement la vidéo suivante de cette liste",
-    "ko": "이 목록의 다음 동영상만 이어서 재생합니다"
+    "comment": "自動再生オンのときの説明（いまどう動くかを書く）",
+    "ja": "終了したら、この一覧の次の動画だけを続けて再生します",
+    "en": "When a video ends, plays only the next video in this list",
+    "zh-Hans": "结束后只会继续播放此列表中的下一个视频",
+    "es": "Al terminar, solo reproduce el siguiente vídeo de esta lista",
+    "de": "Spielt am Ende nur das nächste Video dieser Liste ab",
+    "fr": "À la fin, lit uniquement la vidéo suivante de cette liste",
+    "ko": "종료되면 이 목록의 다음 동영상만 이어서 재생합니다"
   },
   "player.autoPlay.off.detail": {
-    "comment": "自動再生オフの説明",
-    "ja": "終了したら「次の動画を再生」ボタンを表示します",
-    "en": "Shows a “Play next video” button when it ends",
-    "zh-Hans": "结束后会显示“播放下一个视频”按钮",
-    "es": "Muestra un botón «Reproducir siguiente» al terminar",
-    "de": "Zeigt am Ende die Schaltfläche „Nächstes Video“",
-    "fr": "Affiche un bouton « Lire la vidéo suivante » à la fin",
-    "ko": "종료되면 ‘다음 동영상 재생’ 버튼을 표시합니다"
+    "comment": "自動再生オフのときの説明（いまどう動くかを書く）",
+    "ja": "終了したら停止し、「次の動画を再生」ボタンを表示します",
+    "en": "When a video ends, stops and shows a “Play next video” button",
+    "zh-Hans": "结束后会停止，并显示“播放下一个视频”按钮",
+    "es": "Al terminar, se detiene y muestra un botón «Reproducir siguiente»",
+    "de": "Hält am Ende an und zeigt die Schaltfläche „Nächstes Video“",
+    "fr": "À la fin, s’arrête et affiche un bouton « Lire la vidéo suivante »",
+    "ko": "종료되면 정지하고 ‘다음 동영상 재생’ 버튼을 표시합니다"
   },
   "player.autoPlay.a11y": {
     "comment": "読み上げ: 自動再生トグル",
@@ -1451,13 +1441,13 @@
   },
   "about.autoPlay.body": {
     "comment": "自動再生の説明",
-    "ja": "自動再生は初期状態ではオフです。既定では再生が終わるとそこで停止し、「次の動画を再生」ボタンを表示します。再生画面の「終了したら次を自動再生」をご自身でオンにした場合のみ、続けて再生します。オンにした場合でも、進むのは開いているチャンネル一覧の次の動画だけで、関連動画やおすすめ動画へ移動することはありません。バックグラウンド再生は行わないため、アプリを閉じると再生も自動送りも止まります。",
-    "en": "Autoplay is off by default: playback stops when a video ends and a “Play next video” button appears. It continues only if you turn on “Autoplay next when the video ends” yourself on the player screen. Even then it moves only to the next video in the channel list you opened — never to related or recommended videos. There is no background playback, so closing the app stops both playback and autoplay.",
-    "zh-Hans": "自动播放默认关闭：视频结束后会停止并显示“播放下一个视频”按钮。只有你在播放界面自行开启“结束后自动播放下一个”时才会继续播放。即使开启，也只会前进到已打开频道列表中的下一个视频，不会跳转到相关或推荐视频。不进行后台播放，因此关闭应用后播放与自动播放都会停止。",
-    "es": "La reproducción automática está desactivada por defecto: al terminar un vídeo se detiene y aparece un botón «Reproducir el siguiente». Solo continúa si activas «Reproducir el siguiente automáticamente al terminar» en la pantalla del reproductor. Aun así, solo avanza al siguiente vídeo de la lista del canal abierto, nunca a vídeos relacionados o recomendados. No hay reproducción en segundo plano: al cerrar la app se detiene todo.",
-    "de": "Autoplay ist standardmäßig aus: Am Ende eines Videos stoppt die Wiedergabe und die Schaltfläche „Nächstes Video abspielen“ erscheint. Es geht nur weiter, wenn du auf dem Player-Bildschirm selbst „Am Ende automatisch das nächste Video abspielen“ einschaltest. Auch dann wird nur zum nächsten Video der geöffneten Kanalliste gewechselt – nie zu ähnlichen oder empfohlenen Videos. Es gibt keine Hintergrundwiedergabe; beim Schließen der App stoppt alles.",
-    "fr": "La lecture automatique est désactivée par défaut : à la fin d’une vidéo, la lecture s’arrête et un bouton « Lire la vidéo suivante » apparaît. Elle ne continue que si vous activez vous-même « Lire automatiquement la suivante à la fin » sur l’écran du lecteur. Même alors, elle passe uniquement à la vidéo suivante de la liste de la chaîne ouverte, jamais aux vidéos associées ou recommandées. Il n’y a pas de lecture en arrière-plan : fermer l’app arrête tout.",
-    "ko": "자동 재생은 기본적으로 꺼져 있습니다. 기본값에서는 재생이 끝나면 정지하고 ‘다음 동영상 재생’ 버튼을 표시합니다. 재생 화면에서 ‘종료 시 다음 동영상 자동 재생’을 직접 켠 경우에만 이어서 재생합니다. 켜더라도 이동하는 곳은 열어 둔 채널 목록의 다음 동영상뿐이며 관련 동영상·추천 동영상으로 이동하지 않습니다. 백그라운드 재생을 하지 않으므로 앱을 닫으면 재생과 자동 이동도 멈춥니다."
+    "ja": "自動再生は初期状態ではオフです。既定では再生が終わるとそこで停止し、「次の動画を再生」ボタンを表示します。再生画面の「自動再生」をご自身でオンにした場合のみ、続けて再生します。オンにした場合でも、進むのは開いているチャンネル一覧の次の動画だけで、関連動画やおすすめ動画へ移動することはありません。バックグラウンド再生は行わないため、アプリを閉じると再生も自動送りも止まります。",
+    "en": "Autoplay is off by default: playback stops when a video ends and a “Play next video” button appears. It continues only if you turn on “Autoplay” yourself on the player screen. Even then it moves only to the next video in the channel list you opened — never to related or recommended videos. There is no background playback, so closing the app stops both playback and autoplay.",
+    "zh-Hans": "自动播放默认关闭：视频结束后会停止并显示“播放下一个视频”按钮。只有你在播放界面自行开启“自动播放”时才会继续播放。即使开启，也只会前进到已打开频道列表中的下一个视频，不会跳转到相关或推荐视频。不进行后台播放，因此关闭应用后播放与自动播放都会停止。",
+    "es": "La reproducción automática está desactivada por defecto: al terminar un vídeo se detiene y aparece un botón «Reproducir el siguiente». Solo continúa si activas «Reproducción automática» en la pantalla del reproductor. Aun así, solo avanza al siguiente vídeo de la lista del canal abierto, nunca a vídeos relacionados o recomendados. No hay reproducción en segundo plano: al cerrar la app se detiene todo.",
+    "de": "Autoplay ist standardmäßig aus: Am Ende eines Videos stoppt die Wiedergabe und die Schaltfläche „Nächstes Video abspielen“ erscheint. Es geht nur weiter, wenn du auf dem Player-Bildschirm selbst „Autoplay“ einschaltest. Auch dann wird nur zum nächsten Video der geöffneten Kanalliste gewechselt – nie zu ähnlichen oder empfohlenen Videos. Es gibt keine Hintergrundwiedergabe; beim Schließen der App stoppt alles.",
+    "fr": "La lecture automatique est désactivée par défaut : à la fin d’une vidéo, la lecture s’arrête et un bouton « Lire la vidéo suivante » apparaît. Elle ne continue que si vous activez vous-même « Lecture automatique » sur l’écran du lecteur. Même alors, elle passe uniquement à la vidéo suivante de la liste de la chaîne ouverte, jamais aux vidéos associées ou recommandées. Il n’y a pas de lecture en arrière-plan : fermer l’app arrête tout.",
+    "ko": "자동 재생은 기본적으로 꺼져 있습니다. 기본값에서는 재생이 끝나면 정지하고 ‘다음 동영상 재생’ 버튼을 표시합니다. 재생 화면에서 ‘자동 재생’을 직접 켠 경우에만 이어서 재생합니다. 켜더라도 이동하는 곳은 열어 둔 채널 목록의 다음 동영상뿐이며 관련 동영상·추천 동영상으로 이동하지 않습니다. 백그라운드 재생을 하지 않으므로 앱을 닫으면 재생과 자동 이동도 멈춥니다."
   },
   "about.screen.header": {
     "comment": "見出し: 再生中の画面",

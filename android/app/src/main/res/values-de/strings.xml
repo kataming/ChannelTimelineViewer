@@ -5,7 +5,7 @@
     <string name="about_analytics_body">Mit Google Analytics für Firebase zählen wir, wie oft welcher Bildschirm und welche Aktion genutzt wird. Übertragen werden nur der Bildschirmname und die Art der Aktion – nie die Kanäle oder Videos, die Sie ansehen, Ihre Notizen oder eingegebene URLs. Eine Werbe-ID wird nicht verwendet. Sie können es unten jederzeit ausschalten.</string>
     <string name="about_analytics_header">Nutzungsmessung (Android)</string>
     <string name="about_analytics_toggle">Nutzungsmessung erlauben</string>
-    <string name="about_autoplay_body">Autoplay ist standardmäßig aus: Am Ende eines Videos stoppt die Wiedergabe und die Schaltfläche „Nächstes Video abspielen“ erscheint. Es geht nur weiter, wenn du auf dem Player-Bildschirm selbst „Am Ende automatisch das nächste Video abspielen“ einschaltest. Auch dann wird nur zum nächsten Video der geöffneten Kanalliste gewechselt – nie zu ähnlichen oder empfohlenen Videos. Es gibt keine Hintergrundwiedergabe; beim Schließen der App stoppt alles.</string>
+    <string name="about_autoplay_body">Autoplay ist standardmäßig aus: Am Ende eines Videos stoppt die Wiedergabe und die Schaltfläche „Nächstes Video abspielen“ erscheint. Es geht nur weiter, wenn du auf dem Player-Bildschirm selbst „Autoplay“ einschaltest. Auch dann wird nur zum nächsten Video der geöffneten Kanalliste gewechselt – nie zu ähnlichen oder empfohlenen Videos. Es gibt keine Hintergrundwiedergabe; beim Schließen der App stoppt alles.</string>
     <string name="about_autoplay_header">Autoplay (optional, standardmäßig aus)</string>
     <string name="about_data_body">Videolisten stammen aus der YouTube Data API v3. Die Wiedergabe bettet den offiziellen Player unverändert ein. Kein Scraping, kein eigener Player.</string>
     <string name="about_data_header">Datenabruf und Wiedergabe</string>
@@ -103,10 +103,9 @@
     <string name="options_title">Wiedergabe-Einstellungen</string>
     <string name="player_autoadvanced">Zum nächsten Video gewechselt</string>
     <string name="player_autoplay_a11y">Am Ende automatisch das nächste Video abspielen</string>
-    <string name="player_autoplay_off_detail">Zeigt am Ende die Schaltfläche „Nächstes Video“</string>
-    <string name="player_autoplay_off_title">Autoplay aus: am Ende anhalten</string>
-    <string name="player_autoplay_on_detail">Spielt nur das nächste Video dieser Liste ab</string>
-    <string name="player_autoplay_on_title">Autoplay ein: weiter zum nächsten Video</string>
+    <string name="player_autoplay_off_detail">Hält am Ende an und zeigt die Schaltfläche „Nächstes Video“</string>
+    <string name="player_autoplay_on_detail">Spielt am Ende nur das nächste Video dieser Liste ab</string>
+    <string name="player_autoplay_title">Autoplay</string>
     <string name="player_ended_playnext">Nächstes Video abspielen</string>
     <string name="player_ended_title">Wiedergabe beendet. Als Nächstes:</string>
     <string name="player_memo_autosave">Wird beim Tippen automatisch gespeichert. Tippe daneben oder auf „Fertig“, um die Eingabe zu beenden.</string>

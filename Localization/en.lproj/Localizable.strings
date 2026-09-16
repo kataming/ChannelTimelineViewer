@@ -2,7 +2,7 @@
 /* language: en */
 
 /* 自動再生の説明 */
-"about.autoPlay.body" = "Autoplay is off by default: playback stops when a video ends and a “Play next video” button appears. It continues only if you turn on “Autoplay next when the video ends” yourself on the player screen. Even then it moves only to the next video in the channel list you opened — never to related or recommended videos. There is no background playback, so closing the app stops both playback and autoplay.";
+"about.autoPlay.body" = "Autoplay is off by default: playback stops when a video ends and a “Play next video” button appears. It continues only if you turn on “Autoplay” yourself on the player screen. Even then it moves only to the next video in the channel list you opened — never to related or recommended videos. There is no background playback, so closing the app stops both playback and autoplay.";
 /* 見出し: 自動再生 */
 "about.autoPlay.header" = "Autoplay (optional, off by default)";
 /* データの説明 */
@@ -215,14 +215,12 @@
 "player.autoAdvanced" = "Moved on to the next video";
 /* 読み上げ: 自動再生トグル */
 "player.autoPlay.a11y" = "Autoplay next when the video ends";
-/* 自動再生オフの説明 */
-"player.autoPlay.off.detail" = "Shows a “Play next video” button when it ends";
-/* 自動再生オフの見出し */
-"player.autoPlay.off.title" = "Autoplay off: stop when the video ends";
-/* 自動再生オンの説明 */
-"player.autoPlay.on.detail" = "Plays only the next video in this list";
-/* 自動再生オンの見出し */
-"player.autoPlay.on.title" = "Autoplay on: continue to the next video";
+/* 自動再生オフのときの説明（いまどう動くかを書く） */
+"player.autoPlay.off.detail" = "When a video ends, stops and shows a “Play next video” button";
+/* 自動再生オンのときの説明（いまどう動くかを書く） */
+"player.autoPlay.on.detail" = "When a video ends, plays only the next video in this list";
+/* 自動再生トグルの見出し。⚠️ここに「オン」「オフ」と状態を書かないこと。スイッチの入切と二重否定になり、『「自動再生オフ」がオフ＝自動再生オン？』と読めてしまう（2026-09-16・ユーザー指摘）。状態は下の説明文とスイッチに任せる。 */
+"player.autoPlay.title" = "Autoplay";
 /* 次の動画を再生ボタン */
 "player.ended.playNext" = "Play next video";
 /* 終了時の案内 */

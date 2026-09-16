@@ -10,7 +10,7 @@
     <!-- 切り替え: 利用状況の記録を許可する -->
     <string name="about_analytics_toggle">Allow usage measurement</string>
     <!-- 自動再生の説明 -->
-    <string name="about_autoplay_body">Autoplay is off by default: playback stops when a video ends and a “Play next video” button appears. It continues only if you turn on “Autoplay next when the video ends” yourself on the player screen. Even then it moves only to the next video in the channel list you opened — never to related or recommended videos. There is no background playback, so closing the app stops both playback and autoplay.</string>
+    <string name="about_autoplay_body">Autoplay is off by default: playback stops when a video ends and a “Play next video” button appears. It continues only if you turn on “Autoplay” yourself on the player screen. Even then it moves only to the next video in the channel list you opened — never to related or recommended videos. There is no background playback, so closing the app stops both playback and autoplay.</string>
     <!-- 見出し: 自動再生 -->
     <string name="about_autoplay_header">Autoplay (optional, off by default)</string>
     <!-- データの説明 -->
@@ -205,14 +205,12 @@
     <string name="player_autoadvanced">Moved on to the next video</string>
     <!-- 読み上げ: 自動再生トグル -->
     <string name="player_autoplay_a11y">Autoplay next when the video ends</string>
-    <!-- 自動再生オフの説明 -->
-    <string name="player_autoplay_off_detail">Shows a “Play next video” button when it ends</string>
-    <!-- 自動再生オフの見出し -->
-    <string name="player_autoplay_off_title">Autoplay off: stop when the video ends</string>
-    <!-- 自動再生オンの説明 -->
-    <string name="player_autoplay_on_detail">Plays only the next video in this list</string>
-    <!-- 自動再生オンの見出し -->
-    <string name="player_autoplay_on_title">Autoplay on: continue to the next video</string>
+    <!-- 自動再生オフのときの説明（いまどう動くかを書く） -->
+    <string name="player_autoplay_off_detail">When a video ends, stops and shows a “Play next video” button</string>
+    <!-- 自動再生オンのときの説明（いまどう動くかを書く） -->
+    <string name="player_autoplay_on_detail">When a video ends, plays only the next video in this list</string>
+    <!-- 自動再生トグルの見出し。⚠️ここに「オン」「オフ」と状態を書かないこと。スイッチの入切と二重否定になり、『「自動再生オフ」がオフ＝自動再生オン？』と読めてしまう（2026-09-16・ユーザー指摘）。状態は下の説明文とスイッチに任せる。 -->
+    <string name="player_autoplay_title">Autoplay</string>
     <!-- 次の動画を再生ボタン -->
     <string name="player_ended_playnext">Play next video</string>
     <!-- 終了時の案内 -->

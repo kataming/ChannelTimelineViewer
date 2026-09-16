@@ -5,7 +5,7 @@
     <string name="about_analytics_body">Contamos con qué frecuencia se usa cada pantalla y cada acción mediante Google Analytics para Firebase. Solo se envían el nombre de la pantalla y el tipo de acción: nunca los canales o vídeos que ves, tus notas ni las URL que introduces. No se usa ningún identificador publicitario. Puedes desactivarlo abajo cuando quieras.</string>
     <string name="about_analytics_header">Medición de uso (Android)</string>
     <string name="about_analytics_toggle">Permitir la medición de uso</string>
-    <string name="about_autoplay_body">La reproducción automática está desactivada por defecto: al terminar un vídeo se detiene y aparece un botón «Reproducir el siguiente». Solo continúa si activas «Reproducir el siguiente automáticamente al terminar» en la pantalla del reproductor. Aun así, solo avanza al siguiente vídeo de la lista del canal abierto, nunca a vídeos relacionados o recomendados. No hay reproducción en segundo plano: al cerrar la app se detiene todo.</string>
+    <string name="about_autoplay_body">La reproducción automática está desactivada por defecto: al terminar un vídeo se detiene y aparece un botón «Reproducir el siguiente». Solo continúa si activas «Reproducción automática» en la pantalla del reproductor. Aun así, solo avanza al siguiente vídeo de la lista del canal abierto, nunca a vídeos relacionados o recomendados. No hay reproducción en segundo plano: al cerrar la app se detiene todo.</string>
     <string name="about_autoplay_header">Reproducción automática (opcional, desactivada por defecto)</string>
     <string name="about_data_body">Las listas de vídeos se obtienen con la API de datos de YouTube v3. La reproducción incrusta el reproductor oficial tal cual. Sin scraping ni reproductor propio.</string>
     <string name="about_data_header">Cómo se obtienen los datos y la reproducción</string>
@@ -103,10 +103,9 @@
     <string name="options_title">Ajustes de reproducción</string>
     <string name="player_autoadvanced">Se pasó al siguiente vídeo</string>
     <string name="player_autoplay_a11y">Reproducir el siguiente automáticamente al terminar</string>
-    <string name="player_autoplay_off_detail">Muestra un botón «Reproducir siguiente» al terminar</string>
-    <string name="player_autoplay_off_title">Reproducción automática desactivada: se detiene al terminar</string>
-    <string name="player_autoplay_on_detail">Solo reproduce el siguiente vídeo de esta lista</string>
-    <string name="player_autoplay_on_title">Reproducción automática activada: sigue con el siguiente vídeo</string>
+    <string name="player_autoplay_off_detail">Al terminar, se detiene y muestra un botón «Reproducir siguiente»</string>
+    <string name="player_autoplay_on_detail">Al terminar, solo reproduce el siguiente vídeo de esta lista</string>
+    <string name="player_autoplay_title">Reproducción automática</string>
     <string name="player_ended_playnext">Reproducir el siguiente</string>
     <string name="player_ended_title">Reproducción finalizada. A continuación:</string>
     <string name="player_memo_autosave">Se guarda automáticamente mientras escribes. Toca fuera o «Listo» para terminar.</string>

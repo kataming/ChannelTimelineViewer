@@ -493,7 +493,7 @@ class QueueViewer {
   applyAutoplayUI() {
     const ui = this.ui;
     $('ctv-autoplay').checked = this.prefs.autoplay;
-    $('ctv-autoplay-title').textContent = this.prefs.autoplay ? ui.autoplayOn : ui.autoplayOff;
+    $('ctv-autoplay-title').textContent = ui.autoplayTitle;
     $('ctv-autoplay-detail').textContent = this.prefs.autoplay ? ui.autoplayOnDetail : ui.autoplayOffDetail;
   }
 

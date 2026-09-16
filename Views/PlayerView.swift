@@ -244,8 +244,11 @@ struct PlayerView: View {
         VStack(alignment: .leading, spacing: 10) {
             Toggle(isOn: $settings.autoPlayNext) {
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(settings.autoPlayNext ? "player.autoPlay.on.title"
-                                               : "player.autoPlay.off.title")
+                    // ⚠️ 見出しに状態（オン/オフ）を書かないこと。スイッチの入切と
+                    //    二重否定になり、「『自動再生オフ』がオフ」＝自動再生オン？と
+                    //    読めてしまう（2026-09-16・ユーザー指摘）。
+                    //    状態はスイッチ本体と下の説明文が担う。
+                    Text("player.autoPlay.title")
                         .font(.subheadline.bold())
                     Text(settings.autoPlayNext
                          ? "player.autoPlay.on.detail"

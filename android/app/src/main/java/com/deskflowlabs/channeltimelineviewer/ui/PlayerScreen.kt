@@ -387,11 +387,12 @@ private fun PlaybackToggles(
         Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Column(Modifier.weight(1f)) {
+                    // ⚠️ 見出しに状態（オン/オフ）を書かないこと。スイッチの入切と
+                    //    二重否定になり、「『自動再生オフ』がオフ」＝自動再生オン？と
+                    //    読めてしまう（2026-09-16・ユーザー指摘）。
+                    //    状態はスイッチ本体と下の説明文が担う。
                     Text(
-                        stringResource(
-                            if (autoPlayNext) R.string.player_autoplay_on_title
-                            else R.string.player_autoplay_off_title
-                        ),
+                        stringResource(R.string.player_autoplay_title),
                         style = MaterialTheme.typography.titleSmall,
                     )
                     Text(

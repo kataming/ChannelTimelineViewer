@@ -2,7 +2,7 @@
 /* language: de */
 
 /* 自動再生の説明 */
-"about.autoPlay.body" = "Autoplay ist standardmäßig aus: Am Ende eines Videos stoppt die Wiedergabe und die Schaltfläche „Nächstes Video abspielen“ erscheint. Es geht nur weiter, wenn du auf dem Player-Bildschirm selbst „Am Ende automatisch das nächste Video abspielen“ einschaltest. Auch dann wird nur zum nächsten Video der geöffneten Kanalliste gewechselt – nie zu ähnlichen oder empfohlenen Videos. Es gibt keine Hintergrundwiedergabe; beim Schließen der App stoppt alles.";
+"about.autoPlay.body" = "Autoplay ist standardmäßig aus: Am Ende eines Videos stoppt die Wiedergabe und die Schaltfläche „Nächstes Video abspielen“ erscheint. Es geht nur weiter, wenn du auf dem Player-Bildschirm selbst „Autoplay“ einschaltest. Auch dann wird nur zum nächsten Video der geöffneten Kanalliste gewechselt – nie zu ähnlichen oder empfohlenen Videos. Es gibt keine Hintergrundwiedergabe; beim Schließen der App stoppt alles.";
 /* 見出し: 自動再生 */
 "about.autoPlay.header" = "Autoplay (optional, standardmäßig aus)";
 /* データの説明 */
@@ -215,14 +215,12 @@
 "player.autoAdvanced" = "Zum nächsten Video gewechselt";
 /* 読み上げ: 自動再生トグル */
 "player.autoPlay.a11y" = "Am Ende automatisch das nächste Video abspielen";
-/* 自動再生オフの説明 */
-"player.autoPlay.off.detail" = "Zeigt am Ende die Schaltfläche „Nächstes Video“";
-/* 自動再生オフの見出し */
-"player.autoPlay.off.title" = "Autoplay aus: am Ende anhalten";
-/* 自動再生オンの説明 */
-"player.autoPlay.on.detail" = "Spielt nur das nächste Video dieser Liste ab";
-/* 自動再生オンの見出し */
-"player.autoPlay.on.title" = "Autoplay ein: weiter zum nächsten Video";
+/* 自動再生オフのときの説明（いまどう動くかを書く） */
+"player.autoPlay.off.detail" = "Hält am Ende an und zeigt die Schaltfläche „Nächstes Video“";
+/* 自動再生オンのときの説明（いまどう動くかを書く） */
+"player.autoPlay.on.detail" = "Spielt am Ende nur das nächste Video dieser Liste ab";
+/* 自動再生トグルの見出し。⚠️ここに「オン」「オフ」と状態を書かないこと。スイッチの入切と二重否定になり、『「自動再生オフ」がオフ＝自動再生オン？』と読めてしまう（2026-09-16・ユーザー指摘）。状態は下の説明文とスイッチに任せる。 */
+"player.autoPlay.title" = "Autoplay";
 /* 次の動画を再生ボタン */
 "player.ended.playNext" = "Nächstes Video abspielen";
 /* 終了時の案内 */

@@ -2,7 +2,7 @@
 /* language: es */
 
 /* 自動再生の説明 */
-"about.autoPlay.body" = "La reproducción automática está desactivada por defecto: al terminar un vídeo se detiene y aparece un botón «Reproducir el siguiente». Solo continúa si activas «Reproducir el siguiente automáticamente al terminar» en la pantalla del reproductor. Aun así, solo avanza al siguiente vídeo de la lista del canal abierto, nunca a vídeos relacionados o recomendados. No hay reproducción en segundo plano: al cerrar la app se detiene todo.";
+"about.autoPlay.body" = "La reproducción automática está desactivada por defecto: al terminar un vídeo se detiene y aparece un botón «Reproducir el siguiente». Solo continúa si activas «Reproducción automática» en la pantalla del reproductor. Aun así, solo avanza al siguiente vídeo de la lista del canal abierto, nunca a vídeos relacionados o recomendados. No hay reproducción en segundo plano: al cerrar la app se detiene todo.";
 /* 見出し: 自動再生 */
 "about.autoPlay.header" = "Reproducción automática (opcional, desactivada por defecto)";
 /* データの説明 */
@@ -215,14 +215,12 @@
 "player.autoAdvanced" = "Se pasó al siguiente vídeo";
 /* 読み上げ: 自動再生トグル */
 "player.autoPlay.a11y" = "Reproducir el siguiente automáticamente al terminar";
-/* 自動再生オフの説明 */
-"player.autoPlay.off.detail" = "Muestra un botón «Reproducir siguiente» al terminar";
-/* 自動再生オフの見出し */
-"player.autoPlay.off.title" = "Reproducción automática desactivada: se detiene al terminar";
-/* 自動再生オンの説明 */
-"player.autoPlay.on.detail" = "Solo reproduce el siguiente vídeo de esta lista";
-/* 自動再生オンの見出し */
-"player.autoPlay.on.title" = "Reproducción automática activada: sigue con el siguiente vídeo";
+/* 自動再生オフのときの説明（いまどう動くかを書く） */
+"player.autoPlay.off.detail" = "Al terminar, se detiene y muestra un botón «Reproducir siguiente»";
+/* 自動再生オンのときの説明（いまどう動くかを書く） */
+"player.autoPlay.on.detail" = "Al terminar, solo reproduce el siguiente vídeo de esta lista";
+/* 自動再生トグルの見出し。⚠️ここに「オン」「オフ」と状態を書かないこと。スイッチの入切と二重否定になり、『「自動再生オフ」がオフ＝自動再生オン？』と読めてしまう（2026-09-16・ユーザー指摘）。状態は下の説明文とスイッチに任せる。 */
+"player.autoPlay.title" = "Reproducción automática";
 /* 次の動画を再生ボタン */
 "player.ended.playNext" = "Reproducir el siguiente";
 /* 終了時の案内 */

@@ -19,8 +19,10 @@ workers_dev = true
 [vars]
 # 既定は OFF。モバイルの新バージョンがストアで入手可能になってから ON にする。
 WATCH_QUEUE_V2_ENABLED = "false"
-# CORS / 書き込みを許可するオリジン（カンマ区切り）。拡張の ID は Web Store 公開後に追記する。
-ALLOWED_ORIGINS = "https://channeltimeline.jewelrysunflower.com"
+# CORS / 書き込みを許可するオリジン（カンマ区切り）。
+# chrome-extension://… は**未パッケージで読み込んだ拡張の ID**（フォルダの絶対パスから決まる）。
+# Web Store で公開したら、公開後の ID に差し替える（別の場所から読み込むと ID が変わる）。
+ALLOWED_ORIGINS = "https://channeltimeline.jewelrysunflower.com,chrome-extension://adnfdafaafpmmhelaegbokbeieafcpng"
 # 1グループあたりのキュー数と、1キューあたりの動画数の上限。
 MAX_QUEUES_PER_GROUP = "20"
 MAX_ITEMS_PER_QUEUE = "500"
@@ -32,7 +34,7 @@ database_id = "3ac5a913-6d9e-48cb-a8a0-c83b9f0f82f1"
 migrations_dir = "migrations"
 
 [env.production]
-vars = { WATCH_QUEUE_V2_ENABLED = "false", ALLOWED_ORIGINS = "https://channeltimeline.jewelrysunflower.com", MAX_QUEUES_PER_GROUP = "20", MAX_ITEMS_PER_QUEUE = "500" }
+vars = { WATCH_QUEUE_V2_ENABLED = "false", ALLOWED_ORIGINS = "https://channeltimeline.jewelrysunflower.com,chrome-extension://adnfdafaafpmmhelaegbokbeieafcpng", MAX_QUEUES_PER_GROUP = "20", MAX_ITEMS_PER_QUEUE = "500" }
 
 [[env.production.d1_databases]]
 binding = "DB"

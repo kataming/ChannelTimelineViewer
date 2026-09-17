@@ -43,7 +43,16 @@ LANGUAGE_DIRS = {
 EXTRA_STRINGS = {"app_name": "Channel Timeline Viewer"}
 
 # iOS 専用の文言（Android では出番が無い）は入れない。
-SKIP_PREFIXES = ("handoff.", "shareTips.", "share.", "openExtension.", "notification.")
+#
+# about.share. / about.pin. / about.onetap. / about.notify. も iOS だけの話。
+# Android は共有先に選んだ瞬間にアプリが直接開くので、
+# 「通知をタップして開く」回避策も、共有シートへのピン留め手順も要らない。
+# 中身も "iOS does not allow a share sheet to launch an app directly" のように
+# iOS 前提の文章なので、**Android の APK に入れてはいけない**（2026-09-18 に除外）。
+# ⚠️ ここは strings.json のキーの綴りで書く（Android のリソース名ではない）。
+#    "about.onetap." と書いても "about.oneTap." には当たらない。
+SKIP_PREFIXES = ("handoff.", "shareTips.", "share.", "openExtension.", "notification.",
+                 "about.share.", "about.pin.", "about.oneTap.", "about.notify.")
 # iOS だけで使う文言（Apple アカウント・価格取得の再試行）。Android 側には出さない。
 SKIP_KEYS = {
     "pro.restore.hint.apple",

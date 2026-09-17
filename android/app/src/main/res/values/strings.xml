@@ -29,26 +29,8 @@
     <string name="about_notice_officialplayer">Playback uses YouTube’s official embedded player (IFrame Player).</string>
     <!-- 見出し: 重要な注意事項 -->
     <string name="about_notices_header">Important notices</string>
-    <!-- 通知を許可するボタン -->
-    <string name="about_notify_allow">Allow notifications</string>
-    <!-- 通知は許可済み -->
-    <string name="about_notify_enabled">Notifications are allowed</string>
-    <!-- 設定アプリで許可するボタン -->
-    <string name="about_notify_settings">Allow notifications in Settings</string>
-    <!-- 通知の説明 -->
-    <string name="about_onetap_body">If you allow notifications, one appears right after you share and a single tap opens that channel. That is the only notification used — no news or promotions, and no server push notifications. If you don’t allow them, open the app and use “Open shared link”.</string>
-    <!-- 見出し: ワンタップで開く -->
-    <string name="about_onetap_header">One-tap opening from the share sheet</string>
     <!-- 読み上げ: このアプリについて -->
     <string name="about_open_a11y">About this app</string>
-    <!-- 共有シートの2か所の説明（%@ にアプリ名） -->
-    <string name="about_pin_body1">There are two entry points in the share sheet: “%s” in the row of app icons, and “Open in Channel Timeline” in the action list further down. The latter is reachable without opening “More”.</string>
-    <!-- 並び順の説明 -->
-    <string name="about_pin_body2">iOS decides the order of share targets, so the app can’t set it. Pin it to Favorites with the steps below and it will always appear near the top.</string>
-    <!-- 見出し: 共有シートで上位に表示するには -->
-    <string name="about_pin_header">Showing it near the top of the share sheet</string>
-    <!-- 固定手順（%@ にアプリ名） -->
-    <string name="about_pin_steps">① Tap Share → scroll the app icon row to the far right → “More”\n② Tap “Edit” at the top right\n③ Tap “+” next to “%s” to add it to Favorites\n④ Drag it up in the list → “Done”</string>
     <!-- プライバシーポリシー -->
     <string name="about_privacypolicy">Privacy policy</string>
     <!-- 続きから再生の説明 -->
@@ -59,12 +41,6 @@
     <string name="about_screen_body">While a video is playing the screen is kept awake, so it won’t dim and interrupt you when the device is resting on a table. When you pause or leave the player, auto-lock returns to normal. There is no background playback, so closing the app stops playback.</string>
     <!-- 見出し: 再生中の画面 -->
     <string name="about_screen_header">The screen during playback</string>
-    <!-- 共有機能の説明（%@ にアプリ名） -->
-    <string name="about_share_body1">Choose “%s” from the share button in the YouTube app or Safari and the app receives the shared channel or video URL. Sharing only receives the URL — nothing is sent anywhere.</string>
-    <!-- 共有後の流れの説明 -->
-    <string name="about_share_body2">After that, open this app and “Open shared link” appears on the first screen. iOS does not allow a share sheet to launch an app directly, hence this flow.</string>
-    <!-- 見出し: 共有シートから開く -->
-    <string name="about_share_header">Opening from the share sheet</string>
     <!-- アプリの説明 -->
     <string name="about_summary">A viewing companion that lists a channel’s uploads by publication date (oldest first) so you can work through archives, series, or courses while tracking your progress. It is not a replacement for the official YouTube app.</string>
     <!-- 画面名: このアプリについて -->

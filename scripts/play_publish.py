@@ -79,6 +79,18 @@ def show_status(api) -> int:
                 f"({','.join(release.get('versionCodes', []) or [])})"
                 for release in releases) or "リリースなし"
             print(f"  - {track['track']}: {summary}")
+            # ⚠️ 実際に利用者へ出ている文章まで見る。
+            #    版を上げたのに前の版の説明が残っていると、ここでしか気づけない
+            #    （トラック名と版数だけ見ても分からない）。
+            for release in releases:
+                notes = release.get("releaseNotes") or []
+                if not notes:
+                    continue
+                name = release.get("name") or ""
+                print(f"      リリースノート（{name}・{len(notes)} 言語）:")
+                for note in sorted(notes, key=lambda item: item.get("language", "")):
+                    text = (note.get("text") or "").replace("\n", " / ")
+                    print(f"        {note.get('language')}: {text}")
     finally:
         edits.delete(packageName=PACKAGE_NAME, editId=edit_id).execute()
     return 0

@@ -961,7 +961,7 @@ def main() -> int:
         if args.mode == "attach-build":
             return attach_build(client, args.bundle_id, args.build or None)
         if args.mode == "cancel":
-            return cancel_submission(client, BUNDLE_ID)
+            return cancel_submission(client, args.bundle_id)
         if args.mode == "submit":
             return submit_for_review(client, args.bundle_id)
         if args.mode == "diagnose":

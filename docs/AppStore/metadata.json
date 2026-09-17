@@ -63,13 +63,13 @@
     "ko": "Channel Timeline Viewer는 채널의 업로드 동영상을 게시일순(오래된 순)으로 정리해, 과거 영상·강의·장기 시리즈를 처음부터 순서대로, 어디까지 봤는지 놓치지 않고 볼 수 있게 해 줍니다.\n\n■ 이런 분께\n・채널의 과거 영상을 처음부터 정주행하고 싶은 분\n・강의나 연속 강좌를 교재처럼 진도 관리하며 보고 싶은 분\n・어디까지 봤는지 정확히 알고 싶은 분\n\n■ 주요 기능\n・채널 URL 입력, 또는 YouTube 앱·Safari의 공유 시트에서 받기\n・업로드 동영상을 게시일순(오래된 순／최신 순)으로 목록 표시\n・채널별 진행률(시청 수／전체 수, 백분율, 진행 바)\n・‘다음 시청／이어 보기’로 멈춘 곳으로 바로 이동\n・마지막으로 멈춘 초부터 이어서 재생\n・종료 후 목록의 다음 동영상으로 넘어가는 자동 재생(기본 켜짐, 언제든지 끌 수 있습니다)\n・반복 재생(한 편／전체)\n・시청함·건너뛰기 관리, 안 본 동영상만 재생\n・필터(전체／안 본 것／시청한 것)\n・동영상별 메모(학습·시리즈 시청용)\n・재생 속도와 자막을 플레이어 밖에서 조작\n・‘2026년 2월 27일 (1,034 / 3,500)’처럼 목록 내 위치 표시\n・이동 버튼 5개(처음／이전／되돌리기／다음／마지막). ‘되돌리기’는 직전 동영상과 재생 위치로 복귀\n・한 번 연 채널은 저장된 목록에서 바로 표시\n\n■ 재생에 대하여\n동영상은 YouTube 공식 임베드 플레이어(IFrame Player)로 재생됩니다.\n\n■ 무료와 Pro\n무료로 채널 1개를 저장할 수 있습니다. 저장한 채널 안에서는 정렬, 시청 완료 관리, 이어 보기, 이동 버튼, 메모, 진행률 표시, 공식 플레이어 재생을 제한 없이 사용할 수 있습니다.\n무료 상태에서 다른 채널로 교체할 수도 있지만, 그때 이전 채널의 시청 기록·진행 상황·메모가 삭제됩니다.\n여러 채널을 기록을 남긴 채 함께 보려면 Pro를 구매하세요. 구독이 아닌 1회 구매입니다.\n\n■ 유의 사항\n・이 앱은 YouTube 공식 앱이 아닙니다.\n・동영상 다운로드, 광고 차단, 백그라운드 재생을 하지 않습니다.\n・동영상 목록은 YouTube Data API v3로 가져옵니다.\n・자동 재생은 기본으로 켜져 있지만, 열어 둔 목록의 다음 동영상으로만 이동하며 재생 화면에서 언제든지 끌 수 있습니다.\n・광고가 없고 구독도 없습니다(Pro는 1회 구매입니다).\n\n※ YouTube는 Google LLC의 상표입니다."
   },
   "whatsNew": {
-    "ja": "・はじめて使うときに、チャンネルの追加方法を案内するようにしました。\n・再生画面の「自動再生」の表示を分かりやすくし、初期状態をオンにしました（すでにご自分で切り替えた方の設定はそのままです）。",
-    "en": "• New to the app? A short guide now shows you how to add a channel.\n• The Autoplay switch is clearer, and it now starts turned on (if you already chose a setting yourself, it is kept).",
-    "zh-Hans": "• 首次使用时，会引导你如何添加频道。\n• 播放页面的“自动播放”开关更清晰，并且默认开启（若你已自行设置过，将保持原样）。",
-    "es": "• ¿Es tu primera vez? Ahora una breve guía te muestra cómo añadir un canal.\n• El interruptor de reproducción automática es más claro y viene activado (si ya elegiste tu ajuste, se mantiene).",
-    "de": "• Neu hier? Eine kurze Anleitung zeigt jetzt, wie du einen Kanal hinzufügst.\n• Der Schalter für die automatische Wiedergabe ist klarer und ist jetzt standardmäßig an (deine eigene Einstellung bleibt erhalten).",
-    "fr": "• Première utilisation ? Un court guide vous montre comment ajouter une chaîne.\n• Le bouton de lecture automatique est plus clair et il est désormais activé par défaut (si vous aviez déjà choisi, votre réglage est conservé).",
-    "ko": "• 처음 사용할 때 채널을 추가하는 방법을 안내합니다.\n• 재생 화면의 ‘자동 재생’ 표시를 알기 쉽게 바꾸고, 기본값을 켬으로 했습니다(직접 설정하신 경우에는 그대로 유지됩니다)."
+    "ja": "・チャンネルを追加する画面をすっきりさせました。はじめての方への案内と内容が重なっていた「共有をもっと速く」の枠を取り除いています。\n・共有シートの設定方法は「ⓘ このアプリについて」からいつでも確認できます。",
+    "en": "• Tidied up the screen where you add a channel. The “Share faster” box is gone — it repeated what the first-run guide already shows you.\n• The share sheet tips are still there any time under “ⓘ About this app”.",
+    "zh-Hans": "・整理了添加频道的界面。移除了与首次使用引导内容重复的“更快分享”提示框。\n・分享面板的设置方法仍可随时在“ⓘ 关于此应用”中查看。",
+    "es": "• Hemos ordenado la pantalla para añadir un canal. Quitamos el recuadro «Compartir más rápido» porque repetía lo que ya muestra la guía inicial.\n• Los consejos sobre la hoja de compartir siguen disponibles en «ⓘ Acerca de esta app».",
+    "de": "• Der Bildschirm zum Hinzufügen eines Kanals ist aufgeräumter. Der Kasten „Schneller teilen“ ist entfallen, weil er wiederholte, was die Erstanleitung bereits zeigt.\n• Die Hinweise zum Teilen-Menü findest du weiterhin unter „ⓘ Über diese App“.",
+    "fr": "• L’écran d’ajout de chaîne a été allégé. L’encadré « Partager plus vite » a été retiré car il répétait ce que le guide de démarrage montre déjà.\n• Les conseils sur la feuille de partage restent disponibles dans « ⓘ À propos de cette app ».",
+    "ko": "・채널을 추가하는 화면을 정리했습니다. 첫 사용 안내와 내용이 겹치던 ‘더 빠르게 공유’ 상자를 없앴습니다.\n・공유 시트 설정 방법은 ‘ⓘ 이 앱에 대하여’에서 언제든지 확인할 수 있습니다."
   },
   "supportURL": "https://channeltimeline.jewelrysunflower.com/{lang}/support/",
   "marketingURL": "https://channeltimeline.jewelrysunflower.com/{lang}/",

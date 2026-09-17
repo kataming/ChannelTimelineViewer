@@ -19,9 +19,12 @@ settings:
     # 公開済みは 1.2.0(33)。同じ番号は再アップロードできないので 34 以降。
     # 32 = チャンネル追加の案内
     # 33 = 自動再生トグルの見出し修正＋既定オン（1.2.0 として公開済み）
-    # 34 = 入力画面の「共有をもっと速く」案内を撤去
+    # ⚠️ 34 は 2026-09-16 に別作業で使用済みだった。同じ番号で上げ直すと Apple 側で
+    #    重複として弾かれ、古い方のビルドが紐づいて INVALID_BINARY になる（実際に起きた）。
+    #    **番号を決める前に必ず既存のビルドを確認すること**（appstore-metadata.yml -f mode=diagnose）。
+    # 35 = 入力画面の「共有をもっと速く」案内を撤去
     # CI（ios-release.yml）は build_number 入力（既定は実行番号）で上書きする。
-    CURRENT_PROJECT_VERSION: "34"
+    CURRENT_PROJECT_VERSION: "35"
     # === 提出準備中 ===
     # Bundle ID は App Store Connect 登録済みの値に設定済み(下のターゲット設定)。
     # DEVELOPMENT_TEAM は Team ID(10桁) を入れると署名が有効になる。空のままなら従来どおり

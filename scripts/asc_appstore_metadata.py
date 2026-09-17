@@ -380,6 +380,43 @@ def push(client: Client, bundle_id: str, version_string: str) -> int:
     return 0
 
 
+def cancel_submission(client: Client, bundle_id: str) -> int:
+    """審査へ出した提出を取り下げる（App Store Connect の「提出を取り消す」と同じ）。
+
+    ビルドを差し替えたいのに提出済みで編集できない、というときに使う。
+    取り下げるとバージョンは編集できる状態に戻るので、
+    attach-build でビルドを入れ替えてから submit をやり直せる。
+
+    ⚠️ 審査中（IN_REVIEW）のものを取り下げると、**審査待ちの列に並び直し**になる。
+    通ってから次の版で直せるなら、そちらの方が早い。
+    """
+    app = find_app(client, bundle_id)
+    app_id = app["id"]
+
+    submissions = client.get(f"/v1/apps/{app_id}/reviewSubmissions?limit=10").get("data", [])
+    open_states = {"READY_FOR_REVIEW", "WAITING_FOR_REVIEW", "IN_REVIEW", "UNRESOLVED_ISSUES"}
+    target = next((s for s in submissions
+                   if s["attributes"].get("state") in open_states), None)
+    if target is None:
+        print("取り下げられる提出はありません（開いている提出が見つかりません）")
+        return 0
+
+    state = target["attributes"].get("state")
+    print(f"提出を取り下げます（状態 {state} / 提出日 {target['attributes'].get('submittedDate')}）")
+    client.write("PATCH", f"/v1/reviewSubmissions/{target['id']}", {
+        "data": {
+            "type": "reviewSubmissions",
+            "id": target["id"],
+            "attributes": {"canceled": True},
+        }
+    })
+    if client.dry_run:
+        return 0
+    after = client.get(f"/v1/reviewSubmissions/{target['id']}").get("data", {})
+    print(f"  取り下げました。状態 {after.get('attributes', {}).get('state')}")
+    return 0
+
+
 def submit_for_review(client: Client, bundle_id: str) -> int:
     """編集中のバージョンを審査へ提出する。
 
@@ -893,7 +930,7 @@ def main() -> int:
     parser.add_argument(
         "--mode",
         choices=["status", "push", "attach-build", "category", "review", "screenshots",
-                 "diagnose", "submit"],
+                 "diagnose", "submit", "cancel"],
         default="status")
     parser.add_argument("--primary-category", default="EDUCATION")
     parser.add_argument("--screenshots-dir", default="screenshots",
@@ -923,6 +960,8 @@ def main() -> int:
             return show_status(client, args.bundle_id)
         if args.mode == "attach-build":
             return attach_build(client, args.bundle_id, args.build or None)
+        if args.mode == "cancel":
+            return cancel_submission(client, BUNDLE_ID)
         if args.mode == "submit":
             return submit_for_review(client, args.bundle_id)
         if args.mode == "diagnose":

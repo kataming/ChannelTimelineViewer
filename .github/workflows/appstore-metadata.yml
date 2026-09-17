@@ -15,9 +15,9 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: '動作（status=確認 / push=メタデータ / attach-build=ビルド / category=カテゴリ / review=審査情報 / submit=審査へ提出）'
+        description: '動作（status=確認 / push=メタデータ / attach-build=ビルド / category=カテゴリ / review=審査情報 / submit=審査へ提出 / cancel=提出の取り下げ）'
         type: choice
-        options: [status, diagnose, push, attach-build, category, review, submit]
+        options: [status, diagnose, push, attach-build, category, review, submit, cancel]
         default: status
       dry_run:
         description: 'push のとき、送信せず内容だけ表示する'

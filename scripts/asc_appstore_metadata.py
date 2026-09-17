@@ -803,21 +803,30 @@ def diagnose(client: Client, bundle_id: str) -> int:
             label = attrs.get("versionString", "（版の情報なし）")
             print(f"      中身: バージョン {label} / 状態 {attrs.get('appStoreState') or attrs.get('state')}")
 
-    # そのバージョンにどのビルドが紐づいているか（提出済みかの判断に要る）。
-    print("\n最新バージョンに紐づくビルド")
+    # 各バージョンにどのビルドが紐づいているか。
+    # ⚠️ 提出し直す前に必ず見ること。狙いと違うビルドが載ったまま出すと、
+    #    直したはずの内容が入っていないものを審査に回すことになる。
+    print("\nバージョンに紐づくビルド")
     try:
-        latest = client.get(
-            f"/v1/apps/{app_id}/appStoreVersions?limit=1"
-            "&sort=-createdDate&include=build").get("included", [])
-        builds = [inc for inc in latest if inc["type"] == "builds"]
-        if builds:
-            for b in builds:
-                print(f"  ビルド {b['attributes'].get('version')} "
-                      f"（アップロード {b['attributes'].get('uploadedDate')}）")
-        else:
-            print("  ビルドが紐づいていません")
+        versions = client.get(
+            f"/v1/apps/{app_id}/appStoreVersions?limit=5").get("data", [])
     except ASCError as error:
+        versions = []
         print(f"  取得できず（HTTP {error.code}）")
+    for version in versions:
+        label = version["attributes"].get("versionString")
+        state = version["attributes"].get("appStoreState") or version["attributes"].get("state")
+        try:
+            build = client.get(f"/v1/appStoreVersions/{version['id']}/build").get("data")
+        except ASCError as error:
+            print(f"  {label}（{state}）: ビルドを取得できず（HTTP {error.code}）")
+            continue
+        if not build:
+            print(f"  {label}（{state}）: ビルドが紐づいていません")
+            continue
+        a = build.get("attributes", {})
+        print(f"  {label}（{state}）: ビルド {a.get('version')} "
+              f"／アップロード {a.get('uploadedDate')}")
 
     print("\n価格・配信")
     probe("価格スケジュール", f"/v1/apps/{app_id}/appPriceSchedule?include=manualPrices,baseTerritory",

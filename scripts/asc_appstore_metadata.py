@@ -776,6 +776,48 @@ def diagnose(client: Client, bundle_id: str) -> int:
         a = item["attributes"]
         print(f"  - 状態 {a.get('state')} / 提出 {a.get('submitted')} "
               f"/ 提出日 {a.get('submittedDate')}")
+        # ⚠️ 状態だけでは「何を出したのか」が分からない。
+        #    READY_FOR_REVIEW は「束は作ったが Apple へはまだ送っていない」状態で、
+        #    submittedDate が None なのはそのため。中身（版とビルド）まで出さないと、
+        #    「もう申請済みなのか」を人に聞き返すことになる（2026-09-17 に実際に起きた）。
+        try:
+            items = client.get(
+                f"/v1/reviewSubmissions/{item['id']}/items"
+                "?include=appStoreVersion&limit=10")
+        except ASCError as error:
+            print(f"      中身を取得できず（HTTP {error.code}）")
+            continue
+        versions = {
+            inc["id"]: inc["attributes"]
+            for inc in items.get("included", [])
+            if inc["type"] == "appStoreVersions"
+        }
+        entries = items.get("data", [])
+        if not entries:
+            print("      中身: 空")
+        for entry in entries:
+            rel = (entry.get("relationships", {})
+                        .get("appStoreVersion", {})
+                        .get("data") or {})
+            attrs = versions.get(rel.get("id"), {})
+            label = attrs.get("versionString", "（版の情報なし）")
+            print(f"      中身: バージョン {label} / 状態 {attrs.get('appStoreState') or attrs.get('state')}")
+
+    # そのバージョンにどのビルドが紐づいているか（提出済みかの判断に要る）。
+    print("\n最新バージョンに紐づくビルド")
+    try:
+        latest = client.get(
+            f"/v1/apps/{app_id}/appStoreVersions?limit=1"
+            "&sort=-createdDate&include=build").get("included", [])
+        builds = [inc for inc in latest if inc["type"] == "builds"]
+        if builds:
+            for b in builds:
+                print(f"  ビルド {b['attributes'].get('version')} "
+                      f"（アップロード {b['attributes'].get('uploadedDate')}）")
+        else:
+            print("  ビルドが紐づいていません")
+    except ASCError as error:
+        print(f"  取得できず（HTTP {error.code}）")
 
     print("\n価格・配信")
     probe("価格スケジュール", f"/v1/apps/{app_id}/appPriceSchedule?include=manualPrices,baseTerritory",

@@ -1109,106 +1109,6 @@
     "fr": "À propos de cette app",
     "ko": "이 앱에 대하여"
   },
-  "shareTips.notify.request": {
-    "comment": "通知を許可してワンタップで開く",
-    "ja": "① 通知を許可してワンタップで開く",
-    "en": "① Allow notifications to open in one tap",
-    "zh-Hans": "① 允许通知，一键打开",
-    "es": "① Permitir notificaciones para abrir con un toque",
-    "de": "① Mitteilungen erlauben und mit einem Tippen öffnen",
-    "fr": "① Autoriser les notifications pour ouvrir en un geste",
-    "ko": "① 알림을 허용해 한 번에 열기"
-  },
-  "shareTips.notify.settings": {
-    "comment": "設定アプリで通知を許可する",
-    "ja": "① 設定アプリで通知を許可する",
-    "en": "① Allow notifications in Settings",
-    "zh-Hans": "① 在“设置”中允许通知",
-    "es": "① Permitir notificaciones en Ajustes",
-    "de": "① Mitteilungen in den Einstellungen erlauben",
-    "fr": "① Autoriser les notifications dans Réglages",
-    "ko": "① 설정 앱에서 알림 허용하기"
-  },
-  "shareTips.notify.granted": {
-    "comment": "通知は許可済み",
-    "ja": "① 通知は許可済み（共有すると通知から開けます）",
-    "en": "① Notifications are on (share, then tap the notification)",
-    "zh-Hans": "① 通知已开启（分享后可从通知打开）",
-    "es": "① Notificaciones activadas (comparte y toca la notificación)",
-    "de": "① Mitteilungen sind aktiv (teilen, dann Mitteilung antippen)",
-    "fr": "① Notifications activées (partagez puis touchez la notification)",
-    "ko": "① 알림이 허용되어 있습니다 (공유 후 알림에서 열기)"
-  },
-  "shareTips.pin.intro": {
-    "comment": "共有シート固定の前置き",
-    "ja": "共有先の並び順は iOS が決めるため、アプリからは指定できません。次の手順で「よく使う項目」に登録すると、常に先頭付近に出ます。",
-    "en": "iOS decides the order of share targets, so apps can’t change it. Add this app to Favorites with the steps below and it will always appear near the top.",
-    "zh-Hans": "分享目标的排列顺序由 iOS 决定，应用无法指定。按以下步骤加入“个人收藏”后，它会始终显示在靠前的位置。",
-    "es": "iOS decide el orden de los destinos para compartir, así que las apps no pueden cambiarlo. Añádela a Favoritos con estos pasos y aparecerá siempre arriba.",
-    "de": "iOS bestimmt die Reihenfolge der Ziele im Teilen-Menü; Apps können sie nicht ändern. Füge die App mit den folgenden Schritten zu den Favoriten hinzu, dann steht sie immer weit oben.",
-    "fr": "iOS décide de l’ordre des destinations de partage ; les apps ne peuvent pas le modifier. Ajoutez-la aux Favoris avec les étapes ci-dessous pour qu’elle reste en tête.",
-    "ko": "공유 대상의 순서는 iOS가 정하므로 앱에서 지정할 수 없습니다. 아래 순서로 ‘즐겨찾는 항목’에 추가하면 항상 앞쪽에 표시됩니다."
-  },
-  "shareTips.pin.steps": {
-    "comment": "共有シート固定の手順（%@ にアプリ名）",
-    "ja": "1. 共有ボタンを押す\n2. アプリのアイコンが並ぶ行を右端までスクロール →「その他」\n3. 右上の「編集」をタップ\n4. 「%@」の左の「＋」を押す\n5. 「よく使う項目」の中でドラッグして一番上へ →「完了」",
-    "en": "1. Tap the Share button\n2. Scroll the app icon row to the far right → “More”\n3. Tap “Edit” at the top right\n4. Tap “+” to the left of “%@”\n5. Drag it to the top of Favorites → “Done”",
-    "zh-Hans": "1. 点按分享按钮\n2. 将应用图标行滑到最右端 →“更多”\n3. 点按右上角的“编辑”\n4. 点按“%@”左侧的“+”\n5. 在“个人收藏”中拖到最上方 →“完成”",
-    "es": "1. Toca el botón Compartir\n2. Desplaza la fila de iconos hasta el final → «Más»\n3. Toca «Editar» arriba a la derecha\n4. Toca «+» a la izquierda de «%@»\n5. Arrástrala arriba del todo en Favoritos → «OK»",
-    "de": "1. Auf „Teilen“ tippen\n2. Die App-Symbolzeile ganz nach rechts scrollen → „Mehr“\n3. Oben rechts auf „Bearbeiten“ tippen\n4. Links neben „%@“ auf „+“ tippen\n5. In den Favoriten nach ganz oben ziehen → „Fertig“",
-    "fr": "1. Touchez le bouton Partager\n2. Faites défiler la rangée d’icônes jusqu’au bout → « Plus »\n3. Touchez « Modifier » en haut à droite\n4. Touchez « + » à gauche de « %@ »\n5. Faites-la glisser en haut des Favoris → « OK »",
-    "ko": "1. 공유 버튼을 누릅니다\n2. 앱 아이콘 줄을 오른쪽 끝까지 스크롤 → ‘기타’\n3. 오른쪽 위 ‘편집’을 탭합니다\n4. ‘%@’ 왼쪽의 ‘+’를 누릅니다\n5. ‘즐겨찾는 항목’에서 맨 위로 드래그 → ‘완료’"
-  },
-  "shareTips.pin.actionNote": {
-    "comment": "アクション一覧にもある案内",
-    "ja": "なお、共有シートを下にスクロールしたアクション一覧（「Braveで開く」などが並ぶ枠）にも「Channel Timelineで開く」があります。こちらは「その他」を開かなくても届きます。",
-    "en": "There is also “Open in Channel Timeline” in the action list further down the share sheet (where entries like “Open in Brave” appear). That one is reachable without opening “More”.",
-    "zh-Hans": "此外，在分享面板向下滚动后的操作列表中（“在 Brave 中打开”等所在的区域）也有“在 Channel Timeline 中打开”。这一项无需打开“更多”即可使用。",
-    "es": "Además, en la lista de acciones más abajo en la hoja para compartir (donde aparecen entradas como «Abrir en Brave») está «Abrir en Channel Timeline». A esa se llega sin abrir «Más».",
-    "de": "Weiter unten im Teilen-Menü gibt es in der Aktionsliste (dort, wo etwa „In Brave öffnen“ steht) außerdem „In Channel Timeline öffnen“. Diese ist ohne „Mehr“ erreichbar.",
-    "fr": "Plus bas dans la feuille de partage, la liste d’actions (là où figure « Ouvrir dans Brave ») contient aussi « Ouvrir dans Channel Timeline ». Elle est accessible sans passer par « Plus ».",
-    "ko": "또한 공유 시트를 아래로 스크롤한 동작 목록(‘Brave로 열기’ 등이 있는 영역)에도 ‘Channel Timeline으로 열기’가 있습니다. 이쪽은 ‘기타’를 열지 않아도 사용할 수 있습니다."
-  },
-  "shareTips.pin.label": {
-    "comment": "共有シートの先頭に固定する",
-    "ja": "② 共有シートの先頭に固定する",
-    "en": "② Pin it to the top of the share sheet",
-    "zh-Hans": "② 将其固定在分享面板顶部",
-    "es": "② Fíjala arriba en la hoja para compartir",
-    "de": "② Im Teilen-Menü nach oben anheften",
-    "fr": "② L’épingler en haut de la feuille de partage",
-    "ko": "② 공유 시트 맨 앞에 고정하기"
-  },
-  "shareTips.dismiss": {
-    "comment": "案内を閉じるボタン",
-    "ja": "この案内を閉じる",
-    "en": "Hide these tips",
-    "zh-Hans": "隐藏此提示",
-    "es": "Ocultar estos consejos",
-    "de": "Diese Hinweise ausblenden",
-    "fr": "Masquer ces conseils",
-    "ko": "이 안내 닫기"
-  },
-  "shareTips.header": {
-    "comment": "見出し: 共有をもっと速く",
-    "ja": "共有をもっと速く",
-    "en": "Make sharing faster",
-    "zh-Hans": "让分享更快捷",
-    "es": "Comparte más rápido",
-    "de": "Schneller teilen",
-    "fr": "Partager plus vite",
-    "ko": "공유를 더 빠르게"
-  },
-  "shareTips.footer": {
-    "comment": "共有の仕組みの説明",
-    "ja": "iOS の仕様で、共有シートからアプリを直接起動することはできません。通知を許可すると、共有した直後に出る通知をタップするだけで開けます。使うのは共有した直後のこの通知だけで、お知らせや宣伝の通知は送りません。（この案内は「ⓘ」からいつでも確認できます）",
-    "en": "iOS doesn’t let a share sheet launch an app directly. If you allow notifications, you can tap the notification that appears right after sharing. That is the only notification used — no news or promotions. (You can find these tips again under “ⓘ”.)",
-    "zh-Hans": "由于 iOS 的限制，分享面板无法直接启动应用。允许通知后，分享完成时会立即出现通知，点按即可打开。仅使用这一条通知，不会发送资讯或广告通知。（此提示可随时从“ⓘ”查看。）",
-    "es": "iOS no permite que la hoja para compartir abra una app directamente. Si permites las notificaciones, podrás tocar la que aparece justo después de compartir. Es la única notificación que se usa: nada de noticias ni promociones. (Puedes volver a ver estos consejos en «ⓘ».)",
-    "de": "iOS erlaubt es nicht, eine App direkt aus dem Teilen-Menü zu starten. Wenn du Mitteilungen erlaubst, kannst du einfach die Mitteilung antippen, die direkt nach dem Teilen erscheint. Nur diese eine Mitteilung wird genutzt – keine News, keine Werbung. (Diese Hinweise findest du jederzeit unter „ⓘ“.)",
-    "fr": "iOS ne permet pas à une feuille de partage de lancer directement une app. Si vous autorisez les notifications, il suffit de toucher celle qui apparaît juste après le partage. C’est la seule notification utilisée : ni actualités, ni promotions. (Ces conseils restent accessibles depuis « ⓘ ».)",
-    "ko": "iOS 사양상 공유 시트에서 앱을 직접 실행할 수 없습니다. 알림을 허용하면 공유 직후 표시되는 알림을 탭하는 것만으로 열 수 있습니다. 사용하는 알림은 이것뿐이며 소식·홍보 알림은 보내지 않습니다. (이 안내는 ‘ⓘ’에서 언제든지 확인할 수 있습니다.)"
-  },
   "clipboard.notFound": {
     "comment": "クリップボードにURLが無いとき",
     "ja": "クリップボードに YouTube のURLが見つかりませんでした。URLを貼り付けて取得してください。",
@@ -2368,5 +2268,15 @@
     "de": "Auf die Mitteilung tippen",
     "fr": "Appuyez sur la notification",
     "ko": "알림을 탭합니다"
+  },
+  "shareTips.notify.why": {
+    "comment": "共有直後の通知を許可してもらう理由（入力画面・未許可のときだけ出す）",
+    "ja": "共有した直後に出る通知をタップすると、そのままチャンネルを開けます。お知らせや宣伝の通知は送りません。",
+    "en": "Tapping the notification that appears right after you share opens the channel straight away. We never send news or promotional notifications.",
+    "zh-Hans": "分享后立即出现的通知，点按即可直接打开该频道。我们不会发送公告或推广通知。",
+    "es": "Al tocar la notificación que aparece justo después de compartir, se abre el canal directamente. Nunca enviamos avisos ni notificaciones promocionales.",
+    "de": "Tippe auf die Mitteilung, die direkt nach dem Teilen erscheint, und der Kanal öffnet sich sofort. Wir senden keine News- oder Werbemitteilungen.",
+    "fr": "Touchez la notification qui apparaît juste après le partage pour ouvrir directement la chaîne. Nous n’envoyons jamais d’actualités ni de notifications promotionnelles.",
+    "ko": "공유한 직후 나타나는 알림을 누르면 채널이 바로 열립니다. 공지나 홍보 알림은 보내지 않습니다."
   }
 }

@@ -81,7 +81,7 @@ struct ChannelInputView: View {
                     }
                 }
 
-                oneTapShareSection
+                shareNotificationHint
 
                 Section {
                     HStack(spacing: 8) {
@@ -322,55 +322,42 @@ struct ChannelInputView: View {
         }
     }
 
-    /// 共有をもっと速く使うための案内（通知の許可と、共有シート先頭への固定）。
-    /// 共有を一度でも使った人にだけ出し、「閉じる」で以後は表示しない。
+    /// 通知がまだ許可されていないときだけ出す、1行の案内。
+    ///
+    /// ここには以前「共有をもっと速く」という①②付きの案内枠を置いていたが、
+    /// **2026-09-18 に取り外した**（ユーザー指摘）。理由は3つ:
+    ///
+    /// - チャンネルの追加方法は**初回チュートリアル**（`ChannelTutorialView`）が
+    ///   画面つきで教えるようになったので、共有シートの手順を二重に説明していた
+    /// - 「共有シートの先頭に固定する」手順は**「ⓘ このアプリについて」に同じものがある**
+    ///   （`about.pin.*`）。枠の脚注自身が「ⓘ からいつでも確認できます」と書いていた
+    /// - ①② と番号が振られていたため、**初回チュートリアルの続きに見えて紛らわしかった**
+    ///
+    /// 残したのは**通知の許可だけ**。iOS の仕様で共有シートからアプリを直接起動できず、
+    /// 共有直後のローカル通知をタップして開く作りなので、許可が無いと共有の流れが成り立たない
+    /// （代わりにクリップボードから開くボタンは残っている）。
+    /// **許可済みのときは何も出さない** ― 以前は「① 通知は許可済み」という、
+    /// 押せもしない行が常に居座っていた。
     @ViewBuilder
-    private var oneTapShareSection: some View {
-        if sharedLinkRouter.hasUsedShareHandoff, !sharedLinkRouter.hasDismissedShareTips {
+    private var shareNotificationHint: some View {
+        if sharedLinkRouter.hasUsedShareHandoff,
+           notificationPermission.canAsk || notificationPermission.isDenied {
             Section {
                 if notificationPermission.canAsk {
                     Button {
                         Task { await notificationPermission.request() }
                     } label: {
-                        Label("shareTips.notify.request", systemImage: "bell.badge")
+                        Label("about.notify.allow", systemImage: "bell.badge")
                     }
-                } else if notificationPermission.isDenied {
+                } else {
                     Button {
                         notificationPermission.openSettings()
                     } label: {
-                        Label("shareTips.notify.settings", systemImage: "gear")
+                        Label("about.notify.settings", systemImage: "gear")
                     }
-                } else {
-                    Label("shareTips.notify.granted", systemImage: "checkmark.circle.fill")
-                        .font(.subheadline)
-                        .foregroundStyle(.green)
                 }
-
-                DisclosureGroup {
-                    VStack(alignment: .leading, spacing: 6) {
-                        Text("shareTips.pin.intro")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                        Text(String(format: String(localized: "shareTips.pin.steps"),
-                                    AppInfo.displayName))
-                            .font(.caption)
-                        Text("shareTips.pin.actionNote")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                    }
-                    .padding(.vertical, 4)
-                } label: {
-                    Label("shareTips.pin.label", systemImage: "pin")
-                }
-
-                Button("shareTips.dismiss") {
-                    sharedLinkRouter.dismissShareTips()
-                }
-                .font(.footnote)
-            } header: {
-                Text("shareTips.header")
             } footer: {
-                Text("shareTips.footer")
+                Text("shareTips.notify.why")
             }
         }
     }

@@ -16,23 +16,17 @@ final class SharedLinkRouter: ObservableObject {
 
     /// 共有シートからの受け渡しを一度でも使ったか（案内を出すかの判断に使う）。
     @Published private(set) var hasUsedShareHandoff: Bool
-    /// 共有を速くする案内を閉じたか。
-    @Published private(set) var hasDismissedShareTips: Bool
 
     private static let usedHandoffKey = "has_used_share_handoff_v1"
-    private static let dismissedTipsKey = "share_tips_dismissed_v1"
     private let defaults: UserDefaults
+
+    // 以前は「共有をもっと速く」の案内を閉じた印（`share_tips_dismissed_v1`）も持っていたが、
+    // 案内そのものを 2026-09-18 に取り外したので消した（`ChannelInputView` の説明を参照）。
+    // 端末に残った古いキーは読まれないだけで害はない。
 
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
         self.hasUsedShareHandoff = defaults.bool(forKey: Self.usedHandoffKey)
-        self.hasDismissedShareTips = defaults.bool(forKey: Self.dismissedTipsKey)
-    }
-
-    /// 案内を閉じる（次からは表示しない）。
-    func dismissShareTips() {
-        hasDismissedShareTips = true
-        defaults.set(true, forKey: Self.dismissedTipsKey)
     }
 
     /// カスタム URL を受け取る（`onOpenURL` から呼ぶ）。処理できた場合のみ true。

@@ -58,9 +58,13 @@ final class SharedLinkNotifierTests: XCTestCase {
         XCTAssertTrue(router.hasUsedShareHandoff, "共有経由で開いたことを記録する")
     }
 
-    /// 共有を速くする案内は、共有を使ったあとに出て、閉じたら二度と出ないこと。
+    /// 通知の案内は、共有を一度使ったあとにだけ出る（初回起動では出さない）。
+    ///
+    /// 「共有をもっと速く」の枠と、その閉じた印は 2026-09-18 に取り外した。
+    /// 残っているのは「共有を使ったことがあるか」の記録だけで、
+    /// これは**通知が未許可のときに1行の案内を出すか**の判断に使う。
     @MainActor
-    func testShareTipsAppearAfterFirstHandoffAndCanBeDismissed() {
+    func testShareHandoffIsRememberedAcrossLaunches() {
         let suite = "test.router.\(UUID().uuidString)"
         let defaults = UserDefaults(suiteName: suite)!
         defaults.removePersistentDomain(forName: suite)
@@ -69,15 +73,10 @@ final class SharedLinkNotifierTests: XCTestCase {
         XCTAssertFalse(router.hasUsedShareHandoff, "初回起動では案内を出さない")
         router.markShareHandoffUsed()
         XCTAssertTrue(router.hasUsedShareHandoff)
-        XCTAssertFalse(router.hasDismissedShareTips)
-
-        router.dismissShareTips()
-        XCTAssertTrue(router.hasDismissedShareTips)
 
         // アプリを再起動しても状態が残る
         let reloaded = SharedLinkRouter(defaults: defaults)
         XCTAssertTrue(reloaded.hasUsedShareHandoff)
-        XCTAssertTrue(reloaded.hasDismissedShareTips)
     }
 
     @MainActor

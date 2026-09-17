@@ -389,26 +389,8 @@
 "share.clipboardHint" = "El enlace que compartiste está en el portapapeles.";
 /* 共有されたURLを開くボタン */
 "share.openSharedURL" = "Abrir el enlace compartido";
-/* 案内を閉じるボタン */
-"shareTips.dismiss" = "Ocultar estos consejos";
-/* 共有の仕組みの説明 */
-"shareTips.footer" = "iOS no permite que la hoja para compartir abra una app directamente. Si permites las notificaciones, podrás tocar la que aparece justo después de compartir. Es la única notificación que se usa: nada de noticias ni promociones. (Puedes volver a ver estos consejos en «ⓘ».)";
-/* 見出し: 共有をもっと速く */
-"shareTips.header" = "Comparte más rápido";
-/* 通知は許可済み */
-"shareTips.notify.granted" = "① Notificaciones activadas (comparte y toca la notificación)";
-/* 通知を許可してワンタップで開く */
-"shareTips.notify.request" = "① Permitir notificaciones para abrir con un toque";
-/* 設定アプリで通知を許可する */
-"shareTips.notify.settings" = "① Permitir notificaciones en Ajustes";
-/* アクション一覧にもある案内 */
-"shareTips.pin.actionNote" = "Además, en la lista de acciones más abajo en la hoja para compartir (donde aparecen entradas como «Abrir en Brave») está «Abrir en Channel Timeline». A esa se llega sin abrir «Más».";
-/* 共有シート固定の前置き */
-"shareTips.pin.intro" = "iOS decide el orden de los destinos para compartir, así que las apps no pueden cambiarlo. Añádela a Favoritos con estos pasos y aparecerá siempre arriba.";
-/* 共有シートの先頭に固定する */
-"shareTips.pin.label" = "② Fíjala arriba en la hoja para compartir";
-/* 共有シート固定の手順（%@ にアプリ名） */
-"shareTips.pin.steps" = "1. Toca el botón Compartir\n2. Desplaza la fila de iconos hasta el final → «Más»\n3. Toca «Editar» arriba a la derecha\n4. Toca «+» a la izquierda de «%@»\n5. Arrástrala arriba del todo en Favoritos → «OK»";
+/* 共有直後の通知を許可してもらう理由（入力画面・未許可のときだけ出す） */
+"shareTips.notify.why" = "Al tocar la notificación que aparece justo después de compartir, se abre el canal directamente. Nunca enviamos avisos ni notificaciones promocionales.";
 /* 前へ */
 "tutorial.back" = "Atrás";
 /* 閉じる */

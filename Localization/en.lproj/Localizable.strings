@@ -389,26 +389,8 @@
 "share.clipboardHint" = "The link you shared is on the clipboard.";
 /* 共有されたURLを開くボタン */
 "share.openSharedURL" = "Open shared link";
-/* 案内を閉じるボタン */
-"shareTips.dismiss" = "Hide these tips";
-/* 共有の仕組みの説明 */
-"shareTips.footer" = "iOS doesn’t let a share sheet launch an app directly. If you allow notifications, you can tap the notification that appears right after sharing. That is the only notification used — no news or promotions. (You can find these tips again under “ⓘ”.)";
-/* 見出し: 共有をもっと速く */
-"shareTips.header" = "Make sharing faster";
-/* 通知は許可済み */
-"shareTips.notify.granted" = "① Notifications are on (share, then tap the notification)";
-/* 通知を許可してワンタップで開く */
-"shareTips.notify.request" = "① Allow notifications to open in one tap";
-/* 設定アプリで通知を許可する */
-"shareTips.notify.settings" = "① Allow notifications in Settings";
-/* アクション一覧にもある案内 */
-"shareTips.pin.actionNote" = "There is also “Open in Channel Timeline” in the action list further down the share sheet (where entries like “Open in Brave” appear). That one is reachable without opening “More”.";
-/* 共有シート固定の前置き */
-"shareTips.pin.intro" = "iOS decides the order of share targets, so apps can’t change it. Add this app to Favorites with the steps below and it will always appear near the top.";
-/* 共有シートの先頭に固定する */
-"shareTips.pin.label" = "② Pin it to the top of the share sheet";
-/* 共有シート固定の手順（%@ にアプリ名） */
-"shareTips.pin.steps" = "1. Tap the Share button\n2. Scroll the app icon row to the far right → “More”\n3. Tap “Edit” at the top right\n4. Tap “+” to the left of “%@”\n5. Drag it to the top of Favorites → “Done”";
+/* 共有直後の通知を許可してもらう理由（入力画面・未許可のときだけ出す） */
+"shareTips.notify.why" = "Tapping the notification that appears right after you share opens the channel straight away. We never send news or promotional notifications.";
 /* 前へ */
 "tutorial.back" = "Back";
 /* 閉じる */

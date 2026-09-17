@@ -389,26 +389,8 @@
 "share.clipboardHint" = "Le lien partagé se trouve dans le presse-papiers.";
 /* 共有されたURLを開くボタン */
 "share.openSharedURL" = "Ouvrir le lien partagé";
-/* 案内を閉じるボタン */
-"shareTips.dismiss" = "Masquer ces conseils";
-/* 共有の仕組みの説明 */
-"shareTips.footer" = "iOS ne permet pas à une feuille de partage de lancer directement une app. Si vous autorisez les notifications, il suffit de toucher celle qui apparaît juste après le partage. C’est la seule notification utilisée : ni actualités, ni promotions. (Ces conseils restent accessibles depuis « ⓘ ».)";
-/* 見出し: 共有をもっと速く */
-"shareTips.header" = "Partager plus vite";
-/* 通知は許可済み */
-"shareTips.notify.granted" = "① Notifications activées (partagez puis touchez la notification)";
-/* 通知を許可してワンタップで開く */
-"shareTips.notify.request" = "① Autoriser les notifications pour ouvrir en un geste";
-/* 設定アプリで通知を許可する */
-"shareTips.notify.settings" = "① Autoriser les notifications dans Réglages";
-/* アクション一覧にもある案内 */
-"shareTips.pin.actionNote" = "Plus bas dans la feuille de partage, la liste d’actions (là où figure « Ouvrir dans Brave ») contient aussi « Ouvrir dans Channel Timeline ». Elle est accessible sans passer par « Plus ».";
-/* 共有シート固定の前置き */
-"shareTips.pin.intro" = "iOS décide de l’ordre des destinations de partage ; les apps ne peuvent pas le modifier. Ajoutez-la aux Favoris avec les étapes ci-dessous pour qu’elle reste en tête.";
-/* 共有シートの先頭に固定する */
-"shareTips.pin.label" = "② L’épingler en haut de la feuille de partage";
-/* 共有シート固定の手順（%@ にアプリ名） */
-"shareTips.pin.steps" = "1. Touchez le bouton Partager\n2. Faites défiler la rangée d’icônes jusqu’au bout → « Plus »\n3. Touchez « Modifier » en haut à droite\n4. Touchez « + » à gauche de « %@ »\n5. Faites-la glisser en haut des Favoris → « OK »";
+/* 共有直後の通知を許可してもらう理由（入力画面・未許可のときだけ出す） */
+"shareTips.notify.why" = "Touchez la notification qui apparaît juste après le partage pour ouvrir directement la chaîne. Nous n’envoyons jamais d’actualités ni de notifications promotionnelles.";
 /* 前へ */
 "tutorial.back" = "Précédent";
 /* 閉じる */

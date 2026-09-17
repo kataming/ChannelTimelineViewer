@@ -389,26 +389,8 @@
 "share.clipboardHint" = "Der geteilte Link liegt in der Zwischenablage.";
 /* 共有されたURLを開くボタン */
 "share.openSharedURL" = "Geteilten Link öffnen";
-/* 案内を閉じるボタン */
-"shareTips.dismiss" = "Diese Hinweise ausblenden";
-/* 共有の仕組みの説明 */
-"shareTips.footer" = "iOS erlaubt es nicht, eine App direkt aus dem Teilen-Menü zu starten. Wenn du Mitteilungen erlaubst, kannst du einfach die Mitteilung antippen, die direkt nach dem Teilen erscheint. Nur diese eine Mitteilung wird genutzt – keine News, keine Werbung. (Diese Hinweise findest du jederzeit unter „ⓘ“.)";
-/* 見出し: 共有をもっと速く */
-"shareTips.header" = "Schneller teilen";
-/* 通知は許可済み */
-"shareTips.notify.granted" = "① Mitteilungen sind aktiv (teilen, dann Mitteilung antippen)";
-/* 通知を許可してワンタップで開く */
-"shareTips.notify.request" = "① Mitteilungen erlauben und mit einem Tippen öffnen";
-/* 設定アプリで通知を許可する */
-"shareTips.notify.settings" = "① Mitteilungen in den Einstellungen erlauben";
-/* アクション一覧にもある案内 */
-"shareTips.pin.actionNote" = "Weiter unten im Teilen-Menü gibt es in der Aktionsliste (dort, wo etwa „In Brave öffnen“ steht) außerdem „In Channel Timeline öffnen“. Diese ist ohne „Mehr“ erreichbar.";
-/* 共有シート固定の前置き */
-"shareTips.pin.intro" = "iOS bestimmt die Reihenfolge der Ziele im Teilen-Menü; Apps können sie nicht ändern. Füge die App mit den folgenden Schritten zu den Favoriten hinzu, dann steht sie immer weit oben.";
-/* 共有シートの先頭に固定する */
-"shareTips.pin.label" = "② Im Teilen-Menü nach oben anheften";
-/* 共有シート固定の手順（%@ にアプリ名） */
-"shareTips.pin.steps" = "1. Auf „Teilen“ tippen\n2. Die App-Symbolzeile ganz nach rechts scrollen → „Mehr“\n3. Oben rechts auf „Bearbeiten“ tippen\n4. Links neben „%@“ auf „+“ tippen\n5. In den Favoriten nach ganz oben ziehen → „Fertig“";
+/* 共有直後の通知を許可してもらう理由（入力画面・未許可のときだけ出す） */
+"shareTips.notify.why" = "Tippe auf die Mitteilung, die direkt nach dem Teilen erscheint, und der Kanal öffnet sich sofort. Wir senden keine News- oder Werbemitteilungen.";
 /* 前へ */
 "tutorial.back" = "Zurück";
 /* 閉じる */

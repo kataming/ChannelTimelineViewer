@@ -13,9 +13,9 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: '動作（status=確認のみ / listing=掲載情報と画像を反映 / promote=既存ビルドを別トラックへ下書きで載せる）'
+        description: '動作（status=確認のみ / listing=掲載情報と画像を反映 / promote=既存ビルドを別トラックへ下書きで載せる / purchase-check=Pro 購入の確認（acknowledge）状態を読むだけ）'
         type: choice
-        options: [status, listing, promote]
+        options: [status, listing, promote, purchase-check]
         default: status
       dry_run:
         description: '送信せず、何をするかだけ表示する'
@@ -61,6 +61,11 @@ jobs:
           RELEASE_NAME: ${{ inputs.release_name }}
         run: |
           set -euo pipefail
+          if [ "$MODE" = "purchase-check" ]; then
+            # 読み取り専用。購入トークン・注文IDはログに出さない（scripts/play_purchase_check.py）。
+            python scripts/play_purchase_check.py
+            exit 0
+          fi
           ARGS="--mode $MODE"
           if [ "$MODE" != "status" ] && [ "$DRY_RUN" = "true" ]; then
             ARGS="$ARGS --dry-run"

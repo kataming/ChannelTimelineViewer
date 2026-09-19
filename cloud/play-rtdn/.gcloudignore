@@ -1,0 +1,6 @@
+# デプロイに載せるのは main.py / rtdn.py / requirements.txt だけ。
+.gcloudignore
+README.md
+tests/
+__pycache__/
+*.pyc

@@ -70,7 +70,7 @@ def main() -> int:
             if not token:
                 break
     except HttpError as error:
-        print(f"取り消し一覧を取れませんでした: HTTP {error.resp.status}")
+        print(f"取り消し一覧を取れませんでした: HTTP {error.resp.status} {error._get_reason()}")
         if error.resp.status in (401, 403):
             print("サービスアカウントに「財務データの表示」または「注文の管理」の権限が要ります。")
         return 1

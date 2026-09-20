@@ -13,9 +13,9 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: '動作（status=確認のみ / listing=掲載情報と画像を反映 / promote=既存ビルドを別トラックへ下書きで載せる / purchase-check=Pro 購入の確認（acknowledge）状態を読むだけ）'
+        description: '動作（status=確認のみ / listing=掲載情報と画像を反映 / promote=既存ビルドを別トラックへ下書きで載せる / purchase-check=Pro 購入の確認（acknowledge）状態を読むだけ / order-revoke=テスト購入を払い戻して取り消す）'
         type: choice
-        options: [status, listing, promote, purchase-check]
+        options: [status, listing, promote, purchase-check, order-revoke]
         default: status
       dry_run:
         description: '送信せず、何をするかだけ表示する'
@@ -55,12 +55,19 @@ jobs:
         env:
           GOOGLE_PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
           MODE: ${{ inputs.mode }}
+          # 注文IDは Secret から渡す（このリポジトリは Public でログが公開されるため）。
+          PLAY_ORDER_ID: ${{ secrets.CTV_TEST_ORDER_ID }}
           DRY_RUN: ${{ inputs.dry_run }}
           TRACK: ${{ inputs.track }}
           VERSION_CODE: ${{ inputs.version_code }}
           RELEASE_NAME: ${{ inputs.release_name }}
         run: |
           set -euo pipefail
+          if [ "$MODE" = "order-revoke" ]; then
+            # テスト購入の払い戻し＋取り消し。注文IDはログに出さない。
+            python scripts/play_order_revoke.py
+            exit 0
+          fi
           if [ "$MODE" = "purchase-check" ]; then
             # 読み取り専用。購入トークン・注文IDはログに出さない（scripts/play_purchase_check.py）。
             python scripts/play_purchase_check.py

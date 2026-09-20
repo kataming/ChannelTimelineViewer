@@ -59,7 +59,12 @@ class ProBillingManager(
     val messageRes: StateFlow<Int?> = _messageRes.asStateFlow()
 
     private var productDetails: ProductDetails? = null
-    private var isConnecting = false
+
+    /**
+     * いま表示していて、購入にも使うオファー。**表示と購入で必ず同じものを使う**ため、
+     * 価格・通貨・offerToken をひとつにまとめて持つ（[OfferSelection]）。
+     */
+    private var selectedOffer: OfferSelection.SelectedOffer? = null
 
     private val client: BillingClient = BillingClient.newBuilder(appContext)
         .setListener { result, purchases -> onPurchasesUpdated(result, purchases) }
@@ -69,6 +74,34 @@ class ProBillingManager(
         )
         .enableAutoServiceReconnection()
         .build()
+
+    /**
+     * 接続待ちの受け付け口。預けた依頼は必ず実行か [ConnectionGate] の onUnavailable に行き着く。
+     * （接続中に購入ボタンを押すと何も起きず `isBusy` が戻らなかった不具合の対策）
+     */
+    private val gate = ConnectionGate(
+        isReady = { client.isReady },
+        startConnection = { onFinished ->
+            client.startConnection(object : BillingClientStateListener {
+                override fun onBillingSetupFinished(billingResult: BillingResult) {
+                    val ok = billingResult.responseCode == BillingClient.BillingResponseCode.OK
+                    if (!ok) {
+                        Log.w(TAG, "接続できず: ${billingResult.responseCode} ${billingResult.debugMessage}")
+                    }
+                    reporter.billingResult(
+                        Analytics.Stage.CONNECT,
+                        reporter.outcomeFor(billingResult.responseCode),
+                    )
+                    onFinished(ok)
+                }
+
+                override fun onBillingServiceDisconnected() {
+                    // enableAutoServiceReconnection() に任せる。
+                    // 依頼の片付けは onBillingSetupFinished 側で行う。
+                }
+            })
+        },
+    )
 
     /** アプリ起動時に一度呼ぶ。接続して、購入状態と価格を読み直す。 */
     fun start() = connectThen {
@@ -109,20 +142,29 @@ class ProBillingManager(
                 _messageRes.value = R.string.pro_error_unavailable
             },
         ) {
-            val details = productDetails
-            if (details == null) {
-                // 価格が取れていない＝商品が Play Console 側で未公開のことが多い。
-                queryProductDetails { fetched ->
-                    if (fetched == null) {
-                        _isBusy.value = false
-                        reporter.purchaseFailedBeforeFlow(Analytics.ErrorReason.ITEM_UNAVAILABLE)
-                        _messageRes.value = R.string.pro_error_unavailable
-                    } else {
-                        launchFlow(activity, fetched)
+            // ここで何が起きても `isBusy` を残さない（残すと画面が操作できなくなる）。
+            val started = runCatching {
+                val details = productDetails
+                if (details == null) {
+                    // 価格が取れていない＝商品が Play Console 側で未公開のことが多い。
+                    queryProductDetails { fetched ->
+                        if (fetched == null) {
+                            _isBusy.value = false
+                            reporter.purchaseFailedBeforeFlow(Analytics.ErrorReason.ITEM_UNAVAILABLE)
+                            _messageRes.value = R.string.pro_error_unavailable
+                        } else {
+                            launchFlow(activity, fetched)
+                        }
                     }
+                } else {
+                    launchFlow(activity, details)
                 }
-            } else {
-                launchFlow(activity, details)
+            }
+            if (started.isFailure) {
+                _isBusy.value = false
+                reporter.purchaseFailedBeforeFlow(Analytics.ErrorReason.GENERIC_ERROR)
+                reporter.billingResult(Analytics.Stage.LAUNCH, Analytics.BillingOutcome.ERROR)
+                _messageRes.value = R.string.pro_error_failed
             }
         }
     }
@@ -138,16 +180,23 @@ class ProBillingManager(
     // ---- 以下、内部 ----
 
     private fun launchFlow(activity: Activity, details: ProductDetails) {
+        val productParams = BillingFlowParams.ProductDetailsParams.newBuilder()
+            .setProductDetails(details)
+            .apply {
+                // 割引特典（1回限りのアイテムのオファー）は、**選んだオファーのトークンを
+                // 渡したときだけ**適用される。渡さないと通常価格での購入になる。
+                // 旧環境（オファー一覧が無い）ではトークンが null なので、従来どおり渡さない。
+                selectedOffer?.offerToken?.takeIf { it.isNotBlank() }?.let { setOfferToken(it) }
+            }
+            .build()
         val params = BillingFlowParams.newBuilder()
-            .setProductDetailsParamsList(
-                listOf(
-                    BillingFlowParams.ProductDetailsParams.newBuilder()
-                        .setProductDetails(details)
-                        .build()
-                )
-            )
+            .setProductDetailsParamsList(listOf(productParams))
             .build()
         val result = runCatching { client.launchBillingFlow(activity, params) }.getOrNull()
+        reporter.billingResult(
+            Analytics.Stage.LAUNCH,
+            result?.responseCode?.let(reporter::outcomeFor) ?: Analytics.BillingOutcome.ERROR,
+        )
         if (result == null || result.responseCode != BillingClient.BillingResponseCode.OK) {
             _isBusy.value = false
             // 画面が開けなかった。この先 onPurchasesUpdated は呼ばれないので、ここで数える。
@@ -163,35 +212,12 @@ class ProBillingManager(
     /**
      * 接続できていれば [action]、まだなら繋いでから [action]。
      * 繋がらなければ [onUnavailable]（既定では何もしない）。
+     *
+     * ⚠️ 接続中に来た依頼も**必ずどちらかが呼ばれる**（[ConnectionGate]）。
+     *    ここで黙って帰ると `isBusy` が戻らず、画面が操作できなくなる。
      */
     private fun connectThen(onUnavailable: () -> Unit = {}, action: () -> Unit) {
-        if (client.isReady) {
-            runCatching(action)
-            return
-        }
-        if (isConnecting) return
-        isConnecting = true
-        runCatching {
-            client.startConnection(object : BillingClientStateListener {
-                override fun onBillingSetupFinished(billingResult: BillingResult) {
-                    isConnecting = false
-                    if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
-                        runCatching(action)
-                    } else {
-                        Log.w(TAG, "接続できず: ${billingResult.responseCode} ${billingResult.debugMessage}")
-                        runCatching(onUnavailable)
-                    }
-                }
-
-                override fun onBillingServiceDisconnected() {
-                    isConnecting = false
-                    // enableAutoServiceReconnection() に任せる。
-                }
-            })
-        }.onFailure {
-            isConnecting = false
-            runCatching(onUnavailable)
-        }
+        gate.run(onUnavailable = onUnavailable, action = action)
     }
 
     private fun queryProductDetails(onResult: (ProductDetails?) -> Unit = {}) {
@@ -215,7 +241,19 @@ class ProBillingManager(
                     null
                 }
                 productDetails = found
-                _priceText.value = found?.oneTimePurchaseOfferDetails?.formattedPrice
+                // 表示する価格は、このあと購入に使うオファーそのものの価格にする。
+                selectedOffer = found?.selectOffer()
+                _priceText.value = selectedOffer?.formattedPrice
+                reporter.billingResult(
+                    Analytics.Stage.QUERY_PRODUCT,
+                    when {
+                        result.responseCode != BillingClient.BillingResponseCode.OK ->
+                            reporter.outcomeFor(result.responseCode)
+                        // 応答は OK なのに商品が入っていない＝Play Console 側で未公開など。
+                        found == null -> Analytics.BillingOutcome.ITEM_UNAVAILABLE
+                        else -> Analytics.BillingOutcome.OK
+                    },
+                )
                 runCatching { onResult(found) }
             }
         }.onFailure { runCatching { onResult(null) } }
@@ -276,6 +314,15 @@ class ProBillingManager(
     private fun onPurchasesUpdated(result: BillingResult, purchases: List<Purchase>?) {
         _isBusy.value = false
 
+        // 診断用。成功も失敗も、購入が空で戻ってきた場合も同じ形で残す。
+        reporter.billingResult(
+            Analytics.Stage.PURCHASE_CALLBACK,
+            reporter.purchaseCallbackOutcome(
+                responseCode = result.responseCode,
+                purchases = purchases.orEmpty().map { it.toSnapshot() },
+            ),
+        )
+
         // 先に権限とメッセージ（＝利用者にとっての本筋）を確定させ、記録はそのあと。
         // こうしておけば記録側で何が起きても購入の扱いは変わらない。
         var entitlementGranted = false
@@ -323,14 +370,45 @@ class ProBillingManager(
         )
     }
 
-    /** Play が返した値段。取れていなければ null（GA4 標準の購入イベントは送られない）。 */
+    /**
+     * Play が返した値段。取れていなければ null（GA4 標準の購入イベントは送られない）。
+     *
+     * **実際に購入したオファーの金額**を使う。割引で買われたときに通常価格を記録すると、
+     * 売上が実際より高く出てしまうため。
+     */
     private fun currentPrice(): ProPurchaseReporter.PriceInfo? =
-        productDetails?.oneTimePurchaseOfferDetails?.let {
+        selectedOffer?.let {
             ProPurchaseReporter.PriceInfo(
                 amountMicros = it.priceAmountMicros,
                 currencyCode = it.priceCurrencyCode,
             )
         }
+
+    /**
+     * Play が返したオファーの中から、表示と購入に使う1つを選ぶ。
+     *
+     * 割引特典（1回限りのアイテムのオファー）は `getOneTimePurchaseOfferDetailsList()` にしか
+     * 現れない。**対象かどうかの判断は Play 側**で、対象の人にだけ割引オファーが返る
+     * （アプリに国コードを持たない）。判断そのものは [OfferSelection]。
+     */
+    private fun ProductDetails.selectOffer(): OfferSelection.SelectedOffer? = OfferSelection.select(
+        candidates = oneTimePurchaseOfferDetailsList?.map { it.toCandidate() }.orEmpty(),
+        fallback = oneTimePurchaseOfferDetails?.toCandidate(),
+    )
+
+    private fun ProductDetails.OneTimePurchaseOfferDetails.toCandidate() = OfferSelection.Candidate(
+        offerToken = offerToken,
+        formattedPrice = formattedPrice,
+        priceAmountMicros = priceAmountMicros,
+        priceCurrencyCode = priceCurrencyCode,
+        offerId = offerId,
+        purchaseOptionId = purchaseOptionId,
+        // 割引特典かどうかは「割引の表示情報があるか」で見分ける。
+        isDiscount = discountDisplayInfo != null,
+        // レンタル・予約は pro_unlock では使わない。間違って選ばないよう印を付ける。
+        isRental = rentalDetails != null,
+        isPreorder = preorderDetails != null,
+    )
 
     private fun Purchase.toSnapshot() = ProPurchaseReporter.PurchaseSnapshot(
         isProUnlock = isProUnlock(),
@@ -353,6 +431,10 @@ class ProBillingManager(
                 if (result.responseCode != BillingClient.BillingResponseCode.OK) {
                     Log.w(TAG, "確認できず: ${result.responseCode} ${result.debugMessage}")
                 }
+                reporter.billingResult(
+                    Analytics.Stage.ACKNOWLEDGE,
+                    reporter.outcomeFor(result.responseCode),
+                )
             }
         }
     }

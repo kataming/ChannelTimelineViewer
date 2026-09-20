@@ -93,7 +93,9 @@ class AnalyticsTest {
             constantsOf(Analytics.Result::class.java) +
             constantsOf(Analytics.Setting::class.java) +
             constantsOf(Analytics.RepeatValue::class.java) +
-            constantsOf(Analytics.Screen::class.java)
+            constantsOf(Analytics.Screen::class.java) +
+            constantsOf(Analytics.Stage::class.java) +
+            constantsOf(Analytics.BillingOutcome::class.java)
         assertTrue("引数の値が1つも見つからない", values.isNotEmpty())
         values.forEach {
             assertTrue("引数の値 '" + it + "' は100文字以内にすること", it.length <= 100)

@@ -120,6 +120,65 @@ interface Analytics {
          * 金額は Play が返す商品情報からのみ取る（コードに価格を持たない）。
          */
         const val PURCHASE = "purchase"
+
+        /**
+         * 課金まわりの**診断用**。どの段階（[Param.STAGE] = [Stage]）で
+         * 何が起きたか（[Param.RESULT] = [BillingOutcome]）を、成功も失敗も同じ形で残す。
+         *
+         * ⚠️ これは**売上の数ではない**。実売は [PRO_PURCHASE_SUCCESS] だけで数える。
+         * 上の `pro_purchase_*` の意味は変えていない（これは別口の記録）。
+         *
+         * 「購入画面までは出ているのに誰も買っていない」のように、Play Console の
+         * 購入者コンバージョンだけでは切り分けられないときに使う。
+         */
+        const val PRO_BILLING_RESULT = "pro_billing_result"
+    }
+
+    /** [Event.PRO_BILLING_RESULT] の段階（[Param.STAGE]）。 */
+    object Stage {
+        /** Play への接続。 */
+        const val CONNECT = "connect"
+
+        /** 商品情報（価格・オファー）の取得。 */
+        const val QUERY_PRODUCT = "query_product"
+
+        /** 購入画面を開く指示（`launchBillingFlow` の戻り値）。 */
+        const val LAUNCH = "launch"
+
+        /** 購入画面のあとに届く結果（`PurchasesUpdatedListener`）。 */
+        const val PURCHASE_CALLBACK = "purchase_callback"
+
+        /** 購入の確認（acknowledge）。 */
+        const val ACKNOWLEDGE = "acknowledge"
+    }
+
+    /**
+     * [Event.PRO_BILLING_RESULT] の結果（[Param.RESULT]）。
+     * Play の応答コードを**決まった短い文字**に置き換えたもので、生のコード値は送らない。
+     */
+    object BillingOutcome {
+        const val OK = "ok"
+        const val USER_CANCELED = "user_canceled"
+        const val PENDING = "pending"
+
+        /** 成功なのに購入が1件も入っていない（購入せずに画面を閉じた等）。 */
+        const val EMPTY_PURCHASE_LIST = "empty_purchase_list"
+
+        const val BILLING_UNAVAILABLE = "billing_unavailable"
+        const val ITEM_UNAVAILABLE = "item_unavailable"
+        const val SERVICE_UNAVAILABLE = "service_unavailable"
+        const val SERVICE_DISCONNECTED = "service_disconnected"
+        const val NETWORK_ERROR = "network_error"
+        const val DEVELOPER_ERROR = "developer_error"
+        const val FEATURE_NOT_SUPPORTED = "feature_not_supported"
+        const val ITEM_ALREADY_OWNED = "item_already_owned"
+        const val ITEM_NOT_OWNED = "item_not_owned"
+
+        /** Play が返した一般のエラー。 */
+        const val ERROR = "error"
+
+        /** こちらが知らない応答コード。 */
+        const val UNKNOWN = "unknown"
     }
 
     /** 引数の名前。値は列挙した短い文字列か数値だけにする。 */
@@ -147,6 +206,9 @@ interface Analytics {
 
         /** 通貨コード（GA4 標準の [Event.PURCHASE] 用。Play が返す値をそのまま使う）。 */
         const val CURRENCY = "currency"
+
+        /** 課金のどの段階か。値は [Stage]（[Event.PRO_BILLING_RESULT] 専用）。 */
+        const val STAGE = "stage"
     }
 
     /**

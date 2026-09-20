@@ -44,7 +44,9 @@ Channel Timeline Viewer Android 版の収益化は **アプリ本体は無料＋
 | 購入画面 | `.../ui/ProScreen.kt` |
 | 2件目保存時の案内ダイアログ・Pro への入口 | `.../ui/ChannelInputScreen.kt` |
 | 上限判定の呼び出し | `.../viewmodel/ChannelInputViewModel.kt` |
-| テスト | `android/app/src/test/java/.../ProEntitlementTest.kt` |
+| 購入オファーの選択（割引特典） | `.../billing/OfferSelection.kt` |
+| Play への接続待ちの受け付け口 | `.../billing/ConnectionGate.kt` |
+| テスト | `.../test/java/.../ProEntitlementTest.kt` / `ProPurchaseAnalyticsTest.kt` / `ProBillingDiagnosticsTest.kt` / `OfferSelectionTest.kt` / `ConnectionGateTest.kt` |
 
 決めごと:
 
@@ -55,6 +57,16 @@ Channel Timeline Viewer Android 版の収益化は **アプリ本体は無料＋
 - 購入が確認できたら **必ず `acknowledge` する**。3日以内に確認しないと Google が自動返金して購入が消える。
   消費（consume）はしない＝買い切りとして所有し続ける（Apple でいう Non-consumable と同じ扱い）。
 - 購入状態の確認は **起動時（`start`）・前面復帰時（`onResume` → `refresh`）・購入画面表示時**の3か所。
+- **割引特典（1回限りのアイテムのオファー）に対応済み**（2026-09-21）。Play Console で
+  `pro_unlock` に割引（国限定・期間限定など）を作れば、**対象の人にだけ割引価格が出て、
+  その価格で購入される**。対象かどうかの判断は Play 側で、**アプリに国コードは持たない**。
+  - 対象のオファーは `getOneTimePurchaseOfferDetailsList()` にしか現れない。選び方は
+    `.../billing/OfferSelection.kt`（割引があれば割引、複数なら最安、無ければ通常。
+    レンタル・予約は選ばない。一覧が無い旧環境は従来の単数形に戻る）
+  - 購入時は選んだオファーの `offerToken` を `setOfferToken` で渡す。**渡さないと通常価格になる**
+  - 画面に出す価格・購入する価格・GA4 に送る金額は、**すべて同じオファー**から取る
+- 接続中に購入ボタンを押しても依頼を取りこぼさない（`.../billing/ConnectionGate.kt`）。
+  以前は握りつぶしていたため、ぐるぐる表示のまま操作できなくなっていた。
 - 端末内には Pro フラグの**写し**だけを持つ。正は常に Play 側。
   **Play への問い合わせが成功して「購入なし」だったときだけ** false に落とす
   （圏外・Play 未接続で Pro が消えないようにするため）。

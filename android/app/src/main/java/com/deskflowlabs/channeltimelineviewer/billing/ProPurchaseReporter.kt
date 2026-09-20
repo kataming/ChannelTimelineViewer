@@ -139,6 +139,69 @@ class ProPurchaseReporter(
         return true
     }
 
+    /**
+     * 診断用の記録（[Analytics.Event.PRO_BILLING_RESULT]）。
+     *
+     * 段階（[Analytics.Stage]）と結果（[Analytics.BillingOutcome]）だけを残す。
+     * **実売の数え方には一切関わらない**（`pro_purchase_*` の意味は変えていない）。
+     */
+    fun billingResult(stage: String, result: String) = safely {
+        analytics.log(
+            Analytics.Event.PRO_BILLING_RESULT,
+            Analytics.Param.STAGE to stage,
+            Analytics.Param.RESULT to result,
+        )
+    }
+
+    /**
+     * Play の応答コードを診断用の決まった文字へ。
+     * [reasonFor]（`pro_purchase_error` の理由・粗い分類）とは別で、**コードを1対1で写す**。
+     */
+    @Suppress("DEPRECATION") // SERVICE_TIMEOUT は非推奨だが、古い端末からはまだ届きうる。
+    fun outcomeFor(responseCode: Int): String = when (responseCode) {
+        BillingClient.BillingResponseCode.OK -> Analytics.BillingOutcome.OK
+        BillingClient.BillingResponseCode.USER_CANCELED -> Analytics.BillingOutcome.USER_CANCELED
+        BillingClient.BillingResponseCode.SERVICE_UNAVAILABLE,
+        BillingClient.BillingResponseCode.SERVICE_TIMEOUT,
+        -> Analytics.BillingOutcome.SERVICE_UNAVAILABLE
+
+        BillingClient.BillingResponseCode.SERVICE_DISCONNECTED ->
+            Analytics.BillingOutcome.SERVICE_DISCONNECTED
+
+        BillingClient.BillingResponseCode.NETWORK_ERROR -> Analytics.BillingOutcome.NETWORK_ERROR
+        BillingClient.BillingResponseCode.BILLING_UNAVAILABLE ->
+            Analytics.BillingOutcome.BILLING_UNAVAILABLE
+
+        BillingClient.BillingResponseCode.FEATURE_NOT_SUPPORTED ->
+            Analytics.BillingOutcome.FEATURE_NOT_SUPPORTED
+
+        BillingClient.BillingResponseCode.ITEM_UNAVAILABLE -> Analytics.BillingOutcome.ITEM_UNAVAILABLE
+        BillingClient.BillingResponseCode.DEVELOPER_ERROR -> Analytics.BillingOutcome.DEVELOPER_ERROR
+        BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED ->
+            Analytics.BillingOutcome.ITEM_ALREADY_OWNED
+
+        BillingClient.BillingResponseCode.ITEM_NOT_OWNED -> Analytics.BillingOutcome.ITEM_NOT_OWNED
+        BillingClient.BillingResponseCode.ERROR -> Analytics.BillingOutcome.ERROR
+        else -> Analytics.BillingOutcome.UNKNOWN
+    }
+
+    /**
+     * 購入画面のあとに届いた結果を、診断用の言葉にする。
+     *
+     * `OK` でも中身は3通りある。「購入が入っている」「保留だけ」「1件も入っていない」。
+     * **3つ目（[Analytics.BillingOutcome.EMPTY_PURCHASE_LIST]）はこれまで記録が無く、
+     * 離脱の形が見えなかった**ので、ここで見えるようにする。
+     */
+    fun purchaseCallbackOutcome(responseCode: Int, purchases: List<PurchaseSnapshot>): String {
+        if (responseCode != BillingClient.BillingResponseCode.OK) return outcomeFor(responseCode)
+        val owned = purchases.filter { it.isProUnlock }
+        return when {
+            owned.any { it.state == Purchase.PurchaseState.PURCHASED } -> Analytics.BillingOutcome.OK
+            owned.any { it.state == Purchase.PurchaseState.PENDING } -> Analytics.BillingOutcome.PENDING
+            else -> Analytics.BillingOutcome.EMPTY_PURCHASE_LIST
+        }
+    }
+
     /** Play の応答コードを、送ってよい決まった文字へ。生のコードや文面は出さない。 */
     fun reasonFor(responseCode: Int): String = when (responseCode) {
         BillingClient.BillingResponseCode.SERVICE_DISCONNECTED,

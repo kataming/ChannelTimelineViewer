@@ -30,6 +30,7 @@
 | `pro_purchase_pending` | 保留になった（コンビニ払いなど） | なし | ❌ まだ売れていない |
 | `pro_restore` | 「購入を復元」を押した | なし | ❌ 既存客の再適用 |
 | `purchase` | `pro_purchase_success` と同時（値段が取れたときだけ） | `value` / `currency` | ✅ GA4 の収益レポート用 |
+| `pro_billing_result` | **診断用**。課金の各段階の結果（成功も失敗も） | `stage` / `result` | ❌ 数えない |
 | `in_app_purchase` | **Firebase が自動収集**（コードからは送れない・[第9章](#9-in_app_purchasefirebase-の自動収集イベント)） | Google が決める | ✅ Play 側との突き合わせ用 |
 
 ### `pro_purchase_success` の発火条件（すべて満たしたときだけ）
@@ -60,6 +61,37 @@
 Play が返す応答コードの数値や `debugMessage` は**送らない**（ログには出す）。
 
 ---
+
+### `pro_billing_result`（診断用・2026-09-21 追加）
+
+Play Console の購入者コンバージョンで「購入画面は出ているのに誰も買っていない」と分かったとき、
+**どこで止まっているか**を切り分けるために足した。**売上の数には一切関わらない**
+（実売はこれまでどおり `pro_purchase_success` だけ）。
+
+`stage`（どの段階か）:
+
+| 値 | 意味 |
+| --- | --- |
+| `connect` | Play への接続 |
+| `query_product` | 商品情報（価格・オファー）の取得 |
+| `launch` | 購入画面を開く指示（`launchBillingFlow` の戻り値） |
+| `purchase_callback` | 購入画面のあとに届く結果（`PurchasesUpdatedListener`） |
+| `acknowledge` | 購入の確認 |
+
+`result`（何が起きたか）: `ok` / `user_canceled` / `pending` / `empty_purchase_list` /
+`billing_unavailable` / `item_unavailable` / `service_unavailable` / `service_disconnected` /
+`network_error` / `developer_error` / `feature_not_supported` / `item_already_owned` /
+`item_not_owned` / `error` / `unknown`
+
+これで**今まで見えなかった3つ**が見えるようになる。
+
+- `purchase_callback` + `empty_purchase_list` … 応答は成功なのに購入が1件も入っていない
+- `purchase_callback` + `item_already_owned` … すでに持っている人が買おうとした
+- `launch` の失敗 … 購入画面を**開く前**に落ちた（`pro_purchase_error` だけでは
+  「開く前」か「開いたあと」かを見分けられなかった）
+
+⚠️ 送るのは `stage` と `result` の決まった文字だけ。応答コードの数値・`debugMessage`・
+購入トークン・注文IDは**入れない**（第5章のとおり）。
 
 ## 3. PURCHASED / PENDING / CANCEL / ERROR / RESTORE の違い
 

@@ -298,33 +298,27 @@ def upsert_product(api, dry_run: bool) -> int:
 #     これが抜けると「勝手に設定を変えられた」と受け取られる。実装も実際にそうなっていて、
 #     新しい既定が効くのは**一度も操作していない端末だけ**（PlaybackSettingsStore）。
 RELEASE_NOTES = {
-    "ja-JP": "・チャンネルの追加方法を、初めての方に画面つきでご案内するようにしました。\n"
-             "・自動再生の初期状態をオンにしました。すでにご自分で切り替えた方の設定はそのままです。"
-             "再生画面のトグルでいつでも変更できます。\n"
-             "・自動再生トグルの表示を分かりやすくしました。",
-    "en-US": "• Added a short, illustrated guide showing new users how to add a channel.\n"
-             "• Autoplay is now on by default. If you have already chosen a setting it stays as it is, "
-             "and you can change it any time on the player screen.\n"
-             "• Made the autoplay toggle easier to read.",
-    "zh-CN": "・新增带图示的引导，向初次使用的用户说明如何添加频道。\n"
-             "・自动播放的初始状态改为开启。已自行设置过的用户将保持原有设置，可随时在播放界面更改。\n"
-             "・让自动播放开关的显示更易理解。",
-    "es-ES": "• Nueva guía ilustrada que explica a quienes empiezan cómo añadir un canal.\n"
-             "• La reproducción automática ahora viene activada. Si ya habías elegido un ajuste se mantiene, "
-             "y puedes cambiarlo cuando quieras en la pantalla del reproductor.\n"
-             "• El interruptor de reproducción automática ahora se entiende mejor.",
-    "de-DE": "• Neue bebilderte Anleitung, die neuen Nutzern zeigt, wie man einen Kanal hinzufügt.\n"
-             "• Autoplay ist jetzt standardmäßig an. Wer bereits eine Einstellung gewählt hat, behält sie "
-             "und kann sie jederzeit im Player ändern.\n"
-             "• Der Autoplay-Schalter ist jetzt leichter zu verstehen.",
-    "fr-FR": "• Nouveau guide illustré expliquant aux nouveaux utilisateurs comment ajouter une chaîne.\n"
-             "• La lecture automatique est désormais activée par défaut. Si vous aviez déjà choisi un réglage, "
-             "il est conservé et reste modifiable à tout moment depuis le lecteur.\n"
-             "• L’interrupteur de lecture automatique est plus clair.",
-    "ko-KR": "・채널을 추가하는 방법을 처음 쓰는 분께 그림과 함께 안내합니다.\n"
-             "・자동 재생의 초기 상태를 켜짐으로 바꿨습니다. 이미 직접 설정한 분은 그대로 유지되며, "
-             "재생 화면에서 언제든지 바꿀 수 있습니다.\n"
-             "・자동 재생 토글 표시를 알아보기 쉽게 다듬었습니다.",
+    "ja-JP": "・Proの購入で、購入ボタンを押しても画面が進まないことがある不具合を直しました。
+"
+             "・お住まいの地域や期間限定の割引が設定されているとき、その割引価格で購入できるようにしました。",
+    "en-US": "• Fixed a problem where tapping the Pro purchase button could do nothing.
+"
+             "• When a regional or limited-time discount is available, it is now shown and applied at checkout.",
+    "zh-CN": "・修复了点击 Pro 购买按钮后有时没有反应的问题。
+"
+             "・当存在地区限定或限时折扣时，现在会显示折扣价并以该价格购买。",
+    "es-ES": "• Corregido un fallo por el que pulsar el botón de compra de Pro podía no hacer nada.
+"
+             "• Si hay un descuento regional o por tiempo limitado, ahora se muestra y se aplica al comprar.",
+    "de-DE": "• Fehler behoben, bei dem ein Tippen auf die Pro-Kaufschaltfläche wirkungslos bleiben konnte.
+"
+             "• Liegt ein regionaler oder zeitlich begrenzter Rabatt vor, wird er jetzt angezeigt und beim Kauf angewendet.",
+    "fr-FR": "• Correction d’un problème où appuyer sur le bouton d’achat Pro pouvait ne rien faire.
+"
+             "• Lorsqu’une remise régionale ou à durée limitée existe, elle est désormais affichée et appliquée à l’achat.",
+    "ko-KR": "・Pro 구매 버튼을 눌러도 화면이 진행되지 않는 경우가 있던 문제를 고쳤습니다.
+"
+             "・지역 한정이나 기간 한정 할인이 있는 경우, 그 할인 가격으로 구매할 수 있게 했습니다.",
 }
 
 

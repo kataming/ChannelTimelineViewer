@@ -298,27 +298,13 @@ def upsert_product(api, dry_run: bool) -> int:
 #     これが抜けると「勝手に設定を変えられた」と受け取られる。実装も実際にそうなっていて、
 #     新しい既定が効くのは**一度も操作していない端末だけ**（PlaybackSettingsStore）。
 RELEASE_NOTES = {
-    "ja-JP": "・Proの購入で、購入ボタンを押しても画面が進まないことがある不具合を直しました。
-"
-             "・お住まいの地域や期間限定の割引が設定されているとき、その割引価格で購入できるようにしました。",
-    "en-US": "• Fixed a problem where tapping the Pro purchase button could do nothing.
-"
-             "• When a regional or limited-time discount is available, it is now shown and applied at checkout.",
-    "zh-CN": "・修复了点击 Pro 购买按钮后有时没有反应的问题。
-"
-             "・当存在地区限定或限时折扣时，现在会显示折扣价并以该价格购买。",
-    "es-ES": "• Corregido un fallo por el que pulsar el botón de compra de Pro podía no hacer nada.
-"
-             "• Si hay un descuento regional o por tiempo limitado, ahora se muestra y se aplica al comprar.",
-    "de-DE": "• Fehler behoben, bei dem ein Tippen auf die Pro-Kaufschaltfläche wirkungslos bleiben konnte.
-"
-             "• Liegt ein regionaler oder zeitlich begrenzter Rabatt vor, wird er jetzt angezeigt und beim Kauf angewendet.",
-    "fr-FR": "• Correction d’un problème où appuyer sur le bouton d’achat Pro pouvait ne rien faire.
-"
-             "• Lorsqu’une remise régionale ou à durée limitée existe, elle est désormais affichée et appliquée à l’achat.",
-    "ko-KR": "・Pro 구매 버튼을 눌러도 화면이 진행되지 않는 경우가 있던 문제를 고쳤습니다.
-"
-             "・지역 한정이나 기간 한정 할인이 있는 경우, 그 할인 가격으로 구매할 수 있게 했습니다.",
+    "ja-JP": '・Proの購入で、購入ボタンを押しても画面が進まないことがある不具合を直しました。\n・お住まいの地域や期間限定の割引が設定されているとき、その割引価格で購入できるようにしました。',
+    "en-US": '• Fixed a problem where tapping the Pro purchase button could do nothing.\n• When a regional or limited-time discount is available, it is now shown and applied at checkout.',
+    "zh-CN": '・修复了点击 Pro 购买按钮后有时没有反应的问题。\n・当存在地区限定或限时折扣时，现在会显示折扣价并以该价格购买。',
+    "es-ES": '• Corregido un fallo por el que pulsar el botón de compra de Pro podía no hacer nada.\n• Si hay un descuento regional o por tiempo limitado, ahora se muestra y se aplica al comprar.',
+    "de-DE": '• Fehler behoben, bei dem ein Tippen auf die Pro-Kaufschaltfläche wirkungslos bleiben konnte.\n• Liegt ein regionaler oder zeitlich begrenzter Rabatt vor, wird er jetzt angezeigt und beim Kauf angewendet.',
+    "fr-FR": '• Correction d’un problème où appuyer sur le bouton d’achat Pro pouvait ne rien faire.\n• Lorsqu’une remise régionale ou à durée limitée existe, elle est désormais affichée et appliquée à l’achat.',
+    "ko-KR": '・Pro 구매 버튼을 눌러도 화면이 진행되지 않는 경우가 있던 문제를 고쳤습니다.\n・지역 한정이나 기간 한정 할인이 있는 경우, 그 할인 가격으로 구매할 수 있게 했습니다.',
 }
 
 

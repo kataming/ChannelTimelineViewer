@@ -77,7 +77,9 @@ def show(api) -> int:
 
 
 def build_offer(option_id: str) -> dict:
-    start = dt.datetime.now(dt.timezone.utc) + dt.timedelta(minutes=START_DELAY_MINUTES)
+    # Play は「分ちょうど」しか受け付けない（秒が入ると 400）。
+    now = dt.datetime.now(dt.timezone.utc).replace(second=0, microsecond=0)
+    start = now + dt.timedelta(minutes=START_DELAY_MINUTES)
     end = start + dt.timedelta(days=DURATION_DAYS)
     stamp = "%Y-%m-%dT%H:%M:%SZ"
     return {

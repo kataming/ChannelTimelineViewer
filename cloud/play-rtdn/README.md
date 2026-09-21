@@ -6,21 +6,35 @@ Google Play の RTDN（リアルタイム デベロッパー通知）を受け�
 「Play 側で `pro_unlock` の購入成功が実際に起きているか」を確かめる。
 アプリの挙動・Pro の付与・売上の数え方には**一切関わらない**（読んで記録するだけ）。
 
-> 状態（2026-09-19）: **ローカル実装とテストまで。まだデプロイしていない。**
+> 状態（2026-09-21）: **本番へデプロイ済み・動作確認済み。**
+>
+> | 項目 | 値 |
+> | --- | --- |
+> | プロジェクト | `channel-timeline` |
+> | 関数 | `ctv-play-rtdn`（asia-northeast1 / python312 / 最大1インスタンス） |
+> | 実行サービスアカウント | `ctv-play-rtdn@channel-timeline.iam.gserviceaccount.com`（run.invoker / eventarc.eventReceiver / logging.logWriter のみ） |
+> | トリガー | Pub/Sub トピック `ctv-play-billing-rtdn`（Eventarc が push サブスクリプションを自動作成） |
+>
+> 確認したこと（偽の通知をトピックへ直接 publish して実施）:
+> `RTDN_TEST_RECEIVED` と `ONE_TIME_PRODUCT_PURCHASED`（sku=pro_unlock・isProUnlock=true）が記録され、
+> **購入トークンも `purchaseToken` という語もログに出ていない**。
+>
+> 既存の pull サブスクリプション `ctv-play-billing-rtdn-sub` はそのまま残してある
+> （誰も pull しないので溜まって7日で消えるだけ。消すかどうかは人の判断）。
 
-### 未完了・残作業（2026-09-19 時点）
+### 未完了・残作業（2026-09-21 時点）
 
-| 項目 | 状態 | 誰が・いつ |
-| --- | --- | --- |
-| ローカル実装・テスト12件 | 完了 | — |
-| コミット | ローカルのみ（`66a3670`）。**未 push** | push の指示があれば Claude |
-| Google Cloud へのデプロイ（下の手順 1〜4） | **未実施** | デプロイの指示があれば Claude（gcloud の認証が要る） |
-| テスト通知での動作確認（手順 5） | **未実施**（デプロイ後） | Claude（Play Console の「テスト通知を送信」だけ人） |
-| 既存の pull サブスクリプション `ctv-play-billing-rtdn-sub` の扱い | **未決定** | 人の判断 |
-| 購入が起きているかのログ確認（手順 6） | **未実施**（実購入が起きてから） | Claude |
-| Developer API による purchaseToken 検証・重複排除 | **未実装**（次フェーズ） | 指示があれば |
-| CI でこのテストを自動実行 | **未設定**（手動で `python cloud/play-rtdn/tests/test_rtdn.py -v`） | 必要なら追加 |
-| 実際の Cloud Functions ランタイム（functions-framework 本物）での起動確認 | **未確認**（テストは入口を差し替えて実施） | デプロイ時に確認 |
+| 項目 | 状態 |
+| --- | --- |
+| ローカル実装・テスト12件 | 完了 |
+| コミット / push | 完了 |
+| Google Cloud へのデプロイ（下の手順 1〜4） | **完了**（2026-09-21） |
+| 偽の通知での動作確認 | **完了**（テスト通知・購入通知の両方） |
+| Play Console の「テスト通知を送信」からの確認 | 未実施（任意。Play 側の経路も見るなら） |
+| 実購入が出たときのログ確認（手順 6） | これから（購入が起きてから） |
+| 既存の pull サブスクリプションの扱い | 未決定（残してある） |
+| Developer API による purchaseToken 検証・重複排除 | 未実装（次フェーズ） |
+| CI でのテスト自動実行 | 未設定（手動で `python cloud/play-rtdn/tests/test_rtdn.py -v`） |
 
 ## 構成
 

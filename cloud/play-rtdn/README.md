@@ -83,7 +83,7 @@ Play も Pub/Sub も「少なくとも1回」配信なので、**同じ通知が
 関数が失敗すると Pub/Sub が同じ通知を再送し続ける。壊れた通知は何度来ても壊れているので、
 「読めなかった」とログに残して受け取り済みにする。
 
-## デプロイ手順（将来。まだ実行しない）
+## デプロイ手順（2026-09-21 に実行済み。作り直すときも同じ）
 
 前提: プロジェクト `channel-timeline`、トピック `ctv-play-billing-rtdn`（作成済み・Play からのテスト通知の受信を確認済み）。
 
@@ -93,7 +93,7 @@ Play も Pub/Sub も「少なくとも1回」配信なので、**同じ通知が
      cloudbuild.googleapis.com eventarc.googleapis.com artifactregistry.googleapis.com \
      --project=channel-timeline
    ```
-2. 関数専用のサービスアカウントを作る（**ロールは付けない**。ログを標準出力に書くだけなので不要）
+2. 関数専用のサービスアカウントを作る
    ```
    gcloud iam service-accounts create ctv-play-rtdn --project=channel-timeline \
      --display-name="Play RTDN receiver (diagnostic)"
@@ -122,6 +122,11 @@ Play も Pub/Sub も「少なくとも1回」配信なので、**同じ通知が
      関数が動いたら削除してよい（削除は人の判断で）。
    - `--retry` は付けない（関数は例外を投げない設計なので不要）。
 5. 動作確認: Play Console →「収益化のセットアップ」→「テスト通知を送信」。
+   トピックへ直接流して確かめることもできる（Play を介さないので手早い）:
+   ```
+   gcloud pubsub topics publish ctv-play-billing-rtdn --project=channel-timeline      --message='{"version":"1.0","packageName":"com.deskflowlabs.channeltimelineviewer","eventTimeMillis":"1758418800000","testNotification":{"version":"1.0"}}'
+   ```
+   ※ ログに出るまで1分ほどかかることがある（検索の索引待ち）。
    ```
    gcloud logging read 'resource.type="cloud_run_revision" AND resource.labels.service_name="ctv-play-rtdn" AND jsonPayload.message="RTDN_TEST_RECEIVED"' \
      --project=channel-timeline --limit=5 --freshness=1h

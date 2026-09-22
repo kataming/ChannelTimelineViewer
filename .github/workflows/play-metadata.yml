@@ -13,9 +13,9 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: '動作（status=確認のみ / listing=掲載情報と画像を反映 / promote=既存ビルドを別トラックへ下書きで載せる / purchase-check=Pro 購入の確認（acknowledge）状態を読むだけ / order-revoke=テスト購入を払い戻して取り消す / offer-show=割引オファーを読む / offer-create=割引オファーを下書きで作る / offer-activate=有効化 / offer-deactivate=停止）'
+        description: '動作（status=確認のみ / listing=掲載情報と画像を反映 / promote=既存ビルドを別トラックへ下書きで載せる / purchase-check=Pro 購入の確認（acknowledge）状態を読むだけ / order-revoke=テスト購入を払い戻して取り消す / offer-show=割引オファーを読む / offer-raw=商品とオファーの中身をそのまま読む / offer-create=割引オファーを下書きで作る / offer-activate=有効化 / offer-deactivate=停止）'
         type: choice
-        options: [status, listing, promote, purchase-check, order-revoke, offer-show, offer-create, offer-activate, offer-deactivate]
+        options: [status, listing, promote, purchase-check, order-revoke, offer-show, offer-raw, offer-create, offer-activate, offer-deactivate]
         default: status
       dry_run:
         description: '送信せず、何をするかだけ表示する'

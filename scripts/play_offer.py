@@ -76,6 +76,46 @@ def show(api) -> int:
     return 0
 
 
+# 監査で必ず見る国（ここだけ価格を抜き出して出す）。
+AUDIT_REGIONS = ["BD", "IN", "US", "JP"]
+
+
+def raw(api) -> int:
+    """商品とオファーの中身を読むだけ。価格は公開情報なのでそのまま出してよい。"""
+    options, product = purchase_options(api)
+    print("== 商品 ==")
+    print(json.dumps({k: v for k, v in product.items() if k != "purchaseOptions"},
+                     ensure_ascii=False, indent=2)[:2000])
+
+    for option in options:
+        option_id = option.get("purchaseOptionId")
+        configs = option.get("regionalPricingAndAvailabilityConfigs", [])
+        print("")
+        print(f"== 購入オプション {option_id} ==")
+        print(json.dumps({k: v for k, v in option.items()
+                          if k != "regionalPricingAndAvailabilityConfigs"},
+                         ensure_ascii=False, indent=2))
+        print(f"  地域別の価格と提供状況: {len(configs)} 件")
+        for config in configs:
+            if config.get("regionCode") in AUDIT_REGIONS:
+                print("   ", json.dumps(config, ensure_ascii=False))
+
+        offers = monetization(api).purchaseOptions().offers().list(
+            packageName=PACKAGE_NAME, productId=PRODUCT_ID,
+            purchaseOptionId=option_id).execute().get("oneTimeProductOffers", [])
+        for offer in offers:
+            offer_configs = offer.get("regionalPricingAndAvailabilityConfigs", [])
+            print("")
+            print(f"== オファー {offer.get('offerId')} ==")
+            print(json.dumps({k: v for k, v in offer.items()
+                              if k != "regionalPricingAndAvailabilityConfigs"},
+                             ensure_ascii=False, indent=2))
+            print(f"  地域別: {len(offer_configs)} 件")
+            for config in offer_configs:
+                print("   ", json.dumps(config, ensure_ascii=False))
+    return 0
+
+
 def build_offer(option_id: str) -> dict:
     # Play は「分ちょうど」しか受け付けない（秒が入ると 400）。
     now = dt.datetime.now(dt.timezone.utc).replace(second=0, microsecond=0)
@@ -154,7 +194,8 @@ def set_state(api, activate: bool) -> int:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--mode", choices=["show", "create", "activate", "deactivate"], default="show")
+    parser.add_argument("--mode", choices=["show", "raw", "create", "activate", "deactivate"],
+                        default="show")
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
 
@@ -162,6 +203,8 @@ def main() -> int:
     try:
         if args.mode == "show":
             return show(api)
+        if args.mode == "raw":
+            return raw(api)
         if args.mode == "create":
             return create(api, args.dry_run)
         return set_state(api, activate=args.mode == "activate")

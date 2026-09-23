@@ -15,22 +15,26 @@ Channel Timeline Viewer
 ```
 
 ## 短い説明（Short description）
-<!-- 75 / 80 文字 -->
+<!-- 68 / 80 文字 -->
 
 ```
-Regardez vos chaînes dans l’ordre et reprenez là où vous vous étiez arrêté.
+Regardez les chaînes YouTube dans l’ordre et reprenez où vous étiez.
 ```
 
 ## 詳しい説明（Full description）
-<!-- 2605 / 4000 文字 -->
+<!-- 2912 / 4000 文字 -->
 
 ```
-Channel Timeline Viewer classe les vidéos d'une chaîne par date de publication — de la plus ancienne à la plus récente — pour parcourir des archives, un cours ou une longue série depuis le tout début sans perdre le fil.
+Channel Timeline Viewer vous aide à regarder les chaînes YouTube depuis le début sans perdre le fil.
+
+Parcourez une chaîne à partir de ses plus anciennes vidéos, suivez ce que vous avez déjà vu, reprenez à la seconde près et prenez des notes au passage. Archives, cours et longues séries restent dans l’ordre.
 
 POUR QUI
+• Celles et ceux qui apprennent avec des tutoriels, des cours et des chaînes éducatives sur YouTube
 • Celles et ceux qui rattrapent l'ancien catalogue d'une chaîne
-• Les apprenants qui suivent un cours ou une série de conférences
 • Les spectateurs qui veulent savoir exactement où ils en sont
+• Les créateurs de chaînes qui souhaitent que leur public regarde les anciennes vidéos dans l'ordre
+• Les parents de jeunes enfants qui préfèrent rester dans une seule chaîne choisie
 
 FONCTIONS PRINCIPALES
 • Collez l'URL d'une chaîne, ou partagez une vidéo ou une chaîne depuis l'app YouTube ou un navigateur

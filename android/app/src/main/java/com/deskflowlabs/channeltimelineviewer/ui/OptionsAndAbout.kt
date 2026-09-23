@@ -183,6 +183,8 @@ fun AboutScreen(
                 R.string.about_notice_nodownload,
                 R.string.about_notice_noadblock,
                 R.string.about_notice_nobackground,
+                // YouTube の商標表記。ストアの説明の末尾と同じ文を、アプリ内にも置く。
+                R.string.about_notice_trademark,
             ).forEach { res -> Body("・" + stringResource(res)) }
 
             Header(stringResource(R.string.about_data_header))

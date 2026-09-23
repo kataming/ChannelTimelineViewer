@@ -14,6 +14,7 @@
     <string name="about_notice_nodownload">No descarga vídeos.</string>
     <string name="about_notice_notofficial">Esta app no es la app oficial de YouTube.</string>
     <string name="about_notice_officialplayer">La reproducción usa el reproductor incrustado oficial de YouTube (IFrame Player).</string>
+    <string name="about_notice_trademark">YouTube es una marca comercial de Google LLC.</string>
     <string name="about_notices_header">Avisos importantes</string>
     <string name="about_open_a11y">Acerca de esta app</string>
     <string name="about_privacypolicy">Política de privacidad</string>

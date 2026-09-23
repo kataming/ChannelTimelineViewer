@@ -19,6 +19,8 @@
 "about.notice.notOfficial" = "Cette app n’est pas l’app officielle YouTube.";
 /* 注意2 */
 "about.notice.officialPlayer" = "La lecture utilise le lecteur intégré officiel de YouTube (IFrame Player).";
+/* 注意6（商標表記） */
+"about.notice.trademark" = "YouTube est une marque de Google LLC.";
 /* 見出し: 重要な注意事項 */
 "about.notices.header" = "Informations importantes";
 /* 通知を許可するボタン */

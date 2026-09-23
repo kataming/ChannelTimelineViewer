@@ -19,6 +19,8 @@
 "about.notice.notOfficial" = "이 앱은 YouTube 공식 앱이 아닙니다.";
 /* 注意2 */
 "about.notice.officialPlayer" = "동영상 재생에는 YouTube 공식 임베드 플레이어(IFrame Player)를 사용합니다.";
+/* 注意6（商標表記） */
+"about.notice.trademark" = "YouTube는 Google LLC의 상표입니다.";
 /* 見出し: 重要な注意事項 */
 "about.notices.header" = "중요 안내";
 /* 通知を許可するボタン */

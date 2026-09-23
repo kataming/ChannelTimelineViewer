@@ -28,6 +28,7 @@ struct AboutView: View {
                     disclaimerRow(String(localized: "about.notice.noDownload"))
                     disclaimerRow(String(localized: "about.notice.noAdBlock"))
                     disclaimerRow(String(localized: "about.notice.noBackground"))
+                    disclaimerRow(String(localized: "about.notice.trademark"))
                 }
 
                 Section("about.share.header") {

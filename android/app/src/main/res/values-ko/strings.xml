@@ -14,6 +14,7 @@
     <string name="about_notice_nodownload">동영상을 다운로드하지 않습니다.</string>
     <string name="about_notice_notofficial">이 앱은 YouTube 공식 앱이 아닙니다.</string>
     <string name="about_notice_officialplayer">동영상 재생에는 YouTube 공식 임베드 플레이어(IFrame Player)를 사용합니다.</string>
+    <string name="about_notice_trademark">YouTube는 Google LLC의 상표입니다.</string>
     <string name="about_notices_header">중요 안내</string>
     <string name="about_open_a11y">이 앱에 대하여</string>
     <string name="about_privacypolicy">개인정보 처리방침</string>

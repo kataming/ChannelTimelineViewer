@@ -1189,6 +1189,16 @@
     "fr": "Aucune lecture en arrière-plan.",
     "ko": "백그라운드 재생을 하지 않습니다."
   },
+  "about.notice.trademark": {
+    "comment": "注意6（商標表記）",
+    "ja": "YouTube は Google LLC の商標です。",
+    "en": "YouTube is a trademark of Google LLC.",
+    "zh-Hans": "YouTube 是 Google LLC 的商标。",
+    "es": "YouTube es una marca comercial de Google LLC.",
+    "de": "YouTube ist eine Marke von Google LLC.",
+    "fr": "YouTube est une marque de Google LLC.",
+    "ko": "YouTube는 Google LLC의 상표입니다."
+  },
   "about.share.header": {
     "comment": "見出し: 共有シートから開く",
     "ja": "共有シートから開く",

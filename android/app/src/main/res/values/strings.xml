@@ -27,6 +27,8 @@
     <string name="about_notice_notofficial">This app is not the official YouTube app.</string>
     <!-- 注意2 -->
     <string name="about_notice_officialplayer">Playback uses YouTube’s official embedded player (IFrame Player).</string>
+    <!-- 注意6（商標表記） -->
+    <string name="about_notice_trademark">YouTube is a trademark of Google LLC.</string>
     <!-- 見出し: 重要な注意事項 -->
     <string name="about_notices_header">Important notices</string>
     <!-- 読み上げ: このアプリについて -->

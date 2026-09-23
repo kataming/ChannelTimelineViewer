@@ -19,6 +19,8 @@
 "about.notice.notOfficial" = "このアプリは YouTube 公式アプリではありません。";
 /* 注意2 */
 "about.notice.officialPlayer" = "動画再生には YouTube 公式の埋め込みプレイヤー（IFrame Player）を使用しています。";
+/* 注意6（商標表記） */
+"about.notice.trademark" = "YouTube は Google LLC の商標です。";
 /* 見出し: 重要な注意事項 */
 "about.notices.header" = "重要な注意事項";
 /* 通知を許可するボタン */

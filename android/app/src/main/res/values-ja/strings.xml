@@ -14,6 +14,7 @@
     <string name="about_notice_nodownload">動画のダウンロードは行いません。</string>
     <string name="about_notice_notofficial">このアプリは YouTube 公式アプリではありません。</string>
     <string name="about_notice_officialplayer">動画再生には YouTube 公式の埋め込みプレイヤー（IFrame Player）を使用しています。</string>
+    <string name="about_notice_trademark">YouTube は Google LLC の商標です。</string>
     <string name="about_notices_header">重要な注意事項</string>
     <string name="about_open_a11y">このアプリについて</string>
     <string name="about_privacypolicy">プライバシーポリシー</string>

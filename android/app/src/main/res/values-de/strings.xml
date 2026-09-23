@@ -14,6 +14,7 @@
     <string name="about_notice_nodownload">Es werden keine Videos heruntergeladen.</string>
     <string name="about_notice_notofficial">Diese App ist nicht die offizielle YouTube-App.</string>
     <string name="about_notice_officialplayer">Die Wiedergabe nutzt den offiziellen eingebetteten YouTube-Player (IFrame Player).</string>
+    <string name="about_notice_trademark">YouTube ist eine Marke von Google LLC.</string>
     <string name="about_notices_header">Wichtige Hinweise</string>
     <string name="about_open_a11y">Über diese App</string>
     <string name="about_privacypolicy">Datenschutzerklärung</string>

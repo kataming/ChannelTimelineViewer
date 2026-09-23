@@ -14,6 +14,7 @@
     <string name="about_notice_nodownload">不下载视频。</string>
     <string name="about_notice_notofficial">本应用不是 YouTube 官方应用。</string>
     <string name="about_notice_officialplayer">播放使用 YouTube 官方嵌入式播放器（IFrame Player）。</string>
+    <string name="about_notice_trademark">YouTube 是 Google LLC 的商标。</string>
     <string name="about_notices_header">重要提示</string>
     <string name="about_open_a11y">关于本应用</string>
     <string name="about_privacypolicy">隐私政策</string>

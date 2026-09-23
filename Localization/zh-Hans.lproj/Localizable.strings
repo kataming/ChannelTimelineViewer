@@ -19,6 +19,8 @@
 "about.notice.notOfficial" = "本应用不是 YouTube 官方应用。";
 /* 注意2 */
 "about.notice.officialPlayer" = "播放使用 YouTube 官方嵌入式播放器（IFrame Player）。";
+/* 注意6（商標表記） */
+"about.notice.trademark" = "YouTube 是 Google LLC 的商标。";
 /* 見出し: 重要な注意事項 */
 "about.notices.header" = "重要提示";
 /* 通知を許可するボタン */

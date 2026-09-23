@@ -15,14 +15,14 @@ Channel Timeline Viewer
 ```
 
 ## 短い説明（Short description）
-<!-- 76 / 80 文字 -->
+<!-- 75 / 80 文字 -->
 
 ```
-Mira las subidas de un canal de las más antiguas a las nuevas, con progreso.
+Mira tus canales en orden y retoma justo donde lo dejaste, con tu progreso.
 ```
 
 ## 詳しい説明（Full description）
-<!-- 2466 / 4000 文字 -->
+<!-- 2568 / 4000 文字 -->
 
 ```
 Channel Timeline Viewer ordena las subidas de un canal por fecha de publicación —de las más antiguas a las más recientes— para que recorras un archivo, un curso o una serie larga desde el principio sin perder el hilo.

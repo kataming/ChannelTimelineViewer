@@ -37,7 +37,7 @@ chronologique,chaine,progression,serie,cours,etude,archive,ancien,suivi,chronolo
 ```
 
 ## 説明（Description）
-<!-- 2418 / 4000 文字 -->
+<!-- 2492 / 4000 文字 -->
 
 ```
 Channel Timeline Viewer classe les vidéos d'une chaîne par date de publication — de la plus ancienne à la plus récente — pour parcourir des archives, un cours ou une longue série depuis le tout début sans perdre le fil.
@@ -82,8 +82,9 @@ YouTube est une marque de Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 84 / 4000 文字 -->
+<!-- 240 / 4000 文字 -->
 
 ```
-La présentation de l’app sur l’App Store a été revue. L’app elle-même ne change pas.
+• L’écran d’ajout de chaîne a été allégé. L’encadré « Partager plus vite » a été retiré car il répétait ce que le guide de démarrage montre déjà.
+• Les conseils sur la feuille de partage restent disponibles dans « ⓘ À propos de cette app ».
 ```

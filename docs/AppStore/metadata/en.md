@@ -16,10 +16,10 @@ Channel Timeline Viewer
 ```
 
 ## サブタイトル（Subtitle）
-<!-- 30 / 30 文字 -->
+<!-- 26 / 30 文字 -->
 
 ```
-Watch in order, resume anytime
+YouTube channels, in order
 ```
 
 ## プロモーション用テキスト（Promotional Text）
@@ -37,15 +37,19 @@ chronological,oldest,channel,progress,series,course,study,archive,tracker,binge,
 ```
 
 ## 説明（Description）
-<!-- 2152 / 4000 文字 -->
+<!-- 2555 / 4000 文字 -->
 
 ```
-Channel Timeline Viewer lists a channel's uploads by publication date — oldest first — so you can work through an archive, a course, or a long-running series from the very beginning without losing your place.
+Channel Timeline Viewer helps you watch YouTube channels from the beginning without losing your place.
+
+Browse a channel from its oldest uploads, track what you have watched, resume from the exact playback position, and keep notes as you go. Archives, courses and long-running series stay in order.
 
 WHO IT'S FOR
+• People learning from YouTube tutorials, lectures, courses, educational channels and long-running series
 • Anyone catching up on a channel's back catalog
-• Learners following a course or lecture series
 • Viewers who want to know exactly how far they've watched
+• Channel operators who want viewers to work through their older uploads in order
+• Parents of young children who want a simpler way to stay inside one chosen channel
 
 MAIN FEATURES
 • Paste a channel URL, or share a video or channel from the YouTube app or Safari
@@ -82,8 +86,9 @@ YouTube is a trademark of Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 89 / 4000 文字 -->
+<!-- 210 / 4000 文字 -->
 
 ```
-Updated how the app is described on the App Store. Nothing in the app itself has changed.
+• Tidied up the screen where you add a channel. The “Share faster” box is gone — it repeated what the first-run guide already shows you.
+• The share sheet tips are still there any time under “ⓘ About this app”.
 ```

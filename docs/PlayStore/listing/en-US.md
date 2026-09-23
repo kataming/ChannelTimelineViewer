@@ -15,22 +15,26 @@ Channel Timeline Viewer
 ```
 
 ## 短い説明（Short description）
-<!-- 74 / 80 文字 -->
+<!-- 78 / 80 文字 -->
 
 ```
-Watch a channel's uploads oldest-first and track how far you have watched.
+Watch YouTube channels in order, track progress and resume where you left off.
 ```
 
 ## 詳しい説明（Full description）
-<!-- 2320 / 4000 文字 -->
+<!-- 2723 / 4000 文字 -->
 
 ```
-Channel Timeline Viewer lists a channel's uploads by publication date — oldest first — so you can work through an archive, a course, or a long-running series from the very beginning without losing your place.
+Channel Timeline Viewer helps you watch YouTube channels from the beginning without losing your place.
+
+Browse a channel from its oldest uploads, track what you have watched, resume from the exact playback position, and keep notes as you go. Archives, courses and long-running series stay in order.
 
 WHO IT'S FOR
+• People learning from YouTube tutorials, lectures, courses, educational channels and long-running series
 • Anyone catching up on a channel's back catalog
-• Learners following a course or lecture series
 • Viewers who want to know exactly how far they've watched
+• Channel operators who want viewers to work through their older uploads in order
+• Parents of young children who want a simpler way to stay inside one chosen channel
 
 MAIN FEATURES
 • Paste a channel URL, or share a video or channel from the YouTube app or a browser

@@ -15,14 +15,14 @@ Channel Timeline Viewer
 ```
 
 ## 短い説明（Short description）
-<!-- 69 / 80 文字 -->
+<!-- 71 / 80 文字 -->
 
 ```
-Kanal-Uploads chronologisch ansehen – mit Fortschritt und Fortsetzen.
+Kanäle der Reihe nach ansehen und genau dort weitermachen, wo du warst.
 ```
 
 ## 詳しい説明（Full description）
-<!-- 2428 / 4000 文字 -->
+<!-- 2486 / 4000 文字 -->
 
 ```
 Channel Timeline Viewer sortiert die Uploads eines Kanals nach Veröffentlichungsdatum – die ältesten zuerst. So arbeitest du dich von Anfang an durch ein Archiv, einen Kurs oder eine lange Serie, ohne den Faden zu verlieren.

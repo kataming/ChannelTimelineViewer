@@ -15,14 +15,14 @@ Channel Timeline Viewer
 ```
 
 ## 短い説明（Short description）
-<!-- 73 / 80 文字 -->
+<!-- 75 / 80 文字 -->
 
 ```
-Regardez les vidéos d'une chaîne dans l'ordre, avec suivi de progression.
+Regardez vos chaînes dans l’ordre et reprenez là où vous vous étiez arrêté.
 ```
 
 ## 詳しい説明（Full description）
-<!-- 2531 / 4000 文字 -->
+<!-- 2605 / 4000 文字 -->
 
 ```
 Channel Timeline Viewer classe les vidéos d'une chaîne par date de publication — de la plus ancienne à la plus récente — pour parcourir des archives, un cours ou une longue série depuis le tout début sans perdre le fil.

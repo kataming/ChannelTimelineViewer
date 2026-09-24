@@ -18,5 +18,10 @@ export const SUPPORT_EMAIL = import.meta.env.PUBLIC_SUPPORT_EMAIL || 'support@je
 // GitHub リポジトリ（公開）。
 export const REPOSITORY_URL = 'https://github.com/kataming/ChannelTimelineViewer';
 
+// PeerPush の製品ページ（2026-09-25 登録）。フッターからリンクしている。
+// PeerPush 側の Product Verification は「公式サイトから製品ページへの公開リンクがあること」を見るため、
+// **隠しリンクにしない**（見える普通のリンクとして置く）。
+export const PEERPUSH_URL = 'https://peerpush.com/p/channel-timeline-viewer-rxwl';
+
 // アプリの表示名（翻訳しない製品名）。
 export const APP_NAME = 'Channel Timeline Viewer';

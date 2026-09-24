@@ -1,6 +1,6 @@
 ---
 import { path } from '../i18n/index.js';
-import { APP_NAME } from '../config.js';
+import { APP_NAME, PEERPUSH_URL } from '../config.js';
 import LangSelect from './LangSelect.astro';
 
 const { lang, page = '', repository, copy } = Astro.props;
@@ -16,6 +16,7 @@ const year = 2026;
       <a href={path(lang, 'support')}>{copy.nav.support}</a>
       <a href={path(lang, 'privacy')}>{copy.nav.privacy}</a>
       <a href={repository} rel="noopener">{copy.footer.source}</a>
+      <a href={PEERPUSH_URL} target="_blank" rel="noopener noreferrer">{copy.footer.peerpush}</a>
     </nav>
     <div class="langs-row">
       <span class="muted">{copy.footer.language}</span>

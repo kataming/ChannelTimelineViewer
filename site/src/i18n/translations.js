@@ -103,6 +103,7 @@ const en = {
     trademark: 'YouTube is a trademark of Google LLC. This app is an unofficial app that uses the official API and player; it is not endorsed by or affiliated with Google or YouTube.',
     language: 'Language',
     source: 'Source code',
+    peerpush: 'Listed on PeerPush',
   },
   support: {
     deletion: {
@@ -278,6 +279,7 @@ const ja = {
     trademark: 'YouTube は Google LLC の商標です。本アプリは公式 API・公式プレイヤーを利用する非公式アプリであり、Google／YouTube による承認・提携を示すものではありません。',
     language: '言語',
     source: 'ソースコード',
+    peerpush: 'PeerPushに掲載中',
   },
   support: {
     deletion: {
@@ -451,6 +453,7 @@ const zh = {
     trademark: 'YouTube 是 Google LLC 的商标。本应用是使用官方 API 与播放器的非官方应用，未获得 Google／YouTube 的认可，也与其无关联。',
     language: '语言',
     source: '源代码',
+    peerpush: '已在 PeerPush 上架',
   },
   support: {
     deletion: {
@@ -624,6 +627,7 @@ const es = {
     trademark: 'YouTube es una marca comercial de Google LLC. Esta app es una app no oficial que usa la API y el reproductor oficiales; no está avalada por Google o YouTube ni afiliada a ellos.',
     language: 'Idioma',
     source: 'Código fuente',
+    peerpush: 'Publicado en PeerPush',
   },
   support: {
     deletion: {
@@ -797,6 +801,7 @@ const de = {
     trademark: 'YouTube ist eine Marke von Google LLC. Diese App ist eine inoffizielle App, die die offizielle API und den offiziellen Player nutzt; sie wird von Google oder YouTube weder unterstützt noch ist sie mit ihnen verbunden.',
     language: 'Sprache',
     source: 'Quellcode',
+    peerpush: 'Auf PeerPush gelistet',
   },
   support: {
     deletion: {
@@ -970,6 +975,7 @@ const fr = {
     trademark: 'YouTube est une marque de Google LLC. Cette app est une app non officielle qui utilise l’API et le lecteur officiels ; elle n’est ni approuvée par Google ou YouTube, ni affiliée à eux.',
     language: 'Langue',
     source: 'Code source',
+    peerpush: 'Référencé sur PeerPush',
   },
   support: {
     deletion: {
@@ -1143,6 +1149,7 @@ const ko = {
     trademark: 'YouTube는 Google LLC의 상표입니다. 이 앱은 공식 API와 공식 플레이어를 사용하는 비공식 앱이며 Google·YouTube의 승인이나 제휴를 나타내지 않습니다.',
     language: '언어',
     source: '소스 코드',
+    peerpush: 'PeerPush에 등록됨',
   },
   support: {
     deletion: {

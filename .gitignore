@@ -42,3 +42,16 @@ docs/構築チャット履歴.md
 # Python のキャッシュ
 __pycache__/
 *.pyc
+
+# --- dev-backup 監査(2026-09-25)で追加: 秘密・依存・ローカル状態は Git に入れない ---
+.env
+.env.*
+*.pem
+*.key
+.dev.vars
+node_modules/
+.wrangler/
+*.jks
+*.keystore
+!android/app/debug.keystore
+!.env.example

@@ -23,5 +23,10 @@ export const REPOSITORY_URL = 'https://github.com/kataming/ChannelTimelineViewer
 // **隠しリンクにしない**（見える普通のリンクとして置く）。
 export const PEERPUSH_URL = 'https://peerpush.com/p/channel-timeline-viewer-rxwl';
 
+// Fazier の無料掲載は「公式サイトのトップかフッターに Fazier のバッジ」が条件（2026-09-27 ユーザー判断で採用）。
+// 埋め込みコードは Fazier の「Copy embed code」の内容そのまま（画像は Fazier のサーバーから読む）。
+export const FAZIER_URL = 'https://fazier.com';
+export const FAZIER_BADGE_SRC = 'https://fazier.com/api/v1//public/badges/launch_badges.svg?badge_type=launched&theme=light';
+
 // アプリの表示名（翻訳しない製品名）。
 export const APP_NAME = 'Channel Timeline Viewer';

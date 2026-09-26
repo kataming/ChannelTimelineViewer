@@ -3,7 +3,7 @@
 // JavaScript が無い場合や未対応言語のときは英語版へ送る。
 // 振り分けの処理は LangRedirect.astro（/watch-queue/ と共通）。
 import { languages, path, DEFAULT_CODE } from '../i18n/index.js';
-import { SITE_URL, PEERPUSH_URL } from '../config.js';
+import { SITE_URL, PEERPUSH_URL, FAZIER_URL, FAZIER_BADGE_SRC } from '../config.js';
 import LangRedirect from '../components/LangRedirect.astro';
 
 const fallback = path(DEFAULT_CODE);
@@ -40,6 +40,9 @@ const fallback = path(DEFAULT_CODE);
     -->
     <p style="font-family: system-ui; padding: 0 24px 24px;">
       <a href={PEERPUSH_URL} target="_blank" rel="noopener noreferrer">Listed on PeerPush</a>
+    </p>
+    <p style="padding: 0 24px 24px;">
+      <a href={FAZIER_URL} target="_blank" rel="noopener"><img src={FAZIER_BADGE_SRC} width="120" alt="Fazier badge" /></a>
     </p>
   </body>
 </html>

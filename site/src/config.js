@@ -28,5 +28,10 @@ export const PEERPUSH_URL = 'https://peerpush.com/p/channel-timeline-viewer-rxwl
 export const FAZIER_URL = 'https://fazier.com';
 export const FAZIER_BADGE_SRC = 'https://fazier.com/api/v1//public/badges/launch_badges.svg?badge_type=launched&theme=light';
 
+// StartupBase の無料掲載の優先キュー（約4〜5週間）に入る条件のバッジ（2026-09-27 ユーザー判断で採用）。
+// 埋め込みコードは StartupBase の「Copy embed code」（Light）の内容どおり。
+export const STARTUPBASE_URL = 'https://startupbase.io/products/channel-timeline-viewer?utm_source=startupbase&utm_medium=badge&utm_campaign=launch-badge-light';
+export const STARTUPBASE_BADGE_SRC = 'https://statics.startupbase.io/site/badges/launched-on-sb.svg';
+
 // アプリの表示名（翻訳しない製品名）。
 export const APP_NAME = 'Channel Timeline Viewer';

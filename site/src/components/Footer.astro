@@ -1,6 +1,6 @@
 ---
 import { path } from '../i18n/index.js';
-import { APP_NAME, PEERPUSH_URL, FAZIER_URL, FAZIER_BADGE_SRC } from '../config.js';
+import { APP_NAME, PEERPUSH_URL, FAZIER_URL, FAZIER_BADGE_SRC, STARTUPBASE_URL, STARTUPBASE_BADGE_SRC } from '../config.js';
 import LangSelect from './LangSelect.astro';
 
 const { lang, page = '', repository, copy } = Astro.props;
@@ -18,9 +18,10 @@ const year = 2026;
       <a href={repository} rel="noopener">{copy.footer.source}</a>
       <a href={PEERPUSH_URL} target="_blank" rel="noopener noreferrer">{copy.footer.peerpush}</a>
     </nav>
-    <!-- Fazier の無料掲載の条件。確認に来るので、隠さずに見える場所に置く -->
+    <!-- Fazier / StartupBase の無料掲載の条件。確認に来るので、隠さずに見える場所に置く -->
     <p class="badges">
       <a href={FAZIER_URL} target="_blank" rel="noopener"><img src={FAZIER_BADGE_SRC} width="120" alt="Fazier badge" loading="lazy" /></a>
+      <a href={STARTUPBASE_URL} target="_blank" rel="noopener noreferrer"><img src={STARTUPBASE_BADGE_SRC} alt="Launched on StartupBase" height="55" style="height:55px;width:auto;" loading="lazy" /></a>
     </p>
     <div class="langs-row">
       <span class="muted">{copy.footer.language}</span>
@@ -37,7 +38,7 @@ const year = 2026;
   nav { display: flex; gap: 18px; flex-wrap: wrap; font-size: 0.92rem; margin-bottom: 14px; }
   nav a { color: var(--muted); text-decoration: none; }
   nav a:hover { color: var(--text); }
-  .badges { margin: 0 0 14px; line-height: 0; }
+  .badges { margin: 0 0 14px; line-height: 0; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
   .langs-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; font-size: 0.85rem; }
   .fine { color: var(--muted); font-size: 0.8rem; max-width: 80ch; }
 </style>

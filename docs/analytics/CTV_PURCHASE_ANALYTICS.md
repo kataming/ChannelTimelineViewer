@@ -29,9 +29,9 @@
 | `pro_purchase_error` | 購入が失敗した | `reason` | ❌ |
 | `pro_purchase_pending` | 保留になった（コンビニ払いなど） | なし | ❌ まだ売れていない |
 | `pro_restore` | 「購入を復元」を押した | なし | ❌ 既存客の再適用 |
-| `purchase` | `pro_purchase_success` と同時（値段が取れたときだけ） | `value` / `currency` | ✅ GA4 の収益レポート用 |
+| ~~`purchase`~~ | **1.14 で廃止**（1.9〜1.13 は `pro_purchase_success` と同時に送っていた）。`in_app_purchase` と収益が二重になるため | — | — |
 | `pro_billing_result` | **診断用**。課金の各段階の結果（成功も失敗も） | `stage` / `result` | ❌ 数えない |
-| `in_app_purchase` | **Firebase が自動収集**（コードからは送れない・[第9章](#9-in_app_purchasefirebase-の自動収集イベント)） | Google が決める | ✅ Play 側との突き合わせ用 |
+| `in_app_purchase` | **Firebase が自動収集**（Google Play とリンク済み・コードからは送らない・[第9章](#9-in_app_purchasefirebase-の自動収集イベント)） | Google が決める | ✅ **収益（金額）の正**（GA4） |
 
 ### `pro_purchase_success` の発火条件（すべて満たしたときだけ）
 
@@ -104,7 +104,7 @@ Play Console の購入者コンバージョンで「購入画面は出ている�
 | **RESTORE** | 前に買った人が別端末などで権限を戻した | 新たには入らない | `pro_restore` |
 
 **実売として数えてよいのは `pro_purchase_success` だけ。**
-売上金額を見たいときは GA4 標準の `purchase` を使う。
+売上金額を見たいときは、Firebase が自動で集める `in_app_purchase`（GA4 の収益）を使う。
 
 ---
 
@@ -178,7 +178,7 @@ Firebase コンソール → Analytics → **DebugView**。
 見る順番:
 
 1. 購入ボタン → `pro_purchase_start`
-2. 購入完了 → **`pro_purchase_success` が1回だけ**、続けて `purchase`
+2. 購入完了 → **`pro_purchase_success` が1回だけ**（1.14〜 `purchase` は出ない）。自動の `in_app_purchase` が出る
 3. アプリを再起動 → `pro_purchase_success` が**増えないこと**（ここが重要）
 4. 「購入を復元」→ `pro_restore` だけ。success は増えない
 
@@ -191,11 +191,13 @@ Firebase コンソール → Analytics → **イベント** に `pro_purchase_su
 
 ### 収益で見る
 
-GA4 の **収益化 → 収益化の概要**。`purchase` イベントの `value` / `currency` から
-売上が積み上がる。金額は Play が返した商品情報からのみ取っており、コードに価格は持っていない。
+GA4 の **収益化 → 収益化の概要**。Firebase が自動で集める `in_app_purchase` の金額が積み上がる
+（Google Play とリンク済み。アプリからは金額を送らない）。
 
-> `transaction_id` は送っていない（`orderId` は送信禁止のため）。
-> GA4 側の重複排除は効かないが、アプリ側でトークン単位の重複防止をしているので問題ない。
+> ⚠️ **1.9〜1.13 の期間は二重計上**: アプリが `purchase`（value / currency）も送っていたため、
+> リンク後に成立した購入は `purchase` と `in_app_purchase` の**両方**に金額が入り、GA4 の総収益が
+> 実際の約2倍になっている。1.14 に更新した端末から解消する。**売上の正は Play Console**。
+> 過去分を GA4 で見るときは、イベント名 = `in_app_purchase` に絞って合計すること。
 
 ---
 
@@ -244,7 +246,7 @@ GA4（Firebase コンソール → Analytics →「Google アナリティクス�
   `pro_purchase_error` の `reason` 別内訳と、`pro_purchase_cancel` の比率を併せて見る
 - **2 → 3 の脱落が大きい国**は、値段が高すぎる可能性。Play Console の国別価格を見直す材料になる
 
-> 通貨が違うので、**金額の合計で国を比べない**こと（`purchase` の `value` は現地通貨）。
+> 通貨が違うので、**金額の合計で国を比べない**こと（購入イベントの金額は現地通貨）。
 > 人数と転換率で比べ、金額は GA4 が換算する「収益」列を使う。
 
 ---
@@ -295,15 +297,21 @@ GA4（Firebase コンソール → Analytics →「Google アナリティクス�
 ⚠️ ただし**引数の内容は Google が決める**ので、こちらの「送ってよいものだけ送る」方針の外にある。
 仕様が変わっていないか、たまに DebugView で中身を見ること。
 
-### 3つのイベントの使い分け
+### イベントの使い分け（1.14〜）
 
-リンク後は購入1件につき3つ記録される。**同じものを3回数えないよう**、用途を分ける。
+**Firebase は Google Play とリンク済み**（2026-09-28 に本人が確認）。購入1件につき、
+アプリの `pro_purchase_success` と自動の `in_app_purchase` の2つが記録される。
+
+> ⚠️ **1.13 までは GA4 標準の `purchase`（value / currency）も送っていた**。自動の `in_app_purchase` にも
+> 金額が入るので、GA4 の総収益が**二重**になっていた（`transaction_id` も無く GA4 側で重複排除できない）。
+> 1.14 で `purchase` を廃止した。**手動の `purchase` も `in_app_purchase` も送らないこと**
+> （Google Play 標準の1回限りの購入は、自動収集に任せる）。
 
 | イベント | 出どころ | 使いどころ |
 | --- | --- | --- |
 | **`pro_purchase_success`** | アプリ（こちらの実装） | **実売人数の正**。重複防止つき。これを基準にする |
-| `purchase` | アプリ（こちらの実装） | GA4 の収益レポート（収益化の概要） |
-| `in_app_purchase` | Firebase の自動収集 | GA4 の「アプリ内購入」レポート。Play 側の数字との突き合わせ |
+| ~~`purchase`~~ | 1.13 まで。**1.14 で廃止** | — |
+| `in_app_purchase` | Firebase の自動収集 | **GA4 の収益（金額）**。Play 側の数字との突き合わせ |
 
 数が食い違ったときの読み方:
 
@@ -314,7 +322,7 @@ GA4（Firebase コンソール → Analytics →「Google アナリティクス�
 
 ### ⚠️ データセーフティの申告を見直すこと
 
-購入イベント（`pro_purchase_success` / `purchase` / `in_app_purchase`）は、
+購入イベント（`pro_purchase_success` / `in_app_purchase`。1.13 までは `purchase` も）は、
 Play の「データセーフティ」の分類では **「金融情報 → 購入履歴」** に当たる可能性が高い。
 
 現在の申告は「アプリのアクティビティ」と「デバイスまたはその他のID」だけなので、

@@ -38,7 +38,12 @@ class ProPurchaseReporter(
         val purchaseToken: String,
     )
 
-    /** Play が返した商品の値段。取れていなければ null（その場合 GA4 標準イベントは送らない）。 */
+    /**
+     * Play が返した商品の値段。
+     *
+     * 1.14 で GA4 標準の `purchase` を送るのをやめたため、**いまは Analytics には使っていない**。
+     * 課金処理（[ProBillingManager]）を触らずに済むよう、受け取る口だけ残してある。
+     */
     data class PriceInfo(val amountMicros: Long, val currencyCode: String)
 
     /** 購入ボタンが押され、これからフローを開くところ。 */
@@ -64,8 +69,10 @@ class ProPurchaseReporter(
      *
      * @param entitlementGranted PURCHASED を見て Pro 権限を実際に付与したか。
      *   false なら（付与が確定していないので）実売として数えない。
+     * @param price いまは使っていない（[PriceInfo] を参照）。
      * @return 実売として数えた購入があれば true。テストと呼び出し側の確認用。
      */
+    @Suppress("UNUSED_PARAMETER")
     fun purchasesUpdated(
         responseCode: Int,
         purchases: List<PurchaseSnapshot>,
@@ -80,7 +87,7 @@ class ProPurchaseReporter(
                     val purchased = owned.filter { it.state == Purchase.PurchaseState.PURCHASED }
                     when {
                         purchased.isNotEmpty() && entitlementGranted ->
-                            counted = countRealSale(purchased, price)
+                            counted = countRealSale(purchased)
 
                         // PURCHASED はあるのに権限付与が確定していない＝数えない。
                         // （実際には起きない経路だが、「付与＝実売」の約束をコードでも守る）
@@ -120,22 +127,17 @@ class ProPurchaseReporter(
             .forEach { reported.reportOnce(it.purchaseToken) }
     }
 
-    private fun countRealSale(purchased: List<PurchaseSnapshot>, price: PriceInfo?): Boolean {
+    private fun countRealSale(purchased: List<PurchaseSnapshot>): Boolean {
         // 同じ購入が再通知されても1回だけ。トークンは照合に使うだけで外へは出さない。
         val fresh = purchased.filter { reported.reportOnce(it.purchaseToken) }
         if (fresh.isEmpty()) return false
 
         analytics.log(Analytics.Event.PRO_PURCHASE_SUCCESS)
 
-        // GA4 標準の収益イベント。値段が取れているときだけ併送する
-        // （価格はコードに持たず、Play が返したものだけを使う）。
-        if (price != null) {
-            analytics.log(
-                Analytics.Event.PURCHASE,
-                Analytics.Param.VALUE to price.amountMicros / 1_000_000.0,
-                Analytics.Param.CURRENCY to price.currencyCode,
-            )
-        }
+        // ⚠️ GA4 標準の `purchase`（value / currency）は**送らない**（1.14〜）。
+        //    Firebase は Google Play とリンク済みで、同じ購入を `in_app_purchase` として
+        //    **自動で**記録する。両方に金額が入ると GA4 の総収益が二重になるため、
+        //    収益は自動の `in_app_purchase` に任せる。手動の `in_app_purchase` も送らない。
         return true
     }
 

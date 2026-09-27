@@ -395,10 +395,14 @@ class ProPurchaseAnalyticsTest {
         }
     }
 
-    // ---- GA4 標準の purchase ----
+    // ---- GA4 標準の purchase は送らない（1.14〜） ----
+    //
+    // Firebase は Google Play とリンク済みで、同じ購入を `in_app_purchase` として自動で記録する。
+    // こちらから `purchase`（value / currency）も送ると GA4 の総収益が二重になるため送らない。
+    // 手動の `in_app_purchase` も送らない（自動収集に任せる）。
 
     @Test
-    fun `値段が取れていれば GA4 標準の purchase も実売と同時に出る`() {
+    fun `値段が取れていても purchase と in_app_purchase は送らず、実売は1回だけ数える`() {
         val recorder = Recorder()
         val reporter = ProPurchaseReporter(recorder, store())
 
@@ -408,14 +412,15 @@ class ProPurchaseAnalyticsTest {
             price = ProPurchaseReporter.PriceInfo(amountMicros = 4_990_000, currencyCode = "JPY"),
         )
 
-        assertEquals(1, recorder.count(Analytics.Event.PURCHASE))
-        val params = recorder.paramsOf(Analytics.Event.PURCHASE)
-        assertEquals(4.99, params[Analytics.Param.VALUE] as Double, 0.0001)
-        assertEquals("JPY", params[Analytics.Param.CURRENCY])
+        assertEquals(1, recorder.count(success))
+        assertEquals("GA4 標準の purchase は送らない", 0, recorder.count("purchase"))
+        assertEquals("手動の in_app_purchase は送らない", 0, recorder.count("in_app_purchase"))
+        assertTrue("金額・通貨をどのイベントにも載せない",
+            recorder.entries.none { "currency" in it.params })
     }
 
     @Test
-    fun `値段が取れていなければ GA4 標準の purchase は送らない`() {
+    fun `値段が取れていなくても実売は数え、purchase は送らない`() {
         val recorder = Recorder()
         val reporter = ProPurchaseReporter(recorder, store())
 
@@ -426,11 +431,11 @@ class ProPurchaseAnalyticsTest {
         )
 
         assertEquals("実売そのものは数える", 1, recorder.count(success))
-        assertEquals("金額が不確かなら収益イベントは出さない", 0, recorder.count(Analytics.Event.PURCHASE))
+        assertEquals(0, recorder.count("purchase"))
     }
 
     @Test
-    fun `GA4 標準の purchase も同じ購入では1回だけ`() {
+    fun `同じ購入が何度通知されても実売は1回・purchase は0回`() {
         val recorder = Recorder()
         val reporter = ProPurchaseReporter(recorder, store())
         val price = ProPurchaseReporter.PriceInfo(amountMicros = 4_990_000, currencyCode = "JPY")
@@ -442,8 +447,9 @@ class ProPurchaseAnalyticsTest {
             )
         }
 
-        assertEquals(1, recorder.count(Analytics.Event.PURCHASE))
         assertEquals(1, recorder.count(success))
+        assertEquals(0, recorder.count("purchase"))
+        assertEquals(0, recorder.count("in_app_purchase"))
     }
 
     // ---- 重複防止の入れ物そのもの ----

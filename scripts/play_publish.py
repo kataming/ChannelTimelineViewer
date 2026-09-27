@@ -298,13 +298,13 @@ def upsert_product(api, dry_run: bool) -> int:
 #     これが抜けると「勝手に設定を変えられた」と受け取られる。実装も実際にそうなっていて、
 #     新しい既定が効くのは**一度も操作していない端末だけ**（PlaybackSettingsStore）。
 RELEASE_NOTES = {
-    "ja-JP": "・再生画面の大きなボタンを「YouTubeでコメントする」に変えました。YouTube で動画を開いて、コメントを書き込めます。\n・右上の「…」メニューの「YouTubeで開く」も、これまでどおり使えます。",
-    "en-US": "• The big button on the player screen is now “Comment on YouTube”. It opens the video on YouTube so you can leave a comment.\n• “Open in YouTube” in the “…” menu is still there.",
-    "zh-CN": "・播放界面的大按钮改为「在 YouTube 上评论」，可在 YouTube 中打开视频并发表评论。\n・右上角「…」菜单中的「在 YouTube 中打开」仍可照常使用。",
-    "es-ES": "• El botón grande de la pantalla de reproducción ahora es «Comentar en YouTube»: abre el vídeo en YouTube para que puedas dejar un comentario.\n• «Abrir en YouTube» sigue en el menú «…».",
-    "de-DE": "• Die große Schaltfläche im Wiedergabebildschirm heißt jetzt „Auf YouTube kommentieren“. Sie öffnet das Video auf YouTube, damit du einen Kommentar schreiben kannst.\n• „In YouTube öffnen“ im „…“-Menü gibt es weiterhin.",
-    "fr-FR": "• Le grand bouton de l’écran de lecture devient « Commenter sur YouTube » : il ouvre la vidéo sur YouTube pour que vous puissiez laisser un commentaire.\n• « Ouvrir dans YouTube » reste disponible dans le menu « … ».",
-    "ko-KR": "・재생 화면의 큰 버튼을 ‘YouTube에서 댓글 달기’로 바꿨습니다. YouTube에서 동영상을 열어 댓글을 남길 수 있습니다.\n・오른쪽 위 ‘…’ 메뉴의 ‘YouTube에서 열기’도 그대로 사용할 수 있습니다.",
+    "ja-JP": "・アプリ内部の利用状況の記録を見直しました。\n・画面や機能に変更はありません。",
+    "en-US": "• Reviewed how the app records usage internally.\n• Nothing on the screen or in the features has changed.",
+    "zh-CN": "・调整了应用内部的使用情况记录方式。\n・界面和功能没有变化。",
+    "es-ES": "• Revisamos cómo la app registra internamente el uso.\n• No cambia nada en la pantalla ni en las funciones.",
+    "de-DE": "• Die interne Nutzungserfassung der App wurde überarbeitet.\n• Bildschirm und Funktionen bleiben unverändert.",
+    "fr-FR": "• Nous avons revu la façon dont l’app enregistre l’utilisation en interne.\n• Rien ne change à l’écran ni dans les fonctions.",
+    "ko-KR": "・앱 내부의 이용 현황 기록 방식을 다시 살펴봤습니다.\n・화면과 기능에는 변화가 없습니다.",
 }
 
 

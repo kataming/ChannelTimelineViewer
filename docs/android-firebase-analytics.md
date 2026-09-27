@@ -49,7 +49,7 @@ Android 版だけに入れている **Google Analytics for Firebase** の仕組�
 | `pro_purchase_error` | 購入が失敗した | `reason`（決まった5種のみ） |
 | `pro_purchase_pending` | 保留になった（コンビニ払いなど。まだ売れていない） | なし |
 | `pro_restore` | 「購入を復元」を押した（**実売ではない**） | なし |
-| `purchase` | GA4 標準の収益イベント。`pro_purchase_success` と同時 | `value` / `currency` |
+| ~~`purchase`~~ | **1.14 で廃止**。自動の `in_app_purchase`（Google Play とリンク済み）と収益が二重になるため | — |
 
 > **1.9 で `pro_purchase_end` は廃止した。** 保留と成立を同じ名前で送っていて実売の数として
 > 使えなかったため、上の5つに分けた（1.8 までに購入は1件も無く、失われるデータは無い）。
@@ -62,8 +62,9 @@ Android 版だけに入れている **Google Analytics for Firebase** の仕組�
 
 > `in_app_purchase` も自動収集イベントで、**コードからは送れない**（予約語。手動送信は
 > Analytics SDK 23.2.0+ が要るが、本アプリは 22.1.2）。取るには Firebase アプリを
-> Google Play にリンクする設定が要る。手順と、`pro_purchase_success` / `purchase` との
-> 使い分けは [`analytics/CTV_PURCHASE_ANALYTICS.md`](./analytics/CTV_PURCHASE_ANALYTICS.md) 第9章。
+> Google Play にリンクする設定が要る（**リンク済み**）。**収益（金額）はこの自動の `in_app_purchase` だけで取る**
+> （1.14 で `purchase` を廃止）。`pro_purchase_success` との使い分けは
+> [`analytics/CTV_PURCHASE_ANALYTICS.md`](./analytics/CTV_PURCHASE_ANALYTICS.md) 第9章。
 
 > 「記録をオンに戻した」イベントは**あえて置いていない**。`setAnalyticsCollectionEnabled(true)` の反映は非同期で、直後に `logEvent` しても
 > 「まだ無効」と判定されて捨てられるため（実機で確認済み）。待ち時間を入れれば通るが、

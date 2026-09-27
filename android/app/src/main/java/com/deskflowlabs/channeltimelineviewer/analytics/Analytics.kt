@@ -114,12 +114,9 @@ interface Analytics {
         /** 案内を途中でやめた。[Param.VALUE] に、やめた時点の手順の番号。 */
         const val CHANNEL_TUTORIAL_SKIP = "channel_tutorial_skip"
 
-        /**
-         * GA4 標準の購入イベント。収益レポートに載せるために
-         * [PRO_PURCHASE_SUCCESS] と**同じ瞬間・同じ重複防止**で併送する。
-         * 金額は Play が返す商品情報からのみ取る（コードに価格を持たない）。
-         */
-        const val PURCHASE = "purchase"
+        // GA4 標準の `purchase` は 1.14 で廃止した（定数も削除）。Google Play とリンク済みの
+        // Firebase が同じ購入を `in_app_purchase` として自動で記録し、両方に金額があると
+        // 総収益が二重になるため。**戻さないこと**（docs/analytics/CTV_PURCHASE_ANALYTICS.md 第9章）。
 
         /**
          * 課金まわりの**診断用**。どの段階（[Param.STAGE] = [Stage]）で
@@ -192,10 +189,7 @@ interface Analytics {
         /** 設定の名前。値は [Setting]。 */
         const val SETTING = "setting"
 
-        /**
-         * 設定の値（オン/オフは "on" / "off"、繰り返しは [RepeatValue]）。
-         * [Event.PURCHASE] では GA4 標準の売上金額としても使う。
-         */
+        /** 設定の値（オン/オフは "on" / "off"、繰り返しは [RepeatValue]）。 */
         const val VALUE = "value"
 
         /** 一覧の本数（1本ずつではなく、規模を知るために使う）。 */
@@ -203,9 +197,6 @@ interface Analytics {
 
         /** 失敗の種類。値は [ErrorReason] に列挙したものだけ。生の例外文は入れない。 */
         const val REASON = "reason"
-
-        /** 通貨コード（GA4 標準の [Event.PURCHASE] 用。Play が返す値をそのまま使う）。 */
-        const val CURRENCY = "currency"
 
         /** 課金のどの段階か。値は [Stage]（[Event.PRO_BILLING_RESULT] 専用）。 */
         const val STAGE = "stage"

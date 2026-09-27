@@ -859,6 +859,16 @@
     "fr": "Ouvrir dans YouTube",
     "ko": "YouTube에서 열기"
   },
+  "player.commentOnYouTube": {
+    "comment": "再生画面の全幅ボタン。YouTube で動画を開き、コメントしてもらう（…メニューは player.openInYouTube のまま）",
+    "ja": "YouTubeでコメントする",
+    "en": "Comment on YouTube",
+    "zh-Hans": "在 YouTube 上评论",
+    "es": "Comentar en YouTube",
+    "de": "Auf YouTube kommentieren",
+    "fr": "Commenter sur YouTube",
+    "ko": "YouTube에서 댓글 달기"
+  },
   "player.menu.a11y": {
     "comment": "読み上げ: その他の操作",
     "ja": "その他の操作",

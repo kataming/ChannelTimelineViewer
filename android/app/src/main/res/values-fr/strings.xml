@@ -95,6 +95,7 @@
     <string name="player_autoplay_off_detail">À la fin, s’arrête et affiche un bouton « Lire la vidéo suivante »</string>
     <string name="player_autoplay_on_detail">À la fin, lit uniquement la vidéo suivante de cette liste</string>
     <string name="player_autoplay_title">Lecture automatique</string>
+    <string name="player_commentonyoutube">Commenter sur YouTube</string>
     <string name="player_ended_playnext">Lire la vidéo suivante</string>
     <string name="player_ended_title">Lecture terminée. À suivre :</string>
     <string name="player_memo_autosave">Enregistré automatiquement pendant la saisie. Touchez ailleurs ou « Terminé » pour quitter.</string>

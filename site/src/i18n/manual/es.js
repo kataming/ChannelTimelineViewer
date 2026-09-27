@@ -65,7 +65,7 @@ export default {
         { title: 'Escribir notas', body: 'Bajo el reproductor hay un campo «Notas (para series y estudio)» que se guarda solo mientras escribes. Toca fuera o «OK» para terminar. Las notas se guardan por vídeo.' },
         { title: 'Velocidad y subtítulos', body: 'El icono del control deslizante, arriba a la derecha, abre los ajustes de reproducción para cambiar velocidad y subtítulos. Los subtítulos empiezan desactivados. La lista de subtítulos solo se prepara al iniciar la reproducción: si está vacía, empieza el vídeo y vuelve a abrirla.' },
         { title: 'Sobre la calidad', body: 'YouTube ajusta la calidad automáticamente según la conexión y el reproductor oficial no permite que la app la fije. Para elegirla tú, empieza la reproducción y usa el botón de pantalla completa abajo a la derecha → rueda dentada → Calidad.' },
-        { title: 'Abrir en YouTube', body: '«Abrir en YouTube» abre el vídeo en la app o el sitio de YouTube. Úsalo con los vídeos cuyo autor ha bloqueado la reproducción fuera de YouTube.' },
+        { title: 'Comentar en YouTube', body: '«Comentar en YouTube» abre el vídeo en la app o el sitio de YouTube, donde puedes dejar un comentario (el reproductor incrustado no permite comentar). «Abrir en YouTube», en el menú «…», abre el mismo vídeo. Usa cualquiera de los dos con los vídeos cuyo autor ha bloqueado la reproducción fuera de YouTube.' },
       ],
     },
     {
@@ -99,9 +99,9 @@ export default {
       steps: [
         { title: 'No acepta la URL del canal', body: 'Usa la URL de la página del canal (youtube.com/@handle, youtube.com/channel/UC…). También sirve la de un vídeo.' },
         { title: 'La lista se detiene o da error', body: 'Los canales muy grandes tardan en la primera carga. Si el error menciona la cuota, inténtalo más tarde: la API de YouTube tiene un límite diario.' },
-        { title: 'Un vídeo no se reproduce', body: 'Algunos vídeos tienen restringida la reproducción fuera de YouTube por su autor. En esos casos usa «Abrir en YouTube».' },
+        { title: 'Un vídeo no se reproduce', body: 'Algunos vídeos tienen restringida la reproducción fuera de YouTube por su autor. En esos casos usa «Abrir en YouTube» en el menú «…» (o «Comentar en YouTube»).' },
         { title: 'Compartir no abre la app', body: 'iOS no permite que una hoja para compartir abra una app directamente. Permite las notificaciones y toca la que aparece justo después de compartir, o abre la app y usa «Abrir el enlace compartido».', only: 'ios' },
-        { title: 'El volumen cambia de un vídeo a otro', body: 'Viene del nivel de grabación de los propios vídeos y la app no puede igualarlo. El «Volumen estable» de YouTube no está disponible en reproductores incrustados, así que usa «Abrir en YouTube» cuando te moleste.' },
+        { title: 'El volumen cambia de un vídeo a otro', body: 'Viene del nivel de grabación de los propios vídeos y la app no puede igualarlo. El «Volumen estable» de YouTube no está disponible en reproductores incrustados, así que usa «Abrir en YouTube» del menú «…» cuando te moleste.' },
         { title: 'He perdido mi progreso', body: 'El historial, el progreso y las notas se guardan solo en tu dispositivo. Se borran al eliminar la app o al borrar o sustituir un canal, y no se pueden recuperar.' },
       ],
     },

@@ -7,7 +7,7 @@
 //
 // 見た目は **iPhone / Android アプリの画面に合わせてある**:
 //   上部バー（戻る / チャンネル名 / ⋯メニュー）、スイッチ、丸い移動ボタン、
-//   全幅の「YouTubeで開く」、メモ欄。phone のときは一覧画面と再生画面を行き来する。
+//   全幅の「YouTubeでコメントする」、メモ欄。phone のときは一覧画面と再生画面を行き来する。
 // 中身（HTML・id）はどちらの variant でも同じで、切り替えは
 // `#ctv[data-variant]` と `#ctv[data-screen]` の CSS だけで行う。
 import StoreBadges from './StoreBadges.astro';
@@ -265,7 +265,7 @@ const i18nJSON = JSON.stringify(queue ? { ui: trial.ui, queue } : { ui: trial.ui
 
               <a class="ctv-yt" id="ctv-open-yt" href="https://www.youtube.com/" rel="noopener nofollow" target="_blank">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>
-                {trial.ui.openInYouTube}
+                {trial.ui.commentOnYouTube}
               </a>
 
               <div class="ctv-memo">

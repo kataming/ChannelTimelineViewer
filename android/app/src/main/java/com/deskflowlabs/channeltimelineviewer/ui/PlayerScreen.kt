@@ -328,7 +328,8 @@ fun PlayerScreen(
                     },
                     modifier = Modifier.fillMaxWidth(),
                 ) {
-                    Text(stringResource(R.string.player_openinyoutube))
+                    // 全幅のボタンは「YouTubeでコメントする」。「…」メニューの「YouTubeで開く」はそのまま（iOS と同じ）
+                    Text(stringResource(R.string.player_commentonyoutube))
                 }
 
                 Text(

@@ -65,7 +65,7 @@ export default {
         { title: 'Écrire des notes', body: 'Sous le lecteur, un champ « Notes (séries et apprentissage) » enregistre automatiquement au fil de la saisie. Touchez ailleurs ou « OK » pour terminer. Les notes sont propres à chaque vidéo.' },
         { title: 'Vitesse et sous-titres', body: 'L’icône de curseurs en haut à droite ouvre les réglages de lecture (vitesse et sous-titres). Les sous-titres démarrent désactivés. La liste des sous-titres n’est préparée qu’une fois la lecture lancée : si elle est vide, démarrez la vidéo puis rouvrez la fiche.' },
         { title: 'À propos de la qualité', body: 'YouTube ajuste la qualité automatiquement selon la connexion et le lecteur officiel ne permet pas à l’app de la fixer. Pour la choisir vous-même, lancez la lecture puis utilisez le bouton plein écran en bas à droite → roue dentée → Qualité.' },
-        { title: 'Ouvrir dans YouTube', body: '« Ouvrir dans YouTube » ouvre la vidéo dans l’app ou le site YouTube. Utilisez-le pour les vidéos dont l’auteur a bloqué la lecture en dehors de YouTube.' },
+        { title: 'Commenter sur YouTube', body: '« Commenter sur YouTube » ouvre la vidéo dans l’app ou le site YouTube, où vous pouvez laisser un commentaire (le lecteur intégré ne le permet pas). « Ouvrir dans YouTube », dans le menu « … », ouvre la même vidéo. Utilisez l’un ou l’autre pour les vidéos dont l’auteur a bloqué la lecture en dehors de YouTube.' },
       ],
     },
     {
@@ -99,9 +99,9 @@ export default {
       steps: [
         { title: 'L’URL de la chaîne est refusée', body: 'Utilisez l’URL de la page de la chaîne (youtube.com/@handle, youtube.com/channel/UC…). Une URL de vidéo convient aussi.' },
         { title: 'La liste s’arrête ou affiche une erreur', body: 'Les très grandes chaînes prennent du temps au premier chargement. Si l’erreur mentionne un quota, réessayez plus tard : l’API YouTube a une limite quotidienne.' },
-        { title: 'Une vidéo ne se lit pas', body: 'Certaines vidéos sont bloquées hors de YouTube par leur auteur. Utilisez alors « Ouvrir dans YouTube ».' },
+        { title: 'Une vidéo ne se lit pas', body: 'Certaines vidéos sont bloquées hors de YouTube par leur auteur. Utilisez alors « Ouvrir dans YouTube » dans le menu « … » (ou « Commenter sur YouTube »).' },
         { title: 'Le partage n’ouvre pas l’app', body: 'iOS ne permet pas à une feuille de partage de lancer une app directement. Autorisez les notifications et touchez celle qui apparaît juste après le partage, ou ouvrez l’app et utilisez « Ouvrir le lien partagé ».', only: 'ios' },
-        { title: 'Le volume change d’une vidéo à l’autre', body: 'Cela vient du niveau d’enregistrement des vidéos elles-mêmes et l’app ne peut pas l’uniformiser. Le « Volume stable » de YouTube n’existe pas dans les lecteurs intégrés : utilisez « Ouvrir dans YouTube » pour les vidéos concernées.' },
+        { title: 'Le volume change d’une vidéo à l’autre', body: 'Cela vient du niveau d’enregistrement des vidéos elles-mêmes et l’app ne peut pas l’uniformiser. Le « Volume stable » de YouTube n’existe pas dans les lecteurs intégrés : utilisez « Ouvrir dans YouTube » du menu « … » pour les vidéos concernées.' },
         { title: 'Ma progression a disparu', body: 'L’historique, la progression et les notes ne sont stockés que sur votre appareil. Ils disparaissent si vous supprimez l’app, ou si vous supprimez ou remplacez une chaîne, et sont irrécupérables.' },
       ],
     },

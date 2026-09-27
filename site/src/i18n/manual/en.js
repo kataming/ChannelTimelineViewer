@@ -66,7 +66,7 @@ export default {
         { title: 'Writing notes', body: 'Below the player there is a “Notes (for series and study)” field. It saves automatically as you type. Tap elsewhere or “Done” to finish. Notes are kept per video.' },
         { title: 'Speed and captions', body: 'The slider icon at the top right opens the playback settings, where you can change speed and captions. Captions start off by default. The caption list is only prepared once playback begins, so if it is empty, start the video and open the sheet again.' },
         { title: 'About video quality', body: 'YouTube adjusts quality automatically to match your connection, and the official player does not let the app choose it. To pick it yourself, start playback, then use the full-screen button at the bottom right of the player → gear → Quality.' },
-        { title: 'Open in YouTube', body: '“Open in YouTube” opens the video in the YouTube app or website. Use it for videos whose owner has blocked playback outside YouTube.' },
+        { title: 'Comment on YouTube', body: '“Comment on YouTube” opens the video in the YouTube app or website, where you can leave a comment (the embedded player cannot show comments). “Open in YouTube” in the “…” menu opens the same video. Use either one for videos whose owner has blocked playback outside YouTube.' },
       ],
     },
     {
@@ -100,9 +100,9 @@ export default {
       steps: [
         { title: 'The channel URL is not accepted', body: 'Use the URL of the channel page (youtube.com/@handle, youtube.com/channel/UC…). A video URL works too.' },
         { title: 'The list stops partway or shows an error', body: 'Very large channels take a while on the first load. If the error mentions quota, try again later — the YouTube API has a daily limit.' },
-        { title: 'A video will not play', body: 'Some videos are blocked from playing outside YouTube by their owner. Use “Open in YouTube” for those.' },
+        { title: 'A video will not play', body: 'Some videos are blocked from playing outside YouTube by their owner. Use “Open in YouTube” in the “…” menu (or “Comment on YouTube”) for those.' },
         { title: 'Sharing does not open the app', body: 'iOS does not allow a share sheet to launch an app directly. Allow notifications and tap the notification that appears right after sharing, or open the app and use “Open shared link”.', only: 'ios' },
-        { title: 'Volume differs between videos', body: 'That comes from the recording level of the videos themselves and the app cannot even it out. YouTube’s “Stable Volume” is not available in embedded players, so use “Open in YouTube” for videos where it bothers you.' },
+        { title: 'Volume differs between videos', body: 'That comes from the recording level of the videos themselves and the app cannot even it out. YouTube’s “Stable Volume” is not available in embedded players, so use “Open in YouTube” in the “…” menu for videos where it bothers you.' },
         { title: 'My progress disappeared', body: 'Watched history, progress, and notes are stored on your device only. They are erased when you delete the app, or when you delete or replace a channel, and cannot be recovered.' },
       ],
     },

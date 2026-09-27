@@ -399,10 +399,13 @@ struct PlayerView: View {
 
             // 再生設定（速度・字幕）は画面右上のアイコンから開く。
             // ここには置かない（上と重複してノイズになるため）。
+            // 全幅のボタンは「YouTubeでコメントする」（埋め込みプレイヤーではコメントできないため）。
+            // 開く先は同じ YouTube の動画。「…」メニューの「YouTubeで開く」はそのまま残す
+            // （再生できない動画の案内は「…」メニュー側を指している）。
             Button {
                 if let url = video.watchURL { openURL(url) }
             } label: {
-                Label("player.openInYouTube", systemImage: "play.rectangle.fill")
+                Label("player.commentOnYouTube", systemImage: "text.bubble")
                     .frame(maxWidth: .infinity)
             }
             .buttonStyle(.bordered)

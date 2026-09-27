@@ -223,6 +223,8 @@
 "player.autoPlay.on.detail" = "À la fin, lit uniquement la vidéo suivante de cette liste";
 /* 自動再生トグルの見出し。⚠️ここに「オン」「オフ」と状態を書かないこと。スイッチの入切と二重否定になり、『「自動再生オフ」がオフ＝自動再生オン？』と読めてしまう（2026-09-16・ユーザー指摘）。状態は下の説明文とスイッチに任せる。 */
 "player.autoPlay.title" = "Lecture automatique";
+/* 再生画面の全幅ボタン。YouTube で動画を開き、コメントしてもらう（…メニューは player.openInYouTube のまま） */
+"player.commentOnYouTube" = "Commenter sur YouTube";
 /* 次の動画を再生ボタン */
 "player.ended.playNext" = "Lire la vidéo suivante";
 /* 終了時の案内 */

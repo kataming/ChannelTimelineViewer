@@ -65,7 +65,7 @@ export default {
         { title: 'Notizen schreiben', body: 'Unter dem Player gibt es das Feld „Notizen (für Serien und Lernen)“. Es speichert beim Tippen automatisch. Tippe woandershin oder auf „Fertig“, um die Eingabe zu beenden. Notizen gehören jeweils zu einem Video.' },
         { title: 'Geschwindigkeit und Untertitel', body: 'Das Regler-Symbol oben rechts öffnet die Wiedergabeeinstellungen für Geschwindigkeit und Untertitel. Untertitel starten standardmäßig aus. Die Untertitelliste steht erst nach dem Start der Wiedergabe bereit – ist sie leer, starte das Video und öffne sie erneut.' },
         { title: 'Zur Bildqualität', body: 'YouTube stellt die Qualität automatisch passend zur Verbindung ein; der offizielle Player lässt die App sie nicht festlegen. Willst du selbst wählen, starte die Wiedergabe und nutze die Vollbild-Schaltfläche unten rechts im Player → Zahnrad → Qualität.' },
-        { title: 'In YouTube öffnen', body: '„In YouTube öffnen“ öffnet das Video in der YouTube-App oder auf der Website. Nutze es für Videos, deren Uploader die Wiedergabe außerhalb von YouTube gesperrt hat.' },
+        { title: 'Auf YouTube kommentieren', body: '„Auf YouTube kommentieren“ öffnet das Video in der YouTube-App oder auf der Website, wo du einen Kommentar schreiben kannst (im eingebetteten Player geht das nicht). „In YouTube öffnen“ im „…“-Menü öffnet dasselbe Video. Nutze eins von beiden für Videos, deren Uploader die Wiedergabe außerhalb von YouTube gesperrt hat.' },
       ],
     },
     {
@@ -99,9 +99,9 @@ export default {
       steps: [
         { title: 'Die Kanal-URL wird nicht akzeptiert', body: 'Nutze die URL der Kanalseite (youtube.com/@handle, youtube.com/channel/UC…). Eine Video-URL geht auch.' },
         { title: 'Die Liste bricht ab oder zeigt einen Fehler', body: 'Sehr große Kanäle brauchen beim ersten Laden Zeit. Nennt der Fehler ein Kontingent (Quota), versuche es später erneut – die YouTube-API hat ein Tageslimit.' },
-        { title: 'Ein Video lässt sich nicht abspielen', body: 'Manche Videos sind vom Uploader außerhalb von YouTube gesperrt. Nutze dann „In YouTube öffnen“.' },
+        { title: 'Ein Video lässt sich nicht abspielen', body: 'Manche Videos sind vom Uploader außerhalb von YouTube gesperrt. Nutze dann „In YouTube öffnen“ im „…“-Menü (oder „Auf YouTube kommentieren“).' },
         { title: 'Teilen öffnet die App nicht', body: 'iOS erlaubt es nicht, aus dem Teilen-Menü direkt eine App zu starten. Erlaube Mitteilungen und tippe auf die Mitteilung direkt nach dem Teilen – oder öffne die App und nutze „Geteilten Link öffnen“.', only: 'ios' },
-        { title: 'Die Lautstärke ist von Video zu Video verschieden', body: 'Das liegt am Aufnahmepegel der Videos selbst; die App kann das nicht angleichen. YouTubes „Konstante Lautstärke“ steht in eingebetteten Playern nicht zur Verfügung – nutze bei störenden Videos „In YouTube öffnen“.' },
+        { title: 'Die Lautstärke ist von Video zu Video verschieden', body: 'Das liegt am Aufnahmepegel der Videos selbst; die App kann das nicht angleichen. YouTubes „Konstante Lautstärke“ steht in eingebetteten Playern nicht zur Verfügung – nutze bei störenden Videos „In YouTube öffnen“ im „…“-Menü.' },
         { title: 'Mein Fortschritt ist weg', body: 'Gesehen-Status, Fortschritt und Notizen liegen nur auf deinem Gerät. Sie verschwinden, wenn du die App löschst oder einen Kanal löschst bzw. ersetzt, und lassen sich nicht wiederherstellen.' },
       ],
     },

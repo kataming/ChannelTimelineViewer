@@ -125,7 +125,7 @@ const en = {
     faq: [
       { q: 'The channel URL is not accepted', a: 'Use the channel page URL (for example youtube.com/@handle or youtube.com/channel/UC…). A video URL works too — the app finds the channel that published it.' },
       { q: 'The list stops partway or shows an error', a: 'Very large channels take a while on first load. If the error mentions quota, try again later — the app uses the YouTube Data API, which has a daily limit.' },
-      { q: 'A video will not play', a: 'Some videos are restricted from playing outside YouTube by their owner. Use “Open in YouTube” for those.' },
+      { q: 'A video will not play', a: 'Some videos are restricted from playing outside YouTube by their owner. Use “Open in YouTube” in the “…” menu (or “Comment on YouTube”) for those.' },
       { q: 'Sharing from YouTube does not open the app', a: 'iOS does not allow a share sheet to launch an app directly. Allow notifications and tap the notification that appears right after sharing, or open the app and use “Open shared link”.' },
       { q: 'I bought Pro but it is not active', a: 'Open the Pro screen and tap “Restore purchase”. As long as you are signed in with the same Apple Account, the purchase comes back. It is a one-time purchase, so you are never charged twice.' },
     ],
@@ -301,7 +301,7 @@ const ja = {
     faq: [
       { q: 'チャンネルURLが受け付けられない', a: 'チャンネルページのURL（例: youtube.com/@handle、youtube.com/channel/UC…）をお使いください。動画のURLでも構いません（投稿元チャンネルを特定します）。' },
       { q: '一覧が途中で止まる／エラーが出る', a: '本数が非常に多いチャンネルは初回に時間がかかります。quota（上限）に関するエラーの場合は時間をおいてお試しください。YouTube Data API には1日の上限があります。' },
-      { q: '動画が再生できない', a: '投稿者の設定により YouTube 外での再生が制限されている動画があります。その場合は「YouTubeで開く」をご利用ください。' },
+      { q: '動画が再生できない', a: '投稿者の設定により YouTube 外での再生が制限されている動画があります。その場合は「…」メニューの「YouTubeで開く」（または「YouTubeでコメントする」）をご利用ください。' },
       { q: '共有してもアプリが開かない', a: 'iOS の仕様上、共有シートからアプリを直接起動することはできません。通知を許可して、共有直後に出る通知をタップするか、アプリを開いて「共有されたURLを開く」をご利用ください。' },
       { q: 'Pro を購入したのに反映されない', a: 'Pro の画面で「購入を復元」をタップしてください。購入時と同じ Apple アカウントでサインインしていれば復元できます。買い切りのため、二重に請求されることはありません。' },
     ],
@@ -475,7 +475,7 @@ const zh = {
     faq: [
       { q: '频道网址无法识别', a: '请使用频道页面的网址（例如 youtube.com/@handle、youtube.com/channel/UC…）。视频网址也可以，应用会找到发布该视频的频道。' },
       { q: '列表中途停止或出现错误', a: '视频数量非常多的频道首次加载会较慢。若错误提到配额（quota），请稍后再试——YouTube Data API 有每日上限。' },
-      { q: '视频无法播放', a: '部分视频被发布者限制在 YouTube 之外播放。此时请使用“在 YouTube 中打开”。' },
+      { q: '视频无法播放', a: '部分视频被发布者限制在 YouTube 之外播放。此时请使用“…”菜单中的“在 YouTube 中打开”（或“在 YouTube 上评论”）。' },
       { q: '分享后应用没有打开', a: '由于 iOS 的限制，分享面板无法直接启动应用。请允许通知并点按分享后立即出现的通知，或打开应用使用“打开分享的链接”。' },
       { q: '已购买 Pro 但没有生效', a: '请在 Pro 界面点按“恢复购买”。只要使用与购买时相同的 Apple 账户登录即可恢复。由于是一次性买断，不会重复扣费。' },
     ],
@@ -649,7 +649,7 @@ const es = {
     faq: [
       { q: 'No acepta la URL del canal', a: 'Usa la URL de la página del canal (por ejemplo youtube.com/@handle o youtube.com/channel/UC…). También sirve una URL de vídeo: la app localiza el canal que lo publicó.' },
       { q: 'La lista se detiene o da error', a: 'Los canales muy grandes tardan en la primera carga. Si el error menciona la cuota, inténtalo más tarde: la API de datos de YouTube tiene un límite diario.' },
-      { q: 'Un vídeo no se reproduce', a: 'Algunos vídeos tienen restringida la reproducción fuera de YouTube por su autor. En esos casos usa «Abrir en YouTube».' },
+      { q: 'Un vídeo no se reproduce', a: 'Algunos vídeos tienen restringida la reproducción fuera de YouTube por su autor. En esos casos usa «Abrir en YouTube» en el menú «…» (o «Comentar en YouTube»).' },
       { q: 'Compartir no abre la app', a: 'iOS no permite que una hoja para compartir abra una app directamente. Permite las notificaciones y toca la que aparece justo después de compartir, o abre la app y usa «Abrir el enlace compartido».' },
       { q: 'He comprado Pro pero no se activa', a: 'Abre la pantalla de Pro y toca «Restaurar compra». Si has iniciado sesión con la misma cuenta de Apple, la compra vuelve. Es un pago único, así que nunca se cobra dos veces.' },
     ],
@@ -823,7 +823,7 @@ const de = {
     faq: [
       { q: 'Die Kanal-URL wird nicht akzeptiert', a: 'Nutze die URL der Kanalseite (z. B. youtube.com/@handle oder youtube.com/channel/UC…). Eine Video-URL geht auch – die App findet den veröffentlichenden Kanal.' },
       { q: 'Die Liste bricht ab oder zeigt einen Fehler', a: 'Sehr große Kanäle brauchen beim ersten Laden Zeit. Nennt der Fehler ein Kontingent (Quota), versuche es später erneut – die YouTube Data API hat ein Tageslimit.' },
-      { q: 'Ein Video lässt sich nicht abspielen', a: 'Manche Videos sind vom Uploader außerhalb von YouTube gesperrt. Nutze dann „In YouTube öffnen“.' },
+      { q: 'Ein Video lässt sich nicht abspielen', a: 'Manche Videos sind vom Uploader außerhalb von YouTube gesperrt. Nutze dann „In YouTube öffnen“ im „…“-Menü (oder „Auf YouTube kommentieren“).' },
       { q: 'Teilen öffnet die App nicht', a: 'iOS erlaubt es nicht, aus dem Teilen-Menü direkt eine App zu starten. Erlaube Mitteilungen und tippe auf die Mitteilung direkt nach dem Teilen – oder öffne die App und nutze „Geteilten Link öffnen“.' },
       { q: 'Ich habe Pro gekauft, es ist aber nicht aktiv', a: 'Öffne den Pro-Bildschirm und tippe auf „Kauf wiederherstellen“. Mit demselben Apple-Account kommt der Kauf zurück. Es ist ein einmaliger Kauf – doppelt bezahlt wird nie.' },
     ],
@@ -997,7 +997,7 @@ const fr = {
     faq: [
       { q: 'L’URL de la chaîne est refusée', a: 'Utilisez l’URL de la page de la chaîne (par exemple youtube.com/@handle ou youtube.com/channel/UC…). Une URL de vidéo convient aussi : l’app retrouve la chaîne qui l’a publiée.' },
       { q: 'La liste s’arrête ou affiche une erreur', a: 'Les très grandes chaînes prennent du temps au premier chargement. Si l’erreur mentionne un quota, réessayez plus tard : l’API YouTube Data a une limite quotidienne.' },
-      { q: 'Une vidéo ne se lit pas', a: 'Certaines vidéos sont bloquées hors de YouTube par leur auteur. Utilisez alors « Ouvrir dans YouTube ».' },
+      { q: 'Une vidéo ne se lit pas', a: 'Certaines vidéos sont bloquées hors de YouTube par leur auteur. Utilisez alors « Ouvrir dans YouTube » dans le menu « … » (ou « Commenter sur YouTube »).' },
       { q: 'Le partage n’ouvre pas l’app', a: 'iOS ne permet pas à une feuille de partage de lancer une app directement. Autorisez les notifications et touchez celle qui apparaît juste après le partage, ou ouvrez l’app et utilisez « Ouvrir le lien partagé ».' },
       { q: 'J’ai acheté Pro mais il n’est pas actif', a: 'Ouvrez l’écran Pro et touchez « Restaurer l’achat ». Avec le même compte Apple, l’achat revient. C’est un achat unique : vous n’êtes jamais débité deux fois.' },
     ],
@@ -1171,7 +1171,7 @@ const ko = {
     faq: [
       { q: '채널 URL이 인식되지 않습니다', a: '채널 페이지 URL(예: youtube.com/@handle, youtube.com/channel/UC…)을 사용하세요. 동영상 URL도 괜찮습니다. 앱이 게시한 채널을 찾아 줍니다.' },
       { q: '목록이 중간에 멈추거나 오류가 납니다', a: '동영상이 아주 많은 채널은 첫 로딩에 시간이 걸립니다. 오류에 할당량(quota)이 언급되면 잠시 후 다시 시도하세요. YouTube Data API에는 하루 한도가 있습니다.' },
-      { q: '동영상이 재생되지 않습니다', a: '게시자가 YouTube 외부 재생을 제한한 동영상이 있습니다. 그럴 때는 ‘YouTube에서 열기’를 사용하세요.' },
+      { q: '동영상이 재생되지 않습니다', a: '게시자가 YouTube 외부 재생을 제한한 동영상이 있습니다. 그럴 때는 ‘…’ 메뉴의 ‘YouTube에서 열기’(또는 ‘YouTube에서 댓글 달기’)를 사용하세요.' },
       { q: '공유해도 앱이 열리지 않습니다', a: 'iOS 사양상 공유 시트에서 앱을 직접 실행할 수 없습니다. 알림을 허용하고 공유 직후 표시되는 알림을 탭하거나, 앱을 열어 ‘공유된 URL 열기’를 사용하세요.' },
       { q: 'Pro를 구매했는데 적용되지 않습니다', a: 'Pro 화면에서 ‘구매 복원’을 탭하세요. 구매할 때와 같은 Apple 계정으로 로그인되어 있으면 복원됩니다. 1회 결제이므로 이중으로 청구되지 않습니다.' },
     ],

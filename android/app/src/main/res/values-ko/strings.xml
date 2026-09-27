@@ -95,6 +95,7 @@
     <string name="player_autoplay_off_detail">종료되면 정지하고 ‘다음 동영상 재생’ 버튼을 표시합니다</string>
     <string name="player_autoplay_on_detail">종료되면 이 목록의 다음 동영상만 이어서 재생합니다</string>
     <string name="player_autoplay_title">자동 재생</string>
+    <string name="player_commentonyoutube">YouTube에서 댓글 달기</string>
     <string name="player_ended_playnext">다음 동영상 재생</string>
     <string name="player_ended_title">재생이 끝났습니다. 다음 동영상:</string>
     <string name="player_memo_autosave">입력하면 자동으로 저장됩니다. 다른 곳을 탭하거나 ‘완료’를 누르면 입력이 끝납니다.</string>

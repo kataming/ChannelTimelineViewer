@@ -95,6 +95,7 @@
     <string name="player_autoplay_off_detail">结束后会停止，并显示“播放下一个视频”按钮</string>
     <string name="player_autoplay_on_detail">结束后只会继续播放此列表中的下一个视频</string>
     <string name="player_autoplay_title">自动播放</string>
+    <string name="player_commentonyoutube">在 YouTube 上评论</string>
     <string name="player_ended_playnext">播放下一个视频</string>
     <string name="player_ended_title">播放已结束。下一个：</string>
     <string name="player_memo_autosave">输入内容会自动保存。点按其他位置或“完成”即可结束输入。</string>

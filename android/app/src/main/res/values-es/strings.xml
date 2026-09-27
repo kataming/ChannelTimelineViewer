@@ -95,6 +95,7 @@
     <string name="player_autoplay_off_detail">Al terminar, se detiene y muestra un botón «Reproducir siguiente»</string>
     <string name="player_autoplay_on_detail">Al terminar, solo reproduce el siguiente vídeo de esta lista</string>
     <string name="player_autoplay_title">Reproducción automática</string>
+    <string name="player_commentonyoutube">Comentar en YouTube</string>
     <string name="player_ended_playnext">Reproducir el siguiente</string>
     <string name="player_ended_title">Reproducción finalizada. A continuación:</string>
     <string name="player_memo_autosave">Se guarda automáticamente mientras escribes. Toca fuera o «Listo» para terminar.</string>

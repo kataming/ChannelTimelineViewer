@@ -95,6 +95,7 @@
     <string name="player_autoplay_off_detail">Hält am Ende an und zeigt die Schaltfläche „Nächstes Video“</string>
     <string name="player_autoplay_on_detail">Spielt am Ende nur das nächste Video dieser Liste ab</string>
     <string name="player_autoplay_title">Autoplay</string>
+    <string name="player_commentonyoutube">Auf YouTube kommentieren</string>
     <string name="player_ended_playnext">Nächstes Video abspielen</string>
     <string name="player_ended_title">Wiedergabe beendet. Als Nächstes:</string>
     <string name="player_memo_autosave">Wird beim Tippen automatisch gespeichert. Tippe daneben oder auf „Fertig“, um die Eingabe zu beenden.</string>

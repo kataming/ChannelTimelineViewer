@@ -95,6 +95,7 @@
     <string name="player_autoplay_off_detail">終了したら停止し、「次の動画を再生」ボタンを表示します</string>
     <string name="player_autoplay_on_detail">終了したら、この一覧の次の動画だけを続けて再生します</string>
     <string name="player_autoplay_title">自動再生</string>
+    <string name="player_commentonyoutube">YouTubeでコメントする</string>
     <string name="player_ended_playnext">次の動画を再生</string>
     <string name="player_ended_title">再生が終了しました。次の動画:</string>
     <string name="player_memo_autosave">入力すると自動保存されます。他の場所を押すか「完了」で入力を終えられます。</string>

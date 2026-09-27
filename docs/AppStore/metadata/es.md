@@ -86,9 +86,9 @@ YouTube es una marca comercial de Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 232 / 4000 文字 -->
+<!-- 273 / 4000 文字 -->
 
 ```
-• Hemos ordenado la pantalla para añadir un canal. Quitamos el recuadro «Compartir más rápido» porque repetía lo que ya muestra la guía inicial.
-• Los consejos sobre la hoja de compartir siguen disponibles en «ⓘ Acerca de esta app».
+• El icono de la app ahora usa el mismo diseño verde que la app de Android y nuestra web.
+• El botón grande de la pantalla de reproducción ahora es «Comentar en YouTube»: abre el vídeo en YouTube para que puedas dejar un comentario. «Abrir en YouTube» sigue en el menú «…».
 ```

@@ -86,9 +86,9 @@ YouTube is a trademark of Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 210 / 4000 文字 -->
+<!-- 256 / 4000 文字 -->
 
 ```
-• Tidied up the screen where you add a channel. The “Share faster” box is gone — it repeated what the first-run guide already shows you.
-• The share sheet tips are still there any time under “ⓘ About this app”.
+• The app icon now uses the same green design as the Android app and our website.
+• The big button on the player screen is now “Comment on YouTube”. It opens the video on YouTube so you can leave a comment. “Open in YouTube” in the “…” menu is still there.
 ```

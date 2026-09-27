@@ -86,9 +86,9 @@ YouTube ist eine Marke von Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 243 / 4000 文字 -->
+<!-- 305 / 4000 文字 -->
 
 ```
-• Der Bildschirm zum Hinzufügen eines Kanals ist aufgeräumter. Der Kasten „Schneller teilen“ ist entfallen, weil er wiederholte, was die Erstanleitung bereits zeigt.
-• Die Hinweise zum Teilen-Menü findest du weiterhin unter „ⓘ Über diese App“.
+• Das App-Symbol hat jetzt dasselbe grüne Design wie die Android-App und unsere Website.
+• Die große Schaltfläche im Wiedergabebildschirm heißt jetzt „Auf YouTube kommentieren“. Sie öffnet das Video auf YouTube, damit du einen Kommentar schreiben kannst. „In YouTube öffnen“ im „…“-Menü gibt es weiterhin.
 ```

@@ -33,11 +33,19 @@
 ## 現在のアイコン（作成済み）
 
 `scripts/generate_app_icon.py`（Pillow）で生成し、`Resources/Assets.xcassets/AppIcon.appiconset/AppIcon-1024.png`
-に配置済み。デザインを変えたい場合は同スクリプトの座標・配色を編集して `python scripts/generate_app_icon.py` を再実行する。
+に配置済み。
 
-- モチーフ：タイムライン上に並ぶ3枚の動画フレーム（視聴済み＝ティール／現在地＝白／未視聴＝くすんだ青）＋
-  チェック付きノード＋下部の進捗バー＝「公開日順に並べて進捗を管理する」というアプリの中身をそのまま表現
-- 配色：ネイビー〜ティールのグラデーション（**赤は不使用**）
+- **2026-09-27（iOS 1.2.3）から、Android・Google Play・公式サイト・広告と同じ緑の「一覧＋再生」**
+  （緑 #17914A の背景に白い横棒3本＋白い三角）。
+- 意匠は `scripts/make_play_graphics.py` の `draw_mark()` を共有している。**iOS 用に別の絵を描かないこと**
+  （それまでは iOS だけネイビーの「タイムライン」意匠で、8/18 に緑が正式になったあとも差し替えられず、
+  App Store と iPhone のホーム画面だけ別のアイコンになっていた）。
+- 意匠を変えるときは `draw_mark()` を直し、`python scripts/make_play_graphics.py` と
+  `python scripts/generate_app_icon.py` の両方を実行する。Android のランチャー
+  （`android/app/src/main/res/drawable/ic_launcher_foreground.xml`・背景色 `ic_launcher_background`）と
+  公式サイトの `site/public/favicon.svg` も同じ意匠なので一緒に直す。
+- 配色：緑と白（**赤は不使用**）。
+- アイコンの差し替えは App Store Connect だけではできない。**新しいビルドを出して審査に通す**必要がある。
 
 ## チェック
 - [x] 1024×1024・PNG・透過なし（RGB モードで保存）・角丸なし

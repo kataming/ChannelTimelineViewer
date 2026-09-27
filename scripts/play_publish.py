@@ -298,13 +298,13 @@ def upsert_product(api, dry_run: bool) -> int:
 #     これが抜けると「勝手に設定を変えられた」と受け取られる。実装も実際にそうなっていて、
 #     新しい既定が効くのは**一度も操作していない端末だけ**（PlaybackSettingsStore）。
 RELEASE_NOTES = {
-    "ja-JP": '・「ⓘ このアプリについて」に YouTube の商標表記を追加しました。\n・アプリの機能に変更はありません。',
-    "en-US": '• Added the YouTube trademark notice to “ⓘ About this app”.\n• Nothing else in the app has changed.',
-    "zh-CN": '・在「ⓘ 关于本应用」中加入了 YouTube 的商标声明。\n・应用功能没有变化。',
-    "es-ES": '• Se añadió el aviso de marca registrada de YouTube en «ⓘ Acerca de esta app».\n• El funcionamiento de la app no cambia.',
-    "de-DE": '• Der Markenhinweis zu YouTube steht jetzt unter „ⓘ Über diese App“.\n• An den Funktionen der App ändert sich nichts.',
-    "fr-FR": '• La mention de marque YouTube figure désormais dans « ⓘ À propos de cette app ».\n• Le fonctionnement de l’app ne change pas.',
-    "ko-KR": '・‘ⓘ 이 앱에 대하여’에 YouTube 상표 표기를 추가했습니다.\n・앱 기능에는 변화가 없습니다.',
+    "ja-JP": "・再生画面の大きなボタンを「YouTubeでコメントする」に変えました。YouTube で動画を開いて、コメントを書き込めます。\n・右上の「…」メニューの「YouTubeで開く」も、これまでどおり使えます。",
+    "en-US": "• The big button on the player screen is now “Comment on YouTube”. It opens the video on YouTube so you can leave a comment.\n• “Open in YouTube” in the “…” menu is still there.",
+    "zh-CN": "・播放界面的大按钮改为「在 YouTube 上评论」，可在 YouTube 中打开视频并发表评论。\n・右上角「…」菜单中的「在 YouTube 中打开」仍可照常使用。",
+    "es-ES": "• El botón grande de la pantalla de reproducción ahora es «Comentar en YouTube»: abre el vídeo en YouTube para que puedas dejar un comentario.\n• «Abrir en YouTube» sigue en el menú «…».",
+    "de-DE": "• Die große Schaltfläche im Wiedergabebildschirm heißt jetzt „Auf YouTube kommentieren“. Sie öffnet das Video auf YouTube, damit du einen Kommentar schreiben kannst.\n• „In YouTube öffnen“ im „…“-Menü gibt es weiterhin.",
+    "fr-FR": "• Le grand bouton de l’écran de lecture devient « Commenter sur YouTube » : il ouvre la vidéo sur YouTube pour que vous puissiez laisser un commentaire.\n• « Ouvrir dans YouTube » reste disponible dans le menu « … ».",
+    "ko-KR": "・재생 화면의 큰 버튼을 ‘YouTube에서 댓글 달기’로 바꿨습니다. YouTube에서 동영상을 열어 댓글을 남길 수 있습니다.\n・오른쪽 위 ‘…’ 메뉴의 ‘YouTube에서 열기’도 그대로 사용할 수 있습니다.",
 }
 
 

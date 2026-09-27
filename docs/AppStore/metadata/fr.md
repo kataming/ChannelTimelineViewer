@@ -86,9 +86,9 @@ YouTube est une marque de Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 240 / 4000 文字 -->
+<!-- 300 / 4000 文字 -->
 
 ```
-• L’écran d’ajout de chaîne a été allégé. L’encadré « Partager plus vite » a été retiré car il répétait ce que le guide de démarrage montre déjà.
-• Les conseils sur la feuille de partage restent disponibles dans « ⓘ À propos de cette app ».
+• L’icône de l’app reprend désormais le design vert de l’app Android et de notre site.
+• Le grand bouton de l’écran de lecture devient « Commenter sur YouTube » : il ouvre la vidéo sur YouTube pour que vous puissiez laisser un commentaire. « Ouvrir dans YouTube » reste disponible dans le menu « … ».
 ```

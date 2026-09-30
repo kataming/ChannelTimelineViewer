@@ -1,0 +1,465 @@
+/* このファイルは scripts/build_localizations.py が生成します。直接編集しないこと。 */
+/* language: id */
+
+/* このアプリについて: 自動再生の説明。既定オン・進む先は開いている一覧の次だけ・いつでもオフ・自分で選んだ設定は更新後も引き継ぐ、の4点を必ず含めること */
+"about.autoPlay.body" = "Putar otomatis aktif secara default: saat video selesai, pemutaran berlanjut ke video berikutnya dalam daftar channel yang sedang Anda buka. Pemutaran hanya berpindah ke video berikutnya dalam daftar itu — tidak pernah ke video terkait atau video rekomendasi. Anda dapat menonaktifkannya kapan saja dengan tombol “Putar otomatis” di layar pemutar; setelah itu, pemutaran akan berhenti saat video selesai dan tombol “Putar video berikutnya” akan muncul. Pilihan Anda disimpan di perangkat dan tetap dipertahankan saat aplikasi diperbarui. Tidak ada pemutaran di latar belakang, jadi menutup aplikasi akan menghentikan pemutaran dan putar otomatis.";
+/* このアプリについて: 自動再生の見出し（既定オン） */
+"about.autoPlay.header" = "Putar otomatis (aktif secara default, bisa dinonaktifkan kapan saja)";
+/* データの説明 */
+"about.data.body" = "Daftar video berasal dari YouTube Data API v3. Pemutaran menyematkan pemutar resmi YouTube apa adanya. Tanpa scraping dan tanpa pemutar buatan sendiri.";
+/* 見出し: データの取得と再生について */
+"about.data.header" = "Cara kerja data dan pemutaran";
+/* 注意4 */
+"about.notice.noAdBlock" = "Aplikasi ini tidak memblokir iklan.";
+/* 注意5 */
+"about.notice.noBackground" = "Aplikasi ini tidak memutar di latar belakang.";
+/* 注意3 */
+"about.notice.noDownload" = "Aplikasi ini tidak mengunduh video.";
+/* 注意1 */
+"about.notice.notOfficial" = "Aplikasi ini bukan aplikasi resmi YouTube.";
+/* 注意2 */
+"about.notice.officialPlayer" = "Pemutaran menggunakan pemutar tersemat resmi YouTube (IFrame Player).";
+/* 注意6（商標表記） */
+"about.notice.trademark" = "YouTube adalah merek dagang Google LLC.";
+/* 見出し: 重要な注意事項 */
+"about.notices.header" = "Pemberitahuan penting";
+/* 通知を許可するボタン */
+"about.notify.allow" = "Izinkan notifikasi";
+/* 通知は許可済み */
+"about.notify.enabled" = "Notifikasi diizinkan";
+/* 設定アプリで許可するボタン */
+"about.notify.settings" = "Izinkan notifikasi di Pengaturan";
+/* 通知の説明 */
+"about.oneTap.body" = "Jika Anda mengizinkan notifikasi, sebuah notifikasi akan muncul tepat setelah Anda berbagi dan sekali ketuk akan membuka channel tersebut. Hanya notifikasi itu yang digunakan — tanpa berita atau promosi, dan tanpa notifikasi push dari server. Jika Anda tidak mengizinkannya, buka aplikasi dan gunakan “Buka tautan yang dibagikan”.";
+/* 見出し: ワンタップで開く */
+"about.oneTap.header" = "Membuka dengan sekali ketuk dari lembar berbagi";
+/* 読み上げ: このアプリについて */
+"about.open.a11y" = "Tentang aplikasi ini";
+/* 共有シートの2か所の説明（%@ にアプリ名） */
+"about.pin.body1" = "Ada dua pintu masuk di lembar berbagi: “%@” di baris ikon aplikasi, dan “Buka di Channel Timeline” di daftar tindakan lebih ke bawah. Yang kedua dapat dijangkau tanpa membuka “Lainnya”.";
+/* 並び順の説明 */
+"about.pin.body2" = "iOS yang menentukan urutan tujuan berbagi, jadi aplikasi tidak dapat mengaturnya. Sematkan ke Favorit dengan langkah di bawah ini agar selalu muncul di bagian atas.";
+/* 見出し: 共有シートで上位に表示するには */
+"about.pin.header" = "Menampilkannya di bagian atas lembar berbagi";
+/* 固定手順（%@ にアプリ名） */
+"about.pin.steps" = "① Ketuk Bagikan → gulir baris ikon aplikasi sampai ujung kanan → “Lainnya”\n② Ketuk “Edit” di kanan atas\n③ Ketuk “+” di samping “%@” untuk menambahkannya ke Favorit\n④ Seret ke atas dalam daftar → “Selesai”";
+/* プライバシーポリシー */
+"about.privacyPolicy" = "Kebijakan privasi";
+/* 続きから再生の説明 */
+"about.resume.body" = "Posisi pemutaran setiap video disimpan di perangkat, sehingga saat video dibuka lagi, pemutaran dilanjutkan dari posisi terakhir (aktif secara default). Anda dapat menonaktifkannya dari menu “…” di layar pemutar, dan “Putar dari awal” akan kembali ke awal. Hanya posisi dalam detik yang disimpan — video itu sendiri tidak pernah disimpan.";
+/* 見出し: 続きから再生 */
+"about.resume.header" = "Lanjutkan pemutaran";
+/* 画面ロックの説明 */
+"about.screen.body" = "Selama video diputar, layar tetap menyala sehingga tidak meredup dan mengganggu Anda saat perangkat diletakkan di meja. Saat Anda menjeda atau keluar dari pemutar, kunci otomatis kembali normal. Tidak ada pemutaran di latar belakang, jadi menutup aplikasi akan menghentikan pemutaran.";
+/* 見出し: 再生中の画面 */
+"about.screen.header" = "Layar selama pemutaran";
+/* 共有機能の説明（%@ にアプリ名） */
+"about.share.body1" = "Pilih “%@” dari tombol berbagi di aplikasi YouTube atau Safari, dan aplikasi akan menerima URL channel atau video yang dibagikan. Fitur berbagi hanya menerima URL — tidak ada yang dikirim ke mana pun.";
+/* 共有後の流れの説明 */
+"about.share.body2" = "Setelah itu, buka aplikasi ini dan “Buka tautan yang dibagikan” akan muncul di layar pertama. iOS tidak mengizinkan lembar berbagi membuka aplikasi secara langsung, karena itulah alurnya seperti ini.";
+/* 見出し: 共有シートから開く */
+"about.share.header" = "Membuka dari lembar berbagi";
+/* アプリの説明 */
+"about.summary" = "Aplikasi pendamping menonton yang menampilkan video unggahan channel berdasarkan tanggal publikasi (terlama dulu) sehingga Anda dapat menonton arsip, serial, atau kursus secara berurutan sambil memantau progres. Aplikasi ini bukan pengganti aplikasi resmi YouTube.";
+/* 画面名: このアプリについて */
+"about.title" = "Tentang aplikasi ini";
+/* APIキー未設定の説明 */
+"api.notConfigured.detail" = "Atur YOUTUBE_API_KEY di Config.plist. Lihat README untuk cara mengaturnya.";
+/* APIキー未設定の見出し */
+"api.notConfigured.title" = "Kunci API belum dikonfigurasi";
+/* 字幕: オフ */
+"captions.off" = "Nonaktif";
+/* チャンネル名が取得できないとき */
+"channel.untitled" = "(Tanpa nama channel)";
+/* クリップボードにURLが無いとき */
+"clipboard.notFound" = "Tidak ada tautan YouTube di papan klip. Tempel URL lalu coba lagi.";
+/* 共通: キャンセル */
+"common.cancel" = "Batal";
+/* 閉じる */
+"common.close" = "Tutup";
+/* 削除 */
+"common.delete" = "Hapus";
+/* 完了 */
+"common.done" = "Selesai";
+/* 再試行 */
+"common.retry" = "Coba lagi";
+/* 画面下部の注意書き */
+"disclaimer.short" = "Aplikasi ini bukan aplikasi resmi YouTube. Pemutaran menggunakan pemutar tersemat resmi YouTube; aplikasi ini tidak mengunduh video, tidak memblokir iklan, dan tidak memutar di latar belakang.";
+/* エラー: APIキー未設定 */
+"error.apiKeyMissing" = "Kunci API belum dikonfigurasi.";
+/* エラー: チャンネルが見つからない */
+"error.channelNotFound" = "Channel tidak ditemukan.";
+/* エラー: 応答を解釈できない */
+"error.decoding" = "Tidak dapat memuat daftar video.";
+/* エラー: チャンネルURLとして解析できない */
+"error.invalidChannelURL" = "Sepertinya itu bukan URL channel YouTube.";
+/* エラー: URLの形式が不正 */
+"error.invalidURL" = "URL tidak valid.";
+/* エラー: 動画URLとして解析できない */
+"error.invalidVideoURL" = "Sepertinya itu bukan URL video YouTube.";
+/* エラー: 通信失敗 */
+"error.network" = "Koneksi gagal.";
+/* エラー: API利用上限 */
+"error.quotaExceeded" = "Batas penggunaan YouTube API telah tercapai. Coba lagi nanti.";
+/* エラー: その他 */
+"error.unknown" = "Terjadi kesalahan.";
+/* エラー: 動画一覧を取得できない */
+"error.uploadsPlaylistNotFound" = "Tidak dapat memuat daftar video channel ini.";
+/* エラー: 動画から投稿チャンネルを特定できない */
+"error.videoNotFound" = "Tidak dapat mengenali channel untuk video ini.";
+/* 削除実行のボタン */
+"favorites.delete.confirm" = "Hapus";
+/* 削除確認のタイトル */
+"favorites.delete.title" = "Hapus channel ini?";
+/* 削除の警告（%@ にチャンネル名）。大きめ・太字・赤で出す */
+"favorites.delete.warning.format" = "Menghapus channel ini juga akan menghapus riwayat tontonan, progres, dan catatan dari “%@”.";
+/* 最終利用日時（%@ に日時） */
+"favorites.lastOpened.format" = "Terakhir dibuka: %@";
+/* 進捗（%1$@=視聴済み %2$@=総数 %3$@=割合） */
+"favorites.progress.format" = "%1$@ dari %2$@ sudah ditonton (%3$@%%)";
+/* 進捗が未計算のとき */
+"favorites.progressHint" = "Progres akan muncul setelah Anda membuka channel.";
+/* 続きから見る */
+"favorites.resume" = "Lanjutkan menonton";
+/* お気に入り一覧の脚注（削除で記録も消えることを断る） */
+"favorites.section.footer" = "Geser baris ke kiri untuk menghapusnya. Menghapus juga akan menghapus riwayat tontonan, progres, dan catatan channel tersebut.";
+/* Android のお気に入り一覧の脚注。削除で記録も消えることを断る */
+"favorites.section.footer.android" = "Gunakan tombol tempat sampah untuk berhenti menyimpan channel. Ini juga akan menghapus riwayat tontonan, progres, dan catatannya.";
+/* 見出し: 最近使ったチャンネル */
+"favorites.section.header" = "Channel terbaru";
+/* 左スワイプで削除の案内 */
+"favorites.swipeHint" = "Geser ke kiri untuk menghapus";
+/* フィルター: すべて */
+"filter.all" = "Semua";
+/* フィルター: 未視聴のみ */
+"filter.unwatched" = "Belum ditonton";
+/* フィルター: 視聴済みのみ */
+"filter.watched" = "Sudah ditonton";
+/* 通知を許可して開くボタン */
+"handoff.allowNotification" = "Izinkan notifikasi dan buka";
+/* URLを開けないとき */
+"handoff.error.cannotOpen" = "URL ini tidak dapat dibuka.";
+/* URLが見つからないとき */
+"handoff.error.noURL" = "URL YouTube tidak ditemukan.\nBagikan dari halaman video atau channel.";
+/* 受け渡し中（%@ にアプリ名） */
+"handoff.passing.format" = "Meneruskan ke %@…";
+/* 通知準備中 */
+"handoff.preparingNotification" = "Menyiapkan notifikasi…";
+/* URL読み取り中 */
+"handoff.reading" = "Membaca URL yang dibagikan…";
+/* 通知を勧める案内 */
+"handoff.received.askNotification" = "URL diterima.\nJika Anda mengizinkan notifikasi, cukup ketuk notifikasi yang muncul berikutnya.\n(Jika tidak, buka aplikasi dan gunakan “Buka tautan yang dibagikan”.)";
+/* 受け取り完了の案内（%@ にアプリ名） */
+"handoff.received.format" = "URL diterima.\nBuka %@ dan ketuk “Buka tautan yang dibagikan” untuk melihat channel ini.";
+/* 読み上げ: 入力を消去 */
+"input.clear.a11y" = "Hapus teks";
+/* 動画を取得ボタン */
+"input.fetch" = "Ambil video";
+/* 取得中のボタン */
+"input.fetching" = "Memuat…";
+/* 入力欄の説明（%@ にアプリ名） */
+"input.section.footer" = "Bagikan dari aplikasi YouTube atau Safari dan pilih “%@” — lalu “Buka tautan yang dibagikan” akan muncul di layar ini. URL channel maupun video bisa digunakan.";
+/* 見出し: チャンネルURL */
+"input.section.header" = "URL channel";
+/* Android 版の共有の説明（%@ にアプリ名）。iOS 版とは動きが違うので別文言 */
+"input.share.android" = "Bagikan dari aplikasi YouTube atau browser dan pilih “%@” — daftar video channel akan langsung terbuka. URL channel maupun video bisa digunakan.";
+/* 全部見終わったとき */
+"list.allWatched" = "Anda sudah menonton semuanya 🎉";
+/* 保存済み一覧の案内（%@ に最終更新日時） */
+"list.cached.format" = "Menampilkan daftar tersimpan (diperbarui %@)";
+/* 新着確認中 */
+"list.checkingNew" = "Memeriksa video baru…";
+/* 件数（%1$@=表示中 %2$@=全体） */
+"list.count.format" = "Menampilkan %1$@ dari %2$@";
+/* 一覧が空のとき */
+"list.empty" = "Channel ini tidak memiliki video untuk ditampilkan.";
+/* 取得失敗の見出し */
+"list.error.title" = "Tidak dapat memuat";
+/* 取得中 */
+"list.loading" = "Memuat video…";
+/* 読み上げ: 並び替えと表示 */
+"list.menu.a11y" = "Urutkan dan filter";
+/* 新着を確認 */
+"list.menu.checkNew" = "Periksa video baru";
+/* すべて再読み込み */
+"list.menu.reloadAll" = "Muat ulang semua";
+/* 表示（フィルター） */
+"list.menu.show" = "Tampilkan";
+/* 並び替えメニュー */
+"list.menu.sort" = "Urutkan";
+/* 次に見る（%@ に本数） */
+"list.next.new.format" = "Berikutnya: #%@";
+/* 続きから（%@ に本数） */
+"list.next.resume.format" = "Lanjutkan: #%@";
+/* 検索語を消す（検索欄は開いたまま） */
+"list.search.clear" = "Hapus";
+/* 検索を閉じる（全件に戻る） */
+"list.search.close" = "Tutup pencarian";
+/* 検索結果が0件 */
+"list.search.empty" = "Video tidak ditemukan";
+/* 動画一覧の検索ボタン（読み上げ）。現在のチャンネル内をタイトルで絞り込む */
+"list.search.open" = "Cari video";
+/* 検索欄の案内文（タイトルだけが対象） */
+"list.search.placeholder" = "Cari berdasarkan judul";
+/* 新しい順 */
+"list.sort.newest" = "Terbaru dulu";
+/* 古い順 */
+"list.sort.oldest" = "Terlama dulu";
+/* 共有直後の通知の本文 */
+"notification.sharedLink.body" = "Ketuk untuk membuka daftar video channel yang dibagikan.";
+/* 字幕は既定オフの説明 */
+"options.captions.defaultOff" = "Teks nonaktif secara default.";
+/* 字幕がまだ読み込まれていないときの説明 */
+"options.captions.notLoaded" = "Teks untuk video ini belum dimuat. Mulai putar video, lalu buka lembar ini lagi (beberapa video tidak memiliki teks).";
+/* 見出し: 字幕 */
+"options.captions.section" = "Teks";
+/* 画質: 自動 */
+"options.quality.auto" = "Otomatis";
+/* 画質の説明 */
+"options.quality.note" = "YouTube menyesuaikan kualitas secara otomatis berdasarkan koneksi Anda (pemutar resmi tidak mengizinkan aplikasi mengaturnya).\nUntuk memilih sendiri, mulai putar video, lalu gunakan tombol layar penuh di kanan bawah pemutar → roda gigi → Kualitas (opsi kualitas tidak muncul sebelum video diputar).";
+/* 画質 */
+"options.quality.title" = "Kualitas";
+/* 見出し: 再生速度 */
+"options.rate.section" = "Kecepatan putar";
+/* 画面名: 再生設定 */
+"options.title" = "Pengaturan pemutaran";
+/* 自動再生で進んだときの表示 */
+"player.autoAdvanced" = "Beralih ke video berikutnya";
+/* 読み上げ: 自動再生トグル */
+"player.autoPlay.a11y" = "Putar otomatis video berikutnya saat video selesai";
+/* 自動再生オフのときの説明（いまどう動くかを書く） */
+"player.autoPlay.off.detail" = "Saat video selesai, berhenti dan menampilkan tombol “Putar video berikutnya”";
+/* 自動再生オンのときの説明（いまどう動くかを書く） */
+"player.autoPlay.on.detail" = "Saat video selesai, hanya memutar video berikutnya dalam daftar ini";
+/* 自動再生トグルの見出し。⚠️ここに「オン」「オフ」と状態を書かないこと。スイッチの入切と二重否定になり、『「自動再生オフ」がオフ＝自動再生オン？』と読めてしまう（2026-09-16・ユーザー指摘）。状態は下の説明文とスイッチに任せる。 */
+"player.autoPlay.title" = "Putar otomatis";
+/* 再生画面の全幅ボタン。YouTube で動画を開き、コメントしてもらう（…メニューは player.openInYouTube のまま） */
+"player.commentOnYouTube" = "Komentari di YouTube";
+/* 次の動画を再生ボタン */
+"player.ended.playNext" = "Putar video berikutnya";
+/* 終了時の案内 */
+"player.ended.title" = "Pemutaran selesai. Berikutnya:";
+/* メモの自動保存と、入力の終え方の説明 */
+"player.memo.autosave" = "Disimpan otomatis saat Anda mengetik. Ketuk di tempat lain atau “Selesai” untuk berhenti mengedit.";
+/* メモ欄の見出し */
+"player.memo.title" = "Catatan (untuk serial dan belajar)";
+/* 読み上げ: その他の操作 */
+"player.menu.a11y" = "Tindakan lainnya";
+/* メニュー: 視聴済みにする */
+"player.menu.markWatched" = "Tandai sudah ditonton";
+/* メニュー: 最初から再生 */
+"player.menu.restart" = "Putar dari awal";
+/* メニュー: 続きから再生する */
+"player.menu.resume" = "Lanjutkan dari posisi terakhir";
+/* メニュー: スキップにする */
+"player.menu.skip" = "Tandai dilewati";
+/* メニュー: 視聴済みを解除 */
+"player.menu.unmarkWatched" = "Tandai belum ditonton";
+/* メニュー: スキップを解除 */
+"player.menu.unskip" = "Jangan lewati";
+/* 全体リピートの説明 */
+"player.mode.repeatAll" = "Kembali ke video pertama setelah video terakhir (saat putar otomatis aktif).";
+/* 1本リピートの説明 */
+"player.mode.repeatOne" = "Mengulangi video saat ini.";
+/* スキップの説明 */
+"player.mode.skip" = "Video yang ditandai dilewati tidak akan diputar saat putar otomatis.";
+/* 未視聴のみ再生の説明 */
+"player.mode.unwatchedOnly" = "Video yang sudah ditonton juga dilewati, jadi hanya video yang belum ditonton yang diputar.";
+/* 移動: 最初へ */
+"player.nav.first" = "Pertama";
+/* 移動: 最後へ */
+"player.nav.last" = "Terakhir";
+/* 移動: 次へ */
+"player.nav.next" = "Berikutnya";
+/* 移動: 前へ */
+"player.nav.previous" = "Sebelumnya";
+/* 移動: 戻す（直前の移動を取り消す） */
+"player.nav.undo" = "Urungkan";
+/* 動画が無いとき */
+"player.noVideos" = "Tidak ada video";
+/* YouTubeで開く */
+"player.openInYouTube" = "Buka di YouTube";
+/* 読み上げ: 再生設定ボタン */
+"player.options.a11y" = "Pengaturan pemutaran";
+/* 再生設定の要約（%1$@=速度 %2$@=字幕） */
+"player.optionsSummary.format" = "Kecepatan %1$@ · Teks %2$@";
+/* 公開日と一覧内の位置（%1$@=公開日 %2$@=位置） */
+"player.publishedWithPosition.format" = "%1$@ (%2$@)";
+/* 再生速度の表示（%@ に倍率） */
+"player.rate.format" = "%@×";
+/* リピートボタンのヒント */
+"player.repeat.hint" = "Ketuk untuk mengubah mode ulangi";
+/* 続きから再生中の案内（%@ に時刻） */
+"player.resume.notice.format" = "Melanjutkan dari %@";
+/* 最初から見直すボタン */
+"player.resume.restart" = "Mulai ulang";
+/* スキップ状態の表示 */
+"player.status.skipped" = "Dilewati (tidak diputar saat putar otomatis)";
+/* 未視聴のみ再生トグル */
+"player.unwatchedOnly" = "Putar yang belum ditonton saja";
+/* Pro の中心価値 */
+"pro.benefit.multiChannel" = "Dengan Pro, Anda dapat menyimpan banyak channel YouTube dan memantau progres masing-masing.";
+/* 購入ボタン（価格が取れないとき） */
+"pro.buy" = "Beli (sekali bayar)";
+/* 購入ボタン（%@ に価格） */
+"pro.buy.format" = "Beli seharga %@ (sekali bayar)";
+/* Pro失効の説明 */
+"pro.disabled.body" = "Versi gratis memungkinkan Anda menggunakan satu channel. Pilih channel yang ingin tetap digunakan secara gratis. Channel yang terkunci tetap menyimpan riwayat tontonan, progres, dan catatannya. Beli Pro lagi untuk menggunakan semua channel.";
+/* 使うチャンネルを選ぶ導線 */
+"pro.disabled.choose" = "Pilih channel yang tetap gratis";
+/* Pro失効の見出し */
+"pro.disabled.title" = "Pro tidak lagi aktif";
+/* ホームからPro画面へ入る行の説明 */
+"pro.entry.body" = "Sekali bayar. Versi gratis menyimpan satu channel.";
+/* ホームからPro画面へ入る行の見出し */
+"pro.entry.title" = "Simpan banyak channel (Pro)";
+/* 購入できなかった */
+"pro.error.failed" = "Pembelian tidak dapat diselesaikan.";
+/* Google Play に繋がらない */
+"pro.error.unavailable" = "Tidak dapat terhubung ke Google Play. Coba lagi nanti.";
+/* 無料版の説明 */
+"pro.free.summary" = "Versi gratis memungkinkan Anda menyimpan satu channel.";
+/* 無料でできることの本文（1チャンネル内は制限しない方針） */
+"pro.freeFeatures.body" = "Di dalam channel yang Anda simpan, semua fitur berfungsi tanpa batas: urutan terlama atau terbaru, penandaan sudah ditonton, lanjutkan pemutaran, tombol lompat, catatan, progres, dan pemutaran di pemutar resmi.";
+/* 無料でできることの見出し */
+"pro.freeFeatures.header" = "Yang Anda dapatkan secara gratis";
+/* Pro 画面の見出し（買い切りであることを明示） */
+"pro.headline" = "Pembelian sekali bayar yang membuka fitur simpan banyak channel.";
+/* 入れ替えるボタン */
+"pro.limit.replace" = "Ganti";
+/* 警告のあとに出す Pro への誘導 */
+"pro.limit.replaceHint" = "Jika Anda ingin menyimpan riwayat beberapa channel, gunakan Pro.";
+/* 保存上限の案内タイトル */
+"pro.limit.title" = "Anda dapat menyimpan satu channel";
+/* 上限の案内でProへ進むボタン */
+"pro.limit.upgrade" = "Dapatkan Pro";
+/* 上限の案内から Pro の説明画面へ進むボタン */
+"pro.limit.viewPro" = "Lihat isi Pro";
+/* 入れ替えの警告（%@ に外れるチャンネル名）。大きめ・太字・赤で出す */
+"pro.limit.warning.format" = "Mengganti channel ini akan menghapus riwayat tontonan, progres, dan catatan dari “%@” yang saat ini tersimpan.";
+/* 一覧でロック中を示すラベル */
+"pro.locked.badge" = "Terkunci";
+/* ロックの説明（%1$@=開こうとしたチャンネル %2$@=いま使えるチャンネル） */
+"pro.locked.body.format" = "Versi gratis memungkinkan Anda menggunakan satu channel. Beralih ke “%1$@” akan membuat “%2$@” tidak dapat digunakan. Data kedua channel tidak akan dihapus.";
+/* ロック中のチャンネルがあるときの案内 */
+"pro.locked.hint" = "Beli Pro untuk menggunakan kembali semua channel tersimpan, dengan semua data tetap utuh.";
+/* ロック中のチャンネルを開こうとしたときの説明 */
+"pro.locked.open.body" = "Channel ini terkunci. Pro tidak lagi aktif, jadi versi gratis hanya mengizinkan satu channel. Beli Pro lagi untuk melanjutkan dengan semua riwayat tontonan, progres, dan catatan tetap utuh.";
+/* 切り替えるボタン */
+"pro.locked.switch" = "Beralih ke channel ini";
+/* ロックされたチャンネルを開こうとしたときのタイトル */
+"pro.locked.title" = "Pro tidak aktif";
+/* このチャンネルを無料枠にする */
+"pro.locked.useThis" = "Gunakan channel ini secara gratis";
+/* Pro の商品名（全言語共通） */
+"pro.name" = "Channel Timeline Viewer Pro";
+/* サブスクではないことの明示（購入画面に必須） */
+"pro.notSubscription" = "Ini bukan langganan.";
+/* アクセシビリティ: Pro画面を開く */
+"pro.open.a11y" = "Buka detail Pro";
+/* 購入済みの表示 */
+"pro.owned" = "Anda memiliki Pro. Terima kasih.";
+/* 保留中の支払い */
+"pro.pending" = "Pembayaran Anda sedang diproses. Pro akan aktif otomatis setelah selesai.";
+/* iOS: 価格を取得できなかった */
+"pro.price.failed" = "Tidak dapat memuat harga. Periksa koneksi Anda lalu coba lagi.";
+/* 価格取得中 */
+"pro.price.loading" = "Memeriksa harga…";
+/* iOS: 価格の再取得ボタン */
+"pro.price.retry" = "Muat ulang harga";
+/* Pro で解放される機能の本文 */
+"pro.proFeatures.body" = "Simpan banyak channel, pantau progres per channel, dan kelola daftar tersimpan Anda. Anda tidak perlu mengganti channel, sehingga riwayat tontonan, progres, dan catatan tidak pernah terhapus. Termasuk fitur pengelolaan lanjutan di masa mendatang.";
+/* Pro で解放される機能の見出し */
+"pro.proFeatures.header" = "Yang dibuka oleh Pro";
+/* 購入の復元ボタン */
+"pro.restore" = "Pulihkan pembelian";
+/* 復元できた */
+"pro.restore.done" = "Pembelian Anda telah dipulihkan.";
+/* 復元の説明 */
+"pro.restore.hint" = "Selama Anda menggunakan Akun Google yang sama, pembelian dapat dipulihkan setelah menginstal ulang atau berganti perangkat.";
+/* iOS: 復元の説明（Apple アカウント） */
+"pro.restore.hint.apple" = "Selama Anda menggunakan Akun Apple yang sama, pembelian dapat dipulihkan setelah menginstal ulang atau berganti perangkat.";
+/* 復元できる購入がなかった */
+"pro.restore.none" = "Tidak ada pembelian yang ditemukan untuk Akun Google ini.";
+/* iOS: 復元できる購入が無かった（Apple アカウント） */
+"pro.restore.none.apple" = "Tidak ada pembelian yang ditemukan untuk Akun Apple ini.";
+/* 進捗の内訳（%1$@=視聴済み %2$@=総数 %3$@=割合） */
+"progress.count.format" = "%1$@ / %2$@ (%3$@%%)";
+/* 進捗 */
+"progress.title" = "Progres";
+/* 読み上げ: 全体リピート */
+"repeat.a11y.all" = "Ulangi semua video";
+/* 読み上げ: リピートオフ */
+"repeat.a11y.off" = "Ulangi nonaktif";
+/* 読み上げ: 1本リピート */
+"repeat.a11y.one" = "Ulangi satu video";
+/* リピート: 全体 */
+"repeat.all" = "Semua";
+/* リピート: オフ */
+"repeat.off" = "Nonaktif";
+/* リピート: 1本 */
+"repeat.one" = "Satu";
+/* クリップボードにURLがある案内 */
+"share.clipboardHint" = "Tautan yang Anda bagikan ada di papan klip.";
+/* 共有されたURLを開くボタン */
+"share.openSharedURL" = "Buka tautan yang dibagikan";
+/* 共有直後の通知を許可してもらう理由（入力画面・未許可のときだけ出す） */
+"shareTips.notify.why" = "Mengetuk notifikasi yang muncul tepat setelah Anda berbagi akan langsung membuka channel tersebut. Kami tidak pernah mengirim notifikasi berita atau promosi.";
+/* 前へ */
+"tutorial.back" = "Kembali";
+/* 閉じる */
+"tutorial.close" = "Tutup";
+/* 最後のボタン: YouTubeを開いて試す */
+"tutorial.cta" = "Buka YouTube dan Coba";
+/* 例示の注記: 提携を示すものではないこと */
+"tutorial.example.note" = "Tangkapan layar menggunakan channel publik NASA sebagai contoh. Aplikasi ini tidak berafiliasi dengan, didukung, atau disponsori oleh YouTube maupun NASA.";
+/* 次へ */
+"tutorial.next" = "Berikutnya";
+/* 読み上げ: チュートリアルを開く */
+"tutorial.open.a11y" = "Lihat cara menambahkan channel";
+/* 進み具合（%1$@ / %2$@） */
+"tutorial.progress.format" = "%1$@ dari %2$@";
+/* スキップ */
+"tutorial.skip" = "Lewati";
+/* 手順1の説明 */
+"tutorial.step1.body" = "Di aplikasi YouTube, buka video dari channel yang ingin Anda tambahkan, atau halaman channel itu sendiri.";
+/* 読み上げ: 手順1の画像 */
+"tutorial.step1.image.a11y" = "Halaman channel yang terbuka di YouTube";
+/* 手順1の見出し */
+"tutorial.step1.title" = "Buka yang ingin Anda tonton di YouTube";
+/* 手順2の説明（共有ボタンの場所） */
+"tutorial.step2.body" = "Ketuk Bagikan di bawah video, atau di menu halaman channel.";
+/* 読み上げ: 手順2の画像 */
+"tutorial.step2.image.a11y" = "Tombol Bagikan yang disorot";
+/* 手順2の見出し */
+"tutorial.step2.title" = "Ketuk Bagikan";
+/* 手順3の説明（Android） */
+"tutorial.step3.body" = "Pilih %@ dari daftar aplikasi. Jika tidak terlihat, buka “Lainnya”.";
+/* 手順3の説明（iOS） */
+"tutorial.step3.body.ios" = "Gulir lembar berbagi dan pilih %@. Jika tidak terlihat, cari di “Lainnya”.";
+/* 読み上げ: 手順3の画像（アプリ名を %@ で入れる） */
+"tutorial.step3.image.a11y" = "Lembar berbagi dengan %@ yang disorot";
+/* 手順3の見出し（アプリ名を %@ で入れる） */
+"tutorial.step3.title" = "Pilih %@";
+/* 手順4の説明（Android） */
+"tutorial.step4.body" = "Video channel langsung terbuka, terlama dulu, siap ditonton secara berurutan.";
+/* 手順4の説明（iOS・通知をタップ） */
+"tutorial.step4.body.ios" = "Sebuah notifikasi muncul yang memberi tahu bahwa channel yang dibagikan sudah siap. Ketuk untuk membuka daftar video, terlama dulu.";
+/* 読み上げ: 手順4の画像（アプリ名を %@ で入れる） */
+"tutorial.step4.image.a11y" = "%@ menampilkan daftar video";
+/* 手順4の見出し */
+"tutorial.step4.title" = "Daftar video terbuka";
+/* 手順4の見出し（iOS・通知をタップする） */
+"tutorial.step4.title.ios" = "Ketuk notifikasi";
+/* 画面名: チャンネルの追加方法 */
+"tutorial.title" = "Cara Menambahkan Channel";
+/* スワイプ: 未視聴に戻す */
+"video.markUnwatched" = "Tandai belum ditonton";
+/* スキップ */
+"video.skip" = "Lewati";
+/* スキップ解除 */
+"video.unskip" = "Jangan lewati";
+/* タイトルが取得できないとき */
+"video.untitled" = "(Tanpa judul)";
+/* 視聴済み */
+"video.watched" = "Sudah ditonton";

@@ -1,0 +1,465 @@
+/* このファイルは scripts/build_localizations.py が生成します。直接編集しないこと。 */
+/* language: vi */
+
+/* このアプリについて: 自動再生の説明。既定オン・進む先は開いている一覧の次だけ・いつでもオフ・自分で選んだ設定は更新後も引き継ぐ、の4点を必ず含めること */
+"about.autoPlay.body" = "Tự động phát được bật theo mặc định: khi một video kết thúc, ứng dụng sẽ phát tiếp video tiếp theo trong danh sách kênh bạn đang mở. Ứng dụng chỉ chuyển sang video tiếp theo trong danh sách đó — không bao giờ chuyển sang video liên quan hay video đề xuất. Bạn có thể tắt bất cứ lúc nào bằng nút gạt “Tự động phát” trên màn hình phát; khi đó, việc phát sẽ dừng khi video kết thúc và nút “Phát video tiếp theo” sẽ xuất hiện. Lựa chọn của bạn được lưu trên thiết bị và vẫn được giữ khi cập nhật ứng dụng. Ứng dụng không phát trong nền, nên khi đóng ứng dụng, cả việc phát lẫn tự động phát đều dừng.";
+/* このアプリについて: 自動再生の見出し（既定オン） */
+"about.autoPlay.header" = "Tự động phát (bật theo mặc định, tắt bất cứ lúc nào)";
+/* データの説明 */
+"about.data.body" = "Danh sách video lấy từ YouTube Data API v3. Việc phát nhúng nguyên trạng trình phát chính thức của YouTube. Không thu thập dữ liệu web (scraping) và không dùng trình phát riêng.";
+/* 見出し: データの取得と再生について */
+"about.data.header" = "Cách dữ liệu và việc phát hoạt động";
+/* 注意4 */
+"about.notice.noAdBlock" = "Ứng dụng không chặn quảng cáo.";
+/* 注意5 */
+"about.notice.noBackground" = "Ứng dụng không phát trong nền.";
+/* 注意3 */
+"about.notice.noDownload" = "Ứng dụng không tải video xuống.";
+/* 注意1 */
+"about.notice.notOfficial" = "Ứng dụng này không phải là ứng dụng YouTube chính thức.";
+/* 注意2 */
+"about.notice.officialPlayer" = "Việc phát video dùng trình phát nhúng chính thức của YouTube (IFrame Player).";
+/* 注意6（商標表記） */
+"about.notice.trademark" = "YouTube là nhãn hiệu của Google LLC.";
+/* 見出し: 重要な注意事項 */
+"about.notices.header" = "Lưu ý quan trọng";
+/* 通知を許可するボタン */
+"about.notify.allow" = "Cho phép thông báo";
+/* 通知は許可済み */
+"about.notify.enabled" = "Đã cho phép thông báo";
+/* 設定アプリで許可するボタン */
+"about.notify.settings" = "Cho phép thông báo trong Cài đặt";
+/* 通知の説明 */
+"about.oneTap.body" = "Nếu bạn cho phép thông báo, một thông báo sẽ xuất hiện ngay sau khi bạn chia sẻ và chỉ cần nhấn một lần là mở kênh đó. Đây là thông báo duy nhất được dùng — không có tin tức hay quảng cáo, và không có thông báo đẩy từ máy chủ. Nếu bạn không cho phép, hãy mở ứng dụng và dùng “Mở liên kết đã chia sẻ”.";
+/* 見出し: ワンタップで開く */
+"about.oneTap.header" = "Mở bằng một lần nhấn từ bảng chia sẻ";
+/* 読み上げ: このアプリについて */
+"about.open.a11y" = "Giới thiệu ứng dụng";
+/* 共有シートの2か所の説明（%@ にアプリ名） */
+"about.pin.body1" = "Có hai lối vào trong bảng chia sẻ: “%@” trong hàng biểu tượng ứng dụng, và “Mở bằng Channel Timeline” trong danh sách tác vụ ở phía dưới. Lối thứ hai có thể dùng mà không cần mở “Thêm”.";
+/* 並び順の説明 */
+"about.pin.body2" = "iOS quyết định thứ tự các mục chia sẻ nên ứng dụng không thể tự đặt. Hãy ghim vào Mục ưa thích theo các bước dưới đây để ứng dụng luôn hiện gần đầu.";
+/* 見出し: 共有シートで上位に表示するには */
+"about.pin.header" = "Để ứng dụng hiện gần đầu bảng chia sẻ";
+/* 固定手順（%@ にアプリ名） */
+"about.pin.steps" = "① Nhấn Chia sẻ → cuộn hàng biểu tượng ứng dụng sang tận bên phải → “Thêm”\n② Nhấn “Sửa” ở góc trên bên phải\n③ Nhấn “+” bên cạnh “%@” để thêm vào Mục ưa thích\n④ Kéo lên trong danh sách → “Xong”";
+/* プライバシーポリシー */
+"about.privacyPolicy" = "Chính sách quyền riêng tư";
+/* 続きから再生の説明 */
+"about.resume.body" = "Vị trí phát của từng video được lưu trên thiết bị, nên khi mở lại video, ứng dụng sẽ phát tiếp từ chỗ bạn đã dừng (bật theo mặc định). Bạn có thể tắt tính năng này từ menu “…” trên màn hình phát, và “Phát từ đầu” sẽ quay về lúc bắt đầu. Chỉ lưu vị trí tính bằng giây — không bao giờ lưu chính video.";
+/* 見出し: 続きから再生 */
+"about.resume.header" = "Phát tiếp";
+/* 画面ロックの説明 */
+"about.screen.body" = "Khi video đang phát, màn hình luôn được giữ sáng để không bị tối đi và làm gián đoạn khi bạn đặt thiết bị trên bàn. Khi bạn tạm dừng hoặc rời trình phát, tính năng tự động khóa trở lại bình thường. Ứng dụng không phát trong nền, nên khi đóng ứng dụng thì việc phát sẽ dừng.";
+/* 見出し: 再生中の画面 */
+"about.screen.header" = "Màn hình khi đang phát";
+/* 共有機能の説明（%@ にアプリ名） */
+"about.share.body1" = "Chọn “%@” từ nút chia sẻ trong ứng dụng YouTube hoặc Safari, ứng dụng sẽ nhận URL kênh hoặc video đã chia sẻ. Tính năng chia sẻ chỉ nhận URL — không gửi gì ra bên ngoài.";
+/* 共有後の流れの説明 */
+"about.share.body2" = "Sau đó, hãy mở ứng dụng này, “Mở liên kết đã chia sẻ” sẽ xuất hiện trên màn hình đầu tiên. iOS không cho phép bảng chia sẻ mở ứng dụng trực tiếp, nên mới có cách này.";
+/* 見出し: 共有シートから開く */
+"about.share.header" = "Mở từ bảng chia sẻ";
+/* アプリの説明 */
+"about.summary" = "Ứng dụng hỗ trợ xem video, liệt kê video đã đăng của một kênh theo ngày đăng (cũ nhất trước) để bạn xem lần lượt video cũ, loạt video hoặc khóa học trong khi theo dõi tiến độ. Ứng dụng không thay thế ứng dụng YouTube chính thức.";
+/* 画面名: このアプリについて */
+"about.title" = "Giới thiệu ứng dụng";
+/* APIキー未設定の説明 */
+"api.notConfigured.detail" = "Hãy đặt YOUTUBE_API_KEY trong Config.plist. Xem README để biết cách thiết lập.";
+/* APIキー未設定の見出し */
+"api.notConfigured.title" = "Chưa cấu hình khóa API";
+/* 字幕: オフ */
+"captions.off" = "Tắt";
+/* チャンネル名が取得できないとき */
+"channel.untitled" = "(Không có tên kênh)";
+/* クリップボードにURLが無いとき */
+"clipboard.notFound" = "Không tìm thấy liên kết YouTube trong bộ nhớ tạm. Hãy dán URL và thử lại.";
+/* 共通: キャンセル */
+"common.cancel" = "Hủy";
+/* 閉じる */
+"common.close" = "Đóng";
+/* 削除 */
+"common.delete" = "Xóa";
+/* 完了 */
+"common.done" = "Xong";
+/* 再試行 */
+"common.retry" = "Thử lại";
+/* 画面下部の注意書き */
+"disclaimer.short" = "Ứng dụng này không phải là ứng dụng YouTube chính thức. Việc phát video dùng trình phát nhúng chính thức của YouTube; ứng dụng không tải video xuống, không chặn quảng cáo và không phát trong nền.";
+/* エラー: APIキー未設定 */
+"error.apiKeyMissing" = "Chưa cấu hình khóa API.";
+/* エラー: チャンネルが見つからない */
+"error.channelNotFound" = "Không tìm thấy kênh.";
+/* エラー: 応答を解釈できない */
+"error.decoding" = "Không tải được danh sách video.";
+/* エラー: チャンネルURLとして解析できない */
+"error.invalidChannelURL" = "Đây có vẻ không phải là URL kênh YouTube.";
+/* エラー: URLの形式が不正 */
+"error.invalidURL" = "URL không hợp lệ.";
+/* エラー: 動画URLとして解析できない */
+"error.invalidVideoURL" = "Đây có vẻ không phải là URL video YouTube.";
+/* エラー: 通信失敗 */
+"error.network" = "Kết nối không thành công.";
+/* エラー: API利用上限 */
+"error.quotaExceeded" = "Đã đạt giới hạn sử dụng YouTube API. Vui lòng thử lại sau.";
+/* エラー: その他 */
+"error.unknown" = "Đã xảy ra lỗi.";
+/* エラー: 動画一覧を取得できない */
+"error.uploadsPlaylistNotFound" = "Không tải được danh sách video của kênh này.";
+/* エラー: 動画から投稿チャンネルを特定できない */
+"error.videoNotFound" = "Không xác định được kênh của video này.";
+/* 削除実行のボタン */
+"favorites.delete.confirm" = "Xóa";
+/* 削除確認のタイトル */
+"favorites.delete.title" = "Xóa kênh này?";
+/* 削除の警告（%@ にチャンネル名）。大きめ・太字・赤で出す */
+"favorites.delete.warning.format" = "Xóa kênh này cũng sẽ xóa lịch sử đã xem, tiến độ và ghi chú của “%@”.";
+/* 最終利用日時（%@ に日時） */
+"favorites.lastOpened.format" = "Mở lần cuối: %@";
+/* 進捗（%1$@=視聴済み %2$@=総数 %3$@=割合） */
+"favorites.progress.format" = "Đã xem %1$@/%2$@ (%3$@%%)";
+/* 進捗が未計算のとき */
+"favorites.progressHint" = "Tiến độ sẽ hiển thị sau khi bạn mở kênh.";
+/* 続きから見る */
+"favorites.resume" = "Xem tiếp";
+/* お気に入り一覧の脚注（削除で記録も消えることを断る） */
+"favorites.section.footer" = "Vuốt một hàng sang trái để xóa. Khi xóa, lịch sử đã xem, tiến độ và ghi chú của kênh đó cũng bị xóa.";
+/* Android のお気に入り一覧の脚注。削除で記録も消えることを断る */
+"favorites.section.footer.android" = "Dùng nút thùng rác để bỏ lưu một kênh. Khi bỏ lưu, lịch sử đã xem, tiến độ và ghi chú của kênh đó cũng bị xóa.";
+/* 見出し: 最近使ったチャンネル */
+"favorites.section.header" = "Kênh gần đây";
+/* 左スワイプで削除の案内 */
+"favorites.swipeHint" = "Vuốt sang trái để xóa";
+/* フィルター: すべて */
+"filter.all" = "Tất cả";
+/* フィルター: 未視聴のみ */
+"filter.unwatched" = "Chưa xem";
+/* フィルター: 視聴済みのみ */
+"filter.watched" = "Đã xem";
+/* 通知を許可して開くボタン */
+"handoff.allowNotification" = "Cho phép thông báo và mở";
+/* URLを開けないとき */
+"handoff.error.cannotOpen" = "Không mở được URL này.";
+/* URLが見つからないとき */
+"handoff.error.noURL" = "Không tìm thấy URL YouTube.\nHãy chia sẻ từ trang video hoặc trang kênh.";
+/* 受け渡し中（%@ にアプリ名） */
+"handoff.passing.format" = "Đang chuyển sang %@…";
+/* 通知準備中 */
+"handoff.preparingNotification" = "Đang chuẩn bị thông báo…";
+/* URL読み取り中 */
+"handoff.reading" = "Đang đọc URL đã chia sẻ…";
+/* 通知を勧める案内 */
+"handoff.received.askNotification" = "Đã nhận URL.\nNếu bạn cho phép thông báo, chỉ cần nhấn vào thông báo xuất hiện tiếp theo.\n(Nếu không, hãy mở ứng dụng và dùng “Mở liên kết đã chia sẻ”.)";
+/* 受け取り完了の案内（%@ にアプリ名） */
+"handoff.received.format" = "Đã nhận URL.\nMở %@ và nhấn “Mở liên kết đã chia sẻ” để xem kênh này.";
+/* 読み上げ: 入力を消去 */
+"input.clear.a11y" = "Xóa văn bản";
+/* 動画を取得ボタン */
+"input.fetch" = "Lấy video";
+/* 取得中のボタン */
+"input.fetching" = "Đang tải…";
+/* 入力欄の説明（%@ にアプリ名） */
+"input.section.footer" = "Chia sẻ từ ứng dụng YouTube hoặc Safari và chọn “%@” — khi đó “Mở liên kết đã chia sẻ” sẽ xuất hiện trên màn hình này. Dùng được cả URL kênh lẫn URL video.";
+/* 見出し: チャンネルURL */
+"input.section.header" = "URL kênh";
+/* Android 版の共有の説明（%@ にアプリ名）。iOS 版とは動きが違うので別文言 */
+"input.share.android" = "Chia sẻ từ ứng dụng YouTube hoặc trình duyệt và chọn “%@” — danh sách video của kênh sẽ mở ngay. Dùng được cả URL kênh lẫn URL video.";
+/* 全部見終わったとき */
+"list.allWatched" = "Bạn đã xem hết rồi 🎉";
+/* 保存済み一覧の案内（%@ に最終更新日時） */
+"list.cached.format" = "Đang hiển thị danh sách đã lưu (cập nhật %@)";
+/* 新着確認中 */
+"list.checkingNew" = "Đang kiểm tra video mới…";
+/* 件数（%1$@=表示中 %2$@=全体） */
+"list.count.format" = "Đang hiển thị %1$@/%2$@";
+/* 一覧が空のとき */
+"list.empty" = "Kênh này không có video nào để hiển thị.";
+/* 取得失敗の見出し */
+"list.error.title" = "Không tải được";
+/* 取得中 */
+"list.loading" = "Đang tải video…";
+/* 読み上げ: 並び替えと表示 */
+"list.menu.a11y" = "Sắp xếp và lọc";
+/* 新着を確認 */
+"list.menu.checkNew" = "Kiểm tra video mới";
+/* すべて再読み込み */
+"list.menu.reloadAll" = "Tải lại tất cả";
+/* 表示（フィルター） */
+"list.menu.show" = "Hiển thị";
+/* 並び替えメニュー */
+"list.menu.sort" = "Sắp xếp";
+/* 次に見る（%@ に本数） */
+"list.next.new.format" = "Tiếp theo: #%@";
+/* 続きから（%@ に本数） */
+"list.next.resume.format" = "Xem tiếp: #%@";
+/* 検索語を消す（検索欄は開いたまま） */
+"list.search.clear" = "Xóa";
+/* 検索を閉じる（全件に戻る） */
+"list.search.close" = "Đóng tìm kiếm";
+/* 検索結果が0件 */
+"list.search.empty" = "Không tìm thấy video";
+/* 動画一覧の検索ボタン（読み上げ）。現在のチャンネル内をタイトルで絞り込む */
+"list.search.open" = "Tìm video";
+/* 検索欄の案内文（タイトルだけが対象） */
+"list.search.placeholder" = "Tìm theo tiêu đề";
+/* 新しい順 */
+"list.sort.newest" = "Mới nhất trước";
+/* 古い順 */
+"list.sort.oldest" = "Cũ nhất trước";
+/* 共有直後の通知の本文 */
+"notification.sharedLink.body" = "Nhấn để mở danh sách video của kênh đã chia sẻ.";
+/* 字幕は既定オフの説明 */
+"options.captions.defaultOff" = "Phụ đề mặc định ở trạng thái tắt.";
+/* 字幕がまだ読み込まれていないときの説明 */
+"options.captions.notLoaded" = "Phụ đề của video này chưa được tải. Hãy bắt đầu phát, rồi mở lại trang này (một số video không có phụ đề).";
+/* 見出し: 字幕 */
+"options.captions.section" = "Phụ đề";
+/* 画質: 自動 */
+"options.quality.auto" = "Tự động";
+/* 画質の説明 */
+"options.quality.note" = "YouTube tự động điều chỉnh chất lượng theo kết nối của bạn (trình phát chính thức không cho phép ứng dụng chọn chất lượng).\nĐể tự chọn, hãy bắt đầu phát, rồi dùng nút toàn màn hình ở góc dưới bên phải trình phát → bánh răng → Chất lượng (mục chất lượng không xuất hiện trước khi bắt đầu phát).";
+/* 画質 */
+"options.quality.title" = "Chất lượng";
+/* 見出し: 再生速度 */
+"options.rate.section" = "Tốc độ phát";
+/* 画面名: 再生設定 */
+"options.title" = "Cài đặt phát";
+/* 自動再生で進んだときの表示 */
+"player.autoAdvanced" = "Đã chuyển sang video tiếp theo";
+/* 読み上げ: 自動再生トグル */
+"player.autoPlay.a11y" = "Tự động phát video tiếp theo khi video kết thúc";
+/* 自動再生オフのときの説明（いまどう動くかを書く） */
+"player.autoPlay.off.detail" = "Khi video kết thúc, dừng lại và hiện nút “Phát video tiếp theo”";
+/* 自動再生オンのときの説明（いまどう動くかを書く） */
+"player.autoPlay.on.detail" = "Khi video kết thúc, chỉ phát video tiếp theo trong danh sách này";
+/* 自動再生トグルの見出し。⚠️ここに「オン」「オフ」と状態を書かないこと。スイッチの入切と二重否定になり、『「自動再生オフ」がオフ＝自動再生オン？』と読めてしまう（2026-09-16・ユーザー指摘）。状態は下の説明文とスイッチに任せる。 */
+"player.autoPlay.title" = "Tự động phát";
+/* 再生画面の全幅ボタン。YouTube で動画を開き、コメントしてもらう（…メニューは player.openInYouTube のまま） */
+"player.commentOnYouTube" = "Bình luận trên YouTube";
+/* 次の動画を再生ボタン */
+"player.ended.playNext" = "Phát video tiếp theo";
+/* 終了時の案内 */
+"player.ended.title" = "Đã phát xong. Tiếp theo:";
+/* メモの自動保存と、入力の終え方の説明 */
+"player.memo.autosave" = "Tự động lưu khi bạn nhập. Nhấn vào chỗ khác hoặc “Xong” để kết thúc chỉnh sửa.";
+/* メモ欄の見出し */
+"player.memo.title" = "Ghi chú (cho loạt video và học tập)";
+/* 読み上げ: その他の操作 */
+"player.menu.a11y" = "Thao tác khác";
+/* メニュー: 視聴済みにする */
+"player.menu.markWatched" = "Đánh dấu là đã xem";
+/* メニュー: 最初から再生 */
+"player.menu.restart" = "Phát từ đầu";
+/* メニュー: 続きから再生する */
+"player.menu.resume" = "Phát tiếp từ chỗ đã dừng";
+/* メニュー: スキップにする */
+"player.menu.skip" = "Đánh dấu bỏ qua";
+/* メニュー: 視聴済みを解除 */
+"player.menu.unmarkWatched" = "Đánh dấu là chưa xem";
+/* メニュー: スキップを解除 */
+"player.menu.unskip" = "Không bỏ qua";
+/* 全体リピートの説明 */
+"player.mode.repeatAll" = "Quay lại video đầu tiên sau video cuối cùng (khi bật tự động phát).";
+/* 1本リピートの説明 */
+"player.mode.repeatOne" = "Lặp lại video hiện tại.";
+/* スキップの説明 */
+"player.mode.skip" = "Video được đánh dấu bỏ qua sẽ bị bỏ qua khi tự động phát.";
+/* 未視聴のみ再生の説明 */
+"player.mode.unwatchedOnly" = "Video đã xem cũng bị bỏ qua, nên chỉ video chưa xem được phát.";
+/* 移動: 最初へ */
+"player.nav.first" = "Đầu tiên";
+/* 移動: 最後へ */
+"player.nav.last" = "Cuối cùng";
+/* 移動: 次へ */
+"player.nav.next" = "Tiếp";
+/* 移動: 前へ */
+"player.nav.previous" = "Trước";
+/* 移動: 戻す（直前の移動を取り消す） */
+"player.nav.undo" = "Hoàn tác";
+/* 動画が無いとき */
+"player.noVideos" = "Không có video";
+/* YouTubeで開く */
+"player.openInYouTube" = "Mở trong YouTube";
+/* 読み上げ: 再生設定ボタン */
+"player.options.a11y" = "Cài đặt phát";
+/* 再生設定の要約（%1$@=速度 %2$@=字幕） */
+"player.optionsSummary.format" = "Tốc độ %1$@ · Phụ đề %2$@";
+/* 公開日と一覧内の位置（%1$@=公開日 %2$@=位置） */
+"player.publishedWithPosition.format" = "%1$@ (%2$@)";
+/* 再生速度の表示（%@ に倍率） */
+"player.rate.format" = "%@×";
+/* リピートボタンのヒント */
+"player.repeat.hint" = "Nhấn để đổi chế độ lặp lại";
+/* 続きから再生中の案内（%@ に時刻） */
+"player.resume.notice.format" = "Đang phát tiếp từ %@";
+/* 最初から見直すボタン */
+"player.resume.restart" = "Phát lại từ đầu";
+/* スキップ状態の表示 */
+"player.status.skipped" = "Đã bỏ qua (bỏ qua khi tự động phát)";
+/* 未視聴のみ再生トグル */
+"player.unwatchedOnly" = "Chỉ phát video chưa xem";
+/* Pro の中心価値 */
+"pro.benefit.multiChannel" = "Với Pro, bạn có thể lưu nhiều kênh YouTube và theo dõi tiến độ của từng kênh.";
+/* 購入ボタン（価格が取れないとき） */
+"pro.buy" = "Mua (một lần)";
+/* 購入ボタン（%@ に価格） */
+"pro.buy.format" = "Mua với giá %@ (một lần)";
+/* Pro失効の説明 */
+"pro.disabled.body" = "Phiên bản miễn phí cho phép bạn dùng một kênh. Hãy chọn kênh để tiếp tục dùng miễn phí. Các kênh bị khóa vẫn giữ lịch sử đã xem, tiến độ và ghi chú. Mua lại Pro để dùng mọi kênh.";
+/* 使うチャンネルを選ぶ導線 */
+"pro.disabled.choose" = "Chọn kênh để dùng miễn phí";
+/* Pro失効の見出し */
+"pro.disabled.title" = "Pro không còn hoạt động";
+/* ホームからPro画面へ入る行の説明 */
+"pro.entry.body" = "Mua một lần. Phiên bản miễn phí lưu được một kênh.";
+/* ホームからPro画面へ入る行の見出し */
+"pro.entry.title" = "Lưu nhiều kênh (Pro)";
+/* 購入できなかった */
+"pro.error.failed" = "Không thể hoàn tất giao dịch mua.";
+/* Google Play に繋がらない */
+"pro.error.unavailable" = "Không kết nối được với Google Play. Vui lòng thử lại sau.";
+/* 無料版の説明 */
+"pro.free.summary" = "Phiên bản miễn phí cho phép bạn lưu một kênh.";
+/* 無料でできることの本文（1チャンネル内は制限しない方針） */
+"pro.freeFeatures.body" = "Trong kênh bạn đã lưu, mọi tính năng đều không giới hạn: sắp xếp cũ nhất hoặc mới nhất trước, theo dõi video đã xem, phát tiếp, nút di chuyển, ghi chú, tiến độ và phát bằng trình phát chính thức.";
+/* 無料でできることの見出し */
+"pro.freeFeatures.header" = "Những gì bạn có miễn phí";
+/* Pro 画面の見出し（買い切りであることを明示） */
+"pro.headline" = "Mua một lần để mở khóa tính năng lưu nhiều kênh.";
+/* 入れ替えるボタン */
+"pro.limit.replace" = "Thay thế";
+/* 警告のあとに出す Pro への誘導 */
+"pro.limit.replaceHint" = "Nếu muốn giữ lịch sử của nhiều kênh, hãy dùng Pro.";
+/* 保存上限の案内タイトル */
+"pro.limit.title" = "Bạn có thể lưu một kênh";
+/* 上限の案内でProへ進むボタン */
+"pro.limit.upgrade" = "Mua Pro";
+/* 上限の案内から Pro の説明画面へ進むボタン */
+"pro.limit.viewPro" = "Xem Pro có gì";
+/* 入れ替えの警告（%@ に外れるチャンネル名）。大きめ・太字・赤で出す */
+"pro.limit.warning.format" = "Thay kênh này sẽ xóa lịch sử đã xem, tiến độ và ghi chú của kênh đang lưu “%@”.";
+/* 一覧でロック中を示すラベル */
+"pro.locked.badge" = "Đã khóa";
+/* ロックの説明（%1$@=開こうとしたチャンネル %2$@=いま使えるチャンネル） */
+"pro.locked.body.format" = "Phiên bản miễn phí cho phép bạn dùng một kênh. Chuyển sang “%1$@” sẽ khiến “%2$@” không dùng được. Dữ liệu của cả hai kênh đều không bị xóa.";
+/* ロック中のチャンネルがあるときの案内 */
+"pro.locked.hint" = "Mua Pro để dùng lại mọi kênh đã lưu, với toàn bộ dữ liệu được giữ nguyên.";
+/* ロック中のチャンネルを開こうとしたときの説明 */
+"pro.locked.open.body" = "Kênh này đã bị khóa. Pro không còn hoạt động, nên phiên bản miễn phí chỉ cho phép một kênh. Mua lại Pro để tiếp tục với toàn bộ lịch sử đã xem, tiến độ và ghi chú được giữ nguyên.";
+/* 切り替えるボタン */
+"pro.locked.switch" = "Chuyển sang kênh này";
+/* ロックされたチャンネルを開こうとしたときのタイトル */
+"pro.locked.title" = "Pro chưa được kích hoạt";
+/* このチャンネルを無料枠にする */
+"pro.locked.useThis" = "Dùng kênh này miễn phí";
+/* Pro の商品名（全言語共通） */
+"pro.name" = "Channel Timeline Viewer Pro";
+/* サブスクではないことの明示（購入画面に必須） */
+"pro.notSubscription" = "Đây không phải là gói đăng ký.";
+/* アクセシビリティ: Pro画面を開く */
+"pro.open.a11y" = "Mở thông tin Pro";
+/* 購入済みの表示 */
+"pro.owned" = "Bạn đang dùng Pro. Cảm ơn bạn.";
+/* 保留中の支払い */
+"pro.pending" = "Khoản thanh toán của bạn đang chờ xử lý. Pro sẽ tự động bật khi hoàn tất.";
+/* iOS: 価格を取得できなかった */
+"pro.price.failed" = "Không tải được giá. Hãy kiểm tra kết nối và thử lại.";
+/* 価格取得中 */
+"pro.price.loading" = "Đang kiểm tra giá…";
+/* iOS: 価格の再取得ボタン */
+"pro.price.retry" = "Tải lại giá";
+/* Pro で解放される機能の本文 */
+"pro.proFeatures.body" = "Lưu nhiều kênh, theo dõi tiến độ theo từng kênh và quản lý danh sách đã lưu. Bạn không bao giờ phải thay kênh, nên lịch sử đã xem, tiến độ và ghi chú không bao giờ bị xóa. Bao gồm cả các tính năng quản lý nâng cao trong tương lai.";
+/* Pro で解放される機能の見出し */
+"pro.proFeatures.header" = "Những gì Pro mở khóa";
+/* 購入の復元ボタン */
+"pro.restore" = "Khôi phục giao dịch mua";
+/* 復元できた */
+"pro.restore.done" = "Giao dịch mua của bạn đã được khôi phục.";
+/* 復元の説明 */
+"pro.restore.hint" = "Chỉ cần dùng cùng một Tài khoản Google, bạn có thể khôi phục sau khi cài đặt lại hoặc đổi thiết bị.";
+/* iOS: 復元の説明（Apple アカウント） */
+"pro.restore.hint.apple" = "Chỉ cần dùng cùng một Tài khoản Apple, bạn có thể khôi phục sau khi cài đặt lại hoặc đổi thiết bị.";
+/* 復元できる購入がなかった */
+"pro.restore.none" = "Không tìm thấy giao dịch mua nào cho Tài khoản Google này.";
+/* iOS: 復元できる購入が無かった（Apple アカウント） */
+"pro.restore.none.apple" = "Không tìm thấy giao dịch mua nào cho Tài khoản Apple này.";
+/* 進捗の内訳（%1$@=視聴済み %2$@=総数 %3$@=割合） */
+"progress.count.format" = "%1$@ / %2$@ (%3$@%%)";
+/* 進捗 */
+"progress.title" = "Tiến độ";
+/* 読み上げ: 全体リピート */
+"repeat.a11y.all" = "Lặp lại tất cả video";
+/* 読み上げ: リピートオフ */
+"repeat.a11y.off" = "Tắt lặp lại";
+/* 読み上げ: 1本リピート */
+"repeat.a11y.one" = "Lặp lại một video";
+/* リピート: 全体 */
+"repeat.all" = "Tất cả";
+/* リピート: オフ */
+"repeat.off" = "Tắt";
+/* リピート: 1本 */
+"repeat.one" = "Một video";
+/* クリップボードにURLがある案内 */
+"share.clipboardHint" = "Liên kết bạn đã chia sẻ đang có trong bộ nhớ tạm.";
+/* 共有されたURLを開くボタン */
+"share.openSharedURL" = "Mở liên kết đã chia sẻ";
+/* 共有直後の通知を許可してもらう理由（入力画面・未許可のときだけ出す） */
+"shareTips.notify.why" = "Nhấn vào thông báo xuất hiện ngay sau khi bạn chia sẻ sẽ mở kênh ngay lập tức. Chúng tôi không bao giờ gửi thông báo tin tức hay quảng cáo.";
+/* 前へ */
+"tutorial.back" = "Quay lại";
+/* 閉じる */
+"tutorial.close" = "Đóng";
+/* 最後のボタン: YouTubeを開いて試す */
+"tutorial.cta" = "Mở YouTube và thử";
+/* 例示の注記: 提携を示すものではないこと */
+"tutorial.example.note" = "Ảnh chụp màn hình dùng kênh công khai của NASA làm ví dụ. Ứng dụng này không liên kết với, không được chứng thực hay tài trợ bởi YouTube hoặc NASA.";
+/* 次へ */
+"tutorial.next" = "Tiếp";
+/* 読み上げ: チュートリアルを開く */
+"tutorial.open.a11y" = "Xem cách thêm kênh";
+/* 進み具合（%1$@ / %2$@） */
+"tutorial.progress.format" = "%1$@/%2$@";
+/* スキップ */
+"tutorial.skip" = "Bỏ qua";
+/* 手順1の説明 */
+"tutorial.step1.body" = "Trong ứng dụng YouTube, mở một video của kênh bạn muốn thêm, hoặc chính trang kênh đó.";
+/* 読み上げ: 手順1の画像 */
+"tutorial.step1.image.a11y" = "Trang kênh đang mở trong YouTube";
+/* 手順1の見出し */
+"tutorial.step1.title" = "Mở nội dung bạn muốn xem trong YouTube";
+/* 手順2の説明（共有ボタンの場所） */
+"tutorial.step2.body" = "Nhấn Chia sẻ bên dưới video, hoặc trong menu trên trang kênh.";
+/* 読み上げ: 手順2の画像 */
+"tutorial.step2.image.a11y" = "Nút Chia sẻ được đánh dấu";
+/* 手順2の見出し */
+"tutorial.step2.title" = "Nhấn Chia sẻ";
+/* 手順3の説明（Android） */
+"tutorial.step3.body" = "Chọn %@ trong danh sách ứng dụng. Nếu không thấy, hãy mở “Thêm”.";
+/* 手順3の説明（iOS） */
+"tutorial.step3.body.ios" = "Cuộn bảng chia sẻ và chọn %@. Nếu không thấy, hãy tìm trong “Thêm”.";
+/* 読み上げ: 手順3の画像（アプリ名を %@ で入れる） */
+"tutorial.step3.image.a11y" = "Bảng chia sẻ với %@ được đánh dấu";
+/* 手順3の見出し（アプリ名を %@ で入れる） */
+"tutorial.step3.title" = "Chọn %@";
+/* 手順4の説明（Android） */
+"tutorial.step4.body" = "Video của kênh mở ngay, sắp xếp cũ nhất trước, sẵn sàng để xem lần lượt.";
+/* 手順4の説明（iOS・通知をタップ） */
+"tutorial.step4.body.ios" = "Một thông báo xuất hiện cho biết kênh đã chia sẻ đã sẵn sàng. Nhấn vào đó để mở danh sách video, cũ nhất trước.";
+/* 読み上げ: 手順4の画像（アプリ名を %@ で入れる） */
+"tutorial.step4.image.a11y" = "%@ đang hiển thị danh sách video";
+/* 手順4の見出し */
+"tutorial.step4.title" = "Danh sách video mở ra";
+/* 手順4の見出し（iOS・通知をタップする） */
+"tutorial.step4.title.ios" = "Nhấn vào thông báo";
+/* 画面名: チャンネルの追加方法 */
+"tutorial.title" = "Cách thêm kênh";
+/* スワイプ: 未視聴に戻す */
+"video.markUnwatched" = "Đánh dấu chưa xem";
+/* スキップ */
+"video.skip" = "Bỏ qua";
+/* スキップ解除 */
+"video.unskip" = "Không bỏ qua";
+/* タイトルが取得できないとき */
+"video.untitled" = "(Không có tiêu đề)";
+/* 視聴済み */
+"video.watched" = "Đã xem";

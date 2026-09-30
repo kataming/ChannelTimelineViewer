@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """`Localization/strings.json` から各言語の Localizable.strings を生成する。
 
-翻訳の元データは strings.json 1か所だけ。ここから 7言語ぶんを書き出す。
+翻訳の元データは strings.json 1か所だけ。ここから 35言語ぶんを書き出す。
 言語を足すときは LANGUAGES に追加して、strings.json に訳を入れる。
 
 使い方:
@@ -18,7 +18,12 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SOURCE = ROOT / "Localization" / "strings.json"
-LANGUAGES = ["ja", "en", "zh-Hans", "es", "de", "fr", "ko"]
+# 2026-10-01 に 7 → 35 言語へ（アプリ画面だけ。ストアのスクショ・ヘルプ・規約は 7 言語のまま）。
+LANGUAGES = [
+    "ja", "en", "zh-Hans", "es", "de", "fr", "ko",
+    "ar", "bn", "cs", "nl", "fil", "el", "hi", "hu", "id", "it", "kn", "mr", "pl", "pt-BR",
+    "pa", "ro", "ru", "sv", "ta", "te", "th", "zh-Hant", "tr", "uk", "ur", "vi", "ms", "zu",
+]
 BASE_LANGUAGE = "ja"
 
 # Info.plist の値（共有シートに出るアクション名など）は Localizable.strings ではなく
@@ -124,8 +129,8 @@ def main() -> int:
         print(f"未翻訳が {len(problems)} 件あります:")
         for p in problems[:40]:
             print("  -", p)
-        if args.check:
-            return 1
+        # ⚠️ 未翻訳を日本語で埋めて書き出さない（35 言語では別の言語の端末に日本語が出てしまう）
+        return 1
 
     if args.check:
         print(f"OK: {len(data)} 件 × {len(LANGUAGES)} 言語すべて翻訳済み")

@@ -1,0 +1,465 @@
+/* このファイルは scripts/build_localizations.py が生成します。直接編集しないこと。 */
+/* language: hu */
+
+/* このアプリについて: 自動再生の説明。既定オン・進む先は開いている一覧の次だけ・いつでもオフ・自分で選んだ設定は更新後も引き継ぐ、の4点を必ず含めること */
+"about.autoPlay.body" = "Az automatikus lejátszás alapértelmezés szerint be van kapcsolva: a videó végén a lejátszás a megnyitott csatornalista következő videójával folytatódik. Csak a lista következő videójára lép tovább – soha nem kapcsolódó vagy ajánlott videókra. Bármikor kikapcsolhatod a lejátszó képernyőjén az „Automatikus lejátszás” kapcsolóval; ekkor a lejátszás a videó végén megáll, és megjelenik a „Következő videó lejátszása” gomb. A saját választásodat az eszköz menti, és az alkalmazás frissítése után is megmarad. Háttérben nincs lejátszás, így az alkalmazás bezárásával a lejátszás és az automatikus továbblépés is leáll.";
+/* このアプリについて: 自動再生の見出し（既定オン） */
+"about.autoPlay.header" = "Automatikus lejátszás (alapból be van kapcsolva, bármikor kikapcsolhatod)";
+/* データの説明 */
+"about.data.body" = "A videólisták a YouTube Data API v3-ból származnak. A lejátszás változtatás nélkül ágyazza be a YouTube hivatalos lejátszóját. Nincs scraping és nincs saját lejátszó.";
+/* 見出し: データの取得と再生について */
+"about.data.header" = "Hogyan működnek az adatok és a lejátszás";
+/* 注意4 */
+"about.notice.noAdBlock" = "Nem blokkol hirdetéseket.";
+/* 注意5 */
+"about.notice.noBackground" = "Nem játszik le a háttérben.";
+/* 注意3 */
+"about.notice.noDownload" = "Nem tölt le videókat.";
+/* 注意1 */
+"about.notice.notOfficial" = "Ez az alkalmazás nem a hivatalos YouTube alkalmazás.";
+/* 注意2 */
+"about.notice.officialPlayer" = "A lejátszás a YouTube hivatalos beágyazott lejátszójával (IFrame Player) történik.";
+/* 注意6（商標表記） */
+"about.notice.trademark" = "A YouTube a Google LLC védjegye.";
+/* 見出し: 重要な注意事項 */
+"about.notices.header" = "Fontos tudnivalók";
+/* 通知を許可するボタン */
+"about.notify.allow" = "Értesítések engedélyezése";
+/* 通知は許可済み */
+"about.notify.enabled" = "Az értesítések engedélyezve vannak";
+/* 設定アプリで許可するボタン */
+"about.notify.settings" = "Értesítések engedélyezése a Beállításokban";
+/* 通知の説明 */
+"about.oneTap.body" = "Ha engedélyezed az értesítéseket, közvetlenül a megosztás után megjelenik egy értesítés, és egyetlen koppintással megnyithatod a csatornát. Ez az egyetlen használt értesítés – nincsenek hírek vagy reklámok, és nincsenek szerveroldali push-értesítések. Ha nem engedélyezed, nyisd meg az alkalmazást, és használd a „Megosztott link megnyitása” lehetőséget.";
+/* 見出し: ワンタップで開く */
+"about.oneTap.header" = "Megnyitás egy koppintással a megosztási menüből";
+/* 読み上げ: このアプリについて */
+"about.open.a11y" = "Az alkalmazásról";
+/* 共有シートの2か所の説明（%@ にアプリ名） */
+"about.pin.body1" = "A megosztási menüben két belépési pont van: „%@” az alkalmazásikonok sorában, és „Megnyitás itt: Channel Timeline” lejjebb, a műveletek listájában. Az utóbbi a „Továbbiak” megnyitása nélkül is elérhető.";
+/* 並び順の説明 */
+"about.pin.body2" = "A megosztási célok sorrendjét az iOS határozza meg, az alkalmazás nem állíthatja be. Az alábbi lépésekkel tűzd ki a Kedvencek közé, és mindig a lista elején fog megjelenni.";
+/* 見出し: 共有シートで上位に表示するには */
+"about.pin.header" = "Megjelenítés a megosztási menü tetején";
+/* 固定手順（%@ にアプリ名） */
+"about.pin.steps" = "① Koppints a Megosztás gombra → görgesd az alkalmazásikonok sorát teljesen jobbra → „Továbbiak”\n② Koppints a jobb felső „Szerkesztés” gombra\n③ Koppints a „+” jelre „%@” mellett a Kedvencekhez adáshoz\n④ Húzd feljebb a listában → „Kész”";
+/* プライバシーポリシー */
+"about.privacyPolicy" = "Adatvédelmi irányelvek";
+/* 続きから再生の説明 */
+"about.resume.body" = "Minden videó lejátszási pozícióját az eszköz tárolja, így a videót újra megnyitva ott folytatod, ahol abbahagytad (alapértelmezés szerint bekapcsolva). A lejátszó képernyőjén a „…” menüben kikapcsolhatod, a „Lejátszás az elejéről” pedig visszaugrik az elejére. Csak a pozíció tárolódik másodpercben – magát a videót soha.";
+/* 見出し: 続きから再生 */
+"about.resume.header" = "Lejátszás folytatása";
+/* 画面ロックの説明 */
+"about.screen.body" = "Videó lejátszása közben a képernyő ébren marad, így nem sötétedik el és nem szakít meg, amikor az eszköz az asztalon fekszik. Szüneteltetéskor vagy a lejátszóból kilépve az automatikus zárolás a szokásos módon működik. Háttérben nincs lejátszás, így az alkalmazás bezárása leállítja a lejátszást.";
+/* 見出し: 再生中の画面 */
+"about.screen.header" = "A képernyő lejátszás közben";
+/* 共有機能の説明（%@ にアプリ名） */
+"about.share.body1" = "Ha a YouTube alkalmazásban vagy a Safariban a megosztás gombbal ezt választod: „%@”, az alkalmazás megkapja a megosztott csatorna vagy videó URL-jét. A megosztás csak fogadja az URL-t – semmit nem küld sehova.";
+/* 共有後の流れの説明 */
+"about.share.body2" = "Ezután nyisd meg ezt az alkalmazást, és az első képernyőn megjelenik a „Megosztott link megnyitása”. Az iOS nem engedi, hogy a megosztási menü közvetlenül elindítson egy alkalmazást, ezért működik így.";
+/* 見出し: 共有シートから開く */
+"about.share.header" = "Megnyitás a megosztási menüből";
+/* アプリの説明 */
+"about.summary" = "Nézést segítő alkalmazás, amely a csatorna feltöltéseit megjelenési dátum szerint (a legrégebbitől) sorolja fel, így végighaladhatsz archívumokon, sorozatokon vagy kurzusokon, és követheted a haladásodat. Nem helyettesíti a hivatalos YouTube alkalmazást.";
+/* 画面名: このアプリについて */
+"about.title" = "Az alkalmazásról";
+/* APIキー未設定の説明 */
+"api.notConfigured.detail" = "Állítsd be a YOUTUBE_API_KEY értékét a Config.plist fájlban. A beállítás módját a README ismerteti.";
+/* APIキー未設定の見出し */
+"api.notConfigured.title" = "Nincs beállítva API-kulcs";
+/* 字幕: オフ */
+"captions.off" = "Ki";
+/* チャンネル名が取得できないとき */
+"channel.untitled" = "(Nincs csatornanév)";
+/* クリップボードにURLが無いとき */
+"clipboard.notFound" = "Nem található YouTube-link a vágólapon. Illessz be egy URL-t, és próbáld újra.";
+/* 共通: キャンセル */
+"common.cancel" = "Mégse";
+/* 閉じる */
+"common.close" = "Bezárás";
+/* 削除 */
+"common.delete" = "Törlés";
+/* 完了 */
+"common.done" = "Kész";
+/* 再試行 */
+"common.retry" = "Újra";
+/* 画面下部の注意書き */
+"disclaimer.short" = "Ez az alkalmazás nem a hivatalos YouTube alkalmazás. A lejátszáshoz a YouTube hivatalos beágyazott lejátszóját használja; nem tölt le videókat, nem blokkol hirdetéseket, és nem játszik le a háttérben.";
+/* エラー: APIキー未設定 */
+"error.apiKeyMissing" = "Nincs beállítva API-kulcs.";
+/* エラー: チャンネルが見つからない */
+"error.channelNotFound" = "A csatorna nem található.";
+/* エラー: 応答を解釈できない */
+"error.decoding" = "Nem sikerült betölteni a videólistát.";
+/* エラー: チャンネルURLとして解析できない */
+"error.invalidChannelURL" = "Ez nem YouTube-csatorna URL-jének tűnik.";
+/* エラー: URLの形式が不正 */
+"error.invalidURL" = "Az URL érvénytelen.";
+/* エラー: 動画URLとして解析できない */
+"error.invalidVideoURL" = "Ez nem YouTube-videó URL-jének tűnik.";
+/* エラー: 通信失敗 */
+"error.network" = "A kapcsolódás sikertelen.";
+/* エラー: API利用上限 */
+"error.quotaExceeded" = "Elérted a YouTube API korlátját. Próbáld újra később.";
+/* エラー: その他 */
+"error.unknown" = "Hiba történt.";
+/* エラー: 動画一覧を取得できない */
+"error.uploadsPlaylistNotFound" = "Nem sikerült betölteni a csatorna videólistáját.";
+/* エラー: 動画から投稿チャンネルを特定できない */
+"error.videoNotFound" = "Nem sikerült megállapítani a videó csatornáját.";
+/* 削除実行のボタン */
+"favorites.delete.confirm" = "Törlés";
+/* 削除確認のタイトル */
+"favorites.delete.title" = "Törlöd ezt a csatornát?";
+/* 削除の警告（%@ にチャンネル名）。大きめ・太字・赤で出す */
+"favorites.delete.warning.format" = "A csatorna törlése a(z) „%@” csatorna megnézési előzményeit, haladását és jegyzeteit is törli.";
+/* 最終利用日時（%@ に日時） */
+"favorites.lastOpened.format" = "Utoljára megnyitva: %@";
+/* 進捗（%1$@=視聴済み %2$@=総数 %3$@=割合） */
+"favorites.progress.format" = "%2$@ videóból %1$@ megnézve (%3$@%%)";
+/* 進捗が未計算のとき */
+"favorites.progressHint" = "A haladás a csatorna megnyitása után jelenik meg.";
+/* 続きから見る */
+"favorites.resume" = "Nézés folytatása";
+/* お気に入り一覧の脚注（削除で記録も消えることを断る） */
+"favorites.section.footer" = "Egy sor törléséhez húzd balra. A törlés a csatorna megnézési előzményeit, haladását és jegyzeteit is eltávolítja.";
+/* Android のお気に入り一覧の脚注。削除で記録も消えることを断る */
+"favorites.section.footer.android" = "A kuka gombbal törölheted a csatornát a mentettek közül. Ez a megnézési előzményeit, haladását és jegyzeteit is törli.";
+/* 見出し: 最近使ったチャンネル */
+"favorites.section.header" = "Legutóbbi csatornák";
+/* 左スワイプで削除の案内 */
+"favorites.swipeHint" = "Törléshez húzd balra";
+/* フィルター: すべて */
+"filter.all" = "Összes";
+/* フィルター: 未視聴のみ */
+"filter.unwatched" = "Nem megnézett";
+/* フィルター: 視聴済みのみ */
+"filter.watched" = "Megnézett";
+/* 通知を許可して開くボタン */
+"handoff.allowNotification" = "Értesítések engedélyezése és megnyitás";
+/* URLを開けないとき */
+"handoff.error.cannotOpen" = "Ezt az URL-t nem sikerült megnyitni.";
+/* URLが見つからないとき */
+"handoff.error.noURL" = "Nem található YouTube URL.\nOszd meg egy videó vagy csatorna oldaláról.";
+/* 受け渡し中（%@ にアプリ名） */
+"handoff.passing.format" = "Átadás ennek: %@…";
+/* 通知準備中 */
+"handoff.preparingNotification" = "Értesítés előkészítése…";
+/* URL読み取り中 */
+"handoff.reading" = "A megosztott URL beolvasása…";
+/* 通知を勧める案内 */
+"handoff.received.askNotification" = "Az URL megérkezett.\nHa engedélyezed az értesítéseket, elég a következőként megjelenő értesítésre koppintanod.\n(Ha nem, nyisd meg az alkalmazást, és használd a „Megosztott link megnyitása” lehetőséget.)";
+/* 受け取り完了の案内（%@ にアプリ名） */
+"handoff.received.format" = "Az URL megérkezett.\nNyisd meg ezt: %@, és koppints a „Megosztott link megnyitása” gombra a csatorna megtekintéséhez.";
+/* 読み上げ: 入力を消去 */
+"input.clear.a11y" = "Szöveg törlése";
+/* 動画を取得ボタン */
+"input.fetch" = "Videók lekérése";
+/* 取得中のボタン */
+"input.fetching" = "Betöltés…";
+/* 入力欄の説明（%@ にアプリ名） */
+"input.section.footer" = "Oszd meg a YouTube alkalmazásból vagy a Safariból, és válaszd ezt: „%@” – ekkor ezen a képernyőn megjelenik a „Megosztott link megnyitása”. Csatorna- és videó-URL is működik.";
+/* 見出し: チャンネルURL */
+"input.section.header" = "Csatorna URL-je";
+/* Android 版の共有の説明（%@ にアプリ名）。iOS 版とは動きが違うので別文言 */
+"input.share.android" = "Oszd meg a YouTube alkalmazásból vagy egy böngészőből, és válaszd ezt: „%@” – a csatorna videólistája azonnal megnyílik. Csatorna- és videó-URL is működik.";
+/* 全部見終わったとき */
+"list.allWatched" = "Mindent megnéztél 🎉";
+/* 保存済み一覧の案内（%@ に最終更新日時） */
+"list.cached.format" = "Mentett lista látható (frissítve: %@)";
+/* 新着確認中 */
+"list.checkingNew" = "Új videók keresése…";
+/* 件数（%1$@=表示中 %2$@=全体） */
+"list.count.format" = "%1$@ / %2$@ látható";
+/* 一覧が空のとき */
+"list.empty" = "Ennek a csatornának nincs megjeleníthető videója.";
+/* 取得失敗の見出し */
+"list.error.title" = "Nem sikerült betölteni";
+/* 取得中 */
+"list.loading" = "Videók betöltése…";
+/* 読み上げ: 並び替えと表示 */
+"list.menu.a11y" = "Rendezés és szűrés";
+/* 新着を確認 */
+"list.menu.checkNew" = "Új videók keresése";
+/* すべて再読み込み */
+"list.menu.reloadAll" = "Minden újratöltése";
+/* 表示（フィルター） */
+"list.menu.show" = "Megjelenítés";
+/* 並び替えメニュー */
+"list.menu.sort" = "Rendezés";
+/* 次に見る（%@ に本数） */
+"list.next.new.format" = "Következik: %@.";
+/* 続きから（%@ に本数） */
+"list.next.resume.format" = "Folytatás: %@.";
+/* 検索語を消す（検索欄は開いたまま） */
+"list.search.clear" = "Törlés";
+/* 検索を閉じる（全件に戻る） */
+"list.search.close" = "Keresés bezárása";
+/* 検索結果が0件 */
+"list.search.empty" = "Nincs találat";
+/* 動画一覧の検索ボタン（読み上げ）。現在のチャンネル内をタイトルで絞り込む */
+"list.search.open" = "Videók keresése";
+/* 検索欄の案内文（タイトルだけが対象） */
+"list.search.placeholder" = "Keresés cím alapján";
+/* 新しい順 */
+"list.sort.newest" = "Legújabb elöl";
+/* 古い順 */
+"list.sort.oldest" = "Legrégebbi elöl";
+/* 共有直後の通知の本文 */
+"notification.sharedLink.body" = "Koppints a megosztott csatorna videólistájának megnyitásához.";
+/* 字幕は既定オフの説明 */
+"options.captions.defaultOff" = "A feliratok alapértelmezés szerint ki vannak kapcsolva.";
+/* 字幕がまだ読み込まれていないときの説明 */
+"options.captions.notLoaded" = "A videó feliratai még nem töltődtek be. Indítsd el a lejátszást, majd nyisd meg újra ezt a panelt (egyes videókhoz nincs felirat).";
+/* 見出し: 字幕 */
+"options.captions.section" = "Feliratok";
+/* 画質: 自動 */
+"options.quality.auto" = "Automatikus";
+/* 画質の説明 */
+"options.quality.note" = "A YouTube a kapcsolatod alapján automatikusan állítja a minőséget (a hivatalos lejátszó nem engedi, hogy az alkalmazások beállítsák).\nHa magad szeretnéd kiválasztani, indítsd el a lejátszást, majd használd a lejátszó jobb alsó sarkában lévő teljes képernyő gombot → fogaskerék → Minőség (a lejátszás indítása előtt a minőség menüpont nem jelenik meg).";
+/* 画質 */
+"options.quality.title" = "Minőség";
+/* 見出し: 再生速度 */
+"options.rate.section" = "Lejátszási sebesség";
+/* 画面名: 再生設定 */
+"options.title" = "Lejátszási beállítások";
+/* 自動再生で進んだときの表示 */
+"player.autoAdvanced" = "Továbbléptünk a következő videóra";
+/* 読み上げ: 自動再生トグル */
+"player.autoPlay.a11y" = "A videó végén a következő automatikus lejátszása";
+/* 自動再生オフのときの説明（いまどう動くかを書く） */
+"player.autoPlay.off.detail" = "A videó végén megáll, és megjelenik a „Következő videó lejátszása” gomb";
+/* 自動再生オンのときの説明（いまどう動くかを書く） */
+"player.autoPlay.on.detail" = "A videó végén csak a lista következő videóját játssza le";
+/* 自動再生トグルの見出し。⚠️ここに「オン」「オフ」と状態を書かないこと。スイッチの入切と二重否定になり、『「自動再生オフ」がオフ＝自動再生オン？』と読めてしまう（2026-09-16・ユーザー指摘）。状態は下の説明文とスイッチに任せる。 */
+"player.autoPlay.title" = "Automatikus lejátszás";
+/* 再生画面の全幅ボタン。YouTube で動画を開き、コメントしてもらう（…メニューは player.openInYouTube のまま） */
+"player.commentOnYouTube" = "Hozzászólás a YouTube-on";
+/* 次の動画を再生ボタン */
+"player.ended.playNext" = "Következő videó lejátszása";
+/* 終了時の案内 */
+"player.ended.title" = "A lejátszás véget ért. Következik:";
+/* メモの自動保存と、入力の終え方の説明 */
+"player.memo.autosave" = "Gépelés közben automatikusan mentődik. A szerkesztés befejezéséhez koppints máshova vagy a „Kész” gombra.";
+/* メモ欄の見出し */
+"player.memo.title" = "Jegyzetek (sorozatokhoz és tanuláshoz)";
+/* 読み上げ: その他の操作 */
+"player.menu.a11y" = "További műveletek";
+/* メニュー: 視聴済みにする */
+"player.menu.markWatched" = "Megjelölés megnézettként";
+/* メニュー: 最初から再生 */
+"player.menu.restart" = "Lejátszás az elejéről";
+/* メニュー: 続きから再生する */
+"player.menu.resume" = "Folytatás onnan, ahol abbahagytam";
+/* メニュー: スキップにする */
+"player.menu.skip" = "Megjelölés kihagyásra";
+/* メニュー: 視聴済みを解除 */
+"player.menu.unmarkWatched" = "Megjelölés nem megnézettként";
+/* メニュー: スキップを解除 */
+"player.menu.unskip" = "Kihagyás visszavonása";
+/* 全体リピートの説明 */
+"player.mode.repeatAll" = "Az utolsó videó után visszatér az elsőre (ha az automatikus lejátszás be van kapcsolva).";
+/* 1本リピートの説明 */
+"player.mode.repeatOne" = "Az aktuális videót ismétli.";
+/* スキップの説明 */
+"player.mode.skip" = "A kihagyásra jelölt videókat az automatikus lejátszás átugorja.";
+/* 未視聴のみ再生の説明 */
+"player.mode.unwatchedOnly" = "A megnézett videókat is átugorja, így csak a nem megnézettek szólnak.";
+/* 移動: 最初へ */
+"player.nav.first" = "Első";
+/* 移動: 最後へ */
+"player.nav.last" = "Utolsó";
+/* 移動: 次へ */
+"player.nav.next" = "Következő";
+/* 移動: 前へ */
+"player.nav.previous" = "Előző";
+/* 移動: 戻す（直前の移動を取り消す） */
+"player.nav.undo" = "Visszavonás";
+/* 動画が無いとき */
+"player.noVideos" = "Nincsenek videók";
+/* YouTubeで開く */
+"player.openInYouTube" = "Megnyitás a YouTube-on";
+/* 読み上げ: 再生設定ボタン */
+"player.options.a11y" = "Lejátszási beállítások";
+/* 再生設定の要約（%1$@=速度 %2$@=字幕） */
+"player.optionsSummary.format" = "Sebesség %1$@ · Felirat %2$@";
+/* 公開日と一覧内の位置（%1$@=公開日 %2$@=位置） */
+"player.publishedWithPosition.format" = "%1$@ (%2$@)";
+/* 再生速度の表示（%@ に倍率） */
+"player.rate.format" = "%@×";
+/* リピートボタンのヒント */
+"player.repeat.hint" = "Koppints az ismétlési mód váltásához";
+/* 続きから再生中の案内（%@ に時刻） */
+"player.resume.notice.format" = "Folytatás innen: %@";
+/* 最初から見直すボタン */
+"player.resume.restart" = "Elölről";
+/* スキップ状態の表示 */
+"player.status.skipped" = "Kihagyva (az automatikus lejátszás átugorja)";
+/* 未視聴のみ再生トグル */
+"player.unwatchedOnly" = "Csak a nem megnézettek";
+/* Pro の中心価値 */
+"pro.benefit.multiChannel" = "A Pro verzióval több YouTube-csatornát menthetsz, és mindegyiknél követheted a haladást.";
+/* 購入ボタン（価格が取れないとき） */
+"pro.buy" = "Megvásárlás (egyszeri)";
+/* 購入ボタン（%@ に価格） */
+"pro.buy.format" = "Megvásárlás %@ áron (egyszeri)";
+/* Pro失効の説明 */
+"pro.disabled.body" = "Az ingyenes verzióban egy csatornát használhatsz. Válaszd ki, melyik csatornát szeretnéd továbbra is ingyen használni. A zárolt csatornák megtartják a megnézési előzményeiket, haladásukat és jegyzeteiket. Vásárold meg újra a Pro verziót, hogy minden csatornát használhass.";
+/* 使うチャンネルを選ぶ導線 */
+"pro.disabled.choose" = "Válaszd ki az ingyenes csatornát";
+/* Pro失効の見出し */
+"pro.disabled.title" = "A Pro már nem aktív";
+/* ホームからPro画面へ入る行の説明 */
+"pro.entry.body" = "Egyszeri vásárlás. Az ingyenes verzió egy csatornát ment.";
+/* ホームからPro画面へ入る行の見出し */
+"pro.entry.title" = "Több csatorna mentése (Pro)";
+/* 購入できなかった */
+"pro.error.failed" = "A vásárlást nem sikerült befejezni.";
+/* Google Play に繋がらない */
+"pro.error.unavailable" = "Nem sikerült csatlakozni a Google Playhez. Próbáld újra később.";
+/* 無料版の説明 */
+"pro.free.summary" = "Az ingyenes verzióban egy csatornát menthetsz.";
+/* 無料でできることの本文（1チャンネル内は制限しない方針） */
+"pro.freeFeatures.body" = "A mentett csatornán belül minden korlátozás nélkül működik: rendezés a legrégebbi vagy legújabb szerint, megnézett videók nyilvántartása, folytatás, ugrógombok, jegyzetek, haladás és lejátszás a hivatalos lejátszóban.";
+/* 無料でできることの見出し */
+"pro.freeFeatures.header" = "Mit kapsz ingyen";
+/* Pro 画面の見出し（買い切りであることを明示） */
+"pro.headline" = "Egyszeri vásárlás, amely feloldja több csatorna mentését.";
+/* 入れ替えるボタン */
+"pro.limit.replace" = "Csere";
+/* 警告のあとに出す Pro への誘導 */
+"pro.limit.replaceHint" = "Ha több csatorna előzményeit is meg szeretnéd őrizni, használd a Pro verziót.";
+/* 保存上限の案内タイトル */
+"pro.limit.title" = "Egy csatornát menthetsz";
+/* 上限の案内でProへ進むボタン */
+"pro.limit.upgrade" = "Pro beszerzése";
+/* 上限の案内から Pro の説明画面へ進むボタン */
+"pro.limit.viewPro" = "Mit tartalmaz a Pro";
+/* 入れ替えの警告（%@ に外れるチャンネル名）。大きめ・太字・赤で出す */
+"pro.limit.warning.format" = "A csatorna cseréje törli a jelenleg mentett „%@” csatorna megnézési előzményeit, haladását és jegyzeteit.";
+/* 一覧でロック中を示すラベル */
+"pro.locked.badge" = "Zárolva";
+/* ロックの説明（%1$@=開こうとしたチャンネル %2$@=いま使えるチャンネル） */
+"pro.locked.body.format" = "Az ingyenes verzióban egy csatornát használhatsz. Ha átváltasz erre: „%1$@”, akkor ez nem lesz elérhető: „%2$@”. Egyik csatorna adatai sem törlődnek.";
+/* ロック中のチャンネルがあるときの案内 */
+"pro.locked.hint" = "Vásárold meg a Pro verziót, és újra használhatod az összes mentett csatornát, minden adattal együtt.";
+/* ロック中のチャンネルを開こうとしたときの説明 */
+"pro.locked.open.body" = "Ez a csatorna zárolva van. A Pro már nem aktív, így az ingyenes verzió egy csatornát enged. Vásárold meg újra a Pro verziót, hogy a megnézési előzmények, a haladás és a jegyzetek megtartásával folytathasd.";
+/* 切り替えるボタン */
+"pro.locked.switch" = "Váltás erre a csatornára";
+/* ロックされたチャンネルを開こうとしたときのタイトル */
+"pro.locked.title" = "A Pro nem aktív";
+/* このチャンネルを無料枠にする */
+"pro.locked.useThis" = "E csatorna ingyenes használata";
+/* Pro の商品名（全言語共通） */
+"pro.name" = "Channel Timeline Viewer Pro";
+/* サブスクではないことの明示（購入画面に必須） */
+"pro.notSubscription" = "Ez nem előfizetés.";
+/* アクセシビリティ: Pro画面を開く */
+"pro.open.a11y" = "Pro részleteinek megnyitása";
+/* 購入済みの表示 */
+"pro.owned" = "Pro verziót használsz. Köszönjük!";
+/* 保留中の支払い */
+"pro.pending" = "A fizetésed függőben van. A Pro automatikusan bekapcsol, amint a fizetés teljesül.";
+/* iOS: 価格を取得できなかった */
+"pro.price.failed" = "Nem sikerült betölteni az árat. Ellenőrizd a kapcsolatot, és próbáld újra.";
+/* 価格取得中 */
+"pro.price.loading" = "Ár ellenőrzése…";
+/* iOS: 価格の再取得ボタン */
+"pro.price.retry" = "Ár újratöltése";
+/* Pro で解放される機能の本文 */
+"pro.proFeatures.body" = "Több csatorna mentése, csatornánkénti haladáskövetés és a mentett lista kezelése. Soha nem kell csatornát lecserélned, így a megnézési előzmények, a haladás és a jegyzetek soha nem törlődnek. A jövőbeli haladó kezelési funkciók is benne vannak.";
+/* Pro で解放される機能の見出し */
+"pro.proFeatures.header" = "Mit old fel a Pro";
+/* 購入の復元ボタン */
+"pro.restore" = "Vásárlás visszaállítása";
+/* 復元できた */
+"pro.restore.done" = "A vásárlásod visszaállt.";
+/* 復元の説明 */
+"pro.restore.hint" = "Ha ugyanazt a Google-fiókot használod, újratelepítés vagy eszközváltás után is visszaállíthatod.";
+/* iOS: 復元の説明（Apple アカウント） */
+"pro.restore.hint.apple" = "Ha ugyanazt az Apple-fiókot használod, újratelepítés vagy eszközváltás után is visszaállíthatod.";
+/* 復元できる購入がなかった */
+"pro.restore.none" = "Ehhez a Google-fiókhoz nem található vásárlás.";
+/* iOS: 復元できる購入が無かった（Apple アカウント） */
+"pro.restore.none.apple" = "Ehhez az Apple-fiókhoz nem található vásárlás.";
+/* 進捗の内訳（%1$@=視聴済み %2$@=総数 %3$@=割合） */
+"progress.count.format" = "%1$@ / %2$@ (%3$@%%)";
+/* 進捗 */
+"progress.title" = "Haladás";
+/* 読み上げ: 全体リピート */
+"repeat.a11y.all" = "Összes videó ismétlése";
+/* 読み上げ: リピートオフ */
+"repeat.a11y.off" = "Ismétlés kikapcsolva";
+/* 読み上げ: 1本リピート */
+"repeat.a11y.one" = "Egy videó ismétlése";
+/* リピート: 全体 */
+"repeat.all" = "Mind";
+/* リピート: オフ */
+"repeat.off" = "Ki";
+/* リピート: 1本 */
+"repeat.one" = "Egy";
+/* クリップボードにURLがある案内 */
+"share.clipboardHint" = "A megosztott link a vágólapon van.";
+/* 共有されたURLを開くボタン */
+"share.openSharedURL" = "Megosztott link megnyitása";
+/* 共有直後の通知を許可してもらう理由（入力画面・未許可のときだけ出す） */
+"shareTips.notify.why" = "A megosztás után azonnal megjelenő értesítésre koppintva rögtön megnyílik a csatorna. Soha nem küldünk híreket vagy reklámértesítéseket.";
+/* 前へ */
+"tutorial.back" = "Vissza";
+/* 閉じる */
+"tutorial.close" = "Bezárás";
+/* 最後のボタン: YouTubeを開いて試す */
+"tutorial.cta" = "YouTube megnyitása és kipróbálás";
+/* 例示の注記: 提携を示すものではないこと */
+"tutorial.example.note" = "A képernyőképek példaként a NASA nyilvános csatornáját mutatják. Ez az alkalmazás nem áll kapcsolatban a YouTube-bal vagy a NASA-val, és azok nem támogatják vagy szponzorálják.";
+/* 次へ */
+"tutorial.next" = "Tovább";
+/* 読み上げ: チュートリアルを開く */
+"tutorial.open.a11y" = "Csatorna hozzáadásának módja";
+/* 進み具合（%1$@ / %2$@） */
+"tutorial.progress.format" = "%1$@ / %2$@";
+/* スキップ */
+"tutorial.skip" = "Kihagyás";
+/* 手順1の説明 */
+"tutorial.step1.body" = "A YouTube alkalmazásban nyiss meg egy videót a hozzáadni kívánt csatornáról, vagy magát a csatornaoldalt.";
+/* 読み上げ: 手順1の画像 */
+"tutorial.step1.image.a11y" = "A csatornaoldal a YouTube-on megnyitva";
+/* 手順1の見出し */
+"tutorial.step1.title" = "Nyisd meg a YouTube-on, amit nézni szeretnél";
+/* 手順2の説明（共有ボタンの場所） */
+"tutorial.step2.body" = "Koppints a Megosztás gombra a videó alatt, vagy a csatornaoldal menüjében.";
+/* 読み上げ: 手順2の画像 */
+"tutorial.step2.image.a11y" = "A kiemelt Megosztás gomb";
+/* 手順2の見出し */
+"tutorial.step2.title" = "Koppints a Megosztás gombra";
+/* 手順3の説明（Android） */
+"tutorial.step3.body" = "Válaszd ki az alkalmazások listájából ezt: %@. Ha nem látod, nyisd meg a „Továbbiak” lehetőséget.";
+/* 手順3の説明（iOS） */
+"tutorial.step3.body.ios" = "Görgesd a megosztási menüt, és válaszd ezt: %@. Ha nem látod, keresd a „Továbbiak” alatt.";
+/* 読み上げ: 手順3の画像（アプリ名を %@ で入れる） */
+"tutorial.step3.image.a11y" = "Megosztási menü, kiemelve: %@";
+/* 手順3の見出し（アプリ名を %@ で入れる） */
+"tutorial.step3.title" = "Válaszd ezt: %@";
+/* 手順4の説明（Android） */
+"tutorial.step4.body" = "A csatorna videói azonnal megnyílnak a legrégebbitől kezdve, készen arra, hogy sorban végignézd őket.";
+/* 手順4の説明（iOS・通知をタップ） */
+"tutorial.step4.body.ios" = "Megjelenik egy értesítés, hogy a megosztott csatorna készen áll. Koppints rá a videólista megnyitásához, a legrégebbitől kezdve.";
+/* 読み上げ: 手順4の画像（アプリ名を %@ で入れる） */
+"tutorial.step4.image.a11y" = "A videólista itt: %@";
+/* 手順4の見出し */
+"tutorial.step4.title" = "Megnyílik a videólista";
+/* 手順4の見出し（iOS・通知をタップする） */
+"tutorial.step4.title.ios" = "Koppints az értesítésre";
+/* 画面名: チャンネルの追加方法 */
+"tutorial.title" = "Csatorna hozzáadása";
+/* スワイプ: 未視聴に戻す */
+"video.markUnwatched" = "Nem megnézett";
+/* スキップ */
+"video.skip" = "Kihagyás";
+/* スキップ解除 */
+"video.unskip" = "Kihagyás visszavonása";
+/* タイトルが取得できないとき */
+"video.untitled" = "(Nincs cím)";
+/* 視聴済み */
+"video.watched" = "Megnézve";

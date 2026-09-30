@@ -1,0 +1,465 @@
+/* このファイルは scripts/build_localizations.py が生成します。直接編集しないこと。 */
+/* language: zh-Hant */
+
+/* このアプリについて: 自動再生の説明。既定オン・進む先は開いている一覧の次だけ・いつでもオフ・自分で選んだ設定は更新後も引き継ぐ、の4点を必ず含めること */
+"about.autoPlay.body" = "自動播放預設為開啟：影片結束後，會接著播放你目前開啟的頻道清單中的下一部影片。只會前往該清單中的下一部影片，絕不會前往相關影片或推薦影片。你可以隨時用播放畫面上的「自動播放」切換開關將它關閉；關閉後，影片結束時會停止播放，並出現「播放下一部影片」按鈕。你自己選擇的設定會儲存在裝置上，App 更新後也會保留。本 App 不支援背景播放，因此關閉 App 後，播放與自動播放都會停止。";
+/* このアプリについて: 自動再生の見出し（既定オン） */
+"about.autoPlay.header" = "自動播放（預設為開啟，可隨時關閉）";
+/* データの説明 */
+"about.data.body" = "影片清單來自 YouTube Data API v3。播放時直接嵌入 YouTube 官方播放器。不使用網頁擷取，也不使用自製播放器。";
+/* 見出し: データの取得と再生について */
+"about.data.header" = "資料與播放的運作方式";
+/* 注意4 */
+"about.notice.noAdBlock" = "不會封鎖廣告。";
+/* 注意5 */
+"about.notice.noBackground" = "不會在背景播放。";
+/* 注意3 */
+"about.notice.noDownload" = "不會下載影片。";
+/* 注意1 */
+"about.notice.notOfficial" = "本 App 並非 YouTube 官方 App。";
+/* 注意2 */
+"about.notice.officialPlayer" = "播放使用 YouTube 官方的嵌入式播放器（IFrame Player）。";
+/* 注意6（商標表記） */
+"about.notice.trademark" = "YouTube 是 Google LLC 的商標。";
+/* 見出し: 重要な注意事項 */
+"about.notices.header" = "重要注意事項";
+/* 通知を許可するボタン */
+"about.notify.allow" = "允許通知";
+/* 通知は許可済み */
+"about.notify.enabled" = "已允許通知";
+/* 設定アプリで許可するボタン */
+"about.notify.settings" = "在「設定」中允許通知";
+/* 通知の説明 */
+"about.oneTap.body" = "若允許通知，分享後會立即出現一則通知，點一下即可開啟該頻道。本 App 只會使用這種通知，不會發送消息或宣傳通知，也不使用伺服器推播通知。若不允許，請開啟 App 並使用「開啟分享的連結」。";
+/* 見出し: ワンタップで開く */
+"about.oneTap.header" = "從分享表單一鍵開啟";
+/* 読み上げ: このアプリについて */
+"about.open.a11y" = "關於此 App";
+/* 共有シートの2か所の説明（%@ にアプリ名） */
+"about.pin.body1" = "分享表單中有兩個入口：App 圖示列中的「%@」，以及下方動作清單中的「以 Channel Timeline 開啟」。後者不必開啟「更多」就能找到。";
+/* 並び順の説明 */
+"about.pin.body2" = "分享對象的順序由 iOS 決定，App 無法自行設定。依照以下步驟將它加入「喜好項目」，就會一直顯示在前面。";
+/* 見出し: 共有シートで上位に表示するには */
+"about.pin.header" = "讓它顯示在分享表單的前面";
+/* 固定手順（%@ にアプリ名） */
+"about.pin.steps" = "① 點「分享」→ 將 App 圖示列捲到最右邊 →「更多」\n② 點右上角的「編輯」\n③ 點「%@」旁的「+」，將它加入「喜好項目」\n④ 在清單中將它拖曳到上方 →「完成」";
+/* プライバシーポリシー */
+"about.privacyPolicy" = "隱私權政策";
+/* 続きから再生の説明 */
+"about.resume.body" = "每部影片的播放位置會儲存在裝置上，重新開啟影片時會從上次中斷處繼續播放（預設為開啟）。你可以從播放畫面的「…」選單將它關閉，而「從頭播放」可回到開頭。只會儲存以秒為單位的位置，絕不會儲存影片本身。";
+/* 見出し: 続きから再生 */
+"about.resume.header" = "繼續播放";
+/* 画面ロックの説明 */
+"about.screen.body" = "播放影片時螢幕會保持開啟，因此將裝置放在桌上觀看時，螢幕不會變暗而中斷播放。暫停或離開播放器後，自動鎖定會恢復正常。本 App 不支援背景播放，因此關閉 App 後播放就會停止。";
+/* 見出し: 再生中の画面 */
+"about.screen.header" = "播放時的螢幕";
+/* 共有機能の説明（%@ にアプリ名） */
+"about.share.body1" = "在 YouTube App 或 Safari 的分享按鈕中選擇「%@」，App 就會收到分享的頻道或影片網址。分享功能只會接收網址，不會將任何資料傳送到外部。";
+/* 共有後の流れの説明 */
+"about.share.body2" = "之後開啟本 App，第一個畫面就會出現「開啟分享的連結」。由於 iOS 不允許從分享表單直接啟動 App，因此採用這種方式。";
+/* 見出し: 共有シートから開く */
+"about.share.header" = "從分享表單開啟";
+/* アプリの説明 */
+"about.summary" = "這是一款觀看輔助 App，會依發布日期（由舊到新）排列頻道上傳的影片，讓你一邊追蹤進度，一邊依序看完過往影片、系列或課程。本 App 並非 YouTube 官方 App 的替代品。";
+/* 画面名: このアプリについて */
+"about.title" = "關於此 App";
+/* APIキー未設定の説明 */
+"api.notConfigured.detail" = "請在 Config.plist 中設定 YOUTUBE_API_KEY。設定方式請參閱 README。";
+/* APIキー未設定の見出し */
+"api.notConfigured.title" = "尚未設定 API 金鑰";
+/* 字幕: オフ */
+"captions.off" = "關閉";
+/* チャンネル名が取得できないとき */
+"channel.untitled" = "（無頻道名稱）";
+/* クリップボードにURLが無いとき */
+"clipboard.notFound" = "剪貼簿中找不到 YouTube 連結。請貼上網址後再試一次。";
+/* 共通: キャンセル */
+"common.cancel" = "取消";
+/* 閉じる */
+"common.close" = "關閉";
+/* 削除 */
+"common.delete" = "刪除";
+/* 完了 */
+"common.done" = "完成";
+/* 再試行 */
+"common.retry" = "重試";
+/* 画面下部の注意書き */
+"disclaimer.short" = "本 App 並非 YouTube 官方 App。播放使用 YouTube 官方的嵌入式播放器，不會下載影片、封鎖廣告或在背景播放。";
+/* エラー: APIキー未設定 */
+"error.apiKeyMissing" = "尚未設定 API 金鑰。";
+/* エラー: チャンネルが見つからない */
+"error.channelNotFound" = "找不到頻道。";
+/* エラー: 応答を解釈できない */
+"error.decoding" = "無法載入影片清單。";
+/* エラー: チャンネルURLとして解析できない */
+"error.invalidChannelURL" = "這看起來不是 YouTube 頻道的網址。";
+/* エラー: URLの形式が不正 */
+"error.invalidURL" = "網址無效。";
+/* エラー: 動画URLとして解析できない */
+"error.invalidVideoURL" = "這看起來不是 YouTube 影片的網址。";
+/* エラー: 通信失敗 */
+"error.network" = "連線失敗。";
+/* エラー: API利用上限 */
+"error.quotaExceeded" = "已達 YouTube API 的使用上限，請稍後再試。";
+/* エラー: その他 */
+"error.unknown" = "發生錯誤。";
+/* エラー: 動画一覧を取得できない */
+"error.uploadsPlaylistNotFound" = "無法載入這個頻道的影片清單。";
+/* エラー: 動画から投稿チャンネルを特定できない */
+"error.videoNotFound" = "無法確認這部影片所屬的頻道。";
+/* 削除実行のボタン */
+"favorites.delete.confirm" = "刪除";
+/* 削除確認のタイトル */
+"favorites.delete.title" = "要刪除這個頻道嗎？";
+/* 削除の警告（%@ にチャンネル名）。大きめ・太字・赤で出す */
+"favorites.delete.warning.format" = "刪除這個頻道時，也會刪除「%@」的觀看紀錄、進度和筆記。";
+/* 最終利用日時（%@ に日時） */
+"favorites.lastOpened.format" = "上次開啟：%@";
+/* 進捗（%1$@=視聴済み %2$@=総数 %3$@=割合） */
+"favorites.progress.format" = "已觀看 %1$@ / %2$@ 部（%3$@%%）";
+/* 進捗が未計算のとき */
+"favorites.progressHint" = "開啟頻道後就會顯示進度。";
+/* 続きから見る */
+"favorites.resume" = "繼續觀看";
+/* お気に入り一覧の脚注（削除で記録も消えることを断る） */
+"favorites.section.footer" = "將某一列向左滑動即可刪除。刪除時也會一併移除該頻道的觀看紀錄、進度和筆記。";
+/* Android のお気に入り一覧の脚注。削除で記録も消えることを断る */
+"favorites.section.footer.android" = "使用垃圾桶按鈕即可取消儲存頻道。取消儲存時也會刪除該頻道的觀看紀錄、進度和筆記。";
+/* 見出し: 最近使ったチャンネル */
+"favorites.section.header" = "最近使用的頻道";
+/* 左スワイプで削除の案内 */
+"favorites.swipeHint" = "向左滑動即可刪除";
+/* フィルター: すべて */
+"filter.all" = "全部";
+/* フィルター: 未視聴のみ */
+"filter.unwatched" = "未觀看";
+/* フィルター: 視聴済みのみ */
+"filter.watched" = "已觀看";
+/* 通知を許可して開くボタン */
+"handoff.allowNotification" = "允許通知並開啟";
+/* URLを開けないとき */
+"handoff.error.cannotOpen" = "無法開啟這個網址。";
+/* URLが見つからないとき */
+"handoff.error.noURL" = "找不到 YouTube 網址。\n請從影片或頻道頁面分享。";
+/* 受け渡し中（%@ にアプリ名） */
+"handoff.passing.format" = "正在傳送給 %@…";
+/* 通知準備中 */
+"handoff.preparingNotification" = "正在準備通知…";
+/* URL読み取り中 */
+"handoff.reading" = "正在讀取分享的網址…";
+/* 通知を勧める案内 */
+"handoff.received.askNotification" = "已收到網址。\n若允許通知，只要點一下接著出現的通知即可。\n（若不允許，請開啟 App 並使用「開啟分享的連結」。）";
+/* 受け取り完了の案内（%@ にアプリ名） */
+"handoff.received.format" = "已收到網址。\n開啟 %@ 並點「開啟分享的連結」即可查看這個頻道。";
+/* 読み上げ: 入力を消去 */
+"input.clear.a11y" = "清除文字";
+/* 動画を取得ボタン */
+"input.fetch" = "取得影片";
+/* 取得中のボタン */
+"input.fetching" = "載入中…";
+/* 入力欄の説明（%@ にアプリ名） */
+"input.section.footer" = "在 YouTube App 或 Safari 中分享並選擇「%@」後，此畫面就會出現「開啟分享的連結」。頻道或影片網址皆可。";
+/* 見出し: チャンネルURL */
+"input.section.header" = "頻道網址";
+/* Android 版の共有の説明（%@ にアプリ名）。iOS 版とは動きが違うので別文言 */
+"input.share.android" = "在 YouTube App 或瀏覽器中分享並選擇「%@」，就會立即開啟該頻道的影片清單。頻道或影片網址皆可。";
+/* 全部見終わったとき */
+"list.allWatched" = "全部都看完了 🎉";
+/* 保存済み一覧の案内（%@ に最終更新日時） */
+"list.cached.format" = "正在顯示已儲存的清單（更新於 %@）";
+/* 新着確認中 */
+"list.checkingNew" = "正在檢查新影片…";
+/* 件数（%1$@=表示中 %2$@=全体） */
+"list.count.format" = "顯示 %1$@ 部 / 共 %2$@ 部";
+/* 一覧が空のとき */
+"list.empty" = "這個頻道沒有可顯示的影片。";
+/* 取得失敗の見出し */
+"list.error.title" = "無法載入";
+/* 取得中 */
+"list.loading" = "正在載入影片…";
+/* 読み上げ: 並び替えと表示 */
+"list.menu.a11y" = "排序與篩選";
+/* 新着を確認 */
+"list.menu.checkNew" = "檢查新影片";
+/* すべて再読み込み */
+"list.menu.reloadAll" = "全部重新載入";
+/* 表示（フィルター） */
+"list.menu.show" = "顯示";
+/* 並び替えメニュー */
+"list.menu.sort" = "排序";
+/* 次に見る（%@ に本数） */
+"list.next.new.format" = "下一部：第 %@ 部";
+/* 続きから（%@ に本数） */
+"list.next.resume.format" = "繼續：第 %@ 部";
+/* 検索語を消す（検索欄は開いたまま） */
+"list.search.clear" = "清除";
+/* 検索を閉じる（全件に戻る） */
+"list.search.close" = "關閉搜尋";
+/* 検索結果が0件 */
+"list.search.empty" = "找不到影片";
+/* 動画一覧の検索ボタン（読み上げ）。現在のチャンネル内をタイトルで絞り込む */
+"list.search.open" = "搜尋影片";
+/* 検索欄の案内文（タイトルだけが対象） */
+"list.search.placeholder" = "依標題搜尋";
+/* 新しい順 */
+"list.sort.newest" = "由新到舊";
+/* 古い順 */
+"list.sort.oldest" = "由舊到新";
+/* 共有直後の通知の本文 */
+"notification.sharedLink.body" = "點一下即可開啟分享頻道的影片清單。";
+/* 字幕は既定オフの説明 */
+"options.captions.defaultOff" = "字幕預設為關閉。";
+/* 字幕がまだ読み込まれていないときの説明 */
+"options.captions.notLoaded" = "這部影片的字幕尚未載入。請先開始播放，再重新開啟此畫面（部分影片沒有字幕）。";
+/* 見出し: 字幕 */
+"options.captions.section" = "字幕";
+/* 画質: 自動 */
+"options.quality.auto" = "自動";
+/* 画質の説明 */
+"options.quality.note" = "YouTube 會依你的連線狀況自動調整畫質（官方播放器不允許 App 指定畫質）。\n若要自行選擇，請先開始播放，再點播放器右下角的全螢幕按鈕 → 齒輪 → 畫質（開始播放前不會出現畫質選項）。";
+/* 画質 */
+"options.quality.title" = "畫質";
+/* 見出し: 再生速度 */
+"options.rate.section" = "播放速度";
+/* 画面名: 再生設定 */
+"options.title" = "播放設定";
+/* 自動再生で進んだときの表示 */
+"player.autoAdvanced" = "已前往下一部影片";
+/* 読み上げ: 自動再生トグル */
+"player.autoPlay.a11y" = "影片結束時自動播放下一部";
+/* 自動再生オフのときの説明（いまどう動くかを書く） */
+"player.autoPlay.off.detail" = "影片結束後會停止，並顯示「播放下一部影片」按鈕";
+/* 自動再生オンのときの説明（いまどう動くかを書く） */
+"player.autoPlay.on.detail" = "影片結束後，只會接著播放此清單中的下一部影片";
+/* 自動再生トグルの見出し。⚠️ここに「オン」「オフ」と状態を書かないこと。スイッチの入切と二重否定になり、『「自動再生オフ」がオフ＝自動再生オン？』と読めてしまう（2026-09-16・ユーザー指摘）。状態は下の説明文とスイッチに任せる。 */
+"player.autoPlay.title" = "自動播放";
+/* 再生画面の全幅ボタン。YouTube で動画を開き、コメントしてもらう（…メニューは player.openInYouTube のまま） */
+"player.commentOnYouTube" = "在 YouTube 留言";
+/* 次の動画を再生ボタン */
+"player.ended.playNext" = "播放下一部影片";
+/* 終了時の案内 */
+"player.ended.title" = "播放已結束。下一部：";
+/* メモの自動保存と、入力の終え方の説明 */
+"player.memo.autosave" = "輸入時會自動儲存。點其他地方或「完成」即可結束編輯。";
+/* メモ欄の見出し */
+"player.memo.title" = "筆記（系列觀看與學習用）";
+/* 読み上げ: その他の操作 */
+"player.menu.a11y" = "更多動作";
+/* メニュー: 視聴済みにする */
+"player.menu.markWatched" = "標為已觀看";
+/* メニュー: 最初から再生 */
+"player.menu.restart" = "從頭播放";
+/* メニュー: 続きから再生する */
+"player.menu.resume" = "從上次中斷處繼續";
+/* メニュー: スキップにする */
+"player.menu.skip" = "標為略過";
+/* メニュー: 視聴済みを解除 */
+"player.menu.unmarkWatched" = "標為未觀看";
+/* メニュー: スキップを解除 */
+"player.menu.unskip" = "取消略過";
+/* 全体リピートの説明 */
+"player.mode.repeatAll" = "播完最後一部後回到第一部（自動播放開啟時）。";
+/* 1本リピートの説明 */
+"player.mode.repeatOne" = "重複播放目前的影片。";
+/* スキップの説明 */
+"player.mode.skip" = "標為略過的影片會在自動播放時跳過。";
+/* 未視聴のみ再生の説明 */
+"player.mode.unwatchedOnly" = "已觀看的影片也會跳過，只播放未觀看的影片。";
+/* 移動: 最初へ */
+"player.nav.first" = "第一部";
+/* 移動: 最後へ */
+"player.nav.last" = "最後一部";
+/* 移動: 次へ */
+"player.nav.next" = "下一部";
+/* 移動: 前へ */
+"player.nav.previous" = "上一部";
+/* 移動: 戻す（直前の移動を取り消す） */
+"player.nav.undo" = "復原";
+/* 動画が無いとき */
+"player.noVideos" = "沒有影片";
+/* YouTubeで開く */
+"player.openInYouTube" = "在 YouTube 中開啟";
+/* 読み上げ: 再生設定ボタン */
+"player.options.a11y" = "播放設定";
+/* 再生設定の要約（%1$@=速度 %2$@=字幕） */
+"player.optionsSummary.format" = "速度 %1$@ · 字幕 %2$@";
+/* 公開日と一覧内の位置（%1$@=公開日 %2$@=位置） */
+"player.publishedWithPosition.format" = "%1$@（%2$@）";
+/* 再生速度の表示（%@ に倍率） */
+"player.rate.format" = "%@×";
+/* リピートボタンのヒント */
+"player.repeat.hint" = "點一下即可切換重複播放模式";
+/* 続きから再生中の案内（%@ に時刻） */
+"player.resume.notice.format" = "從 %@ 繼續播放";
+/* 最初から見直すボタン */
+"player.resume.restart" = "從頭開始";
+/* スキップ状態の表示 */
+"player.status.skipped" = "已略過（自動播放時跳過）";
+/* 未視聴のみ再生トグル */
+"player.unwatchedOnly" = "只播放未觀看";
+/* Pro の中心価値 */
+"pro.benefit.multiChannel" = "使用 Pro 可儲存多個 YouTube 頻道，並分別追蹤每個頻道的進度。";
+/* 購入ボタン（価格が取れないとき） */
+"pro.buy" = "購買（一次購買）";
+/* 購入ボタン（%@ に価格） */
+"pro.buy.format" = "以 %@ 購買（一次購買）";
+/* Pro失効の説明 */
+"pro.disabled.body" = "免費版可使用一個頻道。請選擇要繼續免費使用的頻道。已鎖定頻道的觀看紀錄、進度和筆記都會保留。再次購買 Pro 即可使用所有頻道。";
+/* 使うチャンネルを選ぶ導線 */
+"pro.disabled.choose" = "選擇要免費使用的頻道";
+/* Pro失効の見出し */
+"pro.disabled.title" = "Pro 已停用";
+/* ホームからPro画面へ入る行の説明 */
+"pro.entry.body" = "一次購買。免費版可儲存一個頻道。";
+/* ホームからPro画面へ入る行の見出し */
+"pro.entry.title" = "儲存多個頻道（Pro）";
+/* 購入できなかった */
+"pro.error.failed" = "無法完成購買。";
+/* Google Play に繋がらない */
+"pro.error.unavailable" = "無法連線至 Google Play，請稍後再試。";
+/* 無料版の説明 */
+"pro.free.summary" = "免費版可儲存一個頻道。";
+/* 無料でできることの本文（1チャンネル内は制限しない方針） */
+"pro.freeFeatures.body" = "在你儲存的頻道中，所有功能都不受限制：由舊到新或由新到舊排序、觀看紀錄管理、繼續播放、跳轉按鈕、筆記、進度，以及使用官方播放器播放。";
+/* 無料でできることの見出し */
+"pro.freeFeatures.header" = "免費版可使用的功能";
+/* Pro 画面の見出し（買い切りであることを明示） */
+"pro.headline" = "一次購買，即可解鎖儲存多個頻道。";
+/* 入れ替えるボタン */
+"pro.limit.replace" = "替換";
+/* 警告のあとに出す Pro への誘導 */
+"pro.limit.replaceHint" = "若想保留多個頻道的紀錄，請使用 Pro。";
+/* 保存上限の案内タイトル */
+"pro.limit.title" = "你可以儲存一個頻道";
+/* 上限の案内でProへ進むボタン */
+"pro.limit.upgrade" = "取得 Pro";
+/* 上限の案内から Pro の説明画面へ進むボタン */
+"pro.limit.viewPro" = "查看 Pro 的內容";
+/* 入れ替えの警告（%@ に外れるチャンネル名）。大きめ・太字・赤で出す */
+"pro.limit.warning.format" = "替換這個頻道會刪除目前儲存的「%@」的觀看紀錄、進度和筆記。";
+/* 一覧でロック中を示すラベル */
+"pro.locked.badge" = "已鎖定";
+/* ロックの説明（%1$@=開こうとしたチャンネル %2$@=いま使えるチャンネル） */
+"pro.locked.body.format" = "免費版可使用一個頻道。切換到「%1$@」後，將無法使用「%2$@」。兩個頻道的紀錄都不會被刪除。";
+/* ロック中のチャンネルがあるときの案内 */
+"pro.locked.hint" = "購買 Pro 即可再次使用所有已儲存的頻道，紀錄也會完整保留。";
+/* ロック中のチャンネルを開こうとしたときの説明 */
+"pro.locked.open.body" = "這個頻道已鎖定。由於 Pro 已停用，免費版只能使用一個頻道。再次購買 Pro，即可在保留所有觀看紀錄、進度和筆記的情況下繼續使用。";
+/* 切り替えるボタン */
+"pro.locked.switch" = "切換到這個頻道";
+/* ロックされたチャンネルを開こうとしたときのタイトル */
+"pro.locked.title" = "Pro 未啟用";
+/* このチャンネルを無料枠にする */
+"pro.locked.useThis" = "免費使用這個頻道";
+/* Pro の商品名（全言語共通） */
+"pro.name" = "Channel Timeline Viewer Pro";
+/* サブスクではないことの明示（購入画面に必須） */
+"pro.notSubscription" = "這不是訂閱制。";
+/* アクセシビリティ: Pro画面を開く */
+"pro.open.a11y" = "開啟 Pro 說明";
+/* 購入済みの表示 */
+"pro.owned" = "你已擁有 Pro。感謝你的支持。";
+/* 保留中の支払い */
+"pro.pending" = "你的付款正在處理中。付款完成後，Pro 會自動啟用。";
+/* iOS: 価格を取得できなかった */
+"pro.price.failed" = "無法載入價格。請檢查連線後再試一次。";
+/* 価格取得中 */
+"pro.price.loading" = "正在確認價格…";
+/* iOS: 価格の再取得ボタン */
+"pro.price.retry" = "重新載入價格";
+/* Pro で解放される機能の本文 */
+"pro.proFeatures.body" = "儲存多個頻道、分別追蹤每個頻道的進度，以及管理已儲存的清單。你不必替換頻道，因此觀看紀錄、進度和筆記都不會被清除。也包含日後推出的進階管理功能。";
+/* Pro で解放される機能の見出し */
+"pro.proFeatures.header" = "Pro 解鎖的功能";
+/* 購入の復元ボタン */
+"pro.restore" = "恢復購買";
+/* 復元できた */
+"pro.restore.done" = "已恢復你的購買項目。";
+/* 復元の説明 */
+"pro.restore.hint" = "只要使用相同的 Google 帳戶，重新安裝或更換裝置後都能恢復購買。";
+/* iOS: 復元の説明（Apple アカウント） */
+"pro.restore.hint.apple" = "只要使用相同的 Apple 帳號，重新安裝或更換裝置後都能恢復購買。";
+/* 復元できる購入がなかった */
+"pro.restore.none" = "找不到這個 Google 帳戶的購買紀錄。";
+/* iOS: 復元できる購入が無かった（Apple アカウント） */
+"pro.restore.none.apple" = "找不到這個 Apple 帳號的購買紀錄。";
+/* 進捗の内訳（%1$@=視聴済み %2$@=総数 %3$@=割合） */
+"progress.count.format" = "%1$@ / %2$@（%3$@%%）";
+/* 進捗 */
+"progress.title" = "進度";
+/* 読み上げ: 全体リピート */
+"repeat.a11y.all" = "重複播放所有影片";
+/* 読み上げ: リピートオフ */
+"repeat.a11y.off" = "重複播放已關閉";
+/* 読み上げ: 1本リピート */
+"repeat.a11y.one" = "重複播放單部影片";
+/* リピート: 全体 */
+"repeat.all" = "全部";
+/* リピート: オフ */
+"repeat.off" = "關閉";
+/* リピート: 1本 */
+"repeat.one" = "單部";
+/* クリップボードにURLがある案内 */
+"share.clipboardHint" = "你分享的連結已在剪貼簿中。";
+/* 共有されたURLを開くボタン */
+"share.openSharedURL" = "開啟分享的連結";
+/* 共有直後の通知を許可してもらう理由（入力画面・未許可のときだけ出す） */
+"shareTips.notify.why" = "點一下分享後立即出現的通知，就能直接開啟該頻道。我們絕不會發送消息或宣傳通知。";
+/* 前へ */
+"tutorial.back" = "上一步";
+/* 閉じる */
+"tutorial.close" = "關閉";
+/* 最後のボタン: YouTubeを開いて試す */
+"tutorial.cta" = "開啟 YouTube 試試看";
+/* 例示の注記: 提携を示すものではないこと */
+"tutorial.example.note" = "截圖以 NASA 的公開頻道為例。本 App 與 YouTube 或 NASA 無任何關聯，也未獲其認可或贊助。";
+/* 次へ */
+"tutorial.next" = "下一步";
+/* 読み上げ: チュートリアルを開く */
+"tutorial.open.a11y" = "查看如何新增頻道";
+/* 進み具合（%1$@ / %2$@） */
+"tutorial.progress.format" = "%1$@ / %2$@";
+/* スキップ */
+"tutorial.skip" = "略過";
+/* 手順1の説明 */
+"tutorial.step1.body" = "在 YouTube App 中，開啟想新增之頻道的影片，或該頻道的頁面。";
+/* 読み上げ: 手順1の画像 */
+"tutorial.step1.image.a11y" = "在 YouTube 中開啟的頻道頁面";
+/* 手順1の見出し */
+"tutorial.step1.title" = "在 YouTube 中開啟想看的內容";
+/* 手順2の説明（共有ボタンの場所） */
+"tutorial.step2.body" = "點影片下方的「分享」，或頻道頁面選單中的「分享」。";
+/* 読み上げ: 手順2の画像 */
+"tutorial.step2.image.a11y" = "標示出「分享」按鈕的畫面";
+/* 手順2の見出し */
+"tutorial.step2.title" = "點「分享」";
+/* 手順3の説明（Android） */
+"tutorial.step3.body" = "從 App 清單中選擇 %@。如果沒看到，請開啟「更多」。";
+/* 手順3の説明（iOS） */
+"tutorial.step3.body.ios" = "捲動分享表單並選擇 %@。如果沒看到，請在「更多」中尋找。";
+/* 読み上げ: 手順3の画像（アプリ名を %@ で入れる） */
+"tutorial.step3.image.a11y" = "分享表單中標示出 %@ 的畫面";
+/* 手順3の見出し（アプリ名を %@ で入れる） */
+"tutorial.step3.title" = "選擇 %@";
+/* 手順4の説明（Android） */
+"tutorial.step4.body" = "該頻道的影片會立即以由舊到新的順序開啟，方便你依序觀看。";
+/* 手順4の説明（iOS・通知をタップ） */
+"tutorial.step4.body.ios" = "會出現一則通知，告訴你分享的頻道已準備好。點一下即可開啟由舊到新排列的影片清單。";
+/* 読み上げ: 手順4の画像（アプリ名を %@ で入れる） */
+"tutorial.step4.image.a11y" = "%@ 顯示影片清單的畫面";
+/* 手順4の見出し */
+"tutorial.step4.title" = "影片清單隨即開啟";
+/* 手順4の見出し（iOS・通知をタップする） */
+"tutorial.step4.title.ios" = "點一下通知";
+/* 画面名: チャンネルの追加方法 */
+"tutorial.title" = "如何新增頻道";
+/* スワイプ: 未視聴に戻す */
+"video.markUnwatched" = "標為未觀看";
+/* スキップ */
+"video.skip" = "略過";
+/* スキップ解除 */
+"video.unskip" = "取消略過";
+/* タイトルが取得できないとき */
+"video.untitled" = "（無標題）";
+/* 視聴済み */
+"video.watched" = "已觀看";

@@ -2,9 +2,9 @@ name: ChannelTimelineViewer
 
 options:
   bundleIdPrefix: com.deskflowlabs
-  # 7言語対応（arrows-lite と同じ言語セット）
+  # アプリ画面は35言語（2026-10-01 に7言語から拡大。画像・ヘルプ・規約は7言語のまま）
   developmentLanguage: ja
-  knownRegions: [ja, en, zh-Hans, es, de, fr, ko]
+  knownRegions: [ja, en, zh-Hans, es, de, fr, ko, ar, bn, cs, nl, fil, el, hi, hu, id, it, kn, mr, pl, pt-BR, pa, ro, ru, sv, ta, te, th, zh-Hant, tr, uk, ur, vi, ms, zu]
   deploymentTarget:
     iOS: "17.0"
   createIntermediateGroups: true

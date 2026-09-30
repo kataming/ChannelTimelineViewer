@@ -1,0 +1,465 @@
+/* このファイルは scripts/build_localizations.py が生成します。直接編集しないこと。 */
+/* language: fil */
+
+/* このアプリについて: 自動再生の説明。既定オン・進む先は開いている一覧の次だけ・いつでもオフ・自分で選んだ設定は更新後も引き継ぐ、の4点を必ず含めること */
+"about.autoPlay.body" = "Naka-on ang autoplay bilang default: kapag natapos ang isang video, tutuloy ang pag-play sa susunod na video sa listahan ng channel na nakabukas sa iyo. Lilipat lang ito sa susunod na video sa listahang iyon — hindi kailanman sa mga kaugnay o inirerekomendang video. Puwede mo itong i-off anumang oras gamit ang toggle na “Autoplay” sa screen ng player; pagkatapos ay hihinto ang pag-play kapag natapos ang video at lalabas ang button na “I-play ang susunod na video”. Naka-save sa device ang sarili mong pinili at nananatili ito kapag nag-update ang app. Walang background playback, kaya kapag isinara ang app, hihinto ang pag-play at ang autoplay.";
+/* このアプリについて: 自動再生の見出し（既定オン） */
+"about.autoPlay.header" = "Autoplay (naka-on bilang default, puwedeng i-off anumang oras)";
+/* データの説明 */
+"about.data.body" = "Galing sa YouTube Data API v3 ang mga listahan ng video. Ang pag-play ay gumagamit ng opisyal na player ng YouTube nang walang binago. Walang scraping at walang sariling player.";
+/* 見出し: データの取得と再生について */
+"about.data.header" = "Paano gumagana ang data at pag-play";
+/* 注意4 */
+"about.notice.noAdBlock" = "Hindi ito nagba-block ng mga ad.";
+/* 注意5 */
+"about.notice.noBackground" = "Hindi ito nagpe-play sa background.";
+/* 注意3 */
+"about.notice.noDownload" = "Hindi ito nagda-download ng mga video.";
+/* 注意1 */
+"about.notice.notOfficial" = "Hindi ito ang opisyal na YouTube app.";
+/* 注意2 */
+"about.notice.officialPlayer" = "Ginagamit sa pag-play ang opisyal na embedded player ng YouTube (IFrame Player).";
+/* 注意6（商標表記） */
+"about.notice.trademark" = "Ang YouTube ay trademark ng Google LLC.";
+/* 見出し: 重要な注意事項 */
+"about.notices.header" = "Mahahalagang paalala";
+/* 通知を許可するボタン */
+"about.notify.allow" = "Payagan ang mga notification";
+/* 通知は許可済み */
+"about.notify.enabled" = "Pinapayagan ang mga notification";
+/* 設定アプリで許可するボタン */
+"about.notify.settings" = "Payagan ang notification sa Settings";
+/* 通知の説明 */
+"about.oneTap.body" = "Kung papayagan mo ang mga notification, may lalabas agad pagkatapos mong mag-share at isang tap lang ay bubukas na ang channel na iyon. Iyan lang ang notification na ginagamit — walang balita o promosyon, at walang server push notification. Kung hindi mo papayagan, buksan ang app at gamitin ang “Buksan ang ibinahaging link”.";
+/* 見出し: ワンタップで開く */
+"about.oneTap.header" = "Pagbubukas sa isang tap mula sa share sheet";
+/* 読み上げ: このアプリについて */
+"about.open.a11y" = "Tungkol sa app na ito";
+/* 共有シートの2か所の説明（%@ にアプリ名） */
+"about.pin.body1" = "May dalawang pasukan sa share sheet: ang “%@” sa hanay ng mga icon ng app, at ang “Buksan sa Channel Timeline” sa listahan ng aksyon sa ibaba. Maaabot ang huli nang hindi binubuksan ang “Higit pa”.";
+/* 並び順の説明 */
+"about.pin.body2" = "Ang iOS ang nagpapasya ng pagkakasunod ng mga share target, kaya hindi ito maitatakda ng app. I-pin ito sa Favorites gamit ang mga hakbang sa ibaba at lagi itong lalabas malapit sa itaas.";
+/* 見出し: 共有シートで上位に表示するには */
+"about.pin.header" = "Ipakita ito malapit sa itaas ng share sheet";
+/* 固定手順（%@ にアプリ名） */
+"about.pin.steps" = "① I-tap ang Share → i-scroll ang hanay ng mga icon ng app hanggang sa dulong kanan → “Higit pa”\n② I-tap ang “I-edit” sa kanang itaas\n③ I-tap ang “+” sa tabi ng “%@” para idagdag sa Favorites\n④ I-drag ito pataas sa listahan → “Tapos na”";
+/* プライバシーポリシー */
+"about.privacyPolicy" = "Patakaran sa privacy";
+/* 続きから再生の説明 */
+"about.resume.body" = "Naka-save sa device ang posisyon ng pag-play ng bawat video, kaya kapag binuksan ulit ang video, itutuloy ito kung saan ka huminto (naka-on bilang default). Puwede mo itong i-off mula sa menu na “…” sa screen ng player, at ibabalik ka sa simula ng “I-play mula sa simula”. Ang posisyon lang sa segundo ang sine-save — hindi kailanman ang video mismo.";
+/* 見出し: 続きから再生 */
+"about.resume.header" = "Ituloy ang pag-play";
+/* 画面ロックの説明 */
+"about.screen.body" = "Habang nagpe-play ang video, nananatiling gising ang screen, kaya hindi ito magdi-dim at makakaabala kapag nakapatong ang device sa mesa. Kapag nag-pause ka o umalis sa player, babalik sa normal ang auto-lock. Walang background playback, kaya kapag isinara ang app, hihinto ang pag-play.";
+/* 見出し: 再生中の画面 */
+"about.screen.header" = "Ang screen habang nagpe-play";
+/* 共有機能の説明（%@ にアプリ名） */
+"about.share.body1" = "Piliin ang “%@” mula sa share button sa YouTube app o Safari at matatanggap ng app ang ibinahaging URL ng channel o video. URL lang ang natatanggap sa pag-share — walang ipinapadala kahit saan.";
+/* 共有後の流れの説明 */
+"about.share.body2" = "Pagkatapos, buksan ang app na ito at lalabas ang “Buksan ang ibinahaging link” sa unang screen. Hindi pinapayagan ng iOS na direktang magbukas ng app ang share sheet, kaya ganito ang proseso.";
+/* 見出し: 共有シートから開く */
+"about.share.header" = "Pagbubukas mula sa share sheet";
+/* アプリの説明 */
+"about.summary" = "Isang kasama sa panonood na naglilista ng mga upload ng isang channel ayon sa petsa ng pag-publish (pinakaluma muna) para matapos mo ang mga archive, serye, o kurso habang sinusubaybayan ang iyong progreso. Hindi ito kapalit ng opisyal na YouTube app.";
+/* 画面名: このアプリについて */
+"about.title" = "Tungkol sa app na ito";
+/* APIキー未設定の説明 */
+"api.notConfigured.detail" = "Itakda ang YOUTUBE_API_KEY sa Config.plist. Tingnan ang README para sa paraan ng pag-set up.";
+/* APIキー未設定の見出し */
+"api.notConfigured.title" = "Hindi naka-configure ang API key";
+/* 字幕: オフ */
+"captions.off" = "Off";
+/* チャンネル名が取得できないとき */
+"channel.untitled" = "(Walang pangalan ng channel)";
+/* クリップボードにURLが無いとき */
+"clipboard.notFound" = "Walang nahanap na YouTube link sa clipboard. Mag-paste ng URL at subukang muli.";
+/* 共通: キャンセル */
+"common.cancel" = "Kanselahin";
+/* 閉じる */
+"common.close" = "Isara";
+/* 削除 */
+"common.delete" = "I-delete";
+/* 完了 */
+"common.done" = "Tapos na";
+/* 再試行 */
+"common.retry" = "Subukang muli";
+/* 画面下部の注意書き */
+"disclaimer.short" = "Hindi ito ang opisyal na YouTube app. Ginagamit sa pag-play ang opisyal na embedded player ng YouTube; hindi ito nagda-download ng video, hindi nagba-block ng ad, at hindi nagpe-play sa background.";
+/* エラー: APIキー未設定 */
+"error.apiKeyMissing" = "Walang naka-configure na API key.";
+/* エラー: チャンネルが見つからない */
+"error.channelNotFound" = "Hindi nahanap ang channel.";
+/* エラー: 応答を解釈できない */
+"error.decoding" = "Hindi ma-load ang listahan ng video.";
+/* エラー: チャンネルURLとして解析できない */
+"error.invalidChannelURL" = "Mukhang hindi ito URL ng YouTube channel.";
+/* エラー: URLの形式が不正 */
+"error.invalidURL" = "Hindi valid ang URL.";
+/* エラー: 動画URLとして解析できない */
+"error.invalidVideoURL" = "Mukhang hindi ito URL ng YouTube video.";
+/* エラー: 通信失敗 */
+"error.network" = "Nabigo ang koneksyon.";
+/* エラー: API利用上限 */
+"error.quotaExceeded" = "Naabot na ang limit ng YouTube API. Pakisubukang muli mamaya.";
+/* エラー: その他 */
+"error.unknown" = "Nagkaproblema.";
+/* エラー: 動画一覧を取得できない */
+"error.uploadsPlaylistNotFound" = "Hindi ma-load ang listahan ng video ng channel na ito.";
+/* エラー: 動画から投稿チャンネルを特定できない */
+"error.videoNotFound" = "Hindi matukoy ang channel ng video na ito.";
+/* 削除実行のボタン */
+"favorites.delete.confirm" = "I-delete";
+/* 削除確認のタイトル */
+"favorites.delete.title" = "I-delete ang channel na ito?";
+/* 削除の警告（%@ にチャンネル名）。大きめ・太字・赤で出す */
+"favorites.delete.warning.format" = "Ang pag-delete sa channel na ito ay magbubura rin ng history ng napanood, progreso, at mga tala ng “%@”.";
+/* 最終利用日時（%@ に日時） */
+"favorites.lastOpened.format" = "Huling binuksan: %@";
+/* 進捗（%1$@=視聴済み %2$@=総数 %3$@=割合） */
+"favorites.progress.format" = "%1$@ sa %2$@ ang napanood (%3$@%%)";
+/* 進捗が未計算のとき */
+"favorites.progressHint" = "Lalabas ang progreso kapag binuksan mo ang channel.";
+/* 続きから見る */
+"favorites.resume" = "Ituloy ang panonood";
+/* お気に入り一覧の脚注（削除で記録も消えることを断る） */
+"favorites.section.footer" = "Mag-swipe pakaliwa sa isang row para i-delete ito. Buburahin din ng pag-delete ang history ng napanood, progreso, at mga tala ng channel na iyon.";
+/* Android のお気に入り一覧の脚注。削除で記録も消えることを断る */
+"favorites.section.footer.android" = "Gamitin ang trash button para alisin sa naka-save ang isang channel. Buburahin din nito ang history ng napanood, progreso, at mga tala nito.";
+/* 見出し: 最近使ったチャンネル */
+"favorites.section.header" = "Mga kamakailang channel";
+/* 左スワイプで削除の案内 */
+"favorites.swipeHint" = "Mag-swipe pakaliwa para i-delete";
+/* フィルター: すべて */
+"filter.all" = "Lahat";
+/* フィルター: 未視聴のみ */
+"filter.unwatched" = "Hindi pa napanood";
+/* フィルター: 視聴済みのみ */
+"filter.watched" = "Napanood na";
+/* 通知を許可して開くボタン */
+"handoff.allowNotification" = "Payagan ang notification at buksan";
+/* URLを開けないとき */
+"handoff.error.cannotOpen" = "Hindi mabuksan ang URL na ito.";
+/* URLが見つからないとき */
+"handoff.error.noURL" = "Walang nahanap na YouTube URL.\nMag-share mula sa page ng video o channel.";
+/* 受け渡し中（%@ にアプリ名） */
+"handoff.passing.format" = "Ipinapasa sa %@…";
+/* 通知準備中 */
+"handoff.preparingNotification" = "Inihahanda ang notification…";
+/* URL読み取り中 */
+"handoff.reading" = "Binabasa ang ibinahaging URL…";
+/* 通知を勧める案内 */
+"handoff.received.askNotification" = "Natanggap ang URL.\nKung papayagan mo ang mga notification, i-tap mo lang ang susunod na lalabas na notification.\n(Kung hindi, buksan ang app at gamitin ang “Buksan ang ibinahaging link”.)";
+/* 受け取り完了の案内（%@ にアプリ名） */
+"handoff.received.format" = "Natanggap ang URL.\nBuksan ang %@ at i-tap ang “Buksan ang ibinahaging link” para makita ang channel na ito.";
+/* 読み上げ: 入力を消去 */
+"input.clear.a11y" = "I-clear ang text";
+/* 動画を取得ボタン */
+"input.fetch" = "Kunin ang mga video";
+/* 取得中のボタン */
+"input.fetching" = "Nilo-load…";
+/* 入力欄の説明（%@ にアプリ名） */
+"input.section.footer" = "Mag-share mula sa YouTube app o Safari at piliin ang “%@” — pagkatapos ay lalabas ang “Buksan ang ibinahaging link” sa screen na ito. Gumagana ang URL ng channel at ng video.";
+/* 見出し: チャンネルURL */
+"input.section.header" = "URL ng channel";
+/* Android 版の共有の説明（%@ にアプリ名）。iOS 版とは動きが違うので別文言 */
+"input.share.android" = "Mag-share mula sa YouTube app o browser at piliin ang “%@” — agad na bubukas ang listahan ng video ng channel. Gumagana ang URL ng channel at ng video.";
+/* 全部見終わったとき */
+"list.allWatched" = "Napanood mo na ang lahat 🎉";
+/* 保存済み一覧の案内（%@ に最終更新日時） */
+"list.cached.format" = "Ipinapakita ang naka-save na listahan (na-update %@)";
+/* 新着確認中 */
+"list.checkingNew" = "Tinitingnan kung may bagong video…";
+/* 件数（%1$@=表示中 %2$@=全体） */
+"list.count.format" = "Ipinapakita ang %1$@ sa %2$@";
+/* 一覧が空のとき */
+"list.empty" = "Walang maipapakitang video ang channel na ito.";
+/* 取得失敗の見出し */
+"list.error.title" = "Hindi ma-load";
+/* 取得中 */
+"list.loading" = "Nilo-load ang mga video…";
+/* 読み上げ: 並び替えと表示 */
+"list.menu.a11y" = "Ayusin at i-filter";
+/* 新着を確認 */
+"list.menu.checkNew" = "Tingnan kung may bagong video";
+/* すべて再読み込み */
+"list.menu.reloadAll" = "I-reload lahat";
+/* 表示（フィルター） */
+"list.menu.show" = "Ipakita";
+/* 並び替えメニュー */
+"list.menu.sort" = "Ayusin";
+/* 次に見る（%@ に本数） */
+"list.next.new.format" = "Susunod: #%@";
+/* 続きから（%@ に本数） */
+"list.next.resume.format" = "Ituloy: #%@";
+/* 検索語を消す（検索欄は開いたまま） */
+"list.search.clear" = "I-clear";
+/* 検索を閉じる（全件に戻る） */
+"list.search.close" = "Isara ang paghahanap";
+/* 検索結果が0件 */
+"list.search.empty" = "Walang nahanap na video";
+/* 動画一覧の検索ボタン（読み上げ）。現在のチャンネル内をタイトルで絞り込む */
+"list.search.open" = "Maghanap ng video";
+/* 検索欄の案内文（タイトルだけが対象） */
+"list.search.placeholder" = "Maghanap ayon sa pamagat";
+/* 新しい順 */
+"list.sort.newest" = "Pinakabago muna";
+/* 古い順 */
+"list.sort.oldest" = "Pinakaluma muna";
+/* 共有直後の通知の本文 */
+"notification.sharedLink.body" = "I-tap para buksan ang listahan ng video ng ibinahaging channel.";
+/* 字幕は既定オフの説明 */
+"options.captions.defaultOff" = "Naka-off ang mga caption bilang default.";
+/* 字幕がまだ読み込まれていないときの説明 */
+"options.captions.notLoaded" = "Hindi pa naglo-load ang mga caption ng video na ito. Simulan ang pag-play, pagkatapos ay buksan ulit ang sheet na ito (may mga video na walang caption).";
+/* 見出し: 字幕 */
+"options.captions.section" = "Mga caption";
+/* 画質: 自動 */
+"options.quality.auto" = "Auto";
+/* 画質の説明 */
+"options.quality.note" = "Awtomatikong inaayos ng YouTube ang kalidad batay sa iyong koneksyon (hindi pinapayagan ng opisyal na player na itakda ito ng mga app).\nPara ikaw ang pumili, simulan ang pag-play, pagkatapos ay gamitin ang full-screen button sa kanang ibaba ng player → gear → Kalidad (hindi lumalabas ang kalidad bago magsimula ang pag-play).";
+/* 画質 */
+"options.quality.title" = "Kalidad";
+/* 見出し: 再生速度 */
+"options.rate.section" = "Bilis ng pag-play";
+/* 画面名: 再生設定 */
+"options.title" = "Mga setting ng pag-play";
+/* 自動再生で進んだときの表示 */
+"player.autoAdvanced" = "Lumipat sa susunod na video";
+/* 読み上げ: 自動再生トグル */
+"player.autoPlay.a11y" = "Awtomatikong i-play ang susunod kapag natapos ang video";
+/* 自動再生オフのときの説明（いまどう動くかを書く） */
+"player.autoPlay.off.detail" = "Kapag natapos ang video, hihinto at magpapakita ng button na “I-play ang susunod na video”";
+/* 自動再生オンのときの説明（いまどう動くかを書く） */
+"player.autoPlay.on.detail" = "Kapag natapos ang video, ang susunod na video lang sa listahang ito ang ipe-play";
+/* 自動再生トグルの見出し。⚠️ここに「オン」「オフ」と状態を書かないこと。スイッチの入切と二重否定になり、『「自動再生オフ」がオフ＝自動再生オン？』と読めてしまう（2026-09-16・ユーザー指摘）。状態は下の説明文とスイッチに任せる。 */
+"player.autoPlay.title" = "Autoplay";
+/* 再生画面の全幅ボタン。YouTube で動画を開き、コメントしてもらう（…メニューは player.openInYouTube のまま） */
+"player.commentOnYouTube" = "Mag-comment sa YouTube";
+/* 次の動画を再生ボタン */
+"player.ended.playNext" = "I-play ang susunod na video";
+/* 終了時の案内 */
+"player.ended.title" = "Tapos na ang pag-play. Susunod:";
+/* メモの自動保存と、入力の終え方の説明 */
+"player.memo.autosave" = "Awtomatikong nase-save habang nagta-type. I-tap sa ibang lugar o ang “Tapos na” para matapos ang pag-edit.";
+/* メモ欄の見出し */
+"player.memo.title" = "Mga tala (para sa serye at pag-aaral)";
+/* 読み上げ: その他の操作 */
+"player.menu.a11y" = "Iba pang aksyon";
+/* メニュー: 視聴済みにする */
+"player.menu.markWatched" = "Markahang napanood";
+/* メニュー: 最初から再生 */
+"player.menu.restart" = "I-play mula sa simula";
+/* メニュー: 続きから再生する */
+"player.menu.resume" = "Ituloy kung saan ako huminto";
+/* メニュー: スキップにする */
+"player.menu.skip" = "Markahang laktawan";
+/* メニュー: 視聴済みを解除 */
+"player.menu.unmarkWatched" = "Markahang hindi napanood";
+/* メニュー: スキップを解除 */
+"player.menu.unskip" = "Huwag laktawan";
+/* 全体リピートの説明 */
+"player.mode.repeatAll" = "Bumabalik sa unang video pagkatapos ng huli (kapag naka-on ang autoplay).";
+/* 1本リピートの説明 */
+"player.mode.repeatOne" = "Inuulit ang kasalukuyang video.";
+/* スキップの説明 */
+"player.mode.skip" = "Nilalaktawan sa autoplay ang mga video na minarkahang laktawan.";
+/* 未視聴のみ再生の説明 */
+"player.mode.unwatchedOnly" = "Nilalaktawan din ang mga napanood na, kaya ang hindi pa napanood lang ang ipe-play.";
+/* 移動: 最初へ */
+"player.nav.first" = "Una";
+/* 移動: 最後へ */
+"player.nav.last" = "Huli";
+/* 移動: 次へ */
+"player.nav.next" = "Susunod";
+/* 移動: 前へ */
+"player.nav.previous" = "Nakaraan";
+/* 移動: 戻す（直前の移動を取り消す） */
+"player.nav.undo" = "I-undo";
+/* 動画が無いとき */
+"player.noVideos" = "Walang video";
+/* YouTubeで開く */
+"player.openInYouTube" = "Buksan sa YouTube";
+/* 読み上げ: 再生設定ボタン */
+"player.options.a11y" = "Mga setting ng pag-play";
+/* 再生設定の要約（%1$@=速度 %2$@=字幕） */
+"player.optionsSummary.format" = "Bilis %1$@ · Caption %2$@";
+/* 公開日と一覧内の位置（%1$@=公開日 %2$@=位置） */
+"player.publishedWithPosition.format" = "%1$@ (%2$@)";
+/* 再生速度の表示（%@ に倍率） */
+"player.rate.format" = "%@×";
+/* リピートボタンのヒント */
+"player.repeat.hint" = "I-tap para palitan ang repeat mode";
+/* 続きから再生中の案内（%@ に時刻） */
+"player.resume.notice.format" = "Itinutuloy mula %@";
+/* 最初から見直すボタン */
+"player.resume.restart" = "Ulitin mula simula";
+/* スキップ状態の表示 */
+"player.status.skipped" = "Nilaktawan (nilalampasan sa autoplay)";
+/* 未視聴のみ再生トグル */
+"player.unwatchedOnly" = "I-play lang ang hindi pa napanood";
+/* Pro の中心価値 */
+"pro.benefit.multiChannel" = "Sa Pro, makakapag-save ka ng maraming YouTube channel at masusubaybayan ang progreso ng bawat isa.";
+/* 購入ボタン（価格が取れないとき） */
+"pro.buy" = "Bilhin (isang beses)";
+/* 購入ボタン（%@ に価格） */
+"pro.buy.format" = "Bilhin sa halagang %@ (isang beses)";
+/* Pro失効の説明 */
+"pro.disabled.body" = "Sa libreng bersyon, isang channel lang ang magagamit mo. Piliin kung aling channel ang patuloy na gagamitin nang libre. Nananatili sa mga naka-lock na channel ang history ng napanood, progreso, at mga tala. Bilhin ulit ang Pro para magamit ang lahat ng channel.";
+/* 使うチャンネルを選ぶ導線 */
+"pro.disabled.choose" = "Piliin ang channel na mananatiling libre";
+/* Pro失効の見出し */
+"pro.disabled.title" = "Hindi na aktibo ang Pro";
+/* ホームからPro画面へ入る行の説明 */
+"pro.entry.body" = "Isang beses na bayad. Isang channel ang nase-save ng libreng bersyon.";
+/* ホームからPro画面へ入る行の見出し */
+"pro.entry.title" = "Mag-save ng maraming channel (Pro)";
+/* 購入できなかった */
+"pro.error.failed" = "Hindi makumpleto ang pagbili.";
+/* Google Play に繋がらない */
+"pro.error.unavailable" = "Hindi maabot ang Google Play. Pakisubukang muli mamaya.";
+/* 無料版の説明 */
+"pro.free.summary" = "Sa libreng bersyon, makakapag-save ka ng isang channel.";
+/* 無料でできることの本文（1チャンネル内は制限しない方針） */
+"pro.freeFeatures.body" = "Sa loob ng naka-save mong channel, gumagana ang lahat nang walang limitasyon: pag-aayos mula pinakaluma o pinakabago, pagsubaybay sa napanood, pagtuloy, mga jump button, mga tala, progreso, at pag-play sa opisyal na player.";
+/* 無料でできることの見出し */
+"pro.freeFeatures.header" = "Ano ang libre";
+/* Pro 画面の見出し（買い切りであることを明示） */
+"pro.headline" = "Isang beses na bayad na nagbubukas ng pag-save ng maraming channel.";
+/* 入れ替えるボタン */
+"pro.limit.replace" = "Palitan";
+/* 警告のあとに出す Pro への誘導 */
+"pro.limit.replaceHint" = "Kung gusto mong itago ang history ng ilang channel, gamitin ang Pro.";
+/* 保存上限の案内タイトル */
+"pro.limit.title" = "Isang channel lang ang puwedeng i-save";
+/* 上限の案内でProへ進むボタン */
+"pro.limit.upgrade" = "Kunin ang Pro";
+/* 上限の案内から Pro の説明画面へ進むボタン */
+"pro.limit.viewPro" = "Tingnan ang kasama sa Pro";
+/* 入れ替えの警告（%@ に外れるチャンネル名）。大きめ・太字・赤で出す */
+"pro.limit.warning.format" = "Ang pagpapalit sa channel na ito ay magbubura ng history ng napanood, progreso, at mga tala ng kasalukuyang naka-save na “%@”.";
+/* 一覧でロック中を示すラベル */
+"pro.locked.badge" = "Naka-lock";
+/* ロックの説明（%1$@=開こうとしたチャンネル %2$@=いま使えるチャンネル） */
+"pro.locked.body.format" = "Sa libreng bersyon, isang channel lang ang magagamit mo. Kapag lumipat sa “%1$@”, hindi na magagamit ang “%2$@”. Walang mabubura sa mga record ng alinmang channel.";
+/* ロック中のチャンネルがあるときの案内 */
+"pro.locked.hint" = "Bilhin ang Pro para magamit ulit ang lahat ng naka-save na channel, buo ang lahat ng record.";
+/* ロック中のチャンネルを開こうとしたときの説明 */
+"pro.locked.open.body" = "Naka-lock ang channel na ito. Hindi na aktibo ang Pro, kaya isang channel lang ang pinapayagan ng libreng bersyon. Bilhin ulit ang Pro para magpatuloy nang buo ang history ng napanood, progreso, at mga tala.";
+/* 切り替えるボタン */
+"pro.locked.switch" = "Lumipat sa channel na ito";
+/* ロックされたチャンネルを開こうとしたときのタイトル */
+"pro.locked.title" = "Hindi aktibo ang Pro";
+/* このチャンネルを無料枠にする */
+"pro.locked.useThis" = "Gamitin nang libre ang channel na ito";
+/* Pro の商品名（全言語共通） */
+"pro.name" = "Channel Timeline Viewer Pro";
+/* サブスクではないことの明示（購入画面に必須） */
+"pro.notSubscription" = "Hindi ito subscription.";
+/* アクセシビリティ: Pro画面を開く */
+"pro.open.a11y" = "Buksan ang detalye ng Pro";
+/* 購入済みの表示 */
+"pro.owned" = "Mayroon ka nang Pro. Salamat.";
+/* 保留中の支払い */
+"pro.pending" = "Nakabinbin ang iyong bayad. Awtomatikong mag-o-on ang Pro kapag nakumpleto ito.";
+/* iOS: 価格を取得できなかった */
+"pro.price.failed" = "Hindi ma-load ang presyo. Tingnan ang iyong koneksyon at subukang muli.";
+/* 価格取得中 */
+"pro.price.loading" = "Tinitingnan ang presyo…";
+/* iOS: 価格の再取得ボタン */
+"pro.price.retry" = "I-reload ang presyo";
+/* Pro で解放される機能の本文 */
+"pro.proFeatures.body" = "Mag-save ng maraming channel, subaybayan ang progreso bawat channel, at pamahalaan ang iyong naka-save na listahan. Hindi mo na kailangang magpalit ng channel, kaya hindi kailanman mabubura ang history ng napanood, progreso, at mga tala. Kasama ang mga susunod na advanced na feature sa pamamahala.";
+/* Pro で解放される機能の見出し */
+"pro.proFeatures.header" = "Ano ang nabubuksan ng Pro";
+/* 購入の復元ボタン */
+"pro.restore" = "I-restore ang pagbili";
+/* 復元できた */
+"pro.restore.done" = "Na-restore na ang iyong pagbili.";
+/* 復元の説明 */
+"pro.restore.hint" = "Basta't parehong Google account ang gamit mo, maire-restore mo ito pagkatapos mag-reinstall o magpalit ng device.";
+/* iOS: 復元の説明（Apple アカウント） */
+"pro.restore.hint.apple" = "Basta't parehong Apple Account ang gamit mo, maire-restore mo ito pagkatapos mag-reinstall o magpalit ng device.";
+/* 復元できる購入がなかった */
+"pro.restore.none" = "Walang nahanap na pagbili para sa Google account na ito.";
+/* iOS: 復元できる購入が無かった（Apple アカウント） */
+"pro.restore.none.apple" = "Walang nahanap na pagbili para sa Apple Account na ito.";
+/* 進捗の内訳（%1$@=視聴済み %2$@=総数 %3$@=割合） */
+"progress.count.format" = "%1$@ / %2$@ (%3$@%%)";
+/* 進捗 */
+"progress.title" = "Progreso";
+/* 読み上げ: 全体リピート */
+"repeat.a11y.all" = "Ulitin ang lahat ng video";
+/* 読み上げ: リピートオフ */
+"repeat.a11y.off" = "Naka-off ang ulit";
+/* 読み上げ: 1本リピート */
+"repeat.a11y.one" = "Ulitin ang isang video";
+/* リピート: 全体 */
+"repeat.all" = "Lahat";
+/* リピート: オフ */
+"repeat.off" = "Off";
+/* リピート: 1本 */
+"repeat.one" = "Isa";
+/* クリップボードにURLがある案内 */
+"share.clipboardHint" = "Nasa clipboard ang link na ibinahagi mo.";
+/* 共有されたURLを開くボタン */
+"share.openSharedURL" = "Buksan ang ibinahaging link";
+/* 共有直後の通知を許可してもらう理由（入力画面・未許可のときだけ出す） */
+"shareTips.notify.why" = "Kapag na-tap ang notification na lalabas agad pagkatapos mong mag-share, bubukas agad ang channel. Hindi kami kailanman nagpapadala ng notification ng balita o promosyon.";
+/* 前へ */
+"tutorial.back" = "Bumalik";
+/* 閉じる */
+"tutorial.close" = "Isara";
+/* 最後のボタン: YouTubeを開いて試す */
+"tutorial.cta" = "Buksan ang YouTube at Subukan";
+/* 例示の注記: 提携を示すものではないこと */
+"tutorial.example.note" = "Ginagamit ng mga screenshot ang pampublikong channel ng NASA bilang halimbawa. Ang app na ito ay hindi kaanib, hindi ineendorso, at hindi isinusponsor ng YouTube o NASA.";
+/* 次へ */
+"tutorial.next" = "Susunod";
+/* 読み上げ: チュートリアルを開く */
+"tutorial.open.a11y" = "Tingnan kung paano magdagdag ng channel";
+/* 進み具合（%1$@ / %2$@） */
+"tutorial.progress.format" = "%1$@ sa %2$@";
+/* スキップ */
+"tutorial.skip" = "Laktawan";
+/* 手順1の説明 */
+"tutorial.step1.body" = "Sa YouTube app, magbukas ng video mula sa channel na gusto mong idagdag, o ang mismong page ng channel.";
+/* 読み上げ: 手順1の画像 */
+"tutorial.step1.image.a11y" = "Ang page ng channel na nakabukas sa YouTube";
+/* 手順1の見出し */
+"tutorial.step1.title" = "Buksan sa YouTube ang gusto mong panoorin";
+/* 手順2の説明（共有ボタンの場所） */
+"tutorial.step2.body" = "I-tap ang Share sa ilalim ng video, o sa menu sa page ng channel.";
+/* 読み上げ: 手順2の画像 */
+"tutorial.step2.image.a11y" = "Naka-highlight ang Share button";
+/* 手順2の見出し */
+"tutorial.step2.title" = "I-tap ang Share";
+/* 手順3の説明（Android） */
+"tutorial.step3.body" = "Piliin ang %@ sa listahan ng mga app. Kung hindi mo ito makita, buksan ang “Higit pa”.";
+/* 手順3の説明（iOS） */
+"tutorial.step3.body.ios" = "I-scroll ang share sheet at piliin ang %@. Kung hindi mo ito makita, tingnan sa “Higit pa”.";
+/* 読み上げ: 手順3の画像（アプリ名を %@ で入れる） */
+"tutorial.step3.image.a11y" = "Ang share sheet na naka-highlight ang %@";
+/* 手順3の見出し（アプリ名を %@ で入れる） */
+"tutorial.step3.title" = "Piliin ang %@";
+/* 手順4の説明（Android） */
+"tutorial.step4.body" = "Agad na bubukas ang mga video ng channel, pinakaluma muna, handang panoorin nang sunod-sunod.";
+/* 手順4の説明（iOS・通知をタップ） */
+"tutorial.step4.body.ios" = "May lalabas na notification na nagsasabing handa na ang ibinahaging channel. I-tap ito para buksan ang listahan ng video, pinakaluma muna.";
+/* 読み上げ: 手順4の画像（アプリ名を %@ で入れる） */
+"tutorial.step4.image.a11y" = "Ang %@ na nagpapakita ng listahan ng video";
+/* 手順4の見出し */
+"tutorial.step4.title" = "Bubukas ang listahan ng video";
+/* 手順4の見出し（iOS・通知をタップする） */
+"tutorial.step4.title.ios" = "I-tap ang notification";
+/* 画面名: チャンネルの追加方法 */
+"tutorial.title" = "Paano Magdagdag ng Channel";
+/* スワイプ: 未視聴に戻す */
+"video.markUnwatched" = "Markahang hindi napanood";
+/* スキップ */
+"video.skip" = "Laktawan";
+/* スキップ解除 */
+"video.unskip" = "Huwag laktawan";
+/* タイトルが取得できないとき */
+"video.untitled" = "(Walang pamagat)";
+/* 視聴済み */
+"video.watched" = "Napanood";

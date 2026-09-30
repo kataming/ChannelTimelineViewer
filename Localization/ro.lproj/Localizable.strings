@@ -1,0 +1,465 @@
+/* このファイルは scripts/build_localizations.py が生成します。直接編集しないこと。 */
+/* language: ro */
+
+/* このアプリについて: 自動再生の説明。既定オン・進む先は開いている一覧の次だけ・いつでもオフ・自分で選んだ設定は更新後も引き継ぐ、の4点を必ず含めること */
+"about.autoPlay.body" = "Redarea automată este activată implicit: când un videoclip se termină, redarea continuă cu următorul videoclip din lista canalului pe care o aveți deschisă. Trece doar la următorul videoclip din acea listă — niciodată la videoclipuri similare sau recomandate. O puteți dezactiva oricând cu comutatorul „Redare automată” de pe ecranul playerului; atunci redarea se oprește la finalul videoclipului și apare butonul „Redați următorul videoclip”. Alegerea dvs. este salvată pe dispozitiv și se păstrează la actualizarea aplicației. Nu există redare în fundal, așa că închiderea aplicației oprește atât redarea, cât și redarea automată.";
+/* このアプリについて: 自動再生の見出し（既定オン） */
+"about.autoPlay.header" = "Redare automată (activată implicit, o puteți dezactiva oricând)";
+/* データの説明 */
+"about.data.body" = "Listele de videoclipuri provin din YouTube Data API v3. Redarea încorporează playerul oficial YouTube așa cum este. Fără scraping și fără player propriu.";
+/* 見出し: データの取得と再生について */
+"about.data.header" = "Cum funcționează datele și redarea";
+/* 注意4 */
+"about.notice.noAdBlock" = "Nu blochează reclamele.";
+/* 注意5 */
+"about.notice.noBackground" = "Nu redă în fundal.";
+/* 注意3 */
+"about.notice.noDownload" = "Nu descarcă videoclipuri.";
+/* 注意1 */
+"about.notice.notOfficial" = "Această aplicație nu este aplicația oficială YouTube.";
+/* 注意2 */
+"about.notice.officialPlayer" = "Redarea folosește playerul încorporat oficial YouTube (IFrame Player).";
+/* 注意6（商標表記） */
+"about.notice.trademark" = "YouTube este o marcă comercială a Google LLC.";
+/* 見出し: 重要な注意事項 */
+"about.notices.header" = "Informații importante";
+/* 通知を許可するボタン */
+"about.notify.allow" = "Permiteți notificările";
+/* 通知は許可済み */
+"about.notify.enabled" = "Notificările sunt permise";
+/* 設定アプリで許可するボタン */
+"about.notify.settings" = "Permiteți notificările în Configurări";
+/* 通知の説明 */
+"about.oneTap.body" = "Dacă permiteți notificările, imediat după partajare apare o notificare, iar o singură atingere deschide canalul respectiv. Este singura notificare folosită — fără noutăți sau promoții și fără notificări push de la server. Dacă nu le permiteți, deschideți aplicația și folosiți „Deschideți linkul partajat”.";
+/* 見出し: ワンタップで開く */
+"about.oneTap.header" = "Deschidere cu o singură atingere din foaia de partajare";
+/* 読み上げ: このアプリについて */
+"about.open.a11y" = "Despre această aplicație";
+/* 共有シートの2か所の説明（%@ にアプリ名） */
+"about.pin.body1" = "Foaia de partajare are două puncte de intrare: „%@” în rândul de pictograme ale aplicațiilor și „Deschideți în Channel Timeline” în lista de acțiuni de mai jos. Acesta din urmă este accesibil fără a deschide „Mai multe”.";
+/* 並び順の説明 */
+"about.pin.body2" = "Ordinea destinațiilor de partajare este stabilită de iOS, deci aplicația nu o poate seta. Fixați-o la Favorite urmând pașii de mai jos și va apărea mereu în partea de sus.";
+/* 見出し: 共有シートで上位に表示するには */
+"about.pin.header" = "Afișarea în partea de sus a foii de partajare";
+/* 固定手順（%@ にアプリ名） */
+"about.pin.steps" = "① Atingeți Partajați → derulați rândul de pictograme ale aplicațiilor până la capăt spre dreapta → „Mai multe”\n② Atingeți „Editați” în dreapta sus\n③ Atingeți „+” de lângă „%@” pentru a o adăuga la Favorite\n④ Trageți-o mai sus în listă → „Gata”";
+/* プライバシーポリシー */
+"about.privacyPolicy" = "Politica de confidențialitate";
+/* 続きから再生の説明 */
+"about.resume.body" = "Poziția de redare a fiecărui videoclip este stocată pe dispozitiv, astfel încât, când redeschideți un videoclip, acesta se reia de unde ați rămas (activat implicit). Puteți dezactiva funcția din meniul „…” de pe ecranul playerului, iar „Redați de la început” revine la început. Se stochează doar poziția în secunde — niciodată videoclipul în sine.";
+/* 見出し: 続きから再生 */
+"about.resume.header" = "Reluarea redării";
+/* 画面ロックの説明 */
+"about.screen.body" = "Cât timp se redă un videoclip, ecranul rămâne aprins, ca să nu se întunece și să vă întrerupă când dispozitivul stă pe masă. Când puneți pauză sau părăsiți playerul, blocarea automată revine la normal. Nu există redare în fundal, așa că închiderea aplicației oprește redarea.";
+/* 見出し: 再生中の画面 */
+"about.screen.header" = "Ecranul în timpul redării";
+/* 共有機能の説明（%@ にアプリ名） */
+"about.share.body1" = "Alegeți „%@” din butonul de partajare al aplicației YouTube sau din Safari, iar aplicația primește adresa URL a canalului sau a videoclipului partajat. Partajarea doar primește adresa URL — nu se trimite nimic nicăieri.";
+/* 共有後の流れの説明 */
+"about.share.body2" = "Apoi deschideți această aplicație, iar pe primul ecran apare „Deschideți linkul partajat”. iOS nu permite ca foaia de partajare să lanseze direct o aplicație, de aceea funcționează astfel.";
+/* 見出し: 共有シートから開く */
+"about.share.header" = "Deschiderea din foaia de partajare";
+/* アプリの説明 */
+"about.summary" = "Un însoțitor de vizionare care listează videoclipurile unui canal după data publicării (cele mai vechi primele), ca să puteți parcurge arhive, serii sau cursuri urmărindu-vă progresul. Nu înlocuiește aplicația oficială YouTube.";
+/* 画面名: このアプリについて */
+"about.title" = "Despre această aplicație";
+/* APIキー未設定の説明 */
+"api.notConfigured.detail" = "Setați YOUTUBE_API_KEY în Config.plist. Consultați README pentru modul de configurare.";
+/* APIキー未設定の見出し */
+"api.notConfigured.title" = "Cheia API nu este configurată";
+/* 字幕: オフ */
+"captions.off" = "Dezactivate";
+/* チャンネル名が取得できないとき */
+"channel.untitled" = "(Fără numele canalului)";
+/* クリップボードにURLが無いとき */
+"clipboard.notFound" = "Nu s-a găsit niciun link YouTube în clipboard. Lipiți o adresă URL și încercați din nou.";
+/* 共通: キャンセル */
+"common.cancel" = "Anulați";
+/* 閉じる */
+"common.close" = "Închideți";
+/* 削除 */
+"common.delete" = "Ștergeți";
+/* 完了 */
+"common.done" = "Gata";
+/* 再試行 */
+"common.retry" = "Reîncercați";
+/* 画面下部の注意書き */
+"disclaimer.short" = "Această aplicație nu este aplicația oficială YouTube. Redarea folosește playerul încorporat oficial YouTube; nu descarcă videoclipuri, nu blochează reclame și nu redă în fundal.";
+/* エラー: APIキー未設定 */
+"error.apiKeyMissing" = "Nu este configurată nicio cheie API.";
+/* エラー: チャンネルが見つからない */
+"error.channelNotFound" = "Canalul nu a fost găsit.";
+/* エラー: 応答を解釈できない */
+"error.decoding" = "Nu s-a putut încărca lista de videoclipuri.";
+/* エラー: チャンネルURLとして解析できない */
+"error.invalidChannelURL" = "Aceasta nu pare a fi adresa URL a unui canal YouTube.";
+/* エラー: URLの形式が不正 */
+"error.invalidURL" = "Adresa URL nu este validă.";
+/* エラー: 動画URLとして解析できない */
+"error.invalidVideoURL" = "Aceasta nu pare a fi adresa URL a unui videoclip YouTube.";
+/* エラー: 通信失敗 */
+"error.network" = "Conexiunea a eșuat.";
+/* エラー: API利用上限 */
+"error.quotaExceeded" = "Limita YouTube API a fost atinsă. Încercați din nou mai târziu.";
+/* エラー: その他 */
+"error.unknown" = "A apărut o eroare.";
+/* エラー: 動画一覧を取得できない */
+"error.uploadsPlaylistNotFound" = "Nu s-a putut încărca lista de videoclipuri a acestui canal.";
+/* エラー: 動画から投稿チャンネルを特定できない */
+"error.videoNotFound" = "Nu s-a putut identifica canalul acestui videoclip.";
+/* 削除実行のボタン */
+"favorites.delete.confirm" = "Ștergeți";
+/* 削除確認のタイトル */
+"favorites.delete.title" = "Ștergeți acest canal?";
+/* 削除の警告（%@ にチャンネル名）。大きめ・太字・赤で出す */
+"favorites.delete.warning.format" = "Ștergerea acestui canal șterge și istoricul vizionărilor, progresul și notițele canalului „%@”.";
+/* 最終利用日時（%@ に日時） */
+"favorites.lastOpened.format" = "Ultima deschidere: %@";
+/* 進捗（%1$@=視聴済み %2$@=総数 %3$@=割合） */
+"favorites.progress.format" = "%1$@ din %2$@ vizionate (%3$@%%)";
+/* 進捗が未計算のとき */
+"favorites.progressHint" = "Progresul apare după ce deschideți canalul.";
+/* 続きから見る */
+"favorites.resume" = "Continuați vizionarea";
+/* お気に入り一覧の脚注（削除で記録も消えることを断る） */
+"favorites.section.footer" = "Glisați un rând la stânga pentru a-l șterge. Ștergerea elimină și istoricul vizionărilor, progresul și notițele canalului respectiv.";
+/* Android のお気に入り一覧の脚注。削除で記録も消えることを断る */
+"favorites.section.footer.android" = "Folosiți butonul coș de gunoi pentru a elimina un canal salvat. Eliminarea șterge și istoricul vizionărilor, progresul și notițele acestuia.";
+/* 見出し: 最近使ったチャンネル */
+"favorites.section.header" = "Canale recente";
+/* 左スワイプで削除の案内 */
+"favorites.swipeHint" = "Glisați la stânga pentru a șterge";
+/* フィルター: すべて */
+"filter.all" = "Toate";
+/* フィルター: 未視聴のみ */
+"filter.unwatched" = "Nevizionate";
+/* フィルター: 視聴済みのみ */
+"filter.watched" = "Vizionate";
+/* 通知を許可して開くボタン */
+"handoff.allowNotification" = "Permiteți notificările și deschideți";
+/* URLを開けないとき */
+"handoff.error.cannotOpen" = "Această adresă URL nu a putut fi deschisă.";
+/* URLが見つからないとき */
+"handoff.error.noURL" = "Nu s-a găsit nicio adresă URL YouTube.\nPartajați de pe pagina unui videoclip sau a unui canal.";
+/* 受け渡し中（%@ にアプリ名） */
+"handoff.passing.format" = "Se transmite către %@…";
+/* 通知準備中 */
+"handoff.preparingNotification" = "Se pregătește notificarea…";
+/* URL読み取り中 */
+"handoff.reading" = "Se citește adresa URL partajată…";
+/* 通知を勧める案内 */
+"handoff.received.askNotification" = "Adresa URL a fost primită.\nDacă permiteți notificările, trebuie doar să atingeți notificarea care apare imediat.\n(Altfel, deschideți aplicația și folosiți „Deschideți linkul partajat”.)";
+/* 受け取り完了の案内（%@ にアプリ名） */
+"handoff.received.format" = "Adresa URL a fost primită.\nDeschideți %@ și atingeți „Deschideți linkul partajat” pentru a vedea acest canal.";
+/* 読み上げ: 入力を消去 */
+"input.clear.a11y" = "Ștergeți textul";
+/* 動画を取得ボタン */
+"input.fetch" = "Obțineți videoclipurile";
+/* 取得中のボタン */
+"input.fetching" = "Se încarcă…";
+/* 入力欄の説明（%@ にアプリ名） */
+"input.section.footer" = "Partajați din aplicația YouTube sau din Safari și alegeți „%@” — apoi pe acest ecran apare „Deschideți linkul partajat”. Funcționează atât adresele URL de canal, cât și cele de videoclip.";
+/* 見出し: チャンネルURL */
+"input.section.header" = "URL-ul canalului";
+/* Android 版の共有の説明（%@ にアプリ名）。iOS 版とは動きが違うので別文言 */
+"input.share.android" = "Partajați din aplicația YouTube sau dintr-un browser și alegeți „%@” — lista de videoclipuri a canalului se deschide imediat. Funcționează atât adresele URL de canal, cât și cele de videoclip.";
+/* 全部見終わったとき */
+"list.allWatched" = "Ați vizionat tot 🎉";
+/* 保存済み一覧の案内（%@ に最終更新日時） */
+"list.cached.format" = "Se afișează lista salvată (actualizată %@)";
+/* 新着確認中 */
+"list.checkingNew" = "Se caută videoclipuri noi…";
+/* 件数（%1$@=表示中 %2$@=全体） */
+"list.count.format" = "Se afișează %1$@ din %2$@";
+/* 一覧が空のとき */
+"list.empty" = "Acest canal nu are videoclipuri de afișat.";
+/* 取得失敗の見出し */
+"list.error.title" = "Nu s-a putut încărca";
+/* 取得中 */
+"list.loading" = "Se încarcă videoclipurile…";
+/* 読み上げ: 並び替えと表示 */
+"list.menu.a11y" = "Sortare și filtrare";
+/* 新着を確認 */
+"list.menu.checkNew" = "Verificați videoclipurile noi";
+/* すべて再読み込み */
+"list.menu.reloadAll" = "Reîncărcați tot";
+/* 表示（フィルター） */
+"list.menu.show" = "Afișare";
+/* 並び替えメニュー */
+"list.menu.sort" = "Sortare";
+/* 次に見る（%@ に本数） */
+"list.next.new.format" = "Urmează: nr. %@";
+/* 続きから（%@ に本数） */
+"list.next.resume.format" = "Continuare: nr. %@";
+/* 検索語を消す（検索欄は開いたまま） */
+"list.search.clear" = "Ștergeți";
+/* 検索を閉じる（全件に戻る） */
+"list.search.close" = "Închideți căutarea";
+/* 検索結果が0件 */
+"list.search.empty" = "Nu s-au găsit videoclipuri";
+/* 動画一覧の検索ボタン（読み上げ）。現在のチャンネル内をタイトルで絞り込む */
+"list.search.open" = "Căutați videoclipuri";
+/* 検索欄の案内文（タイトルだけが対象） */
+"list.search.placeholder" = "Căutați după titlu";
+/* 新しい順 */
+"list.sort.newest" = "Cele mai noi primele";
+/* 古い順 */
+"list.sort.oldest" = "Cele mai vechi primele";
+/* 共有直後の通知の本文 */
+"notification.sharedLink.body" = "Atingeți pentru a deschide lista de videoclipuri a canalului partajat.";
+/* 字幕は既定オフの説明 */
+"options.captions.defaultOff" = "Subtitrările sunt dezactivate în mod implicit.";
+/* 字幕がまだ読み込まれていないときの説明 */
+"options.captions.notLoaded" = "Subtitrările pentru acest videoclip nu s-au încărcat încă. Porniți redarea, apoi deschideți din nou acest panou (unele videoclipuri nu au subtitrări).";
+/* 見出し: 字幕 */
+"options.captions.section" = "Subtitrări";
+/* 画質: 自動 */
+"options.quality.auto" = "Automată";
+/* 画質の説明 */
+"options.quality.note" = "YouTube ajustează calitatea automat în funcție de conexiune (playerul oficial nu permite aplicațiilor să o seteze).\nPentru a o alege dvs., porniți redarea, apoi folosiți butonul de ecran complet din dreapta jos a playerului → rotița → Calitate (opțiunea de calitate nu apare înainte de începerea redării).";
+/* 画質 */
+"options.quality.title" = "Calitate";
+/* 見出し: 再生速度 */
+"options.rate.section" = "Viteză de redare";
+/* 画面名: 再生設定 */
+"options.title" = "Setări de redare";
+/* 自動再生で進んだときの表示 */
+"player.autoAdvanced" = "S-a trecut la următorul videoclip";
+/* 読み上げ: 自動再生トグル */
+"player.autoPlay.a11y" = "Redă automat următorul la finalul videoclipului";
+/* 自動再生オフのときの説明（いまどう動くかを書く） */
+"player.autoPlay.off.detail" = "La finalul unui videoclip, se oprește și afișează butonul „Redați următorul videoclip”";
+/* 自動再生オンのときの説明（いまどう動くかを書く） */
+"player.autoPlay.on.detail" = "La finalul unui videoclip, redă doar următorul videoclip din această listă";
+/* 自動再生トグルの見出し。⚠️ここに「オン」「オフ」と状態を書かないこと。スイッチの入切と二重否定になり、『「自動再生オフ」がオフ＝自動再生オン？』と読めてしまう（2026-09-16・ユーザー指摘）。状態は下の説明文とスイッチに任せる。 */
+"player.autoPlay.title" = "Redare automată";
+/* 再生画面の全幅ボタン。YouTube で動画を開き、コメントしてもらう（…メニューは player.openInYouTube のまま） */
+"player.commentOnYouTube" = "Comentați pe YouTube";
+/* 次の動画を再生ボタン */
+"player.ended.playNext" = "Redați următorul videoclip";
+/* 終了時の案内 */
+"player.ended.title" = "Redarea s-a încheiat. Urmează:";
+/* メモの自動保存と、入力の終え方の説明 */
+"player.memo.autosave" = "Se salvează automat pe măsură ce scrieți. Atingeți în altă parte sau „Gata” pentru a termina editarea.";
+/* メモ欄の見出し */
+"player.memo.title" = "Notițe (pentru serii și studiu)";
+/* 読み上げ: その他の操作 */
+"player.menu.a11y" = "Mai multe acțiuni";
+/* メニュー: 視聴済みにする */
+"player.menu.markWatched" = "Marcați ca vizionat";
+/* メニュー: 最初から再生 */
+"player.menu.restart" = "Redați de la început";
+/* メニュー: 続きから再生する */
+"player.menu.resume" = "Reluați de unde ați rămas";
+/* メニュー: スキップにする */
+"player.menu.skip" = "Marcați pentru omitere";
+/* メニュー: 視聴済みを解除 */
+"player.menu.unmarkWatched" = "Marcați ca nevizionat";
+/* メニュー: スキップを解除 */
+"player.menu.unskip" = "Nu omiteți";
+/* 全体リピートの説明 */
+"player.mode.repeatAll" = "După ultimul videoclip revine la primul (când redarea automată este activată).";
+/* 1本リピートの説明 */
+"player.mode.repeatOne" = "Repetă videoclipul curent.";
+/* スキップの説明 */
+"player.mode.skip" = "Videoclipurile marcate pentru omitere sunt sărite în timpul redării automate.";
+/* 未視聴のみ再生の説明 */
+"player.mode.unwatchedOnly" = "Sunt sărite și videoclipurile vizionate, deci se redau doar cele nevizionate.";
+/* 移動: 最初へ */
+"player.nav.first" = "Primul";
+/* 移動: 最後へ */
+"player.nav.last" = "Ultimul";
+/* 移動: 次へ */
+"player.nav.next" = "Următorul";
+/* 移動: 前へ */
+"player.nav.previous" = "Anterior";
+/* 移動: 戻す（直前の移動を取り消す） */
+"player.nav.undo" = "Anulați";
+/* 動画が無いとき */
+"player.noVideos" = "Niciun videoclip";
+/* YouTubeで開く */
+"player.openInYouTube" = "Deschideți în YouTube";
+/* 読み上げ: 再生設定ボタン */
+"player.options.a11y" = "Setări de redare";
+/* 再生設定の要約（%1$@=速度 %2$@=字幕） */
+"player.optionsSummary.format" = "Viteză %1$@ · Subtitrări %2$@";
+/* 公開日と一覧内の位置（%1$@=公開日 %2$@=位置） */
+"player.publishedWithPosition.format" = "%1$@ (%2$@)";
+/* 再生速度の表示（%@ に倍率） */
+"player.rate.format" = "%@×";
+/* リピートボタンのヒント */
+"player.repeat.hint" = "Atingeți pentru a schimba modul de repetare";
+/* 続きから再生中の案内（%@ に時刻） */
+"player.resume.notice.format" = "Se reia de la %@";
+/* 最初から見直すボタン */
+"player.resume.restart" = "De la început";
+/* スキップ状態の表示 */
+"player.status.skipped" = "Omis (sărit în timpul redării automate)";
+/* 未視聴のみ再生トグル */
+"player.unwatchedOnly" = "Redă doar nevizionatele";
+/* Pro の中心価値 */
+"pro.benefit.multiChannel" = "Cu Pro puteți salva mai multe canale YouTube și urmări progresul pentru fiecare.";
+/* 購入ボタン（価格が取れないとき） */
+"pro.buy" = "Cumpărați (o singură plată)";
+/* 購入ボタン（%@ に価格） */
+"pro.buy.format" = "Cumpărați cu %@ (o singură plată)";
+/* Pro失効の説明 */
+"pro.disabled.body" = "Versiunea gratuită vă permite să folosiți un canal. Alegeți canalul pe care doriți să-l folosiți în continuare gratuit. Canalele blocate își păstrează istoricul vizionărilor, progresul și notițele. Cumpărați din nou Pro pentru a folosi toate canalele.";
+/* 使うチャンネルを選ぶ導線 */
+"pro.disabled.choose" = "Alegeți canalul gratuit";
+/* Pro失効の見出し */
+"pro.disabled.title" = "Pro nu mai este activ";
+/* ホームからPro画面へ入る行の説明 */
+"pro.entry.body" = "Achiziție unică. Versiunea gratuită salvează un canal.";
+/* ホームからPro画面へ入る行の見出し */
+"pro.entry.title" = "Salvați mai multe canale (Pro)";
+/* 購入できなかった */
+"pro.error.failed" = "Achiziția nu a putut fi finalizată.";
+/* Google Play に繋がらない */
+"pro.error.unavailable" = "Nu s-a putut accesa Google Play. Încercați din nou mai târziu.";
+/* 無料版の説明 */
+"pro.free.summary" = "Versiunea gratuită vă permite să salvați un canal.";
+/* 無料でできることの本文（1チャンネル内は制限しない方針） */
+"pro.freeFeatures.body" = "În canalul salvat totul funcționează fără limite: sortare de la cele mai vechi sau cele mai noi, evidența videoclipurilor vizionate, reluare, butoane de navigare, notițe, progres și redare în playerul oficial.";
+/* 無料でできることの見出し */
+"pro.freeFeatures.header" = "Ce primiți gratuit";
+/* Pro 画面の見出し（買い切りであることを明示） */
+"pro.headline" = "O achiziție unică ce deblochează salvarea mai multor canale.";
+/* 入れ替えるボタン */
+"pro.limit.replace" = "Înlocuiți";
+/* 警告のあとに出す Pro への誘導 */
+"pro.limit.replaceHint" = "Dacă doriți să păstrați istoricul mai multor canale, folosiți Pro.";
+/* 保存上限の案内タイトル */
+"pro.limit.title" = "Puteți salva un canal";
+/* 上限の案内でProへ進むボタン */
+"pro.limit.upgrade" = "Obțineți Pro";
+/* 上限の案内から Pro の説明画面へ進むボタン */
+"pro.limit.viewPro" = "Vedeți ce include Pro";
+/* 入れ替えの警告（%@ に外れるチャンネル名）。大きめ・太字・赤で出す */
+"pro.limit.warning.format" = "Înlocuirea acestui canal șterge istoricul vizionărilor, progresul și notițele canalului salvat în prezent, „%@”.";
+/* 一覧でロック中を示すラベル */
+"pro.locked.badge" = "Blocat";
+/* ロックの説明（%1$@=開こうとしたチャンネル %2$@=いま使えるチャンネル） */
+"pro.locked.body.format" = "Versiunea gratuită vă permite să folosiți un canal. Dacă treceți la „%1$@”, „%2$@” devine indisponibil. Datele niciunuia dintre canale nu sunt șterse.";
+/* ロック中のチャンネルがあるときの案内 */
+"pro.locked.hint" = "Cumpărați Pro pentru a folosi din nou toate canalele salvate, cu toate datele intacte.";
+/* ロック中のチャンネルを開こうとしたときの説明 */
+"pro.locked.open.body" = "Acest canal este blocat. Pro nu mai este activ, așa că versiunea gratuită permite un singur canal. Cumpărați din nou Pro pentru a continua cu istoricul vizionărilor, progresul și notițele intacte.";
+/* 切り替えるボタン */
+"pro.locked.switch" = "Treceți la acest canal";
+/* ロックされたチャンネルを開こうとしたときのタイトル */
+"pro.locked.title" = "Pro nu este activ";
+/* このチャンネルを無料枠にする */
+"pro.locked.useThis" = "Folosiți gratuit acest canal";
+/* Pro の商品名（全言語共通） */
+"pro.name" = "Channel Timeline Viewer Pro";
+/* サブスクではないことの明示（購入画面に必須） */
+"pro.notSubscription" = "Nu este un abonament.";
+/* アクセシビリティ: Pro画面を開く */
+"pro.open.a11y" = "Deschideți detaliile Pro";
+/* 購入済みの表示 */
+"pro.owned" = "Aveți Pro. Vă mulțumim!";
+/* 保留中の支払い */
+"pro.pending" = "Plata este în așteptare. Pro se activează automat după finalizarea acesteia.";
+/* iOS: 価格を取得できなかった */
+"pro.price.failed" = "Prețul nu a putut fi încărcat. Verificați conexiunea și încercați din nou.";
+/* 価格取得中 */
+"pro.price.loading" = "Se verifică prețul…";
+/* iOS: 価格の再取得ボタン */
+"pro.price.retry" = "Reîncărcați prețul";
+/* Pro で解放される機能の本文 */
+"pro.proFeatures.body" = "Salvarea mai multor canale, urmărirea progresului pentru fiecare canal și gestionarea listei salvate. Nu trebuie să înlocuiți niciodată un canal, așa că istoricul vizionărilor, progresul și notițele nu sunt șterse niciodată. Sunt incluse și viitoarele funcții avansate de gestionare.";
+/* Pro で解放される機能の見出し */
+"pro.proFeatures.header" = "Ce deblochează Pro";
+/* 購入の復元ボタン */
+"pro.restore" = "Restabiliți achiziția";
+/* 復元できた */
+"pro.restore.done" = "Achiziția a fost restabilită.";
+/* 復元の説明 */
+"pro.restore.hint" = "Dacă folosiți același cont Google, o puteți restabili după reinstalare sau schimbarea dispozitivului.";
+/* iOS: 復元の説明（Apple アカウント） */
+"pro.restore.hint.apple" = "Dacă folosiți același cont Apple, o puteți restabili după reinstalare sau schimbarea dispozitivului.";
+/* 復元できる購入がなかった */
+"pro.restore.none" = "Nu s-a găsit nicio achiziție pentru acest cont Google.";
+/* iOS: 復元できる購入が無かった（Apple アカウント） */
+"pro.restore.none.apple" = "Nu s-a găsit nicio achiziție pentru acest cont Apple.";
+/* 進捗の内訳（%1$@=視聴済み %2$@=総数 %3$@=割合） */
+"progress.count.format" = "%1$@ / %2$@ (%3$@%%)";
+/* 進捗 */
+"progress.title" = "Progres";
+/* 読み上げ: 全体リピート */
+"repeat.a11y.all" = "Repetă toate videoclipurile";
+/* 読み上げ: リピートオフ */
+"repeat.a11y.off" = "Repetare dezactivată";
+/* 読み上げ: 1本リピート */
+"repeat.a11y.one" = "Repetă un videoclip";
+/* リピート: 全体 */
+"repeat.all" = "Toate";
+/* リピート: オフ */
+"repeat.off" = "Dezactivat";
+/* リピート: 1本 */
+"repeat.one" = "Unul";
+/* クリップボードにURLがある案内 */
+"share.clipboardHint" = "Linkul partajat se află în clipboard.";
+/* 共有されたURLを開くボタン */
+"share.openSharedURL" = "Deschideți linkul partajat";
+/* 共有直後の通知を許可してもらう理由（入力画面・未許可のときだけ出す） */
+"shareTips.notify.why" = "Atingând notificarea care apare imediat după partajare, canalul se deschide direct. Nu trimitem niciodată notificări cu noutăți sau promoții.";
+/* 前へ */
+"tutorial.back" = "Înapoi";
+/* 閉じる */
+"tutorial.close" = "Închideți";
+/* 最後のボタン: YouTubeを開いて試す */
+"tutorial.cta" = "Deschideți YouTube și încercați";
+/* 例示の注記: 提携を示すものではないこと */
+"tutorial.example.note" = "Capturile de ecran folosesc ca exemplu canalul public al NASA. Această aplicație nu este afiliată cu YouTube sau NASA și nu este aprobată ori sponsorizată de acestea.";
+/* 次へ */
+"tutorial.next" = "Înainte";
+/* 読み上げ: チュートリアルを開く */
+"tutorial.open.a11y" = "Vedeți cum adăugați un canal";
+/* 進み具合（%1$@ / %2$@） */
+"tutorial.progress.format" = "%1$@ din %2$@";
+/* スキップ */
+"tutorial.skip" = "Omiteți";
+/* 手順1の説明 */
+"tutorial.step1.body" = "În aplicația YouTube, deschideți un videoclip de pe canalul pe care doriți să-l adăugați sau chiar pagina canalului.";
+/* 読み上げ: 手順1の画像 */
+"tutorial.step1.image.a11y" = "Pagina canalului deschisă în YouTube";
+/* 手順1の見出し */
+"tutorial.step1.title" = "Deschideți în YouTube ce doriți să vizionați";
+/* 手順2の説明（共有ボタンの場所） */
+"tutorial.step2.body" = "Atingeți Distribuiți sub videoclip sau în meniul de pe pagina canalului.";
+/* 読み上げ: 手順2の画像 */
+"tutorial.step2.image.a11y" = "Butonul Distribuiți evidențiat";
+/* 手順2の見出し */
+"tutorial.step2.title" = "Atingeți Distribuiți";
+/* 手順3の説明（Android） */
+"tutorial.step3.body" = "Alegeți %@ din lista de aplicații. Dacă nu o vedeți, deschideți „Mai multe”.";
+/* 手順3の説明（iOS） */
+"tutorial.step3.body.ios" = "Derulați foaia de partajare și alegeți %@. Dacă nu o vedeți, căutați la „Mai multe”.";
+/* 読み上げ: 手順3の画像（アプリ名を %@ で入れる） */
+"tutorial.step3.image.a11y" = "Foaia de partajare cu %@ evidențiat";
+/* 手順3の見出し（アプリ名を %@ で入れる） */
+"tutorial.step3.title" = "Alegeți %@";
+/* 手順4の説明（Android） */
+"tutorial.step4.body" = "Videoclipurile canalului se deschid imediat, de la cele mai vechi, gata să fie parcurse în ordine.";
+/* 手順4の説明（iOS・通知をタップ） */
+"tutorial.step4.body.ios" = "Apare o notificare care anunță că canalul partajat este gata. Atingeți-o pentru a deschide lista de videoclipuri, de la cele mai vechi.";
+/* 読み上げ: 手順4の画像（アプリ名を %@ で入れる） */
+"tutorial.step4.image.a11y" = "%@ afișând lista de videoclipuri";
+/* 手順4の見出し */
+"tutorial.step4.title" = "Se deschide lista de videoclipuri";
+/* 手順4の見出し（iOS・通知をタップする） */
+"tutorial.step4.title.ios" = "Atingeți notificarea";
+/* 画面名: チャンネルの追加方法 */
+"tutorial.title" = "Cum adăugați un canal";
+/* スワイプ: 未視聴に戻す */
+"video.markUnwatched" = "Nevizionat";
+/* スキップ */
+"video.skip" = "Omiteți";
+/* スキップ解除 */
+"video.unskip" = "Nu omiteți";
+/* タイトルが取得できないとき */
+"video.untitled" = "(Fără titlu)";
+/* 視聴済み */
+"video.watched" = "Vizionat";

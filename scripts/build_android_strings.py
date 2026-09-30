@@ -29,6 +29,7 @@ SOURCE = ROOT / "Localization" / "strings.json"
 RES_DIR = ROOT / "android" / "app" / "src" / "main" / "res"
 
 # 原本の言語キー → Android のリソース修飾子。既定（values/）は英語。
+# 2026-10-01 に 7 → 35 言語へ（アプリ画面だけ。ストアのスクショ・ヘルプ・規約は 7 言語のまま）。
 LANGUAGE_DIRS = {
     "en": "values",
     "ja": "values-ja",
@@ -37,6 +38,38 @@ LANGUAGE_DIRS = {
     "de": "values-de",
     "fr": "values-fr",
     "ko": "values-ko",
+    "ar": "values-ar",
+    "bn": "values-bn",
+    "cs": "values-cs",
+    "nl": "values-nl",
+    # 3文字の言語コードは BCP 47 形式（b+）で書く
+    "fil": "values-b+fil",
+    "el": "values-el",
+    "hi": "values-hi",
+    "hu": "values-hu",
+    # Android は歴史的にインドネシア語を "in" で扱う（AOSP も values-in）
+    "id": "values-in",
+    "it": "values-it",
+    "kn": "values-kn",
+    "mr": "values-mr",
+    "pl": "values-pl",
+    # ポルトガル語はブラジル向けのみ（2026-10-01 ユーザー判断）
+    "pt-BR": "values-pt-rBR",
+    "pa": "values-pa",
+    "ro": "values-ro",
+    "ru": "values-ru",
+    "sv": "values-sv",
+    "ta": "values-ta",
+    "te": "values-te",
+    "th": "values-th",
+    # 繁体字（台湾）。香港など他の繁体字の端末も、Android 7 以降は文字体系で近い方が選ばれる
+    "zh-Hant": "values-zh-rTW",
+    "tr": "values-tr",
+    "uk": "values-uk",
+    "ur": "values-ur",
+    "vi": "values-vi",
+    "ms": "values-ms",
+    "zu": "values-zu",
 }
 
 # Android だけで使う文言（アプリ名など）。翻訳しないものはここに置く。
@@ -115,7 +148,10 @@ def write(data: dict, check_only: bool) -> int:
                     f'    <string name="{name}" translatable="false">{escape(value)}</string>')
         for key in keys:
             entry = data[key]
-            value = entry.get(lang) or entry["ja"]
+            value = entry.get(lang)
+            if not value:
+                # ⚠️ 以前は日本語で埋めていたが、35 言語では「アラビア語の端末に日本語」が出てしまう。黙って埋めずに止める
+                raise SystemExit(f"未翻訳: {key}（{lang}）。Localization/strings.json に訳を入れてください")
             comment = entry.get("comment")
             if comment and folder == "values":
                 lines.append(f"    <!-- {comment} -->")

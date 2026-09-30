@@ -65,7 +65,7 @@ Firebase BOM を上げるときの注意は [`../docs/android-firebase-analytics
 **送るのは画面名と操作の種類だけ**で、見ているチャンネル・動画・メモ・入力したURLは送らない。
 ユーザーは「ⓘ このアプリについて」の切り替えでいつでもオフにできる。
 
-## 文言（7言語）
+## 文言（35言語）
 
 原本は iOS と共通の [`../Localization/strings.json`](../Localization/strings.json)。
 生成はリポジトリのルートから:
@@ -74,7 +74,9 @@ Firebase BOM を上げるときの注意は [`../docs/android-firebase-analytics
 python scripts/build_android_strings.py
 ```
 
-`res/values/`（英語＝既定）と `values-ja` `values-zh-rCN` `values-es` `values-de` `values-fr` `values-ko` を書き出す。
+`res/values/`（英語＝既定）と 34 言語ぶんの `values-*` を書き出す（一覧は `LANGUAGE_DIRS`。
+インドネシア語は `values-in`、フィリピン語は `values-b+fil`、繁体字は `values-zh-rTW`、ポルトガル語は `values-pt-rBR`）。
+画像（`drawable-*-nodpi`）は7言語のままで、無い言語は `drawable-nodpi`（英語）になる。
 CI は「strings.json から生成したものと一致するか」を検査するので、**手で strings.xml を編集しない**こと。
 
 ## CI

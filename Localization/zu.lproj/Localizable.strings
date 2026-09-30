@@ -1,0 +1,465 @@
+/* このファイルは scripts/build_localizations.py が生成します。直接編集しないこと。 */
+/* language: zu */
+
+/* このアプリについて: 自動再生の説明。既定オン・進む先は開いている一覧の次だけ・いつでもオフ・自分で選んだ設定は更新後も引き継ぐ、の4点を必ず含めること */
+"about.autoPlay.body" = "Ukudlala okuzenzakalelayo kuvuliwe ngokuzenzakalelayo: uma ividiyo iphela, ukudlala kuqhubekela kuvidiyo elandelayo ohlwini lwesiteshi olivulile. Kudlulela kuphela kuvidiyo elandelayo kulolo hlu — hhayi neze kumavidiyo ahlobene noma anconywayo. Ungakuvala noma nini ngenkinobho yokushintsha ethi “Ukudlala okuzenzakalelayo” esikrinini sesidlali; bese ukudlala kuyama uma ividiyo iphela futhi kuvele inkinobho ethi “Dlala ividiyo elandelayo”. Ukukhetha kwakho kulondolozwa kudivayisi futhi kugcinwa uma i-app ibuyekezwa. Akukho ukudlala ngemuva, ngakho ukuvala i-app kumisa kokubili ukudlala nokudlala okuzenzakalelayo.";
+/* このアプリについて: 自動再生の見出し（既定オン） */
+"about.autoPlay.header" = "Ukudlala okuzenzakalelayo (kuvuliwe ngokuzenzakalelayo, kuvale noma nini)";
+/* データの説明 */
+"about.data.body" = "Uhlu lwamavidiyo luvela ku-YouTube Data API v3. Ukudlala kushumeka isidlali esisemthethweni se-YouTube njengoba sinjalo. Akukho ukukhuhla idatha (scraping) futhi akukho sidlali sangokwezifiso.";
+/* 見出し: データの取得と再生について */
+"about.data.header" = "Indlela idatha nokudlala okusebenza ngayo";
+/* 注意4 */
+"about.notice.noAdBlock" = "Ayivimbi izikhangiso.";
+/* 注意5 */
+"about.notice.noBackground" = "Ayidlali ngemuva.";
+/* 注意3 */
+"about.notice.noDownload" = "Ayilandi amavidiyo.";
+/* 注意1 */
+"about.notice.notOfficial" = "Le app akuyona i-app esemthethweni ye-YouTube.";
+/* 注意2 */
+"about.notice.officialPlayer" = "Ukudlala kusebenzisa isidlali esishumekiwe esisemthethweni se-YouTube (IFrame Player).";
+/* 注意6（商標表記） */
+"about.notice.trademark" = "I-YouTube uphawu lokuhweba lwe-Google LLC.";
+/* 見出し: 重要な注意事項 */
+"about.notices.header" = "Izaziso ezibalulekile";
+/* 通知を許可するボタン */
+"about.notify.allow" = "Vumela izaziso";
+/* 通知は許可済み */
+"about.notify.enabled" = "Izaziso zivunyelwe";
+/* 設定アプリで許可するボタン */
+"about.notify.settings" = "Vumela izaziso kuzilungiselelo";
+/* 通知の説明 */
+"about.oneTap.body" = "Uma uvumela izaziso, kuzovela esisodwa ngokushesha ngemuva kokwabelana futhi ukuthepha kanye kuvula leso siteshi. Yileso kuphela isaziso esisetshenziswayo — azikho izindaba noma ukukhangisa, futhi azikho izaziso eziphushwa yiseva. Uma ungazivumeli, vula i-app bese usebenzisa okuthi “Vula isixhumanisi okwabelwane ngaso”.";
+/* 見出し: ワンタップで開く */
+"about.oneTap.header" = "Ukuvula ngokuthepha kanye usuka ephepheni lokwabelana";
+/* 読み上げ: このアプリについて */
+"about.open.a11y" = "Mayelana nale app";
+/* 共有シートの2か所の説明（%@ にアプリ名） */
+"about.pin.body1" = "Kunezindawo ezimbili zokungena ephepheni lokwabelana: “%@” emgqeni wezithonjana zama-app, kanye no-“Vula ku-Channel Timeline” ohlwini lwezenzo ezansi. Lokhu kwakamuva kungafinyelelwa ngaphandle kokuvula okuthi “Okuningi”.";
+/* 並び順の説明 */
+"about.pin.body2" = "I-iOS inquma ukuhleleka kwezindawo zokwabelana, ngakho i-app ayikwazi ukukusetha. Yiphine kokuthandayo ngezinyathelo ezingezansi futhi izohlala ivela eduze kwaphezulu.";
+/* 見出し: 共有シートで上位に表示するには */
+"about.pin.header" = "Ukuyibonisa eduze kwaphezulu ephepheni lokwabelana";
+/* 固定手順（%@ にアプリ名） */
+"about.pin.steps" = "① Thepha okuthi Yabelana → skrolela umugqa wezithonjana zama-app uye kwesokudla ekugcineni → “Okuningi”\n② Thepha okuthi “Hlela” phezulu kwesokudla\n③ Thepha u-“+” eduze kuka-“%@” ukuze uyengeze kokuthandayo\n④ Yidonsele phezulu ohlwini → “Kwenziwe”";
+/* プライバシーポリシー */
+"about.privacyPolicy" = "Inqubomgomo yobumfihlo";
+/* 続きから再生の説明 */
+"about.resume.body" = "Indawo yokudlala yevidiyo ngayinye ilondolozwa kudivayisi, ngakho uma uvula ividiyo futhi iqhubeka lapho ugcine khona (kuvuliwe ngokuzenzakalelayo). Ungakuvala kumenyu ethi “…” esikrinini sesidlali, futhi okuthi “Dlala kusukela ekuqaleni” kubuyela ekuqaleni. Kulondolozwa kuphela indawo ngamasekhondi — hhayi neze ividiyo uqobo.";
+/* 見出し: 続きから再生 */
+"about.resume.header" = "Qhubeka nokudlala";
+/* 画面ロックの説明 */
+"about.screen.body" = "Ngenkathi ividiyo idlala isikrini sihlala sivulekile, ngakho ngeke sifiphale sikuphazamise uma idivayisi ibekwe etafuleni. Uma umisa isikhashana noma ushiya isidlali, ukukhiya okuzenzakalelayo kubuyela esimweni esijwayelekile. Akukho ukudlala ngemuva, ngakho ukuvala i-app kumisa ukudlala.";
+/* 見出し: 再生中の画面 */
+"about.screen.header" = "Isikrini ngesikhathi sokudlala";
+/* 共有機能の説明（%@ にアプリ名） */
+"about.share.body1" = "Khetha “%@” enkinobhweni yokwabelana ku-app ye-YouTube noma ku-Safari bese i-app ithola i-URL yesiteshi noma yevidiyo okwabelwane ngayo. Ukwabelana kuthola i-URL kuphela — akukho okuthunyelwa ndawo.";
+/* 共有後の流れの説明 */
+"about.share.body2" = "Ngemuva kwalokho, vula le app bese kuvela okuthi “Vula isixhumanisi okwabelwane ngaso” esikrinini sokuqala. I-iOS ayivumeli iphepha lokwabelana ukuthi livule i-app ngqo, yingakho kwenziwa kanje.";
+/* 見出し: 共有シートから開く */
+"about.share.header" = "Ukuvula usuka ephepheni lokwabelana";
+/* アプリの説明 */
+"about.summary" = "Umsizi wokubuka obonisa amavidiyo esiteshi ngokosuku lokushicilelwa (okudala kuqala) ukuze ukwazi ukuqeda ingobo yomlando, uchungechunge, noma izifundo ngenkathi ulandelela inqubekelaphambili yakho. Akuyona into ethatha indawo ye-app esemthethweni ye-YouTube.";
+/* 画面名: このアプリについて */
+"about.title" = "Mayelana nale app";
+/* APIキー未設定の説明 */
+"api.notConfigured.detail" = "Setha i-YOUTUBE_API_KEY ku-Config.plist. Bheka i-README ukuze ubone ukuthi uyisetha kanjani.";
+/* APIキー未設定の見出し */
+"api.notConfigured.title" = "I-API key ayisethiwe";
+/* 字幕: オフ */
+"captions.off" = "Valiwe";
+/* チャンネル名が取得できないとき */
+"channel.untitled" = "(Alikho igama lesiteshi)";
+/* クリップボードにURLが無いとき */
+"clipboard.notFound" = "Asitholanga isixhumanisi se-YouTube ebhodini lokunamathisela. Namathisela i-URL bese uzama futhi.";
+/* 共通: キャンセル */
+"common.cancel" = "Khansela";
+/* 閉じる */
+"common.close" = "Vala";
+/* 削除 */
+"common.delete" = "Susa";
+/* 完了 */
+"common.done" = "Kwenziwe";
+/* 再試行 */
+"common.retry" = "Zama futhi";
+/* 画面下部の注意書き */
+"disclaimer.short" = "Le app akuyona i-app esemthethweni ye-YouTube. Ukudlala kusebenzisa isidlali esishumekiwe esisemthethweni se-YouTube; ayilandi amavidiyo, ayivimbi izikhangiso, futhi ayidlali ngemuva.";
+/* エラー: APIキー未設定 */
+"error.apiKeyMissing" = "Ayikho i-API key esethiwe.";
+/* エラー: チャンネルが見つからない */
+"error.channelNotFound" = "Isiteshi asitholakalanga.";
+/* エラー: 応答を解釈できない */
+"error.decoding" = "Asikwazanga ukulayisha uhlu lwamavidiyo.";
+/* エラー: チャンネルURLとして解析できない */
+"error.invalidChannelURL" = "Lokhu akubukeki njenge-URL yesiteshi se-YouTube.";
+/* エラー: URLの形式が不正 */
+"error.invalidURL" = "I-URL ayivumelekile.";
+/* エラー: 動画URLとして解析できない */
+"error.invalidVideoURL" = "Lokhu akubukeki njenge-URL yevidiyo ye-YouTube.";
+/* エラー: 通信失敗 */
+"error.network" = "Uxhumano luhlulekile.";
+/* エラー: API利用上限 */
+"error.quotaExceeded" = "Umkhawulo we-YouTube API ufinyelelwe. Sicela uzame futhi emuva kwesikhashana.";
+/* エラー: その他 */
+"error.unknown" = "Kukhona okungahambanga kahle.";
+/* エラー: 動画一覧を取得できない */
+"error.uploadsPlaylistNotFound" = "Asikwazanga ukulayisha uhlu lwamavidiyo lwalesi siteshi.";
+/* エラー: 動画から投稿チャンネルを特定できない */
+"error.videoNotFound" = "Asikwazanga ukuthola isiteshi sale vidiyo.";
+/* 削除実行のボタン */
+"favorites.delete.confirm" = "Susa";
+/* 削除確認のタイトル */
+"favorites.delete.title" = "Susa lesi siteshi?";
+/* 削除の警告（%@ にチャンネル名）。大きめ・太字・赤で出す */
+"favorites.delete.warning.format" = "Ukususa lesi siteshi kuphinde kususe umlando wokubuka, inqubekelaphambili, namanothi ka-“%@”.";
+/* 最終利用日時（%@ に日時） */
+"favorites.lastOpened.format" = "Kugcine ukuvulwa: %@";
+/* 進捗（%1$@=視聴済み %2$@=総数 %3$@=割合） */
+"favorites.progress.format" = "Kubukwe %1$@ kwangu-%2$@ (%3$@%%)";
+/* 進捗が未計算のとき */
+"favorites.progressHint" = "Inqubekelaphambili izovela uma usuvule isiteshi.";
+/* 続きから見る */
+"favorites.resume" = "Qhubeka ubuke";
+/* お気に入り一覧の脚注（削除で記録も消えることを断る） */
+"favorites.section.footer" = "Swayiphela umugqa kwesokunxele ukuze uwususe. Ukususa kuphinde kususe umlando wokubuka, inqubekelaphambili, namanothi alesi siteshi.";
+/* Android のお気に入り一覧の脚注。削除で記録も消えることを断る */
+"favorites.section.footer.android" = "Sebenzisa inkinobho yomgqomo ukuze ukhiphe isiteshi kokulondoloziwe. Ukusikhipha kuphinde kususe umlando waso wokubuka, inqubekelaphambili, namanothi.";
+/* 見出し: 最近使ったチャンネル */
+"favorites.section.header" = "Iziteshi zakamuva";
+/* 左スワイプで削除の案内 */
+"favorites.swipeHint" = "Swayiphela kwesokunxele ukuze ususe";
+/* フィルター: すべて */
+"filter.all" = "Konke";
+/* フィルター: 未視聴のみ */
+"filter.unwatched" = "Okungabukiwe";
+/* フィルター: 視聴済みのみ */
+"filter.watched" = "Okubukiwe";
+/* 通知を許可して開くボタン */
+"handoff.allowNotification" = "Vumela izaziso bese uvula";
+/* URLを開けないとき */
+"handoff.error.cannotOpen" = "Le URL ayikwazanga ukuvulwa.";
+/* URLが見つからないとき */
+"handoff.error.noURL" = "Ayikho i-URL ye-YouTube etholakele.\nYabelana usuka ekhasini levidiyo noma lesiteshi.";
+/* 受け渡し中（%@ にアプリ名） */
+"handoff.passing.format" = "Idlulisela ku-%@…";
+/* 通知準備中 */
+"handoff.preparingNotification" = "Ilungisa isaziso…";
+/* URL読み取り中 */
+"handoff.reading" = "Ifunda i-URL okwabelwane ngayo…";
+/* 通知を勧める案内 */
+"handoff.received.askNotification" = "I-URL itholakele.\nUma uvumela izaziso, ungamane uthephe isaziso esizovela ngokulandelayo.\n(Uma kungenjalo, vula i-app bese usebenzisa okuthi “Vula isixhumanisi okwabelwane ngaso”.)";
+/* 受け取り完了の案内（%@ にアプリ名） */
+"handoff.received.format" = "I-URL itholakele.\nVula i-%@ bese uthepha okuthi “Vula isixhumanisi okwabelwane ngaso” ukuze ubuke lesi siteshi.";
+/* 読み上げ: 入力を消去 */
+"input.clear.a11y" = "Sula umbhalo";
+/* 動画を取得ボタン */
+"input.fetch" = "Thola amavidiyo";
+/* 取得中のボタン */
+"input.fetching" = "Iyalayisha…";
+/* 入力欄の説明（%@ にアプリ名） */
+"input.section.footer" = "Yabelana usuka ku-app ye-YouTube noma ku-Safari bese ukhetha “%@” — bese kuvela okuthi “Vula isixhumanisi okwabelwane ngaso” kulesi sikrini. Kusebenza kokubili ama-URL eziteshi namavidiyo.";
+/* 見出し: チャンネルURL */
+"input.section.header" = "I-URL yesiteshi";
+/* Android 版の共有の説明（%@ にアプリ名）。iOS 版とは動きが違うので別文言 */
+"input.share.android" = "Yabelana usuka ku-app ye-YouTube noma kusiphequluli bese ukhetha “%@” — uhlu lwamavidiyo lwesiteshi luvuleka ngokushesha. Kusebenza kokubili ama-URL eziteshi namavidiyo.";
+/* 全部見終わったとき */
+"list.allWatched" = "Usubuke konke 🎉";
+/* 保存済み一覧の案内（%@ に最終更新日時） */
+"list.cached.format" = "Kuboniswa uhlu olulondoloziwe (kubuyekezwe %@)";
+/* 新着確認中 */
+"list.checkingNew" = "Ihlola amavidiyo amasha…";
+/* 件数（%1$@=表示中 %2$@=全体） */
+"list.count.format" = "Kuboniswa %1$@ kwangu-%2$@";
+/* 一覧が空のとき */
+"list.empty" = "Lesi siteshi asinawo amavidiyo angaboniswa.";
+/* 取得失敗の見出し */
+"list.error.title" = "Ayikwazanga ukulayisha";
+/* 取得中 */
+"list.loading" = "Ilayisha amavidiyo…";
+/* 読み上げ: 並び替えと表示 */
+"list.menu.a11y" = "Hlela futhi uhlunge";
+/* 新着を確認 */
+"list.menu.checkNew" = "Hlola amavidiyo amasha";
+/* すべて再読み込み */
+"list.menu.reloadAll" = "Layisha konke kabusha";
+/* 表示（フィルター） */
+"list.menu.show" = "Bonisa";
+/* 並び替えメニュー */
+"list.menu.sort" = "Hlela";
+/* 次に見る（%@ に本数） */
+"list.next.new.format" = "Okulandelayo: #%@";
+/* 続きから（%@ に本数） */
+"list.next.resume.format" = "Qhubeka: #%@";
+/* 検索語を消す（検索欄は開いたまま） */
+"list.search.clear" = "Sula";
+/* 検索を閉じる（全件に戻る） */
+"list.search.close" = "Vala usesho";
+/* 検索結果が0件 */
+"list.search.empty" = "Awekho amavidiyo atholakele";
+/* 動画一覧の検索ボタン（読み上げ）。現在のチャンネル内をタイトルで絞り込む */
+"list.search.open" = "Sesha amavidiyo";
+/* 検索欄の案内文（タイトルだけが対象） */
+"list.search.placeholder" = "Sesha ngesihloko";
+/* 新しい順 */
+"list.sort.newest" = "Okusha kuqala";
+/* 古い順 */
+"list.sort.oldest" = "Okudala kuqala";
+/* 共有直後の通知の本文 */
+"notification.sharedLink.body" = "Thepha ukuze uvule uhlu lwamavidiyo lwesiteshi okwabelwane ngaso.";
+/* 字幕は既定オフの説明 */
+"options.captions.defaultOff" = "Imibhalo engezansi ivaliwe ngokuzenzakalelayo.";
+/* 字幕がまだ読み込まれていないときの説明 */
+"options.captions.notLoaded" = "Imibhalo engezansi yale vidiyo ayikalayishwa. Qala ukudlala, bese uvula leli phepha futhi (amanye amavidiyo awanayo imibhalo engezansi).";
+/* 見出し: 字幕 */
+"options.captions.section" = "Imibhalo engezansi";
+/* 画質: 自動 */
+"options.quality.auto" = "Okuzenzakalelayo";
+/* 画質の説明 */
+"options.quality.note" = "I-YouTube ilungisa ikhwalithi ngokuzenzakalelayo ngokuya ngoxhumano lwakho (isidlali esisemthethweni asivumeli ama-app ukuthi ayisethe).\nUkuze uzikhethele yona, qala ukudlala, bese usebenzisa inkinobho yesikrini esigcwele ezansi kwesokudla kwesidlali → igiya → Ikhwalithi (into yekhwalithi ayiveli ngaphambi kokuqala ukudlala).";
+/* 画質 */
+"options.quality.title" = "Ikhwalithi";
+/* 見出し: 再生速度 */
+"options.rate.section" = "Ijubane lokudlala";
+/* 画面名: 再生設定 */
+"options.title" = "Izilungiselelo zokudlala";
+/* 自動再生で進んだときの表示 */
+"player.autoAdvanced" = "Kudluliselwe kuvidiyo elandelayo";
+/* 読み上げ: 自動再生トグル */
+"player.autoPlay.a11y" = "Dlala elandelayo ngokuzenzakalelayo uma ividiyo iphela";
+/* 自動再生オフのときの説明（いまどう動くかを書く） */
+"player.autoPlay.off.detail" = "Uma ividiyo iphela, kuyama bese kubonisa inkinobho ethi “Dlala ividiyo elandelayo”";
+/* 自動再生オンのときの説明（いまどう動くかを書く） */
+"player.autoPlay.on.detail" = "Uma ividiyo iphela, kudlala kuphela ividiyo elandelayo kulolu hlu";
+/* 自動再生トグルの見出し。⚠️ここに「オン」「オフ」と状態を書かないこと。スイッチの入切と二重否定になり、『「自動再生オフ」がオフ＝自動再生オン？』と読めてしまう（2026-09-16・ユーザー指摘）。状態は下の説明文とスイッチに任せる。 */
+"player.autoPlay.title" = "Ukudlala okuzenzakalelayo";
+/* 再生画面の全幅ボタン。YouTube で動画を開き、コメントしてもらう（…メニューは player.openInYouTube のまま） */
+"player.commentOnYouTube" = "Phawula ku-YouTube";
+/* 次の動画を再生ボタン */
+"player.ended.playNext" = "Dlala ividiyo elandelayo";
+/* 終了時の案内 */
+"player.ended.title" = "Ukudlala kuphelile. Okulandelayo:";
+/* メモの自動保存と、入力の終え方の説明 */
+"player.memo.autosave" = "Kulondolozwa ngokuzenzakalelayo njengoba uthayipha. Thepha kwenye indawo noma ku-“Kwenziwe” ukuze uqede ukuhlela.";
+/* メモ欄の見出し */
+"player.memo.title" = "Amanothi (ochungechunge nokufunda)";
+/* 読み上げ: その他の操作 */
+"player.menu.a11y" = "Ezinye izenzo";
+/* メニュー: 視聴済みにする */
+"player.menu.markWatched" = "Maka njengokubukiwe";
+/* メニュー: 最初から再生 */
+"player.menu.restart" = "Dlala kusukela ekuqaleni";
+/* メニュー: 続きから再生する */
+"player.menu.resume" = "Qhubeka lapho ngigcine khona";
+/* メニュー: スキップにする */
+"player.menu.skip" = "Maka ukuthi yeqiwe";
+/* メニュー: 視聴済みを解除 */
+"player.menu.unmarkWatched" = "Maka njengokungabukiwe";
+/* メニュー: スキップを解除 */
+"player.menu.unskip" = "Ungeqi";
+/* 全体リピートの説明 */
+"player.mode.repeatAll" = "Ibuyela kuvidiyo yokuqala ngemuva kweyokugcina (uma ukudlala okuzenzakalelayo kuvuliwe).";
+/* 1本リピートの説明 */
+"player.mode.repeatOne" = "Iphinda ividiyo yamanje.";
+/* スキップの説明 */
+"player.mode.skip" = "Amavidiyo amakwe ukuthi ayeqwe ayadlulwa ngesikhathi sokudlala okuzenzakalelayo.";
+/* 未視聴のみ再生の説明 */
+"player.mode.unwatchedOnly" = "Namavidiyo asebukiwe ayeqwa, ngakho kudlala angabukiwe kuphela.";
+/* 移動: 最初へ */
+"player.nav.first" = "Eyokuqala";
+/* 移動: 最後へ */
+"player.nav.last" = "Eyokugcina";
+/* 移動: 次へ */
+"player.nav.next" = "Elandelayo";
+/* 移動: 前へ */
+"player.nav.previous" = "Edlule";
+/* 移動: 戻す（直前の移動を取り消す） */
+"player.nav.undo" = "Hlehlisa";
+/* 動画が無いとき */
+"player.noVideos" = "Awekho amavidiyo";
+/* YouTubeで開く */
+"player.openInYouTube" = "Vula ku-YouTube";
+/* 読み上げ: 再生設定ボタン */
+"player.options.a11y" = "Izilungiselelo zokudlala";
+/* 再生設定の要約（%1$@=速度 %2$@=字幕） */
+"player.optionsSummary.format" = "Ijubane %1$@ · Imibhalo engezansi %2$@";
+/* 公開日と一覧内の位置（%1$@=公開日 %2$@=位置） */
+"player.publishedWithPosition.format" = "%1$@ (%2$@)";
+/* 再生速度の表示（%@ に倍率） */
+"player.rate.format" = "%@×";
+/* リピートボタンのヒント */
+"player.repeat.hint" = "Thepha ukuze ushintshe imodi yokuphinda";
+/* 続きから再生中の案内（%@ に時刻） */
+"player.resume.notice.format" = "Iqhubeka kusuka ku-%@";
+/* 最初から見直すボタン */
+"player.resume.restart" = "Qala kabusha";
+/* スキップ状態の表示 */
+"player.status.skipped" = "Yeqiwe (iyadlulwa ngesikhathi sokudlala okuzenzakalelayo)";
+/* 未視聴のみ再生トグル */
+"player.unwatchedOnly" = "Dlala okungabukiwe kuphela";
+/* Pro の中心価値 */
+"pro.benefit.multiChannel" = "Nge-Pro ungalondoloza iziteshi eziningi ze-YouTube futhi ulandelele inqubekelaphambili yesiteshi ngasinye.";
+/* 購入ボタン（価格が取れないとき） */
+"pro.buy" = "Thenga (kanye kuphela)";
+/* 購入ボタン（%@ に価格） */
+"pro.buy.format" = "Thenga nge-%@ (kanye kuphela)";
+/* Pro失効の説明 */
+"pro.disabled.body" = "Inguqulo yamahhala ikuvumela ukuthi usebenzise isiteshi esisodwa. Khetha isiteshi ofuna ukuqhubeka usisebenzisa mahhala. Iziteshi ezikhiyiwe zigcina umlando wokubuka, inqubekelaphambili, namanothi. Thenga i-Pro futhi ukuze usebenzise zonke iziteshi.";
+/* 使うチャンネルを選ぶ導線 */
+"pro.disabled.choose" = "Khetha isiteshi esizohlala simahhala";
+/* Pro失効の見出し */
+"pro.disabled.title" = "I-Pro ayisasebenzi";
+/* ホームからPro画面へ入る行の説明 */
+"pro.entry.body" = "Ukuthenga kanye kuphela. Inguqulo yamahhala ilondoloza isiteshi esisodwa.";
+/* ホームからPro画面へ入る行の見出し */
+"pro.entry.title" = "Londoloza iziteshi eziningi (Pro)";
+/* 購入できなかった */
+"pro.error.failed" = "Ukuthenga akukwazanga ukuqedwa.";
+/* Google Play に繋がらない */
+"pro.error.unavailable" = "Asikwazanga ukufinyelela ku-Google Play. Sicela uzame futhi emuva kwesikhashana.";
+/* 無料版の説明 */
+"pro.free.summary" = "Inguqulo yamahhala ikuvumela ukuthi ulondoloze isiteshi esisodwa.";
+/* 無料でできることの本文（1チャンネル内は制限しない方針） */
+"pro.freeFeatures.body" = "Ngaphakathi kwesiteshi sakho esilondoloziwe konke kusebenza ngaphandle komkhawulo: ukuhlela okudala noma okusha kuqala, ukulandelela okubukiwe, ukuqhubeka, izinkinobho zokweqa, amanothi, inqubekelaphambili, nokudlala esidlalini esisemthethweni.";
+/* 無料でできることの見出し */
+"pro.freeFeatures.header" = "Okutholayo mahhala";
+/* Pro 画面の見出し（買い切りであることを明示） */
+"pro.headline" = "Ukuthenga kanye okuvula ukulondoloza iziteshi eziningi.";
+/* 入れ替えるボタン */
+"pro.limit.replace" = "Shintsha";
+/* 警告のあとに出す Pro への誘導 */
+"pro.limit.replaceHint" = "Uma ufuna ukugcina umlando weziteshi eziningana, sebenzisa i-Pro.";
+/* 保存上限の案内タイトル */
+"pro.limit.title" = "Ungalondoloza isiteshi esisodwa";
+/* 上限の案内でProへ進むボタン */
+"pro.limit.upgrade" = "Thola i-Pro";
+/* 上限の案内から Pro の説明画面へ進むボタン */
+"pro.limit.viewPro" = "Bona okuqukethwe yi-Pro";
+/* 入れ替えの警告（%@ に外れるチャンネル名）。大きめ・太字・赤で出す */
+"pro.limit.warning.format" = "Ukushintsha lesi siteshi kususa umlando wokubuka, inqubekelaphambili, namanothi esiteshi esilondoloziwe manje esithi “%@”.";
+/* 一覧でロック中を示すラベル */
+"pro.locked.badge" = "Kukhiyiwe";
+/* ロックの説明（%1$@=開こうとしたチャンネル %2$@=いま使えるチャンネル） */
+"pro.locked.body.format" = "Inguqulo yamahhala ikuvumela ukuthi usebenzise isiteshi esisodwa. Ukushintshela ku-“%1$@” kwenza ukuthi “%2$@” singatholakali. Awekho amarekhodi esiteshi nasiphi asuswayo.";
+/* ロック中のチャンネルがあるときの案内 */
+"pro.locked.hint" = "Thenga i-Pro ukuze usebenzise futhi zonke iziteshi ezilondoloziwe, namarekhodi onke ephelele.";
+/* ロック中のチャンネルを開こうとしたときの説明 */
+"pro.locked.open.body" = "Lesi siteshi sikhiyiwe. I-Pro ayisasebenzi, ngakho inguqulo yamahhala ivumela isiteshi esisodwa. Thenga i-Pro futhi ukuze uqhubeke nomlando wakho wokubuka, inqubekelaphambili, namanothi ephelele.";
+/* 切り替えるボタン */
+"pro.locked.switch" = "Shintshela kulesi siteshi";
+/* ロックされたチャンネルを開こうとしたときのタイトル */
+"pro.locked.title" = "I-Pro ayisebenzi";
+/* このチャンネルを無料枠にする */
+"pro.locked.useThis" = "Sebenzisa lesi siteshi mahhala";
+/* Pro の商品名（全言語共通） */
+"pro.name" = "Channel Timeline Viewer Pro";
+/* サブスクではないことの明示（購入画面に必須） */
+"pro.notSubscription" = "Lokhu akukona ukubhalisela okuphindaphindwayo.";
+/* アクセシビリティ: Pro画面を開く */
+"pro.open.a11y" = "Vula imininingwane ye-Pro";
+/* 購入済みの表示 */
+"pro.owned" = "Une-Pro. Siyabonga.";
+/* 保留中の支払い */
+"pro.pending" = "Inkokhelo yakho isalindile. I-Pro izovuleka ngokuzenzakalelayo uma isiqediwe.";
+/* iOS: 価格を取得できなかった */
+"pro.price.failed" = "Asikwazanga ukulayisha intengo. Hlola uxhumano lwakho bese uzama futhi.";
+/* 価格取得中 */
+"pro.price.loading" = "Ihlola intengo…";
+/* iOS: 価格の再取得ボタン */
+"pro.price.retry" = "Layisha intengo kabusha";
+/* Pro で解放される機能の本文 */
+"pro.proFeatures.body" = "Londoloza iziteshi eziningi, landelela inqubekelaphambili yesiteshi ngasinye, futhi uphathe uhlu lwakho olulondoloziwe. Awudingi neze ukushintsha isiteshi, ngakho umlando wokubuka, inqubekelaphambili, namanothi akusoze kwasulwa. Izici zokuphatha ezithuthukile zesikhathi esizayo nazo zifakiwe.";
+/* Pro で解放される機能の見出し */
+"pro.proFeatures.header" = "Okuvulwa yi-Pro";
+/* 購入の復元ボタン */
+"pro.restore" = "Buyisela ukuthenga";
+/* 復元できた */
+"pro.restore.done" = "Ukuthenga kwakho kubuyiselwe.";
+/* 復元の説明 */
+"pro.restore.hint" = "Uma nje usebenzisa i-akhawunti ye-Google efanayo, ungakubuyisela ngemuva kokufaka kabusha noma ukushintsha idivayisi.";
+/* iOS: 復元の説明（Apple アカウント） */
+"pro.restore.hint.apple" = "Uma nje usebenzisa i-Apple Account efanayo, ungakubuyisela ngemuva kokufaka kabusha noma ukushintsha idivayisi.";
+/* 復元できる購入がなかった */
+"pro.restore.none" = "Akukho kuthenga okutholakele kule akhawunti ye-Google.";
+/* iOS: 復元できる購入が無かった（Apple アカウント） */
+"pro.restore.none.apple" = "Akukho kuthenga okutholakele kule Apple Account.";
+/* 進捗の内訳（%1$@=視聴済み %2$@=総数 %3$@=割合） */
+"progress.count.format" = "%1$@ / %2$@ (%3$@%%)";
+/* 進捗 */
+"progress.title" = "Inqubekelaphambili";
+/* 読み上げ: 全体リピート */
+"repeat.a11y.all" = "Phinda wonke amavidiyo";
+/* 読み上げ: リピートオフ */
+"repeat.a11y.off" = "Ukuphinda kuvaliwe";
+/* 読み上げ: 1本リピート */
+"repeat.a11y.one" = "Phinda ividiyo eyodwa";
+/* リピート: 全体 */
+"repeat.all" = "Konke";
+/* リピート: オフ */
+"repeat.off" = "Valiwe";
+/* リピート: 1本 */
+"repeat.one" = "Eyodwa";
+/* クリップボードにURLがある案内 */
+"share.clipboardHint" = "Isixhumanisi owabelane ngaso sikubhodi lokunamathisela.";
+/* 共有されたURLを開くボタン */
+"share.openSharedURL" = "Vula isixhumanisi okwabelwane ngaso";
+/* 共有直後の通知を許可してもらう理由（入力画面・未許可のときだけ出す） */
+"shareTips.notify.why" = "Ukuthepha isaziso esivela ngokushesha ngemuva kokwabelana kuvula isiteshi ngaso leso sikhathi. Asisoze sithumela izaziso zezindaba noma zokukhangisa.";
+/* 前へ */
+"tutorial.back" = "Emuva";
+/* 閉じる */
+"tutorial.close" = "Vala";
+/* 最後のボタン: YouTubeを開いて試す */
+"tutorial.cta" = "Vula i-YouTube Uzame";
+/* 例示の注記: 提携を示すものではないこと */
+"tutorial.example.note" = "Izithombe-skrini zisebenzisa isiteshi somphakathi se-NASA njengesibonelo. Le app ayihlangene, ayigunyazwanga, futhi ayixhaswanga yi-YouTube noma i-NASA.";
+/* 次へ */
+"tutorial.next" = "Okulandelayo";
+/* 読み上げ: チュートリアルを開く */
+"tutorial.open.a11y" = "Bona ukuthi ungengeza kanjani isiteshi";
+/* 進み具合（%1$@ / %2$@） */
+"tutorial.progress.format" = "%1$@ kwangu-%2$@";
+/* スキップ */
+"tutorial.skip" = "Yeqa";
+/* 手順1の説明 */
+"tutorial.step1.body" = "Ku-app ye-YouTube, vula ividiyo evela esiteshini ofuna ukusengeza, noma ikhasi lesiteshi uqobo.";
+/* 読み上げ: 手順1の画像 */
+"tutorial.step1.image.a11y" = "Ikhasi lesiteshi livuliwe ku-YouTube";
+/* 手順1の見出し */
+"tutorial.step1.title" = "Vula ofuna ukukubuka ku-YouTube";
+/* 手順2の説明（共有ボタンの場所） */
+"tutorial.step2.body" = "Thepha okuthi Yabelana ngaphansi kwevidiyo, noma kumenyu ekhasini lesiteshi.";
+/* 読み上げ: 手順2の画像 */
+"tutorial.step2.image.a11y" = "Inkinobho ethi Yabelana igqamisiwe";
+/* 手順2の見出し */
+"tutorial.step2.title" = "Thepha okuthi Yabelana";
+/* 手順3の説明（Android） */
+"tutorial.step3.body" = "Khetha %@ ohlwini lwama-app. Uma ungayiboni, vula okuthi “Okuningi”.";
+/* 手順3の説明（iOS） */
+"tutorial.step3.body.ios" = "Skrola iphepha lokwabelana bese ukhetha %@. Uma ungayiboni, bheka ngaphansi kokuthi “Okuningi”.";
+/* 読み上げ: 手順3の画像（アプリ名を %@ で入れる） */
+"tutorial.step3.image.a11y" = "Iphepha lokwabelana eligqamise %@";
+/* 手順3の見出し（アプリ名を %@ で入れる） */
+"tutorial.step3.title" = "Khetha %@";
+/* 手順4の説明（Android） */
+"tutorial.step4.body" = "Amavidiyo esiteshi avuleka ngokushesha, okudala kuqala, elungele ukubukwa ngokulandelana.";
+/* 手順4の説明（iOS・通知をタップ） */
+"tutorial.step4.body.ios" = "Kuvela isaziso esithi isiteshi okwabelwane ngaso silungile. Sithephe ukuze uvule uhlu lwamavidiyo, okudala kuqala.";
+/* 読み上げ: 手順4の画像（アプリ名を %@ で入れる） */
+"tutorial.step4.image.a11y" = "%@ ibonisa uhlu lwamavidiyo";
+/* 手順4の見出し */
+"tutorial.step4.title" = "Uhlu lwamavidiyo luyavuleka";
+/* 手順4の見出し（iOS・通知をタップする） */
+"tutorial.step4.title.ios" = "Thepha isaziso";
+/* 画面名: チャンネルの追加方法 */
+"tutorial.title" = "Indlela Yokwengeza Isiteshi";
+/* スワイプ: 未視聴に戻す */
+"video.markUnwatched" = "Maka njengokungabukiwe";
+/* スキップ */
+"video.skip" = "Yeqa";
+/* スキップ解除 */
+"video.unskip" = "Ungeqi";
+/* タイトルが取得できないとき */
+"video.untitled" = "(Asikho isihloko)";
+/* 視聴済み */
+"video.watched" = "Kubukiwe";

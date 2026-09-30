@@ -1,0 +1,74 @@
+# Google Play ストア掲載情報 — isiZulu（zu）
+
+> このファイルは `scripts/build_play_metadata.py` が生成します。直接編集せず、
+> `docs/PlayStore/metadata.json` を直してから再生成してください。
+
+- メール: support@jewelrysunflower.com
+- ウェブサイト: https://channeltimeline.jewelrysunflower.com/
+- プライバシーポリシー: https://channeltimeline.jewelrysunflower.com/en/privacy/
+
+## アプリ名（Title）
+<!-- 23 / 30 文字 -->
+
+```
+Channel Timeline Viewer
+```
+
+## 短い説明（Short description）
+<!-- 77 / 80 文字 -->
+
+```
+Buka iziteshi ze-YouTube ngokulandelana, ulandelele uqhubeke lapho ume khona.
+```
+
+## 詳しい説明（Full description）
+<!-- 3312 / 4000 文字 -->
+
+```
+I-Channel Timeline Viewer ikusiza ukuthi ubuke iziteshi ze-YouTube kusukela ekuqaleni ngaphandle kokulahlekelwa yilapho ufike khona.
+
+Pheqa isiteshi kusukela kumavidiyo aso amadala kakhulu, ulandelele lokho osukubukile, uqhubeke kusukela endaweni yokudlala eqondile, futhi ubhale amanothi njengoba uqhubeka. Izingobo zomlando, izifundo nochungechunge olude kuhlala kulandelana.
+
+KUNGEZIBANI
+• Abantu abafunda kuzifundo zokuqeqesha, izinkulumo, izifundo, iziteshi zemfundo nochungechunge olude lwe-YouTube
+• Noma ubani ofuna ukubamba amavidiyo amadala esiteshi
+• Ababukeli abafuna ukwazi kahle ukuthi sebebuke kwaze kwaba kuphi
+• Abaphathi beziteshi abafuna ababukeli babuke amavidiyo abo amadala ngokulandelana
+• Abazali bezingane ezincane abafuna indlela elula yokuhlala esiteshini esisodwa esikhethiwe
+
+IZICI EZIYINHLOKO
+• Namathisela i-URL yesiteshi, noma wabelane ngevidiyo noma isiteshi kusuka kuhlelo lokusebenza lwe-YouTube noma esipheqululini
+• Amavidiyo abhalwe kusukela kwamadala kakhulu (noma kwamasha kakhulu)
+• Inqubekelaphambili yesiteshi ngasinye: inani lokubukiwe, iphesenti, ibha yenqubekelaphambili
+• "Okulandelayo / Qhubeka" kukubuyisela ngqo lapho ume khona
+• Qhubeka kusukela kumzuzwana oqondile lapho ushiye khona
+• Ukudlala okuzenzakalelayo kuya evidiyweni elandelayo ohlwini (kuvuliwe ngokuzenzakalelayo, futhi ungakuvala noma nini)
+• Phinda eyodwa noma phinda konke
+• Maka amavidiyo njengokubukiwe noma okweqiwe; dlala okungabukiwe kuphela
+• Izihlungi: konke / okungabukiwe / okubukiwe
+• Sesha ngaphakathi kwesiteshi ukuze uhlunge amavidiyo ngesihloko
+• Amanothi evidiyo ngayinye, okufunda noma okubuka uchungechunge
+• Isivinini sokudlala nemibhalo engezansi kulawulwa ngaphandle kwesidlali
+• Indawo iboniswa ngokuthi "27 Febhuwari 2026 (1 034 / 3 500)"
+• Izinkinobho ezinhlanu zokuzulazula — okokuqala, okwangaphambilini, hlehlisa, okulandelayo, okokugcina — lapho ukuhlehlisa kubuyisela kokubili ividiyo nendawo obukuyo
+• Iziteshi osuke wazivula ngaphambilini zilayisha ngokushesha ohlwini olulondoloziwe
+• Kutholakala ngezilimi ezingu-35
+
+UKUDLALA
+Amavidiyo adlala esidlalini esishumekiwe esisemthethweni se-YouTube (IFrame Player).
+
+MAHHALA NE-PRO
+Ungalondoloza isiteshi esisodwa mahhala. Ngaphakathi kwaleso siteshi konke kusebenza ngaphandle kwemikhawulo: ukuhlela, ukulandelela okubukiwe, ukuqhubeka, izinkinobho zokweqa, amanothi, inqubekelaphambili, nokudlala esidlalini esisemthethweni.
+Ungashintsha usebenzise esinye isiteshi mahhala, kodwa lokho kusula umlando wokubuka, inqubekelaphambili, namanothi esiteshi sangaphambilini.
+Ukuze ulandele iziteshi eziningana ngesikhathi esisodwa futhi ugcine yonke irekhodi, thenga i-Pro. Kuwukuthenga kwanye, akuyona inkokhelo yokubhalisa.
+
+SICELA UQAPHELE
+• Lolu akulona uhlelo lokusebenza olusemthethweni lwe-YouTube.
+• Aludawunilodi amavidiyo, aluvimbi izikhangiso, futhi aludlali ngemuva.
+• Uhlu lwamavidiyo lutholwa nge-YouTube Data API v3.
+• Ukudlala okuzenzakalelayo kuvuliwe ngokuzenzakalelayo, kodwa kuya kuphela evidiyweni elandelayo ohlwini oluvulile, futhi ungakuvala esikrinini sesidlali noma nini.
+• Azikho izikhangiso. Futhi ayikho inkokhelo yokubhalisa — i-Pro iwukuthenga kwanye.
+• Umlando wokubuka, inqubekelaphambili, amanothi nezindawo zokudlala kuhlala kudivayisi yakho.
+
+I-YouTube iwuphawu lokuhweba lwe-Google LLC.
+```

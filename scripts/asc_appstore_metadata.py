@@ -37,6 +37,8 @@ import os
 import re
 import sys
 import time
+import shutil
+import tempfile
 import urllib.error
 import urllib.request
 from pathlib import Path
@@ -58,6 +60,35 @@ LOCALE_MAP = {
     "de": "de-DE",
     "fr": "fr-FR",
     "ko": "ko",
+    # 2026-10-01 に追加（アプリ画面の 35 言語化に合わせてストアの文章も）。
+    # フィリピン語（fil）とズールー語（zu）は App Store に言語が無いので載せない（ユーザー判断）。
+    # 2026 年に増えたインドの言語などは ASC 上の表記が地域付き（bn-BD / ur-PK ほか）。
+    "ar": "ar-SA",
+    "bn": "bn-BD",
+    "cs": "cs",
+    "nl": "nl-NL",
+    "el": "el",
+    "hi": "hi",
+    "hu": "hu",
+    "id": "id",
+    "it": "it",
+    "kn": "kn-IN",
+    "mr": "mr-IN",
+    "pl": "pl",
+    "pt-BR": "pt-BR",
+    "pa": "pa-IN",
+    "ro": "ro",
+    "ru": "ru",
+    "sv": "sv",
+    "ta": "ta-IN",
+    "te": "te-IN",
+    "th": "th",
+    "zh-Hant": "zh-Hant",
+    "tr": "tr",
+    "uk": "uk",
+    "ur": "ur-PK",
+    "vi": "vi",
+    "ms": "ms",
 }
 
 class ASCError(RuntimeError):
@@ -313,6 +344,7 @@ def push(client: Client, bundle_id: str, version_string: str) -> int:
                      "attributes": {"copyright": copyright_text}}
         })
 
+    failed: list[str] = []
     existing = localizations(client, f"/v1/appStoreVersions/{version_id}/appStoreVersionLocalizations")
     for lang, locale in LOCALE_MAP.items():
         attributes = {
@@ -332,17 +364,21 @@ def push(client: Client, bundle_id: str, version_string: str) -> int:
             })
         else:
             print(f"  作成: {locale}")
-            client.write("POST", "/v1/appStoreVersionLocalizations", {
-                "data": {
-                    "type": "appStoreVersionLocalizations",
-                    "attributes": {**attributes, "locale": locale},
-                    "relationships": {
-                        "appStoreVersion": {
-                            "data": {"type": "appStoreVersions", "id": version_id}
-                        }
-                    },
-                }
-            })
+            try:
+                client.write("POST", "/v1/appStoreVersionLocalizations", {
+                    "data": {
+                        "type": "appStoreVersionLocalizations",
+                        "attributes": {**attributes, "locale": locale},
+                        "relationships": {
+                            "appStoreVersion": {
+                                "data": {"type": "appStoreVersions", "id": version_id}
+                            }
+                        },
+                    }
+                })
+            except ASCError as error:
+                print(f"  ⚠️ {locale} を作れませんでした（このロケールは飛ばします）: HTTP {error.code} {error.detail[:300]}")
+                failed.append(locale)
 
     # --- App 情報（名前・サブタイトル・プライバシーポリシーURL） ---
     info = editable_app_info(client, app_id)
@@ -366,16 +402,29 @@ def push(client: Client, bundle_id: str, version_string: str) -> int:
             })
         else:
             print(f"  作成: {locale}")
-            client.write("POST", "/v1/appInfoLocalizations", {
-                "data": {
-                    "type": "appInfoLocalizations",
-                    "attributes": {**attributes, "locale": locale},
-                    "relationships": {
-                        "appInfo": {"data": {"type": "appInfos", "id": info_id}}
-                    },
-                }
-            })
+            try:
+                client.write("POST", "/v1/appInfoLocalizations", {
+                    "data": {
+                        "type": "appInfoLocalizations",
+                        "attributes": {**attributes, "locale": locale},
+                        "relationships": {
+                            "appInfo": {"data": {"type": "appInfos", "id": info_id}}
+                        },
+                    }
+                })
+            except ASCError as error:
+                print(f"  ⚠️ {locale} を作れませんでした（このロケールは飛ばします）: HTTP {error.code} {error.detail[:300]}")
+                failed.append(locale)
 
+    # 新しく作った言語にはスクショが無い。主要言語（日本語）の画像が出ないよう英語の画像を入れる。
+    if not client.dry_run:
+        print("\nスクリーンショットの無い言語に英語の画像を入れます")
+        fill_screenshots(client, bundle_id)
+
+    if failed:
+        print(f"\n⚠️ 作成できなかったロケール: {', '.join(sorted(set(failed)))}"
+              "（LOCALE_MAP の表記が App Store Connect と合っているか確認すること）")
+        return 1
     print("\n完了しました。スクリーンショット・年齢制限・価格・審査メモは App Store Connect で確認してください。")
     return 0
 
@@ -777,6 +826,67 @@ def push_screenshots(client: Client, bundle_id: str, directory: Path,
     return 0
 
 
+def fill_screenshots(client: Client, bundle_id: str) -> int:
+    """スクリーンショットが1枚も無い言語に、英語（en-US）の画像をそのまま入れる。
+
+    スクリーンショットは7言語ぶんしか作らない（2026-10-01 のユーザー判断）。何も入れないと
+    App Store は主要言語（日本語）の画像を出すので、アラビア語などの利用者に日本語の画面が見えてしまう。
+    すでに画像がある言語には触らない。
+    """
+    app = find_app(client, bundle_id)
+    version = editable_version(client, app["id"])
+    if version is None:
+        raise SystemExit("編集できるバージョンがありません。")
+    locs = localizations(
+        client, f"/v1/appStoreVersions/{version['id']}/appStoreVersionLocalizations")
+    if "en-US" not in locs:
+        raise SystemExit("en-US の言語がありません。")
+
+    source_sets = client.get(
+        f"/v1/appStoreVersionLocalizations/{locs['en-US']['id']}/appScreenshotSets?limit=20"
+    ).get("data", [])
+    for source_set in source_sets:
+        display_type = source_set["attributes"]["screenshotDisplayType"]
+        shots = client.get(
+            f"/v1/appScreenshotSets/{source_set['id']}/appScreenshots?limit=50").get("data", [])
+        if not shots:
+            continue
+        targets = []
+        for locale, item in sorted(locs.items()):
+            sets = client.get(
+                f"/v1/appStoreVersionLocalizations/{item['id']}/appScreenshotSets?limit=20"
+            ).get("data", [])
+            has = [x for x in sets if x["attributes"].get("screenshotDisplayType") == display_type]
+            if has and client.get(
+                    f"/v1/appScreenshotSets/{has[0]['id']}/appScreenshots?limit=1").get("data"):
+                continue
+            targets.append(locale)
+        print(f"{display_type}: 英語の画像 {len(shots)} 枚 → 画像の無い言語 {len(targets)} 件"
+              f"（{', '.join(targets) or 'なし'}）")
+        if not targets:
+            continue
+
+        with tempfile.TemporaryDirectory() as tmp:
+            first = Path(tmp) / "en-US"
+            first.mkdir()
+            for order, shot in enumerate(shots):
+                asset = shot["attributes"].get("imageAsset") or {}
+                url = (asset.get("templateUrl", "")
+                       .replace("{w}", str(asset.get("width")))
+                       .replace("{h}", str(asset.get("height")))
+                       .replace("{f}", "png"))
+                if not url:
+                    raise SystemExit(f"en-US の画像 {order} がまだ処理中で取り出せません。")
+                name = f"{order:02d}-{shot['attributes'].get('fileName') or 'shot.png'}"
+                with urllib.request.urlopen(url, timeout=60) as response:
+                    (first / name).write_bytes(response.read())
+            for locale in targets:
+                shutil.copytree(first, Path(tmp) / locale)
+            shutil.rmtree(first)
+            push_screenshots(client, bundle_id, Path(tmp), display_type, replace=False)
+    return 0
+
+
 def diagnose(client: Client, bundle_id: str) -> int:
     """提出前チェック。読み取れる範囲で「未設定のまま提出しようとしていないか」を見る。"""
     app = find_app(client, bundle_id)
@@ -930,7 +1040,7 @@ def main() -> int:
     parser.add_argument(
         "--mode",
         choices=["status", "push", "attach-build", "category", "review", "screenshots",
-                 "diagnose", "submit", "cancel"],
+                 "fill-screenshots", "diagnose", "submit", "cancel"],
         default="status")
     parser.add_argument("--primary-category", default="EDUCATION")
     parser.add_argument("--screenshots-dir", default="screenshots",
@@ -969,6 +1079,8 @@ def main() -> int:
         if args.mode == "screenshots":
             return push_screenshots(client, args.bundle_id, Path(args.screenshots_dir),
                                     args.display_type, args.replace)
+        if args.mode == "fill-screenshots":
+            return fill_screenshots(client, args.bundle_id)
         if args.mode == "category":
             return set_category(client, args.bundle_id,
                                 args.primary_category, args.secondary_category or None)

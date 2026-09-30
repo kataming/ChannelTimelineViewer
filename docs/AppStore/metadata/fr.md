@@ -37,7 +37,7 @@ chronologique,chaine,progression,serie,cours,etude,archive,ancien,suivi,chronolo
 ```
 
 ## 説明（Description）
-<!-- 2799 / 4000 文字 -->
+<!-- 2860 / 4000 文字 -->
 
 ```
 Channel Timeline Viewer vous aide à regarder les chaînes YouTube depuis le début sans perdre le fil.
@@ -61,6 +61,7 @@ FONCTIONS PRINCIPALES
 • Répétition d'une vidéo ou de toute la liste
 • Marquez les vidéos comme regardées ou ignorées ; ne lisez que les non vues
 • Filtres : toutes / non vues / vues
+• Recherche dans la chaîne pour filtrer les vidéos par titre
 • Notes pour chaque vidéo, pour étudier ou suivre une série
 • Vitesse de lecture et sous-titres pilotés hors du lecteur
 • Position affichée comme « 27 février 2026 (1 034 / 3 500) »
@@ -86,9 +87,9 @@ YouTube est une marque de Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 300 / 4000 文字 -->
+<!-- 199 / 4000 文字 -->
 
 ```
-• L’icône de l’app reprend désormais le design vert de l’app Android et de notre site.
-• Le grand bouton de l’écran de lecture devient « Commenter sur YouTube » : il ouvre la vidéo sur YouTube pour que vous puissiez laisser un commentaire. « Ouvrir dans YouTube » reste disponible dans le menu « … ».
+• Recherche dans la chaîne : touchez la loupe dans la liste des vidéos pour les filtrer par titre. L’ordre de tri et les marques « vu » sont conservés.
+• L’app est désormais disponible en 35 langues.
 ```

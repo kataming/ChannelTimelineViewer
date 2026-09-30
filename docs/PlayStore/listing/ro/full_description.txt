@@ -1,0 +1,46 @@
+Channel Timeline Viewer vă ajută să urmăriți canale YouTube de la început, fără să pierdeți locul unde ați rămas.
+
+Răsfoiți un canal începând cu cele mai vechi videoclipuri, țineți evidența a ceea ce ați vizionat, reluați exact din poziția de redare și luați notițe pe parcurs. Arhivele, cursurile și seriile lungi rămân în ordine.
+
+CUI SE ADRESEAZĂ
+• Celor care învață din tutoriale, prelegeri, cursuri, canale educaționale și serii lungi de pe YouTube
+• Oricui vrea să recupereze videoclipurile mai vechi ale unui canal
+• Spectatorilor care vor să știe exact până unde au ajuns
+• Administratorilor de canale care vor ca spectatorii să le parcurgă în ordine videoclipurile mai vechi
+• Părinților de copii mici care vor o modalitate mai simplă de a rămâne într-un singur canal ales
+
+FUNCȚII PRINCIPALE
+• Lipiți URL-ul unui canal sau partajați un videoclip ori un canal din aplicația YouTube sau dintr-un browser
+• Videoclipuri listate de la cele mai vechi (sau de la cele mai noi)
+• Progres pe canal: număr de videoclipuri vizionate, procent, bară de progres
+• „Urmează / Continuați” vă duce direct înapoi unde v-ați oprit
+• Reluare exact de la secunda la care ați rămas
+• Redare automată a următorului videoclip din listă (activată implicit, o puteți dezactiva oricând)
+• Repetarea unui videoclip sau a tuturor
+• Marcarea videoclipurilor ca vizionate sau de omis; redarea doar a celor nevizionate
+• Filtre: toate / nevizionate / vizionate
+• Căutare în cadrul canalului pentru a restrânge videoclipurile după titlu
+• Notițe pentru fiecare videoclip, pentru studiu sau vizionarea seriilor
+• Viteza de redare și subtitrările controlate din afara playerului
+• Poziția afișată ca „27 februarie 2026 (1.034 / 3.500)”
+• Cinci butoane de navigare — primul, anterior, anulare, următorul, ultimul — unde anularea restabilește atât videoclipul, cât și poziția la care erați
+• Canalele deschise anterior se încarcă instantaneu dintr-o listă salvată
+• Disponibilă în 35 de limbi
+
+REDARE
+Videoclipurile sunt redate în playerul încorporat oficial YouTube (IFrame Player).
+
+GRATUIT ȘI PRO
+Puteți salva gratuit un canal. În cadrul acestuia totul funcționează fără limite: sortare, evidența vizionărilor, reluare, butoane de salt, notițe, progres și redare în playerul oficial.
+Îl puteți înlocui gratuit cu un alt canal, dar astfel se elimină definitiv istoricul vizionărilor, progresul și notițele canalului anterior.
+Pentru a urmări mai multe canale în paralel și a păstra toate datele, cumpărați Pro. Este o achiziție unică, nu un abonament.
+
+DE REȚINUT
+• Această aplicație nu este aplicația oficială YouTube.
+• Nu descarcă videoclipuri, nu blochează reclame și nu redă în fundal.
+• Listele de videoclipuri sunt obținute prin YouTube Data API v3.
+• Redarea automată este activată implicit, dar trece doar la următorul videoclip din lista deschisă de dvs. și o puteți dezactiva oricând din ecranul playerului.
+• Fără reclame. Nici abonamente — Pro este o achiziție unică.
+• Istoricul vizionărilor, progresul, notițele și pozițiile de redare rămân pe dispozitivul dvs.
+
+YouTube este o marcă comercială a Google LLC.

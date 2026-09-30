@@ -102,8 +102,9 @@ def push_listing(api, dry_run: bool) -> int:
 
     if dry_run:
         for locale in locales:
-            shots = sorted((SCREENSHOT_DIR / locale).glob("*.png"))
-            print(f"  [dry-run] {locale}: テキスト3項目 / スクリーンショット {len(shots)} 枚")
+            shots = image_sets(locale)["phoneScreenshots"]
+            print(f"  [dry-run] {locale}: テキスト3項目 / スクリーンショット {len(shots)} 枚"
+                  f"（{shots[0].parent.name if shots else 'なし'}）")
         print(f"  [dry-run] アイコンとフィーチャーグラフィックも入れ替えます")
         return 0
 
@@ -165,11 +166,18 @@ def push_details(api, dry_run: bool) -> int:
 
 
 def image_sets(locale: str) -> dict[str, list[Path]]:
-    """言語ごとに入れる画像。アイコンとフィーチャーグラフィックは全言語共通のものを使う。"""
+    """言語ごとに入れる画像。アイコンとフィーチャーグラフィックは全言語共通のものを使う。
+
+    スクリーンショットは7言語ぶんしか作らない（2026-10-01 のユーザー判断）。ほかの言語には英語の画像を入れる。
+    入れないと Play は既定の言語（日本語）の画像を出すため、アラビア語の利用者に日本語の画面が見えてしまう。
+    """
+    folder = SCREENSHOT_DIR / locale
+    if not folder.is_dir():
+        folder = SCREENSHOT_DIR / "en-US"
     screenshots = sorted(
-        path for path in (SCREENSHOT_DIR / locale).glob("*.png")
+        path for path in folder.glob("*.png")
         if not path.name.startswith(("00-", "ERROR"))
-    ) if (SCREENSHOT_DIR / locale).is_dir() else []
+    ) if folder.is_dir() else []
     return {
         "icon": [GRAPHICS_DIR / "icon-512.png"],
         "featureGraphic": [GRAPHICS_DIR / "feature-1024x500.png"],
@@ -297,14 +305,45 @@ def upsert_product(api, dry_run: bool) -> int:
 #     ⚠️ **「すでにご自分で切り替えた方の設定はそのまま」を必ず書く。**
 #     これが抜けると「勝手に設定を変えられた」と受け取られる。実装も実際にそうなっていて、
 #     新しい既定が効くのは**一度も操作していない端末だけ**（PlaybackSettingsStore）。
+#
+# 1.15: チャンネル内検索 ＋ アプリ画面を 35 言語に。リリースノートも 35 言語
+#   （7言語は App Store の whatsNew と同文、ほかは Claude 訳）。
 RELEASE_NOTES = {
-    "ja-JP": "・アプリ内部の利用状況の記録を見直しました。\n・画面や機能に変更はありません。",
-    "en-US": "• Reviewed how the app records usage internally.\n• Nothing on the screen or in the features has changed.",
-    "zh-CN": "・调整了应用内部的使用情况记录方式。\n・界面和功能没有变化。",
-    "es-ES": "• Revisamos cómo la app registra internamente el uso.\n• No cambia nada en la pantalla ni en las funciones.",
-    "de-DE": "• Die interne Nutzungserfassung der App wurde überarbeitet.\n• Bildschirm und Funktionen bleiben unverändert.",
-    "fr-FR": "• Nous avons revu la façon dont l’app enregistre l’utilisation en interne.\n• Rien ne change à l’écran ni dans les fonctions.",
-    "ko-KR": "・앱 내부의 이용 현황 기록 방식을 다시 살펴봤습니다.\n・화면과 기능에는 변화가 없습니다.",
+    "ja-JP": "・チャンネル内検索：動画一覧の虫眼鏡から、タイトルで動画を絞り込めます。並び順や視聴済みの表示はそのままです。\n・アプリが35言語に対応しました。",
+    "en-US": "• Search within a channel: tap the magnifying glass on the video list to narrow videos by title. Your sort order and watched marks stay as they are.\n• The app is now available in 35 languages.",
+    "zh-CN": "・频道内搜索：在视频列表中点按放大镜，即可按标题筛选视频。排序和已观看标记保持不变。\n・应用现已支持 35 种语言。",
+    "es-ES": "• Búsqueda dentro del canal: toca la lupa en la lista de vídeos para filtrarlos por título. El orden y las marcas de visto se mantienen.\n• La app ya está disponible en 35 idiomas.",
+    "de-DE": "• Suche im Kanal: Tippe in der Videoliste auf die Lupe, um Videos nach Titel zu filtern. Sortierung und Gesehen-Markierungen bleiben erhalten.\n• Die App ist jetzt in 35 Sprachen verfügbar.",
+    "fr-FR": "• Recherche dans la chaîne : touchez la loupe dans la liste des vidéos pour les filtrer par titre. L’ordre de tri et les marques « vu » sont conservés.\n• L’app est désormais disponible en 35 langues.",
+    "ko-KR": "・채널 내 검색: 동영상 목록에서 돋보기를 눌러 제목으로 동영상을 좁혀 볼 수 있습니다. 정렬 순서와 시청 완료 표시는 그대로 유지됩니다.\n・앱이 35개 언어를 지원합니다.",
+    "ar": "• البحث داخل القناة: انقر على العدسة المكبّرة في قائمة الفيديوهات لتضييق الفيديوهات حسب العنوان. يبقى ترتيب الفرز وعلامات المشاهدة كما هي.\n• أصبح التطبيق متاحًا الآن بـ 35 لغة.",
+    "bn-BD": "• চ্যানেলের ভেতরে খোঁজা: ভিডিও তালিকায় ম্যাগনিফাইং গ্লাসে ট্যাপ করে শিরোনাম দিয়ে ভিডিও বাছাই করুন। আপনার সাজানোর ক্রম ও দেখা হয়েছে চিহ্ন যেমন আছে তেমনই থাকে।\n• অ্যাপটি এখন ৩৫টি ভাষায় উপলব্ধ।",
+    "cs-CZ": "• Hledání v kanálu: klepnutím na lupu v seznamu videí zúžíte videa podle názvu. Řazení a značky zhlédnutí zůstanou beze změny.\n• Aplikace je nyní k dispozici v 35 jazycích.",
+    "nl-NL": "• Zoeken binnen een kanaal: tik op het vergrootglas in de videolijst om video's op titel te filteren. Je sortering en bekeken-markeringen blijven zoals ze zijn.\n• De app is nu beschikbaar in 35 talen.",
+    "fil": "• Paghahanap sa loob ng channel: i-tap ang magnifying glass sa listahan ng video para salain ang mga video ayon sa pamagat. Hindi nagbabago ang pagkakasunod-sunod at mga marka ng napanood.\n• Available na ang app sa 35 wika.",
+    "el-GR": "• Αναζήτηση μέσα σε ένα κανάλι: πατήστε τον μεγεθυντικό φακό στη λίστα βίντεο για να φιλτράρετε τα βίντεο με βάση τον τίτλο. Η ταξινόμηση και οι σημάνσεις προβολής σας μένουν ως έχουν.\n• Η εφαρμογή είναι πλέον διαθέσιμη σε 35 γλώσσες.",
+    "hi-IN": "• चैनल के अंदर खोज: वीडियो सूची पर आवर्धक लेंस (मैग्निफ़ाइंग ग्लास) पर टैप करके शीर्षक से वीडियो छाँटें। आपका क्रम और देखे गए के निशान जैसे हैं वैसे ही रहते हैं।\n• ऐप अब 35 भाषाओं में उपलब्ध है।",
+    "hu-HU": "• Keresés a csatornán belül: koppints a nagyítóra a videólistán, és szűkítsd a videókat cím szerint. A rendezés és a megnézett jelölések változatlanok maradnak.\n• Az alkalmazás mostantól 35 nyelven érhető el.",
+    "id": "• Cari di dalam channel: ketuk ikon kaca pembesar di daftar video untuk menyaring video berdasarkan judul. Urutan dan tanda sudah ditonton tetap seperti semula.\n• Aplikasi kini tersedia dalam 35 bahasa.",
+    "it-IT": "• Ricerca all'interno di un canale: tocca la lente d'ingrandimento nell'elenco dei video per filtrarli per titolo. Ordinamento e segni di visione restano invariati.\n• L'app è ora disponibile in 35 lingue.",
+    "kn-IN": "• ಚಾನೆಲ್‌ನೊಳಗೆ ಹುಡುಕಾಟ: ಶೀರ್ಷಿಕೆಯ ಮೂಲಕ ವೀಡಿಯೊಗಳನ್ನು ಸೀಮಿತಗೊಳಿಸಲು ವೀಡಿಯೊ ಪಟ್ಟಿಯಲ್ಲಿರುವ ಭೂತಗನ್ನಡಿ ಐಕಾನ್ ಟ್ಯಾಪ್ ಮಾಡಿ. ನಿಮ್ಮ ವಿಂಗಡಣೆಯ ಕ್ರಮ ಮತ್ತು ನೋಡಿದ ಗುರುತುಗಳು ಹಾಗೆಯೇ ಇರುತ್ತವೆ.\n• ಆ್ಯಪ್ ಈಗ 35 ಭಾಷೆಗಳಲ್ಲಿ ಲಭ್ಯವಿದೆ.",
+    "mr-IN": "• चॅनेलमध्ये शोध: व्हिडिओ यादीवरील भिंगावर टॅप करून शीर्षकानुसार व्हिडिओ निवडा. तुमचा क्रम आणि पाहिलेल्यांच्या खुणा जशा आहेत तशाच राहतात.\n• ॲप आता 35 भाषांमध्ये उपलब्ध आहे.",
+    "pl-PL": "• Wyszukiwanie w kanale: stuknij lupę na liście filmów, aby zawęzić filmy po tytule. Kolejność sortowania i oznaczenia obejrzanych pozostają bez zmian.\n• Aplikacja jest teraz dostępna w 35 językach.",
+    "pt-BR": "• Busca dentro do canal: toque na lupa da lista de vídeos para filtrar os vídeos pelo título. A ordenação e as marcas de assistido continuam como estão.\n• O app agora está disponível em 35 idiomas.",
+    "pa": "• ਚੈਨਲ ਦੇ ਅੰਦਰ ਖੋਜ: ਵੀਡੀਓ ਸੂਚੀ 'ਤੇ ਵੱਡਦਰਸ਼ੀ ਸ਼ੀਸ਼ੇ 'ਤੇ ਟੈਪ ਕਰਕੇ ਸਿਰਲੇਖ ਨਾਲ ਵੀਡੀਓ ਛਾਂਟੋ। ਤੁਹਾਡਾ ਕ੍ਰਮ ਅਤੇ ਦੇਖੇ ਗਏ ਦੇ ਨਿਸ਼ਾਨ ਜਿਵੇਂ ਹਨ ਉਵੇਂ ਹੀ ਰਹਿੰਦੇ ਹਨ।\n• ਐਪ ਹੁਣ 35 ਭਾਸ਼ਾਵਾਂ ਵਿੱਚ ਉਪਲਬਧ ਹੈ।",
+    "ro": "• Căutare în canal: atingeți lupa din lista de videoclipuri pentru a restrânge videoclipurile după titlu. Ordinea de sortare și marcajele de vizionare rămân neschimbate.\n• Aplicația este acum disponibilă în 35 de limbi.",
+    "ru-RU": "• Поиск внутри канала: нажмите на лупу в списке видео, чтобы отобрать видео по названию. Порядок сортировки и отметки о просмотре сохраняются.\n• Приложение теперь доступно на 35 языках.",
+    "sv-SE": "• Sök inom en kanal: tryck på förstoringsglaset i videolistan för att filtrera videor efter titel. Din sortering och dina sedda-markeringar förblir som de är.\n• Appen finns nu på 35 språk.",
+    "ta-IN": "• சேனலுக்குள் தேடல்: தலைப்பின்படி வீடியோக்களைச் சுருக்க, வீடியோ பட்டியலில் உள்ள உருப்பெருக்கியைத் தட்டவும். உங்கள் வரிசை முறையும் பார்த்த குறிகளும் அப்படியே இருக்கும்.\n• ஆப் இப்போது 35 மொழிகளில் கிடைக்கிறது.",
+    "te-IN": "• ఛానెల్‌లో శోధన: శీర్షిక ద్వారా వీడియోలను తగ్గించడానికి వీడియో జాబితాలోని భూతద్దం గుర్తును నొక్కండి. మీ క్రమం, చూసిన గుర్తులు అలాగే ఉంటాయి.\n• యాప్ ఇప్పుడు 35 భాషల్లో అందుబాటులో ఉంది.",
+    "th": "• ค้นหาภายในช่อง: แตะไอคอนแว่นขยายในรายการวิดีโอเพื่อกรองวิดีโอตามชื่อ ลำดับการเรียงและเครื่องหมายดูแล้วยังคงเหมือนเดิม\n• ตอนนี้แอปรองรับ 35 ภาษาแล้ว",
+    "zh-TW": "• 頻道內搜尋：點一下影片清單上的放大鏡，即可依標題篩選影片。排序方式與已觀看標記都維持不變。\n• App 現已支援 35 種語言。",
+    "tr-TR": "• Kanal içinde arama: videoları başlığa göre daraltmak için video listesindeki büyütece dokunun. Sıralama düzeniniz ve izlendi işaretleriniz olduğu gibi kalır.\n• Uygulama artık 35 dilde kullanılabilir.",
+    "uk": "• Пошук у межах каналу: торкніться лупи в списку відео, щоб відібрати відео за назвою. Порядок сортування й позначки перегляду залишаються без змін.\n• Застосунок тепер доступний 35 мовами.",
+    "ur": "• چینل کے اندر تلاش: ویڈیو فہرست میں میگنیفائنگ گلاس پر تھپتھپائیں اور عنوان سے ویڈیوز کو محدود کریں۔ آپ کی ترتیب اور دیکھی گئی کے نشان جوں کے توں رہتے ہیں۔\n• ایپ اب 35 زبانوں میں دستیاب ہے۔",
+    "vi": "• Tìm kiếm trong kênh: nhấn vào biểu tượng kính lúp trên danh sách video để lọc video theo tiêu đề. Thứ tự sắp xếp và dấu đã xem vẫn giữ nguyên.\n• Ứng dụng hiện đã hỗ trợ 35 ngôn ngữ.",
+    "ms": "• Carian dalam saluran: ketik ikon kanta pembesar pada senarai video untuk menapis video mengikut tajuk. Susunan dan tanda sudah ditonton kekal seperti biasa.\n• Apl kini tersedia dalam 35 bahasa.",
+    "zu": "• Sesha ngaphakathi kwesiteshi: thepha ingilazi yokukhulisa ohlwini lwamavidiyo ukuze uhlunge amavidiyo ngesihloko. Ukuhlelwa kwakho namamaki okubukiwe kuhlala kunjalo.\n• Uhlelo lokusebenza manje selutholakala ngezilimi ezingu-35.",
 }
 
 

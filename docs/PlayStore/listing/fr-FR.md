@@ -22,7 +22,7 @@ Regardez les chaînes YouTube dans l’ordre et reprenez où vous étiez.
 ```
 
 ## 詳しい説明（Full description）
-<!-- 2912 / 4000 文字 -->
+<!-- 2907 / 4000 文字 -->
 
 ```
 Channel Timeline Viewer vous aide à regarder les chaînes YouTube depuis le début sans perdre le fil.
@@ -46,12 +46,13 @@ FONCTIONS PRINCIPALES
 • Répétition d'une vidéo ou de toute la liste
 • Marquez les vidéos comme regardées ou ignorées ; ne lisez que les non vues
 • Filtres : toutes / non vues / vues
+• Recherche dans la chaîne pour filtrer les vidéos par titre
 • Notes pour chaque vidéo, pour étudier ou suivre une série
 • Vitesse de lecture et sous-titres pilotés hors du lecteur
 • Position affichée comme « 27 février 2026 (1 034 / 3 500) »
 • Cinq boutons de navigation : première, précédente, annuler, suivante, dernière
 • Les chaînes déjà ouvertes s'affichent immédiatement depuis une liste enregistrée
-• Disponible en français, anglais, japonais, chinois simplifié, espagnol, allemand et coréen
+• Disponible en 35 langues
 
 LECTURE
 Les vidéos sont lues dans le lecteur intégré officiel de YouTube (IFrame Player).

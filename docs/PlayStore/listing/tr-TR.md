@@ -1,0 +1,74 @@
+# Google Play ストア掲載情報 — Türkçe（tr-TR）
+
+> このファイルは `scripts/build_play_metadata.py` が生成します。直接編集せず、
+> `docs/PlayStore/metadata.json` を直してから再生成してください。
+
+- メール: support@jewelrysunflower.com
+- ウェブサイト: https://channeltimeline.jewelrysunflower.com/
+- プライバシーポリシー: https://channeltimeline.jewelrysunflower.com/en/privacy/
+
+## アプリ名（Title）
+<!-- 23 / 30 文字 -->
+
+```
+Channel Timeline Viewer
+```
+
+## 短い説明（Short description）
+<!-- 76 / 80 文字 -->
+
+```
+YouTube kanallarını sırayla izleyin; ilerleme takibi ve kaldığı yerden devam
+```
+
+## 詳しい説明（Full description）
+<!-- 2908 / 4000 文字 -->
+
+```
+Channel Timeline Viewer, YouTube kanallarını baştan itibaren, kaldığınız yeri kaybetmeden izlemenize yardımcı olur.
+
+Bir kanalı en eski videolarından başlayarak gezin, neleri izlediğinizi takip edin, tam oynatma konumundan devam edin ve ilerlerken notlar alın. Arşivler, kurslar ve uzun soluklu seriler sırasını korur.
+
+KİMLER İÇİN
+• YouTube'daki eğitim videoları, dersler, kurslar, eğitim kanalları ve uzun soluklu serilerle öğrenenler
+• Bir kanalın eski videolarını yetiştirmek isteyen herkes
+• Nereye kadar izlediğini tam olarak bilmek isteyen izleyiciler
+• İzleyicilerinin eski videolarını sırayla izlemesini isteyen kanal sahipleri
+• Seçtikleri tek bir kanalın içinde kalmanın daha basit bir yolunu arayan küçük çocuk ebeveynleri
+
+ANA ÖZELLİKLER
+• Bir kanal URL'si yapıştırın veya YouTube uygulamasından ya da bir tarayıcıdan bir video veya kanal paylaşın
+• Videolar en eskiden yeniye (veya en yeniden eskiye) listelenir
+• Kanal başına ilerleme: izlenen sayısı, yüzde, ilerleme çubuğu
+• "Sıradaki / Devam" sizi doğrudan kaldığınız yere götürür
+• Kaldığınız saniyeden tam olarak devam edin
+• Listedeki sonraki videoya otomatik oynatma (varsayılan olarak açık, istediğiniz zaman kapatabilirsiniz)
+• Birini tekrarla veya tümünü tekrarla
+• Videoları izlendi veya atlanacak olarak işaretleyin; yalnızca izlenmemişleri oynatın
+• Filtreler: tümü / izlenmemiş / izlenmiş
+• Kanal içinde arama ile videoları başlığa göre daraltın
+• Her video için notlar; ders çalışırken veya seri izlerken
+• Oynatma hızı ve altyazılar oynatıcının dışından kontrol edilir
+• Konum "27 Şubat 2026 (1.034 / 3.500)" şeklinde gösterilir
+• Beş gezinme düğmesi — ilk, önceki, geri al, sonraki, son; "geri al" hem videoyu hem de bulunduğunuz konumu geri getirir
+• Daha önce açtığınız kanallar kayıtlı listeden anında yüklenir
+• 35 dilde kullanılabilir
+
+OYNATMA
+Videolar YouTube'un resmî yerleşik oynatıcısında (IFrame Player) oynatılır.
+
+ÜCRETSİZ VE PRO
+Bir kanalı ücretsiz kaydedebilirsiniz. Bu kanalın içinde her şey sınırsız çalışır: sıralama, izlenme takibi, kaldığı yerden devam, geçiş düğmeleri, notlar, ilerleme ve resmî oynatıcıda oynatma.
+Ücretsiz olarak başka bir kanala geçebilirsiniz ancak bu, önceki kanalın izleme geçmişini, ilerlemesini ve notlarını siler.
+Birden fazla kanalı yan yana takip etmek ve tüm kayıtları korumak için Pro'yu satın alın. Tek seferlik bir satın almadır, abonelik değildir.
+
+LÜTFEN DİKKAT
+• Bu uygulama resmî YouTube uygulaması değildir.
+• Video indirmez, reklam engellemez ve arka planda oynatmaz.
+• Video listeleri YouTube Data API v3 üzerinden alınır.
+• Otomatik oynatma varsayılan olarak açıktır ancak yalnızca açtığınız listedeki sonraki videoya geçer ve oynatıcı ekranından istediğiniz zaman kapatılabilir.
+• Reklam yok. Abonelik de yok — Pro tek seferlik bir satın almadır.
+• İzleme geçmişi, ilerleme, notlar ve oynatma konumları cihazınızda kalır.
+
+YouTube, Google LLC'nin ticari markasıdır.
+```

@@ -1,0 +1,46 @@
+Channel Timeline Viewer membantu anda menonton saluran YouTube dari awal tanpa terlupa di mana anda berhenti.
+
+Layari saluran bermula dari muat naik yang paling lama, jejaki apa yang sudah ditonton, sambung dari kedudukan main balik yang tepat dan tulis nota sambil menonton. Arkib, kursus dan siri panjang kekal mengikut urutan.
+
+UNTUK SIAPA
+• Mereka yang belajar daripada tutorial, kuliah, kursus, saluran pendidikan dan siri panjang di YouTube
+• Sesiapa yang ingin mengejar video lama sesebuah saluran
+• Penonton yang ingin tahu dengan tepat sejauh mana mereka sudah menonton
+• Pengendali saluran yang mahu penonton menonton video lama mereka mengikut urutan
+• Ibu bapa kanak-kanak kecil yang mahukan cara lebih mudah untuk kekal dalam satu saluran pilihan
+
+CIRI UTAMA
+• Tampal URL saluran, atau kongsi video atau saluran daripada apl YouTube atau pelayar
+• Muat naik disenaraikan dari yang terlama (atau terbaharu)
+• Kemajuan setiap saluran: bilangan sudah ditonton, peratusan, bar kemajuan
+• “Seterusnya / Teruskan” membawa anda terus kembali ke tempat anda berhenti
+• Sambung dari saat tepat anda berhenti
+• Automain ke video seterusnya dalam senarai (dihidupkan secara lalai, dan boleh dimatikan pada bila-bila masa)
+• Ulang satu atau ulang semua
+• Tanda video sebagai sudah ditonton atau dilangkau; main yang belum ditonton sahaja
+• Penapis: semua / belum ditonton / sudah ditonton
+• Cari dalam saluran untuk menapis video mengikut tajuk
+• Nota untuk setiap video, untuk belajar atau menonton siri
+• Kelajuan main balik dan kapsyen dikawal di luar pemain
+• Kedudukan dipaparkan seperti “27 Februari 2026 (1,034 / 3,500)”
+• Lima butang navigasi — pertama, sebelumnya, buat asal, seterusnya, terakhir — dengan buat asal memulihkan video dan kedudukan anda sebelumnya
+• Saluran yang pernah dibuka dimuatkan serta-merta daripada senarai yang disimpan
+• Tersedia dalam 35 bahasa
+
+MAIN BALIK
+Video dimainkan dalam pemain terbenam rasmi YouTube (IFrame Player).
+
+PERCUMA DAN PRO
+Anda boleh menyimpan satu saluran secara percuma. Dalam saluran itu, semua ciri boleh digunakan tanpa had: susunan, penjejakan tontonan, sambung tonton, butang lompat, nota, kemajuan dan main balik dalam pemain rasmi.
+Anda boleh menukar kepada saluran lain secara percuma, tetapi sejarah tontonan, kemajuan dan nota saluran sebelumnya akan dihapuskan.
+Untuk mengikuti beberapa saluran serentak dan menyimpan semua rekod, beli Pro. Ia pembelian sekali sahaja, bukan langganan.
+
+SILA AMBIL PERHATIAN
+• Apl ini bukan apl rasmi YouTube.
+• Apl ini tidak memuat turun video, menyekat iklan atau bermain di latar belakang.
+• Senarai video diperoleh melalui YouTube Data API v3.
+• Automain dihidupkan secara lalai, tetapi ia hanya beralih ke video seterusnya dalam senarai yang anda buka, dan anda boleh mematikannya pada skrin pemain pada bila-bila masa.
+• Tiada iklan. Tiada langganan juga — Pro ialah pembelian sekali sahaja.
+• Sejarah tontonan, kemajuan, nota dan kedudukan main balik kekal pada peranti anda.
+
+YouTube ialah tanda dagangan Google LLC.

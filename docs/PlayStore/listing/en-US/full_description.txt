@@ -19,12 +19,13 @@ MAIN FEATURES
 • Repeat one or repeat all
 • Mark videos watched or skipped; play unwatched only
 • Filters: all / unwatched / watched
+• Search within a channel to narrow videos by title
 • Notes for each video, for studying or series viewing
 • Playback speed and captions controlled outside the player
 • Position shown as "February 27, 2026 (1,034 / 3,500)"
 • Five navigation buttons — first, previous, undo, next, last — where undo restores both the video and the position you were at
 • Channels you have opened before load instantly from a saved list
-• Available in English, Japanese, Simplified Chinese, Spanish, German, French and Korean
+• Available in 35 languages
 
 PLAYBACK
 Videos play in YouTube's official embedded player (IFrame Player).

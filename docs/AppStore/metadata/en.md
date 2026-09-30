@@ -37,7 +37,7 @@ chronological,oldest,channel,progress,series,course,study,archive,tracker,binge,
 ```
 
 ## 説明（Description）
-<!-- 2555 / 4000 文字 -->
+<!-- 2607 / 4000 文字 -->
 
 ```
 Channel Timeline Viewer helps you watch YouTube channels from the beginning without losing your place.
@@ -61,6 +61,7 @@ MAIN FEATURES
 • Repeat one or repeat all
 • Mark videos watched or skipped; play unwatched only
 • Filters: all / unwatched / watched
+• Search within a channel to narrow videos by title
 • Notes for each video, for studying or series viewing
 • Playback speed and captions controlled outside the player
 • Position shown as "February 27, 2026 (1,034 / 3,500)"
@@ -86,9 +87,9 @@ YouTube is a trademark of Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 256 / 4000 文字 -->
+<!-- 192 / 4000 文字 -->
 
 ```
-• The app icon now uses the same green design as the Android app and our website.
-• The big button on the player screen is now “Comment on YouTube”. It opens the video on YouTube so you can leave a comment. “Open in YouTube” in the “…” menu is still there.
+• Search within a channel: tap the magnifying glass on the video list to narrow videos by title. Your sort order and watched marks stay as they are.
+• The app is now available in 35 languages.
 ```

@@ -64,7 +64,7 @@ def write(data: dict) -> None:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
 
     for locale, label in locales.items():
-        slug = SITE_SLUGS[locale]
+        slug = SITE_SLUGS.get(locale, "en")  # サイトは7言語なので、ほかは英語のページ
         url = lambda key: data[key].replace("{lang}", slug)
         lines = [
             f"# App Store メタデータ — {label}",

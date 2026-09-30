@@ -22,7 +22,7 @@ YouTube-Kanäle der Reihe nach ansehen, Fortschritt merken und weitermachen.
 ```
 
 ## 詳しい説明（Full description）
-<!-- 2789 / 4000 文字 -->
+<!-- 2757 / 4000 文字 -->
 
 ```
 Channel Timeline Viewer hilft dir, YouTube-Kanäle von Anfang an zu sehen, ohne den Faden zu verlieren.
@@ -46,12 +46,13 @@ HAUPTFUNKTIONEN
 • Wiederholen: ein Video oder alle
 • Videos als gesehen oder übersprungen markieren; nur ungesehene abspielen
 • Filter: alle / ungesehen / gesehen
+• Suche im Kanal, um Videos nach Titel zu filtern
 • Notizen zu jedem Video – fürs Lernen oder für Serien
 • Wiedergabetempo und Untertitel außerhalb des Players steuern
 • Position als „27. Februar 2026 (1.034 / 3.500)“
 • Fünf Navigationstasten: Erstes, Zurück, Rückgängig, Weiter, Letztes
 • Bereits geöffnete Kanäle erscheinen sofort aus einer gespeicherten Liste
-• Verfügbar auf Deutsch, Englisch, Japanisch, Chinesisch (vereinfacht), Spanisch, Französisch und Koreanisch
+• In 35 Sprachen verfügbar
 
 WIEDERGABE
 Videos laufen im offiziellen eingebetteten YouTube-Player (IFrame Player).

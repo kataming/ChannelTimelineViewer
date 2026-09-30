@@ -1,0 +1,74 @@
+# Google Play ストア掲載情報 — Nederlands（nl-NL）
+
+> このファイルは `scripts/build_play_metadata.py` が生成します。直接編集せず、
+> `docs/PlayStore/metadata.json` を直してから再生成してください。
+
+- メール: support@jewelrysunflower.com
+- ウェブサイト: https://channeltimeline.jewelrysunflower.com/
+- プライバシーポリシー: https://channeltimeline.jewelrysunflower.com/en/privacy/
+
+## アプリ名（Title）
+<!-- 23 / 30 文字 -->
+
+```
+Channel Timeline Viewer
+```
+
+## 短い説明（Short description）
+<!-- 77 / 80 文字 -->
+
+```
+Kijk YouTube-kanalen op volgorde, volg je voortgang en ga verder waar je was.
+```
+
+## 詳しい説明（Full description）
+<!-- 3031 / 4000 文字 -->
+
+```
+Met Channel Timeline Viewer kijk je YouTube-kanalen vanaf het begin, zonder dat je kwijtraakt waar je was.
+
+Blader door een kanaal vanaf de oudste uploads, houd bij wat je hebt bekeken, ga verder vanaf de exacte afspeelpositie en maak onderweg notities. Archieven, cursussen en langlopende series blijven op volgorde.
+
+VOOR WIE
+• Mensen die leren van YouTube-tutorials, colleges, cursussen, educatieve kanalen en langlopende series
+• Iedereen die de oudere video's van een kanaal wil inhalen
+• Kijkers die precies willen weten hoe ver ze zijn
+• Kanaalbeheerders die willen dat kijkers hun oudere uploads op volgorde doorlopen
+• Ouders van jonge kinderen die op een eenvoudige manier binnen één gekozen kanaal willen blijven
+
+BELANGRIJKSTE FUNCTIES
+• Plak een kanaal-URL, of deel een video of kanaal vanuit de YouTube-app of een browser
+• Uploads gesorteerd van oud naar nieuw (of nieuwste eerst)
+• Voortgang per kanaal: aantal bekeken, percentage, voortgangsbalk
+• ‘Hierna / Verder’ brengt je meteen terug naar waar je was gebleven
+• Verder kijken vanaf precies de seconde waar je stopte
+• Automatisch afspelen van de volgende video in de lijst (standaard aan, en je kunt het op elk moment uitzetten)
+• Eén video herhalen of alle video's herhalen
+• Video's markeren als bekeken of overslaan; alleen niet bekeken afspelen
+• Filters: alle / niet bekeken / bekeken
+• Zoeken binnen een kanaal om video's op titel te filteren
+• Notities bij elke video, voor studie of het kijken van series
+• Afspeelsnelheid en ondertiteling bedienen buiten de speler
+• Positie weergegeven als ‘27 februari 2026 (1.034 / 3.500)’
+• Vijf navigatieknoppen — eerste, vorige, ongedaan maken, volgende, laatste — waarbij ongedaan maken zowel de video als je positie herstelt
+• Kanalen die je eerder hebt geopend, laden direct uit een bewaarde lijst
+• Beschikbaar in 35 talen
+
+AFSPELEN
+Video's worden afgespeeld in de officiële ingesloten speler van YouTube (IFrame Player).
+
+GRATIS EN PRO
+Je kunt gratis één kanaal bewaren. Binnen dat kanaal werkt alles zonder beperkingen: sorteren, bekeken bijhouden, verder kijken, navigatieknoppen, notities, voortgang en afspelen in de officiële speler.
+Je kunt gratis een ander kanaal in de plaats zetten, maar daarmee worden de kijkgeschiedenis, voortgang en notities van het vorige kanaal gewist.
+Wil je meerdere kanalen naast elkaar volgen en alle gegevens bewaren, koop dan Pro. Dat is een eenmalige aankoop, geen abonnement.
+
+LET OP
+• Deze app is niet de officiële YouTube-app.
+• De app downloadt geen video's, blokkeert geen advertenties en speelt niet af op de achtergrond.
+• Videolijsten worden opgehaald via de YouTube Data API v3.
+• Automatisch afspelen staat standaard aan, maar gaat alleen naar de volgende video in de lijst die je hebt geopend, en je kunt het op elk moment uitzetten in het afspeelscherm.
+• Geen advertenties. Ook geen abonnementen — Pro is een eenmalige aankoop.
+• Kijkgeschiedenis, voortgang, notities en afspeelposities blijven op je apparaat.
+
+YouTube is een handelsmerk van Google LLC.
+```

@@ -15,6 +15,8 @@
 #ctv[data-mode='queue'] .ctv-sort,
 #ctv[data-mode='queue'] .ctv-seg,
 #ctv[data-mode='queue'] .ctv-memo,
+#ctv[data-mode='queue'] .ctv-search-toggle,
+#ctv[data-mode='queue'] .ctv-search,
 #ctv[data-mode='queue'] .ctv-settings-note {
   display: none !important;
 }

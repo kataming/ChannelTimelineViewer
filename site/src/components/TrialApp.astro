@@ -140,6 +140,17 @@ const i18nJSON = JSON.stringify(queue ? { ui: trial.ui, queue } : { ui: trial.ui
                 <span id="ctv-sort-label">{trial.ui.sortOldest}</span>
               </button>
               <span class="ctv-count" id="ctv-count"></span>
+              {/* チャンネル内検索（タイトルの絞り込み・docs/channel-search.md）。キューのモードでは queue.css で隠す */}
+              <button type="button" class="ctv-search-toggle" id="ctv-search-toggle" aria-label={trial.ui.searchOpen} aria-expanded="false">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15 15l5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </button>
+            </div>
+
+            <div class="ctv-search" id="ctv-search" hidden>
+              <input type="search" id="ctv-search-input" placeholder={trial.ui.searchPlaceholder} aria-label={trial.ui.searchPlaceholder} autocomplete="off" spellcheck="false" enterkeyhint="search" />
+              <button type="button" class="ctv-icon-btn" id="ctv-search-close" aria-label={trial.ui.searchClose}>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </button>
             </div>
 
             <div class="ctv-seg" role="group" aria-label={trial.ui.progressTitle}>

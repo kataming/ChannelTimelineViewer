@@ -14,6 +14,18 @@ struct VideoItem: Identifiable, Codable, Hashable {
     var watchURL: URL? {
         URL(string: "https://www.youtube.com/watch?v=\(id)")
     }
+
+    /// チャンネル内検索：タイトルが検索語を含むか（docs/channel-search.md）。
+    /// NFKC＋小文字にそろえて部分一致。検索語が空（空白だけ）なら常に true。
+    /// ⚠️ Android `VideoItem.titleMatches` / Web `titleMatches` と同じ規則にしておく。
+    func titleMatches(_ query: String) -> Bool {
+        let needle = VideoItem.searchKey(query.trimmingCharacters(in: .whitespacesAndNewlines))
+        return needle.isEmpty || VideoItem.searchKey(title).contains(needle)
+    }
+
+    static func searchKey(_ text: String) -> String {
+        text.precomposedStringWithCompatibilityMapping.lowercased()
+    }
 }
 
 extension Array where Element == VideoItem {

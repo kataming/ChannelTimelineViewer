@@ -67,6 +67,10 @@ class Trial {
     this.endedHandledFor = null;
     this.pendingChannel = null; // Pro案内で「入れ替える」を待っているチャンネル
 
+    // チャンネル内検索（タイトルの絞り込み・docs/channel-search.md）。保存しない・送らない。
+    this.searchOpen = false;
+    this.searchQuery = '';
+
     this.rendered = 0;
     this.visible = [];
     this.rowsById = new Map();
@@ -146,6 +150,20 @@ class Trial {
         this.persistState();
         this.renderAll();
       });
+    });
+
+    // チャンネル内検索。入力のたびに手元の一覧を絞り込むだけ（通信しない）。
+    $('ctv-search-toggle').addEventListener('click', () => {
+      if (this.searchOpen) this.closeSearch();
+      else this.openSearch();
+    });
+    $('ctv-search-close').addEventListener('click', () => this.closeSearch());
+    $('ctv-search-input').addEventListener('input', (e) => {
+      this.searchQuery = e.target.value;
+      if (this.state) this.renderAll();
+    });
+    $('ctv-search-input').addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') this.closeSearch();
     });
 
     $('ctv-next-btn').addEventListener('click', () => this.playUpNext());
@@ -315,6 +333,8 @@ class Trial {
     this.channel = channel;
     store.saveChannel(channel);
     this.state = store.loadState(channel.id);
+    // 別のチャンネルに替わったら検索は持ち越さない。
+    this.closeSearch({ render: false });
     this.videos = [];
     this.current = null;
     this.pendingChannel = null;
@@ -330,6 +350,7 @@ class Trial {
     if (!window.confirm(message)) return;
 
     store.clearChannel(this.channel.id);
+    this.closeSearch({ render: false });
     if (this.player) this.player.destroy();
     this.player = null;
     this.channel = null;
@@ -520,6 +541,7 @@ class Trial {
       sort: this.state.sort,
       filter: this.state.filter,
       isWatched: this.isWatched,
+      query: this.searchOpen ? this.searchQuery : '',
     });
 
     $('ctv-sort-label').textContent =
@@ -535,9 +557,35 @@ class Trial {
 
     this.updateHeader();
     show($('ctv-list-empty'), this.visible.length === 0);
-    $('ctv-list-empty').textContent = this.videos.length
-      ? this.t.ui.emptyFiltered
-      : this.t.ui.empty;
+    $('ctv-list-empty').textContent = !this.videos.length
+      ? this.t.ui.empty
+      : this.isFilteringBySearch()
+        ? this.t.ui.searchEmpty
+        : this.t.ui.emptyFiltered;
+  }
+
+  // ---------------------------------------------------------------- チャンネル内検索
+
+  isFilteringBySearch() {
+    return this.searchOpen && this.searchQuery.trim() !== '';
+  }
+
+  openSearch() {
+    this.searchOpen = true;
+    show($('ctv-search'), true);
+    $('ctv-search-toggle').setAttribute('aria-expanded', 'true');
+    $('ctv-search-input').focus();
+  }
+
+  /** 検索を閉じて全件に戻す（検索語も消す）。render=false は画面の切り替え中に使う。 */
+  closeSearch({ render = true } = {}) {
+    const wasFiltering = this.isFilteringBySearch();
+    this.searchOpen = false;
+    this.searchQuery = '';
+    $('ctv-search-input').value = '';
+    show($('ctv-search'), false);
+    $('ctv-search-toggle').setAttribute('aria-expanded', 'false');
+    if (render && wasFiltering && this.state) this.renderAll();
   }
 
   appendChunk() {

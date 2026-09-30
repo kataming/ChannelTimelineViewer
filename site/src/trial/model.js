@@ -13,12 +13,29 @@ export function sortVideos(videos, ascending = true) {
   return copy;
 }
 
-/** 並び替え＋視聴フィルターを適用した表示用リスト。 */
-export function visibleVideos(videos, { sort = 'oldest', filter = 'all', isWatched = () => false } = {}) {
+/** 検索の比較用に文字をそろえる（NFKC＋小文字）。 */
+export function searchKey(text) {
+  return String(text ?? '').normalize('NFKC').toLowerCase();
+}
+
+/**
+ * チャンネル内検索：タイトルが検索語を含むか（docs/channel-search.md）。
+ * NFKC＋小文字にそろえて部分一致。検索語が空（空白だけ）なら常に true。
+ * ⚠️ iOS `VideoItem.titleMatches` / Android `VideoItem.titleMatches` と同じ規則にしておく。
+ */
+export function titleMatches(title, query) {
+  const needle = searchKey(String(query ?? '').trim());
+  return needle === '' || searchKey(title).includes(needle);
+}
+
+/** 並び替え＋視聴フィルター＋タイトル検索を適用した表示用リスト（並び順は変えずに絞るだけ）。 */
+export function visibleVideos(videos, { sort = 'oldest', filter = 'all', isWatched = () => false, query = '' } = {}) {
   const sorted = sortVideos(videos, sort !== 'newest');
-  if (filter === 'unwatched') return sorted.filter((v) => !isWatched(v.id));
-  if (filter === 'watched') return sorted.filter((v) => isWatched(v.id));
-  return sorted;
+  let list = sorted;
+  if (filter === 'unwatched') list = sorted.filter((v) => !isWatched(v.id));
+  else if (filter === 'watched') list = sorted.filter((v) => isWatched(v.id));
+  if (!query) return list;
+  return list.filter((v) => titleMatches(v.title, query));
 }
 
 /** 視聴済み本数・進捗率。 */

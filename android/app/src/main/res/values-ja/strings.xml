@@ -80,6 +80,11 @@
     <string name="list_menu_sort">並び替え</string>
     <string name="list_next_new_format">次に見る：第%s本目</string>
     <string name="list_next_resume_format">続きから：第%s本目</string>
+    <string name="list_search_clear">入力を消す</string>
+    <string name="list_search_close">検索を閉じる</string>
+    <string name="list_search_empty">該当する動画がありません</string>
+    <string name="list_search_open">動画を検索</string>
+    <string name="list_search_placeholder">タイトルで検索</string>
     <string name="list_sort_newest">新しい順</string>
     <string name="list_sort_oldest">古い順</string>
     <string name="options_captions_defaultoff">字幕は既定でオフから始まります。</string>

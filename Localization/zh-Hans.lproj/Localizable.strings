@@ -191,6 +191,16 @@
 "list.next.new.format" = "接下来：第 %@ 个";
 /* 続きから（%@ に本数） */
 "list.next.resume.format" = "继续：第 %@ 个";
+/* 検索語を消す（検索欄は開いたまま） */
+"list.search.clear" = "清除";
+/* 検索を閉じる（全件に戻る） */
+"list.search.close" = "关闭搜索";
+/* 検索結果が0件 */
+"list.search.empty" = "没有找到相关视频";
+/* 動画一覧の検索ボタン（読み上げ）。現在のチャンネル内をタイトルで絞り込む */
+"list.search.open" = "搜索视频";
+/* 検索欄の案内文（タイトルだけが対象） */
+"list.search.placeholder" = "按标题搜索";
 /* 新しい順 */
 "list.sort.newest" = "从新到旧";
 /* 古い順 */

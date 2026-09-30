@@ -9,6 +9,7 @@ import com.deskflowlabs.channeltimelineviewer.data.nowEpochSeconds
 import com.deskflowlabs.channeltimelineviewer.model.Channel
 import com.deskflowlabs.channeltimelineviewer.model.VideoItem
 import com.deskflowlabs.channeltimelineviewer.model.sortedByPublishedDate
+import com.deskflowlabs.channeltimelineviewer.model.titleMatches
 import com.deskflowlabs.channeltimelineviewer.model.uniquedById
 import com.deskflowlabs.channeltimelineviewer.network.YouTubeApiClient
 import com.deskflowlabs.channeltimelineviewer.network.YouTubeApiError
@@ -23,6 +24,29 @@ enum class WatchFilter(@StringRes val labelRes: Int) {
     All(R.string.filter_all),
     Unwatched(R.string.filter_unwatched),
     Watched(R.string.filter_watched),
+}
+
+/**
+ * 一覧に出す動画：並び替え → 視聴フィルター → タイトル検索（docs/channel-search.md）。
+ * 並び順は変えずに絞るだけ。検索を閉じている・検索語が空なら検索では絞らない。
+ * （ViewModel から切り離した純粋関数。通信や保存に触れずにテストできる）
+ */
+fun filterVisibleVideos(
+    videos: List<VideoItem>,
+    sortAscending: Boolean,
+    watchFilter: WatchFilter,
+    isWatched: (String) -> Boolean,
+    isSearching: Boolean,
+    searchQuery: String,
+): List<VideoItem> {
+    val sorted = videos.sortedByPublishedDate(sortAscending)
+    val filtered = when (watchFilter) {
+        WatchFilter.All -> sorted
+        WatchFilter.Unwatched -> sorted.filterNot { isWatched(it.id) }
+        WatchFilter.Watched -> sorted.filter { isWatched(it.id) }
+    }
+    if (!isSearching || searchQuery.isEmpty()) return filtered
+    return filtered.filter { it.titleMatches(searchQuery) }
 }
 
 /**
@@ -47,6 +71,17 @@ class VideoListViewModel(
     private val _watchFilter = MutableStateFlow(WatchFilter.All)
     val watchFilter: StateFlow<WatchFilter> = _watchFilter.asStateFlow()
 
+    /**
+     * チャンネル内検索（タイトルの絞り込み・docs/channel-search.md）。保存しない・送らない。
+     * ⚠️ この ViewModel は Activity の間チャンネルごとに残るので、**別チャンネルから開き直したときは
+     *    MainActivity が [closeSearch] で消す**（再生画面から戻ったときだけ残す）。
+     */
+    private val _isSearching = MutableStateFlow(false)
+    val isSearching: StateFlow<Boolean> = _isSearching.asStateFlow()
+
+    private val _searchQuery = MutableStateFlow("")
+    val searchQuery: StateFlow<String> = _searchQuery.asStateFlow()
+
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
 
@@ -65,14 +100,32 @@ class VideoListViewModel(
     fun displayedVideos(): List<VideoItem> =
         _videos.value.sortedByPublishedDate(_sortAscending.value)
 
-    /** 並び替え＋視聴フィルターを適用した最終リスト。 */
-    fun visibleVideos(isWatched: (String) -> Boolean): List<VideoItem> {
-        val sorted = displayedVideos()
-        return when (_watchFilter.value) {
-            WatchFilter.All -> sorted
-            WatchFilter.Unwatched -> sorted.filterNot { isWatched(it.id) }
-            WatchFilter.Watched -> sorted.filter { isWatched(it.id) }
-        }
+    /** 並び替え＋視聴フィルター＋タイトル検索を適用した最終リスト。 */
+    fun visibleVideos(isWatched: (String) -> Boolean): List<VideoItem> =
+        filterVisibleVideos(
+            videos = _videos.value,
+            sortAscending = _sortAscending.value,
+            watchFilter = _watchFilter.value,
+            isWatched = isWatched,
+            isSearching = _isSearching.value,
+            searchQuery = _searchQuery.value,
+        )
+
+    /** 検索語が入っていて、絞り込みが効いているか（0件表示を出す条件）。 */
+    fun isFilteringBySearch(): Boolean = _isSearching.value && _searchQuery.value.isNotBlank()
+
+    fun openSearch() {
+        _isSearching.value = true
+    }
+
+    fun setSearchQuery(value: String) {
+        _searchQuery.value = value
+    }
+
+    /** 検索を閉じて全件に戻す（検索語も消す）。 */
+    fun closeSearch() {
+        _isSearching.value = false
+        _searchQuery.value = ""
     }
 
     /**

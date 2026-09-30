@@ -24,6 +24,20 @@ data class VideoItem(
 fun List<VideoItem>.sortedByPublishedDate(ascending: Boolean): List<VideoItem> =
     if (ascending) sortedBy { it.publishedAtEpochSeconds } else sortedByDescending { it.publishedAtEpochSeconds }
 
+/**
+ * チャンネル内検索：タイトルが検索語を含むか（docs/channel-search.md）。
+ * NFKC＋小文字にそろえて部分一致。検索語が空（空白だけ）なら常に true。
+ * ⚠️ iOS `VideoItem.titleMatches` / Web `titleMatches` と同じ規則にしておく。
+ * （保存するデータには触れない拡張関数。検索語はどこにも送らない・保存しない）
+ */
+fun VideoItem.titleMatches(query: String): Boolean {
+    val needle = searchKey(query.trim())
+    return needle.isEmpty() || searchKey(title).contains(needle)
+}
+
+fun searchKey(text: String): String =
+    java.text.Normalizer.normalize(text, java.text.Normalizer.Form.NFKC).lowercase(java.util.Locale.ROOT)
+
 /** videoId の重複を取り除く（先に現れた方を残す）。保存済みの一覧に新着を足すときに使う。 */
 fun List<VideoItem>.uniquedById(): List<VideoItem> {
     val seen = HashSet<String>()

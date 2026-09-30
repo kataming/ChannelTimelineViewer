@@ -7,6 +7,7 @@ struct VideoListView: View {
     @EnvironmentObject private var positionStore: PlaybackPositionStore
     @EnvironmentObject private var playbackSettings: PlaybackSettingsStore
     @StateObject private var viewModel: VideoListViewModel
+    @FocusState private var searchFocused: Bool
 
     init(channel: Channel) {
         _viewModel = StateObject(wrappedValue: VideoListViewModel(channel: channel))
@@ -17,6 +18,17 @@ struct VideoListView: View {
             .navigationTitle(viewModel.channel.title)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
+                // チャンネル内検索（タイトルの絞り込み・docs/channel-search.md）。開いている間は × で閉じる。
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        if viewModel.isSearching { viewModel.closeSearch() } else { viewModel.openSearch() }
+                    } label: {
+                        Image(systemName: viewModel.isSearching ? "xmark" : "magnifyingglass")
+                    }
+                    .accessibilityLabel(viewModel.isSearching ? String(localized: "list.search.close")
+                                                              : String(localized: "list.search.open"))
+                    .disabled(viewModel.videos.isEmpty)
+                }
                 ToolbarItem(placement: .topBarTrailing) {
                     Menu {
                         Picker("list.menu.sort", selection: $viewModel.sortAscending) {
@@ -111,8 +123,37 @@ struct VideoListView: View {
         }
     }
 
+    /// 検索欄（検索中だけ一覧の一番上に出る）。
+    private var searchRow: some View {
+        HStack(spacing: 8) {
+            Image(systemName: "magnifyingglass").foregroundStyle(.secondary)
+            TextField("list.search.placeholder", text: $viewModel.searchQuery)
+                .focused($searchFocused)
+                .textInputAutocapitalization(.never)
+                .autocorrectionDisabled()
+                .submitLabel(.search)
+                .onSubmit { searchFocused = false }
+            if !viewModel.searchQuery.isEmpty {
+                Button {
+                    viewModel.searchQuery = ""
+                } label: {
+                    Image(systemName: "xmark.circle.fill").foregroundStyle(.secondary)
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel(String(localized: "list.search.clear"))
+            }
+        }
+        .task { searchFocused = true }
+    }
+
     private var list: some View {
-        List {
+        // 絞り込み（並び替え＋視聴フィルター＋検索）は1回だけ計算して使い回す。
+        let visible = self.visible
+        return List {
+            if viewModel.isSearching {
+                Section { searchRow }
+            }
+
             Section {
                 progressHeader
                 nextToWatchRow
@@ -120,6 +161,11 @@ struct VideoListView: View {
             }
 
             Section {
+                if visible.isEmpty && viewModel.isFilteringBySearch {
+                    Text("list.search.empty")
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                }
                 ForEach(Array(visible.enumerated()), id: \.element.id) { index, video in
                     NavigationLink {
                         PlayerView(videos: visible, startIndex: index,

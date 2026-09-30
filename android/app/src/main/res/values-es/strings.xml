@@ -80,6 +80,11 @@
     <string name="list_menu_sort">Ordenar</string>
     <string name="list_next_new_format">Siguiente: n.º %s</string>
     <string name="list_next_resume_format">Continuar: n.º %s</string>
+    <string name="list_search_clear">Borrar</string>
+    <string name="list_search_close">Cerrar búsqueda</string>
+    <string name="list_search_empty">No se encontraron vídeos</string>
+    <string name="list_search_open">Buscar vídeos</string>
+    <string name="list_search_placeholder">Buscar por título</string>
     <string name="list_sort_newest">Más recientes primero</string>
     <string name="list_sort_oldest">Más antiguos primero</string>
     <string name="options_captions_defaultoff">Los subtítulos empiezan desactivados.</string>

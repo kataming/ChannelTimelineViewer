@@ -80,6 +80,11 @@
     <string name="list_menu_sort">정렬</string>
     <string name="list_next_new_format">다음 시청: %s번째</string>
     <string name="list_next_resume_format">이어 보기: %s번째</string>
+    <string name="list_search_clear">지우기</string>
+    <string name="list_search_close">검색 닫기</string>
+    <string name="list_search_empty">해당하는 동영상이 없습니다</string>
+    <string name="list_search_open">동영상 검색</string>
+    <string name="list_search_placeholder">제목으로 검색</string>
     <string name="list_sort_newest">최신 순</string>
     <string name="list_sort_oldest">오래된 순</string>
     <string name="options_captions_defaultoff">자막은 기본적으로 꺼진 상태로 시작합니다.</string>

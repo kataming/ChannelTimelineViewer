@@ -80,6 +80,11 @@
     <string name="list_menu_sort">Sortieren</string>
     <string name="list_next_new_format">Als Nächstes: Nr. %s</string>
     <string name="list_next_resume_format">Weiter: Nr. %s</string>
+    <string name="list_search_clear">Löschen</string>
+    <string name="list_search_close">Suche schließen</string>
+    <string name="list_search_empty">Keine Videos gefunden</string>
+    <string name="list_search_open">Videos suchen</string>
+    <string name="list_search_placeholder">Nach Titel suchen</string>
     <string name="list_sort_newest">Neueste zuerst</string>
     <string name="list_sort_oldest">Älteste zuerst</string>
     <string name="options_captions_defaultoff">Untertitel sind standardmäßig aus.</string>

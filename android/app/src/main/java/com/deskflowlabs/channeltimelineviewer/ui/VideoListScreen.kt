@@ -1,5 +1,6 @@
 package com.deskflowlabs.channeltimelineviewer.ui
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
@@ -14,11 +15,14 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Sort
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
@@ -34,8 +38,11 @@ import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -43,7 +50,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -81,6 +92,8 @@ fun VideoListScreen(
     val errorRes by viewModel.errorRes.collectAsStateWithLifecycle()
     val sortAscending by viewModel.sortAscending.collectAsStateWithLifecycle()
     val filter by viewModel.watchFilter.collectAsStateWithLifecycle()
+    val isSearching by viewModel.isSearching.collectAsStateWithLifecycle()
+    val searchQuery by viewModel.searchQuery.collectAsStateWithLifecycle()
     val watched by watchStore.watched.collectAsStateWithLifecycle()
     val skipped by skipStore.skipped.collectAsStateWithLifecycle()
 
@@ -90,9 +103,15 @@ fun VideoListScreen(
     // 並び替え・絞り込みの結果は remember で持つ。
     // ここで毎回作り直すと、LazyColumn の中身が古い値を掴んだままになり
     //（5,000本のチャンネルで「0本表示」になる不具合が出た）、並び替えの計算も無駄に走る。
-    val visible = remember(videos, watched, skipped, filter, sortAscending) {
+    val visible = remember(videos, watched, skipped, filter, sortAscending, isSearching, searchQuery) {
         viewModel.visibleVideos(isWatched)
     }
+    val showSearchEmpty = visible.isEmpty() && isSearching && searchQuery.isNotBlank()
+
+    // 検索欄を開いたらすぐ打てるようにする。戻る操作は、まず検索を閉じる。
+    val searchFocus = remember { FocusRequester() }
+    LaunchedEffect(isSearching) { if (isSearching) searchFocus.requestFocus() }
+    BackHandler(enabled = isSearching) { viewModel.closeSearch() }
     val oldestFirst = remember(videos) { viewModel.oldestFirst() }
     val next = remember(videos, watched, skipped) { viewModel.nextUnwatched(isWatched, isSkipped) }
     val nextPosition = remember(videos, watched, skipped) {
@@ -104,11 +123,46 @@ fun VideoListScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(viewModel.channel.title, maxLines = 1, overflow = TextOverflow.Ellipsis) },
+                title = {
+                    if (isSearching) {
+                        // チャンネル内検索（タイトルの絞り込み・docs/channel-search.md）
+                        TextField(
+                            value = searchQuery,
+                            onValueChange = viewModel::setSearchQuery,
+                            modifier = Modifier.fillMaxWidth().focusRequester(searchFocus),
+                            placeholder = { Text(stringResource(R.string.list_search_placeholder)) },
+                            singleLine = true,
+                            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+                            colors = TextFieldDefaults.colors(
+                                focusedContainerColor = Color.Transparent,
+                                unfocusedContainerColor = Color.Transparent,
+                            ),
+                        )
+                    } else {
+                        Text(viewModel.channel.title, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                    }
+                },
                 navigationIcon = {
-                    IconButton(onClick = onBack) { Icon(Icons.Default.ArrowBack, null) }
+                    if (isSearching) {
+                        IconButton(onClick = { viewModel.closeSearch() }) {
+                            Icon(Icons.Default.ArrowBack, stringResource(R.string.list_search_close))
+                        }
+                    } else {
+                        IconButton(onClick = onBack) { Icon(Icons.Default.ArrowBack, null) }
+                    }
                 },
                 actions = {
+                    if (isSearching) {
+                        if (searchQuery.isNotEmpty()) {
+                            IconButton(onClick = { viewModel.setSearchQuery("") }) {
+                                Icon(Icons.Default.Close, stringResource(R.string.list_search_clear))
+                            }
+                        }
+                    } else {
+                        IconButton(onClick = { viewModel.openSearch() }, enabled = videos.isNotEmpty()) {
+                            Icon(Icons.Default.Search, stringResource(R.string.list_search_open))
+                        }
+                    }
                     IconButton(onClick = { menuOpen = true }) {
                         Icon(Icons.Default.Sort, stringResource(R.string.list_menu_a11y))
                     }
@@ -259,6 +313,16 @@ fun VideoListScreen(
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
+            }
+
+            if (showSearchEmpty) {
+                item {
+                    Text(
+                        stringResource(R.string.list_search_empty),
+                        modifier = Modifier.padding(16.dp),
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
             }
 
             items(visible, key = { it.id }) { video ->

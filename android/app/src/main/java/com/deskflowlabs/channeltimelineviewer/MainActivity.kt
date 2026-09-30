@@ -143,7 +143,11 @@ private sealed interface Screen {
     data object Input : Screen
     data object About : Screen
     data object Pro : Screen
-    data class Videos(val channel: Channel) : Screen
+    /**
+     * @param keepSearch 再生画面から戻ったときだけ true。それ以外（チャンネルを開いた・共有から開いた）は
+     *   チャンネル内検索を消して全件で出す（別チャンネルの検索を持ち越さない・docs/channel-search.md）。
+     */
+    data class Videos(val channel: Channel, val keepSearch: Boolean = false) : Screen
     data class Play(val channel: Channel, val videos: List<VideoItem>, val index: Int) : Screen
 }
 
@@ -284,6 +288,7 @@ private fun AppRoot(
         is Screen.Videos -> VideoListRoute(
             container = container,
             channel = current.channel,
+            keepSearch = current.keepSearch,
             onBack = { screen = Screen.Input },
             onOpenVideo = { videos, index ->
                 screen = Screen.Play(current.channel, videos, index.coerceAtLeast(0))
@@ -319,7 +324,7 @@ private fun AppRoot(
                 channel = current.channel,
                 settings = container.settings,
                 memoStore = container.memoStore,
-                onBack = { screen = Screen.Videos(current.channel) },
+                onBack = { screen = Screen.Videos(current.channel, keepSearch = true) },
                 onOpenOptions = { showOptions = true },
             )
 
@@ -337,6 +342,7 @@ private fun AppRoot(
 private fun VideoListRoute(
     container: AppContainer,
     channel: Channel,
+    keepSearch: Boolean,
     onBack: () -> Unit,
     onOpenVideo: (List<VideoItem>, Int) -> Unit,
 ) {
@@ -347,6 +353,8 @@ private fun VideoListRoute(
         },
     )
     LaunchedEffect(channel.id) { listViewModel.loadIfNeeded() }
+    // ViewModel はチャンネルごとに Activity の間残るので、再生画面から戻ったとき以外は検索を消す。
+    LaunchedEffect(channel.id, keepSearch) { if (!keepSearch) listViewModel.closeSearch() }
 
     // 一覧の件数を進捗に反映する（ホームのお気に入り行に出る）。
     val videos by listViewModel.videos.collectAsStateWithLifecycle()

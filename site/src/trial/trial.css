@@ -508,6 +508,66 @@
   white-space: nowrap;
 }
 
+/* --- チャンネル内検索（タイトルの絞り込み・docs/channel-search.md） --- */
+
+/* 件数と検索アイコンを右にまとめる（並び替えは左のまま） */
+.ctv-toolbar .ctv-count {
+  margin-left: auto;
+}
+
+.ctv-search-toggle {
+  flex: none;
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--ctv-line);
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--text);
+  cursor: pointer;
+  padding: 0;
+}
+
+.ctv-search-toggle svg {
+  width: 16px;
+  height: 16px;
+}
+
+.ctv-search-toggle[aria-expanded='true'] {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.ctv-search {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.ctv-search[hidden] {
+  display: none;
+}
+
+.ctv-search input {
+  flex: 1;
+  min-width: 0;
+  font: inherit;
+  font-size: 0.88rem;
+  padding: 7px 12px;
+  border: 1px solid var(--ctv-line);
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.ctv-search .ctv-icon-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
 /* --- 一覧 --- */
 
 .ctv-list {
@@ -1266,6 +1326,27 @@
 [data-variant='phone'] .ctv-sort {
   font-size: 0.56rem;
   padding: 3px 9px;
+}
+
+[data-variant='phone'] .ctv-search-toggle {
+  width: 22px;
+  height: 22px;
+}
+
+[data-variant='phone'] .ctv-search-toggle svg,
+[data-variant='phone'] .ctv-search .ctv-icon-btn svg {
+  width: 12px;
+  height: 12px;
+}
+
+[data-variant='phone'] .ctv-search input {
+  font-size: 0.62rem;
+  padding: 4px 9px;
+}
+
+[data-variant='phone'] .ctv-search .ctv-icon-btn {
+  width: 22px;
+  height: 22px;
 }
 
 [data-variant='phone'] .ctv-next-card {

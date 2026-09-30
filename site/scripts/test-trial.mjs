@@ -90,6 +90,37 @@ eq(
   ['c', 'a'],
   '視聴済みのみ（新しい順）'
 );
+// チャンネル内検索（docs/channel-search.md）。
+// ⚠️ 一致の例は iOS `Tests/ChannelSearchTests.swift` / Android `ChannelSearchTest.kt` と同じにしてある。
+[
+  ['How to Use ChatGPT for Work', 'chatgpt', true],
+  ['How to Use ChatGPT for Work', 'CHATGPT', true],
+  ['How to Use ChatGPT for Work', 'Use Chat', true],
+  ['ＣｈａｔＧＰＴ入門', 'chatgpt', true],
+  ['日本語の動画タイトル', '動画', true],
+  ['ｶﾀｶﾅのタイトル', 'カタカナ', true],
+  ['中文视频标题', '视频', true],
+  ['한국어 동영상 제목', '동영상', true],
+  ['How to Use ChatGPT for Work', 'python', false],
+  ['How to Use ChatGPT for Work', '', true],
+  ['How to Use ChatGPT for Work', '   ', true],
+].forEach(([title, query, expected]) => {
+  eq(model.titleMatches(title, query), expected, `検索「${title}」に「${query}」`);
+});
+{
+  const sv = [
+    { id: 'a', title: 'ChatGPT 入門', published: 100, description: 'x' },
+    { id: 'b', title: '料理の基本', published: 200, description: '説明文にだけ chatgpt' },
+    { id: 'c', title: 'chatgpt の使い方', published: 300, description: 'x' },
+  ];
+  const ids = (opts) => model.visibleVideos(sv, opts).map((v) => v.id);
+  eq(ids({ sort: 'oldest', query: 'ChatGPT' }), ['a', 'c'], '検索（古い順を保つ・説明文は見ない）');
+  eq(ids({ sort: 'newest', query: 'chatgpt' }), ['c', 'a'], '検索（新しい順を保つ）');
+  eq(ids({ filter: 'unwatched', isWatched: (id) => id === 'a', query: 'chatgpt' }), ['c'], '検索＋未視聴');
+  eq(ids({ query: 'python' }), [], '検索（0件）');
+  eq(ids({ query: '' }), ['a', 'b', 'c'], '検索語が空なら全件');
+}
+
 eq(model.progressOf(videos, isWatched), { done: 2, total: 4, percent: 50 }, '進捗');
 eq(model.progressOf([], isWatched), { done: 0, total: 0, percent: 0 }, '進捗（空）');
 

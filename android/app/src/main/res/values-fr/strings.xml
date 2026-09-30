@@ -80,6 +80,11 @@
     <string name="list_menu_sort">Trier</string>
     <string name="list_next_new_format">À suivre : n° %s</string>
     <string name="list_next_resume_format">Reprendre : n° %s</string>
+    <string name="list_search_clear">Effacer</string>
+    <string name="list_search_close">Fermer la recherche</string>
+    <string name="list_search_empty">Aucune vidéo trouvée</string>
+    <string name="list_search_open">Rechercher des vidéos</string>
+    <string name="list_search_placeholder">Rechercher par titre</string>
     <string name="list_sort_newest">Plus récentes d’abord</string>
     <string name="list_sort_oldest">Plus anciennes d’abord</string>
     <string name="options_captions_defaultoff">Les sous-titres sont désactivés par défaut.</string>

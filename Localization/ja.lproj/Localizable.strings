@@ -191,6 +191,16 @@
 "list.next.new.format" = "次に見る：第%@本目";
 /* 続きから（%@ に本数） */
 "list.next.resume.format" = "続きから：第%@本目";
+/* 検索語を消す（検索欄は開いたまま） */
+"list.search.clear" = "入力を消す";
+/* 検索を閉じる（全件に戻る） */
+"list.search.close" = "検索を閉じる";
+/* 検索結果が0件 */
+"list.search.empty" = "該当する動画がありません";
+/* 動画一覧の検索ボタン（読み上げ）。現在のチャンネル内をタイトルで絞り込む */
+"list.search.open" = "動画を検索";
+/* 検索欄の案内文（タイトルだけが対象） */
+"list.search.placeholder" = "タイトルで検索";
 /* 新しい順 */
 "list.sort.newest" = "新しい順";
 /* 古い順 */

@@ -469,6 +469,56 @@
     "fr": "%1$@ sur %2$@ affichées",
     "ko": "%1$@ / %2$@개 표시"
   },
+  "list.search.open": {
+    "comment": "動画一覧の検索ボタン（読み上げ）。現在のチャンネル内をタイトルで絞り込む",
+    "ja": "動画を検索",
+    "en": "Search videos",
+    "zh-Hans": "搜索视频",
+    "es": "Buscar vídeos",
+    "de": "Videos suchen",
+    "fr": "Rechercher des vidéos",
+    "ko": "동영상 검색"
+  },
+  "list.search.placeholder": {
+    "comment": "検索欄の案内文（タイトルだけが対象）",
+    "ja": "タイトルで検索",
+    "en": "Search by title",
+    "zh-Hans": "按标题搜索",
+    "es": "Buscar por título",
+    "de": "Nach Titel suchen",
+    "fr": "Rechercher par titre",
+    "ko": "제목으로 검색"
+  },
+  "list.search.close": {
+    "comment": "検索を閉じる（全件に戻る）",
+    "ja": "検索を閉じる",
+    "en": "Close search",
+    "zh-Hans": "关闭搜索",
+    "es": "Cerrar búsqueda",
+    "de": "Suche schließen",
+    "fr": "Fermer la recherche",
+    "ko": "검색 닫기"
+  },
+  "list.search.clear": {
+    "comment": "検索語を消す（検索欄は開いたまま）",
+    "ja": "入力を消す",
+    "en": "Clear",
+    "zh-Hans": "清除",
+    "es": "Borrar",
+    "de": "Löschen",
+    "fr": "Effacer",
+    "ko": "지우기"
+  },
+  "list.search.empty": {
+    "comment": "検索結果が0件",
+    "ja": "該当する動画がありません",
+    "en": "No videos found",
+    "zh-Hans": "没有找到相关视频",
+    "es": "No se encontraron vídeos",
+    "de": "Keine Videos gefunden",
+    "fr": "Aucune vidéo trouvée",
+    "ko": "해당하는 동영상이 없습니다"
+  },
   "progress.title": {
     "comment": "進捗",
     "ja": "進捗",

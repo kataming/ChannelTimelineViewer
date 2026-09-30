@@ -24,6 +24,9 @@ final class VideoListViewModel: ObservableObject {
     /// true = 古い順（publishedAt 昇順）。デフォルトは古い順。
     @Published var sortAscending = true
     @Published var watchFilter: WatchFilter = .all
+    /// チャンネル内検索（タイトルの絞り込み）。この画面（＝このチャンネル）の間だけ持つ。保存しない・送らない。
+    @Published var isSearching = false
+    @Published var searchQuery = ""
     @Published var isLoading = false
     /// 保存済みの一覧を表示したまま、新着だけを確認している最中か。
     @Published private(set) var isCheckingForNew = false
@@ -51,18 +54,35 @@ final class VideoListViewModel: ObservableObject {
     }
     var count: Int { videos.count }
 
-    /// 並び替え＋視聴フィルターを適用した最終リスト。
+    /// 並び替え＋視聴フィルター＋タイトル検索を適用した最終リスト。
     /// isWatched で視聴判定を注入するためテストしやすい（View からは watchStore.isWatched を渡す）。
     func visibleVideos(isWatched: (String) -> Bool) -> [VideoItem] {
         let sorted = videos.sortedByPublishedDate(ascending: sortAscending)
+        let filtered: [VideoItem]
         switch watchFilter {
         case .all:
-            return sorted
+            filtered = sorted
         case .unwatched:
-            return sorted.filter { !isWatched($0.id) }
+            filtered = sorted.filter { !isWatched($0.id) }
         case .watched:
-            return sorted.filter { isWatched($0.id) }
+            filtered = sorted.filter { isWatched($0.id) }
         }
+        // 並び順は変えずに絞るだけ（検索を閉じていれば何もしない）。
+        guard isSearching, !searchQuery.isEmpty else { return filtered }
+        return filtered.filter { $0.titleMatches(searchQuery) }
+    }
+
+    /// 検索語が入っていて、絞り込みが効いているか。
+    var isFilteringBySearch: Bool {
+        isSearching && !searchQuery.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
+
+    func openSearch() { isSearching = true }
+
+    /// 検索を閉じて全件に戻す（検索語も消す）。
+    func closeSearch() {
+        isSearching = false
+        searchQuery = ""
     }
 
     /// 「次に見る」動画：公開日が最も古い未視聴動画。

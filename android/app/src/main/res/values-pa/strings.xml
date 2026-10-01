@@ -135,6 +135,12 @@
     <string name="pro_benefit_multichannel">Pro ਨਾਲ ਤੁਸੀਂ ਕਈ YouTube ਚੈਨਲ ਸੁਰੱਖਿਅਤ ਕਰ ਸਕਦੇ ਹੋ ਅਤੇ ਹਰੇਕ ਦੀ ਤਰੱਕੀ ਟਰੈਕ ਕਰ ਸਕਦੇ ਹੋ।</string>
     <string name="pro_buy">ਖਰੀਦੋ (ਇੱਕ ਵਾਰ)</string>
     <string name="pro_buy_format">%s ਵਿੱਚ ਖਰੀਦੋ (ਇੱਕ ਵਾਰ)</string>
+    <string name="pro_cancelsurvey_body">ਸਿਰਫ਼ ਤੁਹਾਡਾ ਚੁਣਿਆ ਵਿਕਲਪ ਗੁਮਨਾਮ ਤੌਰ \'ਤੇ ਦਰਜ ਕੀਤਾ ਜਾਂਦਾ ਹੈ।</string>
+    <string name="pro_cancelsurvey_later">ਬਾਅਦ ਵਿੱਚ ਖਰੀਦਾਂਗਾ</string>
+    <string name="pro_cancelsurvey_nopaymentmethod">ਵਰਤਣਯੋਗ ਕੋਈ ਭੁਗਤਾਨ ਤਰੀਕਾ ਨਹੀਂ</string>
+    <string name="pro_cancelsurvey_other">ਹੋਰ</string>
+    <string name="pro_cancelsurvey_price">ਕੀਮਤ ਬਹੁਤ ਜ਼ਿਆਦਾ ਹੈ</string>
+    <string name="pro_cancelsurvey_title">ਤੁਸੀਂ ਕਿਉਂ ਨਹੀਂ ਖਰੀਦਿਆ? (ਵਿਕਲਪਿਕ)</string>
     <string name="pro_disabled_body">ਮੁਫ਼ਤ ਵਰਜਨ ਵਿੱਚ ਤੁਸੀਂ ਇੱਕ ਚੈਨਲ ਵਰਤ ਸਕਦੇ ਹੋ। ਚੁਣੋ ਕਿ ਕਿਹੜਾ ਚੈਨਲ ਮੁਫ਼ਤ ਵਿੱਚ ਵਰਤਦੇ ਰਹਿਣਾ ਹੈ। ਲੌਕ ਕੀਤੇ ਚੈਨਲਾਂ ਦਾ ਦੇਖਣ ਦਾ ਇਤਿਹਾਸ, ਤਰੱਕੀ ਅਤੇ ਨੋਟਸ ਬਣੇ ਰਹਿੰਦੇ ਹਨ। ਹਰ ਚੈਨਲ ਵਰਤਣ ਲਈ Pro ਦੁਬਾਰਾ ਖਰੀਦੋ।</string>
     <string name="pro_disabled_choose">ਮੁਫ਼ਤ ਰੱਖਣ ਲਈ ਚੈਨਲ ਚੁਣੋ</string>
     <string name="pro_disabled_title">Pro ਹੁਣ ਚਾਲੂ ਨਹੀਂ ਹੈ</string>

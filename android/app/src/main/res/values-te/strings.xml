@@ -135,6 +135,12 @@
     <string name="pro_benefit_multichannel">Pro తో మీరు బహుళ YouTube ఛానెల్‌లను సేవ్ చేసి, ప్రతి దాని పురోగతిని ట్రాక్ చేయవచ్చు.</string>
     <string name="pro_buy">కొనండి (ఒకేసారి)</string>
     <string name="pro_buy_format">%s కు కొనండి (ఒకేసారి)</string>
+    <string name="pro_cancelsurvey_body">మీరు ఎంచుకున్న ఎంపిక మాత్రమే అనామకంగా నమోదవుతుంది.</string>
+    <string name="pro_cancelsurvey_later">తర్వాత కొంటాను</string>
+    <string name="pro_cancelsurvey_nopaymentmethod">నేను ఉపయోగించగల చెల్లింపు పద్ధతి లేదు</string>
+    <string name="pro_cancelsurvey_other">ఇతరం</string>
+    <string name="pro_cancelsurvey_price">ధర చాలా ఎక్కువ</string>
+    <string name="pro_cancelsurvey_title">మీరు ఎందుకు కొనలేదు? (ఐచ్ఛికం)</string>
     <string name="pro_disabled_body">ఉచిత వెర్షన్‌లో ఒక ఛానెల్‌ను ఉపయోగించవచ్చు. ఉచితంగా ఉపయోగించడం కొనసాగించాల్సిన ఛానెల్‌ను ఎంచుకోండి. లాక్ చేసిన ఛానెల్‌లు వాటి చూసిన చరిత్ర, పురోగతి, నోట్స్‌ను అలాగే ఉంచుకుంటాయి. అన్ని ఛానెల్‌లను ఉపయోగించడానికి Pro ను మళ్లీ కొనండి.</string>
     <string name="pro_disabled_choose">ఉచితంగా ఉంచాల్సిన ఛానెల్‌ను ఎంచుకోండి</string>
     <string name="pro_disabled_title">Pro ఇకపై యాక్టివ్‌గా లేదు</string>

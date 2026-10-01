@@ -135,6 +135,12 @@
     <string name="pro_benefit_multichannel">Pro দিয়ে আপনি একাধিক YouTube চ্যানেল সংরক্ষণ করতে এবং প্রতিটির অগ্রগতি ট্র্যাক করতে পারেন।</string>
     <string name="pro_buy">কিনুন (একবারের)</string>
     <string name="pro_buy_format">%s-এ কিনুন (একবারের)</string>
+    <string name="pro_cancelsurvey_body">শুধু আপনার বেছে নেওয়া বিকল্পটি বেনামে রেকর্ড করা হয়।</string>
+    <string name="pro_cancelsurvey_later">পরে কিনব</string>
+    <string name="pro_cancelsurvey_nopaymentmethod">ব্যবহার করার মতো পেমেন্ট পদ্ধতি নেই</string>
+    <string name="pro_cancelsurvey_other">অন্যান্য</string>
+    <string name="pro_cancelsurvey_price">দাম খুব বেশি</string>
+    <string name="pro_cancelsurvey_title">কেন কেনেননি? (ঐচ্ছিক)</string>
     <string name="pro_disabled_body">ফ্রি সংস্করণে আপনি একটি চ্যানেল ব্যবহার করতে পারেন। কোন চ্যানেলটি ফ্রিতে ব্যবহার করে যাবেন তা বেছে নিন। লক করা চ্যানেলগুলোর দেখার ইতিহাস, অগ্রগতি ও নোট থেকে যায়। প্রতিটি চ্যানেল ব্যবহার করতে আবার Pro কিনুন।</string>
     <string name="pro_disabled_choose">ফ্রিতে রাখার চ্যানেল বেছে নিন</string>
     <string name="pro_disabled_title">Pro আর চালু নেই</string>

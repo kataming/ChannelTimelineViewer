@@ -135,6 +135,12 @@
     <string name="pro_benefit_multichannel">Với Pro, bạn có thể lưu nhiều kênh YouTube và theo dõi tiến độ của từng kênh.</string>
     <string name="pro_buy">Mua (một lần)</string>
     <string name="pro_buy_format">Mua với giá %s (một lần)</string>
+    <string name="pro_cancelsurvey_body">Chỉ lựa chọn bạn chọn được ghi lại, ẩn danh.</string>
+    <string name="pro_cancelsurvey_later">Tôi sẽ mua sau</string>
+    <string name="pro_cancelsurvey_nopaymentmethod">Không có phương thức thanh toán tôi dùng được</string>
+    <string name="pro_cancelsurvey_other">Khác</string>
+    <string name="pro_cancelsurvey_price">Giá quá cao</string>
+    <string name="pro_cancelsurvey_title">Vì sao bạn chưa mua? (không bắt buộc)</string>
     <string name="pro_disabled_body">Phiên bản miễn phí cho phép bạn dùng một kênh. Hãy chọn kênh để tiếp tục dùng miễn phí. Các kênh bị khóa vẫn giữ lịch sử đã xem, tiến độ và ghi chú. Mua lại Pro để dùng mọi kênh.</string>
     <string name="pro_disabled_choose">Chọn kênh để dùng miễn phí</string>
     <string name="pro_disabled_title">Pro không còn hoạt động</string>

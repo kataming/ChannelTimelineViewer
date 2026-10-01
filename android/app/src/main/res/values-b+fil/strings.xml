@@ -135,6 +135,12 @@
     <string name="pro_benefit_multichannel">Sa Pro, makakapag-save ka ng maraming YouTube channel at masusubaybayan ang progreso ng bawat isa.</string>
     <string name="pro_buy">Bilhin (isang beses)</string>
     <string name="pro_buy_format">Bilhin sa halagang %s (isang beses)</string>
+    <string name="pro_cancelsurvey_body">Ang opsyong pipiliin mo lang ang itatala, nang anonymous.</string>
+    <string name="pro_cancelsurvey_later">Bibili ako mamaya</string>
+    <string name="pro_cancelsurvey_nopaymentmethod">Wala akong paraan ng pagbabayad na magagamit</string>
+    <string name="pro_cancelsurvey_other">Iba pa</string>
+    <string name="pro_cancelsurvey_price">Masyadong mahal ang presyo</string>
+    <string name="pro_cancelsurvey_title">Bakit hindi ka bumili? (opsyonal)</string>
     <string name="pro_disabled_body">Sa libreng bersyon, isang channel lang ang magagamit mo. Piliin kung aling channel ang patuloy na gagamitin nang libre. Nananatili sa mga naka-lock na channel ang history ng napanood, progreso, at mga tala. Bilhin ulit ang Pro para magamit ang lahat ng channel.</string>
     <string name="pro_disabled_choose">Piliin ang channel na mananatiling libre</string>
     <string name="pro_disabled_title">Hindi na aktibo ang Pro</string>

@@ -135,6 +135,12 @@
     <string name="pro_benefit_multichannel">Pro ile birden fazla YouTube kanalı kaydedebilir ve her birinin ilerlemesini takip edebilirsiniz.</string>
     <string name="pro_buy">Satın al (tek seferlik)</string>
     <string name="pro_buy_format">%s karşılığında satın al (tek seferlik)</string>
+    <string name="pro_cancelsurvey_body">Yalnızca seçtiğiniz seçenek anonim olarak kaydedilir.</string>
+    <string name="pro_cancelsurvey_later">Daha sonra alacağım</string>
+    <string name="pro_cancelsurvey_nopaymentmethod">Kullanabileceğim bir ödeme yöntemi yok</string>
+    <string name="pro_cancelsurvey_other">Diğer</string>
+    <string name="pro_cancelsurvey_price">Fiyat çok yüksek</string>
+    <string name="pro_cancelsurvey_title">Neden satın almadınız? (isteğe bağlı)</string>
     <string name="pro_disabled_body">Ücretsiz sürümde bir kanal kullanabilirsiniz. Ücretsiz olarak kullanmaya devam edeceğiniz kanalı seçin. Kilitli kanalların izleme geçmişi, ilerlemesi ve notları korunur. Tüm kanalları kullanmak için Pro\'yu yeniden satın alın.</string>
     <string name="pro_disabled_choose">Ücretsiz kalacak kanalı seçin</string>
     <string name="pro_disabled_title">Pro artık etkin değil</string>

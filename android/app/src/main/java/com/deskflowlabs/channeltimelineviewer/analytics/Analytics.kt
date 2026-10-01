@@ -102,6 +102,13 @@ interface Analytics {
         /** 購入が保留になった（コンビニ払いなど）。**まだ売れていない。** */
         const val PRO_PURCHASE_PENDING = "pro_purchase_pending"
 
+        /**
+         * 購入をやめた直後の一問アンケートの答え（2026-10-02〜）。[Param.REASON] に [CancelReason] の決まった文字だけ。
+         * Play はキャンセルの理由をアプリに教えないので、「支払い方法が無い」のか「価格」なのかを本人に聞く。
+         * 同じ端末では 7 日に 1 回まで（[com.deskflowlabs.channeltimelineviewer.billing.CancelSurveyStore]）。
+         */
+        const val PRO_CANCEL_REASON = "pro_cancel_reason"
+
         /** 「購入を復元」を押した。**実売ではない**（すでに買った人の再適用）。 */
         const val PRO_RESTORE = "pro_restore"
 
@@ -215,6 +222,26 @@ interface Analytics {
          * ⚠️ Play の `debugMessage`・購入トークン・注文IDは引き続き送らない。
          */
         const val BILLING_RESPONSE_CODE = "billing_response_code"
+    }
+
+    /** [Event.PRO_CANCEL_REASON] の答え（[Param.REASON]）。 */
+    object CancelReason {
+        /** 使える支払い方法が無い。 */
+        const val NO_PAYMENT_METHOD = "no_payment_method"
+
+        /** 価格が高い。 */
+        const val PRICE_TOO_HIGH = "price_too_high"
+
+        /** あとで買う。 */
+        const val LATER = "later"
+
+        /** その他。 */
+        const val OTHER = "other"
+
+        /** 答えずに閉じた（回答率を出すために残す）。 */
+        const val DISMISSED = "dismissed"
+
+        val ALL = setOf(NO_PAYMENT_METHOD, PRICE_TOO_HIGH, LATER, OTHER, DISMISSED)
     }
 
     /** [Event.PRO_PURCHASE_ERROR] の段階（[Param.ERROR_STAGE]）。 */

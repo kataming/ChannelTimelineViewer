@@ -135,6 +135,12 @@
     <string name="pro_benefit_multichannel">使用 Pro 可以保存多个 YouTube 频道，并分别管理各自的进度。</string>
     <string name="pro_buy">购买（一次性）</string>
     <string name="pro_buy_format">以 %s 购买（一次性）</string>
+    <string name="pro_cancelsurvey_body">仅匿名记录您选择的选项。</string>
+    <string name="pro_cancelsurvey_later">以后再买</string>
+    <string name="pro_cancelsurvey_nopaymentmethod">没有可用的付款方式</string>
+    <string name="pro_cancelsurvey_other">其他</string>
+    <string name="pro_cancelsurvey_price">价格太高</string>
+    <string name="pro_cancelsurvey_title">请告诉我们您没有购买的原因（可选）</string>
     <string name="pro_disabled_body">免费版只能使用 1 个频道。请选择继续免费使用的频道。被锁定频道的已观看记录、进度和备注不会被删除。重新购买 Pro 后可再次使用全部频道。</string>
     <string name="pro_disabled_choose">选择免费使用的 1 个频道</string>
     <string name="pro_disabled_title">Pro 已失效</string>

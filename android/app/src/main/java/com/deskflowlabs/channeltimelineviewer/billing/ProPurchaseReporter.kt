@@ -72,6 +72,13 @@ class ProPurchaseReporter(
         analytics.log(Analytics.Event.PRO_PURCHASE_ERROR, *params.toTypedArray())
     }
 
+    /** 購入をやめた直後のアンケートの答え。決まった値以外は送らない。 */
+    fun cancelReason(choice: String) = safely {
+        if (choice in Analytics.CancelReason.ALL) {
+            analytics.log(Analytics.Event.PRO_CANCEL_REASON, Analytics.Param.REASON to choice)
+        }
+    }
+
     /** 「購入を復元」を押した。**実売ではない。** */
     fun restoreRequested() = safely {
         analytics.log(Analytics.Event.PRO_RESTORE)

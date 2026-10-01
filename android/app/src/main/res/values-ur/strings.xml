@@ -135,6 +135,12 @@
     <string name="pro_benefit_multichannel">Pro کے ساتھ آپ متعدد YouTube چینلز محفوظ کر سکتے ہیں اور ہر ایک کی پیش رفت الگ دیکھ سکتے ہیں۔</string>
     <string name="pro_buy">خریدیں (ایک بار)</string>
     <string name="pro_buy_format">%s میں خریدیں (ایک بار)</string>
+    <string name="pro_cancelsurvey_body">صرف آپ کا منتخب کردہ آپشن گمنام طور پر ریکارڈ ہوتا ہے۔</string>
+    <string name="pro_cancelsurvey_later">بعد میں خریدوں گا</string>
+    <string name="pro_cancelsurvey_nopaymentmethod">کوئی قابلِ استعمال ادائیگی کا طریقہ نہیں</string>
+    <string name="pro_cancelsurvey_other">دیگر</string>
+    <string name="pro_cancelsurvey_price">قیمت بہت زیادہ ہے</string>
+    <string name="pro_cancelsurvey_title">آپ نے کیوں نہیں خریدا؟ (اختیاری)</string>
     <string name="pro_disabled_body">مفت ورژن میں آپ ایک چینل استعمال کر سکتے ہیں۔ منتخب کریں کہ کون سا چینل مفت استعمال کرتے رہنا ہے۔ مقفل چینلز کی دیکھنے کی تاریخ، پیش رفت اور نوٹس محفوظ رہتے ہیں۔ تمام چینلز استعمال کرنے کے لیے Pro دوبارہ خریدیں۔</string>
     <string name="pro_disabled_choose">مفت رکھنے کے لیے چینل منتخب کریں</string>
     <string name="pro_disabled_title">Pro اب فعال نہیں ہے</string>

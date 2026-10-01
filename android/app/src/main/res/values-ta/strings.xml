@@ -135,6 +135,12 @@
     <string name="pro_benefit_multichannel">Pro மூலம் பல YouTube சேனல்களைச் சேமித்து, ஒவ்வொன்றின் முன்னேற்றத்தையும் கண்காணிக்கலாம்.</string>
     <string name="pro_buy">வாங்கு (ஒருமுறை)</string>
     <string name="pro_buy_format">%s க்கு வாங்கு (ஒருமுறை)</string>
+    <string name="pro_cancelsurvey_body">நீங்கள் தேர்ந்தெடுப்பது மட்டுமே அநாமதேயமாகப் பதிவாகும்.</string>
+    <string name="pro_cancelsurvey_later">பிறகு வாங்குவேன்</string>
+    <string name="pro_cancelsurvey_nopaymentmethod">பயன்படுத்தக்கூடிய கட்டண முறை இல்லை</string>
+    <string name="pro_cancelsurvey_other">மற்றவை</string>
+    <string name="pro_cancelsurvey_price">விலை மிக அதிகம்</string>
+    <string name="pro_cancelsurvey_title">ஏன் வாங்கவில்லை? (விருப்பத்தேர்வு)</string>
     <string name="pro_disabled_body">இலவசப் பதிப்பில் ஒரு சேனலைப் பயன்படுத்தலாம். இலவசமாகத் தொடர்ந்து பயன்படுத்த வேண்டிய சேனலைத் தேர்வுசெய்யவும். பூட்டப்பட்ட சேனல்கள் அவற்றின் பார்த்த வரலாறு, முன்னேற்றம், குறிப்புகளைத் தக்கவைக்கும். அனைத்துச் சேனல்களையும் பயன்படுத்த Pro ஐ மீண்டும் வாங்கவும்.</string>
     <string name="pro_disabled_choose">இலவசமாக வைத்திருக்க வேண்டிய சேனலைத் தேர்வுசெய்</string>
     <string name="pro_disabled_title">Pro இனி செயலில் இல்லை</string>

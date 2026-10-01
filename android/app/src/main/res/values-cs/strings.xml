@@ -135,6 +135,12 @@
     <string name="pro_benefit_multichannel">S verzí Pro můžete uložit více kanálů YouTube a sledovat průběh u každého z nich.</string>
     <string name="pro_buy">Koupit (jednorázově)</string>
     <string name="pro_buy_format">Koupit za %s (jednorázově)</string>
+    <string name="pro_cancelsurvey_body">Zaznamená se anonymně jen možnost, kterou zvolíte.</string>
+    <string name="pro_cancelsurvey_later">Koupím později</string>
+    <string name="pro_cancelsurvey_nopaymentmethod">Nemám platební metodu, kterou bych mohl(a) použít</string>
+    <string name="pro_cancelsurvey_other">Jiné</string>
+    <string name="pro_cancelsurvey_price">Cena je příliš vysoká</string>
+    <string name="pro_cancelsurvey_title">Proč jste nekoupili? (nepovinné)</string>
     <string name="pro_disabled_body">Bezplatná verze umožňuje používat jeden kanál. Vyberte, který kanál chcete dál používat zdarma. Zamčené kanály si ponechají historii zhlédnutí, průběh i poznámky. Pokud si Pro znovu koupíte, můžete používat všechny kanály.</string>
     <string name="pro_disabled_choose">Vyberte kanál, který zůstane zdarma</string>
     <string name="pro_disabled_title">Pro už není aktivní</string>

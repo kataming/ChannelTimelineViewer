@@ -135,6 +135,12 @@
     <string name="pro_benefit_multichannel">С Pro можно сохранять несколько каналов YouTube и отслеживать прогресс по каждому.</string>
     <string name="pro_buy">Купить (разово)</string>
     <string name="pro_buy_format">Купить за %s (разово)</string>
+    <string name="pro_cancelsurvey_body">Анонимно записывается только выбранный вами вариант.</string>
+    <string name="pro_cancelsurvey_later">Куплю позже</string>
+    <string name="pro_cancelsurvey_nopaymentmethod">Нет подходящего способа оплаты</string>
+    <string name="pro_cancelsurvey_other">Другое</string>
+    <string name="pro_cancelsurvey_price">Слишком высокая цена</string>
+    <string name="pro_cancelsurvey_title">Почему вы не купили? (необязательно)</string>
     <string name="pro_disabled_body">В бесплатной версии можно использовать один канал. Выберите, какой канал использовать бесплатно. У заблокированных каналов сохраняются история просмотров, прогресс и заметки. Купите Pro снова, чтобы пользоваться всеми каналами.</string>
     <string name="pro_disabled_choose">Выбрать бесплатный канал</string>
     <string name="pro_disabled_title">Pro больше не активен</string>

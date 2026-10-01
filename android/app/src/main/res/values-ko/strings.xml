@@ -135,6 +135,12 @@
     <string name="pro_benefit_multichannel">Pro에서는 여러 YouTube 채널을 저장하고 채널별 진행 상황을 관리할 수 있습니다.</string>
     <string name="pro_buy">구매(1회 결제)</string>
     <string name="pro_buy_format">%s에 구매(1회 결제)</string>
+    <string name="pro_cancelsurvey_body">선택한 항목만 익명으로 기록됩니다.</string>
+    <string name="pro_cancelsurvey_later">나중에 구매</string>
+    <string name="pro_cancelsurvey_nopaymentmethod">사용할 수 있는 결제 수단이 없음</string>
+    <string name="pro_cancelsurvey_other">기타</string>
+    <string name="pro_cancelsurvey_price">가격이 너무 비쌈</string>
+    <string name="pro_cancelsurvey_title">구매하지 않은 이유를 알려 주세요(선택)</string>
     <string name="pro_disabled_body">무료 버전에서는 채널 1개만 사용할 수 있습니다. 무료로 계속 사용할 채널을 선택하세요. 잠긴 채널의 시청 기록·진행 상황·메모는 삭제되지 않습니다. Pro를 다시 구매하면 모든 채널을 사용할 수 있습니다.</string>
     <string name="pro_disabled_choose">무료로 사용할 채널 선택</string>
     <string name="pro_disabled_title">Pro가 비활성화되었습니다</string>

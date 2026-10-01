@@ -135,6 +135,12 @@
     <string name="pro_benefit_multichannel">Nge-Pro ungalondoloza iziteshi eziningi ze-YouTube futhi ulandelele inqubekelaphambili yesiteshi ngasinye.</string>
     <string name="pro_buy">Thenga (kanye kuphela)</string>
     <string name="pro_buy_format">Thenga nge-%s (kanye kuphela)</string>
+    <string name="pro_cancelsurvey_body">Kurekhodwa kuphela okukhethile, ngaphandle kokuveza ubuwena.</string>
+    <string name="pro_cancelsurvey_later">Ngizothenga kamuva</string>
+    <string name="pro_cancelsurvey_nopaymentmethod">Ayikho indlela yokukhokha engingayisebenzisa</string>
+    <string name="pro_cancelsurvey_other">Okunye</string>
+    <string name="pro_cancelsurvey_price">Intengo iphezulu kakhulu</string>
+    <string name="pro_cancelsurvey_title">Kungani ungathenganga? (akuphoqelekile)</string>
     <string name="pro_disabled_body">Inguqulo yamahhala ikuvumela ukuthi usebenzise isiteshi esisodwa. Khetha isiteshi ofuna ukuqhubeka usisebenzisa mahhala. Iziteshi ezikhiyiwe zigcina umlando wokubuka, inqubekelaphambili, namanothi. Thenga i-Pro futhi ukuze usebenzise zonke iziteshi.</string>
     <string name="pro_disabled_choose">Khetha isiteshi esizohlala simahhala</string>
     <string name="pro_disabled_title">I-Pro ayisasebenzi</string>

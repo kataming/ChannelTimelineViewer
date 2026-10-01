@@ -135,6 +135,12 @@
     <string name="pro_benefit_multichannel">مع Pro يمكنك حفظ قنوات YouTube متعددة وتتبع التقدم لكل منها.</string>
     <string name="pro_buy">شراء (لمرة واحدة)</string>
     <string name="pro_buy_format">شراء مقابل %s (لمرة واحدة)</string>
+    <string name="pro_cancelsurvey_body">يُسجَّل الخيار الذي تختاره فقط، دون الكشف عن هويتك.</string>
+    <string name="pro_cancelsurvey_later">سأشتري لاحقًا</string>
+    <string name="pro_cancelsurvey_nopaymentmethod">لا توجد وسيلة دفع يمكنني استخدامها</string>
+    <string name="pro_cancelsurvey_other">غير ذلك</string>
+    <string name="pro_cancelsurvey_price">السعر مرتفع جدًا</string>
+    <string name="pro_cancelsurvey_title">لماذا لم تشترِ؟ (اختياري)</string>
     <string name="pro_disabled_body">يتيح لك الإصدار المجاني استخدام قناة واحدة. اختر القناة التي تريد مواصلة استخدامها مجانًا. تحتفظ القنوات المقفلة بسجل المشاهدة والتقدم والملاحظات. اشترِ Pro مرة أخرى لاستخدام كل القنوات.</string>
     <string name="pro_disabled_choose">اختر القناة التي تبقى مجانية</string>
     <string name="pro_disabled_title">لم يعد Pro مفعّلًا</string>

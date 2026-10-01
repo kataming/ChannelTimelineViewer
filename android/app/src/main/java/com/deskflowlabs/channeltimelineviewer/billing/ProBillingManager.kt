@@ -36,6 +36,7 @@ class ProBillingManager(
     private val entitlement: ProEntitlementStore,
     analytics: Analytics = Analytics.Noop,
     reportedPurchases: ReportedPurchaseStore,
+    private val cancelSurvey: CancelSurveyStore? = null,
 ) {
 
     private val appContext = context.applicationContext
@@ -57,6 +58,10 @@ class ProBillingManager(
     private val _messageRes = MutableStateFlow<Int?>(null)
     /** 画面に出す一言（購入できた・保留・失敗など）。表示したら [clearMessage]。 */
     val messageRes: StateFlow<Int?> = _messageRes.asStateFlow()
+
+    private val _cancelSurveyVisible = MutableStateFlow(false)
+    /** 購入をやめた直後の一問アンケートを出すか（7 日に 1 回まで）。 */
+    val cancelSurveyVisible: StateFlow<Boolean> = _cancelSurveyVisible.asStateFlow()
 
     private var productDetails: ProductDetails? = null
 
@@ -196,6 +201,12 @@ class ProBillingManager(
 
     fun clearMessage() {
         _messageRes.value = null
+    }
+
+    /** アンケートに答えた（閉じたときは [Analytics.CancelReason.DISMISSED]）。 */
+    fun answerCancelSurvey(choice: String) {
+        _cancelSurveyVisible.value = false
+        reporter.cancelReason(choice)
     }
 
     fun dispose() {
@@ -370,7 +381,10 @@ class ProBillingManager(
             }
 
             BillingClient.BillingResponseCode.USER_CANCELED -> {
-                // 本人がやめただけなので何も出さない。
+                // 本人がやめただけなのでエラーは出さない。理由だけ一度聞く（7 日に 1 回まで）。
+                if (runCatching { cancelSurvey?.tryAsk() == true }.getOrDefault(false)) {
+                    _cancelSurveyVisible.value = true
+                }
             }
 
             BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED -> {

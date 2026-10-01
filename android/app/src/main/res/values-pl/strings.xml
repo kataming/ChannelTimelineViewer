@@ -135,6 +135,12 @@
     <string name="pro_benefit_multichannel">Z Pro możesz zapisać wiele kanałów YouTube i śledzić postęp w każdym z nich.</string>
     <string name="pro_buy">Kup (jednorazowo)</string>
     <string name="pro_buy_format">Kup za %s (jednorazowo)</string>
+    <string name="pro_cancelsurvey_body">Zapisywana jest anonimowo tylko wybrana przez Ciebie opcja.</string>
+    <string name="pro_cancelsurvey_later">Kupię później</string>
+    <string name="pro_cancelsurvey_nopaymentmethod">Nie mam metody płatności, której mogę użyć</string>
+    <string name="pro_cancelsurvey_other">Inne</string>
+    <string name="pro_cancelsurvey_price">Cena jest za wysoka</string>
+    <string name="pro_cancelsurvey_title">Co powstrzymało Cię przed zakupem? (opcjonalnie)</string>
     <string name="pro_disabled_body">Wersja bezpłatna pozwala korzystać z jednego kanału. Wybierz, z którego kanału chcesz dalej korzystać za darmo. Zablokowane kanały zachowują historię obejrzanych, postęp i notatki. Kup Pro ponownie, aby korzystać ze wszystkich kanałów.</string>
     <string name="pro_disabled_choose">Wybierz kanał do bezpłatnego użytku</string>
     <string name="pro_disabled_title">Pro nie jest już aktywne</string>

@@ -135,6 +135,12 @@
     <string name="pro_benefit_multichannel">Pro ಮೂಲಕ ನೀವು ಹಲವು YouTube ಚಾನೆಲ್‌ಗಳನ್ನು ಉಳಿಸಬಹುದು ಮತ್ತು ಪ್ರತಿಯೊಂದರ ಪ್ರಗತಿಯನ್ನು ಟ್ರ್ಯಾಕ್ ಮಾಡಬಹುದು.</string>
     <string name="pro_buy">ಖರೀದಿಸಿ (ಒಂದು ಬಾರಿ)</string>
     <string name="pro_buy_format">%s ಗೆ ಖರೀದಿಸಿ (ಒಂದು ಬಾರಿ)</string>
+    <string name="pro_cancelsurvey_body">ನೀವು ಆರಿಸಿದ ಆಯ್ಕೆ ಮಾತ್ರ ಅನಾಮಧೇಯವಾಗಿ ದಾಖಲಾಗುತ್ತದೆ.</string>
+    <string name="pro_cancelsurvey_later">ನಂತರ ಖರೀದಿಸುತ್ತೇನೆ</string>
+    <string name="pro_cancelsurvey_nopaymentmethod">ನಾನು ಬಳಸಬಹುದಾದ ಪಾವತಿ ವಿಧಾನವಿಲ್ಲ</string>
+    <string name="pro_cancelsurvey_other">ಇತರೆ</string>
+    <string name="pro_cancelsurvey_price">ಬೆಲೆ ತುಂಬಾ ಹೆಚ್ಚು</string>
+    <string name="pro_cancelsurvey_title">ನೀವು ಏಕೆ ಖರೀದಿಸಲಿಲ್ಲ? (ಐಚ್ಛಿಕ)</string>
     <string name="pro_disabled_body">ಉಚಿತ ಆವೃತ್ತಿಯಲ್ಲಿ ಒಂದು ಚಾನೆಲ್ ಬಳಸಬಹುದು. ಉಚಿತವಾಗಿ ಬಳಸುವುದನ್ನು ಮುಂದುವರಿಸಲು ಚಾನೆಲ್ ಆಯ್ಕೆಮಾಡಿ. ಲಾಕ್ ಆದ ಚಾನೆಲ್‌ಗಳು ತಮ್ಮ ವೀಕ್ಷಣಾ ಇತಿಹಾಸ, ಪ್ರಗತಿ ಮತ್ತು ಟಿಪ್ಪಣಿಗಳನ್ನು ಉಳಿಸಿಕೊಳ್ಳುತ್ತವೆ. ಎಲ್ಲಾ ಚಾನೆಲ್‌ಗಳನ್ನು ಬಳಸಲು Pro ಅನ್ನು ಮತ್ತೆ ಖರೀದಿಸಿ.</string>
     <string name="pro_disabled_choose">ಉಚಿತವಾಗಿ ಇಡಬೇಕಾದ ಚಾನೆಲ್ ಆಯ್ಕೆಮಾಡಿ</string>
     <string name="pro_disabled_title">Pro ಇನ್ನು ಸಕ್ರಿಯವಾಗಿಲ್ಲ</string>

@@ -29,6 +29,7 @@
 | `pro_purchase_error` | 購入が失敗した | `reason` / `error_stage` / `billing_response_code`（2026-10-02〜） | ❌ |
 | `pro_purchase_pending` | 保留になった（コンビニ払いなど） | なし | ❌ まだ売れていない |
 | `pro_restore` | 「購入を復元」を押した | なし | ❌ 既存客の再適用 |
+| `pro_cancel_reason` | 購入画面をやめた直後の一問アンケートの答え（2026-10-02〜・7 日に 1 回まで） | `reason` = `no_payment_method` / `price_too_high` / `later` / `other` / `dismissed`（答えずに閉じた） | ❌ |
 | ~~`purchase`~~ | **1.14 で廃止**（1.9〜1.13 は `pro_purchase_success` と同時に送っていた）。`in_app_purchase` と収益が二重になるため | — | — |
 | `pro_billing_result` | **診断用**。課金の各段階の結果（成功も失敗も） | `stage` / `result` | ❌ 数えない |
 | `in_app_purchase` | **Firebase が自動収集**（Google Play とリンク済み・コードからは送らない・[第9章](#9-in_app_purchasefirebase-の自動収集イベント)） | Google が決める | ✅ **収益（金額）の正**（GA4） |

@@ -135,6 +135,12 @@
     <string name="pro_benefit_multichannel">Med Pro kan du spara flera YouTube-kanaler och följa förloppet för var och en.</string>
     <string name="pro_buy">Köp (engångsköp)</string>
     <string name="pro_buy_format">Köp för %s (engångsköp)</string>
+    <string name="pro_cancelsurvey_body">Bara alternativet du väljer registreras, anonymt.</string>
+    <string name="pro_cancelsurvey_later">Jag köper senare</string>
+    <string name="pro_cancelsurvey_nopaymentmethod">Inget betalningssätt som jag kan använda</string>
+    <string name="pro_cancelsurvey_other">Annat</string>
+    <string name="pro_cancelsurvey_price">Priset är för högt</string>
+    <string name="pro_cancelsurvey_title">Varför köpte du inte? (valfritt)</string>
     <string name="pro_disabled_body">Med gratisversionen kan du använda en kanal. Välj vilken kanal du vill fortsätta använda gratis. Låsta kanaler behåller sin visningshistorik, sitt förlopp och sina anteckningar. Köp Pro igen för att använda alla kanaler.</string>
     <string name="pro_disabled_choose">Välj kanalen som ska vara gratis</string>
     <string name="pro_disabled_title">Pro är inte längre aktivt</string>

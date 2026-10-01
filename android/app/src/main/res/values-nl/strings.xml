@@ -135,6 +135,12 @@
     <string name="pro_benefit_multichannel">Met Pro kun je meerdere YouTube-kanalen bewaren en per kanaal je voortgang bijhouden.</string>
     <string name="pro_buy">Koop (eenmalig)</string>
     <string name="pro_buy_format">Koop voor %s (eenmalig)</string>
+    <string name="pro_cancelsurvey_body">Alleen de optie die je kiest wordt anoniem vastgelegd.</string>
+    <string name="pro_cancelsurvey_later">Ik koop later</string>
+    <string name="pro_cancelsurvey_nopaymentmethod">Geen betaalmethode die ik kan gebruiken</string>
+    <string name="pro_cancelsurvey_other">Anders</string>
+    <string name="pro_cancelsurvey_price">De prijs is te hoog</string>
+    <string name="pro_cancelsurvey_title">Waarom heb je niet gekocht? (optioneel)</string>
     <string name="pro_disabled_body">Met de gratis versie kun je één kanaal gebruiken. Kies welk kanaal je gratis blijft gebruiken. Vergrendelde kanalen behouden hun kijkgeschiedenis, voortgang en notities. Koop Pro opnieuw om alle kanalen te gebruiken.</string>
     <string name="pro_disabled_choose">Kies het kanaal dat gratis blijft</string>
     <string name="pro_disabled_title">Pro is niet meer actief</string>

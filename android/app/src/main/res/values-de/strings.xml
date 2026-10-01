@@ -135,6 +135,12 @@
     <string name="pro_benefit_multichannel">Mit Pro speicherst du mehrere YouTube-Kanäle und verfolgst den Fortschritt für jeden.</string>
     <string name="pro_buy">Kaufen (einmalig)</string>
     <string name="pro_buy_format">Für %s kaufen (einmalig)</string>
+    <string name="pro_cancelsurvey_body">Es wird nur die gewählte Antwort anonym gespeichert.</string>
+    <string name="pro_cancelsurvey_later">Ich kaufe später</string>
+    <string name="pro_cancelsurvey_nopaymentmethod">Ich habe keine passende Zahlungsmethode</string>
+    <string name="pro_cancelsurvey_other">Sonstiges</string>
+    <string name="pro_cancelsurvey_price">Der Preis ist zu hoch</string>
+    <string name="pro_cancelsurvey_title">Warum hast du nicht gekauft? (optional)</string>
     <string name="pro_disabled_body">In der kostenlosen Version kannst du einen Kanal nutzen. Wähle, welchen du kostenlos weiter nutzt. Gesperrte Kanäle behalten Gesehen-Status, Fortschritt und Notizen. Kaufe Pro erneut, um alle zu nutzen.</string>
     <string name="pro_disabled_choose">Kostenlosen Kanal wählen</string>
     <string name="pro_disabled_title">Pro ist nicht mehr aktiv</string>

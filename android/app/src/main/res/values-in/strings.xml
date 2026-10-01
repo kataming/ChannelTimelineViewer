@@ -135,6 +135,12 @@
     <string name="pro_benefit_multichannel">Dengan Pro, Anda dapat menyimpan banyak channel YouTube dan memantau progres masing-masing.</string>
     <string name="pro_buy">Beli (sekali bayar)</string>
     <string name="pro_buy_format">Beli seharga %s (sekali bayar)</string>
+    <string name="pro_cancelsurvey_body">Hanya opsi yang Anda pilih yang dicatat, secara anonim.</string>
+    <string name="pro_cancelsurvey_later">Saya akan beli nanti</string>
+    <string name="pro_cancelsurvey_nopaymentmethod">Tidak ada metode pembayaran yang bisa saya gunakan</string>
+    <string name="pro_cancelsurvey_other">Lainnya</string>
+    <string name="pro_cancelsurvey_price">Harganya terlalu mahal</string>
+    <string name="pro_cancelsurvey_title">Mengapa Anda tidak membeli? (opsional)</string>
     <string name="pro_disabled_body">Versi gratis memungkinkan Anda menggunakan satu channel. Pilih channel yang ingin tetap digunakan secara gratis. Channel yang terkunci tetap menyimpan riwayat tontonan, progres, dan catatannya. Beli Pro lagi untuk menggunakan semua channel.</string>
     <string name="pro_disabled_choose">Pilih channel yang tetap gratis</string>
     <string name="pro_disabled_title">Pro tidak lagi aktif</string>

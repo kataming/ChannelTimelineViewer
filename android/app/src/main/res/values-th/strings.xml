@@ -135,6 +135,12 @@
     <string name="pro_benefit_multichannel">ด้วย Pro คุณสามารถบันทึกช่อง YouTube ได้หลายช่องและติดตามความคืบหน้าของแต่ละช่อง</string>
     <string name="pro_buy">ซื้อ (ครั้งเดียว)</string>
     <string name="pro_buy_format">ซื้อในราคา %s (ครั้งเดียว)</string>
+    <string name="pro_cancelsurvey_body">จะบันทึกเฉพาะตัวเลือกที่คุณเลือกแบบไม่ระบุตัวตน</string>
+    <string name="pro_cancelsurvey_later">จะซื้อทีหลัง</string>
+    <string name="pro_cancelsurvey_nopaymentmethod">ไม่มีวิธีชำระเงินที่ใช้ได้</string>
+    <string name="pro_cancelsurvey_other">อื่นๆ</string>
+    <string name="pro_cancelsurvey_price">ราคาแพงเกินไป</string>
+    <string name="pro_cancelsurvey_title">ทำไมคุณไม่ซื้อ (ไม่บังคับ)</string>
     <string name="pro_disabled_body">เวอร์ชันฟรีใช้ได้หนึ่งช่อง เลือกช่องที่จะใช้ต่อแบบฟรี ช่องที่ถูกล็อกยังคงเก็บประวัติการดู ความคืบหน้า และบันทึกไว้ ซื้อ Pro อีกครั้งเพื่อใช้ทุกช่อง</string>
     <string name="pro_disabled_choose">เลือกช่องที่จะใช้ฟรี</string>
     <string name="pro_disabled_title">Pro ไม่ได้เปิดใช้งานอีกต่อไป</string>

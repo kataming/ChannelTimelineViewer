@@ -135,6 +135,12 @@
     <string name="pro_benefit_multichannel">Dengan Pro, anda boleh menyimpan berbilang saluran YouTube dan menjejak kemajuan bagi setiap saluran.</string>
     <string name="pro_buy">Beli (sekali sahaja)</string>
     <string name="pro_buy_format">Beli pada harga %s (sekali sahaja)</string>
+    <string name="pro_cancelsurvey_body">Hanya pilihan yang anda pilih direkodkan, tanpa nama.</string>
+    <string name="pro_cancelsurvey_later">Saya akan beli kemudian</string>
+    <string name="pro_cancelsurvey_nopaymentmethod">Tiada kaedah pembayaran yang boleh saya gunakan</string>
+    <string name="pro_cancelsurvey_other">Lain-lain</string>
+    <string name="pro_cancelsurvey_price">Harganya terlalu mahal</string>
+    <string name="pro_cancelsurvey_title">Mengapa anda tidak membeli? (pilihan)</string>
     <string name="pro_disabled_body">Versi percuma membolehkan anda menggunakan satu saluran. Pilih saluran yang ingin terus digunakan secara percuma. Saluran yang dikunci mengekalkan sejarah tontonan, kemajuan dan notanya. Beli Pro semula untuk menggunakan setiap saluran.</string>
     <string name="pro_disabled_choose">Pilih saluran untuk kekal percuma</string>
     <string name="pro_disabled_title">Pro tidak lagi aktif</string>

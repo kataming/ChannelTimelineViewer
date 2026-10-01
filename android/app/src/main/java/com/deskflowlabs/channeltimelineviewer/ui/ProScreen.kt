@@ -13,6 +13,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
@@ -33,6 +34,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.deskflowlabs.channeltimelineviewer.R
+import com.deskflowlabs.channeltimelineviewer.analytics.Analytics
 import com.deskflowlabs.channeltimelineviewer.billing.ProBillingManager
 import com.deskflowlabs.channeltimelineviewer.billing.ProEntitlementStore
 
@@ -55,7 +57,10 @@ fun ProScreen(
     val price by billing.priceText.collectAsStateWithLifecycle()
     val isBusy by billing.isBusy.collectAsStateWithLifecycle()
     val messageRes by billing.messageRes.collectAsStateWithLifecycle()
+    val cancelSurveyVisible by billing.cancelSurveyVisible.collectAsStateWithLifecycle()
     val activity = LocalContext.current.findActivity()
+
+    if (cancelSurveyVisible) CancelSurveyDialog(onAnswer = billing::answerCancelSurvey)
 
     // 画面を開くたびに購入状態と価格を読み直す（他端末で買った直後でも合うように）。
     LaunchedEffect(Unit) { billing.refresh() }
@@ -168,6 +173,45 @@ fun ProScreen(
             )
         }
     }
+}
+
+/**
+ * 購入をやめた直後の一問アンケート（任意・7 日に 1 回まで）。
+ * Play はキャンセルの理由を教えないので、「支払い方法が無い」のか「価格」なのかを本人に聞く。
+ * 送るのは選んだ項目の決まった文字だけ（[Analytics.CancelReason]）。
+ */
+@Composable
+private fun CancelSurveyDialog(onAnswer: (String) -> Unit) {
+    val choices = listOf(
+        Analytics.CancelReason.NO_PAYMENT_METHOD to R.string.pro_cancelsurvey_nopaymentmethod,
+        Analytics.CancelReason.PRICE_TOO_HIGH to R.string.pro_cancelsurvey_price,
+        Analytics.CancelReason.LATER to R.string.pro_cancelsurvey_later,
+        Analytics.CancelReason.OTHER to R.string.pro_cancelsurvey_other,
+    )
+    AlertDialog(
+        onDismissRequest = { onAnswer(Analytics.CancelReason.DISMISSED) },
+        title = { Text(stringResource(R.string.pro_cancelsurvey_title)) },
+        text = {
+            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                Text(
+                    stringResource(R.string.pro_cancelsurvey_body),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                choices.forEach { (value, label) ->
+                    TextButton(onClick = { onAnswer(value) }, modifier = Modifier.fillMaxWidth()) {
+                        Text(stringResource(label), modifier = Modifier.fillMaxWidth())
+                    }
+                }
+            }
+        },
+        confirmButton = {},
+        dismissButton = {
+            TextButton(onClick = { onAnswer(Analytics.CancelReason.DISMISSED) }) {
+                Text(stringResource(R.string.common_close))
+            }
+        },
+    )
 }
 
 @Composable

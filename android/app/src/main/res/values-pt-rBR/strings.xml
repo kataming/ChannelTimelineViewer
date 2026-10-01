@@ -135,6 +135,12 @@
     <string name="pro_benefit_multichannel">Com o Pro você pode salvar vários canais do YouTube e acompanhar o progresso de cada um.</string>
     <string name="pro_buy">Comprar (pagamento único)</string>
     <string name="pro_buy_format">Comprar por %s (pagamento único)</string>
+    <string name="pro_cancelsurvey_body">Só a opção que você escolher é registrada, de forma anônima.</string>
+    <string name="pro_cancelsurvey_later">Vou comprar depois</string>
+    <string name="pro_cancelsurvey_nopaymentmethod">Não tenho forma de pagamento que eu possa usar</string>
+    <string name="pro_cancelsurvey_other">Outro</string>
+    <string name="pro_cancelsurvey_price">O preço é alto demais</string>
+    <string name="pro_cancelsurvey_title">Por que você não comprou? (opcional)</string>
     <string name="pro_disabled_body">A versão gratuita permite usar um canal. Escolha qual canal continuar usando de graça. Os canais bloqueados mantêm o histórico de assistidos, o progresso e as notas. Compre o Pro novamente para usar todos os canais.</string>
     <string name="pro_disabled_choose">Escolher o canal gratuito</string>
     <string name="pro_disabled_title">O Pro não está mais ativo</string>

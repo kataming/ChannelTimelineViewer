@@ -269,6 +269,18 @@
     <string name="pro_buy">Buy (one-time)</string>
     <!-- 購入ボタン（%@ に価格） -->
     <string name="pro_buy_format">Buy for %s (one-time)</string>
+    <!-- Android: アンケートの説明。記録するのは選んだ項目だけ（匿名） -->
+    <string name="pro_cancelsurvey_body">Only the option you pick is recorded, anonymously.</string>
+    <!-- Android: アンケートの選択肢（あとで買う） -->
+    <string name="pro_cancelsurvey_later">I\'ll buy later</string>
+    <!-- Android: アンケートの選択肢（Google Play で使える支払い方法が無い） -->
+    <string name="pro_cancelsurvey_nopaymentmethod">No payment method I can use</string>
+    <!-- Android: アンケートの選択肢（その他） -->
+    <string name="pro_cancelsurvey_other">Other</string>
+    <!-- Android: アンケートの選択肢（価格が高い） -->
+    <string name="pro_cancelsurvey_price">The price is too high</string>
+    <!-- Android: 購入をやめた直後の一問アンケートの見出し（任意・7日に1回まで） -->
+    <string name="pro_cancelsurvey_title">Why didn\'t you buy? (optional)</string>
     <!-- Pro失効の説明 -->
     <string name="pro_disabled_body">The free version lets you use one channel. Choose which channel to keep using for free. Locked channels keep their watched history, progress, and notes. Buy Pro again to use every channel.</string>
     <!-- 使うチャンネルを選ぶ導線 -->

@@ -135,6 +135,12 @@
     <string name="pro_benefit_multichannel">Pro सह तुम्ही अनेक YouTube चॅनेल जतन करू शकता आणि प्रत्येकाची प्रगती ट्रॅक करू शकता.</string>
     <string name="pro_buy">खरेदी करा (एकदाच)</string>
     <string name="pro_buy_format">%s मध्ये खरेदी करा (एकदाच)</string>
+    <string name="pro_cancelsurvey_body">फक्त तुम्ही निवडलेला पर्याय निनावीपणे नोंदवला जातो.</string>
+    <string name="pro_cancelsurvey_later">नंतर खरेदी करेन</string>
+    <string name="pro_cancelsurvey_nopaymentmethod">वापरता येईल अशी पेमेंट पद्धत नाही</string>
+    <string name="pro_cancelsurvey_other">इतर</string>
+    <string name="pro_cancelsurvey_price">किंमत खूप जास्त आहे</string>
+    <string name="pro_cancelsurvey_title">तुम्ही का खरेदी केले नाही? (ऐच्छिक)</string>
     <string name="pro_disabled_body">विनामूल्य आवृत्तीत तुम्ही एक चॅनेल वापरू शकता. कोणते चॅनेल विनामूल्य वापरत राहायचे ते निवडा. लॉक केलेल्या चॅनेलचा पाहिलेला इतिहास, प्रगती आणि नोट्स कायम राहतात. प्रत्येक चॅनेल वापरण्यासाठी Pro पुन्हा खरेदी करा.</string>
     <string name="pro_disabled_choose">विनामूल्य ठेवण्यासाठी चॅनेल निवडा</string>
     <string name="pro_disabled_title">Pro आता सक्रिय नाही</string>

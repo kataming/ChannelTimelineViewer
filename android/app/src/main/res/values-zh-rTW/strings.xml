@@ -135,6 +135,12 @@
     <string name="pro_benefit_multichannel">使用 Pro 可儲存多個 YouTube 頻道，並分別追蹤每個頻道的進度。</string>
     <string name="pro_buy">購買（一次購買）</string>
     <string name="pro_buy_format">以 %s 購買（一次購買）</string>
+    <string name="pro_cancelsurvey_body">只會以匿名方式記錄你選擇的項目。</string>
+    <string name="pro_cancelsurvey_later">之後再買</string>
+    <string name="pro_cancelsurvey_nopaymentmethod">沒有可用的付款方式</string>
+    <string name="pro_cancelsurvey_other">其他</string>
+    <string name="pro_cancelsurvey_price">價格太高</string>
+    <string name="pro_cancelsurvey_title">為什麼沒有購買？（選填）</string>
     <string name="pro_disabled_body">免費版可使用一個頻道。請選擇要繼續免費使用的頻道。已鎖定頻道的觀看紀錄、進度和筆記都會保留。再次購買 Pro 即可使用所有頻道。</string>
     <string name="pro_disabled_choose">選擇要免費使用的頻道</string>
     <string name="pro_disabled_title">Pro 已停用</string>

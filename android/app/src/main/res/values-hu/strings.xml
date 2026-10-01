@@ -135,6 +135,12 @@
     <string name="pro_benefit_multichannel">A Pro verzióval több YouTube-csatornát menthetsz, és mindegyiknél követheted a haladást.</string>
     <string name="pro_buy">Megvásárlás (egyszeri)</string>
     <string name="pro_buy_format">Megvásárlás %s áron (egyszeri)</string>
+    <string name="pro_cancelsurvey_body">Csak a választott lehetőséget rögzítjük, névtelenül.</string>
+    <string name="pro_cancelsurvey_later">Később veszem meg</string>
+    <string name="pro_cancelsurvey_nopaymentmethod">Nincs használható fizetési módom</string>
+    <string name="pro_cancelsurvey_other">Egyéb</string>
+    <string name="pro_cancelsurvey_price">Túl magas az ár</string>
+    <string name="pro_cancelsurvey_title">Miért nem vásároltál? (nem kötelező)</string>
     <string name="pro_disabled_body">Az ingyenes verzióban egy csatornát használhatsz. Válaszd ki, melyik csatornát szeretnéd továbbra is ingyen használni. A zárolt csatornák megtartják a megnézési előzményeiket, haladásukat és jegyzeteiket. Vásárold meg újra a Pro verziót, hogy minden csatornát használhass.</string>
     <string name="pro_disabled_choose">Válaszd ki az ingyenes csatornát</string>
     <string name="pro_disabled_title">A Pro már nem aktív</string>

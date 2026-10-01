@@ -3,6 +3,7 @@ package com.deskflowlabs.channeltimelineviewer
 import android.content.Context
 import com.deskflowlabs.channeltimelineviewer.analytics.Analytics
 import com.deskflowlabs.channeltimelineviewer.analytics.FirebaseAnalyticsTracker
+import com.deskflowlabs.channeltimelineviewer.billing.CancelSurveyStore
 import com.deskflowlabs.channeltimelineviewer.billing.ProBillingManager
 import com.deskflowlabs.channeltimelineviewer.billing.ProEntitlementStore
 import com.deskflowlabs.channeltimelineviewer.billing.ReportedPurchaseStore
@@ -89,6 +90,7 @@ class AppContainer(context: Context) {
         entitlement = proEntitlement,
         analytics = analytics,
         reportedPurchases = reportedPurchases,
+        cancelSurvey = CancelSurveyStore(prefs),
     )
 
     /** APIキーが設定されているか（未設定なら入力画面で警告を出す）。 */

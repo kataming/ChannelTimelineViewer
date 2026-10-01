@@ -109,6 +109,17 @@ function adsSyncLine() {
 
 const isAuto = (c, field) => c.metricsSource?.[field] === 'google-ads';
 
+function fxSyncLine() {
+  const f = doc().fxSync;
+  const source = '出典: <a href="https://www.exchangerate-api.com" target="_blank" rel="noopener">Rates By Exchange Rate API</a>';
+  if (!f?.lastRunAt) return `<div class="muted small" data-testid="fx-sync">為替の自動取得: まだ取得していません（毎朝 6:00）。${source}</div>`;
+  const cls = f.status === 'ok' ? 'positive' : f.status === 'warning' ? 'warning' : 'negative';
+  const label = { ok: 'OK', warning: '要確認', error: '失敗' }[f.status] ?? f.status;
+  return `<div class="small" data-testid="fx-sync">為替の自動取得: <span class="badge ${cls}">${label}</span>
+    最終 ${esc(new Date(f.lastRunAt).toLocaleString())}${f.ratesAsOf ? `（レートの基準 ${esc(new Date(f.ratesAsOf).toLocaleString())}・${int(f.currencies)} 通貨）` : ''}
+    ${f.message ? `<span class="${cls === 'positive' ? '' : 'negative'}">${esc(f.message)}</span>` : ''} ${source}</div>`;
+}
+
 // --- Dashboard ---------------------------------------------------------------------
 
 function kpi(label, value, { key = false, cls = '' } = {}) {
@@ -125,6 +136,7 @@ function renderDashboard() {
   return `
     <h1>Dashboard</h1>
     ${adsSyncLine()}
+    ${fxSyncLine()}
     ${t.flowNeedsReview ? `<div class="notice" data-testid="flow-notice"><strong>Purchase flow needs review</strong> —
       Purchase Start は ${int(t.purchaseStarts)} 件ありますが Purchase Success は 0 件です。原因はここでは判断しません。</div>`
       : (finite(t.purchaseSuccess) === 0 ? `<div class="notice" data-testid="success-zero">Purchase Success は 0 件です（Purchase Start の件数は${finite(t.purchaseStarts) === null ? '未入力' : ` ${int(t.purchaseStarts)} 件`}）。</div>` : '')}
@@ -571,20 +583,22 @@ function renderSettings() {
         ${field('集計の開始日', `<input type="date" name="startDate" value="${esc(settings.adsSync?.startDate ?? '2025-01-01')}">`)}
       </div>
       <div class="row"><button class="primary">保存</button>
-        <button type="button" data-action="ads-sync" ${settings.adsSync?.customerId ? '' : 'disabled'}>今すぐ取得</button>
-        <span class="muted small">毎朝 6:00（日本時間）に自動で取得します。開始日〜当日の合計を取り込みます。</span></div>
+        <button type="button" data-action="ads-sync">今すぐ取得（為替・広告）</button>
+        <span class="muted small">毎朝 6:00（日本時間）に為替 → 広告の順で自動取得します。広告は開始日〜当日の合計を取り込みます。</span></div>
       ${errorsFor('setAdsSettings')}
     </form>
 
-    <h2>為替（手入力）</h2>
+    <h2>為替</h2>
     <div class="panel">
+      ${fxSyncLine()}
       <table data-testid="fx-table"><thead><tr><th class="l">Currency</th><th>1 単位 = 円</th><th class="l">Updated At</th><th></th></tr></thead><tbody>
         ${codes.map((code) => `<tr><td class="l">${esc(code)}</td><td colspan="3"><form data-op="setRate" data-id="${esc(code)}" class="row" style="justify-content:flex-end;margin:0">
           ${numInput('rate', currencies[code]?.rateToJPY)}<input type="date" name="updatedAt" value="${esc(currencies[code]?.updatedAt ?? today())}"><button>保存</button></form></td></tr>`).join('')}
       </tbody></table>
       <form data-op="setRate" class="row"><input name="currency" placeholder="通貨（例 THB）" maxlength="3" style="width:110px">${numInput('rate', null, 'placeholder="円"')}<input type="date" name="updatedAt" value="${today()}"><button>通貨を追加</button></form>
       ${errorsFor('setRate')}
-      <p class="muted small">為替 API は使いません。レートは自分で入れてください（空欄 = 未入力。円換算は「—」になります）。</p>
+      <p class="muted small">毎朝 6:00 に自動で入れ直します（手で入れた値も上書きされます）。取得元に無い通貨だけは手入力のまま残ります。
+        通貨は各国の Currency に入れた分と、ここで追加した分が対象です。</p>
     </div>
 
     <h2>損益分岐の試算</h2>
@@ -746,7 +760,7 @@ view.addEventListener('click', async (event) => {
       const body = await res.json().catch(() => ({}));
       await store.init();
       const ok = res.ok && body.status !== 'error';
-      toast(ok ? 'Google 広告から取り込みました' : `取得できませんでした: ${body.message || body.error || res.status}`);
+      toast(ok ? '為替と Google 広告を取り込みました' : `一部取得できませんでした: ${body.message || body.error || res.status}`);
     } catch (e) {
       toast(`取得できませんでした: ${e.message}`);
     }

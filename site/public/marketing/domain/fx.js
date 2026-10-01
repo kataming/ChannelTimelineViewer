@@ -1,5 +1,5 @@
-// 為替。Phase 1 は手入力のレートだけを使う（API は呼ばない）。
-// 将来は rates を為替 API から埋める実装に差し替える（呼び出し側は toJPY だけを使う）。
+// 為替。レートは doc.currencies（1 単位 = 何円）。公式サイト版は毎朝 6 時に Worker が
+// ExchangeRate-API から入れ直す（worker/fx-sync.js）。計算側は toJPY だけを使う。
 import { finite, mul } from './num.js';
 
 /**

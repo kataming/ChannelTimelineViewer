@@ -202,22 +202,89 @@ class ProPurchaseAnalyticsTest {
     }
 
     @Test
-    fun `応答コードや Play の文面そのものは送らない`() {
+    fun `送るのは決まった3項目だけ。数値は Play の応答コードそのものだけ`() {
+        // 2026-10-02: 原因の切り分けのため billing_response_code（Play が決めた固定の番号）だけは送る。
+        // debugMessage・購入トークン・注文IDは送らない（そもそも reporter に渡していない）。
         val recorder = Recorder()
         val reporter = ProPurchaseReporter(recorder, store())
 
         reporter.purchasesUpdated(
-            BillingClient.BillingResponseCode.DEVELOPER_ERROR, emptyList(), entitlementGranted = false,
+            BillingClient.BillingResponseCode.DEVELOPER_ERROR,
+            listOf(purchased("secret-token")),
+            entitlementGranted = false,
         )
 
-        val sent = recorder.entries.flatMap { it.params.values.map(Any::toString) }
-        sent.forEach {
-            assertFalse("数値の応答コードを送ってはいけない", it.toIntOrNull() != null)
-        }
+        val params = recorder.paramsOf(Analytics.Event.PRO_PURCHASE_ERROR)
         assertEquals(
-            Analytics.ErrorReason.DEVELOPER_ERROR,
-            recorder.paramsOf(Analytics.Event.PRO_PURCHASE_ERROR)[Analytics.Param.REASON],
+            setOf(Analytics.Param.REASON, Analytics.Param.ERROR_STAGE, Analytics.Param.BILLING_RESPONSE_CODE),
+            params.keys,
         )
+        assertEquals(Analytics.ErrorReason.DEVELOPER_ERROR, params[Analytics.Param.REASON])
+        assertEquals(Analytics.ErrorStage.PURCHASE_UPDATE, params[Analytics.Param.ERROR_STAGE])
+        assertEquals(BillingClient.BillingResponseCode.DEVELOPER_ERROR, params[Analytics.Param.BILLING_RESPONSE_CODE])
+        val sent = recorder.entries.flatMap { it.params.values.map(Any::toString) }
+        assertFalse("購入トークンを送ってはいけない", sent.any { "secret-token" in it })
+    }
+
+    @Test
+    fun `購入画面のあとの失敗は段階と応答コードが分かる`() {
+        val codes = listOf(
+            BillingClient.BillingResponseCode.SERVICE_DISCONNECTED,
+            BillingClient.BillingResponseCode.SERVICE_UNAVAILABLE,
+            BillingClient.BillingResponseCode.BILLING_UNAVAILABLE,
+            BillingClient.BillingResponseCode.ITEM_UNAVAILABLE,
+            BillingClient.BillingResponseCode.DEVELOPER_ERROR,
+            BillingClient.BillingResponseCode.ERROR,
+            BillingClient.BillingResponseCode.ITEM_NOT_OWNED,
+            BillingClient.BillingResponseCode.NETWORK_ERROR,
+            BillingClient.BillingResponseCode.FEATURE_NOT_SUPPORTED,
+        )
+        codes.forEach { code ->
+            val recorder = Recorder()
+            ProPurchaseReporter(recorder, store()).purchasesUpdated(code, emptyList(), entitlementGranted = false)
+            val params = recorder.paramsOf(Analytics.Event.PRO_PURCHASE_ERROR)
+            assertEquals("code $code", Analytics.ErrorStage.PURCHASE_UPDATE, params[Analytics.Param.ERROR_STAGE])
+            assertEquals("code $code", code, params[Analytics.Param.BILLING_RESPONSE_CODE])
+        }
+    }
+
+    @Test
+    fun `キャンセル・すでに持っている・成功が空・保留ではエラーを出さない`() {
+        listOf(
+            BillingClient.BillingResponseCode.USER_CANCELED,
+            BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED,
+        ).forEach { code ->
+            val recorder = Recorder()
+            ProPurchaseReporter(recorder, store()).purchasesUpdated(code, emptyList(), entitlementGranted = false)
+            assertEquals("code $code", 0, recorder.count(Analytics.Event.PRO_PURCHASE_ERROR))
+        }
+        val recorder = Recorder()
+        val reporter = ProPurchaseReporter(recorder, store())
+        reporter.purchasesUpdated(BillingClient.BillingResponseCode.OK, emptyList(), entitlementGranted = false)
+        reporter.purchasesUpdated(BillingClient.BillingResponseCode.OK, listOf(pending()), entitlementGranted = false)
+        assertEquals(0, recorder.count(Analytics.Event.PRO_PURCHASE_ERROR))
+        assertEquals(1, recorder.count(Analytics.Event.PRO_PURCHASE_PENDING))
+    }
+
+    @Test
+    fun `購入画面を開く前の失敗は段階が分かり、コードが無ければ送らない`() {
+        val recorder = Recorder()
+        val reporter = ProPurchaseReporter(recorder, store())
+
+        reporter.purchaseFailedBeforeFlow(
+            Analytics.ErrorReason.BILLING_UNAVAILABLE,
+            Analytics.ErrorStage.BILLING_CONNECT,
+            BillingClient.BillingResponseCode.BILLING_UNAVAILABLE,
+        )
+        var params = recorder.paramsOf(Analytics.Event.PRO_PURCHASE_ERROR)
+        assertEquals(Analytics.ErrorStage.BILLING_CONNECT, params[Analytics.Param.ERROR_STAGE])
+        assertEquals(BillingClient.BillingResponseCode.BILLING_UNAVAILABLE, params[Analytics.Param.BILLING_RESPONSE_CODE])
+
+        // 例外で止まった（応答コードが無い）ときは、推測の値を入れずにコードごと送らない
+        reporter.purchaseFailedBeforeFlow(Analytics.ErrorReason.GENERIC_ERROR, Analytics.ErrorStage.LAUNCH_BILLING)
+        params = recorder.paramsOf(Analytics.Event.PRO_PURCHASE_ERROR)
+        assertEquals(Analytics.ErrorStage.LAUNCH_BILLING, params[Analytics.Param.ERROR_STAGE])
+        assertFalse(Analytics.Param.BILLING_RESPONSE_CODE in params)
     }
 
     // ---- 4. 保留 ----
@@ -348,7 +415,7 @@ class ProPurchaseAnalyticsTest {
         // どれも例外を投げないこと自体が確認内容。
         reporter.purchaseStarted()
         reporter.restoreRequested()
-        reporter.purchaseFailedBeforeFlow(Analytics.ErrorReason.GENERIC_ERROR)
+        reporter.purchaseFailedBeforeFlow(Analytics.ErrorReason.GENERIC_ERROR, Analytics.ErrorStage.LAUNCH_BILLING)
         reporter.markSeenWithoutCounting(listOf(purchased("token-boom")))
         reporter.purchasesUpdated(
             BillingClient.BillingResponseCode.OK, listOf(purchased("token-boom-2")),

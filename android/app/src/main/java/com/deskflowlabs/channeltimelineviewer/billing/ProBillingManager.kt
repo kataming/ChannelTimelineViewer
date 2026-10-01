@@ -60,6 +60,10 @@ class ProBillingManager(
 
     private var productDetails: ProductDetails? = null
 
+    /** 直近の接続の応答コード。購入時に繋がらなかった理由を記録するためだけに使う。 */
+    @Volatile
+    private var lastConnectCode: Int? = null
+
     /**
      * いま表示していて、購入にも使うオファー。**表示と購入で必ず同じものを使う**ため、
      * 価格・通貨・offerToken をひとつにまとめて持つ（[OfferSelection]）。
@@ -85,6 +89,7 @@ class ProBillingManager(
             client.startConnection(object : BillingClientStateListener {
                 override fun onBillingSetupFinished(billingResult: BillingResult) {
                     val ok = billingResult.responseCode == BillingClient.BillingResponseCode.OK
+                    lastConnectCode = billingResult.responseCode
                     if (!ok) {
                         Log.w(TAG, "接続できず: ${billingResult.responseCode} ${billingResult.debugMessage}")
                     }
@@ -138,7 +143,14 @@ class ProBillingManager(
             onUnavailable = {
                 _isBusy.value = false
                 // 購入ボタンを押したのに Play へ繋がらなかった＝購入の失敗として数える。
-                reporter.purchaseFailedBeforeFlow(Analytics.ErrorReason.SERVICE_UNAVAILABLE)
+                // 理由は接続の応答コードから決める（以前は常に service_unavailable で、
+                // 「その端末では課金が使えない」なども区別できなかった）。
+                val code = lastConnectCode?.takeIf { it != BillingClient.BillingResponseCode.OK }
+                reporter.purchaseFailedBeforeFlow(
+                    code?.let(reporter::reasonFor) ?: Analytics.ErrorReason.SERVICE_UNAVAILABLE,
+                    Analytics.ErrorStage.BILLING_CONNECT,
+                    code,
+                )
                 _messageRes.value = R.string.pro_error_unavailable
             },
         ) {
@@ -147,26 +159,39 @@ class ProBillingManager(
                 val details = productDetails
                 if (details == null) {
                     // 価格が取れていない＝商品が Play Console 側で未公開のことが多い。
-                    queryProductDetails { fetched ->
+                    queryProductDetails { fetched, code ->
                         if (fetched == null) {
                             _isBusy.value = false
-                            reporter.purchaseFailedBeforeFlow(Analytics.ErrorReason.ITEM_UNAVAILABLE)
+                            // 応答が OK なのに商品が無い＝未公開など（item_unavailable）。
+                            // 応答自体が失敗なら、そのコードの理由にする（以前は常に item_unavailable だった）。
+                            val failed = code?.takeIf { it != BillingClient.BillingResponseCode.OK }
+                            reporter.purchaseFailedBeforeFlow(
+                                failed?.let(reporter::reasonFor) ?: Analytics.ErrorReason.ITEM_UNAVAILABLE,
+                                Analytics.ErrorStage.PRODUCT_QUERY,
+                                code,
+                            )
                             _messageRes.value = R.string.pro_error_unavailable
                         } else {
-                            launchFlow(activity, fetched)
+                            // ⚠️ ここは Play からの呼び戻しの中なので、外側の runCatching では拾えない。
+                            //    例外を握りつぶすと isBusy が戻らず、どのイベントも出ない（2026-10-02 修正）。
+                            runCatching { launchFlow(activity, fetched) }
+                                .onFailure { failBeforeLaunch() }
                         }
                     }
                 } else {
                     launchFlow(activity, details)
                 }
             }
-            if (started.isFailure) {
-                _isBusy.value = false
-                reporter.purchaseFailedBeforeFlow(Analytics.ErrorReason.GENERIC_ERROR)
-                reporter.billingResult(Analytics.Stage.LAUNCH, Analytics.BillingOutcome.ERROR)
-                _messageRes.value = R.string.pro_error_failed
-            }
+            if (started.isFailure) failBeforeLaunch()
         }
+    }
+
+    /** 購入画面を開く前に例外で止まった。応答コードは無いので送らない。 */
+    private fun failBeforeLaunch() {
+        _isBusy.value = false
+        reporter.purchaseFailedBeforeFlow(Analytics.ErrorReason.GENERIC_ERROR, Analytics.ErrorStage.LAUNCH_BILLING)
+        reporter.billingResult(Analytics.Stage.LAUNCH, Analytics.BillingOutcome.ERROR)
+        _messageRes.value = R.string.pro_error_failed
     }
 
     fun clearMessage() {
@@ -202,7 +227,9 @@ class ProBillingManager(
             // 画面が開けなかった。この先 onPurchasesUpdated は呼ばれないので、ここで数える。
             reporter.purchaseFailedBeforeFlow(
                 result?.responseCode?.let(reporter::reasonFor)
-                    ?: Analytics.ErrorReason.GENERIC_ERROR
+                    ?: Analytics.ErrorReason.GENERIC_ERROR,
+                Analytics.ErrorStage.LAUNCH_BILLING,
+                result?.responseCode,
             )
             _messageRes.value = R.string.pro_error_failed
         }
@@ -220,7 +247,8 @@ class ProBillingManager(
         gate.run(onUnavailable = onUnavailable, action = action)
     }
 
-    private fun queryProductDetails(onResult: (ProductDetails?) -> Unit = {}) {
+    /** [onResult] は (商品, Play の応答コード)。例外で問い合わせられなかったときはコードが null。 */
+    private fun queryProductDetails(onResult: (ProductDetails?, Int?) -> Unit = { _, _ -> }) {
         val params = QueryProductDetailsParams.newBuilder()
             .setProductList(
                 listOf(
@@ -254,9 +282,9 @@ class ProBillingManager(
                         else -> Analytics.BillingOutcome.OK
                     },
                 )
-                runCatching { onResult(found) }
+                runCatching { onResult(found, result.responseCode) }
             }
-        }.onFailure { runCatching { onResult(null) } }
+        }.onFailure { runCatching { onResult(null, null) } }
     }
 
     /**

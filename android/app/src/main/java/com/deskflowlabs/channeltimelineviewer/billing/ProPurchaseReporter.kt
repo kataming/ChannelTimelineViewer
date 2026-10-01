@@ -53,10 +53,23 @@ class ProPurchaseReporter(
 
     /**
      * 購入フローを開く前に諦めた（Play に繋がらない・商品情報が取れない・
-     * launchBillingFlow が OK を返さない）。
+     * launchBillingFlow が OK を返さない・例外）。
+     *
+     * @param stage [Analytics.ErrorStage] のどれか
+     * @param responseCode Play の応答コード。例外などで無いときは null（送らない）
      */
-    fun purchaseFailedBeforeFlow(reason: String) = safely {
-        analytics.log(Analytics.Event.PRO_PURCHASE_ERROR, Analytics.Param.REASON to reason)
+    fun purchaseFailedBeforeFlow(reason: String, stage: String, responseCode: Int? = null) = safely {
+        logError(reason, stage, responseCode)
+    }
+
+    /** `pro_purchase_error` を送る唯一の場所。送るのは決まった文字と Play の応答コード（整数）だけ。 */
+    private fun logError(reason: String, stage: String, responseCode: Int?) {
+        val params = buildList {
+            add(Analytics.Param.REASON to reason)
+            add(Analytics.Param.ERROR_STAGE to stage)
+            responseCode?.let { add(Analytics.Param.BILLING_RESPONSE_CODE to it) }
+        }
+        analytics.log(Analytics.Event.PRO_PURCHASE_ERROR, *params.toTypedArray())
     }
 
     /** 「購入を復元」を押した。**実売ではない。** */
@@ -105,10 +118,7 @@ class ProPurchaseReporter(
                 // 失敗でも実売でもない。数えないし、エラーとしても記録しない。
                 BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED -> Unit
 
-                else -> analytics.log(
-                    Analytics.Event.PRO_PURCHASE_ERROR,
-                    Analytics.Param.REASON to reasonFor(responseCode),
-                )
+                else -> logError(reasonFor(responseCode), Analytics.ErrorStage.PURCHASE_UPDATE, responseCode)
             }
         }
         return counted

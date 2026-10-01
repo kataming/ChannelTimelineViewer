@@ -26,7 +26,7 @@
 | `pro_purchase_start` | 購入ボタンを押して、購入フローを開こうとした | なし | ❌ |
 | **`pro_purchase_success`** | **購入が本当に成立した**（下の条件をすべて満たす） | なし | ✅ **これが実売** |
 | `pro_purchase_cancel` | 本人が購入画面をやめた（`USER_CANCELED`） | なし | ❌ |
-| `pro_purchase_error` | 購入が失敗した | `reason` | ❌ |
+| `pro_purchase_error` | 購入が失敗した | `reason` / `error_stage` / `billing_response_code`（2026-10-02〜） | ❌ |
 | `pro_purchase_pending` | 保留になった（コンビニ払いなど） | なし | ❌ まだ売れていない |
 | `pro_restore` | 「購入を復元」を押した | なし | ❌ 既存客の再適用 |
 | ~~`purchase`~~ | **1.14 で廃止**（1.9〜1.13 は `pro_purchase_success` と同時に送っていた）。`in_app_purchase` と収益が二重になるため | — | — |
@@ -58,7 +58,30 @@
 `service_unavailable` / `billing_unavailable` / `item_unavailable` /
 `developer_error` / `generic_error`
 
-Play が返す応答コードの数値や `debugMessage` は**送らない**（ログには出す）。
+Play が返す `debugMessage` は**送らない**（ログには出す）。
+
+### `error_stage` と `billing_response_code`（2026-10-02 追加・`pro_purchase_error` だけ）
+
+`reason` だけでは「どの段階で」「Play が何と返したか」が分からず、12 件の `pro_purchase_error` の原因を
+切り分けられなかったため足した。`reason` は過去の集計とつなぐため**そのまま残す**。
+
+| `error_stage` | いつ | `billing_response_code` |
+| --- | --- | --- |
+| `billing_connect` | 購入ボタンを押したが Play に繋がらなかった | 接続の応答コード（接続を始められなかったときは無し） |
+| `product_query` | 商品情報（価格）が取れなかった | 問い合わせの応答コード（OK なのに商品が無い＝未公開なら `0`、例外なら無し） |
+| `launch_billing` | 購入画面を開けなかった | `launchBillingFlow` の応答コード（例外なら無し） |
+| `purchase_update` | 購入画面のあとに Play が失敗を返した | `onPurchasesUpdated` の応答コード |
+
+`billing_response_code` は `BillingClient.BillingResponseCode` の整数（Play が決めた固定の番号）:
+`-1` SERVICE_DISCONNECTED / `2` SERVICE_UNAVAILABLE / `3` BILLING_UNAVAILABLE / `4` ITEM_UNAVAILABLE /
+`5` DEVELOPER_ERROR / `6` ERROR / `8` ITEM_NOT_OWNED / `12` NETWORK_ERROR / `-2` FEATURE_NOT_SUPPORTED。
+利用者や購入を特定する情報は含まない。**コードが無いときは推測の値を入れずに送らない。**
+
+同じ変更で、取り違えていた分類も直した:
+- 接続できなかったときは、`reason` が常に `service_unavailable` だった → 接続の応答コードから決める
+- 商品情報の問い合わせが失敗したときは、`reason` が常に `item_unavailable` だった → 応答コードから決める
+- 商品情報を取り直してから購入画面を開く経路で例外が出ると、**どのイベントも出ず購入ボタンが押せないまま**
+  になっていた → `error_stage=launch_billing` で記録して元に戻す
 
 ---
 
@@ -143,7 +166,7 @@ Play は同じ購入を何度も通知してくるので、次の経路すべて
 - `orderId`
 - メールアドレス / Google アカウント情報 / ユーザーID
 - Play が返す生の `debugMessage` や例外の内容
-- 応答コードの数値
+- 応答コードの数値（**例外**: `pro_purchase_error` の `billing_response_code` だけは送る。2026-10-02〜）
 - チャンネルID・チャンネル名・動画ID・動画タイトル・メモ・入力URL
 
 `ProPurchaseAnalyticsTest` がこれらを機械的に検査している。

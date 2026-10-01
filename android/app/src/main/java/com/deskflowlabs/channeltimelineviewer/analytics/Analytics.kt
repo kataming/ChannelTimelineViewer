@@ -92,7 +92,11 @@ interface Analytics {
         /** 購入画面を本人がやめた（USER_CANCELED）。エラーとは区別する。 */
         const val PRO_PURCHASE_CANCEL = "pro_purchase_cancel"
 
-        /** 購入が失敗した。[Param.REASON] に [ErrorReason] の決まった文字だけを入れる。 */
+        /**
+         * 購入が失敗した。[Param.REASON] に [ErrorReason] の決まった文字、
+         * [Param.ERROR_STAGE] に [ErrorStage]（どの段階か）、分かるときは
+         * [Param.BILLING_RESPONSE_CODE] に Play の応答コード（整数）を入れる（2026-10-02〜）。
+         */
         const val PRO_PURCHASE_ERROR = "pro_purchase_error"
 
         /** 購入が保留になった（コンビニ払いなど）。**まだ売れていない。** */
@@ -200,6 +204,32 @@ interface Analytics {
 
         /** 課金のどの段階か。値は [Stage]（[Event.PRO_BILLING_RESULT] 専用）。 */
         const val STAGE = "stage"
+
+        /** 購入が失敗した段階。値は [ErrorStage]（[Event.PRO_PURCHASE_ERROR] 専用）。 */
+        const val ERROR_STAGE = "error_stage"
+
+        /**
+         * Play の応答コード（`BillingClient.BillingResponseCode` の整数）。[Event.PRO_PURCHASE_ERROR] 専用。
+         * Play が決めた固定の番号で、利用者や購入を特定する情報は含まない。
+         * 例外などでコードが無いときは**入れない**（推測の値を入れない）。
+         * ⚠️ Play の `debugMessage`・購入トークン・注文IDは引き続き送らない。
+         */
+        const val BILLING_RESPONSE_CODE = "billing_response_code"
+    }
+
+    /** [Event.PRO_PURCHASE_ERROR] の段階（[Param.ERROR_STAGE]）。 */
+    object ErrorStage {
+        /** Play への接続（購入ボタンを押したときに繋がらなかった）。 */
+        const val BILLING_CONNECT = "billing_connect"
+
+        /** 商品情報（価格・オファー）の取得。 */
+        const val PRODUCT_QUERY = "product_query"
+
+        /** 購入画面を開く（`launchBillingFlow`）。 */
+        const val LAUNCH_BILLING = "launch_billing"
+
+        /** 購入画面のあとに届いた結果（`PurchasesUpdatedListener`）。 */
+        const val PURCHASE_UPDATE = "purchase_update"
     }
 
     /**

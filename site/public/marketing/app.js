@@ -741,7 +741,8 @@ view.addEventListener('click', async (event) => {
       const res = await fetch('api/ads-sync', { method: 'POST', credentials: 'same-origin' });
       const body = await res.json().catch(() => ({}));
       await store.init();
-      toast(res.ok ? 'Google 広告から取り込みました' : `取得できませんでした: ${body.message || body.error || res.status}`);
+      const ok = res.ok && body.status !== 'error';
+      toast(ok ? 'Google 広告から取り込みました' : `取得できませんでした: ${body.message || body.error || res.status}`);
     } catch (e) {
       toast(`取得できませんでした: ${e.message}`);
     }

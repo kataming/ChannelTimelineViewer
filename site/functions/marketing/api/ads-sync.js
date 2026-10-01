@@ -6,5 +6,6 @@ export async function onRequestPost({ env }) {
   if (!env.ADS_SYNC) return json({ status: 'error', message: '取り込み用の Worker がつながっていません' }, 503);
   const res = await env.ADS_SYNC.fetch('https://ads-sync/run', { method: 'POST' });
   const body = await res.json().catch(() => ({ status: 'error', message: `HTTP ${res.status}` }));
-  return json(body, res.status);
+  // 失敗でも 200（成否は body.status）。5xx を返すと Cloudflare がエラーページに差し替えてしまう
+  return json(body);
 }

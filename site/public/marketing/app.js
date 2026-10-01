@@ -119,6 +119,9 @@ function renderDashboard() {
   const t = totals(doc());
   const rows = doc().countries.map((c) => ({ c, s: stats(c) }));
   const review = rows.filter(({ s }) => s.flowNeedsReview);
+  // 広告の自動取得で国が増えるので、損益分岐は価格を登録した国だけ（広告費の大きい順）
+  const priced = rows.filter(({ c }) => finite(c.price) !== null)
+    .sort((a, b) => (finite(b.c.metrics.adSpend) ?? -1) - (finite(a.c.metrics.adSpend) ?? -1));
   return `
     <h1>Dashboard</h1>
     ${adsSyncLine()}
@@ -149,14 +152,15 @@ function renderDashboard() {
         <td class="warning">${int(c.metrics.purchaseSuccess)}</td><td>${pct(s.startToSuccess)}</td><td class="l"><span class="badge warning">Purchase flow needs review</span></td></tr>`).join('')}
     </tbody></table></div>` : '<p class="muted">国別の Purchase Start が入力されると、ここに表示されます。</p>'}
 
-    <h2>損益分岐（国別）</h2>
+    <h2>損益分岐（価格を登録した国）</h2>
     <div class="table-wrap"><table><thead><tr><th class="l">Country</th><th>Price</th><th>Price ¥</th><th>Net / Purchase</th><th>CPI</th><th>Break-even Purchase Rate</th><th>Install→Success</th><th class="l">Price status</th></tr></thead><tbody>
-      ${rows.map(({ c, s }) => `<tr class="clickable" data-href="#/country/${c.id}"><td class="l">${esc(c.name)}</td><td>${money(c.price, c.currency)}</td>
+      ${priced.map(({ c, s }) => `<tr class="clickable" data-href="#/country/${c.id}"><td class="l">${esc(c.name)}</td><td>${money(c.price, c.currency)}</td>
         <td>${yen(s.priceJPY)}</td><td>${yen(s.netPerPurchase)}</td><td>${yen(s.cpi)}${s.cpiIsManual ? '<span class="muted small"> 手入力</span>' : ''}</td>
         <td>${pct(s.breakEvenRate)}</td><td class="${finite(c.metrics.purchaseSuccess) === 0 ? 'warning' : ''}">${pct(s.installToSuccess, 3)}</td>
         <td class="l">${priceStatusBadge(c)}</td></tr>`).join('')}
     </tbody></table></div>
-    ${rows.some(({ c }) => !hasRate(c.currency, doc().currencies)) ? '<p class="muted small">為替レートが未入力の通貨があると、円換算・損益分岐は「—」になります（Settings で入力）。</p>' : ''}`;
+    <p class="muted small">価格が未登録の国（${rows.length - priced.length} か国）は <a href="#/countries">Countries</a> にあります。
+      ${priced.some(({ c }) => !hasRate(c.currency, doc().currencies)) ? '為替レートが未入力の通貨があると、円換算・損益分岐は「—」になります（Settings で入力）。' : ''}</p>`;
 }
 
 // --- Countries ---------------------------------------------------------------------

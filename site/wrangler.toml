@@ -1,0 +1,12 @@
+# Cloudflare Pages（channel-timeline-viewer）の設定。
+# ⚠️ このファイルがあると、Pages の「バインディング」と「環境変数（平文）」はここが正本になる
+#    （管理画面で足しても反映されない）。秘密値（YOUTUBE_API_KEY / MARKETING_PASSWORD /
+#    MARKETING_SESSION_SECRET）はここに書かず、npx wrangler pages secret put で登録する。秘密値はそのまま残る。
+name = "channel-timeline-viewer"
+pages_build_output_dir = "./dist"
+compatibility_date = "2026-08-18"
+
+# /marketing（CTV Marketing Ops・内部管理画面）のデータとログイン失敗回数
+[[kv_namespaces]]
+binding = "MARKETING_KV"
+id = "10b0ed330d9e40c581d2f4af7989d72e"

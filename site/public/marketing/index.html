@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CTV Marketing Ops</title>
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <div class="layout">
+    <nav class="nav" aria-label="メインメニュー">
+      <div class="brand">CTV Marketing Ops</div>
+      <a href="#/dashboard" data-route="dashboard">Dashboard</a>
+      <a href="#/countries" data-route="countries">Countries</a>
+      <a href="#/tests" data-route="tests">Price Tests</a>
+      <a href="#/ads" data-route="ads">Ads</a>
+      <a href="#/localization" data-route="localization">Localization</a>
+      <a href="#/history" data-route="history">History</a>
+      <a href="#/settings" data-route="settings">Settings</a>
+      <div class="nav-foot" id="save-state"></div>
+    </nav>
+    <main id="view" class="view" tabindex="-1"></main>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

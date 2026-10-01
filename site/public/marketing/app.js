@@ -92,6 +92,23 @@ function render() {
   document.getElementById('save-state').textContent = `保存: ${new Date(doc().updatedAt).toLocaleString()}`;
 }
 
+// --- Google 広告の自動取得 -------------------------------------------------------------
+
+function adsSyncLine() {
+  const a = doc().adsSync;
+  const configured = Boolean(doc().settings.adsSync?.customerId);
+  if (!a?.lastRunAt) {
+    return `<div class="muted small" data-testid="ads-sync">Google 広告の自動取得: ${configured ? 'まだ取得していません' : '未設定（<a href="#/settings">Settings</a> でお客様 ID を入力）'}</div>`;
+  }
+  const cls = a.status === 'ok' ? 'positive' : a.status === 'warning' ? 'warning' : 'negative';
+  const label = { ok: 'OK', warning: '要確認', error: '失敗' }[a.status] ?? a.status;
+  return `<div class="small" data-testid="ads-sync">Google 広告の自動取得: <span class="badge ${cls}">${label}</span>
+    最終 ${esc(new Date(a.lastRunAt).toLocaleString())}${a.status !== 'error' ? `（${esc(a.from)}〜${esc(a.to)}・${int(a.countries)} 国・${int(a.campaigns)} キャンペーン）` : ''}
+    ${a.message ? `<span class="${cls === 'positive' ? '' : 'negative'}">${esc(a.message)}</span>` : ''}</div>`;
+}
+
+const isAuto = (c, field) => c.metricsSource?.[field] === 'google-ads';
+
 // --- Dashboard ---------------------------------------------------------------------
 
 function kpi(label, value, { key = false, cls = '' } = {}) {
@@ -104,6 +121,7 @@ function renderDashboard() {
   const review = rows.filter(({ s }) => s.flowNeedsReview);
   return `
     <h1>Dashboard</h1>
+    ${adsSyncLine()}
     ${t.flowNeedsReview ? `<div class="notice" data-testid="flow-notice"><strong>Purchase flow needs review</strong> —
       Purchase Start は ${int(t.purchaseStarts)} 件ありますが Purchase Success は 0 件です。原因はここでは判断しません。</div>`
       : (finite(t.purchaseSuccess) === 0 ? `<div class="notice" data-testid="success-zero">Purchase Success は 0 件です（Purchase Start の件数は${finite(t.purchaseStarts) === null ? '未入力' : ` ${int(t.purchaseStarts)} 件`}）。</div>` : '')}
@@ -313,17 +331,18 @@ function renderCountry(id) {
     <h2>実績（手入力。金額は円）</h2>
     <form class="panel" data-op="updateMetrics" data-id="${c.id}">
       <div class="form-grid">
-        ${field('Ad Spend（¥）', numInput('adSpend', m.adSpend))}
-        ${field('Impressions', numInput('impressions', m.impressions))}
-        ${field('Clicks', numInput('clicks', m.clicks))}
-        ${field('Installs', numInput('installs', m.installs))}
+        ${field(`Ad Spend（¥）${isAuto(c, 'adSpend') ? '（Google 広告から自動）' : ''}`, numInput('adSpend', m.adSpend, isAuto(c, 'adSpend') ? 'readonly' : ''))}
+        ${field(`Impressions${isAuto(c, 'impressions') ? '（Google 広告から自動）' : ''}`, numInput('impressions', m.impressions, isAuto(c, 'impressions') ? 'readonly' : ''))}
+        ${field(`Clicks${isAuto(c, 'clicks') ? '（Google 広告から自動）' : ''}`, numInput('clicks', m.clicks, isAuto(c, 'clicks') ? 'readonly' : ''))}
+        ${field(`Installs${isAuto(c, 'installs') ? '（Google 広告から自動）' : ''}`, numInput('installs', m.installs, isAuto(c, 'installs') ? 'readonly' : ''))}
         ${field('CPI 手入力（¥・実績が無いとき）', numInput('cpiManual', m.cpiManual))}
         ${field('Pro Screen Views', numInput('proScreenViews', m.proScreenViews))}
         ${field('Purchase Starts', numInput('purchaseStarts', m.purchaseStarts))}
         ${field('Purchase Success', numInput('purchaseSuccess', m.purchaseSuccess))}
         ${field('Gross Revenue（¥・空欄なら Success × 価格）', numInput('grossRevenueJPY', m.grossRevenueJPY))}
       </div>
-      <div class="row"><button class="primary">保存</button><span class="muted small">空欄 = 不明。0 とは区別します。</span></div>
+      <div class="row"><button class="primary">保存</button><span class="muted small">空欄 = 不明。0 とは区別します。
+        「自動」の欄は毎朝 Google 広告の値で上書きされるため、ここでは変えられません。</span></div>
       ${errorsFor('updateMetrics')}
     </form>
 
@@ -449,10 +468,10 @@ function campaignsTable(list, { showCountry = true } = {}) {
       if (ui.editCampaign === a.id) return `<tr><td colspan="14" class="l">${campaignForm(a.countryId, a)}</td></tr>`;
       const cs = campaignStats(a);
       return `<tr>${showCountry ? `<td class="l"><a href="#/country/${a.countryId}">${esc(countryById(a.countryId)?.name)}</a></td>` : ''}
-        <td class="l">${esc(a.platform) || DASH}</td><td class="l">${esc(a.name)}</td><td>${yen(a.dailyBudget)}</td><td>${yen(a.spend)}</td>
+        <td class="l">${esc(a.platform) || DASH}</td><td class="l">${esc(a.name)} ${a.source === 'google-ads' ? '<span class="badge info">API</span>' : ''}</td><td>${yen(a.dailyBudget)}</td><td>${yen(a.spend)}</td>
         <td>${int(a.impressions)}</td><td>${int(a.clicks)}</td><td>${yen(cs.cpc)}</td><td>${int(a.installs)}</td><td>${yen(cs.cpi)}</td>
         <td>${esc(a.start) || DASH}</td><td>${esc(a.end) || DASH}</td><td class="l">${esc(a.status) || DASH}</td>
-        <td><button data-action="edit-campaign" data-id="${a.id}">編集</button></td></tr>`;
+        <td>${a.source === 'google-ads' ? '' : `<button data-action="edit-campaign" data-id="${a.id}">編集</button>`}</td></tr>`;
     }).join('')}
   </tbody></table></div>`;
 }
@@ -481,11 +500,13 @@ function renderAds() {
   const list = doc().campaigns.filter((a) => !ui.adsCountry || a.countryId === ui.adsCountry);
   const sumBy = (key) => list.reduce((s, a) => (finite(a[key]) === null ? s : (s ?? 0) + a[key]), null);
   return `<h1>Ads</h1>
+    ${adsSyncLine()}
     <div class="row"><select id="ads-country"><option value="">すべての国</option>${doc().countries.map((c) => `<option value="${c.id}" ${ui.adsCountry === c.id ? 'selected' : ''}>${esc(c.name)}</option>`).join('')}</select>
       <span class="muted">合計: Spend ${yen(sumBy('spend'))} ／ Installs ${int(sumBy('installs'))} ／ CPI ${yen(campaignStats({ spend: sumBy('spend'), installs: sumBy('installs') }).cpi)}</span></div>
     ${campaignsTable(list)}
     ${ui.adsCountry ? `<h2>${esc(countryById(ui.adsCountry)?.name)} にキャンペーンを追加</h2>${campaignForm(ui.adsCountry)}` : '<p class="muted small">国を選ぶと追加フォームが出ます。</p>'}
-    <p class="muted small">キャンペーンの数字は国の実績（Countries の Ad Spend / Installs）には自動で足し込みません。国の実績は国の画面で入力します。</p>`;
+    <p class="muted small">「API」の行は Google 広告から毎朝自動で取り込みます（国の Ad Spend / Impressions / Clicks / Installs も自動で入ります）。
+      手入力のキャンペーンは国の実績に足し込みません。</p>`;
 }
 
 // --- 履歴 ------------------------------------------------------------------------------
@@ -535,6 +556,20 @@ function renderSettings() {
       <div class="checks"><label><input type="checkbox" name="installsApprox" ${g.installsApprox ? 'checked' : ''}>Installs は概数</label></div>
       <div class="row"><button class="primary">保存</button><span class="muted small">空欄にすると国別の合計を使います。</span></div>
       ${errorsFor('setGlobal')}
+    </form>
+
+    <h2>Google 広告の自動取得</h2>
+    <form class="panel" data-op="setAdsSettings">
+      ${adsSyncLine()}
+      <div class="form-grid" style="margin-top:6px">
+        ${field('お客様 ID（Google 広告の右上・123-456-7890）', `<input name="customerId" value="${esc(settings.adsSync?.customerId ?? '')}">`)}
+        ${field('MCC 経由ならその ID（任意）', `<input name="loginCustomerId" value="${esc(settings.adsSync?.loginCustomerId ?? '')}">`)}
+        ${field('集計の開始日', `<input type="date" name="startDate" value="${esc(settings.adsSync?.startDate ?? '2025-01-01')}">`)}
+      </div>
+      <div class="row"><button class="primary">保存</button>
+        <button type="button" data-action="ads-sync" ${settings.adsSync?.customerId ? '' : 'disabled'}>今すぐ取得</button>
+        <span class="muted small">毎朝 6:00（日本時間）に自動で取得します。開始日〜当日の合計を取り込みます。</span></div>
+      ${errorsFor('setAdsSettings')}
     </form>
 
     <h2>為替（手入力）</h2>
@@ -611,6 +646,7 @@ const OPS = {
   setFees: (d) => (doc_) => model.setFees(doc_, d),
   setGlobal: (d) => (doc_) => model.setGlobal(doc_, d),
   setRate: (d, id) => (doc_) => model.setRate(doc_, id ?? d.currency, d.rate, d.updatedAt),
+  setAdsSettings: (d) => (doc_) => model.setAdsSettings(doc_, d),
 };
 
 async function run(name, operation, message = '保存しました') {
@@ -697,6 +733,19 @@ view.addEventListener('click', async (event) => {
   if (action === 'export') {
     const fns = { countries: exportCountriesCsv, campaigns: exportCampaignsCsv, tests: exportPriceTestsCsv, history: exportHistoryCsv };
     download(`ctv-${el.dataset.kind}-${today()}.csv`, fns[el.dataset.kind](doc()));
+  }
+  if (action === 'ads-sync') {
+    el.disabled = true;
+    el.textContent = '取得中…';
+    try {
+      const res = await fetch('api/ads-sync', { method: 'POST', credentials: 'same-origin' });
+      const body = await res.json().catch(() => ({}));
+      await store.init();
+      toast(res.ok ? 'Google 広告から取り込みました' : `取得できませんでした: ${body.message || body.error || res.status}`);
+    } catch (e) {
+      toast(`取得できませんでした: ${e.message}`);
+    }
+    return;
   }
   if (action === 'backup') {
     download(`ctv-marketing-ops-backup-${today()}.json`, `${JSON.stringify(doc(), null, 2)}\n`, 'application/json');

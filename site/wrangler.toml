@@ -10,3 +10,8 @@ compatibility_date = "2026-08-18"
 [[kv_namespaces]]
 binding = "MARKETING_KV"
 id = "10b0ed330d9e40c581d2f4af7989d72e"
+
+# /marketing の「今すぐ取得」から呼ぶ、Google 広告の取り込み Worker（公開 URL なし）
+[[services]]
+binding = "ADS_SYNC"
+service = "ctv-marketing-ads-sync"

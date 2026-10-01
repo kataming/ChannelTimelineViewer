@@ -309,3 +309,25 @@ export function updateCampaign(doc, campaignId, input) {
   Object.assign(next.campaigns.find((c) => c.id === campaignId), fields);
   return touch(next);
 }
+
+// --- Google 広告の自動取得の設定 -----------------------------------------------------
+
+/** お客様 ID は「123-456-7890」でも「1234567890」でもよい（保存は数字 10 桁）。 */
+export function setAdsSettings(doc, { customerId, loginCustomerId, startDate }) {
+  const errors = {};
+  const readId = (raw, key, required) => {
+    const digits = String(raw ?? '').replace(/[\s-]/g, '');
+    if (!digits) { if (required) errors[key] = 'お客様 ID を入力してください'; return ''; }
+    if (!/^\d{10}$/.test(digits)) errors[key] = 'お客様 ID は 10 桁の数字（例 123-456-7890）';
+    return digits;
+  };
+  const values = {
+    customerId: readId(customerId, 'customerId', true),
+    loginCustomerId: readId(loginCustomerId, 'loginCustomerId', false),
+    startDate: readDate(startDate, 'startDate', errors) || '2025-01-01',
+  };
+  if (Object.keys(errors).length) throw new ValidationError(errors);
+  const next = clone(doc);
+  next.settings.adsSync = { ...(next.settings.adsSync ?? {}), ...values };
+  return touch(next);
+}

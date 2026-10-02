@@ -131,7 +131,9 @@ interface Analytics {
 
         /**
          * 課金まわりの**診断用**。どの段階（[Param.STAGE] = [Stage]）で
-         * 何が起きたか（[Param.RESULT] = [BillingOutcome]）を、成功も失敗も同じ形で残す。
+         * 何が起きたか（[Param.CATEGORY] = [BillingOutcome]）を、成功も失敗も同じ形で残す。
+         * 応答コードがあるときは [Param.BILLING_RESPONSE_CODE] も付ける（2026-10-03〜）。
+         * [Param.RESULT] には [Param.CATEGORY] と同じ値を入れ続ける（2026-09-21〜10-02 の版との比較用）。
          *
          * ⚠️ これは**売上の数ではない**。実売は [PRO_PURCHASE_SUCCESS] だけで数える。
          * 上の `pro_purchase_*` の意味は変えていない（これは別口の記録）。
@@ -158,19 +160,42 @@ interface Analytics {
 
         /** 購入の確認（acknowledge）。 */
         const val ACKNOWLEDGE = "acknowledge"
+
+        /**
+         * 購入状態の問い合わせ（`queryPurchasesAsync`）。2026-10-03〜。
+         * 「購入を復元」・すでに所有していた後の問い直し・失敗したときだけ記録する
+         * （起動や前面復帰のたびの成功は記録しない）。
+         */
+        const val QUERY_PURCHASES = "query_purchases"
     }
 
     /**
-     * [Event.PRO_BILLING_RESULT] の結果（[Param.RESULT]）。
-     * Play の応答コードを**決まった短い文字**に置き換えたもので、生のコード値は送らない。
+     * [Event.PRO_BILLING_RESULT] の分類（[Param.CATEGORY]）。
+     * Play の応答コードを**決まった短い文字**に置き換えたもの。応答コードの整数は
+     * [Param.BILLING_RESPONSE_CODE] に別に入れる（Play が決めた固定の番号だけ。文面は送らない）。
      */
     object BillingOutcome {
         const val OK = "ok"
         const val USER_CANCELED = "user_canceled"
         const val PENDING = "pending"
 
-        /** 成功なのに購入が1件も入っていない（購入せずに画面を閉じた等）。 */
+        /** 応答は OK なのに購入の一覧が空（購入せずに画面を閉じた等）。 */
         const val EMPTY_PURCHASE_LIST = "empty_purchase_list"
+
+        /** 応答は OK なのに購入の一覧そのものが無い（null）。2026-10-03〜。 */
+        const val NULL_PURCHASE_LIST = "null_purchase_list"
+
+        /** 応答は OK で購入もあるが、pro_unlock が入っていない。2026-10-03〜（以前は empty_purchase_list に含めていた）。 */
+        const val NO_PRO_ITEM = "no_pro_item"
+
+        /** pro_unlock はあるが、購入済みでも保留でもない状態（UNSPECIFIED_STATE）。2026-10-03〜。 */
+        const val UNSPECIFIED_STATE = "unspecified_state"
+
+        /** こちらの処理が例外で止まった（Play の応答コードは無い）。2026-10-03〜。 */
+        const val EXCEPTION = "exception"
+
+        /** 接続の返事が時間内に来なかった（Play の応答コードは無い）。2026-10-03〜。 */
+        const val TIMEOUT = "timeout"
 
         const val BILLING_UNAVAILABLE = "billing_unavailable"
         const val ITEM_UNAVAILABLE = "item_unavailable"
@@ -212,11 +237,15 @@ interface Analytics {
         /** 課金のどの段階か。値は [Stage]（[Event.PRO_BILLING_RESULT] 専用）。 */
         const val STAGE = "stage"
 
+        /** 課金の診断の分類。値は [BillingOutcome]（[Event.PRO_BILLING_RESULT] 専用・2026-10-03〜）。 */
+        const val CATEGORY = "category"
+
         /** 購入が失敗した段階。値は [ErrorStage]（[Event.PRO_PURCHASE_ERROR] 専用）。 */
         const val ERROR_STAGE = "error_stage"
 
         /**
-         * Play の応答コード（`BillingClient.BillingResponseCode` の整数）。[Event.PRO_PURCHASE_ERROR] 専用。
+         * Play の応答コード（`BillingClient.BillingResponseCode` の整数）。
+         * [Event.PRO_PURCHASE_ERROR] と [Event.PRO_BILLING_RESULT]（2026-10-03〜）で使う。
          * Play が決めた固定の番号で、利用者や購入を特定する情報は含まない。
          * 例外などでコードが無いときは**入れない**（推測の値を入れない）。
          * ⚠️ Play の `debugMessage`・購入トークン・注文IDは引き続き送らない。
@@ -277,6 +306,19 @@ interface Analytics {
 
         /** こちらの実装・設定の誤り。 */
         const val DEVELOPER_ERROR = "developer_error"
+
+        /**
+         * すでに所有している（ITEM_ALREADY_OWNED）。2026-10-03〜。
+         * この場での購入ではないので売上でもキャンセルでもないが、「購入できなかった」終わり方として数える
+         * （以前はどのイベントも出ず、購入開始だけが残って原因が見えなかった）。
+         */
+        const val ITEM_ALREADY_OWNED = "item_already_owned"
+
+        /**
+         * 応答は OK なのに、購入済みも保留も届かなかった（一覧が null／空／pro_unlock 無し／状態不明）。2026-10-03〜。
+         * 細かい形は `pro_billing_result` の category で見る。
+         */
+        const val OK_WITHOUT_PURCHASE = "ok_without_purchase"
 
         /** 上のどれでもない失敗。 */
         const val GENERIC_ERROR = "generic_error"

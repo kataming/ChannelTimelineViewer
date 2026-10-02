@@ -113,13 +113,27 @@ class ProBillingDiagnosticsTest {
             Analytics.BillingOutcome.EMPTY_PURCHASE_LIST,
             reporter.purchaseCallbackOutcome(BillingClient.BillingResponseCode.OK, emptyList()),
         )
-        // 対象商品が入っていない場合も同じ扱い。
+    }
+
+    /** 2026-10-03〜: OK のまま購入が届かない形を、null／空／対象外／状態不明に分けて残す。 */
+    @Test
+    fun okWithoutPurchaseIsSplitByShape() {
+        val reporter = reporter(Recorder())
+        val ok = BillingClient.BillingResponseCode.OK
+        assertEquals(Analytics.BillingOutcome.NULL_PURCHASE_LIST, reporter.purchaseCallbackOutcome(ok, null))
+        assertEquals(Analytics.BillingOutcome.EMPTY_PURCHASE_LIST, reporter.purchaseCallbackOutcome(ok, emptyList()))
         assertEquals(
-            Analytics.BillingOutcome.EMPTY_PURCHASE_LIST,
-            reporter.purchaseCallbackOutcome(
-                BillingClient.BillingResponseCode.OK,
-                listOf(snapshot(isProUnlock = false)),
-            ),
+            Analytics.BillingOutcome.NO_PRO_ITEM,
+            reporter.purchaseCallbackOutcome(ok, listOf(snapshot(isProUnlock = false))),
+        )
+        assertEquals(
+            Analytics.BillingOutcome.UNSPECIFIED_STATE,
+            reporter.purchaseCallbackOutcome(ok, listOf(snapshot(state = Purchase.PurchaseState.UNSPECIFIED_STATE))),
+        )
+        // 失敗のコードなら、一覧が null でもそのコードの言葉のまま。
+        assertEquals(
+            Analytics.BillingOutcome.ITEM_ALREADY_OWNED,
+            reporter.purchaseCallbackOutcome(BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED, null),
         )
     }
 
@@ -150,17 +164,47 @@ class ProBillingDiagnosticsTest {
     // ---- 3. 記録の形と、送ってはいけないもの ----
 
     @Test
-    fun diagnosticEventCarriesOnlyStageAndResult() {
+    fun diagnosticEventCarriesOnlyStageCategoryAndCode() {
         val recorder = Recorder()
-        reporter(recorder).billingResult(Analytics.Stage.LAUNCH, Analytics.BillingOutcome.OK)
-        val entry = recorder.diagnostics().single()
+        reporter(recorder).billingResult(
+            Analytics.Stage.LAUNCH,
+            Analytics.BillingOutcome.BILLING_UNAVAILABLE,
+            BillingClient.BillingResponseCode.BILLING_UNAVAILABLE,
+        )
         assertEquals(
             mapOf(
                 Analytics.Param.STAGE to Analytics.Stage.LAUNCH,
-                Analytics.Param.RESULT to Analytics.BillingOutcome.OK,
+                Analytics.Param.CATEGORY to Analytics.BillingOutcome.BILLING_UNAVAILABLE,
+                // 2026-10-02 までの版と並べて見るため、result にも同じ値を残す。
+                Analytics.Param.RESULT to Analytics.BillingOutcome.BILLING_UNAVAILABLE,
+                Analytics.Param.BILLING_RESPONSE_CODE to BillingClient.BillingResponseCode.BILLING_UNAVAILABLE,
             ),
-            entry.params,
+            recorder.diagnostics().single().params,
         )
+    }
+
+    /** 例外・時間切れでは応答コードが無い。推測の値を入れずにコードごと送らない。 */
+    @Test
+    fun diagnosticEventOmitsCodeWhenThereIsNone() {
+        val recorder = Recorder()
+        reporter(recorder).billingResult(Analytics.Stage.CONNECT, Analytics.BillingOutcome.TIMEOUT)
+        val params = recorder.diagnostics().single().params
+        assertEquals(Analytics.BillingOutcome.TIMEOUT, params[Analytics.Param.CATEGORY])
+        assertFalse(Analytics.Param.BILLING_RESPONSE_CODE in params)
+    }
+
+    /** 段階・分類の値はすべて決まった短い文字（GA4 の制限内・英小文字と _ だけ）。 */
+    @Test
+    fun stageAndCategoryValuesAreFixedShortWords() {
+        val words = listOf(
+            Analytics.Stage.CONNECT, Analytics.Stage.QUERY_PRODUCT, Analytics.Stage.LAUNCH,
+            Analytics.Stage.PURCHASE_CALLBACK, Analytics.Stage.ACKNOWLEDGE, Analytics.Stage.QUERY_PURCHASES,
+            Analytics.BillingOutcome.NULL_PURCHASE_LIST, Analytics.BillingOutcome.EMPTY_PURCHASE_LIST,
+            Analytics.BillingOutcome.NO_PRO_ITEM, Analytics.BillingOutcome.UNSPECIFIED_STATE,
+            Analytics.BillingOutcome.EXCEPTION, Analytics.BillingOutcome.TIMEOUT,
+            Analytics.ErrorReason.ITEM_ALREADY_OWNED, Analytics.ErrorReason.OK_WITHOUT_PURCHASE,
+        )
+        words.forEach { assertTrue(it, Regex("^[a-z][a-z_]{1,39}$").matches(it)) }
     }
 
     @Test

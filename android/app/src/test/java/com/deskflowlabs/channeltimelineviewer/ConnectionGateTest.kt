@@ -173,5 +173,100 @@ class ConnectionGateTest {
         assertEquals(1, actions)
     }
 
+    // ---- 2026-10-03: 接続の返事が来ない・二重に来る ----
+
+    /** 予約した処理を手で進められる時計。 */
+    private class FakeTimer {
+        val scheduled = mutableListOf<() -> Unit>()
+        fun schedule(@Suppress("UNUSED_PARAMETER") delay: Long, block: () -> Unit) { scheduled += block }
+        fun fireAll() { scheduled.toList().also { scheduled.clear() }.forEach { it() } }
+    }
+
+    private class Recall {
+        var finish: ((Boolean) -> Unit)? = null
+        var startCount = 0
+    }
+
+    private fun timedGate(recall: Recall, timer: FakeTimer, onTimeout: () -> Unit = {}) = ConnectionGate(
+        isReady = { false },
+        startConnection = { onFinished ->
+            recall.startCount++
+            recall.finish = onFinished
+        },
+        scheduleTimeout = timer::schedule,
+        onTimeout = onTimeout,
+    )
+
+    /** ⚠️ 本題: 先に始まった接続が返事をしないまま。並んだ購入依頼も時間切れで必ず片付く。 */
+    @Test
+    fun requestWaitingBehindAHungConnectionIsFinishedByTimeout() {
+        val recall = Recall()
+        val timer = FakeTimer()
+        var timeouts = 0
+        val gate = timedGate(recall, timer) { timeouts++ }
+        val busy = Busy()
+
+        gate.run { /* 起動時の読み直し（ここで接続が始まり、返事が来ない） */ }
+        busy.start()
+        gate.run(onUnavailable = { busy.stop() }) { fail() } // 接続中なので列に並ぶ（早期 return）
+        assertTrue(busy.value)
+
+        timer.fireAll()
+        assertFalse("時間切れでぐるぐる表示が戻る", busy.value)
+        assertEquals(1, timeouts)
+
+        // 時間切れのあとに遅れて届いた結果は捨てる（購入が勝手に始まらない）。
+        recall.finish?.invoke(true)
+    }
+
+    @Test
+    fun timeoutAfterSuccessDoesNothing() {
+        val recall = Recall()
+        val timer = FakeTimer()
+        var timeouts = 0
+        var actions = 0
+        val gate = timedGate(recall, timer) { timeouts++ }
+        gate.run(onUnavailable = { fail() }) { actions++ }
+        recall.finish?.invoke(true)
+        timer.fireAll()
+        assertEquals(1, actions)
+        assertEquals("成功したあとの時間切れは記録しない", 0, timeouts)
+    }
+
+    /** 切断の通知（false）と接続結果（true）が両方届いても、依頼は1回だけ片付く。 */
+    @Test
+    fun doubleResultFinishesEachRequestOnce() {
+        val recall = Recall()
+        val timer = FakeTimer()
+        val gate = timedGate(recall, timer)
+        var actions = 0
+        var unavailable = 0
+        gate.run(onUnavailable = { unavailable++ }) { actions++ }
+        val finish = recall.finish!!
+        finish(false)
+        finish(true)
+        assertEquals(0, actions)
+        assertEquals(1, unavailable)
+    }
+
+    /** 古い接続の遅れた結果が、次の接続を待っている依頼を巻き込まない。 */
+    @Test
+    fun staleResultDoesNotFinishTheNextAttempt() {
+        val recall = Recall()
+        val timer = FakeTimer()
+        val gate = timedGate(recall, timer)
+        gate.run(onUnavailable = {}) { fail() }
+        val stale = recall.finish!!
+        timer.fireAll() // 1回目は時間切れ
+
+        var actions = 0
+        gate.run(onUnavailable = { fail() }) { actions++ }
+        assertEquals("やり直しの接続が始まる", 2, recall.startCount)
+        stale(false) // 1回目の遅れた返事
+        assertEquals(0, actions)
+        recall.finish!!(true)
+        assertEquals(1, actions)
+    }
+
     private fun fail(): Unit = assertTrue("呼ばれてはいけない", false)
 }

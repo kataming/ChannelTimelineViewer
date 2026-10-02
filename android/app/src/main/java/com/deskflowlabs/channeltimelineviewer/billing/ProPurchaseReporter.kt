@@ -62,6 +62,20 @@ class ProPurchaseReporter(
         logError(reason, stage, responseCode)
     }
 
+    /**
+     * `launchBillingFlow` が OK 以外を返した＝購入画面が開かなかった。この先 onPurchasesUpdated は来ない。
+     *
+     * USER_CANCELED はここでも `pro_purchase_cancel` だけにする（エラーに混ぜない）。
+     * ITEM_ALREADY_OWNED は理由 `item_already_owned` のエラー（以前は generic_error に紛れていた）。
+     */
+    fun launchNotStarted(responseCode: Int) = safely {
+        if (responseCode == BillingClient.BillingResponseCode.USER_CANCELED) {
+            analytics.log(Analytics.Event.PRO_PURCHASE_CANCEL)
+        } else {
+            logError(reasonFor(responseCode), Analytics.ErrorStage.LAUNCH_BILLING, responseCode)
+        }
+    }
+
     /** `pro_purchase_error` を送る唯一の場所。送るのは決まった文字と Play の応答コード（整数）だけ。 */
     private fun logError(reason: String, stage: String, responseCode: Int?) {
         val params = buildList {
@@ -115,15 +129,20 @@ class ProPurchaseReporter(
 
                         owned.any { it.state == Purchase.PurchaseState.PENDING } ->
                             analytics.log(Analytics.Event.PRO_PURCHASE_PENDING)
+
+                        // OK なのに購入済みも保留も無い（一覧が null／空／pro_unlock 無し／状態不明）。
+                        // 以前はどのイベントも出ず、購入開始だけが残っていた（2026-10-03 から error に数える）。
+                        // 細かい形は pro_billing_result の category で分かる。
+                        else -> logError(
+                            Analytics.ErrorReason.OK_WITHOUT_PURCHASE,
+                            Analytics.ErrorStage.PURCHASE_UPDATE,
+                            responseCode,
+                        )
                     }
                 }
 
                 BillingClient.BillingResponseCode.USER_CANCELED ->
                     analytics.log(Analytics.Event.PRO_PURCHASE_CANCEL)
-
-                // すでに持っている＝この場での購入ではない。復元側で権限が戻るので
-                // 失敗でも実売でもない。数えないし、エラーとしても記録しない。
-                BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED -> Unit
 
                 else -> logError(reasonFor(responseCode), Analytics.ErrorStage.PURCHASE_UPDATE, responseCode)
             }
@@ -161,15 +180,20 @@ class ProPurchaseReporter(
     /**
      * 診断用の記録（[Analytics.Event.PRO_BILLING_RESULT]）。
      *
-     * 段階（[Analytics.Stage]）と結果（[Analytics.BillingOutcome]）だけを残す。
+     * 段階（[Analytics.Stage]）・分類（[Analytics.BillingOutcome]）・Play の応答コード（整数）だけを残す。
+     * 応答コードが無い（例外・時間切れ）ときはコードを入れない。
      * **実売の数え方には一切関わらない**（`pro_purchase_*` の意味は変えていない）。
+     *
+     * `result` は `category` と同じ値。2026-09-21〜10-02 の版（`result` だけ送っていた）と並べて見るために残す。
      */
-    fun billingResult(stage: String, result: String) = safely {
-        analytics.log(
-            Analytics.Event.PRO_BILLING_RESULT,
-            Analytics.Param.STAGE to stage,
-            Analytics.Param.RESULT to result,
-        )
+    fun billingResult(stage: String, category: String, responseCode: Int? = null) = safely {
+        val params = buildList {
+            add(Analytics.Param.STAGE to stage)
+            add(Analytics.Param.CATEGORY to category)
+            add(Analytics.Param.RESULT to category)
+            responseCode?.let { add(Analytics.Param.BILLING_RESPONSE_CODE to it) }
+        }
+        analytics.log(Analytics.Event.PRO_BILLING_RESULT, *params.toTypedArray())
     }
 
     /**
@@ -207,17 +231,23 @@ class ProPurchaseReporter(
     /**
      * 購入画面のあとに届いた結果を、診断用の言葉にする。
      *
-     * `OK` でも中身は3通りある。「購入が入っている」「保留だけ」「1件も入っていない」。
-     * **3つ目（[Analytics.BillingOutcome.EMPTY_PURCHASE_LIST]）はこれまで記録が無く、
-     * 離脱の形が見えなかった**ので、ここで見えるようにする。
+     * `OK` でも中身は何通りもある。「購入が入っている」「保留だけ」のほか、
+     * 一覧が null（[Analytics.BillingOutcome.NULL_PURCHASE_LIST]）／空（[Analytics.BillingOutcome.EMPTY_PURCHASE_LIST]）／
+     * pro_unlock が無い（[Analytics.BillingOutcome.NO_PRO_ITEM]）／状態が不明（[Analytics.BillingOutcome.UNSPECIFIED_STATE]）。
+     * 後ろの4つはどれも `pro_purchase_error`（ok_without_purchase）になるので、ここで形を区別しておく。
+     *
+     * @param purchases Play が渡した一覧。**null のまま渡す**（空と区別するため）
      */
-    fun purchaseCallbackOutcome(responseCode: Int, purchases: List<PurchaseSnapshot>): String {
+    fun purchaseCallbackOutcome(responseCode: Int, purchases: List<PurchaseSnapshot>?): String {
         if (responseCode != BillingClient.BillingResponseCode.OK) return outcomeFor(responseCode)
+        if (purchases == null) return Analytics.BillingOutcome.NULL_PURCHASE_LIST
+        if (purchases.isEmpty()) return Analytics.BillingOutcome.EMPTY_PURCHASE_LIST
         val owned = purchases.filter { it.isProUnlock }
         return when {
             owned.any { it.state == Purchase.PurchaseState.PURCHASED } -> Analytics.BillingOutcome.OK
             owned.any { it.state == Purchase.PurchaseState.PENDING } -> Analytics.BillingOutcome.PENDING
-            else -> Analytics.BillingOutcome.EMPTY_PURCHASE_LIST
+            owned.isEmpty() -> Analytics.BillingOutcome.NO_PRO_ITEM
+            else -> Analytics.BillingOutcome.UNSPECIFIED_STATE
         }
     }
 
@@ -237,6 +267,9 @@ class ProPurchaseReporter(
 
         BillingClient.BillingResponseCode.DEVELOPER_ERROR ->
             Analytics.ErrorReason.DEVELOPER_ERROR
+
+        BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED ->
+            Analytics.ErrorReason.ITEM_ALREADY_OWNED
 
         else -> Analytics.ErrorReason.GENERIC_ERROR
     }

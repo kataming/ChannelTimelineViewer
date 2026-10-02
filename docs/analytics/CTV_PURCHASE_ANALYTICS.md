@@ -31,7 +31,7 @@
 | `pro_restore` | 「購入を復元」を押した | なし | ❌ 既存客の再適用 |
 | `pro_cancel_reason` | 購入画面をやめた直後の一問アンケートの答え（2026-10-02〜・7 日に 1 回まで） | `reason` = `no_payment_method` / `price_too_high` / `later` / `other` / `dismissed`（答えずに閉じた） | ❌ |
 | ~~`purchase`~~ | **1.14 で廃止**（1.9〜1.13 は `pro_purchase_success` と同時に送っていた）。`in_app_purchase` と収益が二重になるため | — | — |
-| `pro_billing_result` | **診断用**。課金の各段階の結果（成功も失敗も） | `stage` / `result` | ❌ 数えない |
+| `pro_billing_result` | **診断用**。課金の各段階の結果（成功も失敗も） | `stage` / `category` / `billing_response_code`（2026-10-03〜）/ `result`（`category` と同じ値・旧版との比較用） | ❌ 数えない |
 | `in_app_purchase` | **Firebase が自動収集**（Google Play とリンク済み・コードからは送らない・[第9章](#9-in_app_purchasefirebase-の自動収集イベント)） | Google が決める | ✅ **収益（金額）の正**（GA4） |
 
 ### `pro_purchase_success` の発火条件（すべて満たしたときだけ）
@@ -50,14 +50,31 @@
 - Billing のエラー全般
 - 「購入を復元」
 - アプリ起動時の既購入検出（`queryPurchasesAsync`）
-- `ITEM_ALREADY_OWNED`（すでに持っている＝この場の購入ではない）
+- `ITEM_ALREADY_OWNED`（すでに持っている＝この場の購入ではない。2026-10-03 から `pro_purchase_error` の `item_already_owned` として残す）
 - 同じ購入の2回目以降の通知
 - 権限付与が確定していない状態
 
 ### `reason` に入る値（これ以外は入らない）
 
 `service_unavailable` / `billing_unavailable` / `item_unavailable` /
-`developer_error` / `generic_error`
+`developer_error` / `generic_error` /
+`item_already_owned`（2026-10-03〜）/ `ok_without_purchase`（2026-10-03〜）
+
+### 購入ボタンを押したら、必ずどれか1つで終わる（2026-10-03〜）
+
+`pro_purchase_start` のあとは **`success` / `cancel` / `error` / `pending` のどれか1つ**に必ず行き着く
+（`ProPurchaseAnalyticsTest` で全応答コード × 購入の中身を総当たりで確認している）。
+以前は次の2つがどれにも行き着かず、`start` だけが残って原因が見えなかった:
+
+| 終わり方 | 以前 | 2026-10-03〜 |
+| --- | --- | --- |
+| すでに持っている（`ITEM_ALREADY_OWNED`、購入画面のあと・開く時のどちらも） | 何も出ない（開く時は `generic_error`、画面には「購入できませんでした」） | `pro_purchase_error` / `reason=item_already_owned` / `billing_response_code=7`。画面は「Pro を利用中」にして購入状態を問い直す |
+| 応答は OK なのに購入済みも保留も無い（一覧が null／空／`pro_unlock` 無し／状態不明） | 何も出ない | `pro_purchase_error` / `reason=ok_without_purchase` / `billing_response_code=0`。形は `pro_billing_result` の `category` で区別 |
+
+⚠️ このため **2026-10-03 以降の版では `pro_purchase_error` が増えて見える**。実売や失敗が増えたのではなく、
+今まで数えていなかった終わり方を数え始めたため。比べるときは `reason` で分けること。
+
+`USER_CANCELED` は購入画面のあと・開く時のどちらでも **`pro_purchase_cancel` だけ**（エラーには入れない）。
 
 Play が返す `debugMessage` は**送らない**（ログには出す）。
 
@@ -71,11 +88,12 @@ Play が返す `debugMessage` は**送らない**（ログには出す）。
 | `billing_connect` | 購入ボタンを押したが Play に繋がらなかった | 接続の応答コード（接続を始められなかったときは無し） |
 | `product_query` | 商品情報（価格）が取れなかった | 問い合わせの応答コード（OK なのに商品が無い＝未公開なら `0`、例外なら無し） |
 | `launch_billing` | 購入画面を開けなかった | `launchBillingFlow` の応答コード（例外なら無し） |
-| `purchase_update` | 購入画面のあとに Play が失敗を返した | `onPurchasesUpdated` の応答コード |
+| `purchase_update` | 購入画面のあとに Play が失敗を返した／OK なのに購入が届かなかった | `onPurchasesUpdated` の応答コード |
 
 `billing_response_code` は `BillingClient.BillingResponseCode` の整数（Play が決めた固定の番号）:
-`-1` SERVICE_DISCONNECTED / `2` SERVICE_UNAVAILABLE / `3` BILLING_UNAVAILABLE / `4` ITEM_UNAVAILABLE /
-`5` DEVELOPER_ERROR / `6` ERROR / `8` ITEM_NOT_OWNED / `12` NETWORK_ERROR / `-2` FEATURE_NOT_SUPPORTED。
+`0` OK / `1` USER_CANCELED / `-1` SERVICE_DISCONNECTED / `2` SERVICE_UNAVAILABLE / `3` BILLING_UNAVAILABLE /
+`4` ITEM_UNAVAILABLE / `5` DEVELOPER_ERROR / `6` ERROR / `7` ITEM_ALREADY_OWNED / `8` ITEM_NOT_OWNED /
+`12` NETWORK_ERROR / `-2` FEATURE_NOT_SUPPORTED / `-3` SERVICE_TIMEOUT（非推奨）。
 利用者や購入を特定する情報は含まない。**コードが無いときは推測の値を入れずに送らない。**
 
 同じ変更で、取り違えていた分類も直した:
@@ -101,11 +119,27 @@ Play Console の購入者コンバージョンで「購入画面は出ている�
 | `launch` | 購入画面を開く指示（`launchBillingFlow` の戻り値） |
 | `purchase_callback` | 購入画面のあとに届く結果（`PurchasesUpdatedListener`） |
 | `acknowledge` | 購入の確認 |
+| `query_purchases` | 購入状態の問い合わせ（2026-10-03〜。「購入を復元」・すでに持っていた後の問い直し・失敗のときだけ。起動のたびの成功は記録しない） |
 
-`result`（何が起きたか）: `ok` / `user_canceled` / `pending` / `empty_purchase_list` /
+`category`（何が起きたか。2026-10-03 から。`result` にも同じ値が入る）: `ok` / `user_canceled` / `pending` /
+`empty_purchase_list` / `null_purchase_list` / `no_pro_item` / `unspecified_state` /
 `billing_unavailable` / `item_unavailable` / `service_unavailable` / `service_disconnected` /
 `network_error` / `developer_error` / `feature_not_supported` / `item_already_owned` /
-`item_not_owned` / `error` / `unknown`
+`item_not_owned` / `error` / `unknown` / `exception` / `timeout`
+
+2026-10-03 に足した値:
+
+| 値 | 意味 |
+| --- | --- |
+| `null_purchase_list` | 応答は OK なのに購入の一覧そのものが無い（null） |
+| `empty_purchase_list` | 応答は OK なのに一覧が空（以前は「`pro_unlock` が無い」もここに含めていた） |
+| `no_pro_item` | 一覧はあるが `pro_unlock` が入っていない |
+| `unspecified_state` | `pro_unlock` はあるが購入済みでも保留でもない |
+| `exception` | アプリ側の処理が例外で止まった（応答コードは無い） |
+| `timeout` | 接続の返事が 20 秒来なかった（応答コードは無い）。並んでいた購入は「繋がらない」で終わる |
+
+`billing_response_code`（2026-10-03〜）: その段階で Play が返した応答コードの整数。
+例外・時間切れなどコードが無いときは**送らない**。
 
 これで**今まで見えなかった3つ**が見えるようになる。
 
@@ -114,8 +148,8 @@ Play Console の購入者コンバージョンで「購入画面は出ている�
 - `launch` の失敗 … 購入画面を**開く前**に落ちた（`pro_purchase_error` だけでは
   「開く前」か「開いたあと」かを見分けられなかった）
 
-⚠️ 送るのは `stage` と `result` の決まった文字だけ。応答コードの数値・`debugMessage`・
-購入トークン・注文IDは**入れない**（第5章のとおり）。
+⚠️ 送るのは `stage` / `category`（と同値の `result`）の決まった文字と、Play の応答コードの整数だけ。
+`debugMessage`・購入トークン・注文ID・メールなどのアカウント情報は**入れない**（第5章のとおり）。
 
 ## 3. PURCHASED / PENDING / CANCEL / ERROR / RESTORE の違い
 

@@ -2,6 +2,8 @@ package com.deskflowlabs.channeltimelineviewer.billing
 
 import android.app.Activity
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import com.android.billingclient.api.AcknowledgePurchaseParams
 import com.android.billingclient.api.BillingClient
@@ -88,9 +90,13 @@ class ProBillingManager(
      * 接続待ちの受け付け口。預けた依頼は必ず実行か [ConnectionGate] の onUnavailable に行き着く。
      * （接続中に購入ボタンを押すと何も起きず `isBusy` が戻らなかった不具合の対策）
      */
+    private val mainHandler = Handler(Looper.getMainLooper())
+
     private val gate = ConnectionGate(
         isReady = { client.isReady },
         startConnection = { onFinished ->
+            // 前回の接続の応答コードを、今回繋がらなかった理由として使わないように消しておく。
+            lastConnectCode = null
             client.startConnection(object : BillingClientStateListener {
                 override fun onBillingSetupFinished(billingResult: BillingResult) {
                     val ok = billingResult.responseCode == BillingClient.BillingResponseCode.OK
@@ -101,15 +107,25 @@ class ProBillingManager(
                     reporter.billingResult(
                         Analytics.Stage.CONNECT,
                         reporter.outcomeFor(billingResult.responseCode),
+                        billingResult.responseCode,
                     )
                     onFinished(ok)
                 }
 
                 override fun onBillingServiceDisconnected() {
-                    // enableAutoServiceReconnection() に任せる。
-                    // 依頼の片付けは onBillingSetupFinished 側で行う。
+                    // 再接続は enableAutoServiceReconnection() に任せる。
+                    // ただし**接続の途中で切れた**ときは onBillingSetupFinished が来ないことがあるので、
+                    // 待っている依頼を「繋がらなかった」として片付ける。接続済みのあとで切れた場合は
+                    // ConnectionGate が古い接続の結果として捨てる（依頼が二重に実行されない）。
+                    onFinished(false)
                 }
             })
+        },
+        // 接続の返事がいつまでも来ないときも、並んでいる購入依頼を片付ける（isBusy を残さない）。
+        scheduleTimeout = { delay, block -> mainHandler.postDelayed(block, delay) },
+        onTimeout = {
+            Log.w(TAG, "接続の返事が時間内に来なかった")
+            reporter.billingResult(Analytics.Stage.CONNECT, Analytics.BillingOutcome.TIMEOUT)
         },
     )
 
@@ -195,7 +211,7 @@ class ProBillingManager(
     private fun failBeforeLaunch() {
         _isBusy.value = false
         reporter.purchaseFailedBeforeFlow(Analytics.ErrorReason.GENERIC_ERROR, Analytics.ErrorStage.LAUNCH_BILLING)
-        reporter.billingResult(Analytics.Stage.LAUNCH, Analytics.BillingOutcome.ERROR)
+        reporter.billingResult(Analytics.Stage.LAUNCH, Analytics.BillingOutcome.EXCEPTION)
         _messageRes.value = R.string.pro_error_failed
     }
 
@@ -229,22 +245,30 @@ class ProBillingManager(
             .setProductDetailsParamsList(listOf(productParams))
             .build()
         val result = runCatching { client.launchBillingFlow(activity, params) }.getOrNull()
-        reporter.billingResult(
-            Analytics.Stage.LAUNCH,
-            result?.responseCode?.let(reporter::outcomeFor) ?: Analytics.BillingOutcome.ERROR,
-        )
-        if (result == null || result.responseCode != BillingClient.BillingResponseCode.OK) {
-            _isBusy.value = false
-            // 画面が開けなかった。この先 onPurchasesUpdated は呼ばれないので、ここで数える。
-            reporter.purchaseFailedBeforeFlow(
-                result?.responseCode?.let(reporter::reasonFor)
-                    ?: Analytics.ErrorReason.GENERIC_ERROR,
-                Analytics.ErrorStage.LAUNCH_BILLING,
-                result?.responseCode,
-            )
-            _messageRes.value = R.string.pro_error_failed
+        if (result == null) {
+            // launchBillingFlow 自体が例外を投げた。応答コードは無い。
+            failBeforeLaunch()
+            return
         }
-        // OK のときは onPurchasesUpdated 側で isBusy を戻す。
+        val code = result.responseCode
+        reporter.billingResult(Analytics.Stage.LAUNCH, reporter.outcomeFor(code), code)
+        if (code == BillingClient.BillingResponseCode.OK) return // isBusy は onPurchasesUpdated 側で戻す。
+
+        // 画面が開けなかった。この先 onPurchasesUpdated は呼ばれないので、ここで片付けて数える。
+        _isBusy.value = false
+        Log.w(TAG, "購入画面を開けず: $code ${result.debugMessage}")
+        // USER_CANCELED は cancel だけ、ITEM_ALREADY_OWNED は item_already_owned のエラー（判断は reporter）。
+        reporter.launchNotStarted(code)
+        _messageRes.value = when (code) {
+            BillingClient.BillingResponseCode.USER_CANCELED -> null
+            BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED -> {
+                // 復元し損ねている状態（購入画面のあとに届く場合と同じ扱い）。問い直せば権限が戻る。
+                // 以前はここで「購入できませんでした」を出していた。
+                queryPurchases(reportResult = false, logDiagnostics = true)
+                R.string.pro_owned
+            }
+            else -> R.string.pro_error_failed
+        }
     }
 
     /**
@@ -273,37 +297,49 @@ class ProBillingManager(
 
         runCatching {
             client.queryProductDetailsAsync(params) { result, details ->
-                val found = if (result.responseCode == BillingClient.BillingResponseCode.OK) {
-                    details.productDetailsList.firstOrNull { it.productId == PRO_PRODUCT_ID }
-                } else {
-                    Log.w(TAG, "商品情報を取れず: ${result.responseCode} ${result.debugMessage}")
-                    null
+                // ⚠️ ここで例外が出ても onResult は必ず呼ぶ（呼ばないと購入中の isBusy が戻らない）。
+                val handled = runCatching {
+                    val found = if (result.responseCode == BillingClient.BillingResponseCode.OK) {
+                        details.productDetailsList.firstOrNull { it.productId == PRO_PRODUCT_ID }
+                    } else {
+                        Log.w(TAG, "商品情報を取れず: ${result.responseCode} ${result.debugMessage}")
+                        null
+                    }
+                    productDetails = found
+                    // 表示する価格は、このあと購入に使うオファーそのものの価格にする。
+                    selectedOffer = found?.selectOffer()
+                    _priceText.value = selectedOffer?.formattedPrice
+                    found
                 }
-                productDetails = found
-                // 表示する価格は、このあと購入に使うオファーそのものの価格にする。
-                selectedOffer = found?.selectOffer()
-                _priceText.value = selectedOffer?.formattedPrice
+                val found = handled.getOrNull()
                 reporter.billingResult(
                     Analytics.Stage.QUERY_PRODUCT,
                     when {
+                        handled.isFailure -> Analytics.BillingOutcome.EXCEPTION
                         result.responseCode != BillingClient.BillingResponseCode.OK ->
                             reporter.outcomeFor(result.responseCode)
                         // 応答は OK なのに商品が入っていない＝Play Console 側で未公開など。
                         found == null -> Analytics.BillingOutcome.ITEM_UNAVAILABLE
                         else -> Analytics.BillingOutcome.OK
                     },
+                    result.responseCode,
                 )
                 runCatching { onResult(found, result.responseCode) }
             }
-        }.onFailure { runCatching { onResult(null, null) } }
+        }.onFailure {
+            reporter.billingResult(Analytics.Stage.QUERY_PRODUCT, Analytics.BillingOutcome.EXCEPTION)
+            runCatching { onResult(null, null) }
+        }
     }
 
     /**
      * Play に購入状態を聞く。
      *
      * @param reportResult 「復元しました／購入は見つかりません」を画面に出すか
+     * @param logDiagnostics 成功も `pro_billing_result` に残すか。起動・前面復帰のたびに
+     *   記録しないよう、既定は「復元のときだけ」。失敗はいつでも残す
      */
-    private fun queryPurchases(reportResult: Boolean) {
+    private fun queryPurchases(reportResult: Boolean, logDiagnostics: Boolean = reportResult) {
         val params = QueryPurchasesParams.newBuilder()
             .setProductType(BillingClient.ProductType.INAPP)
             .build()
@@ -311,41 +347,65 @@ class ProBillingManager(
         runCatching {
             client.queryPurchasesAsync(params) { result, purchases ->
                 if (result.responseCode != BillingClient.BillingResponseCode.OK) {
+                    reporter.billingResult(
+                        Analytics.Stage.QUERY_PURCHASES,
+                        reporter.outcomeFor(result.responseCode),
+                        result.responseCode,
+                    )
                     // 問い合わせ自体が失敗したときは、いまの Pro 状態を**落とさない**。
-                    if (reportResult) {
-                        _isBusy.value = false
-                        _messageRes.value = R.string.pro_error_unavailable
-                    }
+                    if (reportResult) failQueryPurchases()
                     return@queryPurchasesAsync
                 }
-
-                val owned = purchases.filter { it.isProUnlock() }
-                owned.forEach { acknowledgeIfNeeded(it) }
-
-                val hasEntitlement = owned.any {
-                    it.purchaseState == Purchase.PurchaseState.PURCHASED
-                }
-                entitlement.applyPlayQuery(hasEntitlement)
-
-                // ここは復元・起動時の問い合わせ。**実売としては数えない。**
-                // ただし「数えた印」だけは付けておく。そうしないと、アプリを閉じている間に
-                // 成立した購入を、次に Play が再通知したときへ持ち越して二重に数えてしまう。
-                reporter.markSeenWithoutCounting(owned.map { it.toSnapshot() })
-
-                if (reportResult) {
-                    _isBusy.value = false
-                    _messageRes.value = when {
-                        hasEntitlement -> R.string.pro_restore_done
-                        owned.any { it.purchaseState == Purchase.PurchaseState.PENDING } ->
-                            R.string.pro_pending
-                        else -> R.string.pro_restore_none
+                // ⚠️ 中で例外が出ても、復元中の isBusy は必ず戻す。
+                runCatching { applyQueriedPurchases(purchases, reportResult, logDiagnostics) }
+                    .onFailure {
+                        reporter.billingResult(Analytics.Stage.QUERY_PURCHASES, Analytics.BillingOutcome.EXCEPTION)
+                        if (reportResult) failQueryPurchases()
                     }
-                }
             }
         }.onFailure {
-            if (reportResult) {
-                _isBusy.value = false
-                _messageRes.value = R.string.pro_error_unavailable
+            reporter.billingResult(Analytics.Stage.QUERY_PURCHASES, Analytics.BillingOutcome.EXCEPTION)
+            if (reportResult) failQueryPurchases()
+        }
+    }
+
+    private fun failQueryPurchases() {
+        _isBusy.value = false
+        _messageRes.value = R.string.pro_error_unavailable
+    }
+
+    private fun applyQueriedPurchases(purchases: List<Purchase>, reportResult: Boolean, logDiagnostics: Boolean) {
+        val owned = purchases.filter { it.isProUnlock() }
+        owned.forEach { acknowledgeIfNeeded(it) }
+
+        val hasEntitlement = owned.any {
+            it.purchaseState == Purchase.PurchaseState.PURCHASED
+        }
+        entitlement.applyPlayQuery(hasEntitlement)
+
+        // ここは復元・起動時の問い合わせ。**実売としては数えない。**
+        // ただし「数えた印」だけは付けておく。そうしないと、アプリを閉じている間に
+        // 成立した購入を、次に Play が再通知したときへ持ち越して二重に数えてしまう。
+        reporter.markSeenWithoutCounting(owned.map { it.toSnapshot() })
+
+        if (logDiagnostics) {
+            reporter.billingResult(
+                Analytics.Stage.QUERY_PURCHASES,
+                reporter.purchaseCallbackOutcome(
+                    BillingClient.BillingResponseCode.OK,
+                    purchases.map { it.toSnapshot() },
+                ),
+                BillingClient.BillingResponseCode.OK,
+            )
+        }
+
+        if (reportResult) {
+            _isBusy.value = false
+            _messageRes.value = when {
+                hasEntitlement -> R.string.pro_restore_done
+                owned.any { it.purchaseState == Purchase.PurchaseState.PENDING } ->
+                    R.string.pro_pending
+                else -> R.string.pro_restore_none
             }
         }
     }
@@ -354,12 +414,16 @@ class ProBillingManager(
         _isBusy.value = false
 
         // 診断用。成功も失敗も、購入が空で戻ってきた場合も同じ形で残す。
+        // 一覧は null と空を区別して渡す（OK なのに null／空、を見分けるため）。
         reporter.billingResult(
             Analytics.Stage.PURCHASE_CALLBACK,
-            reporter.purchaseCallbackOutcome(
-                responseCode = result.responseCode,
-                purchases = purchases.orEmpty().map { it.toSnapshot() },
-            ),
+            runCatching {
+                reporter.purchaseCallbackOutcome(
+                    responseCode = result.responseCode,
+                    purchases = purchases?.map { it.toSnapshot() },
+                )
+            }.getOrDefault(Analytics.BillingOutcome.EXCEPTION),
+            result.responseCode,
         )
 
         // 先に権限とメッセージ（＝利用者にとっての本筋）を確定させ、記録はそのあと。
@@ -389,7 +453,8 @@ class ProBillingManager(
 
             BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED -> {
                 // 復元し損ねている状態。問い合わせ直せば持ち主だと分かる。
-                queryPurchases(reportResult = false)
+                // 問い直しの結果も診断に残す（所有が本当に見つかった＝ok か、見つからない＝empty 等か）。
+                queryPurchases(reportResult = false, logDiagnostics = true)
                 _messageRes.value = R.string.pro_owned
             }
 
@@ -476,8 +541,11 @@ class ProBillingManager(
                 reporter.billingResult(
                     Analytics.Stage.ACKNOWLEDGE,
                     reporter.outcomeFor(result.responseCode),
+                    result.responseCode,
                 )
             }
+        }.onFailure {
+            reporter.billingResult(Analytics.Stage.ACKNOWLEDGE, Analytics.BillingOutcome.EXCEPTION)
         }
     }
 

@@ -249,21 +249,112 @@ class ProPurchaseAnalyticsTest {
     }
 
     @Test
-    fun `キャンセル・すでに持っている・成功が空・保留ではエラーを出さない`() {
-        listOf(
-            BillingClient.BillingResponseCode.USER_CANCELED,
-            BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED,
-        ).forEach { code ->
-            val recorder = Recorder()
-            ProPurchaseReporter(recorder, store()).purchasesUpdated(code, emptyList(), entitlementGranted = false)
-            assertEquals("code $code", 0, recorder.count(Analytics.Event.PRO_PURCHASE_ERROR))
-        }
+    fun `キャンセルと保留ではエラーを出さない`() {
+        val canceled = Recorder()
+        ProPurchaseReporter(canceled, store())
+            .purchasesUpdated(BillingClient.BillingResponseCode.USER_CANCELED, emptyList(), entitlementGranted = false)
+        assertEquals(listOf(Analytics.Event.PRO_PURCHASE_CANCEL), canceled.names())
+
         val recorder = Recorder()
-        val reporter = ProPurchaseReporter(recorder, store())
-        reporter.purchasesUpdated(BillingClient.BillingResponseCode.OK, emptyList(), entitlementGranted = false)
-        reporter.purchasesUpdated(BillingClient.BillingResponseCode.OK, listOf(pending()), entitlementGranted = false)
+        ProPurchaseReporter(recorder, store())
+            .purchasesUpdated(BillingClient.BillingResponseCode.OK, listOf(pending()), entitlementGranted = false)
         assertEquals(0, recorder.count(Analytics.Event.PRO_PURCHASE_ERROR))
         assertEquals(1, recorder.count(Analytics.Event.PRO_PURCHASE_PENDING))
+    }
+
+    /** 2026-10-03〜: 以前はどのイベントも出ず、購入開始だけが残っていた終わり方。 */
+    @Test
+    fun `すでに持っているときは理由 item_already_owned のエラーになる`() {
+        val recorder = Recorder()
+        ProPurchaseReporter(recorder, store()).purchasesUpdated(
+            BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED, emptyList(), entitlementGranted = false,
+        )
+        val params = recorder.paramsOf(Analytics.Event.PRO_PURCHASE_ERROR)
+        assertEquals(Analytics.ErrorReason.ITEM_ALREADY_OWNED, params[Analytics.Param.REASON])
+        assertEquals(Analytics.ErrorStage.PURCHASE_UPDATE, params[Analytics.Param.ERROR_STAGE])
+        assertEquals(BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED, params[Analytics.Param.BILLING_RESPONSE_CODE])
+        assertEquals(0, recorder.count(success))
+        assertEquals(0, recorder.count(Analytics.Event.PRO_PURCHASE_CANCEL))
+    }
+
+    /** 2026-10-03〜: OK なのに購入済みも保留も無い形は ok_without_purchase のエラー。 */
+    @Test
+    fun `OK なのに購入が届かなければ理由 ok_without_purchase のエラーになる`() {
+        val shapes = listOf(
+            emptyList(),
+            listOf(ProPurchaseReporter.PurchaseSnapshot(isProUnlock = false, state = Purchase.PurchaseState.PURCHASED, purchaseToken = "other")),
+            listOf(ProPurchaseReporter.PurchaseSnapshot(isProUnlock = true, state = Purchase.PurchaseState.UNSPECIFIED_STATE, purchaseToken = "odd")),
+        )
+        shapes.forEach { purchases ->
+            val recorder = Recorder()
+            ProPurchaseReporter(recorder, store())
+                .purchasesUpdated(BillingClient.BillingResponseCode.OK, purchases, entitlementGranted = false)
+            val params = recorder.paramsOf(Analytics.Event.PRO_PURCHASE_ERROR)
+            assertEquals("$purchases", Analytics.ErrorReason.OK_WITHOUT_PURCHASE, params[Analytics.Param.REASON])
+            assertEquals(BillingClient.BillingResponseCode.OK, params[Analytics.Param.BILLING_RESPONSE_CODE])
+            assertEquals(0, recorder.count(success))
+        }
+    }
+
+    /**
+     * ⚠️ 本題（2026-10-03）: 購入画面のあとに届くどの応答・どの中身でも、
+     * success / cancel / error / pending の**どれか1つだけ**に必ず行き着く。
+     */
+    @Suppress("DEPRECATION")
+    @Test
+    fun `購入画面のあとの結果は必ず1つの終わり方になる`() {
+        val terminals = setOf(
+            success,
+            Analytics.Event.PRO_PURCHASE_CANCEL,
+            Analytics.Event.PRO_PURCHASE_ERROR,
+            Analytics.Event.PRO_PURCHASE_PENDING,
+        )
+        val shapes = listOf(
+            emptyList(),
+            listOf(purchased("t-purchased")),
+            listOf(pending("t-pending")),
+            listOf(ProPurchaseReporter.PurchaseSnapshot(isProUnlock = false, state = Purchase.PurchaseState.PURCHASED, purchaseToken = "t-other")),
+            listOf(ProPurchaseReporter.PurchaseSnapshot(isProUnlock = true, state = Purchase.PurchaseState.UNSPECIFIED_STATE, purchaseToken = "t-odd")),
+        )
+        ALL_RESPONSE_CODES.forEach { code ->
+            shapes.forEach { purchases ->
+                val recorder = Recorder()
+                // 実機の ProBillingManager と同じく、OK かつ PURCHASED のときだけ権限を付与する。
+                val granted = code == BillingClient.BillingResponseCode.OK &&
+                    purchases.any { it.isProUnlock && it.state == Purchase.PurchaseState.PURCHASED }
+                ProPurchaseReporter(recorder, store()).purchasesUpdated(code, purchases, entitlementGranted = granted)
+                val ends = recorder.names().filter { it in terminals }
+                assertEquals("code=$code purchases=$purchases → $ends", 1, ends.size)
+                if (code == BillingClient.BillingResponseCode.USER_CANCELED) {
+                    assertEquals(Analytics.Event.PRO_PURCHASE_CANCEL, ends.single())
+                } else {
+                    assertFalse("cancel は USER_CANCELED だけ", Analytics.Event.PRO_PURCHASE_CANCEL in ends)
+                }
+            }
+        }
+    }
+
+    /** 購入画面が開かなかったとき（launchBillingFlow が OK 以外）も、必ず cancel か error のどちらか1つ。 */
+    @Test
+    fun `購入画面が開かなかったときも必ず1つの終わり方になる`() {
+        ALL_RESPONSE_CODES.filter { it != BillingClient.BillingResponseCode.OK }.forEach { code ->
+            val recorder = Recorder()
+            ProPurchaseReporter(recorder, store()).launchNotStarted(code)
+            if (code == BillingClient.BillingResponseCode.USER_CANCELED) {
+                assertEquals(listOf(Analytics.Event.PRO_PURCHASE_CANCEL), recorder.names())
+            } else {
+                assertEquals("code=$code", listOf(Analytics.Event.PRO_PURCHASE_ERROR), recorder.names())
+                val params = recorder.paramsOf(Analytics.Event.PRO_PURCHASE_ERROR)
+                assertEquals(Analytics.ErrorStage.LAUNCH_BILLING, params[Analytics.Param.ERROR_STAGE])
+                assertEquals(code, params[Analytics.Param.BILLING_RESPONSE_CODE])
+            }
+        }
+        val owned = Recorder()
+        ProPurchaseReporter(owned, store()).launchNotStarted(BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED)
+        assertEquals(
+            Analytics.ErrorReason.ITEM_ALREADY_OWNED,
+            owned.paramsOf(Analytics.Event.PRO_PURCHASE_ERROR)[Analytics.Param.REASON],
+        )
     }
 
     @Test
@@ -535,5 +626,26 @@ class ProPurchaseAnalyticsTest {
         val store = store()
         assertFalse(store.reportOnce(""))
         assertFalse(store.isReported(""))
+    }
+
+    private companion object {
+        /** Play Billing の応答コードすべて（非推奨の SERVICE_TIMEOUT と、知らないコードも含める）。 */
+        @Suppress("DEPRECATION")
+        val ALL_RESPONSE_CODES = listOf(
+            BillingClient.BillingResponseCode.OK,
+            BillingClient.BillingResponseCode.USER_CANCELED,
+            BillingClient.BillingResponseCode.SERVICE_UNAVAILABLE,
+            BillingClient.BillingResponseCode.SERVICE_TIMEOUT,
+            BillingClient.BillingResponseCode.SERVICE_DISCONNECTED,
+            BillingClient.BillingResponseCode.NETWORK_ERROR,
+            BillingClient.BillingResponseCode.BILLING_UNAVAILABLE,
+            BillingClient.BillingResponseCode.FEATURE_NOT_SUPPORTED,
+            BillingClient.BillingResponseCode.ITEM_UNAVAILABLE,
+            BillingClient.BillingResponseCode.DEVELOPER_ERROR,
+            BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED,
+            BillingClient.BillingResponseCode.ITEM_NOT_OWNED,
+            BillingClient.BillingResponseCode.ERROR,
+            9999,
+        )
     }
 }

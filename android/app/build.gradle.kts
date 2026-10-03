@@ -18,7 +18,15 @@ plugins {
  */
 val firebaseConfigFile = file("google-services.json")
 val hasFirebaseConfig = firebaseConfigFile.exists()
-if (hasFirebaseConfig) {
+
+/**
+ * 広告の確認用に、Play 版と**並べて**入れられるデバッグビルド（`-PadsPreview=true`）。
+ * パッケージ名に `.adstest` を付けた別アプリになるので、端末の Play 版と保存データには触れない。
+ * Firebase は使わない（google-services.json にこのパッケージが無いため）。Pro の購入も引き継がれない。
+ */
+val adsPreview = (findProperty("adsPreview") as String?) == "true"
+
+if (hasFirebaseConfig && !adsPreview) {
     apply(plugin = libs.plugins.google.services.get().pluginId)
 }
 
@@ -126,6 +134,10 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField("String", "YOUTUBE_API_KEY", "\"${youtubeApiKey()}\"")
+        // API キーの「Android アプリ制限」に申告するパッケージ名（network/AndroidAppIdentity.kt）。
+        // 広告確認用の別アプリ（adsPreview）でも、登録してある本来の名前で申告する。
+        buildConfigField("String", "API_IDENTITY_PACKAGE", "\"com.deskflowlabs.channeltimelineviewer\"")
+        manifestPlaceholders["appLabel"] = "@string/app_name"
         // 再生に使う中継ページ（iOS 版と共通。GitHub Pages で配信している）
         buildConfigField(
             "String",
@@ -149,6 +161,11 @@ android {
         debug {
             // 開発中は本番 ID があってもテスト広告だけを使う（自分で本番広告を表示・クリックしない）。
             manifestPlaceholders["admobAppId"] = admobTestAppId
+            if (adsPreview) {
+                applicationIdSuffix = ".adstest"
+                versionNameSuffix = "-adstest"
+                manifestPlaceholders["appLabel"] = "CTV 広告確認"
+            }
         }
         release {
             // Play Console の「アプリの最適化がしきい値を下回っています（難読化 0%）」対策。

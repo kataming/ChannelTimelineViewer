@@ -3,6 +3,7 @@ package com.deskflowlabs.channeltimelineviewer.network
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
+import com.deskflowlabs.channeltimelineviewer.BuildConfig
 import java.security.MessageDigest
 
 /**
@@ -25,7 +26,8 @@ data class AndroidAppIdentity(val packageName: String, val signatureSha1: String
             val certificate = signingCertificate(context) ?: return null
             val digest = MessageDigest.getInstance("SHA-1").digest(certificate)
             val hex = digest.joinToString("") { "%02X".format(it) }
-            return AndroidAppIdentity(context.packageName, hex)
+            // 通常は context.packageName と同じ。広告確認用の別アプリ（.adstest）でも登録済みの名前で申告する。
+            return AndroidAppIdentity(BuildConfig.API_IDENTITY_PACKAGE, hex)
         }
 
         @Suppress("DEPRECATION")

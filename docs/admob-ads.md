@@ -95,6 +95,11 @@ YouTube API Services Developer Policies **III.G.1.d** は、「YouTube API の�
 | 同意をやり直す | `--ez adsResetConsent true` | `-AdsResetConsent YES` |
 | 広告を出さない（ストア用スクショ） | `--ez noAds true` | `-NoAds YES` |
 
+**実機で確かめるとき（Android）**: 端末に Play 版が入っていても、`./gradlew :app:installDebug -PadsPreview=true` で
+**別アプリ「CTV 広告確認」（`….adstest`）**として並べて入れられる（Play 版と保存データには触れない）。
+テスト広告・同意フォームは確かめられるが、Pro の購入は引き継がれない。確認が済んだら
+`adb uninstall com.deskflowlabs.channeltimelineviewer.adstest` で消す。
+
 ストア用スクリーンショットの撮影（`scripts/capture_play_screenshots.py`・`scripts/capture_android_tutorial.py`・
 `UITests/*ScreenshotUITests.swift`）は `noAds` を付けてある。**テスト広告をストアの画像に写さないこと。**
 

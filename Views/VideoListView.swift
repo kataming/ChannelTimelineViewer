@@ -17,6 +17,10 @@ struct VideoListView: View {
         content
             .navigationTitle(viewModel.channel.title)
             .navigationBarTitleDisplayMode(.inline)
+            // 動画一覧の下に固定するバナー。再生画面には置かない（プレイヤーや操作に重ねない）。
+            .safeAreaInset(edge: .bottom, spacing: 0) {
+                AnchorAdaptiveBannerView()
+            }
             .toolbar {
                 // チャンネル内検索（タイトルの絞り込み・docs/channel-search.md）。開いている間は × で閉じる。
                 ToolbarItem(placement: .topBarTrailing) {

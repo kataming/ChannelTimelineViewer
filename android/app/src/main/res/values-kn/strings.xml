@@ -2,6 +2,7 @@
 <!-- このファイルは scripts/build_android_strings.py が生成します。直接編集しないこと。 -->
 <!-- language: kn -->
 <resources>
+    <string name="about_ads_privacyoptions">ಜಾಹೀರಾತು ಗೌಪ್ಯತೆ ಸೆಟ್ಟಿಂಗ್‌ಗಳು</string>
     <string name="about_analytics_body">Google Analytics for Firebase ಬಳಸಿ ಪ್ರತಿ ಪರದೆ ಮತ್ತು ಕ್ರಿಯೆಯನ್ನು ಎಷ್ಟು ಬಾರಿ ಬಳಸಲಾಗುತ್ತದೆ ಎಂಬುದನ್ನು ನಾವು ಎಣಿಸುತ್ತೇವೆ. ಪರದೆಯ ಹೆಸರು ಮತ್ತು ಕ್ರಿಯೆಯ ಪ್ರಕಾರವನ್ನು ಮಾತ್ರ ಕಳುಹಿಸಲಾಗುತ್ತದೆ — ನೀವು ನೋಡುವ ಚಾನೆಲ್‌ಗಳು ಅಥವಾ ವೀಡಿಯೊಗಳು, ನಿಮ್ಮ ಟಿಪ್ಪಣಿಗಳು ಅಥವಾ ನೀವು ನಮೂದಿಸುವ URL ಗಳನ್ನು ಎಂದಿಗೂ ಕಳುಹಿಸಲಾಗುವುದಿಲ್ಲ. ಜಾಹೀರಾತು ಗುರುತಿಸುವಿಕೆಯನ್ನು ಬಳಸಲಾಗುವುದಿಲ್ಲ. ಕೆಳಗೆ ನೀವು ಇದನ್ನು ಯಾವಾಗ ಬೇಕಾದರೂ ಆಫ್ ಮಾಡಬಹುದು.</string>
     <string name="about_analytics_header">ಬಳಕೆಯ ಅಳತೆ (Android)</string>
     <string name="about_analytics_toggle">ಬಳಕೆಯ ಅಳತೆಯನ್ನು ಅನುಮತಿಸಿ</string>
@@ -24,6 +25,7 @@
     <string name="about_screen_header">ಪ್ಲೇಬ್ಯಾಕ್ ಸಮಯದಲ್ಲಿ ಪರದೆ</string>
     <string name="about_summary">ಚಾನೆಲ್‌ನ ಅಪ್‌ಲೋಡ್‌ಗಳನ್ನು ಪ್ರಕಟಣೆಯ ದಿನಾಂಕದ ಪ್ರಕಾರ (ಹಳೆಯದು ಮೊದಲು) ಪಟ್ಟಿ ಮಾಡುವ ವೀಕ್ಷಣಾ ಸಹಾಯಕ; ಇದರಿಂದ ಆರ್ಕೈವ್‌ಗಳು, ಸರಣಿಗಳು ಅಥವಾ ಕೋರ್ಸ್‌ಗಳನ್ನು ಕ್ರಮವಾಗಿ ನೋಡುತ್ತಾ ನಿಮ್ಮ ಪ್ರಗತಿಯನ್ನು ಟ್ರ್ಯಾಕ್ ಮಾಡಬಹುದು. ಇದು ಅಧಿಕೃತ YouTube ಆ್ಯಪ್‌ಗೆ ಬದಲಿಯಲ್ಲ.</string>
     <string name="about_title">ಈ ಆ್ಯಪ್ ಕುರಿತು</string>
+    <string name="ads_label">ಜಾಹೀರಾತು</string>
     <string name="api_notconfigured_detail">Config.plist ನಲ್ಲಿ YOUTUBE_API_KEY ಹೊಂದಿಸಿ. ಹೊಂದಿಸುವ ವಿಧಾನಕ್ಕಾಗಿ README ನೋಡಿ.</string>
     <string name="api_notconfigured_title">API ಕೀ ಕಾನ್ಫಿಗರ್ ಮಾಡಿಲ್ಲ</string>
     <string name="captions_off">ಆಫ್</string>

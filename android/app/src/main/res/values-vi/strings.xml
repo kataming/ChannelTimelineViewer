@@ -2,6 +2,7 @@
 <!-- このファイルは scripts/build_android_strings.py が生成します。直接編集しないこと。 -->
 <!-- language: vi -->
 <resources>
+    <string name="about_ads_privacyoptions">Cài đặt quyền riêng tư cho quảng cáo</string>
     <string name="about_analytics_body">Chúng tôi đếm tần suất sử dụng của từng màn hình và thao tác bằng Google Analytics for Firebase. Chỉ tên màn hình và loại thao tác được gửi đi — không bao giờ gửi kênh hay video bạn xem, ghi chú của bạn hoặc URL bạn nhập. Không dùng mã nhận dạng quảng cáo. Bạn có thể tắt tính năng này bên dưới bất cứ lúc nào.</string>
     <string name="about_analytics_header">Đo lường mức sử dụng (Android)</string>
     <string name="about_analytics_toggle">Cho phép đo lường mức sử dụng</string>
@@ -24,6 +25,7 @@
     <string name="about_screen_header">Màn hình khi đang phát</string>
     <string name="about_summary">Ứng dụng hỗ trợ xem video, liệt kê video đã đăng của một kênh theo ngày đăng (cũ nhất trước) để bạn xem lần lượt video cũ, loạt video hoặc khóa học trong khi theo dõi tiến độ. Ứng dụng không thay thế ứng dụng YouTube chính thức.</string>
     <string name="about_title">Giới thiệu ứng dụng</string>
+    <string name="ads_label">Quảng cáo</string>
     <string name="api_notconfigured_detail">Hãy đặt YOUTUBE_API_KEY trong Config.plist. Xem README để biết cách thiết lập.</string>
     <string name="api_notconfigured_title">Chưa cấu hình khóa API</string>
     <string name="captions_off">Tắt</string>

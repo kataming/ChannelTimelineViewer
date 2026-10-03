@@ -2,6 +2,7 @@
 <!-- このファイルは scripts/build_android_strings.py が生成します。直接編集しないこと。 -->
 <!-- language: ur -->
 <resources>
+    <string name="about_ads_privacyoptions">اشتہار کی رازداری کی ترتیبات</string>
     <string name="about_analytics_body">ہم Google Analytics for Firebase کے ذریعے گنتے ہیں کہ ہر اسکرین اور کارروائی کتنی بار استعمال ہوتی ہے۔ صرف اسکرین کا نام اور کارروائی کی قسم بھیجی جاتی ہے — آپ کے دیکھے گئے چینلز یا ویڈیوز، آپ کے نوٹس یا آپ کے درج کردہ URL کبھی نہیں۔ کوئی اشتہاری شناخت کنندہ استعمال نہیں ہوتا۔ آپ اسے نیچے کسی بھی وقت بند کر سکتے ہیں۔</string>
     <string name="about_analytics_header">استعمال کی پیمائش (Android)</string>
     <string name="about_analytics_toggle">استعمال کی پیمائش کی اجازت دیں</string>
@@ -24,6 +25,7 @@
     <string name="about_screen_header">پلے بیک کے دوران اسکرین</string>
     <string name="about_summary">دیکھنے میں مدد دینے والی ایپ جو کسی چینل کی ویڈیوز کو اشاعت کی تاریخ کے مطابق (پرانی پہلے) دکھاتی ہے، تاکہ آپ پیش رفت پر نظر رکھتے ہوئے آرکائیوز، سیریز یا کورسز مکمل کر سکیں۔ یہ YouTube کی آفیشل ایپ کا متبادل نہیں ہے۔</string>
     <string name="about_title">اس ایپ کے بارے میں</string>
+    <string name="ads_label">اشتہار</string>
     <string name="api_notconfigured_detail">Config.plist میں YOUTUBE_API_KEY سیٹ کریں۔ طریقہ جاننے کے لیے README دیکھیں۔</string>
     <string name="api_notconfigured_title">API کلید سیٹ نہیں ہے</string>
     <string name="captions_off">بند</string>

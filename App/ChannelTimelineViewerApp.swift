@@ -13,7 +13,10 @@ struct ChannelTimelineViewerApp: App {
     @StateObject private var positionStore = PlaybackPositionStore()
     @StateObject private var playbackSettings = PlaybackSettingsStore()
     // 買い切り Pro（複数チャンネル保存）。正は StoreKit の entitlement で、端末内はその写し。
-    @StateObject private var proStore = ProEntitlementStore()
+    @StateObject private var proStore: ProEntitlementStore
+    // 無料版の広告（AdMob）。Pro かどうかは proStore を読むだけで、課金側には触れない。
+    // Pro なら同意フォームも SDK の初期化も広告リクエストも行わない。
+    @StateObject private var ads: AdsManager
     // Pro が無効なときに「無料で使う1チャンネル」を覚える。
     @StateObject private var activeChannelStore = ActiveChannelStore()
     // 通知タップ（共有シートからのワンタップ起動）を受け取る。
@@ -27,6 +30,14 @@ struct ChannelTimelineViewerApp: App {
     /// 「チャンネルの追加方法」の案内を見終わったか（初回だけ自動で出すための印）。
     @StateObject private var channelTutorial = ChannelTutorialStore()
     @Environment(\.scenePhase) private var scenePhase
+
+    init() {
+        let pro = ProEntitlementStore()
+        _proStore = StateObject(wrappedValue: pro)
+        _ads = StateObject(wrappedValue: AdsManager(
+            isPro: pro.isPro,
+            isProPublisher: pro.$isPro.eraseToAnyPublisher()))
+    }
 
     var body: some Scene {
         WindowGroup {
@@ -44,12 +55,15 @@ struct ChannelTimelineViewerApp: App {
                 .environmentObject(clipboardDetector)
                 .environmentObject(notificationPermission)
                 .environmentObject(channelTutorial)
+                .environmentObject(ads)
                 .onOpenURL { url in
                     // channeltimelineviewer://share?url=... 以外は無視する。
                     sharedLinkRouter.handle(url)
                 }
                 // 共有してからアプリに戻ってきたタイミングで、クリップボードの URL を拾えるようにする。
                 .task {
+                    // 広告の準備（同意 → 初期化）。Pro なら何もしない。画面の表示は待たせない。
+                    ads.activate()
                     await clipboardDetector.refresh()
                     await notificationPermission.refresh()
                 }

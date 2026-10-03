@@ -2,6 +2,7 @@
 <!-- このファイルは scripts/build_android_strings.py が生成します。直接編集しないこと。 -->
 <!-- language: el -->
 <resources>
+    <string name="about_ads_privacyoptions">Ρυθμίσεις απορρήτου διαφημίσεων</string>
     <string name="about_analytics_body">Μετράμε πόσο συχνά χρησιμοποιείται κάθε οθόνη και ενέργεια, με το Google Analytics for Firebase. Αποστέλλονται μόνο το όνομα της οθόνης και το είδος της ενέργειας — ποτέ τα κανάλια ή τα βίντεο που βλέπετε, οι σημειώσεις σας ή τα URL που εισάγετε. Δεν χρησιμοποιείται διαφημιστικό αναγνωριστικό. Μπορείτε να την απενεργοποιήσετε παρακάτω ανά πάσα στιγμή.</string>
     <string name="about_analytics_header">Μέτρηση χρήσης (Android)</string>
     <string name="about_analytics_toggle">Να επιτρέπεται η μέτρηση χρήσης</string>
@@ -24,6 +25,7 @@
     <string name="about_screen_header">Η οθόνη κατά την αναπαραγωγή</string>
     <string name="about_summary">Ένα βοήθημα παρακολούθησης που παραθέτει τα βίντεο ενός καναλιού κατά ημερομηνία δημοσίευσης (παλαιότερα πρώτα), ώστε να παρακολουθείτε αρχεία, σειρές ή μαθήματα με τη σειρά και να βλέπετε την πρόοδό σας. Δεν αντικαθιστά την επίσημη εφαρμογή YouTube.</string>
     <string name="about_title">Σχετικά με την εφαρμογή</string>
+    <string name="ads_label">Διαφήμιση</string>
     <string name="api_notconfigured_detail">Ορίστε το YOUTUBE_API_KEY στο Config.plist. Δείτε το README για οδηγίες.</string>
     <string name="api_notconfigured_title">Δεν έχει οριστεί κλειδί API</string>
     <string name="captions_off">Όχι</string>

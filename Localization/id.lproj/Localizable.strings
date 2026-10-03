@@ -1,6 +1,8 @@
 /* このファイルは scripts/build_localizations.py が生成します。直接編集しないこと。 */
 /* language: id */
 
+/* 「このアプリについて」のボタン。広告の同意（UMP）を見直すフォームを開く。同意が要る地域の無料版だけに出る */
+"about.ads.privacyOptions" = "Setelan privasi iklan";
 /* このアプリについて: 自動再生の説明。既定オン・進む先は開いている一覧の次だけ・いつでもオフ・自分で選んだ設定は更新後も引き継ぐ、の4点を必ず含めること */
 "about.autoPlay.body" = "Putar otomatis aktif secara default: saat video selesai, pemutaran berlanjut ke video berikutnya dalam daftar channel yang sedang Anda buka. Pemutaran hanya berpindah ke video berikutnya dalam daftar itu — tidak pernah ke video terkait atau video rekomendasi. Anda dapat menonaktifkannya kapan saja dengan tombol “Putar otomatis” di layar pemutar; setelah itu, pemutaran akan berhenti saat video selesai dan tombol “Putar video berikutnya” akan muncul. Pilihan Anda disimpan di perangkat dan tetap dipertahankan saat aplikasi diperbarui. Tidak ada pemutaran di latar belakang, jadi menutup aplikasi akan menghentikan pemutaran dan putar otomatis.";
 /* このアプリについて: 自動再生の見出し（既定オン） */
@@ -63,6 +65,8 @@
 "about.summary" = "Aplikasi pendamping menonton yang menampilkan video unggahan channel berdasarkan tanggal publikasi (terlama dulu) sehingga Anda dapat menonton arsip, serial, atau kursus secara berurutan sambil memantau progres. Aplikasi ini bukan pengganti aplikasi resmi YouTube.";
 /* 画面名: このアプリについて */
 "about.title" = "Tentang aplikasi ini";
+/* 無料版の広告（MREC）の上に付ける表示。本文と広告を見分けるため */
+"ads.label" = "Iklan";
 /* APIキー未設定の説明 */
 "api.notConfigured.detail" = "Atur YOUTUBE_API_KEY di Config.plist. Lihat README untuk cara mengaturnya.";
 /* APIキー未設定の見出し */

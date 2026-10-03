@@ -2,6 +2,7 @@
 <!-- このファイルは scripts/build_android_strings.py が生成します。直接編集しないこと。 -->
 <!-- language: ja -->
 <resources>
+    <string name="about_ads_privacyoptions">広告のプライバシー設定</string>
     <string name="about_analytics_body">どの画面・どの操作がどれくらい使われたかを Google アナリティクス（Firebase）で数えています。送るのは画面名と操作の種類だけで、見ているチャンネル・動画・メモ・入力したURLは送りません。広告用の識別子も使いません。下の切り替えでいつでも止められます。</string>
     <string name="about_analytics_header">利用状況の記録（Android版）</string>
     <string name="about_analytics_toggle">利用状況の記録を許可する</string>
@@ -24,6 +25,7 @@
     <string name="about_screen_header">再生中の画面</string>
     <string name="about_summary">チャンネルの投稿動画を公開日順（古い順）に整理し、過去動画視聴・シリーズ視聴・学習を進捗管理しながら行える視聴補助アプリです。YouTube 公式アプリの代替ではありません。</string>
     <string name="about_title">このアプリについて</string>
+    <string name="ads_label">広告</string>
     <string name="api_notconfigured_detail">Config.plist に YOUTUBE_API_KEY を設定してください。設定方法は README を参照してください。</string>
     <string name="api_notconfigured_title">APIキーが設定されていません</string>
     <string name="captions_off">オフ</string>

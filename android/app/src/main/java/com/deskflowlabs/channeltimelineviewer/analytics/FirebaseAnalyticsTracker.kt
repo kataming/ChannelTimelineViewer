@@ -30,6 +30,10 @@ class FirebaseAnalyticsTracker private constructor(
         failOpen { firebase.logEvent(event, params.toBundle()) }
     }
 
+    override fun setUserProperty(name: String, value: String) {
+        failOpen { firebase.setUserProperty(name, value) }
+    }
+
     /**
      * 記録は**おまけ**であって、アプリの仕事ではない。
      * ここで例外が出ても、購入・権限付与・復元・再生・保存を巻き込ませない（fail-open）。

@@ -2,6 +2,7 @@
 <!-- このファイルは scripts/build_android_strings.py が生成します。直接編集しないこと。 -->
 <!-- language: hu -->
 <resources>
+    <string name="about_ads_privacyoptions">Hirdetési adatvédelmi beállítások</string>
     <string name="about_analytics_body">A Google Analytics for Firebase segítségével számoljuk, milyen gyakran használják az egyes képernyőket és műveleteket. Csak a képernyő neve és a művelet típusa kerül elküldésre – soha nem a nézett csatornák vagy videók, a jegyzeteid vagy a beírt URL-ek. Hirdetésazonosítót nem használunk. Alább bármikor kikapcsolhatod.</string>
     <string name="about_analytics_header">Használat mérése (Android)</string>
     <string name="about_analytics_toggle">Használat mérésének engedélyezése</string>
@@ -24,6 +25,7 @@
     <string name="about_screen_header">A képernyő lejátszás közben</string>
     <string name="about_summary">Nézést segítő alkalmazás, amely a csatorna feltöltéseit megjelenési dátum szerint (a legrégebbitől) sorolja fel, így végighaladhatsz archívumokon, sorozatokon vagy kurzusokon, és követheted a haladásodat. Nem helyettesíti a hivatalos YouTube alkalmazást.</string>
     <string name="about_title">Az alkalmazásról</string>
+    <string name="ads_label">Hirdetés</string>
     <string name="api_notconfigured_detail">Állítsd be a YOUTUBE_API_KEY értékét a Config.plist fájlban. A beállítás módját a README ismerteti.</string>
     <string name="api_notconfigured_title">Nincs beállítva API-kulcs</string>
     <string name="captions_off">Ki</string>

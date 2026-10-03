@@ -2,6 +2,7 @@
 <!-- このファイルは scripts/build_android_strings.py が生成します。直接編集しないこと。 -->
 <!-- language: cs -->
 <resources>
+    <string name="about_ads_privacyoptions">Nastavení soukromí reklam</string>
     <string name="about_analytics_body">Pomocí Google Analytics for Firebase počítáme, jak často se jednotlivé obrazovky a akce používají. Odesílá se pouze název obrazovky a druh akce – nikdy kanály či videa, která sledujete, vaše poznámky ani adresy URL, které zadáte. Nepoužívá se žádný reklamní identifikátor. Níže to můžete kdykoli vypnout.</string>
     <string name="about_analytics_header">Měření používání (Android)</string>
     <string name="about_analytics_toggle">Povolit měření používání</string>
@@ -24,6 +25,7 @@
     <string name="about_screen_header">Obrazovka během přehrávání</string>
     <string name="about_summary">Pomocník ke sledování, který řadí videa kanálu podle data zveřejnění (od nejstarších), abyste mohli procházet archivy, série nebo kurzy a sledovat svůj průběh. Nenahrazuje oficiální aplikaci YouTube.</string>
     <string name="about_title">O této aplikaci</string>
+    <string name="ads_label">Reklama</string>
     <string name="api_notconfigured_detail">Nastavte YOUTUBE_API_KEY v souboru Config.plist. Postup nastavení najdete v souboru README.</string>
     <string name="api_notconfigured_title">Klíč API není nastaven</string>
     <string name="captions_off">Vypnuto</string>

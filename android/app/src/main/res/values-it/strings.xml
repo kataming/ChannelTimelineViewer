@@ -2,6 +2,7 @@
 <!-- このファイルは scripts/build_android_strings.py が生成します。直接編集しないこと。 -->
 <!-- language: it -->
 <resources>
+    <string name="about_ads_privacyoptions">Impostazioni privacy degli annunci</string>
     <string name="about_analytics_body">Contiamo quanto spesso vengono usate le schermate e le azioni, con Google Analytics for Firebase. Vengono inviati solo il nome della schermata e il tipo di azione, mai i canali o i video che guardi, le tue note o gli URL che inserisci. Non viene usato alcun identificatore pubblicitario. Puoi disattivarla qui sotto in qualsiasi momento.</string>
     <string name="about_analytics_header">Misurazione dell’utilizzo (Android)</string>
     <string name="about_analytics_toggle">Consenti la misurazione dell’utilizzo</string>
@@ -24,6 +25,7 @@
     <string name="about_screen_header">Lo schermo durante la riproduzione</string>
     <string name="about_summary">Un assistente alla visione che elenca i caricamenti di un canale per data di pubblicazione (dal più vecchio), così puoi seguire archivi, serie o corsi tenendo traccia dei tuoi progressi. Non sostituisce l’app ufficiale di YouTube.</string>
     <string name="about_title">Informazioni sull’app</string>
+    <string name="ads_label">Pubblicità</string>
     <string name="api_notconfigured_detail">Imposta YOUTUBE_API_KEY in Config.plist. Consulta il README per le istruzioni.</string>
     <string name="api_notconfigured_title">Chiave API non configurata</string>
     <string name="captions_off">No</string>

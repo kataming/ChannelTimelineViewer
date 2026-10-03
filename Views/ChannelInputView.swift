@@ -1,3 +1,4 @@
+import GoogleMobileAds
 import SwiftUI
 
 struct ChannelInputView: View {
@@ -13,6 +14,9 @@ struct ChannelInputView: View {
     @EnvironmentObject private var pro: ProEntitlementStore
     @EnvironmentObject private var activeChannel: ActiveChannelStore
     @EnvironmentObject private var channelTutorial: ChannelTutorialStore
+    @EnvironmentObject private var ads: AdsManager
+    /// MREC は画面単位で読み込む（Form の行の中で読むと、読み込み前に空の行が出るため）。
+    @StateObject private var mrecLoader = BannerAdLoader()
     @StateObject private var viewModel = ChannelInputViewModel()
     @State private var showAbout = false
     @State private var showPro = false
@@ -37,6 +41,11 @@ struct ChannelInputView: View {
                 memoStore: memoStore,
                 positionStore: positionStore),
             isPro: pro.isPro)
+    }
+
+    /// MREC を出してよいか（無料版で広告が使えて、保存チャンネルが1件以上ある）。
+    private var showsMREC: Bool {
+        ads.canShowAds && !favoriteStore.favorites.isEmpty
     }
 
     /// Pro が無効なのに保存が上限を超えている（＝ロックが起きている）状態か。
@@ -164,11 +173,23 @@ struct ChannelInputView: View {
                     }
                 }
 
+                // 広告（MREC）は保存チャンネルの一覧の「後ろ」にだけ置く。入力欄・取得ボタン・Pro の案内の
+                // 間には入れない。まだ1件も保存していない人（初回）には出さない（読み込みもしない）。
+                if showsMREC, let mrec = mrecLoader.loadedView {
+                    Section {
+                        MRECAdSlot(bannerView: mrec)
+                    }
+                }
+
                 Section {
                     Text("disclaimer.short")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
+            }
+            .task(id: showsMREC) {
+                mrecLoader.sync(enabled: showsMREC, unitID: ads.config.mrecUnitID,
+                                size: AdSizeMediumRectangle, placement: "mrec")
             }
             .navigationTitle("Channel Timeline")
             .navigationDestination(item: $viewModel.resolvedChannel) { channel in
@@ -226,6 +247,7 @@ struct ChannelInputView: View {
                     showTutorial = true
                 })
                 .environmentObject(notificationPermission)
+                .environmentObject(ads)
             }
             // 共有シートから起動された場合（コールドスタート／起動済みのどちらも）に処理する。
             .onAppear { consumeSharedLinkIfNeeded() }

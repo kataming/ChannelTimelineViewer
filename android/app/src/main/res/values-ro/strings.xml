@@ -2,6 +2,7 @@
 <!-- このファイルは scripts/build_android_strings.py が生成します。直接編集しないこと。 -->
 <!-- language: ro -->
 <resources>
+    <string name="about_ads_privacyoptions">Setări de confidențialitate pentru reclame</string>
     <string name="about_analytics_body">Numărăm cât de des este folosit fiecare ecran și fiecare acțiune, cu ajutorul Google Analytics for Firebase. Se trimit doar numele ecranului și tipul acțiunii — niciodată canalele sau videoclipurile pe care le vizionați, notițele dvs. sau adresele URL introduse. Nu se folosește niciun identificator de publicitate. O puteți dezactiva oricând mai jos.</string>
     <string name="about_analytics_header">Măsurarea utilizării (Android)</string>
     <string name="about_analytics_toggle">Permiteți măsurarea utilizării</string>
@@ -24,6 +25,7 @@
     <string name="about_screen_header">Ecranul în timpul redării</string>
     <string name="about_summary">Un însoțitor de vizionare care listează videoclipurile unui canal după data publicării (cele mai vechi primele), ca să puteți parcurge arhive, serii sau cursuri urmărindu-vă progresul. Nu înlocuiește aplicația oficială YouTube.</string>
     <string name="about_title">Despre această aplicație</string>
+    <string name="ads_label">Reclamă</string>
     <string name="api_notconfigured_detail">Setați YOUTUBE_API_KEY în Config.plist. Consultați README pentru modul de configurare.</string>
     <string name="api_notconfigured_title">Cheia API nu este configurată</string>
     <string name="captions_off">Dezactivate</string>

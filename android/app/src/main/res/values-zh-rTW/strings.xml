@@ -2,6 +2,7 @@
 <!-- このファイルは scripts/build_android_strings.py が生成します。直接編集しないこと。 -->
 <!-- language: zh-Hant -->
 <resources>
+    <string name="about_ads_privacyoptions">廣告隱私權設定</string>
     <string name="about_analytics_body">我們使用 Google Analytics for Firebase 統計各畫面與操作的使用頻率。只會傳送畫面名稱與操作類型，絕不會傳送你觀看的頻道或影片、你的筆記或你輸入的網址。不使用廣告識別碼。你可以隨時在下方將其關閉。</string>
     <string name="about_analytics_header">使用情形統計（Android）</string>
     <string name="about_analytics_toggle">允許使用情形統計</string>
@@ -24,6 +25,7 @@
     <string name="about_screen_header">播放時的螢幕</string>
     <string name="about_summary">這是一款觀看輔助 App，會依發布日期（由舊到新）排列頻道上傳的影片，讓你一邊追蹤進度，一邊依序看完過往影片、系列或課程。本 App 並非 YouTube 官方 App 的替代品。</string>
     <string name="about_title">關於此 App</string>
+    <string name="ads_label">廣告</string>
     <string name="api_notconfigured_detail">請在 Config.plist 中設定 YOUTUBE_API_KEY。設定方式請參閱 README。</string>
     <string name="api_notconfigured_title">尚未設定 API 金鑰</string>
     <string name="captions_off">關閉</string>

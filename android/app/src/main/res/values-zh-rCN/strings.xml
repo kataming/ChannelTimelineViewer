@@ -2,6 +2,7 @@
 <!-- このファイルは scripts/build_android_strings.py が生成します。直接編集しないこと。 -->
 <!-- language: zh-Hans -->
 <resources>
+    <string name="about_ads_privacyoptions">广告隐私设置</string>
     <string name="about_analytics_body">我们使用 Google Analytics for Firebase 统计各画面和操作的使用次数。仅发送画面名称和操作类型，不会发送你观看的频道、视频、备忘或输入的网址，也不使用广告标识符。可随时用下方开关关闭。</string>
     <string name="about_analytics_header">使用情况统计（Android 版）</string>
     <string name="about_analytics_toggle">允许统计使用情况</string>
@@ -24,6 +25,7 @@
     <string name="about_screen_header">播放期间的屏幕</string>
     <string name="about_summary">本应用会按发布日期（从旧到新）整理频道的投稿视频，方便你在管理进度的同时观看往期视频、连续剧集或学习内容。它并非 YouTube 官方应用的替代品。</string>
     <string name="about_title">关于本应用</string>
+    <string name="ads_label">广告</string>
     <string name="api_notconfigured_detail">请在 Config.plist 中设置 YOUTUBE_API_KEY。设置方法请参阅 README。</string>
     <string name="api_notconfigured_title">尚未设置 API 密钥</string>
     <string name="captions_off">关闭</string>

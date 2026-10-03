@@ -1,6 +1,8 @@
 /* このファイルは scripts/build_localizations.py が生成します。直接編集しないこと。 */
 /* language: tr */
 
+/* 「このアプリについて」のボタン。広告の同意（UMP）を見直すフォームを開く。同意が要る地域の無料版だけに出る */
+"about.ads.privacyOptions" = "Reklam gizlilik ayarları";
 /* このアプリについて: 自動再生の説明。既定オン・進む先は開いている一覧の次だけ・いつでもオフ・自分で選んだ設定は更新後も引き継ぐ、の4点を必ず含めること */
 "about.autoPlay.body" = "Otomatik oynatma varsayılan olarak açıktır: bir video bittiğinde oynatma, açık olan kanal listesindeki sonraki videoyla devam eder. Yalnızca o listedeki sonraki videoya geçer — asla ilgili veya önerilen videolara geçmez. Oynatıcı ekranındaki “Otomatik oynatma” anahtarıyla istediğiniz zaman kapatabilirsiniz; bu durumda video bittiğinde oynatma durur ve “Sonraki videoyu oynat” düğmesi görünür. Kendi seçiminiz cihazda kaydedilir ve uygulama güncellendiğinde korunur. Arka planda oynatma yoktur; bu yüzden uygulamayı kapatmak hem oynatmayı hem de otomatik oynatmayı durdurur.";
 /* このアプリについて: 自動再生の見出し（既定オン） */
@@ -63,6 +65,8 @@
 "about.summary" = "Bir kanalın yüklemelerini yayın tarihine göre (önce en eski) listeleyen bir izleme yardımcısı; böylece arşivleri, serileri veya kursları ilerlemenizi takip ederek sırayla izleyebilirsiniz. Resmi YouTube uygulamasının yerini tutmaz.";
 /* 画面名: このアプリについて */
 "about.title" = "Bu uygulama hakkında";
+/* 無料版の広告（MREC）の上に付ける表示。本文と広告を見分けるため */
+"ads.label" = "Reklam";
 /* APIキー未設定の説明 */
 "api.notConfigured.detail" = "Config.plist içinde YOUTUBE_API_KEY değerini ayarlayın. Nasıl yapılacağı için README'ye bakın.";
 /* APIキー未設定の見出し */

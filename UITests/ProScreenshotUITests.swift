@@ -47,6 +47,8 @@ final class ProScreenshotUITests: XCTestCase {
         // 「チャンネルの追加方法」の案内は初回だけ自動で開く。撮影では邪魔なので出さない
         // （これが無いと URL 欄が案内に隠れて押せず、撮影が丸ごと失敗する）。
         app.launchArguments += ["-channelTutorialCompleted", "YES"]
+        // 無料版の広告（デバッグはテスト広告）をストアの画像に写さない。
+        app.launchArguments += ["-NoAds", "YES"]
         app.launch()
     }
 

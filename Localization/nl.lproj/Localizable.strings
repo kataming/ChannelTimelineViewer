@@ -1,6 +1,8 @@
 /* このファイルは scripts/build_localizations.py が生成します。直接編集しないこと。 */
 /* language: nl */
 
+/* 「このアプリについて」のボタン。広告の同意（UMP）を見直すフォームを開く。同意が要る地域の無料版だけに出る */
+"about.ads.privacyOptions" = "Privacyinstellingen voor advertenties";
 /* このアプリについて: 自動再生の説明。既定オン・進む先は開いている一覧の次だけ・いつでもオフ・自分で選んだ設定は更新後も引き継ぐ、の4点を必ず含めること */
 "about.autoPlay.body" = "Automatisch afspelen staat standaard aan: als een video afloopt, gaat het afspelen verder met de volgende video in de kanaallijst die je open hebt. Er wordt alleen naar de volgende video in die lijst gegaan — nooit naar gerelateerde of aanbevolen video's. Je kunt het altijd uitzetten met de schakelaar ‘Automatisch afspelen’ op het spelerscherm; het afspelen stopt dan als een video afloopt en de knop ‘Volgende video afspelen’ verschijnt. Je eigen keuze wordt op het apparaat bewaard en blijft behouden als de app wordt bijgewerkt. Er is geen afspelen op de achtergrond, dus als je de app sluit, stoppen zowel het afspelen als het automatisch afspelen.";
 /* このアプリについて: 自動再生の見出し（既定オン） */
@@ -63,6 +65,8 @@
 "about.summary" = "Een kijkhulp die de uploads van een kanaal op publicatiedatum (oudste eerst) toont, zodat je archieven, series of cursussen kunt doorwerken en je voortgang bijhoudt. De app is geen vervanging voor de officiële YouTube-app.";
 /* 画面名: このアプリについて */
 "about.title" = "Over deze app";
+/* 無料版の広告（MREC）の上に付ける表示。本文と広告を見分けるため */
+"ads.label" = "Advertentie";
 /* APIキー未設定の説明 */
 "api.notConfigured.detail" = "Stel YOUTUBE_API_KEY in Config.plist in. Zie de README voor de instructies.";
 /* APIキー未設定の見出し */

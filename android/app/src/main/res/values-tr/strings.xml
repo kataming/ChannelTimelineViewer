@@ -2,6 +2,7 @@
 <!-- このファイルは scripts/build_android_strings.py が生成します。直接編集しないこと。 -->
 <!-- language: tr -->
 <resources>
+    <string name="about_ads_privacyoptions">Reklam gizlilik ayarları</string>
     <string name="about_analytics_body">Google Analytics for Firebase ile her ekranın ve işlemin ne sıklıkla kullanıldığını sayarız. Yalnızca ekran adı ve işlem türü gönderilir — izlediğiniz kanallar veya videolar, notlarınız ya da girdiğiniz URL\'ler asla gönderilmez. Reklam kimliği kullanılmaz. Bunu istediğiniz zaman aşağıdan kapatabilirsiniz.</string>
     <string name="about_analytics_header">Kullanım ölçümü (Android)</string>
     <string name="about_analytics_toggle">Kullanım ölçümüne izin ver</string>
@@ -24,6 +25,7 @@
     <string name="about_screen_header">Oynatma sırasında ekran</string>
     <string name="about_summary">Bir kanalın yüklemelerini yayın tarihine göre (önce en eski) listeleyen bir izleme yardımcısı; böylece arşivleri, serileri veya kursları ilerlemenizi takip ederek sırayla izleyebilirsiniz. Resmi YouTube uygulamasının yerini tutmaz.</string>
     <string name="about_title">Bu uygulama hakkında</string>
+    <string name="ads_label">Reklam</string>
     <string name="api_notconfigured_detail">Config.plist içinde YOUTUBE_API_KEY değerini ayarlayın. Nasıl yapılacağı için README\'ye bakın.</string>
     <string name="api_notconfigured_title">API anahtarı yapılandırılmamış</string>
     <string name="captions_off">Kapalı</string>

@@ -84,6 +84,8 @@ fun VideoListScreen(
     skipStore: SkippedVideoStore,
     onBack: () -> Unit,
     onOpenVideo: (List<VideoItem>, Int) -> Unit,
+    /** 画面下に固定する部品（無料版のバナー広告）。何も出さないときは空。 */
+    bottomBar: @Composable () -> Unit = {},
 ) {
     val videos by viewModel.videos.collectAsStateWithLifecycle()
     val isLoading by viewModel.isLoading.collectAsStateWithLifecycle()
@@ -121,6 +123,7 @@ fun VideoListScreen(
     var menuOpen by remember { mutableStateOf(false) }
 
     Scaffold(
+        bottomBar = bottomBar,
         topBar = {
             TopAppBar(
                 title = {

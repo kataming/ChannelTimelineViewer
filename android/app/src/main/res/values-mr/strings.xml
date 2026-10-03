@@ -2,6 +2,7 @@
 <!-- このファイルは scripts/build_android_strings.py が生成します。直接編集しないこと。 -->
 <!-- language: mr -->
 <resources>
+    <string name="about_ads_privacyoptions">जाहिरात गोपनीयता सेटिंग्ज</string>
     <string name="about_analytics_body">प्रत्येक स्क्रीन आणि क्रिया किती वेळा वापरली जाते हे आम्ही Google Analytics for Firebase ने मोजतो. फक्त स्क्रीनचे नाव आणि क्रियेचा प्रकार पाठवला जातो — तुम्ही पाहत असलेले चॅनेल किंवा व्हिडिओ, तुमच्या नोट्स किंवा तुम्ही टाकलेले URL कधीही नाहीत. कोणताही जाहिरात ओळखकर्ता वापरला जात नाही. तुम्ही हे खाली कधीही बंद करू शकता.</string>
     <string name="about_analytics_header">वापर मोजमाप (Android)</string>
     <string name="about_analytics_toggle">वापर मोजमापाला परवानगी द्या</string>
@@ -24,6 +25,7 @@
     <string name="about_screen_header">प्लेबॅकदरम्यान स्क्रीन</string>
     <string name="about_summary">पाहण्यासाठी एक सहाय्यक ॲप, जे चॅनेलचे अपलोड प्रकाशन तारखेनुसार (सर्वात जुने आधी) दाखवते, जेणेकरून तुम्ही तुमची प्रगती ट्रॅक करत जुने व्हिडिओ, मालिका किंवा कोर्स पूर्ण करू शकता. हे अधिकृत YouTube ॲपचा पर्याय नाही.</string>
     <string name="about_title">या ॲपबद्दल</string>
+    <string name="ads_label">जाहिरात</string>
     <string name="api_notconfigured_detail">Config.plist मध्ये YOUTUBE_API_KEY सेट करा. ते कसे सेट करायचे ते README मध्ये पहा.</string>
     <string name="api_notconfigured_title">API की सेट केलेली नाही</string>
     <string name="captions_off">बंद</string>

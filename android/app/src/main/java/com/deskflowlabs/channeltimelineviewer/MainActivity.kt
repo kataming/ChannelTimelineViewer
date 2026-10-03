@@ -21,8 +21,14 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.deskflowlabs.channeltimelineviewer.ads.AnchorAdaptiveBanner
+import com.deskflowlabs.channeltimelineviewer.ads.MrecAdSlot
+import com.deskflowlabs.channeltimelineviewer.ads.rememberMrecAd
 import com.deskflowlabs.channeltimelineviewer.analytics.Analytics
 import com.deskflowlabs.channeltimelineviewer.model.Channel
 import com.deskflowlabs.channeltimelineviewer.model.VideoItem
@@ -40,6 +46,7 @@ import com.deskflowlabs.channeltimelineviewer.viewmodel.ChannelInputViewModel
 import com.deskflowlabs.channeltimelineviewer.viewmodel.PlayerViewModel
 import com.deskflowlabs.channeltimelineviewer.viewmodel.VideoListViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 import java.util.Locale
 
 /**
@@ -72,6 +79,26 @@ class MainActivity : ComponentActivity() {
         // 初回起動で自動的に前に出るため、これが無いと入力欄が隠れて撮影が失敗する
         // （iOS 側で実際に起きた。--ez skipTutorial true で止める）。
         val skipTutorial = BuildConfig.DEBUG && intent?.getBooleanExtra("skipTutorial", false) == true
+        //   --ez adsEea true      … 広告の同意フォームを EEA の扱いで試す（エミュレーターのみ有効）
+        //   --ez adsResetConsent true … 広告の同意をやり直す
+        val adsEea = BuildConfig.DEBUG && intent?.getBooleanExtra("adsEea", false) == true
+        val adsResetConsent = BuildConfig.DEBUG && intent?.getBooleanExtra("adsResetConsent", false) == true
+        //   --ez noAds true       … 広告を出さない（ストア用スクリーンショットにテスト広告を写さないため）
+        val noAds = BuildConfig.DEBUG && intent?.getBooleanExtra("noAds", false) == true
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                container.proEntitlement.isPro.collect { isPro ->
+                    // 無料／Pro の区分だけを属性として残す（広告収益・継続率を区分ごとに見るため）。
+                    container.analytics.setUserProperty(
+                        Analytics.UserProperty.PRO_STATUS,
+                        Analytics.ProStatus.of(isPro),
+                    )
+                    // 広告の準備（同意 → 初期化）。Pro のあいだは何もしない。
+                    if (!isPro && !noAds) container.ads.prepare(this@MainActivity, adsEea, adsResetConsent)
+                }
+            }
+        }
 
         setContent {
             WithLocale(localeTag) {
@@ -80,7 +107,12 @@ class MainActivity : ComponentActivity() {
                         if (previewName == "badge") {
                             BadgePreviewScreen()
                         } else {
-                            AppRoot(container, sharedUrl, skipTutorial)
+                            AppRoot(
+                                container,
+                                sharedUrl,
+                                skipTutorial,
+                                openAdsPrivacyOptions = { container.ads.showPrivacyOptions(this) },
+                            )
                         }
                     }
                 }
@@ -156,6 +188,9 @@ private fun AppRoot(
     container: AppContainer,
     sharedUrl: MutableStateFlow<String?>,
     skipTutorial: Boolean = false,
+    // Activity が要る（同意フォームは Activity の上に出す）ので、MainActivity から渡す。
+    // LocalContext はデバッグの言語切り替えで Activity 以外に差し替わることがあるため使わない。
+    openAdsPrivacyOptions: () -> Unit = {},
 ) {
     var screen by remember { mutableStateOf<Screen>(Screen.Input) }
     var showOptions by remember { mutableStateOf(false) }
@@ -263,11 +298,17 @@ private fun AppRoot(
             onOpenAbout = { screen = Screen.About },
             onOpenPro = { screen = Screen.Pro },
             onOpenFavorite = { favorite -> inputViewModel.open(favorite) },
+            // MREC は保存チャンネルの一覧の下にだけ置く（docs/admob-ads.md）。
+            // 1件も保存していない人（初回）には読み込みもしない。
+            mrecSlot = (if (savedChannels.isNotEmpty()) rememberMrecAd(container.ads) else null)
+                ?.let { adView -> @Composable { MrecAdSlot(adView) } },
         )
 
         is Screen.About -> AboutScreen(
             analyticsEnabled = container.analyticsSettings.isEnabled,
             onAnalyticsEnabledChange = container::setAnalyticsEnabled,
+            adsPrivacyOptionsRequired = container.ads.privacyOptionsRequired,
+            onOpenAdsPrivacyOptions = openAdsPrivacyOptions,
             onShowTutorial = {
                 tutorialSource = Analytics.Source.MANUAL
                 tutorialShown = true
@@ -375,6 +416,8 @@ private fun VideoListRoute(
         skipStore = container.skipStore,
         onBack = onBack,
         onOpenVideo = onOpenVideo,
+        // 動画一覧の下に固定するバナー。再生画面には置かない（プレイヤーや操作に重ねない）。
+        bottomBar = { AnchorAdaptiveBanner(container.ads) },
     )
 }
 

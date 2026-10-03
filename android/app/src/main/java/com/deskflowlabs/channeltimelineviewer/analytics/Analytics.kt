@@ -26,11 +26,34 @@ interface Analytics {
     /** 出来事。名前は [Event]、引数の名前は [Param] を使う。 */
     fun log(event: String, vararg params: Pair<String, Any>)
 
+    /**
+     * ユーザー属性。名前は [UserProperty] を使う。値は区分（free / pro など）だけにする。
+     * 既定は何もしない（テスト用の偽物が実装しなくて済むように）。
+     */
+    fun setUserProperty(name: String, value: String) = Unit
+
     /** 何もしない実装。設定ファイルが無いビルドとテストで使う。 */
     object Noop : Analytics {
         override fun setCollectionEnabled(enabled: Boolean) = Unit
         override fun logScreen(screenName: String) = Unit
         override fun log(event: String, vararg params: Pair<String, Any>) = Unit
+    }
+
+    /**
+     * ユーザー属性の名前（24文字以内・英小文字と数字と _）。
+     *
+     * 広告の収益（AdMob と Firebase を連携すると自動で記録される `ad_impression`）や継続率を
+     * 無料／Pro で分けて見るために使う。値は [ProStatus] の2つだけ。
+     */
+    object UserProperty {
+        const val PRO_STATUS = "pro_status"
+    }
+
+    object ProStatus {
+        const val FREE = "free"
+        const val PRO = "pro"
+
+        fun of(isPro: Boolean): String = if (isPro) PRO else FREE
     }
 
     /** 画面の名前。Firebase の `screen_view` に渡す。 */

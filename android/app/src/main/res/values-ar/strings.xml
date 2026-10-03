@@ -2,6 +2,7 @@
 <!-- このファイルは scripts/build_android_strings.py が生成します。直接編集しないこと。 -->
 <!-- language: ar -->
 <resources>
+    <string name="about_ads_privacyoptions">إعدادات خصوصية الإعلانات</string>
     <string name="about_analytics_body">نحسب عدد مرات استخدام كل شاشة وكل إجراء باستخدام Google Analytics for Firebase. يتم إرسال اسم الشاشة ونوع الإجراء فقط، ولا يتم أبدًا إرسال القنوات أو الفيديوهات التي تشاهدها أو ملاحظاتك أو عناوين URL التي تُدخلها. لا يُستخدم معرّف الإعلانات. يمكنك إيقافه أدناه في أي وقت.</string>
     <string name="about_analytics_header">قياس الاستخدام (Android)</string>
     <string name="about_analytics_toggle">السماح بقياس الاستخدام</string>
@@ -24,6 +25,7 @@
     <string name="about_screen_header">الشاشة أثناء التشغيل</string>
     <string name="about_summary">أداة مساعدة للمشاهدة تعرض فيديوهات القناة حسب تاريخ النشر (الأقدم أولًا) لتتمكن من متابعة الأرشيف أو السلاسل أو الدورات مع تتبع تقدمك. وهو ليس بديلًا عن تطبيق YouTube الرسمي.</string>
     <string name="about_title">حول هذا التطبيق</string>
+    <string name="ads_label">إعلان</string>
     <string name="api_notconfigured_detail">اضبط YOUTUBE_API_KEY في Config.plist. راجع ملف README لمعرفة طريقة الإعداد.</string>
     <string name="api_notconfigured_title">لم يتم إعداد مفتاح API</string>
     <string name="captions_off">إيقاف</string>

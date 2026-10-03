@@ -1,6 +1,8 @@
 /* このファイルは scripts/build_localizations.py が生成します。直接編集しないこと。 */
 /* language: zu */
 
+/* 「このアプリについて」のボタン。広告の同意（UMP）を見直すフォームを開く。同意が要る地域の無料版だけに出る */
+"about.ads.privacyOptions" = "Izilungiselelo zobumfihlo bezikhangiso";
 /* このアプリについて: 自動再生の説明。既定オン・進む先は開いている一覧の次だけ・いつでもオフ・自分で選んだ設定は更新後も引き継ぐ、の4点を必ず含めること */
 "about.autoPlay.body" = "Ukudlala okuzenzakalelayo kuvuliwe ngokuzenzakalelayo: uma ividiyo iphela, ukudlala kuqhubekela kuvidiyo elandelayo ohlwini lwesiteshi olivulile. Kudlulela kuphela kuvidiyo elandelayo kulolo hlu — hhayi neze kumavidiyo ahlobene noma anconywayo. Ungakuvala noma nini ngenkinobho yokushintsha ethi “Ukudlala okuzenzakalelayo” esikrinini sesidlali; bese ukudlala kuyama uma ividiyo iphela futhi kuvele inkinobho ethi “Dlala ividiyo elandelayo”. Ukukhetha kwakho kulondolozwa kudivayisi futhi kugcinwa uma i-app ibuyekezwa. Akukho ukudlala ngemuva, ngakho ukuvala i-app kumisa kokubili ukudlala nokudlala okuzenzakalelayo.";
 /* このアプリについて: 自動再生の見出し（既定オン） */
@@ -63,6 +65,8 @@
 "about.summary" = "Umsizi wokubuka obonisa amavidiyo esiteshi ngokosuku lokushicilelwa (okudala kuqala) ukuze ukwazi ukuqeda ingobo yomlando, uchungechunge, noma izifundo ngenkathi ulandelela inqubekelaphambili yakho. Akuyona into ethatha indawo ye-app esemthethweni ye-YouTube.";
 /* 画面名: このアプリについて */
 "about.title" = "Mayelana nale app";
+/* 無料版の広告（MREC）の上に付ける表示。本文と広告を見分けるため */
+"ads.label" = "Isikhangiso";
 /* APIキー未設定の説明 */
 "api.notConfigured.detail" = "Setha i-YOUTUBE_API_KEY ku-Config.plist. Bheka i-README ukuze ubone ukuthi uyisetha kanjani.";
 /* APIキー未設定の見出し */

@@ -93,12 +93,11 @@ targets:
         INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
         INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait
         INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
-        # Google AdMob の ID（App/Info.plist に入る）。**秘密情報ではない**（アプリに入って誰でも読める）。
-        # 本番の ID ができたら、ここの3つを書き換える。広告ユニットが空のリリースは広告を出さない。
-        # アプリ ID は空だと SDK が起動時に落ちるので、未設定のあいだは Google 公式のテスト用 ID を置く。
-        ADMOB_APP_ID: "ca-app-pub-3940256099942544~1458002511"
-        ADMOB_BANNER_UNIT_ID: ""
-        ADMOB_MREC_UNIT_ID: ""
+        # Google AdMob の本番 ID（App/Info.plist に入る）。**秘密情報ではない**（アプリに入って誰でも読める）。
+        # 2026-10-03 に作成。デバッグは下の configs でテスト用アプリ ID、広告ユニットも AdsConfig がテスト用に固定する。
+        ADMOB_APP_ID: "ca-app-pub-8473234147163541~1733818213"
+        ADMOB_BANNER_UNIT_ID: "ca-app-pub-8473234147163541/5972446128"
+        ADMOB_MREC_UNIT_ID: "ca-app-pub-8473234147163541/5289919841"
       configs:
         # 開発中は本番 ID を書いてもテスト用のアプリ ID を使う（広告ユニットも AdsConfig がテスト用に固定する）。
         Debug:

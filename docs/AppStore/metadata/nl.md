@@ -86,9 +86,9 @@ YouTube is een handelsmerk van Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 200 / 4000 文字 -->
+<!-- 202 / 4000 文字 -->
 
 ```
-• Zoeken binnen een kanaal: tik op het vergrootglas in de videolijst om video's op titel te filteren. Je sortering en bekeken-markeringen blijven zoals ze zijn.
-• De app is nu beschikbaar in 35 talen.
+• De gratis versie toont nu advertenties, alleen onderaan de videolijst en onder je opgeslagen kanaal op het eerste scherm. Nooit op het afspeelscherm.
+• Pro (eenmalige aankoop) heeft geen advertenties.
 ```

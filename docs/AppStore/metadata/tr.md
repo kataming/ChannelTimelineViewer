@@ -86,9 +86,9 @@ YouTube, Google LLC'nin ticari markasıdır.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 201 / 4000 文字 -->
+<!-- 206 / 4000 文字 -->
 
 ```
-• Kanal içinde arama: videoları başlığa göre daraltmak için video listesindeki büyütece dokunun. Sıralama düzeniniz ve izlendi işaretleriniz olduğu gibi kalır.
-• Uygulama artık 35 dilde kullanılabilir.
+• Ücretsiz sürümde artık reklam gösteriliyor; yalnızca video listesinin altında ve ilk ekranda kayıtlı kanalınızın altında. Oynatıcı ekranında asla gösterilmez.
+• Pro (tek seferlik satın alma) reklamsızdır.
 ```

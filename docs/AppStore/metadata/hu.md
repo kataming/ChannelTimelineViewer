@@ -86,9 +86,9 @@ A YouTube a Google LLC védjegye.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 208 / 4000 文字 -->
+<!-- 201 / 4000 文字 -->
 
 ```
-• Keresés a csatornán belül: koppints a nagyítóra a videólistán, és szűkítsd a videókat cím szerint. A rendezés és a megnézett jelölések változatlanok maradnak.
-• Az alkalmazás mostantól 35 nyelven érhető el.
+• Az ingyenes verzió mostantól hirdetéseket jelenít meg – csak a videólista alján és az első képernyőn a mentett csatorna alatt. A lejátszási képernyőn soha.
+• A Pro (egyszeri vásárlás) hirdetésmentes.
 ```

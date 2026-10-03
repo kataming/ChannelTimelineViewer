@@ -86,9 +86,9 @@ YouTube este o marcă comercială a Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 219 / 4000 文字 -->
+<!-- 208 / 4000 文字 -->
 
 ```
-• Căutare în canal: atingeți lupa din lista de videoclipuri pentru a restrânge videoclipurile după titlu. Ordinea de sortare și marcajele de vizionare rămân neschimbate.
-• Aplicația este acum disponibilă în 35 de limbi.
+• Versiunea gratuită afișează acum reclame — doar în partea de jos a listei de videoclipuri și sub canalul salvat de pe primul ecran. Niciodată pe ecranul de redare.
+• Pro (achiziție unică) este fără reclame.
 ```

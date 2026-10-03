@@ -86,9 +86,9 @@ YouTube är ett varumärke som tillhör Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 188 / 4000 文字 -->
+<!-- 180 / 4000 文字 -->
 
 ```
-• Sök inom en kanal: tryck på förstoringsglaset i videolistan för att filtrera videor efter titel. Din sortering och dina sedda-markeringar förblir som de är.
-• Appen finns nu på 35 språk.
+• Gratisversionen visar nu annonser – bara längst ned i videolistan och under din sparade kanal på första skärmen. Aldrig på uppspelningsskärmen.
+• Pro (engångsköp) är reklamfritt.
 ```

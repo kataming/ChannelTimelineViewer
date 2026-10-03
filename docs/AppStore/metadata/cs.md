@@ -86,9 +86,9 @@ YouTube je ochranná známka společnosti Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 172 / 4000 文字 -->
+<!-- 205 / 4000 文字 -->
 
 ```
-• Hledání v kanálu: klepnutím na lupu v seznamu videí zúžíte videa podle názvu. Řazení a značky zhlédnutí zůstanou beze změny.
-• Aplikace je nyní k dispozici v 35 jazycích.
+• Bezplatná verze nyní zobrazuje reklamy – jen dole v seznamu videí a pod uloženým kanálem na první obrazovce. Na obrazovce přehrávání se reklamy nikdy nezobrazují.
+• Pro (jednorázový nákup) je bez reklam.
 ```

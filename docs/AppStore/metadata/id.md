@@ -86,9 +86,9 @@ YouTube adalah merek dagang Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 202 / 4000 文字 -->
+<!-- 213 / 4000 文字 -->
 
 ```
-• Cari di dalam channel: ketuk ikon kaca pembesar di daftar video untuk menyaring video berdasarkan judul. Urutan dan tanda sudah ditonton tetap seperti semula.
-• Aplikasi kini tersedia dalam 35 bahasa.
+• Versi gratis kini menampilkan iklan — hanya di bagian bawah daftar video dan di bawah channel tersimpan pada layar pertama. Iklan tidak pernah muncul di layar pemutar.
+• Pro (pembelian sekali bayar) tanpa iklan.
 ```

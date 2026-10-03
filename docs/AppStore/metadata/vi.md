@@ -86,9 +86,9 @@ YouTube là nhãn hiệu của Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 183 / 4000 文字 -->
+<!-- 201 / 4000 文字 -->
 
 ```
-• Tìm kiếm trong kênh: nhấn vào biểu tượng kính lúp trên danh sách video để lọc video theo tiêu đề. Thứ tự sắp xếp và dấu đã xem vẫn giữ nguyên.
-• Ứng dụng hiện đã hỗ trợ 35 ngôn ngữ.
+• Phiên bản miễn phí giờ có hiển thị quảng cáo — chỉ ở cuối danh sách video và bên dưới kênh đã lưu ở màn hình đầu tiên. Không bao giờ xuất hiện ở màn hình phát.
+• Pro (mua một lần) không có quảng cáo.
 ```

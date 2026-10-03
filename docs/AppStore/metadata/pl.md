@@ -86,9 +86,9 @@ YouTube jest znakiem towarowym firmy Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 198 / 4000 文字 -->
+<!-- 190 / 4000 文字 -->
 
 ```
-• Wyszukiwanie w kanale: stuknij lupę na liście filmów, aby zawęzić filmy po tytule. Kolejność sortowania i oznaczenia obejrzanych pozostają bez zmian.
-• Aplikacja jest teraz dostępna w 35 językach.
+• Wersja bezpłatna wyświetla teraz reklamy – tylko na dole listy filmów i pod zapisanym kanałem na pierwszym ekranie. Nigdy na ekranie odtwarzania.
+• Pro (jednorazowy zakup) jest bez reklam.
 ```

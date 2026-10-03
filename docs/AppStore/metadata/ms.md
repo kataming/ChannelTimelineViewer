@@ -86,9 +86,9 @@ YouTube ialah tanda dagangan Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 195 / 4000 文字 -->
+<!-- 218 / 4000 文字 -->
 
 ```
-• Carian dalam saluran: ketik ikon kanta pembesar pada senarai video untuk menapis video mengikut tajuk. Susunan dan tanda sudah ditonton kekal seperti biasa.
-• Apl kini tersedia dalam 35 bahasa.
+• Versi percuma kini memaparkan iklan — hanya di bahagian bawah senarai video dan di bawah saluran tersimpan pada skrin pertama. Iklan tidak pernah muncul pada skrin pemain.
+• Pro (pembelian sekali sahaja) tanpa iklan.
 ```

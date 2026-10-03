@@ -86,9 +86,9 @@ YouTube is a trademark of Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 192 / 4000 文字 -->
+<!-- 198 / 4000 文字 -->
 
 ```
-• Search within a channel: tap the magnifying glass on the video list to narrow videos by title. Your sort order and watched marks stay as they are.
-• The app is now available in 35 languages.
+• The free version now shows ads — only at the bottom of the video list and below your saved channel on the first screen. Ads never appear on the player screen.
+• Pro (one-time purchase) has no ads.
 ```

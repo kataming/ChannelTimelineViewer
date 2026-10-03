@@ -86,9 +86,9 @@ YouTube est une marque de Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 199 / 4000 文字 -->
+<!-- 223 / 4000 文字 -->
 
 ```
-• Recherche dans la chaîne : touchez la loupe dans la liste des vidéos pour les filtrer par titre. L’ordre de tri et les marques « vu » sont conservés.
-• L’app est désormais disponible en 35 langues.
+• La version gratuite affiche désormais des publicités, uniquement en bas de la liste des vidéos et sous votre chaîne enregistrée sur le premier écran. Jamais sur l’écran de lecture.
+• Pro (achat unique) est sans publicité.
 ```

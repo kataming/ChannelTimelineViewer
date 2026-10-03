@@ -22,7 +22,7 @@ YouTube kanallarını sırayla izleyin; ilerleme takibi ve kaldığı yerden dev
 ```
 
 ## 詳しい説明（Full description）
-<!-- 2908 / 4000 文字 -->
+<!-- 2810 / 4000 文字 -->
 
 ```
 Channel Timeline Viewer, YouTube kanallarını baştan itibaren, kaldığınız yeri kaybetmeden izlemenize yardımcı olur.
@@ -34,7 +34,6 @@ KİMLER İÇİN
 • Bir kanalın eski videolarını yetiştirmek isteyen herkes
 • Nereye kadar izlediğini tam olarak bilmek isteyen izleyiciler
 • İzleyicilerinin eski videolarını sırayla izlemesini isteyen kanal sahipleri
-• Seçtikleri tek bir kanalın içinde kalmanın daha basit bir yolunu arayan küçük çocuk ebeveynleri
 
 ANA ÖZELLİKLER
 • Bir kanal URL'si yapıştırın veya YouTube uygulamasından ya da bir tarayıcıdan bir video veya kanal paylaşın

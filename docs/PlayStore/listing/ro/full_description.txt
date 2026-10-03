@@ -7,7 +7,6 @@ CUI SE ADRESEAZĂ
 • Oricui vrea să recupereze videoclipurile mai vechi ale unui canal
 • Spectatorilor care vor să știe exact până unde au ajuns
 • Administratorilor de canale care vor ca spectatorii să le parcurgă în ordine videoclipurile mai vechi
-• Părinților de copii mici care vor o modalitate mai simplă de a rămâne într-un singur canal ales
 
 FUNCȚII PRINCIPALE
 • Lipiți URL-ul unui canal sau partajați un videoclip ori un canal din aplicația YouTube sau dintr-un browser

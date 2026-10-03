@@ -22,7 +22,7 @@ Kanály YouTube popořadě: přehled o průběhu a pokračování, kde jste skon
 ```
 
 ## 詳しい説明（Full description）
-<!-- 2941 / 4000 文字 -->
+<!-- 2856 / 4000 文字 -->
 
 ```
 Channel Timeline Viewer vám pomůže sledovat kanály YouTube od začátku, aniž byste ztratili přehled, kde jste skončili.
@@ -34,7 +34,6 @@ PRO KOHO JE URČENA
 • Pro každého, kdo dohání starší tvorbu kanálu
 • Pro diváky, kteří chtějí přesně vědět, kam až se dostali
 • Pro provozovatele kanálů, kteří chtějí, aby diváci procházeli jejich starší videa popořadě
-• Pro rodiče malých dětí, kteří chtějí jednodušeji zůstat u jednoho vybraného kanálu
 
 HLAVNÍ FUNKCE
 • Vložte URL kanálu nebo sdílejte video či kanál z aplikace YouTube nebo z prohlížeče

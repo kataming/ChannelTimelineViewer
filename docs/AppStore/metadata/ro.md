@@ -37,7 +37,7 @@ cronologic,cele mai vechi,canal,progres,serial,curs,studiu,arhivă,urmărire,mar
 ```
 
 ## 説明（Description）
-<!-- 2956 / 4000 文字 -->
+<!-- 2858 / 4000 文字 -->
 
 ```
 Channel Timeline Viewer vă ajută să urmăriți canale YouTube de la început, fără să pierdeți locul unde ați rămas.
@@ -49,7 +49,6 @@ CUI SE ADRESEAZĂ
 • Oricui vrea să recupereze videoclipurile mai vechi ale unui canal
 • Spectatorilor care vor să știe exact până unde au ajuns
 • Administratorilor de canale care vor ca spectatorii să le parcurgă în ordine videoclipurile mai vechi
-• Părinților de copii mici care vor o modalitate mai simplă de a rămâne într-un singur canal ales
 
 FUNCȚII PRINCIPALE
 • Lipiți URL-ul unui canal sau partajați un videoclip ori un canal din aplicația YouTube sau din Safari

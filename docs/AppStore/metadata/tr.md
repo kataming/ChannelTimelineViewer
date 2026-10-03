@@ -37,7 +37,7 @@ kronolojik,en eski,kanal,ilerleme,seri,kurs,ders,arşiv,izleme takibi,maraton,za
 ```
 
 ## 説明（Description）
-<!-- 2802 / 4000 文字 -->
+<!-- 2704 / 4000 文字 -->
 
 ```
 Channel Timeline Viewer, YouTube kanallarını baştan itibaren, kaldığınız yeri kaybetmeden izlemenize yardımcı olur.
@@ -49,7 +49,6 @@ KİMLER İÇİN
 • Bir kanalın eski videolarını yetiştirmek isteyen herkes
 • Nereye kadar izlediğini tam olarak bilmek isteyen izleyiciler
 • İzleyicilerinin eski videolarını sırayla izlemesini isteyen kanal sahipleri
-• Seçtikleri tek bir kanalın içinde kalmanın daha basit bir yolunu arayan küçük çocuk ebeveynleri
 
 ANA ÖZELLİKLER
 • Bir kanal URL'si yapıştırın veya YouTube uygulamasından ya da Safari'den bir video veya kanal paylaşın

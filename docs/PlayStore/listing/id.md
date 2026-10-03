@@ -22,7 +22,7 @@ Tonton channel YouTube berurutan, pantau progres, lanjut dari posisi terakhir.
 ```
 
 ## 詳しい説明（Full description）
-<!-- 3016 / 4000 文字 -->
+<!-- 2911 / 4000 文字 -->
 
 ```
 Channel Timeline Viewer membantu Anda menonton channel YouTube dari awal tanpa lupa sampai mana terakhir menonton.
@@ -34,7 +34,6 @@ COCOK UNTUK
 • Siapa saja yang ingin mengejar video-video lama sebuah channel
 • Penonton yang ingin tahu persis sampai mana mereka menonton
 • Pengelola channel yang ingin penonton menyimak video lamanya secara berurutan
-• Orang tua dengan anak kecil yang ingin cara lebih sederhana untuk tetap berada di satu channel pilihan
 
 FITUR UTAMA
 • Tempel URL channel, atau bagikan video maupun channel dari aplikasi YouTube atau browser

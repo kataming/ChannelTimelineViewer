@@ -22,7 +22,7 @@ Xem kênh YouTube theo thứ tự, theo dõi tiến độ và xem tiếp từ ch
 ```
 
 ## 詳しい説明（Full description）
-<!-- 2776 / 4000 文字 -->
+<!-- 2695 / 4000 文字 -->
 
 ```
 Channel Timeline Viewer giúp bạn xem các kênh YouTube từ đầu mà không bị quên mình đang xem đến đâu.
@@ -34,7 +34,6 @@ DÀNH CHO AI
 • Bất kỳ ai muốn xem bù các video cũ của một kênh
 • Người xem muốn biết chính xác mình đã xem đến đâu
 • Người vận hành kênh muốn người xem lần lượt xem các video cũ theo thứ tự
-• Cha mẹ có con nhỏ muốn một cách đơn giản hơn để chỉ xem trong một kênh đã chọn
 
 TÍNH NĂNG CHÍNH
 • Dán URL kênh, hoặc chia sẻ video hay kênh từ ứng dụng YouTube hoặc trình duyệt

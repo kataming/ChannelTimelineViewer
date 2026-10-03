@@ -22,7 +22,7 @@ Oglądaj kanały YouTube po kolei, śledź postęp i wznawiaj tam, gdzie przerwa
 ```
 
 ## 詳しい説明（Full description）
-<!-- 2937 / 4000 文字 -->
+<!-- 2842 / 4000 文字 -->
 
 ```
 Channel Timeline Viewer pomaga oglądać kanały YouTube od samego początku, nie tracąc z oczu miejsca, w którym jesteś.
@@ -34,7 +34,6 @@ DLA KOGO
 • Dla każdego, kto nadrabia starsze filmy kanału
 • Dla widzów, którzy chcą dokładnie wiedzieć, ile już obejrzeli
 • Dla twórców kanałów, którzy chcą, by widzowie oglądali ich starsze filmy po kolei
-• Dla rodziców małych dzieci, którzy chcą w prosty sposób pozostać przy jednym wybranym kanale
 
 GŁÓWNE FUNKCJE
 • Wklej adres URL kanału lub udostępnij film albo kanał z aplikacji YouTube lub z przeglądarki

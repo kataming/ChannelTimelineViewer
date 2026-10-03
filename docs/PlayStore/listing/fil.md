@@ -22,7 +22,7 @@ Panoorin nang sunod-sunod ang YouTube channels, i-track ang progreso at ituloy.
 ```
 
 ## 詳しい説明（Full description）
-<!-- 3212 / 4000 文字 -->
+<!-- 3104 / 4000 文字 -->
 
 ```
 Tinutulungan ka ng Channel Timeline Viewer na panoorin ang mga YouTube channel mula sa simula nang hindi nawawala kung nasaan ka na.
@@ -34,7 +34,6 @@ PARA KANINO ITO
 • Sinumang humahabol sa mga lumang video ng isang channel
 • Mga manonood na gustong malaman kung hanggang saan na sila nakapanood
 • Mga may-ari ng channel na gustong mapanood ng viewers ang mga luma nilang upload nang sunod-sunod
-• Mga magulang ng maliliit na bata na gusto ng mas simpleng paraan para manatili sa iisang napiling channel
 
 MGA PANGUNAHING FEATURE
 • Mag-paste ng URL ng channel, o mag-share ng video o channel mula sa YouTube app o sa isang browser

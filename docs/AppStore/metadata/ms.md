@@ -37,7 +37,7 @@ terlama,kronologi,urutan,saluran,kemajuan,siri,kursus,belajar,arkib,penjejak ton
 ```
 
 ## 説明（Description）
-<!-- 2914 / 4000 文字 -->
+<!-- 2816 / 4000 文字 -->
 
 ```
 Channel Timeline Viewer membantu anda menonton saluran YouTube dari awal tanpa terlupa di mana anda berhenti.
@@ -49,7 +49,6 @@ UNTUK SIAPA
 • Sesiapa yang ingin mengejar video lama sesebuah saluran
 • Penonton yang ingin tahu dengan tepat sejauh mana mereka sudah menonton
 • Pengendali saluran yang mahu penonton menonton video lama mereka mengikut urutan
-• Ibu bapa kanak-kanak kecil yang mahukan cara lebih mudah untuk kekal dalam satu saluran pilihan
 
 CIRI UTAMA
 • Tampal URL saluran, atau kongsi video atau saluran daripada apl YouTube atau Safari

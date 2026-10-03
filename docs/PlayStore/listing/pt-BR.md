@@ -22,7 +22,7 @@ Veja canais do YouTube em ordem, acompanhe o progresso e continue de onde parou
 ```
 
 ## 詳しい説明（Full description）
-<!-- 3036 / 4000 文字 -->
+<!-- 2931 / 4000 文字 -->
 
 ```
 Channel Timeline Viewer ajuda você a assistir a canais do YouTube desde o início sem perder o ponto onde parou.
@@ -34,7 +34,6 @@ PARA QUEM É
 • Quem quer colocar em dia os vídeos antigos de um canal
 • Quem quer saber exatamente até onde já assistiu
 • Donos de canais que querem que o público assista aos vídeos antigos em ordem
-• Pais de crianças pequenas que querem um jeito mais simples de ficar dentro de um único canal escolhido
 
 PRINCIPAIS RECURSOS
 • Cole a URL de um canal ou compartilhe um vídeo ou canal pelo app do YouTube ou por um navegador

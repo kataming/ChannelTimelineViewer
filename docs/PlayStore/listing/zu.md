@@ -22,7 +22,7 @@ Buka iziteshi ze-YouTube ngokulandelana, ulandelele uqhubeke lapho ume khona.
 ```
 
 ## 詳しい説明（Full description）
-<!-- 3312 / 4000 文字 -->
+<!-- 3219 / 4000 文字 -->
 
 ```
 I-Channel Timeline Viewer ikusiza ukuthi ubuke iziteshi ze-YouTube kusukela ekuqaleni ngaphandle kokulahlekelwa yilapho ufike khona.
@@ -34,7 +34,6 @@ KUNGEZIBANI
 • Noma ubani ofuna ukubamba amavidiyo amadala esiteshi
 • Ababukeli abafuna ukwazi kahle ukuthi sebebuke kwaze kwaba kuphi
 • Abaphathi beziteshi abafuna ababukeli babuke amavidiyo abo amadala ngokulandelana
-• Abazali bezingane ezincane abafuna indlela elula yokuhlala esiteshini esisodwa esikhethiwe
 
 IZICI EZIYINHLOKO
 • Namathisela i-URL yesiteshi, noma wabelane ngevidiyo noma isiteshi kusuka kuhlelo lokusebenza lwe-YouTube noma esipheqululini

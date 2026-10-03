@@ -37,7 +37,7 @@ cronologico,canal,progreso,serie,curso,estudio,archivo,antiguo,seguimiento,linea
 ```
 
 ## 説明（Description）
-<!-- 2792 / 4000 文字 -->
+<!-- 2706 / 4000 文字 -->
 
 ```
 Channel Timeline Viewer te ayuda a ver canales de YouTube desde el principio sin perder el hilo.
@@ -49,7 +49,6 @@ PARA QUIÉN ES
 • Quien quiere ponerse al día con el catálogo antiguo de un canal
 • Espectadores que quieren saber exactamente hasta dónde han visto
 • Creadores de canales que quieren que su público vea los vídeos antiguos en orden
-• Familias con niños pequeños que prefieren quedarse dentro de un único canal elegido
 
 FUNCIONES PRINCIPALES
 • Pega la URL de un canal o compártela desde la app de YouTube o Safari

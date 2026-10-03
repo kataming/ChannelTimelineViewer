@@ -7,7 +7,6 @@ DÀNH CHO AI
 • Bất kỳ ai muốn xem bù các video cũ của một kênh
 • Người xem muốn biết chính xác mình đã xem đến đâu
 • Người vận hành kênh muốn người xem lần lượt xem các video cũ theo thứ tự
-• Cha mẹ có con nhỏ muốn một cách đơn giản hơn để chỉ xem trong một kênh đã chọn
 
 TÍNH NĂNG CHÍNH
 • Dán URL kênh, hoặc chia sẻ video hay kênh từ ứng dụng YouTube hoặc trình duyệt

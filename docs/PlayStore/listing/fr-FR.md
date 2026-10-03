@@ -22,7 +22,7 @@ Regardez les chaînes YouTube dans l’ordre et reprenez où vous étiez.
 ```
 
 ## 詳しい説明（Full description）
-<!-- 2907 / 4000 文字 -->
+<!-- 2824 / 4000 文字 -->
 
 ```
 Channel Timeline Viewer vous aide à regarder les chaînes YouTube depuis le début sans perdre le fil.
@@ -34,7 +34,6 @@ POUR QUI
 • Celles et ceux qui rattrapent l'ancien catalogue d'une chaîne
 • Les spectateurs qui veulent savoir exactement où ils en sont
 • Les créateurs de chaînes qui souhaitent que leur public regarde les anciennes vidéos dans l'ordre
-• Les parents de jeunes enfants qui préfèrent rester dans une seule chaîne choisie
 
 FONCTIONS PRINCIPALES
 • Collez l'URL d'une chaîne, ou partagez une vidéo ou une chaîne depuis l'app YouTube ou un navigateur

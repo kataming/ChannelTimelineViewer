@@ -22,7 +22,7 @@ Channel Timeline Viewer
 ```
 
 ## 詳しい説明（Full description）
-<!-- 1079 / 4000 文字 -->
+<!-- 1048 / 4000 文字 -->
 
 ```
 Channel Timeline Viewer 協助你從頭開始觀看 YouTube 頻道，不會忘記自己看到哪裡。
@@ -34,7 +34,6 @@ Channel Timeline Viewer 協助你從頭開始觀看 YouTube 頻道，不會忘�
 • 想補看頻道過往影片的人
 • 想確實知道自己看到哪裡的觀眾
 • 希望觀眾依序看完自己舊影片的頻道經營者
-• 想用更簡單的方式，讓年幼孩子只在一個選定頻道內觀看的家長
 
 主要功能
 • 貼上頻道網址，或從 YouTube App 或瀏覽器分享影片或頻道

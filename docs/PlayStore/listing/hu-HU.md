@@ -22,7 +22,7 @@ YouTube-csatornák sorrendben: haladáskövetés és folytatás ott, ahol tartas
 ```
 
 ## 詳しい説明（Full description）
-<!-- 3133 / 4000 文字 -->
+<!-- 3031 / 4000 文字 -->
 
 ```
 A Channel Timeline Viewer segít a YouTube-csatornákat az elejétől nézni úgy, hogy sosem veszíted el, hol tartasz.
@@ -34,7 +34,6 @@ KINEK SZÓL
 • Mindenkinek, aki egy csatorna korábbi videóit pótolná be
 • Nézőknek, akik pontosan tudni szeretnék, meddig jutottak
 • Csatornaüzemeltetőknek, akik azt szeretnék, hogy a nézők sorrendben nézzék végig a régebbi videóikat
-• Kisgyermekes szülőknek, akik egyszerűbben szeretnének egyetlen kiválasztott csatornán belül maradni
 
 FŐ FUNKCIÓK
 • Illeszd be a csatorna URL-jét, vagy oszd meg a videót vagy csatornát a YouTube-alkalmazásból vagy egy böngészőből

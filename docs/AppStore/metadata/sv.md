@@ -37,7 +37,7 @@ kronologisk,äldst först,kanal,förlopp,serie,kurs,studier,arkiv,spårning,str�
 ```
 
 ## 説明（Description）
-<!-- 2730 / 4000 文字 -->
+<!-- 2642 / 4000 文字 -->
 
 ```
 Med Channel Timeline Viewer kan du titta på YouTube-kanaler från början utan att tappa bort var du är.
@@ -49,7 +49,6 @@ FÖR VEM
 • Alla som vill ikapp med en kanals äldre videor
 • Tittare som vill veta exakt hur långt de har kommit
 • Kanalägare som vill att tittarna går igenom deras äldre uppladdningar i ordning
-• Föräldrar till små barn som vill ha ett enklare sätt att hålla sig inom en vald kanal
 
 HUVUDFUNKTIONER
 • Klistra in en kanal-URL eller dela en video eller kanal från YouTube-appen eller Safari

@@ -22,7 +22,7 @@ Channel Timeline Viewer
 ```
 
 ## 詳しい説明（Full description）
-<!-- 999 / 4000 文字 -->
+<!-- 980 / 4000 文字 -->
 
 ```
 Channel Timeline Viewer 帮你从第一个视频开始看 YouTube 频道，不会忘记看到哪里。
@@ -34,7 +34,6 @@ Channel Timeline Viewer 帮你从第一个视频开始看 YouTube 频道，不�
 ・想从头补看频道往期视频的人
 ・希望清楚知道自己看到第几集的观众
 ・希望观众按顺序看完往期视频的频道运营者
-・想和孩子一起停留在所选频道里的家长
 
 ■ 主要功能
 ・输入频道网址，或从 YouTube 应用／浏览器分享打开

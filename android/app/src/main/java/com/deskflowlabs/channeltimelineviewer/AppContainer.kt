@@ -1,6 +1,8 @@
 package com.deskflowlabs.channeltimelineviewer
 
 import android.content.Context
+import com.deskflowlabs.channeltimelineviewer.ads.AdsConfig
+import com.deskflowlabs.channeltimelineviewer.ads.AdsManager
 import com.deskflowlabs.channeltimelineviewer.analytics.Analytics
 import com.deskflowlabs.channeltimelineviewer.analytics.FirebaseAnalyticsTracker
 import com.deskflowlabs.channeltimelineviewer.billing.CancelSurveyStore
@@ -91,6 +93,14 @@ class AppContainer(context: Context) {
         analytics = analytics,
         reportedPurchases = reportedPurchases,
         cancelSurvey = CancelSurveyStore(prefs),
+    )
+
+    // 無料版の広告（AdMob）。Pro かどうかは proEntitlement を読むだけで、課金側には触れない。
+    // Pro なら同意フォームも SDK の初期化も広告リクエストも行わない。
+    val ads = AdsManager(
+        context = context.applicationContext,
+        config = AdsConfig.from(),
+        isPro = proEntitlement.isPro,
     )
 
     /** APIキーが設定されているか（未設定なら入力画面で警告を出す）。 */

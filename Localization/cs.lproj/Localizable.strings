@@ -1,6 +1,8 @@
 /* このファイルは scripts/build_localizations.py が生成します。直接編集しないこと。 */
 /* language: cs */
 
+/* 「このアプリについて」のボタン。広告の同意（UMP）を見直すフォームを開く。同意が要る地域の無料版だけに出る */
+"about.ads.privacyOptions" = "Nastavení soukromí reklam";
 /* このアプリについて: 自動再生の説明。既定オン・進む先は開いている一覧の次だけ・いつでもオフ・自分で選んだ設定は更新後も引き継ぐ、の4点を必ず含めること */
 "about.autoPlay.body" = "Automatické přehrávání je ve výchozím stavu zapnuté: po skončení videa přehrávání pokračuje dalším videem v seznamu kanálu, který máte otevřený. Přechází pouze na další video v tomto seznamu – nikdy na související ani doporučená videa. Kdykoli ho můžete vypnout přepínačem „Automatické přehrávání“ na obrazovce přehrávače; přehrávání se pak po skončení videa zastaví a zobrazí se tlačítko „Přehrát další video“. Vaše vlastní volba se uloží v zařízení a zůstane zachována i po aktualizaci aplikace. Přehrávání na pozadí není podporováno, takže zavřením aplikace se zastaví přehrávání i automatické přehrávání.";
 /* このアプリについて: 自動再生の見出し（既定オン） */
@@ -63,6 +65,8 @@
 "about.summary" = "Pomocník ke sledování, který řadí videa kanálu podle data zveřejnění (od nejstarších), abyste mohli procházet archivy, série nebo kurzy a sledovat svůj průběh. Nenahrazuje oficiální aplikaci YouTube.";
 /* 画面名: このアプリについて */
 "about.title" = "O této aplikaci";
+/* 無料版の広告（MREC）の上に付ける表示。本文と広告を見分けるため */
+"ads.label" = "Reklama";
 /* APIキー未設定の説明 */
 "api.notConfigured.detail" = "Nastavte YOUTUBE_API_KEY v souboru Config.plist. Postup nastavení najdete v souboru README.";
 /* APIキー未設定の見出し */

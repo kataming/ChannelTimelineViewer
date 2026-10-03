@@ -2,6 +2,7 @@
 <!-- このファイルは scripts/build_android_strings.py が生成します。直接編集しないこと。 -->
 <!-- language: bn -->
 <resources>
+    <string name="about_ads_privacyoptions">বিজ্ঞাপনের গোপনীয়তা সেটিংস</string>
     <string name="about_analytics_body">প্রতিটি স্ক্রিন ও কাজ কতবার ব্যবহার হয় তা আমরা Google Analytics for Firebase দিয়ে গুনি। শুধু স্ক্রিনের নাম ও কাজের ধরন পাঠানো হয় — আপনি যে চ্যানেল বা ভিডিও দেখেন, আপনার নোট, বা আপনার দেওয়া URL কখনও নয়। কোনো বিজ্ঞাপন শনাক্তকারী ব্যবহার করা হয় না। নিচে আপনি যেকোনো সময় এটি বন্ধ করতে পারেন।</string>
     <string name="about_analytics_header">ব্যবহারের পরিমাপ (Android)</string>
     <string name="about_analytics_toggle">ব্যবহারের পরিমাপের অনুমতি দিন</string>
@@ -24,6 +25,7 @@
     <string name="about_screen_header">প্লেব্যাকের সময় স্ক্রিন</string>
     <string name="about_summary">দেখার একটি সহায়ক অ্যাপ, যা চ্যানেলের আপলোডগুলো প্রকাশের তারিখ অনুযায়ী (পুরোনো আগে) সাজিয়ে দেখায়, যাতে আপনি অগ্রগতি ট্র্যাক করতে করতে পুরোনো ভিডিও, সিরিজ বা কোর্স শেষ করতে পারেন। এটি অফিসিয়াল YouTube অ্যাপের বিকল্প নয়।</string>
     <string name="about_title">এই অ্যাপ সম্পর্কে</string>
+    <string name="ads_label">বিজ্ঞাপন</string>
     <string name="api_notconfigured_detail">Config.plist-এ YOUTUBE_API_KEY সেট করুন। কীভাবে সেট করবেন তা README-তে দেখুন।</string>
     <string name="api_notconfigured_title">API কী সেট করা নেই</string>
     <string name="captions_off">বন্ধ</string>

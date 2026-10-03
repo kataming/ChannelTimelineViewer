@@ -149,11 +149,15 @@ private fun OptionRow(label: String, selected: Boolean, onClick: () -> Unit) {
 fun AboutScreen(
     analyticsEnabled: StateFlow<Boolean>,
     onAnalyticsEnabledChange: (Boolean) -> Unit,
+    /** 広告の同意を見直す入口が必要か（同意が要る地域の無料版だけ true）。 */
+    adsPrivacyOptionsRequired: StateFlow<Boolean>,
+    onOpenAdsPrivacyOptions: () -> Unit,
     onShowTutorial: () -> Unit,
     onBack: () -> Unit,
 ) {
     val context = LocalContext.current
     val isAnalyticsEnabled by analyticsEnabled.collectAsStateWithLifecycle()
+    val showAdsPrivacyOptions by adsPrivacyOptionsRequired.collectAsStateWithLifecycle()
 
     Scaffold(
         topBar = {
@@ -220,6 +224,13 @@ fun AboutScreen(
                     modifier = Modifier.weight(1f),
                 )
                 Switch(checked = isAnalyticsEnabled, onCheckedChange = onAnalyticsEnabledChange)
+            }
+
+            // 広告の同意（EEA・英国・スイスなど同意が要る地域の無料版だけ）。いつでも見直せるようにする。
+            if (showAdsPrivacyOptions) {
+                TextButton(onClick = onOpenAdsPrivacyOptions) {
+                    Text(stringResource(R.string.about_ads_privacyoptions))
+                }
             }
 
             TextButton(onClick = {

@@ -2,6 +2,7 @@
 <!-- このファイルは scripts/build_android_strings.py が生成します。直接編集しないこと。 -->
 <!-- language: th -->
 <resources>
+    <string name="about_ads_privacyoptions">การตั้งค่าความเป็นส่วนตัวของโฆษณา</string>
     <string name="about_analytics_body">เรานับความถี่ในการใช้งานแต่ละหน้าจอและการดำเนินการ โดยใช้ Google Analytics for Firebase ส่งเฉพาะชื่อหน้าจอและประเภทของการดำเนินการเท่านั้น — ไม่ส่งช่องหรือวิดีโอที่คุณดู บันทึกของคุณ หรือ URL ที่คุณป้อน ไม่ใช้รหัสโฆษณา คุณปิดได้ทุกเมื่อด้านล่าง</string>
     <string name="about_analytics_header">การวัดการใช้งาน (Android)</string>
     <string name="about_analytics_toggle">อนุญาตการวัดการใช้งาน</string>
@@ -24,6 +25,7 @@
     <string name="about_screen_header">หน้าจอระหว่างการเล่น</string>
     <string name="about_summary">ผู้ช่วยการรับชมที่แสดงวิดีโอที่อัปโหลดของช่องตามวันที่เผยแพร่ (เก่าสุดก่อน) เพื่อให้คุณดูคลังวิดีโอ ซีรีส์ หรือคอร์สเรียนไปตามลำดับพร้อมติดตามความคืบหน้า แอปนี้ไม่ได้มาแทนแอป YouTube อย่างเป็นทางการ</string>
     <string name="about_title">เกี่ยวกับแอปนี้</string>
+    <string name="ads_label">โฆษณา</string>
     <string name="api_notconfigured_detail">ตั้งค่า YOUTUBE_API_KEY ใน Config.plist ดูวิธีตั้งค่าได้ใน README</string>
     <string name="api_notconfigured_title">ยังไม่ได้ตั้งค่าคีย์ API</string>
     <string name="captions_off">ปิด</string>

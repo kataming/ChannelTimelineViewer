@@ -2,6 +2,7 @@
 <!-- このファイルは scripts/build_android_strings.py が生成します。直接編集しないこと。 -->
 <!-- language: ms -->
 <resources>
+    <string name="about_ads_privacyoptions">Tetapan privasi iklan</string>
     <string name="about_analytics_body">Kami mengira kekerapan setiap skrin dan tindakan digunakan, menggunakan Google Analytics for Firebase. Hanya nama skrin dan jenis tindakan dihantar — tidak sekali-kali saluran atau video yang anda tonton, nota anda atau URL yang anda masukkan. Tiada pengecam pengiklanan digunakan. Anda boleh mematikannya di bawah pada bila-bila masa.</string>
     <string name="about_analytics_header">Pengukuran penggunaan (Android)</string>
     <string name="about_analytics_toggle">Benarkan pengukuran penggunaan</string>
@@ -24,6 +25,7 @@
     <string name="about_screen_header">Skrin semasa main balik</string>
     <string name="about_summary">Apl pembantu tontonan yang menyenaraikan video muat naik saluran mengikut tarikh terbitan (terlama dahulu) supaya anda boleh menonton arkib, siri atau kursus secara berturutan sambil menjejak kemajuan anda. Apl ini bukan pengganti apl YouTube rasmi.</string>
     <string name="about_title">Perihal apl ini</string>
+    <string name="ads_label">Iklan</string>
     <string name="api_notconfigured_detail">Tetapkan YOUTUBE_API_KEY dalam Config.plist. Lihat README untuk cara menyediakannya.</string>
     <string name="api_notconfigured_title">Kunci API belum dikonfigurasikan</string>
     <string name="captions_off">Mati</string>

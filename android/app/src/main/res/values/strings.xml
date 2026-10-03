@@ -3,6 +3,8 @@
 <!-- language: en -->
 <resources xmlns:tools="http://schemas.android.com/tools" tools:locale="en">
     <string name="app_name" translatable="false">Channel Timeline Viewer</string>
+    <!-- 「このアプリについて」のボタン。広告の同意（UMP）を見直すフォームを開く。同意が要る地域の無料版だけに出る -->
+    <string name="about_ads_privacyoptions">Ad privacy settings</string>
     <!-- 説明: 何を数えていて、何を送らないか -->
     <string name="about_analytics_body">We count how often each screen and action is used, using Google Analytics for Firebase. Only the screen name and the kind of action are sent — never the channels or videos you watch, your notes, or the URLs you enter. No advertising identifier is used. You can turn it off below at any time.</string>
     <!-- 見出し: 利用状況の記録（Android版のみ） -->
@@ -47,6 +49,8 @@
     <string name="about_summary">A viewing companion that lists a channel’s uploads by publication date (oldest first) so you can work through archives, series, or courses while tracking your progress. It is not a replacement for the official YouTube app.</string>
     <!-- 画面名: このアプリについて -->
     <string name="about_title">About this app</string>
+    <!-- 無料版の広告（MREC）の上に付ける表示。本文と広告を見分けるため -->
+    <string name="ads_label">Advertisement</string>
     <!-- APIキー未設定の説明 -->
     <string name="api_notconfigured_detail">Set YOUTUBE_API_KEY in Config.plist. See the README for how to set it up.</string>
     <!-- APIキー未設定の見出し -->

@@ -9,6 +9,7 @@ struct AboutView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.openURL) private var openURL
     @EnvironmentObject private var notificationPermission: NotificationPermission
+    @EnvironmentObject private var ads: AdsManager
 
     private var appName: String { AppInfo.displayName }
 
@@ -105,6 +106,17 @@ struct AboutView: View {
                             onShowTutorial()
                         } label: {
                             Label("tutorial.open.a11y", systemImage: "questionmark.circle")
+                        }
+                    }
+                }
+
+                // 広告の同意（EEA・英国・スイスなど同意が要る地域の無料版だけ）。いつでも見直せるようにする。
+                if ads.privacyOptionsRequired {
+                    Section {
+                        Button {
+                            ads.showPrivacyOptions()
+                        } label: {
+                            Label("about.ads.privacyOptions", systemImage: "megaphone")
                         }
                     }
                 }

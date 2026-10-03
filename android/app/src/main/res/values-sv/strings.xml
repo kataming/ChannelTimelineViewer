@@ -2,6 +2,7 @@
 <!-- このファイルは scripts/build_android_strings.py が生成します。直接編集しないこと。 -->
 <!-- language: sv -->
 <resources>
+    <string name="about_ads_privacyoptions">Integritetsinställningar för annonser</string>
     <string name="about_analytics_body">Vi räknar hur ofta varje skärm och åtgärd används med Google Analytics for Firebase. Endast skärmnamnet och typen av åtgärd skickas – aldrig de kanaler eller videor du tittar på, dina anteckningar eller de URL:er du anger. Inget annons-ID används. Du kan stänga av det nedan när som helst.</string>
     <string name="about_analytics_header">Användningsmätning (Android)</string>
     <string name="about_analytics_toggle">Tillåt användningsmätning</string>
@@ -24,6 +25,7 @@
     <string name="about_screen_header">Skärmen under uppspelning</string>
     <string name="about_summary">Ett tittarstöd som listar en kanals uppladdningar efter publiceringsdatum (äldst först) så att du kan beta av arkiv, serier eller kurser och samtidigt följa ditt förlopp. Appen ersätter inte den officiella YouTube-appen.</string>
     <string name="about_title">Om den här appen</string>
+    <string name="ads_label">Annons</string>
     <string name="api_notconfigured_detail">Ange YOUTUBE_API_KEY i Config.plist. Se README för hur du ställer in den.</string>
     <string name="api_notconfigured_title">API-nyckel inte konfigurerad</string>
     <string name="captions_off">Av</string>

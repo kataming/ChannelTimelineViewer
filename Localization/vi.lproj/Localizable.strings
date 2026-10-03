@@ -1,6 +1,8 @@
 /* このファイルは scripts/build_localizations.py が生成します。直接編集しないこと。 */
 /* language: vi */
 
+/* 「このアプリについて」のボタン。広告の同意（UMP）を見直すフォームを開く。同意が要る地域の無料版だけに出る */
+"about.ads.privacyOptions" = "Cài đặt quyền riêng tư cho quảng cáo";
 /* このアプリについて: 自動再生の説明。既定オン・進む先は開いている一覧の次だけ・いつでもオフ・自分で選んだ設定は更新後も引き継ぐ、の4点を必ず含めること */
 "about.autoPlay.body" = "Tự động phát được bật theo mặc định: khi một video kết thúc, ứng dụng sẽ phát tiếp video tiếp theo trong danh sách kênh bạn đang mở. Ứng dụng chỉ chuyển sang video tiếp theo trong danh sách đó — không bao giờ chuyển sang video liên quan hay video đề xuất. Bạn có thể tắt bất cứ lúc nào bằng nút gạt “Tự động phát” trên màn hình phát; khi đó, việc phát sẽ dừng khi video kết thúc và nút “Phát video tiếp theo” sẽ xuất hiện. Lựa chọn của bạn được lưu trên thiết bị và vẫn được giữ khi cập nhật ứng dụng. Ứng dụng không phát trong nền, nên khi đóng ứng dụng, cả việc phát lẫn tự động phát đều dừng.";
 /* このアプリについて: 自動再生の見出し（既定オン） */
@@ -63,6 +65,8 @@
 "about.summary" = "Ứng dụng hỗ trợ xem video, liệt kê video đã đăng của một kênh theo ngày đăng (cũ nhất trước) để bạn xem lần lượt video cũ, loạt video hoặc khóa học trong khi theo dõi tiến độ. Ứng dụng không thay thế ứng dụng YouTube chính thức.";
 /* 画面名: このアプリについて */
 "about.title" = "Giới thiệu ứng dụng";
+/* 無料版の広告（MREC）の上に付ける表示。本文と広告を見分けるため */
+"ads.label" = "Quảng cáo";
 /* APIキー未設定の説明 */
 "api.notConfigured.detail" = "Hãy đặt YOUTUBE_API_KEY trong Config.plist. Xem README để biết cách thiết lập.";
 /* APIキー未設定の見出し */

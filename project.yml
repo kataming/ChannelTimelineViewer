@@ -38,6 +38,16 @@ settings:
     # Team ID の確認: https://developer.apple.com/account → Membership details
     DEVELOPMENT_TEAM: "893UUWYHB8"
 
+# Google AdMob（無料版のバナー・MREC）と同意フォーム（UMP）。
+# GoogleMobileAds は UMP を依存として連れてくる（1.1.0..<4.0.0）ので、版の幅をそれに合わせる。
+packages:
+  GoogleMobileAds:
+    url: https://github.com/googleads/swift-package-manager-google-mobile-ads
+    from: 13.0.0
+  GoogleUserMessagingPlatform:
+    url: https://github.com/googleads/swift-package-manager-google-user-messaging-platform
+    from: 3.0.0
+
 targets:
   ChannelTimelineViewer:
     type: application
@@ -56,6 +66,9 @@ targets:
       # 表示文言（7言語）
       - path: Localization
     dependencies:
+      # 無料版の広告。Pro では初期化も広告リクエストもしない（Services/AdsManager.swift）。
+      - package: GoogleMobileAds
+      - package: GoogleUserMessagingPlatform
       # 共有シート（Share Extension）。アプリに埋め込まれて一緒に配布される。
       - target: ChannelTimelineViewerShareExtension
         embed: true
@@ -80,6 +93,16 @@ targets:
         INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
         INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait
         INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
+        # Google AdMob の ID（App/Info.plist に入る）。**秘密情報ではない**（アプリに入って誰でも読める）。
+        # 本番の ID ができたら、ここの3つを書き換える。広告ユニットが空のリリースは広告を出さない。
+        # アプリ ID は空だと SDK が起動時に落ちるので、未設定のあいだは Google 公式のテスト用 ID を置く。
+        ADMOB_APP_ID: "ca-app-pub-3940256099942544~1458002511"
+        ADMOB_BANNER_UNIT_ID: ""
+        ADMOB_MREC_UNIT_ID: ""
+      configs:
+        # 開発中は本番 ID を書いてもテスト用のアプリ ID を使う（広告ユニットも AdsConfig がテスト用に固定する）。
+        Debug:
+          ADMOB_APP_ID: "ca-app-pub-3940256099942544~1458002511"
 
   # 共有シート（YouTube アプリ / Safari から共有された URL の受け口）。
   # ここでは YouTube API を呼ばず、URL をカスタムURLスキームでメインアプリへ渡すだけ。

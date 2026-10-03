@@ -2,6 +2,7 @@
 <!-- このファイルは scripts/build_android_strings.py が生成します。直接編集しないこと。 -->
 <!-- language: te -->
 <resources>
+    <string name="about_ads_privacyoptions">ప్రకటన గోప్యతా సెట్టింగ్‌లు</string>
     <string name="about_analytics_body">Google Analytics for Firebase ఉపయోగించి ప్రతి స్క్రీన్ మరియు చర్య ఎంత తరచుగా ఉపయోగించబడుతుందో మేము లెక్కిస్తాము. స్క్రీన్ పేరు మరియు చర్య రకం మాత్రమే పంపబడతాయి — మీరు చూసే ఛానెల్‌లు లేదా వీడియోలు, మీ నోట్స్, మీరు నమోదు చేసే URLలు ఎప్పుడూ పంపబడవు. ప్రకటన ఐడెంటిఫైయర్ ఉపయోగించబడదు. కింద మీరు దీన్ని ఎప్పుడైనా ఆఫ్ చేయవచ్చు.</string>
     <string name="about_analytics_header">వినియోగ కొలత (Android)</string>
     <string name="about_analytics_toggle">వినియోగ కొలతను అనుమతించు</string>
@@ -24,6 +25,7 @@
     <string name="about_screen_header">ప్లేబ్యాక్ సమయంలో స్క్రీన్</string>
     <string name="about_summary">ఛానెల్ అప్‌లోడ్‌లను ప్రచురణ తేదీ ప్రకారం (పాతవి ముందు) జాబితా చేసే వీక్షణ సహాయకం; దీనితో ఆర్కైవ్‌లు, సిరీస్‌లు లేదా కోర్సులను క్రమంగా చూస్తూ మీ పురోగతిని ట్రాక్ చేయవచ్చు. ఇది అధికారిక YouTube యాప్‌కు ప్రత్యామ్నాయం కాదు.</string>
     <string name="about_title">ఈ యాప్ గురించి</string>
+    <string name="ads_label">ప్రకటన</string>
     <string name="api_notconfigured_detail">Config.plist లో YOUTUBE_API_KEY సెట్ చేయండి. సెటప్ ఎలా చేయాలో README లో చూడండి.</string>
     <string name="api_notconfigured_title">API కీ కాన్ఫిగర్ చేయబడలేదు</string>
     <string name="captions_off">ఆఫ్</string>

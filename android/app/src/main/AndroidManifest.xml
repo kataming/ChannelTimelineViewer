@@ -5,10 +5,11 @@
     <!-- 一覧の取得（API）と、公式プレイヤーの表示に必要 -->
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <!-- Firebase Analytics が既定で足してくる広告ID（AD_ID）の権限を**取り除く**。
+    <!-- Firebase Analytics と Google Mobile Ads が既定で足してくる広告ID（AD_ID）の権限を**取り除く**。
          本アプリは広告識別子を使ったトラッキングを行わない、とプライバシーポリシーに
-         書いてあるため（iOS 側の「IDFA 不使用」と揃える）。ここを外すと Play の
-         「データセーフティ」でも広告IDの申告が不要になる。 -->
+         書いてあるため（iOS 側の「IDFA 不使用」と揃える）。
+         2026-10-03 に AdMob を入れたあとも外したままにしている（広告は広告IDなしで配信される）。
+         ここを変えると Play の「データセーフティ」とプライバシーポリシーも変える必要がある。 -->
     <uses-permission android:name="com.google.android.gms.permission.AD_ID" tools:node="remove" />
 
     <application
@@ -29,6 +30,12 @@
         <meta-data
             android:name="google_analytics_ssaid_collection_enabled"
             android:value="false" />
+
+        <!-- Google AdMob のアプリ ID（build.gradle.kts の admobAppId）。
+             デバッグと、本番 ID 未設定のリリースはテスト用 ID になる。 -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="${admobAppId}" />
 
         <!-- configChanges: 画面の向きが変わっても Activity を作り直さない。
              作り直すと WebView が捨てられ、全画面にして横向きにした瞬間に再生が

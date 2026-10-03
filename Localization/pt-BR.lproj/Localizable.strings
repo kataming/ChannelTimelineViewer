@@ -1,6 +1,8 @@
 /* このファイルは scripts/build_localizations.py が生成します。直接編集しないこと。 */
 /* language: pt-BR */
 
+/* 「このアプリについて」のボタン。広告の同意（UMP）を見直すフォームを開く。同意が要る地域の無料版だけに出る */
+"about.ads.privacyOptions" = "Configurações de privacidade de anúncios";
 /* このアプリについて: 自動再生の説明。既定オン・進む先は開いている一覧の次だけ・いつでもオフ・自分で選んだ設定は更新後も引き継ぐ、の4点を必ず含めること */
 "about.autoPlay.body" = "A reprodução automática vem ativada por padrão: quando um vídeo termina, a reprodução continua no próximo vídeo da lista do canal que você está vendo. Ela passa apenas para o próximo vídeo dessa lista — nunca para vídeos relacionados ou recomendados. Você pode desativá-la a qualquer momento com o botão “Reprodução automática” na tela do player; assim, a reprodução para quando um vídeo termina e aparece o botão “Reproduzir próximo vídeo”. A sua escolha fica salva no aparelho e é mantida quando o app é atualizado. Não há reprodução em segundo plano, então fechar o app interrompe a reprodução e a reprodução automática.";
 /* このアプリについて: 自動再生の見出し（既定オン） */
@@ -63,6 +65,8 @@
 "about.summary" = "Um companheiro de visualização que lista os envios de um canal por data de publicação (os mais antigos primeiro), para você percorrer arquivos, séries ou cursos acompanhando seu progresso. Ele não substitui o app oficial do YouTube.";
 /* 画面名: このアプリについて */
 "about.title" = "Sobre este app";
+/* 無料版の広告（MREC）の上に付ける表示。本文と広告を見分けるため */
+"ads.label" = "Publicidade";
 /* APIキー未設定の説明 */
 "api.notConfigured.detail" = "Defina YOUTUBE_API_KEY em Config.plist. Veja no README como configurar.";
 /* APIキー未設定の見出し */

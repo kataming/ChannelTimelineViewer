@@ -2,6 +2,7 @@
 <!-- このファイルは scripts/build_android_strings.py が生成します。直接編集しないこと。 -->
 <!-- language: pa -->
 <resources>
+    <string name="about_ads_privacyoptions">ਇਸ਼ਤਿਹਾਰ ਪਰਦੇਦਾਰੀ ਸੈਟਿੰਗਾਂ</string>
     <string name="about_analytics_body">ਅਸੀਂ Google Analytics for Firebase ਨਾਲ ਗਿਣਦੇ ਹਾਂ ਕਿ ਹਰ ਸਕ੍ਰੀਨ ਅਤੇ ਕਾਰਵਾਈ ਕਿੰਨੀ ਵਾਰ ਵਰਤੀ ਜਾਂਦੀ ਹੈ। ਸਿਰਫ਼ ਸਕ੍ਰੀਨ ਦਾ ਨਾਮ ਅਤੇ ਕਾਰਵਾਈ ਦੀ ਕਿਸਮ ਭੇਜੀ ਜਾਂਦੀ ਹੈ — ਤੁਹਾਡੇ ਦੇਖੇ ਜਾਣ ਵਾਲੇ ਚੈਨਲ ਜਾਂ ਵੀਡੀਓ, ਤੁਹਾਡੇ ਨੋਟਸ ਜਾਂ ਤੁਹਾਡੇ ਦਰਜ ਕੀਤੇ URL ਕਦੇ ਨਹੀਂ। ਕੋਈ ਇਸ਼ਤਿਹਾਰੀ ਪਛਾਣਕਰਤਾ ਨਹੀਂ ਵਰਤਿਆ ਜਾਂਦਾ। ਤੁਸੀਂ ਇਸਨੂੰ ਹੇਠਾਂ ਕਿਸੇ ਵੀ ਸਮੇਂ ਬੰਦ ਕਰ ਸਕਦੇ ਹੋ।</string>
     <string name="about_analytics_header">ਵਰਤੋਂ ਮਾਪ (Android)</string>
     <string name="about_analytics_toggle">ਵਰਤੋਂ ਮਾਪ ਦੀ ਇਜਾਜ਼ਤ ਦਿਓ</string>
@@ -24,6 +25,7 @@
     <string name="about_screen_header">ਪਲੇਬੈਕ ਦੌਰਾਨ ਸਕ੍ਰੀਨ</string>
     <string name="about_summary">ਦੇਖਣ ਲਈ ਇੱਕ ਸਹਾਇਕ ਐਪ, ਜੋ ਚੈਨਲ ਦੇ ਅੱਪਲੋਡਾਂ ਨੂੰ ਪ੍ਰਕਾਸ਼ਨ ਮਿਤੀ ਮੁਤਾਬਕ (ਸਭ ਤੋਂ ਪੁਰਾਣੇ ਪਹਿਲਾਂ) ਦਿਖਾਉਂਦੀ ਹੈ, ਤਾਂ ਜੋ ਤੁਸੀਂ ਆਪਣੀ ਤਰੱਕੀ ਟਰੈਕ ਕਰਦੇ ਹੋਏ ਪੁਰਾਣੇ ਵੀਡੀਓ, ਲੜੀਆਂ ਜਾਂ ਕੋਰਸ ਪੂਰੇ ਕਰ ਸਕੋ। ਇਹ ਅਧਿਕਾਰਤ YouTube ਐਪ ਦਾ ਬਦਲ ਨਹੀਂ ਹੈ।</string>
     <string name="about_title">ਇਸ ਐਪ ਬਾਰੇ</string>
+    <string name="ads_label">ਇਸ਼ਤਿਹਾਰ</string>
     <string name="api_notconfigured_detail">Config.plist ਵਿੱਚ YOUTUBE_API_KEY ਸੈੱਟ ਕਰੋ। ਇਸਨੂੰ ਸੈੱਟ ਕਰਨ ਦਾ ਤਰੀਕਾ README ਵਿੱਚ ਦੇਖੋ।</string>
     <string name="api_notconfigured_title">API ਕੁੰਜੀ ਸੈੱਟ ਨਹੀਂ ਹੈ</string>
     <string name="captions_off">ਬੰਦ</string>

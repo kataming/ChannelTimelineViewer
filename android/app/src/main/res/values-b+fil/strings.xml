@@ -2,6 +2,7 @@
 <!-- このファイルは scripts/build_android_strings.py が生成します。直接編集しないこと。 -->
 <!-- language: fil -->
 <resources>
+    <string name="about_ads_privacyoptions">Mga setting ng privacy ng ad</string>
     <string name="about_analytics_body">Binibilang namin kung gaano kadalas ginagamit ang bawat screen at aksyon gamit ang Google Analytics for Firebase. Ang pangalan ng screen at uri ng aksyon lang ang ipinapadala — hindi kailanman ang mga channel o video na pinapanood mo, ang iyong mga tala, o ang mga URL na inilalagay mo. Walang advertising identifier na ginagamit. Puwede mo itong i-off sa ibaba anumang oras.</string>
     <string name="about_analytics_header">Pagsukat ng paggamit (Android)</string>
     <string name="about_analytics_toggle">Payagan ang pagsukat ng paggamit</string>
@@ -24,6 +25,7 @@
     <string name="about_screen_header">Ang screen habang nagpe-play</string>
     <string name="about_summary">Isang kasama sa panonood na naglilista ng mga upload ng isang channel ayon sa petsa ng pag-publish (pinakaluma muna) para matapos mo ang mga archive, serye, o kurso habang sinusubaybayan ang iyong progreso. Hindi ito kapalit ng opisyal na YouTube app.</string>
     <string name="about_title">Tungkol sa app na ito</string>
+    <string name="ads_label">Advertisement</string>
     <string name="api_notconfigured_detail">Itakda ang YOUTUBE_API_KEY sa Config.plist. Tingnan ang README para sa paraan ng pag-set up.</string>
     <string name="api_notconfigured_title">Hindi naka-configure ang API key</string>
     <string name="captions_off">Off</string>

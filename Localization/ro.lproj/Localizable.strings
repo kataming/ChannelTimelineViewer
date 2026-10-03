@@ -1,6 +1,8 @@
 /* このファイルは scripts/build_localizations.py が生成します。直接編集しないこと。 */
 /* language: ro */
 
+/* 「このアプリについて」のボタン。広告の同意（UMP）を見直すフォームを開く。同意が要る地域の無料版だけに出る */
+"about.ads.privacyOptions" = "Setări de confidențialitate pentru reclame";
 /* このアプリについて: 自動再生の説明。既定オン・進む先は開いている一覧の次だけ・いつでもオフ・自分で選んだ設定は更新後も引き継ぐ、の4点を必ず含めること */
 "about.autoPlay.body" = "Redarea automată este activată implicit: când un videoclip se termină, redarea continuă cu următorul videoclip din lista canalului pe care o aveți deschisă. Trece doar la următorul videoclip din acea listă — niciodată la videoclipuri similare sau recomandate. O puteți dezactiva oricând cu comutatorul „Redare automată” de pe ecranul playerului; atunci redarea se oprește la finalul videoclipului și apare butonul „Redați următorul videoclip”. Alegerea dvs. este salvată pe dispozitiv și se păstrează la actualizarea aplicației. Nu există redare în fundal, așa că închiderea aplicației oprește atât redarea, cât și redarea automată.";
 /* このアプリについて: 自動再生の見出し（既定オン） */
@@ -63,6 +65,8 @@
 "about.summary" = "Un însoțitor de vizionare care listează videoclipurile unui canal după data publicării (cele mai vechi primele), ca să puteți parcurge arhive, serii sau cursuri urmărindu-vă progresul. Nu înlocuiește aplicația oficială YouTube.";
 /* 画面名: このアプリについて */
 "about.title" = "Despre această aplicație";
+/* 無料版の広告（MREC）の上に付ける表示。本文と広告を見分けるため */
+"ads.label" = "Reclamă";
 /* APIキー未設定の説明 */
 "api.notConfigured.detail" = "Setați YOUTUBE_API_KEY în Config.plist. Consultați README pentru modul de configurare.";
 /* APIキー未設定の見出し */

@@ -1,6 +1,8 @@
 /* このファイルは scripts/build_localizations.py が生成します。直接編集しないこと。 */
 /* language: hu */
 
+/* 「このアプリについて」のボタン。広告の同意（UMP）を見直すフォームを開く。同意が要る地域の無料版だけに出る */
+"about.ads.privacyOptions" = "Hirdetési adatvédelmi beállítások";
 /* このアプリについて: 自動再生の説明。既定オン・進む先は開いている一覧の次だけ・いつでもオフ・自分で選んだ設定は更新後も引き継ぐ、の4点を必ず含めること */
 "about.autoPlay.body" = "Az automatikus lejátszás alapértelmezés szerint be van kapcsolva: a videó végén a lejátszás a megnyitott csatornalista következő videójával folytatódik. Csak a lista következő videójára lép tovább – soha nem kapcsolódó vagy ajánlott videókra. Bármikor kikapcsolhatod a lejátszó képernyőjén az „Automatikus lejátszás” kapcsolóval; ekkor a lejátszás a videó végén megáll, és megjelenik a „Következő videó lejátszása” gomb. A saját választásodat az eszköz menti, és az alkalmazás frissítése után is megmarad. Háttérben nincs lejátszás, így az alkalmazás bezárásával a lejátszás és az automatikus továbblépés is leáll.";
 /* このアプリについて: 自動再生の見出し（既定オン） */
@@ -63,6 +65,8 @@
 "about.summary" = "Nézést segítő alkalmazás, amely a csatorna feltöltéseit megjelenési dátum szerint (a legrégebbitől) sorolja fel, így végighaladhatsz archívumokon, sorozatokon vagy kurzusokon, és követheted a haladásodat. Nem helyettesíti a hivatalos YouTube alkalmazást.";
 /* 画面名: このアプリについて */
 "about.title" = "Az alkalmazásról";
+/* 無料版の広告（MREC）の上に付ける表示。本文と広告を見分けるため */
+"ads.label" = "Hirdetés";
 /* APIキー未設定の説明 */
 "api.notConfigured.detail" = "Állítsd be a YOUTUBE_API_KEY értékét a Config.plist fájlban. A beállítás módját a README ismerteti.";
 /* APIキー未設定の見出し */

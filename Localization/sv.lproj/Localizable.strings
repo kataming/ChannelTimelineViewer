@@ -1,6 +1,8 @@
 /* このファイルは scripts/build_localizations.py が生成します。直接編集しないこと。 */
 /* language: sv */
 
+/* 「このアプリについて」のボタン。広告の同意（UMP）を見直すフォームを開く。同意が要る地域の無料版だけに出る */
+"about.ads.privacyOptions" = "Integritetsinställningar för annonser";
 /* このアプリについて: 自動再生の説明。既定オン・進む先は開いている一覧の次だけ・いつでもオフ・自分で選んだ設定は更新後も引き継ぐ、の4点を必ず含めること */
 "about.autoPlay.body" = "Autouppspelning är på som standard: när en video tar slut fortsätter uppspelningen med nästa video i den kanallista du har öppen. Den går bara vidare till nästa video i den listan – aldrig till relaterade eller rekommenderade videor. Du kan när som helst stänga av den med reglaget ”Autouppspelning” på spelarskärmen; uppspelningen stoppas då när en video tar slut och knappen ”Spela nästa video” visas. Ditt eget val sparas på enheten och behålls när appen uppdateras. Det finns ingen bakgrundsuppspelning, så när du stänger appen stoppas både uppspelningen och autouppspelningen.";
 /* このアプリについて: 自動再生の見出し（既定オン） */
@@ -63,6 +65,8 @@
 "about.summary" = "Ett tittarstöd som listar en kanals uppladdningar efter publiceringsdatum (äldst först) så att du kan beta av arkiv, serier eller kurser och samtidigt följa ditt förlopp. Appen ersätter inte den officiella YouTube-appen.";
 /* 画面名: このアプリについて */
 "about.title" = "Om den här appen";
+/* 無料版の広告（MREC）の上に付ける表示。本文と広告を見分けるため */
+"ads.label" = "Annons";
 /* APIキー未設定の説明 */
 "api.notConfigured.detail" = "Ange YOUTUBE_API_KEY i Config.plist. Se README för hur du ställer in den.";
 /* APIキー未設定の見出し */

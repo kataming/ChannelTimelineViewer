@@ -271,7 +271,9 @@ def capture(lang: str) -> bool:
     #   すぐ起動して停止状態を解く。これで言語も新しくなる。
     sh("shell", "am", "force-stop", PACKAGE)
     time.sleep(2)
-    sh("shell", "am", "start", "-n", f"{PACKAGE}/.MainActivity")
+    # noAds: 無料版の広告（デバッグはテスト広告）を案内の画像に写さない。
+    #   このあと共有で開くときは同じ Activity に届く（singleTask）ので、ここで渡せば最後まで効く。
+    sh("shell", "am", "start", "-n", f"{PACKAGE}/.MainActivity", "--ez", "noAds", "true")
     time.sleep(8)
     sh("shell", "input", "keyevent", "3")
     time.sleep(2)

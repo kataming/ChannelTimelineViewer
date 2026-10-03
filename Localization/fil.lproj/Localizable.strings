@@ -1,6 +1,8 @@
 /* このファイルは scripts/build_localizations.py が生成します。直接編集しないこと。 */
 /* language: fil */
 
+/* 「このアプリについて」のボタン。広告の同意（UMP）を見直すフォームを開く。同意が要る地域の無料版だけに出る */
+"about.ads.privacyOptions" = "Mga setting ng privacy ng ad";
 /* このアプリについて: 自動再生の説明。既定オン・進む先は開いている一覧の次だけ・いつでもオフ・自分で選んだ設定は更新後も引き継ぐ、の4点を必ず含めること */
 "about.autoPlay.body" = "Naka-on ang autoplay bilang default: kapag natapos ang isang video, tutuloy ang pag-play sa susunod na video sa listahan ng channel na nakabukas sa iyo. Lilipat lang ito sa susunod na video sa listahang iyon — hindi kailanman sa mga kaugnay o inirerekomendang video. Puwede mo itong i-off anumang oras gamit ang toggle na “Autoplay” sa screen ng player; pagkatapos ay hihinto ang pag-play kapag natapos ang video at lalabas ang button na “I-play ang susunod na video”. Naka-save sa device ang sarili mong pinili at nananatili ito kapag nag-update ang app. Walang background playback, kaya kapag isinara ang app, hihinto ang pag-play at ang autoplay.";
 /* このアプリについて: 自動再生の見出し（既定オン） */
@@ -63,6 +65,8 @@
 "about.summary" = "Isang kasama sa panonood na naglilista ng mga upload ng isang channel ayon sa petsa ng pag-publish (pinakaluma muna) para matapos mo ang mga archive, serye, o kurso habang sinusubaybayan ang iyong progreso. Hindi ito kapalit ng opisyal na YouTube app.";
 /* 画面名: このアプリについて */
 "about.title" = "Tungkol sa app na ito";
+/* 無料版の広告（MREC）の上に付ける表示。本文と広告を見分けるため */
+"ads.label" = "Advertisement";
 /* APIキー未設定の説明 */
 "api.notConfigured.detail" = "Itakda ang YOUTUBE_API_KEY sa Config.plist. Tingnan ang README para sa paraan ng pag-set up.";
 /* APIキー未設定の見出し */

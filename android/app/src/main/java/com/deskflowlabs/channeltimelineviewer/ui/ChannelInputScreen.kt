@@ -68,6 +68,8 @@ fun ChannelInputScreen(
     onOpenAbout: () -> Unit,
     onOpenPro: () -> Unit,
     onOpenFavorite: (FavoriteChannel) -> Unit,
+    /** 無料版の広告（MREC）。広告を出さないとき・読み込めていないときは null。 */
+    mrecSlot: (@Composable () -> Unit)? = null,
 ) {
     val urlText by viewModel.urlText.collectAsStateWithLifecycle()
     val isLoading by viewModel.isLoading.collectAsStateWithLifecycle()
@@ -218,6 +220,9 @@ fun ChannelInputScreen(
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                 }
+                // 広告は保存チャンネルの一覧の「後ろ」にだけ置く。入力欄・取得ボタン・Pro の案内の
+                // 間には入れない。まだ1件も保存していない人（初回）には出さない。
+                mrecSlot?.let { slot -> item(key = "ad_mrec") { slot() } }
             }
 
             item {

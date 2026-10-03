@@ -40,6 +40,28 @@ fun youtubeApiKey(): String {
 }
 
 /**
+ * Google AdMob の本番 ID（アプリ ID・広告ユニット ID）。
+ * **秘密情報ではない**（APK に入って誰でも読める値）ので、次のどこに書いてもよい。
+ *   1. 環境変数（CI 用）
+ *   2. android/local.properties（各自の端末用）
+ *   3. android/gradle.properties（リポジトリに入れて共有する場合）
+ * 3つとも揃っていないリリースビルドは**広告を一切出さない**（SDK を初期化せず、リクエストもしない）。
+ * デバッグビルドは常に Google 公式のテスト広告を使う（本番 ID があっても使わない）。
+ */
+fun admobSetting(name: String): String {
+    System.getenv(name)?.takeIf { it.isNotBlank() }?.let { return it.trim() }
+    val local = rootProject.file("local.properties")
+    if (local.exists()) {
+        val properties = Properties().apply { local.inputStream().use { load(it) } }
+        properties.getProperty(name)?.takeIf { it.isNotBlank() }?.let { return it.trim() }
+    }
+    return (findProperty(name) as String?).orEmpty().trim()
+}
+
+/** Google 公式のテスト用アプリ ID（Android）。本番 ID が無いときの置き場所にも使う。 */
+val admobTestAppId = "ca-app-pub-3940256099942544~3347511713"
+
+/**
  * アップロード鍵の場所。次の順で探し、無ければ null（＝署名なしのビルドになる）。
  *   1. 環境変数 ANDROID_KEYSTORE_PATH（CI が base64 から復元した鍵）
  *   2. android/keystore/upload.jks（各自の端末用・gitignore 済み）
@@ -110,6 +132,12 @@ android {
             "PLAYER_RELAY_URL",
             "\"https://kataming.github.io/ChannelTimelineViewer/player.html\"",
         )
+        // AdMob の本番広告ユニット。空ならリリースでも広告を出さない（ads/AdsConfig.kt）。
+        buildConfigField("String", "ADMOB_BANNER_UNIT_ID", "\"${admobSetting("ADMOB_BANNER_UNIT_ID")}\"")
+        buildConfigField("String", "ADMOB_MREC_UNIT_ID", "\"${admobSetting("ADMOB_MREC_UNIT_ID")}\"")
+        // AndroidManifest の APPLICATION_ID。SDK は起動時にこれが無いと落ちるので、
+        // 本番 ID が無いときはテスト用の ID を置く（その場合は広告を読み込まないので表示もされない）。
+        manifestPlaceholders["admobAppId"] = admobSetting("ADMOB_APP_ID").ifBlank { admobTestAppId }
         buildConfigField(
             "String",
             "PRIVACY_POLICY_URL",
@@ -118,6 +146,10 @@ android {
     }
 
     buildTypes {
+        debug {
+            // 開発中は本番 ID があってもテスト広告だけを使う（自分で本番広告を表示・クリックしない）。
+            manifestPlaceholders["admobAppId"] = admobTestAppId
+        }
         release {
             // Play Console の「アプリの最適化がしきい値を下回っています（難読化 0%）」対策。
             // ⚠️ 難読化で **WebView の JavaScript ブリッジが壊れると再生と自動送りが止まる**。
@@ -181,6 +213,11 @@ dependencies {
     // google-services.json が無いビルドでも依存だけは入る（実行時に初期化されないだけ）。
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
+
+    // Google AdMob（無料版のみ表示）と、広告の同意フォーム（UMP）。
+    // 初期化・読み込みは ads/ 配下にまとめてあり、Pro では SDK を初期化しない。
+    implementation(libs.play.services.ads)
+    implementation(libs.user.messaging.platform)
 
     debugImplementation(libs.androidx.ui.tooling)
 

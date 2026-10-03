@@ -2,6 +2,7 @@
 <!-- このファイルは scripts/build_android_strings.py が生成します。直接編集しないこと。 -->
 <!-- language: nl -->
 <resources>
+    <string name="about_ads_privacyoptions">Privacyinstellingen voor advertenties</string>
     <string name="about_analytics_body">We tellen hoe vaak elk scherm en elke actie wordt gebruikt, met Google Analytics for Firebase. Alleen de schermnaam en het soort actie worden verstuurd — nooit de kanalen of video\'s die je bekijkt, je notities of de URL\'s die je invoert. Er wordt geen advertentie-ID gebruikt. Je kunt dit hieronder altijd uitzetten.</string>
     <string name="about_analytics_header">Gebruiksmeting (Android)</string>
     <string name="about_analytics_toggle">Gebruiksmeting toestaan</string>
@@ -24,6 +25,7 @@
     <string name="about_screen_header">Het scherm tijdens het afspelen</string>
     <string name="about_summary">Een kijkhulp die de uploads van een kanaal op publicatiedatum (oudste eerst) toont, zodat je archieven, series of cursussen kunt doorwerken en je voortgang bijhoudt. De app is geen vervanging voor de officiële YouTube-app.</string>
     <string name="about_title">Over deze app</string>
+    <string name="ads_label">Advertentie</string>
     <string name="api_notconfigured_detail">Stel YOUTUBE_API_KEY in Config.plist in. Zie de README voor de instructies.</string>
     <string name="api_notconfigured_title">API-sleutel niet ingesteld</string>
     <string name="captions_off">Uit</string>

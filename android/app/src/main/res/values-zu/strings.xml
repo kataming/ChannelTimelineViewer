@@ -2,6 +2,7 @@
 <!-- このファイルは scripts/build_android_strings.py が生成します。直接編集しないこと。 -->
 <!-- language: zu -->
 <resources>
+    <string name="about_ads_privacyoptions">Izilungiselelo zobumfihlo bezikhangiso</string>
     <string name="about_analytics_body">Sibala ukuthi isikrini ngasinye nesenzo ngasinye sisetshenziswa kangaki, sisebenzisa i-Google Analytics for Firebase. Kuthunyelwa kuphela igama lesikrini nohlobo lwesenzo — hhayi neze iziteshi noma amavidiyo owabukayo, amanothi akho, noma ama-URL owafakayo. Asisebenzisi isihlonzi sezikhangiso. Ungakuvala ngezansi noma nini.</string>
     <string name="about_analytics_header">Ukulinganisa ukusetshenziswa (Android)</string>
     <string name="about_analytics_toggle">Vumela ukulinganisa ukusetshenziswa</string>
@@ -24,6 +25,7 @@
     <string name="about_screen_header">Isikrini ngesikhathi sokudlala</string>
     <string name="about_summary">Umsizi wokubuka obonisa amavidiyo esiteshi ngokosuku lokushicilelwa (okudala kuqala) ukuze ukwazi ukuqeda ingobo yomlando, uchungechunge, noma izifundo ngenkathi ulandelela inqubekelaphambili yakho. Akuyona into ethatha indawo ye-app esemthethweni ye-YouTube.</string>
     <string name="about_title">Mayelana nale app</string>
+    <string name="ads_label">Isikhangiso</string>
     <string name="api_notconfigured_detail">Setha i-YOUTUBE_API_KEY ku-Config.plist. Bheka i-README ukuze ubone ukuthi uyisetha kanjani.</string>
     <string name="api_notconfigured_title">I-API key ayisethiwe</string>
     <string name="captions_off">Valiwe</string>

@@ -51,6 +51,15 @@ Android 版だけに入れている **Google Analytics for Firebase** の仕組�
 | `pro_restore` | 「購入を復元」を押した（**実売ではない**） | なし |
 | ~~`purchase`~~ | **1.14 で廃止**。自動の `in_app_purchase`（Google Play とリンク済み）と収益が二重になるため | — |
 
+**ユーザー属性**（2026-10-03 追加・広告の導入に合わせて）:
+
+| 属性 | 値 | 目的 |
+| --- | --- | --- |
+| `pro_status` | `free` / `pro` | 広告収益（AdMob 連携で自動の `ad_impression`）・継続率を無料／Pro で分けて見るため。区分だけで個人は特定しない |
+
+> 広告の表示回数・収益・eCPM は**アプリからは送らない**（AdMob の管理画面と、AdMob × Firebase 連携の
+> 自動の `ad_impression` で見る）。詳細は [`admob-ads.md`](./admob-ads.md) の5章。
+
 > **1.9 で `pro_purchase_end` は廃止した。** 保留と成立を同じ名前で送っていて実売の数として
 > 使えなかったため、上の5つに分けた（1.8 までに購入は1件も無く、失われるデータは無い）。
 > **売れた人数を見るのは `pro_purchase_success`。** 発火条件・重複防止・国別の見方は

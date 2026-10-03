@@ -2,6 +2,7 @@
 <!-- このファイルは scripts/build_android_strings.py が生成します。直接編集しないこと。 -->
 <!-- language: ru -->
 <resources>
+    <string name="about_ads_privacyoptions">Настройки конфиденциальности рекламы</string>
     <string name="about_analytics_body">С помощью Google Analytics for Firebase мы подсчитываем, как часто используются экраны и действия. Отправляются только название экрана и тип действия — никогда не отправляются каналы и видео, которые вы смотрите, ваши заметки или вводимые URL. Рекламный идентификатор не используется. Вы можете отключить это ниже в любой момент.</string>
     <string name="about_analytics_header">Статистика использования (Android)</string>
     <string name="about_analytics_toggle">Разрешить сбор статистики</string>
@@ -24,6 +25,7 @@
     <string name="about_screen_header">Экран во время воспроизведения</string>
     <string name="about_summary">Помощник для просмотра, который показывает видео канала по дате публикации (сначала старые), чтобы вы могли пройти архивы, серии или курсы по порядку и отслеживать прогресс. Он не заменяет официальное приложение YouTube.</string>
     <string name="about_title">О приложении</string>
+    <string name="ads_label">Реклама</string>
     <string name="api_notconfigured_detail">Укажите YOUTUBE_API_KEY в Config.plist. Как это сделать, см. в README.</string>
     <string name="api_notconfigured_title">Ключ API не настроен</string>
     <string name="captions_off">Выкл.</string>

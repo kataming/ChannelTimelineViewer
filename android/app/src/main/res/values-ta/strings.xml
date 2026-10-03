@@ -2,6 +2,7 @@
 <!-- このファイルは scripts/build_android_strings.py が生成します。直接編集しないこと。 -->
 <!-- language: ta -->
 <resources>
+    <string name="about_ads_privacyoptions">விளம்பர தனியுரிமை அமைப்புகள்</string>
     <string name="about_analytics_body">Google Analytics for Firebase மூலம் ஒவ்வொரு திரையும் செயலும் எத்தனை முறை பயன்படுத்தப்படுகிறது என்பதைக் கணக்கிடுகிறோம். திரையின் பெயரும் செயலின் வகையும் மட்டுமே அனுப்பப்படும் — நீங்கள் பார்க்கும் சேனல்கள் அல்லது வீடியோக்கள், உங்கள் குறிப்புகள், நீங்கள் உள்ளிடும் URLகள் ஒருபோதும் அனுப்பப்படாது. விளம்பர அடையாளங்காட்டி பயன்படுத்தப்படுவதில்லை. கீழே எப்போது வேண்டுமானாலும் இதை முடக்கலாம்.</string>
     <string name="about_analytics_header">பயன்பாட்டு அளவீடு (Android)</string>
     <string name="about_analytics_toggle">பயன்பாட்டு அளவீட்டை அனுமதி</string>
@@ -24,6 +25,7 @@
     <string name="about_screen_header">இயக்கத்தின்போது திரை</string>
     <string name="about_summary">ஒரு சேனலின் பதிவேற்றங்களை வெளியீட்டுத் தேதியின்படி (பழையவை முதலில்) பட்டியலிடும் பார்வை உதவியாளர்; இதன் மூலம் காப்பகங்கள், தொடர்கள் அல்லது பாடநெறிகளை வரிசையாகப் பார்த்து உங்கள் முன்னேற்றத்தைக் கண்காணிக்கலாம். இது அதிகாரப்பூர்வ YouTube ஆப்புக்கு மாற்று அல்ல.</string>
     <string name="about_title">இந்த ஆப் பற்றி</string>
+    <string name="ads_label">விளம்பரம்</string>
     <string name="api_notconfigured_detail">Config.plist இல் YOUTUBE_API_KEY ஐ அமைக்கவும். அமைக்கும் முறைக்கு README ஐப் பார்க்கவும்.</string>
     <string name="api_notconfigured_title">API விசை அமைக்கப்படவில்லை</string>
     <string name="captions_off">முடக்கு</string>

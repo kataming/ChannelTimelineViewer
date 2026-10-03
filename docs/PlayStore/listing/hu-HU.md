@@ -22,7 +22,7 @@ YouTube-csatornák sorrendben: haladáskövetés és folytatás ott, ahol tartas
 ```
 
 ## 詳しい説明（Full description）
-<!-- 3031 / 4000 文字 -->
+<!-- 3070 / 4000 文字 -->
 
 ```
 A Channel Timeline Viewer segít a YouTube-csatornákat az elejétől nézni úgy, hogy sosem veszíted el, hol tartasz.
@@ -66,7 +66,7 @@ FONTOS TUDNIVALÓK
 • Nem tölt le videókat, nem blokkolja a hirdetéseket, és nem játszik le a háttérben.
 • A videólistákat a YouTube Data API v3 segítségével kéri le.
 • Az automatikus lejátszás alapból be van kapcsolva, de csak az általad megnyitott lista következő videójára lép, és a lejátszó képernyőjén bármikor kikapcsolhatod.
-• Nincsenek hirdetések. Előfizetés sincs — a Pro egyszeri vásárlás.
+• Az ingyenes verzió hirdetéseket jelenít meg. A Pro hirdetésmentes, egyszeri vásárlás — nincs előfizetés.
 • A megtekintési előzmények, a haladás, a jegyzetek és a lejátszási pozíciók az eszközödön maradnak.
 
 A YouTube a Google LLC védjegye.

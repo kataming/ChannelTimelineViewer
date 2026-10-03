@@ -39,7 +39,7 @@ PERHATIAN
 • Aplikasi ini tidak mengunduh video, memblokir iklan, atau memutar di latar belakang.
 • Daftar video diambil melalui YouTube Data API v3.
 • Putar otomatis aktif secara default, tetapi hanya berlanjut ke video berikutnya dalam daftar yang Anda buka, dan Anda bisa menonaktifkannya di layar pemutar kapan saja.
-• Tanpa iklan. Tanpa langganan juga — Pro adalah pembelian sekali bayar.
+• Versi gratis menampilkan iklan. Pro adalah pembelian sekali bayar tanpa iklan — tanpa langganan.
 • Riwayat tontonan, progres, catatan, dan posisi pemutaran tetap tersimpan di perangkat Anda.
 
 YouTube adalah merek dagang Google LLC.

@@ -37,7 +37,7 @@ kronologisk,äldst först,kanal,förlopp,serie,kurs,studier,arkiv,spårning,str�
 ```
 
 ## 説明（Description）
-<!-- 2642 / 4000 文字 -->
+<!-- 2665 / 4000 文字 -->
 
 ```
 Med Channel Timeline Viewer kan du titta på YouTube-kanaler från början utan att tappa bort var du är.
@@ -80,7 +80,7 @@ OBSERVERA
 • Den laddar inte ner videor, blockerar inte annonser och spelar inte upp i bakgrunden.
 • Videolistor hämtas via YouTube Data API v3.
 • Autouppspelning är på från början, men går bara vidare till nästa video i listan du har öppnat, och du kan stänga av den på uppspelningsskärmen när som helst.
-• Inga annonser. Inga prenumerationer heller – Pro är ett engångsköp.
+• Gratisversionen visar annonser. Pro är ett engångsköp utan annonser – ingen prenumeration.
 
 YouTube är ett varumärke som tillhör Google LLC.
 ```

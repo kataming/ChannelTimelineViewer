@@ -46,9 +46,16 @@ SHARE EXTENSIONS
   channel when tapped. No promotional, marketing or re-engagement notifications are ever sent, and no
   remote push notifications are used. Allowing notifications is optional; a clipboard fallback exists.
 
-NO PURCHASES, NO ADS
-- No in-app purchases, no subscriptions, no StoreKit code, and no advertising SDKs.
-- Every user gets exactly the same features; there is no free/paid feature split.
+IN-APP PURCHASE AND ADS
+- One non-consumable in-app purchase, "Pro" (pro_unlock), lets you save more than one channel.
+  There are no subscriptions. Inside the one free channel, every feature works without limits.
+- The free version shows Google AdMob ads: an anchored banner at the bottom of the video list, and one
+  300x250 ad below the saved-channel list on the first screen. Ads are never shown on the player screen
+  and never overlap the YouTube player or its controls. Ads are labeled as ads.
+- Pro users see no ads at all: the ad SDK is not initialized and no ad requests are made.
+- Where required (EEA, UK, Switzerland) consent is collected with Google's User Messaging Platform
+  before any ad request; users can review it later from "Ad privacy settings" on the "i" screen.
+- The app does not use App Tracking Transparency and does not access the IDFA.
 
 HOW TO TEST
 1. Launch the app and enter a public channel URL, for example https://www.youtube.com/@3blue1brown

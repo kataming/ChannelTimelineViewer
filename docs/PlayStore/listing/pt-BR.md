@@ -22,7 +22,7 @@ Veja canais do YouTube em ordem, acompanhe o progresso e continue de onde parou
 ```
 
 ## 詳しい説明（Full description）
-<!-- 2931 / 4000 文字 -->
+<!-- 2962 / 4000 文字 -->
 
 ```
 Channel Timeline Viewer ajuda você a assistir a canais do YouTube desde o início sem perder o ponto onde parou.
@@ -66,7 +66,7 @@ OBSERVAÇÕES
 • Ele não baixa vídeos, não bloqueia anúncios e não reproduz em segundo plano.
 • As listas de vídeos são obtidas pela YouTube Data API v3.
 • A reprodução automática vem ativada por padrão, mas só avança para o próximo vídeo da lista que você abriu, e você pode desativá-la na tela do player a qualquer momento.
-• Sem anúncios. E sem assinaturas — o Pro é uma compra única.
+• A versão gratuita exibe anúncios. O Pro é uma compra única, sem anúncios e sem assinatura.
 • O histórico de assistidos, o progresso, as notas e as posições de reprodução ficam no seu dispositivo.
 
 YouTube é uma marca comercial da Google LLC.

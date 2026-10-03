@@ -22,7 +22,7 @@ Canale YouTube în ordine, cu progres și reluare de unde ați rămas.
 ```
 
 ## 詳しい説明（Full description）
-<!-- 3001 / 4000 文字 -->
+<!-- 3037 / 4000 文字 -->
 
 ```
 Channel Timeline Viewer vă ajută să urmăriți canale YouTube de la început, fără să pierdeți locul unde ați rămas.
@@ -66,7 +66,7 @@ DE REȚINUT
 • Nu descarcă videoclipuri, nu blochează reclame și nu redă în fundal.
 • Listele de videoclipuri sunt obținute prin YouTube Data API v3.
 • Redarea automată este activată implicit, dar trece doar la următorul videoclip din lista deschisă de dvs. și o puteți dezactiva oricând din ecranul playerului.
-• Fără reclame. Nici abonamente — Pro este o achiziție unică.
+• Versiunea gratuită afișează reclame. Pro este o achiziție unică, fără reclame — fără abonament.
 • Istoricul vizionărilor, progresul, notițele și pozițiile de redare rămân pe dispozitivul dvs.
 
 YouTube este o marcă comercială a Google LLC.

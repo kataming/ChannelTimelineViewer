@@ -22,7 +22,7 @@ Watch YouTube channels in order, track progress and resume where you left off.
 ```
 
 ## 詳しい説明（Full description）
-<!-- 2629 / 4000 文字 -->
+<!-- 2653 / 4000 文字 -->
 
 ```
 Channel Timeline Viewer helps you watch YouTube channels from the beginning without losing your place.
@@ -66,7 +66,7 @@ PLEASE NOTE
 • It does not download videos, block ads, or play in the background.
 • Video lists are retrieved via the YouTube Data API v3.
 • Autoplay is on by default, but it only moves to the next video in the list you opened, and you can turn it off on the player screen at any time.
-• No ads. No subscriptions either — Pro is a one-time purchase.
+• The free version shows ads. Pro is a one-time purchase with no ads — no subscription.
 • Watch history, progress, notes and playback positions stay on your device.
 
 YouTube is a trademark of Google LLC.

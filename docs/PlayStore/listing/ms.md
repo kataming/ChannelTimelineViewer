@@ -22,7 +22,7 @@ Tonton saluran YouTube ikut urutan, jejak kemajuan, sambung di tempat berhenti.
 ```
 
 ## 詳しい説明（Full description）
-<!-- 2929 / 4000 文字 -->
+<!-- 2955 / 4000 文字 -->
 
 ```
 Channel Timeline Viewer membantu anda menonton saluran YouTube dari awal tanpa terlupa di mana anda berhenti.
@@ -66,7 +66,7 @@ SILA AMBIL PERHATIAN
 • Apl ini tidak memuat turun video, menyekat iklan atau bermain di latar belakang.
 • Senarai video diperoleh melalui YouTube Data API v3.
 • Automain dihidupkan secara lalai, tetapi ia hanya beralih ke video seterusnya dalam senarai yang anda buka, dan anda boleh mematikannya pada skrin pemain pada bila-bila masa.
-• Tiada iklan. Tiada langganan juga — Pro ialah pembelian sekali sahaja.
+• Versi percuma memaparkan iklan. Pro ialah pembelian sekali sahaja tanpa iklan — tiada langganan.
 • Sejarah tontonan, kemajuan, nota dan kedudukan main balik kekal pada peranti anda.
 
 YouTube ialah tanda dagangan Google LLC.

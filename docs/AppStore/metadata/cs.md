@@ -37,7 +37,7 @@ chronologicky,nejstarší,kanál,průběh,série,kurz,studium,archiv,sledování
 ```
 
 ## 説明（Description）
-<!-- 2736 / 4000 文字 -->
+<!-- 2763 / 4000 文字 -->
 
 ```
 Channel Timeline Viewer vám pomůže sledovat kanály YouTube od začátku, aniž byste ztratili přehled, kde jste skončili.
@@ -80,7 +80,7 @@ UPOZORNĚNÍ
 • Nestahuje videa, neblokuje reklamy a nepřehrává na pozadí.
 • Seznamy videí se získávají prostřednictvím YouTube Data API v3.
 • Automatické přehrávání je ve výchozím stavu zapnuté, ale přechází jen na další video v seznamu, který jste otevřeli, a na obrazovce přehrávače ho můžete kdykoli vypnout.
-• Žádné reklamy. Ani žádné předplatné — Pro je jednorázový nákup.
+• Bezplatná verze zobrazuje reklamy. Pro je jednorázový nákup bez reklam — žádné předplatné.
 
 YouTube je ochranná známka společnosti Google LLC.
 ```

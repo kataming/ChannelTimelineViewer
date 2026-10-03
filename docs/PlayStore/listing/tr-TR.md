@@ -22,7 +22,7 @@ YouTube kanallarını sırayla izleyin; ilerleme takibi ve kaldığı yerden dev
 ```
 
 ## 詳しい説明（Full description）
-<!-- 2810 / 4000 文字 -->
+<!-- 2842 / 4000 文字 -->
 
 ```
 Channel Timeline Viewer, YouTube kanallarını baştan itibaren, kaldığınız yeri kaybetmeden izlemenize yardımcı olur.
@@ -66,7 +66,7 @@ LÜTFEN DİKKAT
 • Video indirmez, reklam engellemez ve arka planda oynatmaz.
 • Video listeleri YouTube Data API v3 üzerinden alınır.
 • Otomatik oynatma varsayılan olarak açıktır ancak yalnızca açtığınız listedeki sonraki videoya geçer ve oynatıcı ekranından istediğiniz zaman kapatılabilir.
-• Reklam yok. Abonelik de yok — Pro tek seferlik bir satın almadır.
+• Ücretsiz sürümde reklam gösterilir. Pro, reklamsız tek seferlik bir satın almadır — abonelik yok.
 • İzleme geçmişi, ilerleme, notlar ve oynatma konumları cihazınızda kalır.
 
 YouTube, Google LLC'nin ticari markasıdır.

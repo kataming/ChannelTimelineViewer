@@ -37,7 +37,7 @@ terlama,kronologis,urutan,channel,progres,serial,kursus,belajar,arsip,riwayat to
 ```
 
 ## 説明（Description）
-<!-- 2788 / 4000 文字 -->
+<!-- 2814 / 4000 文字 -->
 
 ```
 Channel Timeline Viewer membantu Anda menonton channel YouTube dari awal tanpa lupa sampai mana terakhir menonton.
@@ -80,7 +80,7 @@ PERHATIAN
 • Aplikasi ini tidak mengunduh video, memblokir iklan, atau memutar di latar belakang.
 • Daftar video diambil melalui YouTube Data API v3.
 • Putar otomatis aktif secara default, tetapi hanya berlanjut ke video berikutnya dalam daftar yang Anda buka, dan Anda bisa menonaktifkannya di layar pemutar kapan saja.
-• Tanpa iklan. Tanpa langganan juga — Pro adalah pembelian sekali bayar.
+• Versi gratis menampilkan iklan. Pro adalah pembelian sekali bayar tanpa iklan — tanpa langganan.
 
 YouTube adalah merek dagang Google LLC.
 ```

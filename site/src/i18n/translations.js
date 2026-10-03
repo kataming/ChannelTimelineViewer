@@ -25,7 +25,7 @@ const en = {
       'Channel Timeline Viewer sorts a channel’s uploads by publication date — oldest first — and keeps track of how far you got. Ideal for archives, lecture series, and long-running shows.',
     cta: 'Download on the App Store',
     ctaPending: 'Coming soon to the App Store',
-    ctaNote: 'Free for one channel. No ads, no subscriptions — Pro is a one-time purchase.',
+    ctaNote: 'Free for one channel, with ads. No subscriptions — Pro is a one-time purchase with no ads.',
   },
   problem: {
     title: 'YouTube shows newest first. Series start at the beginning.',
@@ -67,7 +67,7 @@ const en = {
     { q: 'Does it play in the background?', a: 'No. Playback stops when you leave the app. While a video is playing the screen simply stays awake so it does not dim on you.' },
     { q: 'Do I need to sign in?', a: 'No account or sign-in. The app only reads public channel and video information through the YouTube Data API v3.' },
     { q: 'Where is my progress stored?', a: 'On your device only. Watch history, progress, notes, and playback positions never leave the phone, and they are deleted with the app.' },
-    { q: 'Are there ads or subscriptions?', a: 'No ads and no subscriptions. The app is free and saves one channel, and inside that channel nothing is limited. Pro is an optional one-time purchase that lets you keep several channels, each with its own progress. Nothing is charged again afterwards.' },
+    { q: 'Are there ads or subscriptions?', a: 'The free version shows ads (never on the player screen). There are no subscriptions. The app is free and saves one channel, and inside that channel nothing is limited. Pro is an optional one-time purchase that removes the ads and lets you keep several channels, each with its own progress. Nothing is charged again afterwards.' },
     { q: 'Is there an Android version?', a: 'Yes. It is available on Google Play, and the iPhone version is on the App Store. Both work the same way, and what you have watched is kept on each device separately.' },
   ],
   pricing: {
@@ -79,7 +79,7 @@ const en = {
     priceKind: 'one-time purchase',
     priceNote: 'The current store price for your region. Prices differ by country and are set in the App Store and Google Play, so what you see there is what you pay.',
     proBody: 'Save several channels and keep the watched history, progress, and notes of each one, so you never have to replace a channel to make room for another.',
-    note: 'Not a subscription, and no ads. The price is the one shown in the App Store or Google Play at the time you buy; what you have already bought stays yours.',
+    note: 'Not a subscription, and Pro has no ads. The price is the one shown in the App Store or Google Play at the time you buy; what you have already bought stays yours.',
   },
   store: {
     iosPre: 'Download on the',
@@ -135,9 +135,9 @@ const en = {
   privacy: {
     title: 'Privacy Policy',
     description: 'What Channel Timeline Viewer stores and what it does not.',
-    updated: 'Last updated: 16 September 2026',
+    updated: 'Last updated: 4 October 2026',
     sections: [
-      { title: '1. Summary', body: ['Channel Timeline Viewer keeps your data on your device. There is no account, and no server operated by us receives what you watch. The Android version measures how the app itself is used (Google Analytics for Firebase) so we can improve it: it records screen names and the kind of action, never the channels or videos you watch, and you can switch it off in the app. The iOS version contains no analytics at all.'] },
+      { title: '1. Summary', body: ['Channel Timeline Viewer keeps your data on your device. There is no account, and no server operated by us receives what you watch. The Android version measures how the app itself is used (Google Analytics for Firebase) so we can improve it: it records screen names and the kind of action, never the channels or videos you watch, and you can switch it off in the app. The iOS version contains no analytics at all. The free version shows ads from Google AdMob (see section 8); Pro shows none.'] },
       { title: '2. What is stored on your device', body: [
         'The following are saved locally (iOS UserDefaults / app cache) and never sent to us:',
         '• Identifiers of videos you marked as watched or skipped, with timestamps',
@@ -162,23 +162,29 @@ const en = {
         'iOS does not allow a share sheet to launch an app directly. If — and only if — you allow notifications, the app posts one local notification right after you share, so you can tap it to open the channel. It contains only the shared YouTube URL and is handled on the device. No promotional, re-engagement, or server push notifications are ever sent.'] },
       { title: '7. Purchases (Pro)', body: [
         'Channel Timeline Viewer is free and offers a single optional one-time in-app purchase called “Pro”. Purchases are handled entirely by Apple through the App Store; we never see or receive your payment details. The app only asks the operating system whether that purchase belongs to your account and stores the answer on the device so it also works offline. There is no subscription and no recurring charge.'] },
-      { title: '8. Tracking and usage measurement', body: [
+      { title: '8. Advertising (free version)', body: [
+        'The free version shows ads from Google AdMob (Google LLC): a banner at the bottom of the video list and one ad below the saved-channel list on the first screen. Ads are never shown on the player screen. Pro shows no ads, and the ad SDK is not started for Pro users.',
+        'To show and measure ads and to prevent fraud, Google AdMob collects your IP address (which may be used to estimate your approximate location), your interactions with the app and with ads (such as app launches, taps and ad views), diagnostic information about the app and the SDK, and device identifiers such as the app set ID. The app does not give AdMob the channels or videos you watch, your notes, or the URLs you enter.',
+        'The app does not use the advertising identifier: on iOS it does not use App Tracking Transparency or the IDFA, and on Android it does not request the AD_ID permission.',
+        'In the European Economic Area, the United Kingdom and Switzerland, the app asks for your consent with Google’s consent form before requesting ads. You can change your choice at any time from “About this app” → “Ad privacy settings”.',
+        'How Google uses this information: https://policies.google.com/technologies/partner-sites'] },
+      { title: '9. Tracking and usage measurement', body: [
         'The app does not use the advertising identifier (IDFA on iOS, Advertising ID on Android) and does not use App Tracking Transparency, because it does not track you.',
         'The Android version includes Google Analytics for Firebase to count how often each screen and action is used. What is sent is limited to: the screen name; the kind of action (for example “a channel was opened”, “autoplay was switched on”, “a video finished”); the number of videos in the list; the option you pick in the optional one-question survey shown after you stop buying Pro (for example “No payment method I can use”); and the information Google Analytics collects automatically (app version, OS version, device model, coarse location such as country, and a randomly generated app instance ID). The channels and videos you watch, your notes, and the URLs you enter are never sent.',
         'Advertising ID collection and ad personalisation signals are switched off, and the app does not request the AD_ID permission.',
         'You can turn this off at any time in the app: “About this app” → “Allow usage measurement”. Turning it off stops the measurement completely.',
         'Data collected this way is processed by Google on our behalf; see the Google privacy policy linked above.',
         'The iOS version contains no analytics.'] },
-      { title: '9. Children', body: ['The app does not knowingly collect personal information from children.'] },
-      { title: '10. This website', body: [
+      { title: '10. Children', body: ['The app does not knowingly collect personal information from children.'] },
+      { title: '11. This website', body: [
         'This site is a set of static pages. It sets no cookies and runs no analytics.',
         'The interactive pages of this site, such as the web trial (/try/), work as follows:',
         '• The channel you enter, the videos you mark as watched or skipped, your progress, your notes, and playback positions are stored in your browser (localStorage) on the device you are using. They are never sent to us, are not shared with the app on your phone, and are deleted when you clear the site data for this site.',
         '• To build the video list, the page asks a small relay on this site, which calls the YouTube Data API v3 with our key. Only the identifiers of the channel, playlist, or videos to show are passed on; nothing about you is sent.',
         '• Playback uses YouTube’s official embedded player, and video thumbnails are loaded from YouTube’s servers. While you use the player, YouTube and Google may collect and process information under their own policies.',
         '• There is no account, no sign-in, and no payment on this website.'] },
-      { title: '11. Changes', body: ['This policy may be updated. Significant changes will be announced with an app update.'] },
-      { title: '12. Contact', body: ['Email:'] },
+      { title: '12. Changes', body: ['This policy may be updated. Significant changes will be announced with an app update.'] },
+      { title: '13. Contact', body: ['Email:'] },
     ],
     trademark: 'YouTube is a trademark of Google LLC. This app is an unofficial app that uses the official API and player; it is not endorsed by or affiliated with Google or YouTube.',
   },
@@ -201,7 +207,7 @@ const ja = {
       'Channel Timeline Viewer は、チャンネルの投稿動画を公開日順（古い順）に並べ、どこまで見たかを覚えておきます。過去動画の一気見、講座、長期連載に向いています。',
     cta: 'App Store でダウンロード',
     ctaPending: 'App Store 公開準備中',
-    ctaNote: '広告なし・サブスクなし。無料で1チャンネル、Pro は買い切りです。',
+    ctaNote: 'サブスクなし。無料版（広告あり）で1チャンネル、Pro は広告なしの買い切りです。',
   },
   problem: {
     title: 'YouTube は新しい順。シリーズは最初から見たい。',
@@ -243,7 +249,7 @@ const ja = {
     { q: 'バックグラウンド再生はできますか？', a: 'いいえ。アプリを離れると再生は止まります。再生中は画面が自動で暗くならないようにしているだけです。' },
     { q: 'ログインは必要ですか？', a: '不要です。YouTube Data API v3 を通じて公開情報だけを読み取ります。' },
     { q: '進捗はどこに保存されますか？', a: '端末内だけです。視聴履歴・進捗・メモ・再生位置は外部に出ず、アプリを削除すると消えます。' },
-    { q: '広告やサブスクはありますか？', a: '広告もサブスクリプションもありません。アプリは無料で、1チャンネルを保存できます。その1チャンネルの中では機能を制限しません。複数のチャンネルをそれぞれの進捗ごと残しておきたい場合だけ、買い切りの Pro をご購入いただけます。あとから追加で請求されることはありません。' },
+    { q: '広告やサブスクはありますか？', a: '無料版には広告が表示されます（再生画面には出しません）。サブスクリプションはありません。アプリは無料で、1チャンネルを保存できます。その1チャンネルの中では機能を制限しません。広告をなくしたい場合や、複数のチャンネルをそれぞれの進捗ごと残しておきたい場合は、買い切りの Pro をご購入いただけます。あとから追加で請求されることはありません。' },
     { q: 'Android 版はありますか？', a: 'あります。Google Play で公開中です（iPhone 版は App Store）。操作はどちらも同じですが、視聴済みや進捗は端末ごとに保存されるため、機種をまたいで引き継ぐことはできません。' },
   ],
   pricing: {
@@ -255,7 +261,7 @@ const ja = {
     priceKind: '買い切り',
     priceNote: 'この地域の現在のストア価格です。金額は国や地域によって異なり、App Store と Google Play の表示が正となります。',
     proBody: '複数のチャンネルを保存し、それぞれの視聴済み・進捗・メモを残しておけます。別のチャンネルを見るためにいまのチャンネルを入れ替える必要がなくなります。',
-    note: 'サブスクリプションではなく、広告もありません。価格は購入時の App Store / Google Play の表示に従います。購入済みの内容があとから取り消されることはありません。',
+    note: 'サブスクリプションではなく、Pro には広告もありません。価格は購入時の App Store / Google Play の表示に従います。購入済みの内容があとから取り消されることはありません。',
   },
   store: {
     iosPre: 'ダウンロード',
@@ -311,9 +317,9 @@ const ja = {
   privacy: {
     title: 'プライバシーポリシー',
     description: 'Channel Timeline Viewer が保存するもの・しないこと。',
-    updated: '最終更新日: 2026年9月16日',
+    updated: '最終更新日: 2026年10月4日',
     sections: [
-      { title: '1. 概要', body: ['Channel Timeline Viewer は、利用者のデータを端末内に保存します。アカウントはなく、当方が運営するサーバーが「何を見たか」を受け取ることもありません。Android 版のみ、アプリを改善するために「アプリ自体がどう使われているか」を Google アナリティクス（Firebase）で数えています。記録するのは画面名と操作の種類だけで、見ているチャンネルや動画は記録せず、アプリ内でいつでも止められます。iOS 版に解析ツールは入っていません。'] },
+      { title: '1. 概要', body: ['Channel Timeline Viewer は、利用者のデータを端末内に保存します。アカウントはなく、当方が運営するサーバーが「何を見たか」を受け取ることもありません。Android 版のみ、アプリを改善するために「アプリ自体がどう使われているか」を Google アナリティクス（Firebase）で数えています。記録するのは画面名と操作の種類だけで、見ているチャンネルや動画は記録せず、アプリ内でいつでも止められます。iOS 版に解析ツールは入っていません。無料版には Google AdMob の広告が表示されます（8 を参照）。Pro には広告は表示されません。'] },
       { title: '2. 端末内に保存する情報', body: [
         '次の情報は端末内（iOS の UserDefaults／アプリのキャッシュ）にのみ保存し、当方へ送信しません。',
         '・視聴済み／スキップにした動画の識別子と日時',
@@ -338,23 +344,29 @@ const ja = {
         'iOS の仕様上、共有シートからアプリを直接起動できません。通知を許可いただいた場合に限り、共有した直後に「タップして開く」ためのローカル通知を1件だけ表示します。内容は共有された YouTube の URL のみで、端末内で処理します。お知らせ・宣伝・再訪を促す通知や、サーバーからのプッシュ通知は一切送りません。'] },
       { title: '7. アプリ内課金（Pro）について', body: [
         'Channel Timeline Viewer は無料で、任意の買い切りアプリ内課金「Pro」を1つだけ用意しています。購入手続きはすべて Apple（App Store）が行い、当方が支払い情報を受け取ることはありません。アプリは「その購入がお客様のアカウントのものか」を OS に問い合わせ、その結果だけを端末内に保存します（オフラインでも動くようにするためです）。サブスクリプションや継続課金はありません。'] },
-      { title: '8. トラッキングと利用状況の記録', body: [
+      { title: '8. 広告（無料版）', body: [
+        '無料版には Google AdMob（Google LLC）の広告を表示します。表示するのは、動画一覧の画面下のバナーと、最初の画面の保存チャンネル一覧の下の広告1つです。再生画面には表示しません。Pro では広告を表示せず、広告の SDK も起動しません。',
+        '広告の表示・効果測定・不正防止のため、Google AdMob は次の情報を取得します: IP アドレス（おおよその位置の推定に使われることがあります）、アプリや広告の操作（起動・タップ・広告の表示など）、アプリと SDK の診断情報、アプリセット ID などの端末の識別子。見ているチャンネルや動画、メモ、入力した URL を本アプリが AdMob に渡すことはありません。',
+        '本アプリは広告識別子を使用しません。iOS では App Tracking Transparency と IDFA を使用せず、Android では AD_ID 権限を要求しません。',
+        '欧州経済領域・英国・スイスでは、広告をリクエストする前に Google の同意フォームで同意を確認します。選択はアプリの「このアプリについて」→「広告のプライバシー設定」からいつでも変更できます。',
+        'Google によるこれらの情報の使われ方: https://policies.google.com/technologies/partner-sites'] },
+      { title: '9. トラッキングと利用状況の記録', body: [
         '広告識別子（iOS の IDFA、Android の広告ID）は使用せず、App Tracking Transparency も使用しません（トラッキングを行わないため）。',
         'Android 版には、どの画面・どの操作がどれくらい使われたかを数えるために Google アナリティクス（Firebase）を入れています。送るのは次のものに限られます: 画面名、操作の種類（例:「チャンネルを開いた」「自動再生をオンにした」「動画を見終わった」）、一覧の本数、Pro の購入をやめたときの任意の一問アンケートで選んだ項目（例:「使える支払い方法がない」）、および Google アナリティクスが自動で集める情報（アプリのバージョン・OSのバージョン・端末の機種・国などの大まかな地域・アプリごとにランダムに作られる識別子）。見ているチャンネルや動画、メモの中身、入力したURLは送りません。',
         '広告IDの収集と広告のパーソナライズ用シグナルは無効にしてあり、アプリは AD_ID 権限を要求しません。',
         'アプリ内の「ⓘ このアプリについて」→「利用状況の記録を許可する」でいつでもオフにできます。オフにすると記録は完全に止まります。',
         'こうして集めた情報は、当方に代わって Google が処理します。上に挙げた Google のプライバシーポリシーをご確認ください。',
         'iOS 版に解析ツールは入っていません。'] },
-      { title: '9. 子どものプライバシー', body: ['本アプリは、子どもから個人情報を意図的に収集することはありません。'] },
-      { title: '10. このウェブサイトについて', body: [
+      { title: '10. 子どものプライバシー', body: ['本アプリは、子どもから個人情報を意図的に収集することはありません。'] },
+      { title: '11. このウェブサイトについて', body: [
         '本サイトは静的ページで構成されており、Cookie の設定やアクセス解析は行っていません。',
         'Web体験版（/try/）など、操作できるページは次のように動きます。',
         '• 入力したチャンネル、視聴済み・スキップの印、進捗、メモ、再生位置は、お使いの端末のブラウザ内（localStorage）にのみ保存されます。当方には送信されず、スマートフォンのアプリとも共有されません。本サイトのサイトデータを消すと削除されます。',
         '• 動画一覧を作るために、本サイト上の小さな中継を経由して YouTube Data API v3 を呼び出します。渡すのは表示するチャンネル・プレイリスト・動画の識別子だけで、利用者に関する情報は送信しません。',
         '• 再生には YouTube 公式の埋め込みプレイヤーを使用し、サムネイル画像も YouTube のサーバーから読み込みます。プレイヤーの利用中、YouTube および Google が各社のポリシーに基づき情報を取得・処理することがあります。',
         '• 本ウェブサイトにはアカウント・ログイン・支払いはありません。'] },
-      { title: '11. ポリシーの変更', body: ['本ポリシーは必要に応じて更新されることがあります。重要な変更はアプリの更新等でお知らせします。'] },
-      { title: '12. お問い合わせ', body: ['メール:'] },
+      { title: '12. ポリシーの変更', body: ['本ポリシーは必要に応じて更新されることがあります。重要な変更はアプリの更新等でお知らせします。'] },
+      { title: '13. お問い合わせ', body: ['メール:'] },
     ],
     trademark: 'YouTube は Google LLC の商標です。本アプリは公式 API・公式プレイヤーを利用する非公式アプリであり、Google／YouTube による承認・提携を示すものではありません。',
   },
@@ -375,7 +387,7 @@ const zh = {
       'Channel Timeline Viewer 会按发布日期（从旧到新）排列频道的投稿视频，并记住你看到哪里。适合补看往期内容、课程与长期连载。',
     cta: '在 App Store 下载',
     ctaPending: 'App Store 即将上线',
-    ctaNote: '没有广告，没有订阅。免费可保存 1 个频道，Pro 为一次性买断。',
+    ctaNote: '没有订阅。免费版（含广告）可保存 1 个频道，Pro 为无广告的一次性买断。',
   },
   problem: {
     title: 'YouTube 从新到旧，而系列要从头看起。',
@@ -417,7 +429,7 @@ const zh = {
     { q: '支持后台播放吗？', a: '不支持。离开应用后播放会停止。播放期间只是让屏幕保持常亮，避免自动变暗。' },
     { q: '需要登录吗？', a: '不需要账号或登录。应用仅通过 YouTube Data API v3 读取公开信息。' },
     { q: '进度保存在哪里？', a: '仅保存在你的设备上。观看记录、进度、笔记与播放位置不会离开手机，删除应用后即被清除。' },
-    { q: '有广告或订阅吗？', a: '没有广告，也没有订阅。应用免费，可保存 1 个频道，在该频道内的功能不受任何限制。若想同时保留多个频道及各自的进度，可以选择一次性买断的 Pro。之后不会再产生任何费用。' },
+    { q: '有广告或订阅吗？', a: '免费版会显示广告（播放画面不显示），没有订阅。应用免费，可保存 1 个频道，在该频道内的功能不受任何限制。若想去除广告，或同时保留多个频道及各自的进度，可以选择一次性买断的 Pro。之后不会再产生任何费用。' },
     { q: '有 Android 版吗？', a: '有，已在 Google Play 上线（iPhone 版在 App Store）。两者操作相同，但已观看记录与进度保存在各自的设备上，无法跨设备同步。' },
   ],
   pricing: {
@@ -429,7 +441,7 @@ const zh = {
     priceKind: '一次性买断',
     priceNote: '这是该地区当前的商店价格。金额因国家或地区而异，以 App Store 和 Google Play 的显示为准。',
     proBody: '可保存多个频道，并分别保留各自的已观看记录、进度与备注，不必为了看另一个频道而替换掉当前频道。',
-    note: '不是订阅，也没有广告。价格以购买时 App Store / Google Play 的显示为准，已购买的内容不会被收回。',
+    note: '不是订阅，Pro 也没有广告。价格以购买时 App Store / Google Play 的显示为准，已购买的内容不会被收回。',
   },
   store: {
     iosPre: '下载',
@@ -485,9 +497,9 @@ const zh = {
   privacy: {
     title: '隐私政策',
     description: 'Channel Timeline Viewer 会保存什么，不会做什么。',
-    updated: '最后更新：2026 年 9 月 16 日',
+    updated: '最后更新：2026 年 10 月 4 日',
     sections: [
-      { title: '1. 概述', body: ['Channel Timeline Viewer 将你的数据保存在设备中。没有账号，我们也没有接收「你看了什么」的服务器。仅 Android 版为了改进应用，使用 Google Analytics for Firebase 统计「应用本身如何被使用」。记录的只是画面名称和操作类型，不记录你观看的频道或视频，并且可在应用内随时关闭。iOS 版不含任何分析工具。'] },
+      { title: '1. 概述', body: ['Channel Timeline Viewer 将你的数据保存在设备中。没有账号，我们也没有接收「你看了什么」的服务器。仅 Android 版为了改进应用，使用 Google Analytics for Firebase 统计「应用本身如何被使用」。记录的只是画面名称和操作类型，不记录你观看的频道或视频，并且可在应用内随时关闭。iOS 版不含任何分析工具。免费版会显示 Google AdMob 的广告（见第 8 条）；Pro 不显示广告。'] },
       { title: '2. 保存在设备上的信息', body: [
         '以下内容仅保存在本地（iOS UserDefaults／应用缓存），不会发送给我们：',
         '• 标记为已观看或跳过的视频标识符与时间',
@@ -512,23 +524,29 @@ const zh = {
         '由于 iOS 的限制，分享面板无法直接启动应用。仅当你允许通知时，应用会在分享后立即发送一条本地通知，点按即可打开频道。通知只包含所分享的 YouTube 网址，并在设备上处理。我们绝不发送宣传、召回类通知或服务器推送通知。'] },
       { title: '7. 关于应用内购买（Pro）', body: [
         'Channel Timeline Viewer 免费提供，并设有一项可选的一次性应用内购买“Pro”。购买流程全部由 Apple（App Store）处理，我们不会看到或接收你的支付信息。应用只会向系统询问该购买是否属于你的账户，并将结果保存在设备上（以便离线时也能使用）。没有订阅，也没有周期性扣费。'] },
-      { title: '8. 追踪与使用情况统计', body: [
+      { title: '8. 广告（免费版）', body: [
+        '免费版会显示 Google AdMob（Google LLC）的广告：视频列表底部的横幅，以及首页已保存频道列表下方的 1 个广告。播放画面不显示广告。Pro 不显示广告，也不会启动广告 SDK。',
+        '为了展示和衡量广告并防止欺诈，Google AdMob 会收集：IP 地址（可能用于推测大致位置）、对应用和广告的操作（如启动、点按、广告展示）、应用与 SDK 的诊断信息，以及应用集 ID 等设备标识符。本应用不会把你观看的频道或视频、备忘以及输入的 URL 提供给 AdMob。',
+        '本应用不使用广告标识符：在 iOS 上不使用 App Tracking Transparency 和 IDFA，在 Android 上不申请 AD_ID 权限。',
+        '在欧洲经济区、英国和瑞士，应用会在请求广告之前通过 Google 的同意表单征求你的同意。你可以随时在“关于本应用”→“广告隐私设置”中更改选择。',
+        'Google 如何使用这些信息：https://policies.google.com/technologies/partner-sites'] },
+      { title: '9. 追踪与使用情况统计', body: [
         '本应用不使用广告标识符（iOS 的 IDFA、Android 的广告 ID），也不使用 App Tracking Transparency，因为它不会追踪你。',
         'Android 版内置 Google Analytics for Firebase，用于统计各画面和操作的使用次数。发送的内容仅限于：画面名称；操作类型（例如「打开了频道」「开启了自动播放」「看完了视频」）；列表中的视频数量；放弃购买 Pro 时在可选的单题问卷中选择的选项（例如「没有可用的付款方式」）；以及 Google Analytics 自动收集的信息（应用版本、系统版本、设备型号、国家等粗略地区、以及为每个应用实例随机生成的标识符）。不会发送你观看的频道和视频、备忘内容或你输入的网址。',
         '已关闭广告 ID 的收集与广告个性化信号，应用也不申请 AD_ID 权限。',
         '你可以随时在应用内「关于本应用」→「允许统计使用情况」中关闭。关闭后统计会完全停止。',
         '以此方式收集的信息由 Google 代表我们处理，详见上文链接的 Google 隐私政策。',
         'iOS 版不含任何分析工具。'] },
-      { title: '9. 儿童隐私', body: ['本应用不会有意收集儿童的个人信息。'] },
-      { title: '10. 关于本网站', body: [
+      { title: '10. 儿童隐私', body: ['本应用不会有意收集儿童的个人信息。'] },
+      { title: '11. 关于本网站', body: [
         '本网站由静态页面构成，不设置 Cookie，也不进行访问分析。',
         '网页试用版（/try/）等可以操作的页面，其运作方式如下：',
         '• 你输入的频道、已观看／跳过的标记、进度、笔记和播放位置，只保存在你所用设备的浏览器中（localStorage）。这些不会发送给我们，也不会与手机上的应用共享，清除本站的网站数据后即被删除。',
         '• 为了生成视频列表，页面会通过本站的一个小型中继调用 YouTube Data API v3。传递的只有要显示的频道、播放列表或视频的标识符，不会发送与你有关的信息。',
         '• 播放使用 YouTube 官方嵌入式播放器，缩略图也从 YouTube 的服务器加载。在你使用播放器期间，YouTube 和 Google 可能依据其各自的政策收集和处理信息。',
         '• 本网站没有账号、登录和付款。'] },
-      { title: '11. 政策变更', body: ['本政策可能会更新。重要变更将随应用更新一并说明。'] },
-      { title: '12. 联系我们', body: ['电子邮件：'] },
+      { title: '12. 政策变更', body: ['本政策可能会更新。重要变更将随应用更新一并说明。'] },
+      { title: '13. 联系我们', body: ['电子邮件：'] },
     ],
     trademark: 'YouTube 是 Google LLC 的商标。本应用是使用官方 API 与播放器的非官方应用，未获得 Google／YouTube 的认可，也与其无关联。',
   },
@@ -549,7 +567,7 @@ const es = {
       'Channel Timeline Viewer ordena las subidas de un canal por fecha de publicación —de las más antiguas a las más recientes— y recuerda hasta dónde llegaste. Ideal para archivos, clases y series largas.',
     cta: 'Descargar en el App Store',
     ctaPending: 'Próximamente en el App Store',
-    ctaNote: 'Gratis para un canal. Sin anuncios ni suscripciones: Pro es una compra única.',
+    ctaNote: 'Gratis para un canal, con anuncios. Sin suscripciones: Pro es una compra única sin anuncios.',
   },
   problem: {
     title: 'YouTube muestra lo más nuevo. Las series empiezan por el principio.',
@@ -591,7 +609,7 @@ const es = {
     { q: '¿Reproduce en segundo plano?', a: 'No. La reproducción se detiene al salir de la app. Mientras un vídeo se reproduce, la pantalla solo se mantiene encendida para que no se atenúe.' },
     { q: '¿Hay que iniciar sesión?', a: 'No hace falta cuenta. La app solo lee información pública mediante la API de datos de YouTube v3.' },
     { q: '¿Dónde se guarda mi progreso?', a: 'Solo en tu dispositivo. Historial, progreso, notas y posiciones nunca salen del teléfono y se borran con la app.' },
-    { q: '¿Hay anuncios o suscripciones?', a: 'No hay anuncios ni suscripciones. La app es gratuita y guarda un canal, y dentro de ese canal nada está limitado. Pro es una compra única opcional que permite conservar varios canales, cada uno con su propio progreso. Después no se cobra nada más.' },
+    { q: '¿Hay anuncios o suscripciones?', a: 'La versión gratuita muestra anuncios (nunca en la pantalla de reproducción). No hay suscripciones. La app es gratuita y guarda un canal, y dentro de ese canal nada está limitado. Pro es una compra única opcional que quita los anuncios y permite conservar varios canales, cada uno con su propio progreso. Después no se cobra nada más.' },
     { q: '¿Hay versión para Android?', a: 'Sí, está disponible en Google Play (y la de iPhone en el App Store). Funcionan igual, pero el historial y el progreso se guardan en cada dispositivo por separado, así que no pasan de uno a otro.' },
   ],
   pricing: {
@@ -603,7 +621,7 @@ const es = {
     priceKind: 'compra única',
     priceNote: 'Precio actual de la tienda para tu región. Varía según el país y manda lo que se muestre en App Store y Google Play.',
     proBody: 'Guarda varios canales y conserva el historial de vistos, el progreso y las notas de cada uno, sin tener que sustituir un canal para hacer sitio a otro.',
-    note: 'No es una suscripción y no hay anuncios. El precio es el que muestran App Store o Google Play en el momento de la compra; lo que ya has comprado sigue siendo tuyo.',
+    note: 'No es una suscripción y Pro no tiene anuncios. El precio es el que muestran App Store o Google Play en el momento de la compra; lo que ya has comprado sigue siendo tuyo.',
   },
   store: {
     iosPre: 'Descárgalo en el',
@@ -659,9 +677,9 @@ const es = {
   privacy: {
     title: 'Política de privacidad',
     description: 'Qué guarda Channel Timeline Viewer y qué no hace.',
-    updated: 'Última actualización: 16 de septiembre de 2026',
+    updated: 'Última actualización: 4 de octubre de 2026',
     sections: [
-      { title: '1. Resumen', body: ['Channel Timeline Viewer guarda tus datos en tu dispositivo. No hay cuentas y ningún servidor nuestro recibe lo que ves. Solo la versión de Android mide cómo se usa la propia app (Google Analytics para Firebase) para poder mejorarla: registra el nombre de la pantalla y el tipo de acción, nunca los canales o vídeos que ves, y puedes desactivarlo dentro de la app. La versión de iOS no incluye ninguna analítica.'] },
+      { title: '1. Resumen', body: ['Channel Timeline Viewer guarda tus datos en tu dispositivo. No hay cuentas y ningún servidor nuestro recibe lo que ves. Solo la versión de Android mide cómo se usa la propia app (Google Analytics para Firebase) para poder mejorarla: registra el nombre de la pantalla y el tipo de acción, nunca los canales o vídeos que ves, y puedes desactivarlo dentro de la app. La versión de iOS no incluye ninguna analítica. La versión gratuita muestra anuncios de Google AdMob (ver la sección 8); Pro no muestra ninguno.'] },
       { title: '2. Qué se guarda en tu dispositivo', body: [
         'Lo siguiente se guarda localmente (UserDefaults de iOS y caché de la app) y nunca se nos envía:',
         '• Identificadores de vídeos marcados como vistos u omitidos, con su fecha',
@@ -686,23 +704,29 @@ const es = {
         'iOS no permite que una hoja para compartir abra una app directamente. Solo si permites las notificaciones, la app envía una notificación local justo después de compartir para que puedas tocarla y abrir el canal. Contiene únicamente la URL de YouTube compartida y se procesa en el dispositivo. Nunca se envían notificaciones promocionales, de reenganche ni push desde servidores.'] },
       { title: '7. Compras (Pro)', body: [
         'Channel Timeline Viewer es gratuita y ofrece una única compra dentro de la app, opcional y de pago único, llamada «Pro». Las compras las gestiona íntegramente Apple a través del App Store; nosotros nunca vemos ni recibimos tus datos de pago. La app solo pregunta al sistema si esa compra pertenece a tu cuenta y guarda la respuesta en el dispositivo para que también funcione sin conexión. No hay suscripciones ni cargos recurrentes.'] },
-      { title: '8. Rastreo y medición de uso', body: [
+      { title: '8. Publicidad (versión gratuita)', body: [
+        'La versión gratuita muestra anuncios de Google AdMob (Google LLC): un banner en la parte inferior de la lista de vídeos y un anuncio debajo de la lista de canales guardados en la primera pantalla. Nunca se muestran anuncios en la pantalla de reproducción. Pro no muestra anuncios y, con Pro, el SDK de anuncios no se inicia.',
+        'Para mostrar y medir anuncios y prevenir el fraude, Google AdMob recopila tu dirección IP (que puede usarse para estimar tu ubicación aproximada), tus interacciones con la app y con los anuncios (como abrir la app, toques y visualizaciones de anuncios), información de diagnóstico de la app y del SDK, e identificadores del dispositivo como el ID de conjunto de apps. La app no entrega a AdMob los canales o vídeos que ves, tus notas ni las URL que introduces.',
+        'La app no usa el identificador de publicidad: en iOS no usa App Tracking Transparency ni el IDFA, y en Android no solicita el permiso AD_ID.',
+        'En el Espacio Económico Europeo, el Reino Unido y Suiza, la app pide tu consentimiento con el formulario de Google antes de solicitar anuncios. Puedes cambiar tu elección en cualquier momento desde «Acerca de esta app» → «Configuración de privacidad de anuncios».',
+        'Cómo usa Google esta información: https://policies.google.com/technologies/partner-sites'] },
+      { title: '9. Rastreo y medición de uso', body: [
         'La app no usa el identificador de publicidad (IDFA en iOS, Advertising ID en Android) ni App Tracking Transparency, porque no te rastrea.',
         'La versión de Android incluye Google Analytics para Firebase para contar con qué frecuencia se usa cada pantalla y cada acción. Lo que se envía se limita a: el nombre de la pantalla; el tipo de acción (por ejemplo «se abrió un canal», «se activó la reproducción automática», «se terminó un vídeo»); el número de vídeos de la lista; la opción que elijas en la encuesta opcional de una pregunta que aparece al dejar de comprar Pro (por ejemplo «No tengo un método de pago que pueda usar»); y la información que Google Analytics recoge automáticamente (versión de la app, versión del sistema, modelo del dispositivo, ubicación aproximada como el país y un identificador aleatorio por instalación). Los canales y vídeos que ves, tus notas y las URL que introduces nunca se envían.',
         'La recogida del Advertising ID y las señales de personalización de anuncios están desactivadas, y la app no solicita el permiso AD_ID.',
         'Puedes desactivarlo cuando quieras en la app: «Acerca de esta app» → «Permitir la medición de uso». Al desactivarlo, la medición se detiene por completo.',
         'Los datos recogidos así los trata Google por cuenta nuestra; consulta la política de privacidad de Google enlazada más arriba.',
         'La versión de iOS no incluye ninguna analítica.'] },
-      { title: '9. Menores', body: ['La app no recopila conscientemente información personal de menores.'] },
-      { title: '10. Este sitio web', body: [
+      { title: '10. Menores', body: ['La app no recopila conscientemente información personal de menores.'] },
+      { title: '11. Este sitio web', body: [
         'Este sitio son páginas estáticas. No usa cookies ni analítica.',
         'Las páginas interactivas de este sitio, como la prueba web (/try/), funcionan así:',
         '• El canal que introduces, las marcas de visto u omitido, tu progreso, tus notas y las posiciones de reproducción se guardan en el navegador (localStorage) del dispositivo que estés usando. No se nos envían, no se comparten con la app del móvil y se borran al eliminar los datos de este sitio.',
         '• Para construir la lista de vídeos, la página consulta un pequeño relé de este sitio que llama a la YouTube Data API v3 con nuestra clave. Solo se transmiten los identificadores del canal, la lista de reproducción o los vídeos que se muestran; no se envía nada sobre ti.',
         '• La reproducción usa el reproductor incrustado oficial de YouTube y las miniaturas se cargan desde los servidores de YouTube. Mientras usas el reproductor, YouTube y Google pueden recopilar y tratar información conforme a sus propias políticas.',
         '• En este sitio web no hay cuenta, ni inicio de sesión, ni pagos.'] },
-      { title: '11. Cambios', body: ['Esta política puede actualizarse. Los cambios relevantes se anunciarán con una actualización de la app.'] },
-      { title: '12. Contacto', body: ['Correo:'] },
+      { title: '12. Cambios', body: ['Esta política puede actualizarse. Los cambios relevantes se anunciarán con una actualización de la app.'] },
+      { title: '13. Contacto', body: ['Correo:'] },
     ],
     trademark: 'YouTube es una marca comercial de Google LLC. Esta app es una app no oficial que usa la API y el reproductor oficiales; no está avalada por Google o YouTube ni afiliada a ellos.',
   },
@@ -723,7 +747,7 @@ const de = {
       'Channel Timeline Viewer sortiert die Uploads eines Kanals nach Veröffentlichungsdatum – die ältesten zuerst – und merkt sich, wie weit du gekommen bist. Ideal für Archive, Vorlesungsreihen und lange Serien.',
     cta: 'Im App Store laden',
     ctaPending: 'Bald im App Store',
-    ctaNote: 'Kostenlos für einen Kanal. Keine Werbung, keine Abos – Pro ist ein einmaliger Kauf.',
+    ctaNote: 'Kostenlos für einen Kanal, mit Werbung. Keine Abos – Pro ist ein einmaliger Kauf ohne Werbung.',
   },
   problem: {
     title: 'YouTube zeigt Neues zuerst. Serien beginnen am Anfang.',
@@ -765,7 +789,7 @@ const de = {
     { q: 'Spielt sie im Hintergrund?', a: 'Nein. Beim Verlassen der App stoppt die Wiedergabe. Während der Wiedergabe bleibt lediglich der Bildschirm an, damit er nicht abdunkelt.' },
     { q: 'Muss ich mich anmelden?', a: 'Kein Konto, keine Anmeldung. Die App liest nur öffentliche Informationen über die YouTube Data API v3.' },
     { q: 'Wo wird mein Fortschritt gespeichert?', a: 'Nur auf deinem Gerät. Verlauf, Fortschritt, Notizen und Positionen verlassen das Telefon nie und werden mit der App gelöscht.' },
-    { q: 'Gibt es Werbung oder Abos?', a: 'Weder Werbung noch Abos. Die App ist kostenlos und speichert einen Kanal; innerhalb dieses Kanals ist nichts eingeschränkt. Pro ist ein optionaler einmaliger Kauf, mit dem mehrere Kanäle samt eigenem Fortschritt erhalten bleiben. Danach fällt nichts mehr an.' },
+    { q: 'Gibt es Werbung oder Abos?', a: 'Die kostenlose Version zeigt Werbung (nie auf dem Wiedergabebildschirm). Abos gibt es nicht. Die App ist kostenlos und speichert einen Kanal; innerhalb dieses Kanals ist nichts eingeschränkt. Pro ist ein optionaler einmaliger Kauf, der die Werbung entfernt und mit dem mehrere Kanäle samt eigenem Fortschritt erhalten bleiben. Danach fällt nichts mehr an.' },
     { q: 'Gibt es eine Android-Version?', a: 'Ja, sie ist bei Google Play erhältlich (die iPhone-Version im App Store). Beide funktionieren gleich; Gesehen-Status und Fortschritt liegen aber jeweils auf dem einzelnen Gerät und wandern nicht mit.' },
   ],
   pricing: {
@@ -777,7 +801,7 @@ const de = {
     priceKind: 'einmaliger Kauf',
     priceNote: 'Aktueller Store-Preis für deine Region. Die Preise unterscheiden sich je nach Land; maßgeblich ist die Anzeige im App Store und bei Google Play.',
     proBody: 'Mehrere Kanäle speichern und für jeden Gesehen-Status, Fortschritt und Notizen behalten, ohne einen Kanal ersetzen zu müssen, um Platz für einen anderen zu schaffen.',
-    note: 'Kein Abo und keine Werbung. Es gilt der beim Kauf im App Store bzw. bei Google Play angezeigte Preis; bereits Gekauftes bleibt dir erhalten.',
+    note: 'Kein Abo, und Pro ist werbefrei. Es gilt der beim Kauf im App Store bzw. bei Google Play angezeigte Preis; bereits Gekauftes bleibt dir erhalten.',
   },
   store: {
     iosPre: 'Laden im',
@@ -833,9 +857,9 @@ const de = {
   privacy: {
     title: 'Datenschutzerklärung',
     description: 'Was Channel Timeline Viewer speichert – und was nicht.',
-    updated: 'Zuletzt aktualisiert: 16. September 2026',
+    updated: 'Zuletzt aktualisiert: 4. Oktober 2026',
     sections: [
-      { title: '1. Kurzfassung', body: ['Channel Timeline Viewer speichert deine Daten auf deinem Gerät. Es gibt kein Konto, und kein von uns betriebener Server erfährt, was du ansiehst. Nur die Android-Version misst mit Google Analytics für Firebase, wie die App selbst genutzt wird, damit wir sie verbessern können: erfasst werden Bildschirmnamen und die Art der Aktion, nie die Kanäle oder Videos, die du ansiehst – und du kannst es in der App abschalten. Die iOS-Version enthält keinerlei Analyse.'] },
+      { title: '1. Kurzfassung', body: ['Channel Timeline Viewer speichert deine Daten auf deinem Gerät. Es gibt kein Konto, und kein von uns betriebener Server erfährt, was du ansiehst. Nur die Android-Version misst mit Google Analytics für Firebase, wie die App selbst genutzt wird, damit wir sie verbessern können: erfasst werden Bildschirmnamen und die Art der Aktion, nie die Kanäle oder Videos, die du ansiehst – und du kannst es in der App abschalten. Die iOS-Version enthält keinerlei Analyse. Die kostenlose Version zeigt Werbung von Google AdMob (siehe Abschnitt 8); Pro zeigt keine.'] },
       { title: '2. Was auf dem Gerät gespeichert wird', body: [
         'Folgendes wird lokal gespeichert (iOS UserDefaults / App-Cache) und nie an uns gesendet:',
         '• Kennungen der als gesehen oder übersprungen markierten Videos samt Zeitstempel',
@@ -860,23 +884,29 @@ const de = {
         'iOS erlaubt es nicht, aus dem Teilen-Menü direkt eine App zu starten. Nur wenn du Mitteilungen erlaubst, sendet die App direkt nach dem Teilen eine lokale Mitteilung, die du antippen kannst, um den Kanal zu öffnen. Sie enthält nur die geteilte YouTube-URL und wird auf dem Gerät verarbeitet. Werbe-, Reaktivierungs- oder Server-Push-Mitteilungen werden nie gesendet.'] },
       { title: '7. Käufe (Pro)', body: [
         'Channel Timeline Viewer ist kostenlos und bietet genau einen optionalen einmaligen In-App-Kauf namens „Pro“. Käufe wickelt ausschließlich Apple über den App Store ab; wir sehen und erhalten deine Zahlungsdaten nie. Die App fragt lediglich beim System nach, ob der Kauf zu deinem Account gehört, und speichert die Antwort auf dem Gerät, damit alles auch offline funktioniert. Es gibt kein Abo und keine wiederkehrende Zahlung.'] },
-      { title: '8. Tracking und Nutzungsmessung', body: [
+      { title: '8. Werbung (kostenlose Version)', body: [
+        'Die kostenlose Version zeigt Werbung von Google AdMob (Google LLC): ein Banner unten in der Videoliste und eine Anzeige unter der Liste der gespeicherten Kanäle auf dem ersten Bildschirm. Auf dem Wiedergabebildschirm wird nie Werbung gezeigt. Pro zeigt keine Werbung, und mit Pro wird das Werbe-SDK nicht gestartet.',
+        'Um Anzeigen auszuliefern und zu messen und Betrug zu verhindern, erhebt Google AdMob deine IP-Adresse (aus der sich dein ungefährer Standort schätzen lässt), deine Interaktionen mit der App und mit Anzeigen (etwa App-Starts, Tippen und Anzeigenaufrufe), Diagnosedaten zur App und zum SDK sowie Gerätekennungen wie die App-Set-ID. Die App gibt AdMob nicht weiter, welche Kanäle oder Videos du ansiehst, deine Notizen oder die eingegebenen URLs.',
+        'Die App nutzt keinen Werbe-Identifier: Unter iOS verwendet sie weder App Tracking Transparency noch die IDFA, unter Android fordert sie die Berechtigung AD_ID nicht an.',
+        'Im Europäischen Wirtschaftsraum, im Vereinigten Königreich und in der Schweiz fragt die App vor dem Anfordern von Anzeigen mit dem Einwilligungsformular von Google nach deiner Einwilligung. Deine Auswahl kannst du jederzeit unter „Über diese App“ → „Datenschutzeinstellungen für Werbung“ ändern.',
+        'Wie Google diese Informationen nutzt: https://policies.google.com/technologies/partner-sites'] },
+      { title: '9. Tracking und Nutzungsmessung', body: [
         'Die App nutzt weder den Werbe-Identifier (IDFA unter iOS, Advertising ID unter Android) noch App Tracking Transparency, weil sie dich nicht trackt.',
         'Die Android-Version enthält Google Analytics für Firebase, um zu zählen, wie oft welcher Bildschirm und welche Aktion genutzt wird. Übertragen wird ausschließlich: der Bildschirmname; die Art der Aktion (zum Beispiel „ein Kanal wurde geöffnet“, „Autoplay wurde eingeschaltet“, „ein Video wurde zu Ende gesehen“); die Anzahl der Videos in der Liste; die Antwort, die du in der freiwilligen Ein-Frage-Umfrage nach einem abgebrochenen Pro-Kauf wählst (zum Beispiel „Ich habe keine passende Zahlungsmethode“); sowie die Angaben, die Google Analytics automatisch erhebt (App-Version, Betriebssystemversion, Gerätemodell, grober Standort wie das Land und eine zufällig erzeugte Kennung je Installation). Die Kanäle und Videos, die du ansiehst, deine Notizen und eingegebene URLs werden nie übertragen.',
         'Die Erfassung der Advertising ID und Signale zur Werbepersonalisierung sind abgeschaltet, und die App fordert die Berechtigung AD_ID nicht an.',
         'Du kannst das jederzeit in der App abschalten: „Über diese App“ → „Nutzungsmessung erlauben“. Danach wird nichts mehr gemessen.',
         'Die so erhobenen Daten verarbeitet Google in unserem Auftrag; siehe die oben verlinkte Google-Datenschutzerklärung.',
         'Die iOS-Version enthält keine Analyse.'] },
-      { title: '9. Kinder', body: ['Die App erhebt wissentlich keine personenbezogenen Daten von Kindern.'] },
-      { title: '10. Diese Website', body: [
+      { title: '10. Kinder', body: ['Die App erhebt wissentlich keine personenbezogenen Daten von Kindern.'] },
+      { title: '11. Diese Website', body: [
         'Diese Website besteht aus statischen Seiten. Sie setzt keine Cookies und nutzt keine Analyse.',
         'Die interaktiven Seiten dieser Website, etwa die Web-Testversion (/try/), funktionieren so:',
         '• Der eingegebene Kanal, Gesehen- und Übersprungen-Markierungen, dein Fortschritt, deine Notizen und die Wiedergabepositionen werden ausschließlich im Browser (localStorage) des genutzten Geräts gespeichert. Sie werden nicht an uns gesendet, nicht mit der App auf dem Smartphone geteilt und beim Löschen der Websitedaten entfernt.',
         '• Für die Videoliste fragt die Seite eine kleine Weiterleitung auf dieser Website, die mit unserem Schlüssel die YouTube Data API v3 aufruft. Weitergegeben werden nur die Kennungen des Kanals, der Playlist oder der angezeigten Videos; nichts über dich wird gesendet.',
         '• Die Wiedergabe nutzt den offiziellen eingebetteten YouTube-Player, und die Vorschaubilder werden von den Servern von YouTube geladen. Während der Nutzung des Players können YouTube und Google nach ihren eigenen Richtlinien Informationen erheben und verarbeiten.',
         '• Auf dieser Website gibt es kein Konto, keine Anmeldung und keine Zahlung.'] },
-      { title: '11. Änderungen', body: ['Diese Erklärung kann aktualisiert werden. Wesentliche Änderungen werden mit einem App-Update mitgeteilt.'] },
-      { title: '12. Kontakt', body: ['E-Mail:'] },
+      { title: '12. Änderungen', body: ['Diese Erklärung kann aktualisiert werden. Wesentliche Änderungen werden mit einem App-Update mitgeteilt.'] },
+      { title: '13. Kontakt', body: ['E-Mail:'] },
     ],
     trademark: 'YouTube ist eine Marke von Google LLC. Diese App ist eine inoffizielle App, die die offizielle API und den offiziellen Player nutzt; sie wird von Google oder YouTube weder unterstützt noch ist sie mit ihnen verbunden.',
   },
@@ -897,7 +927,7 @@ const fr = {
       'Channel Timeline Viewer classe les vidéos d’une chaîne par date de publication — de la plus ancienne à la plus récente — et retient où vous vous êtes arrêté. Idéal pour les archives, les cours et les séries au long cours.',
     cta: 'Télécharger sur l’App Store',
     ctaPending: 'Bientôt sur l’App Store',
-    ctaNote: 'Gratuit pour une chaîne. Sans publicité ni abonnement : Pro est un achat unique.',
+    ctaNote: 'Gratuit pour une chaîne, avec publicité. Sans abonnement : Pro est un achat unique sans publicité.',
   },
   problem: {
     title: 'YouTube affiche le plus récent. Une série se regarde depuis le début.',
@@ -939,7 +969,7 @@ const fr = {
     { q: 'Lit-elle en arrière-plan ?', a: 'Non. La lecture s’arrête dès que vous quittez l’app. Pendant la lecture, l’écran reste simplement allumé pour ne pas s’assombrir.' },
     { q: 'Faut-il se connecter ?', a: 'Aucun compte requis. L’app ne lit que des informations publiques via l’API YouTube Data v3.' },
     { q: 'Où est enregistrée ma progression ?', a: 'Uniquement sur votre appareil. Historique, progression, notes et positions ne quittent jamais le téléphone et disparaissent avec l’app.' },
-    { q: 'Y a-t-il de la publicité ou des abonnements ?', a: 'Ni publicité ni abonnement. L’app est gratuite et enregistre une chaîne ; à l’intérieur de cette chaîne, rien n’est limité. Pro est un achat unique facultatif qui permet de conserver plusieurs chaînes, chacune avec sa progression. Rien n’est facturé ensuite.' },
+    { q: 'Y a-t-il de la publicité ou des abonnements ?', a: 'La version gratuite affiche des publicités (jamais sur l’écran de lecture). Il n’y a pas d’abonnement. L’app est gratuite et enregistre une chaîne ; à l’intérieur de cette chaîne, rien n’est limité. Pro est un achat unique facultatif qui retire les publicités et permet de conserver plusieurs chaînes, chacune avec sa progression. Rien n’est facturé ensuite.' },
     { q: 'Existe-t-il une version Android ?', a: 'Oui, elle est disponible sur Google Play (celle pour iPhone est sur l’App Store). Elles s’utilisent de la même façon, mais l’historique et la progression restent sur chaque appareil et ne se transfèrent pas.' },
   ],
   pricing: {
@@ -951,7 +981,7 @@ const fr = {
     priceKind: 'achat unique',
     priceNote: 'Prix actuel de la boutique pour votre région. Il varie selon les pays ; le prix affiché sur l’App Store et Google Play fait foi.',
     proBody: 'Enregistrez plusieurs chaînes et conservez pour chacune l’historique, la progression et les notes, sans jamais devoir remplacer une chaîne pour faire de la place à une autre.',
-    note: 'Ce n’est pas un abonnement et il n’y a pas de publicité. Le prix est celui affiché sur l’App Store ou Google Play au moment de l’achat ; ce que vous avez acheté vous reste acquis.',
+    note: 'Ce n’est pas un abonnement, et Pro est sans publicité. Le prix est celui affiché sur l’App Store ou Google Play au moment de l’achat ; ce que vous avez acheté vous reste acquis.',
   },
   store: {
     iosPre: 'Télécharger dans l’',
@@ -1007,9 +1037,9 @@ const fr = {
   privacy: {
     title: 'Politique de confidentialité',
     description: 'Ce que Channel Timeline Viewer enregistre, et ce qu’il ne fait pas.',
-    updated: 'Dernière mise à jour : 16 septembre 2026',
+    updated: 'Dernière mise à jour : 4 octobre 2026',
     sections: [
-      { title: '1. En bref', body: ['Channel Timeline Viewer conserve vos données sur votre appareil. Il n’y a pas de compte, et aucun serveur exploité par nous ne reçoit ce que vous regardez. Seule la version Android mesure la façon dont l’app elle-même est utilisée (Google Analytics pour Firebase) afin de l’améliorer : elle enregistre le nom de l’écran et le type d’action, jamais les chaînes ni les vidéos que vous regardez, et vous pouvez la désactiver dans l’app. La version iOS ne contient aucune analytique.'] },
+      { title: '1. En bref', body: ['Channel Timeline Viewer conserve vos données sur votre appareil. Il n’y a pas de compte, et aucun serveur exploité par nous ne reçoit ce que vous regardez. Seule la version Android mesure la façon dont l’app elle-même est utilisée (Google Analytics pour Firebase) afin de l’améliorer : elle enregistre le nom de l’écran et le type d’action, jamais les chaînes ni les vidéos que vous regardez, et vous pouvez la désactiver dans l’app. La version iOS ne contient aucune analytique. La version gratuite affiche des publicités Google AdMob (voir la section 8) ; Pro n’en affiche aucune.'] },
       { title: '2. Ce qui est enregistré sur votre appareil', body: [
         'Les éléments suivants sont enregistrés localement (UserDefaults iOS / cache de l’app) et ne nous sont jamais transmis :',
         '• Identifiants des vidéos marquées comme regardées ou ignorées, avec l’horodatage',
@@ -1034,23 +1064,29 @@ const fr = {
         'iOS ne permet pas à une feuille de partage de lancer une app directement. Uniquement si vous autorisez les notifications, l’app envoie une notification locale juste après le partage afin que vous puissiez la toucher pour ouvrir la chaîne. Elle ne contient que l’URL YouTube partagée et est traitée sur l’appareil. Aucune notification promotionnelle, de relance ou push depuis un serveur n’est jamais envoyée.'] },
       { title: '7. Achats (Pro)', body: [
         'Channel Timeline Viewer est gratuite et propose un seul achat intégré, facultatif et unique, appelé « Pro ». Les achats sont entièrement gérés par Apple via l’App Store ; nous ne voyons ni ne recevons jamais vos informations de paiement. L’app demande simplement au système si cet achat appartient à votre compte et conserve la réponse sur l’appareil pour fonctionner aussi hors ligne. Il n’y a ni abonnement ni prélèvement récurrent.'] },
-      { title: '8. Suivi et mesure d’utilisation', body: [
+      { title: '8. Publicité (version gratuite)', body: [
+        'La version gratuite affiche des publicités Google AdMob (Google LLC) : une bannière en bas de la liste des vidéos et une annonce sous la liste des chaînes enregistrées sur le premier écran. Aucune publicité n’est affichée sur l’écran de lecture. Pro n’affiche aucune publicité et, avec Pro, le SDK publicitaire n’est pas lancé.',
+        'Pour diffuser et mesurer les annonces et prévenir la fraude, Google AdMob collecte votre adresse IP (qui peut servir à estimer votre position approximative), vos interactions avec l’app et les annonces (ouvertures de l’app, appuis, affichages d’annonces, etc.), des informations de diagnostic sur l’app et le SDK, ainsi que des identifiants de l’appareil comme l’ID de groupe d’apps. L’app ne transmet pas à AdMob les chaînes ou vidéos que vous regardez, vos notes ni les URL que vous saisissez.',
+        'L’app n’utilise pas l’identifiant publicitaire : sous iOS, elle n’utilise ni App Tracking Transparency ni l’IDFA, et sous Android, elle ne demande pas l’autorisation AD_ID.',
+        'Dans l’Espace économique européen, au Royaume-Uni et en Suisse, l’app demande votre consentement avec le formulaire de Google avant de demander des annonces. Vous pouvez modifier votre choix à tout moment depuis « À propos de cette app » → « Paramètres de confidentialité des annonces ».',
+        'Comment Google utilise ces informations : https://policies.google.com/technologies/partner-sites'] },
+      { title: '9. Suivi et mesure d’utilisation', body: [
         'L’app n’utilise pas l’identifiant publicitaire (IDFA sous iOS, Advertising ID sous Android) ni App Tracking Transparency, car elle ne vous suit pas.',
         'La version Android intègre Google Analytics pour Firebase afin de compter la fréquence d’utilisation de chaque écran et de chaque action. Ce qui est envoyé se limite à : le nom de l’écran ; le type d’action (par exemple « une chaîne a été ouverte », « la lecture automatique a été activée », « une vidéo s’est terminée ») ; le nombre de vidéos de la liste ; l’option choisie dans le sondage facultatif à une question affiché lorsque vous renoncez à acheter Pro (par exemple « Aucun moyen de paiement utilisable ») ; et les informations que Google Analytics collecte automatiquement (version de l’app, version du système, modèle d’appareil, localisation approximative comme le pays et un identifiant aléatoire par installation). Les chaînes et vidéos que vous regardez, vos notes et les URL saisies ne sont jamais envoyées.',
         'La collecte de l’Advertising ID et les signaux de personnalisation publicitaire sont désactivés, et l’app ne demande pas l’autorisation AD_ID.',
         'Vous pouvez la désactiver à tout moment dans l’app : « À propos de cette app » → « Autoriser la mesure d’utilisation ». La mesure s’arrête alors complètement.',
         'Les données ainsi collectées sont traitées par Google pour notre compte ; voir la politique de confidentialité de Google indiquée plus haut.',
         'La version iOS ne contient aucune analytique.'] },
-      { title: '9. Enfants', body: ['L’app ne collecte pas sciemment de données personnelles auprès d’enfants.'] },
-      { title: '10. Ce site web', body: [
+      { title: '10. Enfants', body: ['L’app ne collecte pas sciemment de données personnelles auprès d’enfants.'] },
+      { title: '11. Ce site web', body: [
         'Ce site est constitué de pages statiques. Il ne dépose pas de cookies et n’utilise pas d’analytique.',
         'Les pages interactives de ce site, comme l’essai web (/try/), fonctionnent ainsi :',
         '• La chaîne que vous saisissez, les marques « regardé » ou « ignoré », votre progression, vos notes et les positions de lecture sont enregistrées uniquement dans le navigateur (localStorage) de l’appareil utilisé. Elles ne nous sont pas envoyées, ne sont pas partagées avec l’app du téléphone et sont supprimées lorsque vous effacez les données de ce site.',
         '• Pour construire la liste des vidéos, la page interroge un petit relais hébergé sur ce site, qui appelle l’API YouTube Data v3 avec notre clé. Seuls les identifiants de la chaîne, de la playlist ou des vidéos affichées sont transmis ; rien vous concernant n’est envoyé.',
         '• La lecture utilise le lecteur intégré officiel de YouTube et les miniatures sont chargées depuis les serveurs de YouTube. Pendant l’utilisation du lecteur, YouTube et Google peuvent collecter et traiter des informations selon leurs propres politiques.',
         '• Ce site web ne comporte ni compte, ni connexion, ni paiement.'] },
-      { title: '11. Modifications', body: ['Cette politique peut être mise à jour. Les changements importants seront annoncés avec une mise à jour de l’app.'] },
-      { title: '12. Contact', body: ['E-mail :'] },
+      { title: '12. Modifications', body: ['Cette politique peut être mise à jour. Les changements importants seront annoncés avec une mise à jour de l’app.'] },
+      { title: '13. Contact', body: ['E-mail :'] },
     ],
     trademark: 'YouTube est une marque de Google LLC. Cette app est une app non officielle qui utilise l’API et le lecteur officiels ; elle n’est ni approuvée par Google ou YouTube, ni affiliée à eux.',
   },
@@ -1071,7 +1107,7 @@ const ko = {
       'Channel Timeline Viewer는 채널의 업로드 동영상을 게시일순(오래된 순)으로 정리하고 어디까지 봤는지 기억합니다. 과거 영상 정주행, 강의, 장기 시리즈에 잘 맞습니다.',
     cta: 'App Store에서 다운로드',
     ctaPending: 'App Store 출시 준비 중',
-    ctaNote: '광고 없음, 구독 없음. 무료로 채널 1개, Pro는 1회 결제입니다.',
+    ctaNote: '구독 없음. 무료 버전(광고 있음)으로 채널 1개, Pro는 광고 없는 1회 결제입니다.',
   },
   problem: {
     title: 'YouTube는 최신순, 시리즈는 처음부터.',
@@ -1113,7 +1149,7 @@ const ko = {
     { q: '백그라운드 재생이 되나요?', a: '되지 않습니다. 앱을 벗어나면 재생이 멈춥니다. 재생 중에는 화면이 어두워지지 않도록만 유지합니다.' },
     { q: '로그인이 필요한가요?', a: '계정이나 로그인은 필요 없습니다. YouTube Data API v3를 통해 공개 정보만 읽습니다.' },
     { q: '진행률은 어디에 저장되나요?', a: '기기에만 저장됩니다. 시청 기록·진행률·메모·재생 위치는 휴대폰을 벗어나지 않으며 앱을 삭제하면 함께 지워집니다.' },
-    { q: '광고나 구독이 있나요?', a: '광고도 구독도 없습니다. 앱은 무료이며 채널 1개를 저장할 수 있고, 그 채널 안에서는 기능을 제한하지 않습니다. 여러 채널을 각각의 진행 상황과 함께 남기고 싶을 때만 1회 결제인 Pro를 구매하시면 됩니다. 이후 추가로 청구되지 않습니다.' },
+    { q: '광고나 구독이 있나요?', a: '무료 버전에는 광고가 표시됩니다(재생 화면에는 표시하지 않습니다). 구독은 없습니다. 앱은 무료이며 채널 1개를 저장할 수 있고, 그 채널 안에서는 기능을 제한하지 않습니다. 광고를 없애고 싶거나 여러 채널을 각각의 진행 상황과 함께 남기고 싶을 때만 1회 결제인 Pro를 구매하시면 됩니다. 이후 추가로 청구되지 않습니다.' },
     { q: 'Android 버전이 있나요?', a: '있습니다. Google Play에서 이용하실 수 있습니다(iPhone 버전은 App Store). 조작은 동일하지만 시청 기록과 진행 상황은 기기마다 따로 저장되므로 기기 간에 이어지지는 않습니다.' },
   ],
   pricing: {
@@ -1125,7 +1161,7 @@ const ko = {
     priceKind: '한 번만 구매',
     priceNote: '해당 지역의 현재 스토어 가격입니다. 금액은 국가·지역에 따라 다르며 App Store와 Google Play의 표시가 기준입니다.',
     proBody: '여러 채널을 저장하고 각각의 시청 기록·진행 상황·메모를 그대로 남겨 둘 수 있습니다. 다른 채널을 보려고 지금 채널을 교체할 필요가 없어집니다.',
-    note: '구독이 아니며 광고도 없습니다. 가격은 구매 시점의 App Store / Google Play 표시를 따릅니다. 이미 구매한 내용이 나중에 취소되지 않습니다.',
+    note: '구독이 아니며 Pro에는 광고도 없습니다. 가격은 구매 시점의 App Store / Google Play 표시를 따릅니다. 이미 구매한 내용이 나중에 취소되지 않습니다.',
   },
   store: {
     iosPre: '다운로드하기',
@@ -1181,9 +1217,9 @@ const ko = {
   privacy: {
     title: '개인정보 처리방침',
     description: 'Channel Timeline Viewer가 저장하는 것과 하지 않는 것.',
-    updated: '최종 업데이트: 2026년 9월 16일',
+    updated: '최종 업데이트: 2026년 10월 4일',
     sections: [
-      { title: '1. 요약', body: ['Channel Timeline Viewer는 데이터를 기기에 저장합니다. 계정이 없고, 무엇을 보는지 받아 가는 자체 서버도 없습니다. Android 버전만, 앱을 개선하기 위해 「앱 자체가 어떻게 사용되는지」를 Google 애널리틱스(Firebase)로 셉니다. 기록하는 것은 화면 이름과 조작 종류뿐이며, 보고 있는 채널이나 동영상은 기록하지 않고 앱 안에서 언제든지 끌 수 있습니다. iOS 버전에는 분석 도구가 들어 있지 않습니다.'] },
+      { title: '1. 요약', body: ['Channel Timeline Viewer는 데이터를 기기에 저장합니다. 계정이 없고, 무엇을 보는지 받아 가는 자체 서버도 없습니다. Android 버전만, 앱을 개선하기 위해 「앱 자체가 어떻게 사용되는지」를 Google 애널리틱스(Firebase)로 셉니다. 기록하는 것은 화면 이름과 조작 종류뿐이며, 보고 있는 채널이나 동영상은 기록하지 않고 앱 안에서 언제든지 끌 수 있습니다. iOS 버전에는 분석 도구가 들어 있지 않습니다. 무료 버전에는 Google AdMob 광고가 표시됩니다(8항 참조). Pro에는 광고가 표시되지 않습니다.'] },
       { title: '2. 기기에 저장하는 정보', body: [
         '다음 정보는 기기에만 저장되며(iOS UserDefaults·앱 캐시) 저희에게 전송되지 않습니다.',
         '• 시청함·건너뛰기로 표시한 동영상 식별자와 시각',
@@ -1208,23 +1244,29 @@ const ko = {
         'iOS 사양상 공유 시트에서 앱을 직접 실행할 수 없습니다. 알림을 허용한 경우에 한해, 공유 직후 탭하여 열 수 있는 로컬 알림을 한 건만 표시합니다. 내용은 공유된 YouTube URL뿐이며 기기에서 처리합니다. 홍보·재방문 유도 알림이나 서버 푸시 알림은 보내지 않습니다.'] },
       { title: '7. 인앱 결제(Pro)', body: [
         'Channel Timeline Viewer는 무료이며, 선택 사항인 1회 결제 인앱 상품 ‘Pro’ 하나만 제공합니다. 결제는 전부 Apple(App Store)이 처리하며 저희가 결제 정보를 보거나 전달받는 일은 없습니다. 앱은 해당 구매가 이용자의 계정에 속하는지를 운영체제에 문의하고, 그 결과만 기기에 저장합니다(오프라인에서도 동작하도록 하기 위해서입니다). 구독이나 반복 결제는 없습니다.'] },
-      { title: '8. 추적과 사용 현황 기록', body: [
+      { title: '8. 광고(무료 버전)', body: [
+        '무료 버전에는 Google AdMob(Google LLC)의 광고가 표시됩니다. 표시 위치는 동영상 목록 화면 아래의 배너와, 첫 화면의 저장한 채널 목록 아래의 광고 1개입니다. 재생 화면에는 광고를 표시하지 않습니다. Pro에서는 광고를 표시하지 않으며 광고 SDK도 시작하지 않습니다.',
+        '광고의 표시·성과 측정·부정 방지를 위해 Google AdMob은 IP 주소(대략적인 위치 추정에 쓰일 수 있음), 앱과 광고의 조작(앱 실행, 탭, 광고 노출 등), 앱과 SDK의 진단 정보, 앱 세트 ID 등의 기기 식별자를 수집합니다. 시청하는 채널이나 동영상, 메모, 입력한 URL은 이 앱이 AdMob에 전달하지 않습니다.',
+        '이 앱은 광고 식별자를 사용하지 않습니다. iOS에서는 App Tracking Transparency와 IDFA를 사용하지 않으며, Android에서는 AD_ID 권한을 요청하지 않습니다.',
+        '유럽 경제 지역·영국·스위스에서는 광고를 요청하기 전에 Google의 동의 양식으로 동의를 확인합니다. 선택은 앱의 ‘이 앱에 대하여’ → ‘광고 개인정보 설정’에서 언제든지 바꿀 수 있습니다.',
+        'Google이 이 정보를 사용하는 방식: https://policies.google.com/technologies/partner-sites'] },
+      { title: '9. 추적과 사용 현황 기록', body: [
         '이 앱은 광고 식별자(iOS의 IDFA, Android의 광고 ID)를 사용하지 않으며, 추적을 하지 않으므로 App Tracking Transparency도 사용하지 않습니다.',
         'Android 버전에는 어떤 화면과 조작이 얼마나 사용되는지 세기 위해 Google 애널리틱스(Firebase)가 들어 있습니다. 보내는 것은 다음으로 한정됩니다: 화면 이름, 조작 종류(예: 「채널을 열었다」 「자동 재생을 켰다」 「동영상을 끝까지 봤다」), 목록의 동영상 수, Pro 구매를 그만두었을 때 나오는 선택형 한 문항 설문에서 고른 항목(예: 「사용할 수 있는 결제 수단이 없음」), 그리고 Google 애널리틱스가 자동으로 수집하는 정보(앱 버전, OS 버전, 기기 모델, 국가 등 대략적인 지역, 설치마다 무작위로 만들어지는 식별자). 보고 있는 채널과 동영상, 메모 내용, 입력한 URL은 보내지 않습니다.',
         '광고 ID 수집과 광고 개인 맞춤 신호는 꺼져 있으며, 앱은 AD_ID 권한을 요청하지 않습니다.',
         '앱 안의 「이 앱에 대하여」 → 「사용 현황 기록 허용」에서 언제든지 끌 수 있습니다. 끄면 기록은 완전히 멈춥니다.',
         '이렇게 수집된 정보는 저희를 대신해 Google이 처리합니다. 위에 안내한 Google 개인정보처리방침을 확인해 주세요.',
         'iOS 버전에는 분석 도구가 들어 있지 않습니다.'] },
-      { title: '9. 아동의 개인정보', body: ['이 앱은 아동으로부터 개인정보를 의도적으로 수집하지 않습니다.'] },
-      { title: '10. 이 웹사이트', body: [
+      { title: '10. 아동의 개인정보', body: ['이 앱은 아동으로부터 개인정보를 의도적으로 수집하지 않습니다.'] },
+      { title: '11. 이 웹사이트', body: [
         '이 사이트는 정적 페이지로 구성되어 있으며 쿠키를 설정하거나 접속 분석을 하지 않습니다.',
         '웹 체험판(/try/) 등 조작할 수 있는 페이지는 다음과 같이 동작합니다.',
         '• 입력한 채널, 시청함·건너뜀 표시, 진행 상황, 메모, 재생 위치는 사용 중인 기기의 브라우저 안(localStorage)에만 저장됩니다. 당사로 전송되지 않고 휴대폰 앱과도 공유되지 않으며, 이 사이트의 사이트 데이터를 지우면 삭제됩니다.',
         '• 동영상 목록을 만들기 위해 이 사이트의 작은 중계를 거쳐 YouTube Data API v3를 호출합니다. 전달되는 것은 표시할 채널·재생목록·동영상의 식별자뿐이며, 이용자에 관한 정보는 보내지 않습니다.',
         '• 재생에는 YouTube 공식 임베드 플레이어를 사용하고 미리보기 이미지도 YouTube 서버에서 불러옵니다. 플레이어 이용 중 YouTube와 Google이 각사의 정책에 따라 정보를 수집·처리할 수 있습니다.',
         '• 이 웹사이트에는 계정·로그인·결제가 없습니다.'] },
-      { title: '11. 변경', body: ['이 방침은 필요에 따라 업데이트될 수 있습니다. 중요한 변경은 앱 업데이트로 안내합니다.'] },
-      { title: '12. 문의', body: ['이메일:'] },
+      { title: '12. 변경', body: ['이 방침은 필요에 따라 업데이트될 수 있습니다. 중요한 변경은 앱 업데이트로 안내합니다.'] },
+      { title: '13. 문의', body: ['이메일:'] },
     ],
     trademark: 'YouTube는 Google LLC의 상표입니다. 이 앱은 공식 API와 공식 플레이어를 사용하는 비공식 앱이며 Google·YouTube의 승인이나 제휴를 나타내지 않습니다.',
   },

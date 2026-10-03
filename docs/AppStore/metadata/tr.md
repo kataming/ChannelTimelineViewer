@@ -37,7 +37,7 @@ kronolojik,en eski,kanal,ilerleme,seri,kurs,ders,arşiv,izleme takibi,maraton,za
 ```
 
 ## 説明（Description）
-<!-- 2704 / 4000 文字 -->
+<!-- 2736 / 4000 文字 -->
 
 ```
 Channel Timeline Viewer, YouTube kanallarını baştan itibaren, kaldığınız yeri kaybetmeden izlemenize yardımcı olur.
@@ -80,7 +80,7 @@ LÜTFEN DİKKAT
 • Video indirmez, reklam engellemez ve arka planda oynatmaz.
 • Video listeleri YouTube Data API v3 üzerinden alınır.
 • Otomatik oynatma varsayılan olarak açıktır ancak yalnızca açtığınız listedeki sonraki videoya geçer ve oynatıcı ekranından istediğiniz zaman kapatılabilir.
-• Reklam yok. Abonelik de yok — Pro tek seferlik bir satın almadır.
+• Ücretsiz sürümde reklam gösterilir. Pro, reklamsız tek seferlik bir satın almadır — abonelik yok.
 
 YouTube, Google LLC'nin ticari markasıdır.
 ```

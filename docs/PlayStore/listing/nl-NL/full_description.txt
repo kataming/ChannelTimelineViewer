@@ -39,7 +39,7 @@ LET OP
 • De app downloadt geen video's, blokkeert geen advertenties en speelt niet af op de achtergrond.
 • Videolijsten worden opgehaald via de YouTube Data API v3.
 • Automatisch afspelen staat standaard aan, maar gaat alleen naar de volgende video in de lijst die je hebt geopend, en je kunt het op elk moment uitzetten in het afspeelscherm.
-• Geen advertenties. Ook geen abonnementen — Pro is een eenmalige aankoop.
+• De gratis versie toont advertenties. Pro is een eenmalige aankoop zonder advertenties — geen abonnement.
 • Kijkgeschiedenis, voortgang, notities en afspeelposities blijven op je apparaat.
 
 YouTube is een handelsmerk van Google LLC.

@@ -22,7 +22,7 @@ Regardez les chaînes YouTube dans l’ordre et reprenez où vous étiez.
 ```
 
 ## 詳しい説明（Full description）
-<!-- 2824 / 4000 文字 -->
+<!-- 2861 / 4000 文字 -->
 
 ```
 Channel Timeline Viewer vous aide à regarder les chaînes YouTube depuis le début sans perdre le fil.
@@ -66,7 +66,7 @@ Pour suivre plusieurs chaînes en parallèle et tout conserver, achetez Pro : un
 • Elle ne télécharge pas les vidéos, ne bloque pas la publicité et ne lit pas en arrière-plan.
 • Les listes de vidéos proviennent de l'API YouTube Data v3.
 • La lecture automatique est activée par défaut, mais elle ne passe qu'à la vidéo suivante de la liste ouverte et peut être désactivée à tout moment depuis le lecteur.
-• Aucune publicité et aucun abonnement : Pro est un achat unique.
+• La version gratuite affiche des publicités. Pro est un achat unique sans publicité, sans abonnement.
 • Historique, progression, notes et positions restent sur votre appareil.
 
 YouTube est une marque de Google LLC.

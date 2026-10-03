@@ -22,7 +22,7 @@ YouTube-Kanäle der Reihe nach ansehen, Fortschritt merken und weitermachen.
 ```
 
 ## 詳しい説明（Full description）
-<!-- 2685 / 4000 文字 -->
+<!-- 2716 / 4000 文字 -->
 
 ```
 Channel Timeline Viewer hilft dir, YouTube-Kanäle von Anfang an zu sehen, ohne den Faden zu verlieren.
@@ -66,7 +66,7 @@ HINWEISE
 • Sie lädt keine Videos herunter, blockiert keine Werbung und spielt nicht im Hintergrund.
 • Videolisten stammen aus der YouTube Data API v3.
 • Autoplay ist standardmäßig an, wechselt aber nur zum nächsten Video der geöffneten Liste und lässt sich im Player jederzeit abschalten.
-• Keine Werbung und keine Abos – Pro ist ein einmaliger Kauf.
+• Die kostenlose Version zeigt Werbung. Pro ist ein einmaliger Kauf ohne Werbung – kein Abo.
 • Verlauf, Fortschritt, Notizen und Positionen bleiben auf deinem Gerät.
 
 YouTube ist eine Marke von Google LLC.

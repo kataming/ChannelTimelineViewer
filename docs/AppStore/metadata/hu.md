@@ -37,7 +37,7 @@ időrend,legrégebbi,csatorna,haladás,sorozat,kurzus,tanulás,archívum,követ�
 ```
 
 ## 説明（Description）
-<!-- 2892 / 4000 文字 -->
+<!-- 2931 / 4000 文字 -->
 
 ```
 A Channel Timeline Viewer segít a YouTube-csatornákat az elejétől nézni úgy, hogy sosem veszíted el, hol tartasz.
@@ -80,7 +80,7 @@ FONTOS TUDNIVALÓK
 • Nem tölt le videókat, nem blokkolja a hirdetéseket, és nem játszik le a háttérben.
 • A videólistákat a YouTube Data API v3 segítségével kéri le.
 • Az automatikus lejátszás alapból be van kapcsolva, de csak az általad megnyitott lista következő videójára lép, és a lejátszó képernyőjén bármikor kikapcsolhatod.
-• Nincsenek hirdetések. Előfizetés sincs — a Pro egyszeri vásárlás.
+• Az ingyenes verzió hirdetéseket jelenít meg. A Pro hirdetésmentes, egyszeri vásárlás — nincs előfizetés.
 
 A YouTube a Google LLC védjegye.
 ```

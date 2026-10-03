@@ -37,7 +37,7 @@ YouTube 频道，按顺序看
 ```
 
 ## 説明（Description）
-<!-- 974 / 4000 文字 -->
+<!-- 981 / 4000 文字 -->
 
 ```
 Channel Timeline Viewer 帮你从第一个视频开始看 YouTube 频道，不会忘记看到哪里。
@@ -80,7 +80,7 @@ Channel Timeline Viewer 帮你从第一个视频开始看 YouTube 频道，不�
 ・不下载视频、不屏蔽广告、不进行后台播放。
 ・视频列表通过 YouTube Data API v3 获取。
 ・自动播放默认开启，但只会前进到你打开的列表中的下一个视频，并且可以在播放界面随时关闭。
-・没有广告，也没有订阅（Pro 为一次性买断）。
+・免费版会显示广告。Pro 为一次性买断，无广告，也没有订阅。
 
 ※ YouTube 是 Google LLC 的商标。
 ```

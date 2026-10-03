@@ -37,7 +37,7 @@ Channel Timeline Viewer
 ```
 
 ## 説明（Description）
-<!-- 1012 / 4000 文字 -->
+<!-- 1020 / 4000 文字 -->
 
 ```
 Channel Timeline Viewer 協助你從頭開始觀看 YouTube 頻道，不會忘記自己看到哪裡。
@@ -80,7 +80,7 @@ Channel Timeline Viewer 協助你從頭開始觀看 YouTube 頻道，不會忘�
 • 本 App 不會下載影片、封鎖廣告，也不會在背景播放。
 • 影片清單是透過 YouTube Data API v3 取得。
 • 自動播放預設為開啟，但只會前往你開啟的清單中的下一部影片，而且你隨時都能在播放畫面上將它關閉。
-• 沒有廣告，也沒有訂閱制——Pro 為一次購買。
+• 免費版會顯示廣告。Pro 為一次購買，沒有廣告，也沒有訂閱制。
 
 YouTube 是 Google LLC 的商標。
 ```

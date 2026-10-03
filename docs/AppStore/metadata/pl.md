@@ -37,7 +37,7 @@ chronologia,najstarsze,kanał,postęp,seria,kurs,nauka,archiwum,śledzenie,marat
 ```
 
 ## 説明（Description）
-<!-- 2720 / 4000 文字 -->
+<!-- 2755 / 4000 文字 -->
 
 ```
 Channel Timeline Viewer pomaga oglądać kanały YouTube od samego początku, nie tracąc z oczu miejsca, w którym jesteś.
@@ -80,7 +80,7 @@ WARTO WIEDZIEĆ
 • Nie pobiera filmów, nie blokuje reklam i nie odtwarza w tle.
 • Listy filmów są pobierane przez YouTube Data API v3.
 • Autoodtwarzanie jest domyślnie włączone, ale przechodzi tylko do następnego filmu z otwartej listy i możesz je w każdej chwili wyłączyć na ekranie odtwarzacza.
-• Bez reklam. Bez subskrypcji — Pro to jednorazowy zakup.
+• Wersja bezpłatna wyświetla reklamy. Pro to jednorazowy zakup bez reklam — bez subskrypcji.
 
 YouTube jest znakiem towarowym firmy Google LLC.
 ```

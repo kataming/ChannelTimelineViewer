@@ -22,7 +22,7 @@ Se YouTube-kanaler i ordning, följ ditt förlopp och fortsätt där du slutade.
 ```
 
 ## 詳しい説明（Full description）
-<!-- 2758 / 4000 文字 -->
+<!-- 2781 / 4000 文字 -->
 
 ```
 Med Channel Timeline Viewer kan du titta på YouTube-kanaler från början utan att tappa bort var du är.
@@ -66,7 +66,7 @@ OBSERVERA
 • Den laddar inte ner videor, blockerar inte annonser och spelar inte upp i bakgrunden.
 • Videolistor hämtas via YouTube Data API v3.
 • Autouppspelning är på från början, men går bara vidare till nästa video i listan du har öppnat, och du kan stänga av den på uppspelningsskärmen när som helst.
-• Inga annonser. Inga prenumerationer heller – Pro är ett engångsköp.
+• Gratisversionen visar annonser. Pro är ett engångsköp utan annonser – ingen prenumeration.
 • Tittarhistorik, förlopp, anteckningar och uppspelningspositioner stannar på din enhet.
 
 YouTube är ett varumärke som tillhör Google LLC.

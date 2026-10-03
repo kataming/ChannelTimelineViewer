@@ -22,7 +22,7 @@ Xem kênh YouTube theo thứ tự, theo dõi tiến độ và xem tiếp từ ch
 ```
 
 ## 詳しい説明（Full description）
-<!-- 2695 / 4000 文字 -->
+<!-- 2725 / 4000 文字 -->
 
 ```
 Channel Timeline Viewer giúp bạn xem các kênh YouTube từ đầu mà không bị quên mình đang xem đến đâu.
@@ -66,7 +66,7 @@ LƯU Ý
 • Ứng dụng không tải video xuống, không chặn quảng cáo và không phát trong nền.
 • Danh sách video được lấy qua YouTube Data API v3.
 • Tự động phát được bật theo mặc định, nhưng chỉ chuyển sang video tiếp theo trong danh sách bạn đang mở, và bạn có thể tắt nó trên màn hình phát bất cứ lúc nào.
-• Không có quảng cáo. Cũng không có gói đăng ký — Pro là giao dịch mua một lần.
+• Phiên bản miễn phí có hiển thị quảng cáo. Pro là giao dịch mua một lần, không quảng cáo, không gói đăng ký.
 • Lịch sử xem, tiến độ, ghi chú và vị trí phát chỉ được lưu trên thiết bị của bạn.
 
 YouTube là nhãn hiệu của Google LLC.

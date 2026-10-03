@@ -22,7 +22,7 @@ Buka iziteshi ze-YouTube ngokulandelana, ulandelele uqhubeke lapho ume khona.
 ```
 
 ## 詳しい説明（Full description）
-<!-- 3219 / 4000 文字 -->
+<!-- 3253 / 4000 文字 -->
 
 ```
 I-Channel Timeline Viewer ikusiza ukuthi ubuke iziteshi ze-YouTube kusukela ekuqaleni ngaphandle kokulahlekelwa yilapho ufike khona.
@@ -66,7 +66,7 @@ SICELA UQAPHELE
 • Aludawunilodi amavidiyo, aluvimbi izikhangiso, futhi aludlali ngemuva.
 • Uhlu lwamavidiyo lutholwa nge-YouTube Data API v3.
 • Ukudlala okuzenzakalelayo kuvuliwe ngokuzenzakalelayo, kodwa kuya kuphela evidiyweni elandelayo ohlwini oluvulile, futhi ungakuvala esikrinini sesidlali noma nini.
-• Azikho izikhangiso. Futhi ayikho inkokhelo yokubhalisa — i-Pro iwukuthenga kwanye.
+• Inguqulo yamahhala ibonisa izikhangiso. I-Pro ithengwa kanye kuphela ngaphandle kwezikhangiso — akukho ukubhalisela.
 • Umlando wokubuka, inqubekelaphambili, amanothi nezindawo zokudlala kuhlala kudivayisi yakho.
 
 I-YouTube iwuphawu lokuhweba lwe-Google LLC.

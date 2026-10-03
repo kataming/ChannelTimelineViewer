@@ -22,7 +22,7 @@ Panoorin nang sunod-sunod ang YouTube channels, i-track ang progreso at ituloy.
 ```
 
 ## 詳しい説明（Full description）
-<!-- 3104 / 4000 文字 -->
+<!-- 3139 / 4000 文字 -->
 
 ```
 Tinutulungan ka ng Channel Timeline Viewer na panoorin ang mga YouTube channel mula sa simula nang hindi nawawala kung nasaan ka na.
@@ -66,7 +66,7 @@ PAKITANDAAN
 • Hindi ito nagda-download ng video, hindi nagba-block ng ads, at hindi nagpe-play sa background.
 • Kinukuha ang mga listahan ng video sa pamamagitan ng YouTube Data API v3.
 • Naka-on ang autoplay bilang default, pero lilipat lang ito sa susunod na video sa listahang binuksan mo, at puwede mo itong i-off sa screen ng player anumang oras.
-• Walang ads. Wala ring subscription — isang beses na bayad ang Pro.
+• May mga ad ang libreng bersyon. Ang Pro ay isang beses na pagbili na walang ad — walang subscription.
 • Nananatili sa iyong device ang history ng napanood, progreso, mga tala at posisyon ng playback.
 
 Ang YouTube ay trademark ng Google LLC.

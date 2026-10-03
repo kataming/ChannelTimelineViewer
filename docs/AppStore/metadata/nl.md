@@ -37,7 +37,7 @@ chronologisch,oudste eerst,kanaal,voortgang,serie,cursus,studie,archief,bijhoude
 ```
 
 ## 説明（Description）
-<!-- 2823 / 4000 文字 -->
+<!-- 2855 / 4000 文字 -->
 
 ```
 Met Channel Timeline Viewer kijk je YouTube-kanalen vanaf het begin, zonder dat je kwijtraakt waar je was.
@@ -80,7 +80,7 @@ LET OP
 • De app downloadt geen video's, blokkeert geen advertenties en speelt niet af op de achtergrond.
 • Videolijsten worden opgehaald via de YouTube Data API v3.
 • Automatisch afspelen staat standaard aan, maar gaat alleen naar de volgende video in de lijst die je hebt geopend, en je kunt het op elk moment uitzetten in het afspeelscherm.
-• Geen advertenties. Ook geen abonnementen — Pro is een eenmalige aankoop.
+• De gratis versie toont advertenties. Pro is een eenmalige aankoop zonder advertenties — geen abonnement.
 
 YouTube is een handelsmerk van Google LLC.
 ```

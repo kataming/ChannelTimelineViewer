@@ -22,7 +22,7 @@ Mira canales de YouTube en orden, sigue tu progreso y retoma donde lo dejaste.
 ```
 
 ## 詳しい説明（Full description）
-<!-- 2769 / 4000 文字 -->
+<!-- 2805 / 4000 文字 -->
 
 ```
 Channel Timeline Viewer te ayuda a ver canales de YouTube desde el principio sin perder el hilo.
@@ -66,7 +66,7 @@ AVISOS
 • No descarga vídeos, no bloquea anuncios y no reproduce en segundo plano.
 • Las listas de vídeos se obtienen con la API de datos de YouTube v3.
 • La reproducción automática está activada por defecto, pero solo avanza al siguiente vídeo de la lista abierta y puedes desactivarla en cualquier momento desde la pantalla del reproductor.
-• Sin anuncios y sin suscripciones: Pro es una compra única.
+• La versión gratuita muestra anuncios. Pro es una compra única sin anuncios, sin suscripciones.
 • El historial, el progreso, las notas y las posiciones se quedan en tu dispositivo.
 
 YouTube es una marca comercial de Google LLC.

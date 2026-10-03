@@ -204,7 +204,13 @@ Android（エミュレーター API 36・デバッグ＝テスト広告）:
 - 再生画面に広告は出ない。プレイヤーの再生・自動再生の切り替え・移動ボタンは従来どおり
 - リリース（R8・本番 ID なし）: 広告は出ず、UMP・Ads のログも0。動画の再生も動く
 
+iOS:
+- GitHub Actions の iOS Build（`feature/admob-ads`）でビルド成功・テスト 206 件成功（広告の判定テストを含む）
+- 実機確認用に **TestFlight 1.3.90（build 40）** を上げた。ブランチ `testflight/admob-testads` で、
+  リリース設定でも Google の**テスト用**広告ユニットが入っている。
+  ⚠️ **審査に出さない・main に入れない。** `docs/AppStore/do-not-submit-builds.txt` に登録済みで、
+  `attach-build` はこのビルドを選ばず（表示バージョンも別）、`submit` も拒否する。確認が終わったら期限切れにする
+
 未確認:
-- **iOS は Windows ではビルドできないため未確認**（push して GitHub Actions の iOS Build を通す必要がある）
 - 実際の購入・復元での切り替わり（エミュレーターに Play の購入環境が無い）。
   判定は単体テストと「Pro フラグを立てた起動」で確認した

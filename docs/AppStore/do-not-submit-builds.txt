@@ -1,0 +1,3 @@
+# 審査に出してはいけない iOS ビルド番号（scripts/asc_appstore_metadata.py が submit / attach-build で拒否する）。
+# 1行に1つ。# 以降は注釈。
+40  # 1.3.90 / AdMob の確認用。Google 公式のテスト広告 ID 入り（2026-10-03・feature/admob-ads + テスト ID）

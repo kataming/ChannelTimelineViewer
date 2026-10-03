@@ -49,6 +49,20 @@ API_BASE = "https://api.appstoreconnect.apple.com"
 REPO_ROOT = Path(__file__).resolve().parent.parent
 METADATA = REPO_ROOT / "docs" / "AppStore" / "metadata.json"
 REVIEW_NOTES = REPO_ROOT / "docs" / "AppStore" / "review-notes-en.md"
+# 審査に出してはいけないビルド（確認用にテスト広告を入れたものなど）。1行1つ、# 以降は注釈。
+DO_NOT_SUBMIT = REPO_ROOT / "docs" / "AppStore" / "do-not-submit-builds.txt"
+
+
+def do_not_submit_builds() -> set[str]:
+    """審査に出してはいけないビルド番号の一覧。"""
+    if not DO_NOT_SUBMIT.exists():
+        return set()
+    numbers = set()
+    for line in io.open(DO_NOT_SUBMIT, encoding="utf-8"):
+        value = line.split("#", 1)[0].strip()
+        if value:
+            numbers.add(value)
+    return numbers
 DEFAULT_BUNDLE_ID = "com.deskflowlabs.channeltimelineviewer"
 
 # 原本の言語キー → App Store Connect のロケール。
@@ -492,8 +506,13 @@ def submit_for_review(client: Client, bundle_id: str) -> int:
         raise SystemExit(
             f"バージョン {version_name} にビルドが紐づいていません。"
             "先に --mode attach-build を実行してください。")
+    build_number = build["attributes"].get("version")
+    if build_number in do_not_submit_builds():
+        raise SystemExit(
+            f"build {build_number} は審査に出してはいけないビルドです"
+            f"（{DO_NOT_SUBMIT.relative_to(REPO_ROOT)}）。正しいビルドを attach-build してください。")
     print(f"バージョン {version_name}（{state}） / build "
-          f"{build['attributes'].get('version')} を審査へ提出します")
+          f"{build_number} を審査へ提出します")
 
     # 1. 作りかけの reviewSubmission があれば使い回す。
     #    使い回してよいのは READY_FOR_REVIEW（作ったが未提出）だけ。
@@ -569,10 +588,19 @@ def attach_build(client: Client, bundle_id: str, build_version: str | None) -> i
     if version is None:
         raise SystemExit("編集できるバージョンがありません。先に push でバージョンを作ってください。")
 
-    builds = client.get(f"/v1/builds?filter[app]={app_id}&sort=-version&limit=20").get("data", [])
+    # 選ぶのは**このバージョンと同じ表示バージョンで上げたビルドだけ**。
+    # 以前は全バージョンの最新を選んでいたため、確認用のビルド（別の表示バージョン）を
+    # 誤って本番のバージョンに紐づけるおそれがあった。
+    version_string = version["attributes"]["versionString"]
+    builds = client.get(
+        f"/v1/builds?filter[app]={app_id}"
+        f"&filter[preReleaseVersion.version]={version_string}"
+        "&sort=-version&limit=20").get("data", [])
+    blocked = do_not_submit_builds()
     usable = [b for b in builds
               if b["attributes"].get("processingState") == "VALID"
-              and not b["attributes"].get("expired")]
+              and not b["attributes"].get("expired")
+              and b["attributes"].get("version") not in blocked]
     if build_version:
         usable = [b for b in usable if b["attributes"].get("version") == build_version]
     if not usable:

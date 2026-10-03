@@ -100,10 +100,12 @@ struct AnchorAdaptiveBannerView: View {
                 Divider()
                 BannerViewHost(bannerView: view)
                     .frame(width: adSize.size.width, height: adSize.size.height)
+                    .accessibilityIdentifier("ad.anchor")
             }
         }
         .frame(maxWidth: .infinity)
-        .background(loader.loadedView == nil ? AnyShapeStyle(Color.clear) : AnyShapeStyle(Material.bar))
+        // 不透明にする（半透明だと、ホームインジケーターの下に一覧が透けて見える）。
+        .background(loader.loadedView == nil ? Color.clear : Color(.systemBackground))
         .task(id: ads.canShowAds) {
             loader.sync(enabled: ads.canShowAds, unitID: ads.config.bannerUnitID,
                         size: adSize, placement: "anchor")
@@ -129,5 +131,7 @@ struct MRECAdSlot: View {
                 .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color(.separator)))
         }
         .frame(maxWidth: .infinity)
+        .accessibilityElement(children: .contain)
+        .accessibilityIdentifier("ad.mrec")
     }
 }

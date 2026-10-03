@@ -1,3 +1,4 @@
+import StoreKitTest
 import XCTest
 
 /// App 内課金の**審査用スクリーンショット**を撮るための UI テスト。
@@ -65,6 +66,42 @@ final class ProScreenshotUITests: XCTestCase {
         // 価格の取得（StoreKit テスト設定）を少し待ってから撮る。
         Thread.sleep(forTimeInterval: 3.0)
         capture("iap-review-pro")
+    }
+
+    /// Pro なら広告がどこにも出ないこと（同意フォームも初期化もしない）。
+    /// StoreKit のテスト設定が効くスキーム（ProScreenshot）でだけ走る。それ以外（Screenshots）では飛ばす。
+    /// 名前を Z で始めて、購入画面の撮影（testCaptureProScreen）より後に走らせる（購入済みだと購入画面が撮れない）。
+    func testZ_Proでは広告が出ない() throws {
+        let session: SKTestSession
+        do {
+            session = try SKTestSession(configurationFileNamed: "ProStoreKit")
+            session.disableDialogs = true
+            session.clearTransactions()
+            try session.buyProduct(productIdentifier: "pro_unlock")
+        } catch {
+            throw XCTSkip("StoreKit のテスト環境が使えないため飛ばす: \(error)")
+        }
+        defer { session.clearTransactions() }
+
+        app.terminate()
+        if let index = app.launchArguments.firstIndex(of: "-NoAds") {
+            app.launchArguments.removeSubrange(index...index + 1)
+        }
+        app.launchArguments += AdsTestSupport.seedArguments(
+            channels: [AdsTestSupport.nasa, AdsTestSupport.spacex, AdsTestSupport.veritasium],
+            active: AdsTestSupport.nasa.id, proCached: true)
+        app.launch()
+
+        let title = app.staticTexts["NASA"]
+        XCTAssertTrue(title.waitForExistence(timeout: 60), "保存チャンネルが表示されない")
+        Thread.sleep(forTimeInterval: 20)
+        XCTAssertFalse(AdsTestSupport.mrec(in: app).exists, "Pro なのに MREC が出ている")
+        AdsTestSupport.capture("ads-pro-home", in: self)
+
+        title.tap()
+        Thread.sleep(forTimeInterval: 25)
+        XCTAssertFalse(AdsTestSupport.anchor(in: app).exists, "Pro なのにバナーが出ている")
+        AdsTestSupport.capture("ads-pro-videolist", in: self)
     }
 
     private func capture(_ name: String) {

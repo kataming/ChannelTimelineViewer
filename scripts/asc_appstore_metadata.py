@@ -987,6 +987,36 @@ def diagnose(client: Client, bundle_id: str) -> int:
             label = attrs.get("versionString", "（版の情報なし）")
             print(f"      中身: バージョン {label} / 状態 {attrs.get('appStoreState') or attrs.get('state')}")
 
+    # 最近アップロードしたビルド（TestFlight だけのものも含む）。処理が終わったか・提出禁止かを見る。
+    print("\n最近アップロードしたビルド")
+    blocked = do_not_submit_builds()
+    try:
+        recent = client.get(
+            f"/v1/builds?filter[app]={app_id}&sort=-uploadedDate&limit=5").get("data", [])
+    except ASCError as error:
+        recent = []
+        print(f"  取得できず（HTTP {error.code}）")
+    for build in recent:
+        attrs = build["attributes"]
+        try:
+            train = client.get(f"/v1/builds/{build['id']}/preReleaseVersion")["data"]["attributes"].get("version")
+        except (ASCError, KeyError, TypeError):
+            train = "?"
+        mark = " ⚠️提出禁止" if attrs.get("version") in blocked else ""
+        print(f"  {train}（{attrs.get('version')}）: {attrs.get('processingState')}"
+              f"{' / 期限切れ' if attrs.get('expired') else ''}"
+              f" ／アップロード {attrs.get('uploadedDate')}{mark}")
+        # attach-build と同じ絞り込み（表示バージョンごと）が効いているかの確かめ。
+        if train not in ("?", None):
+            try:
+                same = client.get(
+                    f"/v1/builds?filter[app]={app_id}"
+                    f"&filter[preReleaseVersion.version]={train}&limit=20").get("data", [])
+                print(f"      表示バージョン {train} のビルド: "
+                      + ", ".join(b["attributes"].get("version") for b in same))
+            except ASCError as error:
+                print(f"      表示バージョンでの絞り込みに失敗（HTTP {error.code}）")
+
     # 各バージョンにどのビルドが紐づいているか。
     # ⚠️ 提出し直す前に必ず見ること。狙いと違うビルドが載ったまま出すと、
     #    直したはずの内容が入っていないものを審査に回すことになる。

@@ -109,6 +109,12 @@ function adsSyncLine() {
 
 const isAuto = (c, field) => c.metricsSource?.[field] === 'google-ads';
 
+/** 「今すぐ取得」ボタン（為替 → Google 広告 → AdMob をまとめて実行。毎朝 6:00 の自動取得と同じ処理）。 */
+function syncNowButton() {
+  return `<div class="row" style="margin:6px 0"><button type="button" data-action="ads-sync" data-testid="sync-now">今すぐ取得（為替・Google 広告・AdMob）</button>
+    <span class="muted small">毎朝 6:00（日本時間）にも自動で取得します。AdMob の数字は AdMob 側で約 4 時間遅れて反映されます。</span></div>`;
+}
+
 // --- AdMob（アプリ内広告の収入）の自動取得 ----------------------------------------------
 
 function admobSyncLine() {
@@ -151,6 +157,7 @@ function renderDashboard() {
     ${adsSyncLine()}
     ${admobSyncLine()}
     ${fxSyncLine()}
+    ${syncNowButton()}
     ${t.flowNeedsReview ? `<div class="notice" data-testid="flow-notice"><strong>Purchase flow needs review</strong> —
       Purchase Start は ${int(t.purchaseStarts)} 件ありますが Purchase Success は 0 件です。原因はここでは判断しません。</div>`
       : (finite(t.purchaseSuccess) === 0 ? `<div class="notice" data-testid="success-zero">Purchase Success は 0 件です（Purchase Start の件数は${finite(t.purchaseStarts) === null ? '未入力' : ` ${int(t.purchaseStarts)} 件`}）。</div>` : '')}
@@ -602,7 +609,7 @@ function renderSettings() {
         ${field('集計の開始日', `<input type="date" name="startDate" value="${esc(settings.adsSync?.startDate ?? '2025-01-01')}">`)}
       </div>
       <div class="row"><button class="primary">保存</button>
-        <button type="button" data-action="ads-sync">今すぐ取得（為替・広告・AdMob）</button>
+        <button type="button" data-action="ads-sync">今すぐ取得（為替・Google 広告・AdMob）</button>
         <span class="muted small">毎朝 6:00（日本時間）に為替 → 広告の順で自動取得します。広告は開始日〜当日の合計を取り込みます。</span></div>
       ${errorsFor('setAdsSettings')}
     </form>
@@ -615,7 +622,8 @@ function renderSettings() {
         ${field('集計の開始日', `<input type="date" name="startDate" value="${esc(settings.admobSync?.startDate ?? '2026-10-01')}">`)}
       </div>
       <div class="row"><button class="primary">保存</button>
-        <span class="muted small">毎朝 6:00（日本時間）に、開始日〜当日の国別の見積もり収益（円）と表示回数を取り込みます。「今すぐ取得」は上の Google 広告の欄のボタンで一緒に動きます。</span></div>
+        <button type="button" data-action="ads-sync">今すぐ取得（為替・Google 広告・AdMob）</button>
+        <span class="muted small">毎朝 6:00（日本時間）に、開始日〜当日の国別の見積もり収益（円）と表示回数を取り込みます。</span></div>
       ${errorsFor('setAdmobSettings')}
     </form>
 
@@ -792,7 +800,7 @@ view.addEventListener('click', async (event) => {
       const body = await res.json().catch(() => ({}));
       await store.init();
       const ok = res.ok && body.status !== 'error';
-      toast(ok ? '為替と Google 広告を取り込みました' : `一部取得できませんでした: ${body.message || body.error || res.status}`);
+      toast(ok ? '為替・Google 広告・AdMob を取り込みました' : `一部取得できませんでした: ${body.message || body.error || res.status}`);
     } catch (e) {
       toast(`取得できませんでした: ${e.message}`);
     }

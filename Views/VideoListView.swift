@@ -35,9 +35,10 @@ struct VideoListView: View {
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Menu {
-                        Picker("list.menu.sort", selection: $viewModel.sortAscending) {
-                            Text("list.sort.oldest").tag(true)
-                            Text("list.sort.newest").tag(false)
+                        Picker("list.menu.sort", selection: $viewModel.sortOrder) {
+                            Text("list.sort.oldest").tag(VideoSortOrder.oldest)
+                            Text("list.sort.newest").tag(VideoSortOrder.newest)
+                            Text("list.sort.popular").tag(VideoSortOrder.popular)
                         }
                         Picker("list.menu.show", selection: $viewModel.watchFilter) {
                             ForEach(WatchFilter.allCases) { f in
@@ -294,7 +295,8 @@ private struct VideoRow: View {
                 Text(video.title)
                     .font(.subheadline)
                     .lineLimit(2)
-                Text(video.publishedAt.formatted(date: .abbreviated, time: .omitted))
+                // 公開日と視聴回数（例: 2018年4月15日 · 10万回視聴）
+                Text(video.dateAndViews(.abbreviated))
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }

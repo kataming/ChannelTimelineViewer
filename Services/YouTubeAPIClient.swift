@@ -130,6 +130,28 @@ final class YouTubeAPIClient {
         return (newItems, reachedKnown || token == nil)
     }
 
+    /// 視聴回数（statistics.viewCount）を 50 本ずつ取る（1回 = quota 1）。
+    /// 視聴回数を非公開にしている動画は結果に含まれない。
+    func fetchViewCounts(videoIds: [String]) async throws -> [String: Int] {
+        var counts: [String: Int] = [:]
+        var start = 0
+        while start < videoIds.count {
+            let chunk = videoIds[start..<min(start + 50, videoIds.count)]
+            let response: VideoStatisticsResponse = try await get("videos", query: [
+                ("part", "statistics"),
+                ("id", chunk.joined(separator: ",")),
+                ("maxResults", "50"),
+            ])
+            for item in response.items {
+                if let raw = item.statistics?.viewCount, let value = Int(raw) {
+                    counts[item.id] = value
+                }
+            }
+            start += 50
+        }
+        return counts
+    }
+
     /// uploads プレイリストの1ページ分を取得する。
     func fetchVideosPage(playlistId: String, pageToken: String?) async throws -> VideoPage {
         var query: [(String, String)] = [
@@ -290,6 +312,18 @@ private struct VideoListResponse: Decodable {
         let channelId: String?
         let channelTitle: String?
         let title: String?
+    }
+}
+
+/// videos.list（statistics）用。
+private struct VideoStatisticsResponse: Decodable {
+    let items: [Item]
+    struct Item: Decodable {
+        let id: String
+        let statistics: Statistics?
+    }
+    struct Statistics: Decodable {
+        let viewCount: String?
     }
 }
 

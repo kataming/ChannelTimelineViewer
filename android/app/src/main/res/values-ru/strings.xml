@@ -89,6 +89,7 @@
     <string name="list_search_placeholder">Поиск по названию</string>
     <string name="list_sort_newest">Сначала новые</string>
     <string name="list_sort_oldest">Сначала старые</string>
+    <string name="list_sort_popular">Популярные</string>
     <string name="options_captions_defaultoff">По умолчанию субтитры выключены.</string>
     <string name="options_captions_notloaded">Субтитры для этого видео ещё не загружены. Начните воспроизведение и снова откройте это окно (у некоторых видео субтитров нет).</string>
     <string name="options_captions_section">Субтитры</string>
@@ -212,5 +213,6 @@
     <string name="video_skip">Пропуск</string>
     <string name="video_unskip">Не пропускать</string>
     <string name="video_untitled">(Без названия)</string>
+    <string name="video_viewcount_format">%s просмотров</string>
     <string name="video_watched">Просмотрено</string>
 </resources>

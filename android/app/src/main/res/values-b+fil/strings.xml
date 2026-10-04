@@ -89,6 +89,7 @@
     <string name="list_search_placeholder">Maghanap ayon sa pamagat</string>
     <string name="list_sort_newest">Pinakabago muna</string>
     <string name="list_sort_oldest">Pinakaluma muna</string>
+    <string name="list_sort_popular">Pinakasikat</string>
     <string name="options_captions_defaultoff">Naka-off ang mga caption bilang default.</string>
     <string name="options_captions_notloaded">Hindi pa naglo-load ang mga caption ng video na ito. Simulan ang pag-play, pagkatapos ay buksan ulit ang sheet na ito (may mga video na walang caption).</string>
     <string name="options_captions_section">Mga caption</string>
@@ -212,5 +213,6 @@
     <string name="video_skip">Laktawan</string>
     <string name="video_unskip">Huwag laktawan</string>
     <string name="video_untitled">(Walang pamagat)</string>
+    <string name="video_viewcount_format">%s panonood</string>
     <string name="video_watched">Napanood</string>
 </resources>

@@ -89,6 +89,7 @@
     <string name="list_search_placeholder">عنوان سے تلاش کریں</string>
     <string name="list_sort_newest">نئی پہلے</string>
     <string name="list_sort_oldest">پرانی پہلے</string>
+    <string name="list_sort_popular">سب سے مقبول</string>
     <string name="options_captions_defaultoff">کیپشنز بطور ڈیفالٹ بند رہتے ہیں۔</string>
     <string name="options_captions_notloaded">اس ویڈیو کے کیپشنز ابھی لوڈ نہیں ہوئے۔ پلے بیک شروع کریں، پھر یہ شیٹ دوبارہ کھولیں (کچھ ویڈیوز میں کیپشنز نہیں ہوتے)۔</string>
     <string name="options_captions_section">کیپشنز</string>
@@ -212,5 +213,6 @@
     <string name="video_skip">چھوڑیں</string>
     <string name="video_unskip">نہ چھوڑیں</string>
     <string name="video_untitled">(کوئی عنوان نہیں)</string>
+    <string name="video_viewcount_format">%s ملاحظات</string>
     <string name="video_watched">دیکھی گئی</string>
 </resources>

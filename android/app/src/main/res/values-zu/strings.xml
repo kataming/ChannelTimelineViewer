@@ -89,6 +89,7 @@
     <string name="list_search_placeholder">Sesha ngesihloko</string>
     <string name="list_sort_newest">Okusha kuqala</string>
     <string name="list_sort_oldest">Okudala kuqala</string>
+    <string name="list_sort_popular">Okudume kakhulu</string>
     <string name="options_captions_defaultoff">Imibhalo engezansi ivaliwe ngokuzenzakalelayo.</string>
     <string name="options_captions_notloaded">Imibhalo engezansi yale vidiyo ayikalayishwa. Qala ukudlala, bese uvula leli phepha futhi (amanye amavidiyo awanayo imibhalo engezansi).</string>
     <string name="options_captions_section">Imibhalo engezansi</string>
@@ -212,5 +213,6 @@
     <string name="video_skip">Yeqa</string>
     <string name="video_unskip">Ungeqi</string>
     <string name="video_untitled">(Asikho isihloko)</string>
+    <string name="video_viewcount_format">Ukubukwa okungu-%s</string>
     <string name="video_watched">Kubukiwe</string>
 </resources>

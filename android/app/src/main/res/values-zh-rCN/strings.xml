@@ -89,6 +89,7 @@
     <string name="list_search_placeholder">按标题搜索</string>
     <string name="list_sort_newest">从新到旧</string>
     <string name="list_sort_oldest">从旧到新</string>
+    <string name="list_sort_popular">最受欢迎</string>
     <string name="options_captions_defaultoff">字幕默认关闭。</string>
     <string name="options_captions_notloaded">该视频的字幕尚未加载。开始播放后再打开此页即可显示（部分视频没有字幕）。</string>
     <string name="options_captions_section">字幕</string>
@@ -212,5 +213,6 @@
     <string name="video_skip">跳过</string>
     <string name="video_unskip">取消跳过</string>
     <string name="video_untitled">（无标题）</string>
+    <string name="video_viewcount_format">%s次观看</string>
     <string name="video_watched">已观看</string>
 </resources>

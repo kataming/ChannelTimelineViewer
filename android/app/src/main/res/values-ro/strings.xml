@@ -89,6 +89,7 @@
     <string name="list_search_placeholder">Căutați după titlu</string>
     <string name="list_sort_newest">Cele mai noi primele</string>
     <string name="list_sort_oldest">Cele mai vechi primele</string>
+    <string name="list_sort_popular">Cele mai populare</string>
     <string name="options_captions_defaultoff">Subtitrările sunt dezactivate în mod implicit.</string>
     <string name="options_captions_notloaded">Subtitrările pentru acest videoclip nu s-au încărcat încă. Porniți redarea, apoi deschideți din nou acest panou (unele videoclipuri nu au subtitrări).</string>
     <string name="options_captions_section">Subtitrări</string>
@@ -212,5 +213,6 @@
     <string name="video_skip">Omiteți</string>
     <string name="video_unskip">Nu omiteți</string>
     <string name="video_untitled">(Fără titlu)</string>
+    <string name="video_viewcount_format">%s vizionări</string>
     <string name="video_watched">Vizionat</string>
 </resources>

@@ -86,9 +86,11 @@ YouTube este o marcă comercială a Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 208 / 4000 文字 -->
+<!-- 363 / 4000 文字 -->
 
 ```
+• Numărul de vizionări apare acum lângă data publicării, în listă și pe ecranul de redare.
+• Sortare nouă: Cele mai populare (cele mai vizionate primele).
 • Versiunea gratuită afișează acum reclame — doar în partea de jos a listei de videoclipuri și sub canalul salvat de pe primul ecran. Niciodată pe ecranul de redare.
 • Pro (achiziție unică) este fără reclame.
 ```

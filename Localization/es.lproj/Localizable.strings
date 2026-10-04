@@ -209,6 +209,8 @@
 "list.sort.newest" = "Más recientes primero";
 /* 古い順 */
 "list.sort.oldest" = "Más antiguos primero";
+/* 一覧の並び順メニュー: 視聴回数の多い順（1.4.1 / Android 1.17） */
+"list.sort.popular" = "Más populares";
 /* 共有直後の通知の本文 */
 "notification.sharedLink.body" = "Toca para abrir la lista de vídeos del canal compartido.";
 /* 字幕は既定オフの説明 */
@@ -465,5 +467,7 @@
 "video.unskip" = "No omitir";
 /* タイトルが取得できないとき */
 "video.untitled" = "(Sin título)";
+/* 視聴回数（%@ は「10万」「100K」のような短い表記）。一覧と再生画面で「2018年4月15日 · 10万回視聴」の後ろ半分 */
+"video.viewCount.format" = "%@ visualizaciones";
 /* 視聴済み */
 "video.watched" = "Visto";

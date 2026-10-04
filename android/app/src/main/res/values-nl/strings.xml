@@ -89,6 +89,7 @@
     <string name="list_search_placeholder">Zoeken op titel</string>
     <string name="list_sort_newest">Nieuwste eerst</string>
     <string name="list_sort_oldest">Oudste eerst</string>
+    <string name="list_sort_popular">Populairste</string>
     <string name="options_captions_defaultoff">Ondertiteling staat standaard uit.</string>
     <string name="options_captions_notloaded">De ondertiteling voor deze video is nog niet geladen. Start het afspelen en open dit venster opnieuw (sommige video\'s hebben geen ondertiteling).</string>
     <string name="options_captions_section">Ondertiteling</string>
@@ -212,5 +213,6 @@
     <string name="video_skip">Overslaan</string>
     <string name="video_unskip">Niet overslaan</string>
     <string name="video_untitled">(Geen titel)</string>
+    <string name="video_viewcount_format">%s weergaven</string>
     <string name="video_watched">Bekeken</string>
 </resources>

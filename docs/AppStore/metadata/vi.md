@@ -86,9 +86,11 @@ YouTube là nhãn hiệu của Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 201 / 4000 文字 -->
+<!-- 331 / 4000 文字 -->
 
 ```
+• Lượt xem nay hiển thị cạnh ngày đăng trong danh sách và trên màn hình phát.
+• Thứ tự mới: Phổ biến nhất (xem nhiều nhất trước).
 • Phiên bản miễn phí giờ có hiển thị quảng cáo — chỉ ở cuối danh sách video và bên dưới kênh đã lưu ở màn hình đầu tiên. Không bao giờ xuất hiện ở màn hình phát.
 • Pro (mua một lần) không có quảng cáo.
 ```

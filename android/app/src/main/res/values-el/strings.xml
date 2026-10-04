@@ -89,6 +89,7 @@
     <string name="list_search_placeholder">Αναζήτηση με τίτλο</string>
     <string name="list_sort_newest">Νεότερα πρώτα</string>
     <string name="list_sort_oldest">Παλαιότερα πρώτα</string>
+    <string name="list_sort_popular">Δημοφιλέστερα</string>
     <string name="options_captions_defaultoff">Οι υπότιτλοι είναι απενεργοποιημένοι από προεπιλογή.</string>
     <string name="options_captions_notloaded">Οι υπότιτλοι αυτού του βίντεο δεν έχουν φορτωθεί ακόμη. Ξεκινήστε την αναπαραγωγή και ανοίξτε ξανά αυτό το παράθυρο (ορισμένα βίντεο δεν έχουν υπότιτλους).</string>
     <string name="options_captions_section">Υπότιτλοι</string>
@@ -212,5 +213,6 @@
     <string name="video_skip">Παράλειψη</string>
     <string name="video_unskip">Χωρίς παράλειψη</string>
     <string name="video_untitled">(Χωρίς τίτλο)</string>
+    <string name="video_viewcount_format">%s προβολές</string>
     <string name="video_watched">Προβλήθηκε</string>
 </resources>

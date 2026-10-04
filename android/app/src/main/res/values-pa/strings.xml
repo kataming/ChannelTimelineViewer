@@ -89,6 +89,7 @@
     <string name="list_search_placeholder">ਸਿਰਲੇਖ ਨਾਲ ਖੋਜੋ</string>
     <string name="list_sort_newest">ਸਭ ਤੋਂ ਨਵੇਂ ਪਹਿਲਾਂ</string>
     <string name="list_sort_oldest">ਸਭ ਤੋਂ ਪੁਰਾਣੇ ਪਹਿਲਾਂ</string>
+    <string name="list_sort_popular">ਸਭ ਤੋਂ ਪ੍ਰਸਿੱਧ</string>
     <string name="options_captions_defaultoff">ਕੈਪਸ਼ਨ ਮੂਲ ਰੂਪ ਵਿੱਚ ਬੰਦ ਤੋਂ ਸ਼ੁਰੂ ਹੁੰਦੇ ਹਨ।</string>
     <string name="options_captions_notloaded">ਇਸ ਵੀਡੀਓ ਦੇ ਕੈਪਸ਼ਨ ਹਾਲੇ ਲੋਡ ਨਹੀਂ ਹੋਏ। ਪਲੇਬੈਕ ਸ਼ੁਰੂ ਕਰੋ, ਫਿਰ ਇਹ ਸ਼ੀਟ ਦੁਬਾਰਾ ਖੋਲ੍ਹੋ (ਕੁਝ ਵੀਡੀਓ ਵਿੱਚ ਕੈਪਸ਼ਨ ਨਹੀਂ ਹੁੰਦੇ)।</string>
     <string name="options_captions_section">ਕੈਪਸ਼ਨ</string>
@@ -212,5 +213,6 @@
     <string name="video_skip">ਛੱਡੋ</string>
     <string name="video_unskip">ਨਾ ਛੱਡੋ</string>
     <string name="video_untitled">(ਕੋਈ ਸਿਰਲੇਖ ਨਹੀਂ)</string>
+    <string name="video_viewcount_format">%s ਵਿਊਜ਼</string>
     <string name="video_watched">ਦੇਖਿਆ ਗਿਆ</string>
 </resources>

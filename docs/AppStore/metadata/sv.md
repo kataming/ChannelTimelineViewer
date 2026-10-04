@@ -86,9 +86,11 @@ YouTube är ett varumärke som tillhör Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 180 / 4000 文字 -->
+<!-- 321 / 4000 文字 -->
 
 ```
+• Antal visningar visas nu bredvid publiceringsdatumet i listan och på uppspelningsskärmen.
+• Ny sortering: Populäraste (mest visade först).
 • Gratisversionen visar nu annonser – bara längst ned i videolistan och under din sparade kanal på första skärmen. Aldrig på uppspelningsskärmen.
 • Pro (engångsköp) är reklamfritt.
 ```

@@ -150,9 +150,9 @@ struct PlayerView: View {
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
                 .lineLimit(2)
-            // 公開日と、一覧の中での位置（例: 2026年2月27日（1,034 / 3,500））
+            // 公開日・視聴回数と、一覧の中での位置（例: 2026年2月27日 · 10万回視聴（1,034 / 3,500））
             Text(String(format: String(localized: "player.publishedWithPosition.format"),
-                        video.publishedAt.formatted(date: .long, time: .omitted),
+                        video.dateAndViews(.long),
                         viewModel.positionText))
                 .font(.caption)
                 .foregroundStyle(.secondary)

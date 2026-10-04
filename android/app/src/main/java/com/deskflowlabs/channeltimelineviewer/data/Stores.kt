@@ -299,16 +299,28 @@ class ChannelProgressStore(private val prefs: SharedPreferences) {
  */
 class VideoListCache(private val prefs: SharedPreferences) {
 
+    /**
+     * @param statsUpdatedAtEpochSeconds 視聴回数をまとめて取り直した日時（古い保存には無い＝取り直す）
+     */
     @kotlinx.serialization.Serializable
-    data class Entry(val updatedAtEpochSeconds: Long, val videos: List<VideoItem>)
+    data class Entry(
+        val updatedAtEpochSeconds: Long,
+        val videos: List<VideoItem>,
+        val statsUpdatedAtEpochSeconds: Long? = null,
+    )
 
     fun load(channelId: String): Entry? {
         val raw = prefs.getString(keyFor(channelId), null) ?: return null
         return runCatching { storeJson.decodeFromString(Entry.serializer(), raw) }.getOrNull()
     }
 
-    fun store(channelId: String, videos: List<VideoItem>, at: Long = nowEpochSeconds()) {
-        val entry = Entry(at, videos)
+    fun store(
+        channelId: String,
+        videos: List<VideoItem>,
+        at: Long = nowEpochSeconds(),
+        statsUpdatedAt: Long? = null,
+    ) {
+        val entry = Entry(at, videos, statsUpdatedAt)
         prefs.edit().putString(keyFor(channelId),
             storeJson.encodeToString(Entry.serializer(), entry)).apply()
     }

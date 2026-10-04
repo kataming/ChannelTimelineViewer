@@ -89,6 +89,7 @@
     <string name="list_search_placeholder">ค้นหาตามชื่อ</string>
     <string name="list_sort_newest">ใหม่สุดก่อน</string>
     <string name="list_sort_oldest">เก่าสุดก่อน</string>
+    <string name="list_sort_popular">ยอดนิยม</string>
     <string name="options_captions_defaultoff">คำบรรยายจะปิดไว้เป็นค่าเริ่มต้น</string>
     <string name="options_captions_notloaded">คำบรรยายของวิดีโอนี้ยังไม่ได้โหลด เริ่มเล่นวิดีโอ แล้วเปิดหน้านี้อีกครั้ง (บางวิดีโอไม่มีคำบรรยาย)</string>
     <string name="options_captions_section">คำบรรยาย</string>
@@ -212,5 +213,6 @@
     <string name="video_skip">ข้าม</string>
     <string name="video_unskip">ไม่ข้าม</string>
     <string name="video_untitled">(ไม่มีชื่อ)</string>
+    <string name="video_viewcount_format">การดู %s ครั้ง</string>
     <string name="video_watched">ดูแล้ว</string>
 </resources>

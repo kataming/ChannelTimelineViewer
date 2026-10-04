@@ -89,6 +89,7 @@
     <string name="list_search_placeholder">Szukaj po tytule</string>
     <string name="list_sort_newest">Od najnowszych</string>
     <string name="list_sort_oldest">Od najstarszych</string>
+    <string name="list_sort_popular">Najpopularniejsze</string>
     <string name="options_captions_defaultoff">Napisy są domyślnie wyłączone.</string>
     <string name="options_captions_notloaded">Napisy do tego filmu nie zostały jeszcze wczytane. Rozpocznij odtwarzanie, a potem otwórz ten panel ponownie (niektóre filmy nie mają napisów).</string>
     <string name="options_captions_section">Napisy</string>
@@ -212,5 +213,6 @@
     <string name="video_skip">Pomiń</string>
     <string name="video_unskip">Nie pomijaj</string>
     <string name="video_untitled">(Bez tytułu)</string>
+    <string name="video_viewcount_format">%s wyświetleń</string>
     <string name="video_watched">Obejrzany</string>
 </resources>

@@ -86,9 +86,11 @@ YouTube is a trademark of Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 198 / 4000 文字 -->
+<!-- 339 / 4000 文字 -->
 
 ```
+• View counts now appear next to the publish date in the list and on the player screen.
+• New sort option: Most popular (most viewed first).
 • The free version now shows ads — only at the bottom of the video list and below your saved channel on the first screen. Ads never appear on the player screen.
 • Pro (one-time purchase) has no ads.
 ```

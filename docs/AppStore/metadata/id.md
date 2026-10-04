@@ -86,9 +86,11 @@ YouTube adalah merek dagang Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 213 / 4000 文字 -->
+<!-- 358 / 4000 文字 -->
 
 ```
+• Jumlah tayangan kini muncul di samping tanggal publikasi di daftar dan layar pemutar.
+• Urutan baru: Terpopuler (paling banyak ditonton dulu).
 • Versi gratis kini menampilkan iklan — hanya di bagian bawah daftar video dan di bawah channel tersimpan pada layar pertama. Iklan tidak pernah muncul di layar pemutar.
 • Pro (pembelian sekali bayar) tanpa iklan.
 ```

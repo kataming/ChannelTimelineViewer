@@ -89,6 +89,7 @@
     <string name="list_search_placeholder">البحث حسب العنوان</string>
     <string name="list_sort_newest">الأحدث أولًا</string>
     <string name="list_sort_oldest">الأقدم أولًا</string>
+    <string name="list_sort_popular">الأكثر شعبية</string>
     <string name="options_captions_defaultoff">تكون الترجمة متوقفة افتراضيًا.</string>
     <string name="options_captions_notloaded">لم يتم تحميل الترجمة لهذا الفيديو بعد. ابدأ التشغيل ثم افتح هذه اللوحة مرة أخرى (بعض الفيديوهات لا تحتوي على ترجمة).</string>
     <string name="options_captions_section">الترجمة</string>
@@ -212,5 +213,6 @@
     <string name="video_skip">تخطٍّ</string>
     <string name="video_unskip">عدم التخطي</string>
     <string name="video_untitled">(بلا عنوان)</string>
+    <string name="video_viewcount_format">%s مشاهدة</string>
     <string name="video_watched">تمت المشاهدة</string>
 </resources>

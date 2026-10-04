@@ -86,9 +86,11 @@ YouTube je ochranná známka společnosti Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 205 / 4000 文字 -->
+<!-- 355 / 4000 文字 -->
 
 ```
+• Počet zhlédnutí se nyní zobrazuje vedle data zveřejnění v seznamu i na obrazovce přehrávání.
+• Nové řazení: Nejoblíbenější (nejsledovanější první).
 • Bezplatná verze nyní zobrazuje reklamy – jen dole v seznamu videí a pod uloženým kanálem na první obrazovce. Na obrazovce přehrávání se reklamy nikdy nezobrazují.
 • Pro (jednorázový nákup) je bez reklam.
 ```

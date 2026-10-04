@@ -89,6 +89,7 @@
     <string name="list_search_placeholder">ಶೀರ್ಷಿಕೆಯ ಮೂಲಕ ಹುಡುಕಿ</string>
     <string name="list_sort_newest">ಹೊಸದು ಮೊದಲು</string>
     <string name="list_sort_oldest">ಹಳೆಯದು ಮೊದಲು</string>
+    <string name="list_sort_popular">ಅತ್ಯಂತ ಜನಪ್ರಿಯ</string>
     <string name="options_captions_defaultoff">ಡೀಫಾಲ್ಟ್ ಆಗಿ ಶೀರ್ಷಿಕೆಗಳು ಆಫ್ ಆಗಿ ಪ್ರಾರಂಭವಾಗುತ್ತವೆ.</string>
     <string name="options_captions_notloaded">ಈ ವೀಡಿಯೊದ ಶೀರ್ಷಿಕೆಗಳು ಇನ್ನೂ ಲೋಡ್ ಆಗಿಲ್ಲ. ಪ್ಲೇಬ್ಯಾಕ್ ಪ್ರಾರಂಭಿಸಿ, ನಂತರ ಈ ಶೀಟ್ ಅನ್ನು ಮತ್ತೆ ತೆರೆಯಿರಿ (ಕೆಲವು ವೀಡಿಯೊಗಳಿಗೆ ಶೀರ್ಷಿಕೆಗಳಿರುವುದಿಲ್ಲ).</string>
     <string name="options_captions_section">ಶೀರ್ಷಿಕೆಗಳು</string>
@@ -212,5 +213,6 @@
     <string name="video_skip">ಸ್ಕಿಪ್</string>
     <string name="video_unskip">ಸ್ಕಿಪ್ ಮಾಡಬೇಡಿ</string>
     <string name="video_untitled">(ಶೀರ್ಷಿಕೆ ಇಲ್ಲ)</string>
+    <string name="video_viewcount_format">%s ವೀಕ್ಷಣೆಗಳು</string>
     <string name="video_watched">ನೋಡಲಾಗಿದೆ</string>
 </resources>

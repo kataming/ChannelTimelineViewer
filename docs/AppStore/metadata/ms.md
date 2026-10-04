@@ -86,9 +86,11 @@ YouTube ialah tanda dagangan Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 218 / 4000 文字 -->
+<!-- 380 / 4000 文字 -->
 
 ```
+• Jumlah tontonan kini dipaparkan di sebelah tarikh terbit dalam senarai dan pada skrin pemain.
+• Susunan baharu: Paling popular (paling banyak ditonton dahulu).
 • Versi percuma kini memaparkan iklan — hanya di bahagian bawah senarai video dan di bawah saluran tersimpan pada skrin pertama. Iklan tidak pernah muncul pada skrin pemain.
 • Pro (pembelian sekali sahaja) tanpa iklan.
 ```

@@ -89,6 +89,7 @@
     <string name="list_search_placeholder">Cari berdasarkan judul</string>
     <string name="list_sort_newest">Terbaru dulu</string>
     <string name="list_sort_oldest">Terlama dulu</string>
+    <string name="list_sort_popular">Terpopuler</string>
     <string name="options_captions_defaultoff">Teks nonaktif secara default.</string>
     <string name="options_captions_notloaded">Teks untuk video ini belum dimuat. Mulai putar video, lalu buka lembar ini lagi (beberapa video tidak memiliki teks).</string>
     <string name="options_captions_section">Teks</string>
@@ -212,5 +213,6 @@
     <string name="video_skip">Lewati</string>
     <string name="video_unskip">Jangan lewati</string>
     <string name="video_untitled">(Tanpa judul)</string>
+    <string name="video_viewcount_format">%s x ditonton</string>
     <string name="video_watched">Sudah ditonton</string>
 </resources>

@@ -89,6 +89,7 @@
     <string name="list_search_placeholder">শিরোনাম দিয়ে খুঁজুন</string>
     <string name="list_sort_newest">নতুন আগে</string>
     <string name="list_sort_oldest">পুরোনো আগে</string>
+    <string name="list_sort_popular">সবচেয়ে জনপ্রিয়</string>
     <string name="options_captions_defaultoff">ক্যাপশন ডিফল্টভাবে বন্ধ অবস্থায় শুরু হয়।</string>
     <string name="options_captions_notloaded">এই ভিডিওর ক্যাপশন এখনও লোড হয়নি। প্লেব্যাক শুরু করুন, তারপর এই শিটটি আবার খুলুন (কিছু ভিডিওতে ক্যাপশন থাকে না)।</string>
     <string name="options_captions_section">ক্যাপশন</string>
@@ -212,5 +213,6 @@
     <string name="video_skip">এড়িয়ে যান</string>
     <string name="video_unskip">এড়াবেন না</string>
     <string name="video_untitled">(শিরোনাম নেই)</string>
+    <string name="video_viewcount_format">%s বার দেখা হয়েছে</string>
     <string name="video_watched">দেখা হয়েছে</string>
 </resources>

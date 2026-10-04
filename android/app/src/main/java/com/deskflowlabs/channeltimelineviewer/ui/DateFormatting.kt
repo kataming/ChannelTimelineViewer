@@ -31,6 +31,30 @@ fun formatDate(epochSeconds: Long, style: Int = DateFormat.MEDIUM): String {
     return formatter.format(Date(epochSeconds * 1000))
 }
 
+/** 「10万」「100K」のような短い数（視聴回数など）。表示言語に合わせる。 */
+@Composable
+fun formatCompactNumber(value: Long): String {
+    val locale = rememberAppLocale()
+    val formatter = remember(locale) {
+        android.icu.text.CompactDecimalFormat.getInstance(
+            locale, android.icu.text.CompactDecimalFormat.CompactStyle.SHORT,
+        )
+    }
+    return formatter.format(value)
+}
+
+/** 「2018年4月15日 · 10万回視聴」（視聴回数が無ければ日付だけ）。一覧と再生画面で使う。 */
+@Composable
+fun formatDateAndViews(publishedAtEpochSeconds: Long, viewCount: Long?, style: Int = DateFormat.MEDIUM): String {
+    val date = formatDate(publishedAtEpochSeconds, style)
+    if (viewCount == null) return date
+    val views = androidx.compose.ui.res.stringResource(
+        com.deskflowlabs.channeltimelineviewer.R.string.video_viewcount_format,
+        formatCompactNumber(viewCount),
+    )
+    return "$date · $views"
+}
+
 /** 日付＋時刻（最終更新の表示など）。 */
 @Composable
 fun formatDateTime(epochSeconds: Long): String {

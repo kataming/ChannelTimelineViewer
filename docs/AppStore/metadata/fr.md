@@ -86,9 +86,11 @@ YouTube est une marque de Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 223 / 4000 文字 -->
+<!-- 399 / 4000 文字 -->
 
 ```
+• Le nombre de vues s’affiche désormais à côté de la date de publication, dans la liste et sur l’écran de lecture.
+• Nouveau tri : Les plus populaires (les plus vues d’abord).
 • La version gratuite affiche désormais des publicités, uniquement en bas de la liste des vidéos et sous votre chaîne enregistrée sur le premier écran. Jamais sur l’écran de lecture.
 • Pro (achat unique) est sans publicité.
 ```

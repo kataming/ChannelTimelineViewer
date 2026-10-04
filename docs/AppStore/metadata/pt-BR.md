@@ -86,9 +86,11 @@ YouTube é uma marca comercial da Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 179 / 4000 文字 -->
+<!-- 330 / 4000 文字 -->
 
 ```
+• As visualizações agora aparecem ao lado da data de publicação na lista e na tela do player.
+• Nova ordenação: Mais populares (mais vistos primeiro).
 • A versão gratuita agora exibe anúncios — só no fim da lista de vídeos e abaixo do canal salvo na primeira tela. Nunca na tela do player.
 • O Pro (compra única) não tem anúncios.
 ```

@@ -177,6 +177,8 @@
     <string name="list_sort_newest">Newest first</string>
     <!-- 古い順 -->
     <string name="list_sort_oldest">Oldest first</string>
+    <!-- 一覧の並び順メニュー: 視聴回数の多い順（1.4.1 / Android 1.17） -->
+    <string name="list_sort_popular">Most popular</string>
     <!-- 字幕は既定オフの説明 -->
     <string name="options_captions_defaultoff">Captions start off by default.</string>
     <!-- 字幕がまだ読み込まれていないときの説明 -->
@@ -423,6 +425,8 @@
     <string name="video_unskip">Don’t skip</string>
     <!-- タイトルが取得できないとき -->
     <string name="video_untitled">(No title)</string>
+    <!-- 視聴回数（%@ は「10万」「100K」のような短い表記）。一覧と再生画面で「2018年4月15日 · 10万回視聴」の後ろ半分 -->
+    <string name="video_viewcount_format">%s views</string>
     <!-- 視聴済み -->
     <string name="video_watched">Watched</string>
 </resources>

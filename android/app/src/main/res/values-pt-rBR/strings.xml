@@ -89,6 +89,7 @@
     <string name="list_search_placeholder">Buscar pelo título</string>
     <string name="list_sort_newest">Mais recentes primeiro</string>
     <string name="list_sort_oldest">Mais antigos primeiro</string>
+    <string name="list_sort_popular">Mais populares</string>
     <string name="options_captions_defaultoff">As legendas começam desativadas por padrão.</string>
     <string name="options_captions_notloaded">As legendas deste vídeo ainda não foram carregadas. Inicie a reprodução e abra esta tela novamente (alguns vídeos não têm legendas).</string>
     <string name="options_captions_section">Legendas</string>
@@ -212,5 +213,6 @@
     <string name="video_skip">Pular</string>
     <string name="video_unskip">Não pular</string>
     <string name="video_untitled">(Sem título)</string>
+    <string name="video_viewcount_format">%s visualizações</string>
     <string name="video_watched">Assistido</string>
 </resources>

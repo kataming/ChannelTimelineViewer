@@ -89,6 +89,7 @@
     <string name="list_search_placeholder">제목으로 검색</string>
     <string name="list_sort_newest">최신 순</string>
     <string name="list_sort_oldest">오래된 순</string>
+    <string name="list_sort_popular">인기순</string>
     <string name="options_captions_defaultoff">자막은 기본적으로 꺼진 상태로 시작합니다.</string>
     <string name="options_captions_notloaded">이 동영상의 자막이 아직 불러와지지 않았습니다. 재생을 시작한 뒤 다시 열어 보세요(자막이 없는 동영상도 있습니다).</string>
     <string name="options_captions_section">자막</string>
@@ -212,5 +213,6 @@
     <string name="video_skip">건너뛰기</string>
     <string name="video_unskip">건너뛰기 해제</string>
     <string name="video_untitled">(제목 없음)</string>
+    <string name="video_viewcount_format">조회수 %s회</string>
     <string name="video_watched">시청함</string>
 </resources>

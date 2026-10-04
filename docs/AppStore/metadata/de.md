@@ -86,9 +86,11 @@ YouTube ist eine Marke von Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 229 / 4000 文字 -->
+<!-- 398 / 4000 文字 -->
 
 ```
+• Aufrufe werden jetzt neben dem Veröffentlichungsdatum in der Liste und auf dem Wiedergabebildschirm angezeigt.
+• Neue Sortierung: Beliebteste (meiste Aufrufe zuerst).
 • Die kostenlose Version zeigt jetzt Werbung – nur unten in der Videoliste und unter deinem gespeicherten Kanal auf dem ersten Bildschirm. Auf dem Wiedergabebildschirm erscheint nie Werbung.
 • Pro (einmaliger Kauf) ist werbefrei.
 ```

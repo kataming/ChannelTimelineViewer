@@ -86,9 +86,11 @@ YouTube, Google LLC'nin ticari markasıdır.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 206 / 4000 文字 -->
+<!-- 350 / 4000 文字 -->
 
 ```
+• Görüntülenme sayısı artık listede ve oynatıcı ekranında yayın tarihinin yanında görünüyor.
+• Yeni sıralama: En popüler (en çok izlenen önce).
 • Ücretsiz sürümde artık reklam gösteriliyor; yalnızca video listesinin altında ve ilk ekranda kayıtlı kanalınızın altında. Oynatıcı ekranında asla gösterilmez.
 • Pro (tek seferlik satın alma) reklamsızdır.
 ```

@@ -89,6 +89,7 @@
     <string name="list_search_placeholder">శీర్షిక ద్వారా వెతకండి</string>
     <string name="list_sort_newest">కొత్తవి ముందు</string>
     <string name="list_sort_oldest">పాతవి ముందు</string>
+    <string name="list_sort_popular">అత్యంత జనాదరణ పొందినవి</string>
     <string name="options_captions_defaultoff">డిఫాల్ట్‌గా క్యాప్షన్‌లు ఆఫ్‌లో ప్రారంభమవుతాయి.</string>
     <string name="options_captions_notloaded">ఈ వీడియో క్యాప్షన్‌లు ఇంకా లోడ్ కాలేదు. ప్లేబ్యాక్ ప్రారంభించి, ఆపై ఈ షీట్‌ను మళ్లీ తెరవండి (కొన్ని వీడియోలకు క్యాప్షన్‌లు ఉండవు).</string>
     <string name="options_captions_section">క్యాప్షన్‌లు</string>
@@ -212,5 +213,6 @@
     <string name="video_skip">దాటవేయి</string>
     <string name="video_unskip">దాటవేయవద్దు</string>
     <string name="video_untitled">(శీర్షిక లేదు)</string>
+    <string name="video_viewcount_format">%s వీక్షణలు</string>
     <string name="video_watched">చూసినది</string>
 </resources>

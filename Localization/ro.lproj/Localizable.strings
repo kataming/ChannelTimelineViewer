@@ -209,6 +209,8 @@
 "list.sort.newest" = "Cele mai noi primele";
 /* 古い順 */
 "list.sort.oldest" = "Cele mai vechi primele";
+/* 一覧の並び順メニュー: 視聴回数の多い順（1.4.1 / Android 1.17） */
+"list.sort.popular" = "Cele mai populare";
 /* 共有直後の通知の本文 */
 "notification.sharedLink.body" = "Atingeți pentru a deschide lista de videoclipuri a canalului partajat.";
 /* 字幕は既定オフの説明 */
@@ -465,5 +467,7 @@
 "video.unskip" = "Nu omiteți";
 /* タイトルが取得できないとき */
 "video.untitled" = "(Fără titlu)";
+/* 視聴回数（%@ は「10万」「100K」のような短い表記）。一覧と再生画面で「2018年4月15日 · 10万回視聴」の後ろ半分 */
+"video.viewCount.format" = "%@ vizionări";
 /* 視聴済み */
 "video.watched" = "Vizionat";

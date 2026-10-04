@@ -242,7 +242,8 @@ fun PlayerScreen(
                 Text(
                     stringResource(
                         R.string.player_publishedwithposition_format,
-                        formatDate(video.publishedAtEpochSeconds, DateFormat.LONG),
+                        // 公開日・視聴回数（例: 2026年2月27日 · 10万回視聴（1,034 / 3,500））
+                        formatDateAndViews(video.publishedAtEpochSeconds, video.viewCount, DateFormat.LONG),
                         viewModel.positionText,
                     ),
                     style = MaterialTheme.typography.bodySmall,

@@ -89,6 +89,7 @@
     <string name="list_search_placeholder">タイトルで検索</string>
     <string name="list_sort_newest">新しい順</string>
     <string name="list_sort_oldest">古い順</string>
+    <string name="list_sort_popular">人気順</string>
     <string name="options_captions_defaultoff">字幕は既定でオフから始まります。</string>
     <string name="options_captions_notloaded">この動画で使える字幕はまだ読み込まれていません。再生を始めてからもう一度開くと表示されます（字幕が無い動画もあります）。</string>
     <string name="options_captions_section">字幕</string>
@@ -212,5 +213,6 @@
     <string name="video_skip">スキップ</string>
     <string name="video_unskip">スキップ解除</string>
     <string name="video_untitled">(タイトルなし)</string>
+    <string name="video_viewcount_format">%s回視聴</string>
     <string name="video_watched">視聴済み</string>
 </resources>

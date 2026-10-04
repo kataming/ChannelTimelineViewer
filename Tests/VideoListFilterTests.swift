@@ -34,7 +34,7 @@ final class VideoListFilterTests: XCTestCase {
 
     func testFilterRespectsSortOrder() {
         let vm = makeVM([vid("a", epoch: 100), vid("b", epoch: 200), vid("c", epoch: 300)])
-        vm.sortAscending = false   // 新しい順
+        vm.sortOrder = .newest   // 新しい順
         vm.watchFilter = .all
         XCTAssertEqual(vm.visibleVideos(isWatched: { _ in false }).map(\.id), ["c", "b", "a"])
     }

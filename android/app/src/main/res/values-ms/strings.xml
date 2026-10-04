@@ -89,6 +89,7 @@
     <string name="list_search_placeholder">Cari mengikut tajuk</string>
     <string name="list_sort_newest">Terbaharu dahulu</string>
     <string name="list_sort_oldest">Terlama dahulu</string>
+    <string name="list_sort_popular">Paling popular</string>
     <string name="options_captions_defaultoff">Kapsyen dimatikan secara lalai.</string>
     <string name="options_captions_notloaded">Kapsyen untuk video ini belum dimuatkan. Mulakan main balik, kemudian buka helaian ini semula (sesetengah video tiada kapsyen).</string>
     <string name="options_captions_section">Kapsyen</string>
@@ -212,5 +213,6 @@
     <string name="video_skip">Langkau</string>
     <string name="video_unskip">Jangan langkau</string>
     <string name="video_untitled">(Tiada tajuk)</string>
+    <string name="video_viewcount_format">%s tontonan</string>
     <string name="video_watched">Sudah ditonton</string>
 </resources>

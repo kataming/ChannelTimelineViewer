@@ -209,6 +209,8 @@
 "list.sort.newest" = "由新到舊";
 /* 古い順 */
 "list.sort.oldest" = "由舊到新";
+/* 一覧の並び順メニュー: 視聴回数の多い順（1.4.1 / Android 1.17） */
+"list.sort.popular" = "最熱門";
 /* 共有直後の通知の本文 */
 "notification.sharedLink.body" = "點一下即可開啟分享頻道的影片清單。";
 /* 字幕は既定オフの説明 */
@@ -465,5 +467,7 @@
 "video.unskip" = "取消略過";
 /* タイトルが取得できないとき */
 "video.untitled" = "（無標題）";
+/* 視聴回数（%@ は「10万」「100K」のような短い表記）。一覧と再生画面で「2018年4月15日 · 10万回視聴」の後ろ半分 */
+"video.viewCount.format" = "%@次觀看";
 /* 視聴済み */
 "video.watched" = "已觀看";

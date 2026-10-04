@@ -89,6 +89,7 @@
     <string name="list_search_placeholder">Sök efter titel</string>
     <string name="list_sort_newest">Nyast först</string>
     <string name="list_sort_oldest">Äldst först</string>
+    <string name="list_sort_popular">Populäraste</string>
     <string name="options_captions_defaultoff">Undertexter är avstängda från början.</string>
     <string name="options_captions_notloaded">Undertexterna för den här videon har inte lästs in ännu. Starta uppspelningen och öppna sedan det här bladet igen (vissa videor saknar undertexter).</string>
     <string name="options_captions_section">Undertexter</string>
@@ -212,5 +213,6 @@
     <string name="video_skip">Hoppa över</string>
     <string name="video_unskip">Hoppa inte över</string>
     <string name="video_untitled">(Ingen titel)</string>
+    <string name="video_viewcount_format">%s visningar</string>
     <string name="video_watched">Sedd</string>
 </resources>

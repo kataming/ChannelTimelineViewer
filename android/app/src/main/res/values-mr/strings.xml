@@ -89,6 +89,7 @@
     <string name="list_search_placeholder">शीर्षकाने शोधा</string>
     <string name="list_sort_newest">सर्वात नवीन आधी</string>
     <string name="list_sort_oldest">सर्वात जुने आधी</string>
+    <string name="list_sort_popular">सर्वाधिक लोकप्रिय</string>
     <string name="options_captions_defaultoff">कॅप्शन डीफॉल्टनुसार बंद स्थितीत सुरू होतात.</string>
     <string name="options_captions_notloaded">या व्हिडिओचे कॅप्शन अजून लोड झालेले नाहीत. प्लेबॅक सुरू करा, मग ही शीट पुन्हा उघडा (काही व्हिडिओंना कॅप्शन नसतात).</string>
     <string name="options_captions_section">कॅप्शन</string>
@@ -212,5 +213,6 @@
     <string name="video_skip">वगळा</string>
     <string name="video_unskip">वगळू नका</string>
     <string name="video_untitled">(शीर्षक नाही)</string>
+    <string name="video_viewcount_format">%s वेळा पाहिले</string>
     <string name="video_watched">पाहिलेले</string>
 </resources>

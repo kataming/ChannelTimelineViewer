@@ -89,6 +89,7 @@
     <string name="list_search_placeholder">依標題搜尋</string>
     <string name="list_sort_newest">由新到舊</string>
     <string name="list_sort_oldest">由舊到新</string>
+    <string name="list_sort_popular">最熱門</string>
     <string name="options_captions_defaultoff">字幕預設為關閉。</string>
     <string name="options_captions_notloaded">這部影片的字幕尚未載入。請先開始播放，再重新開啟此畫面（部分影片沒有字幕）。</string>
     <string name="options_captions_section">字幕</string>
@@ -212,5 +213,6 @@
     <string name="video_skip">略過</string>
     <string name="video_unskip">取消略過</string>
     <string name="video_untitled">（無標題）</string>
+    <string name="video_viewcount_format">%s次觀看</string>
     <string name="video_watched">已觀看</string>
 </resources>

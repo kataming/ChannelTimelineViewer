@@ -89,6 +89,7 @@
     <string name="list_search_placeholder">Hledat podle názvu</string>
     <string name="list_sort_newest">Od nejnovějších</string>
     <string name="list_sort_oldest">Od nejstarších</string>
+    <string name="list_sort_popular">Nejoblíbenější</string>
     <string name="options_captions_defaultoff">Titulky jsou ve výchozím stavu vypnuté.</string>
     <string name="options_captions_notloaded">Titulky k tomuto videu se ještě nenačetly. Spusťte přehrávání a pak tento panel otevřete znovu (některá videa titulky nemají).</string>
     <string name="options_captions_section">Titulky</string>
@@ -212,5 +213,6 @@
     <string name="video_skip">Přeskočit</string>
     <string name="video_unskip">Nepřeskakovat</string>
     <string name="video_untitled">(Bez názvu)</string>
+    <string name="video_viewcount_format">%s zhlédnutí</string>
     <string name="video_watched">Zhlédnuto</string>
 </resources>

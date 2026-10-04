@@ -89,6 +89,7 @@
     <string name="list_search_placeholder">Başlığa göre ara</string>
     <string name="list_sort_newest">Önce en yeni</string>
     <string name="list_sort_oldest">Önce en eski</string>
+    <string name="list_sort_popular">En popüler</string>
     <string name="options_captions_defaultoff">Altyazılar varsayılan olarak kapalı başlar.</string>
     <string name="options_captions_notloaded">Bu videonun altyazıları henüz yüklenmedi. Oynatmayı başlatın, ardından bu ekranı yeniden açın (bazı videolarda altyazı yoktur).</string>
     <string name="options_captions_section">Altyazılar</string>
@@ -212,5 +213,6 @@
     <string name="video_skip">Atla</string>
     <string name="video_unskip">Atlama</string>
     <string name="video_untitled">(Başlık yok)</string>
+    <string name="video_viewcount_format">%s görüntüleme</string>
     <string name="video_watched">İzlendi</string>
 </resources>

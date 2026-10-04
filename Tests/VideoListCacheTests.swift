@@ -30,6 +30,32 @@ final class VideoListCacheTests: XCTestCase {
         }
     }
 
+    // MARK: - 視聴回数（1.4.1）
+
+    func testOldCacheWithoutViewCountStillLoads() throws {
+        // 1.4.1 より前の保存（viewCount / statsUpdatedAt が無い）
+        let json = """
+        {"videos":[{"id":"v1","title":"t","description":"","publishedAt":0,"channelId":"UCtest"}],
+         "updatedAt":0,"uploadsPlaylistId":"UUtest"}
+        """
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        try Data(json.utf8).write(to: directory.appendingPathComponent("UCtest.json"))
+        let entry = try XCTUnwrap(makeCache().entry(for: "UCtest"))
+        XCTAssertEqual(entry.videos.map(\.id), ["v1"])
+        XCTAssertNil(entry.videos[0].viewCount)
+        XCTAssertNil(entry.statsUpdatedAt, "取り直しが必要と判定される")
+    }
+
+    func testSavesViewCountsAndRefreshDate() throws {
+        var videos = makeVideos(2)
+        videos[0].viewCount = 123_456
+        let refreshed = Date(timeIntervalSince1970: 1_000)
+        makeCache().save(videos, for: "UCtest", uploadsPlaylistId: "UUtest", statsUpdatedAt: refreshed)
+        let entry = try XCTUnwrap(makeCache().entry(for: "UCtest"))
+        XCTAssertEqual(entry.videos.map(\.viewCount), [123_456, nil])
+        XCTAssertEqual(entry.statsUpdatedAt, refreshed)
+    }
+
     func testSavesAndLoadsVideos() {
         let cache = makeCache()
         let videos = makeVideos(3)

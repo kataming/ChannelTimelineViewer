@@ -63,6 +63,7 @@ import com.deskflowlabs.channeltimelineviewer.R
 import com.deskflowlabs.channeltimelineviewer.data.SkippedVideoStore
 import com.deskflowlabs.channeltimelineviewer.data.WatchHistoryStore
 import com.deskflowlabs.channeltimelineviewer.model.VideoItem
+import com.deskflowlabs.channeltimelineviewer.model.VideoSortOrder
 import com.deskflowlabs.channeltimelineviewer.ui.theme.SkippedOrange
 import com.deskflowlabs.channeltimelineviewer.ui.theme.WatchedGreen
 import com.deskflowlabs.channeltimelineviewer.viewmodel.VideoListViewModel
@@ -92,7 +93,7 @@ fun VideoListScreen(
     val isCheckingForNew by viewModel.isCheckingForNew.collectAsStateWithLifecycle()
     val lastUpdatedAt by viewModel.lastUpdatedAt.collectAsStateWithLifecycle()
     val errorRes by viewModel.errorRes.collectAsStateWithLifecycle()
-    val sortAscending by viewModel.sortAscending.collectAsStateWithLifecycle()
+    val sortOrder by viewModel.sortOrder.collectAsStateWithLifecycle()
     val filter by viewModel.watchFilter.collectAsStateWithLifecycle()
     val isSearching by viewModel.isSearching.collectAsStateWithLifecycle()
     val searchQuery by viewModel.searchQuery.collectAsStateWithLifecycle()
@@ -105,7 +106,7 @@ fun VideoListScreen(
     // 並び替え・絞り込みの結果は remember で持つ。
     // ここで毎回作り直すと、LazyColumn の中身が古い値を掴んだままになり
     //（5,000本のチャンネルで「0本表示」になる不具合が出た）、並び替えの計算も無駄に走る。
-    val visible = remember(videos, watched, skipped, filter, sortAscending, isSearching, searchQuery) {
+    val visible = remember(videos, watched, skipped, filter, sortOrder, isSearching, searchQuery) {
         viewModel.visibleVideos(isWatched)
     }
     val showSearchEmpty = visible.isEmpty() && isSearching && searchQuery.isNotBlank()
@@ -175,19 +176,22 @@ fun VideoListScreen(
                             style = MaterialTheme.typography.labelMedium,
                             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
                         )
-                        listOf(true to R.string.list_sort_oldest, false to R.string.list_sort_newest)
-                            .forEach { (ascending, label) ->
-                                DropdownMenuItem(
-                                    text = { Text(stringResource(label)) },
-                                    leadingIcon = {
-                                        RadioButton(selected = sortAscending == ascending, onClick = null)
-                                    },
-                                    onClick = {
-                                        viewModel.setSortAscending(ascending)
-                                        menuOpen = false
-                                    },
-                                )
-                            }
+                        listOf(
+                            VideoSortOrder.Oldest to R.string.list_sort_oldest,
+                            VideoSortOrder.Newest to R.string.list_sort_newest,
+                            VideoSortOrder.Popular to R.string.list_sort_popular,
+                        ).forEach { (order, label) ->
+                            DropdownMenuItem(
+                                text = { Text(stringResource(label)) },
+                                leadingIcon = {
+                                    RadioButton(selected = sortOrder == order, onClick = null)
+                                },
+                                onClick = {
+                                    viewModel.setSortOrder(order)
+                                    menuOpen = false
+                                },
+                            )
+                        }
                         Divider()
                         Text(
                             stringResource(R.string.list_menu_show),
@@ -424,8 +428,9 @@ private fun VideoRow(
         )
         Column(Modifier.weight(1f).padding(horizontal = 12.dp)) {
             Text(video.title, maxLines = 2, overflow = TextOverflow.Ellipsis)
+            // 公開日と視聴回数（例: 2018年4月15日 · 10万回視聴）
             Text(
-                formatDate(video.publishedAtEpochSeconds),
+                formatDateAndViews(video.publishedAtEpochSeconds, video.viewCount),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )

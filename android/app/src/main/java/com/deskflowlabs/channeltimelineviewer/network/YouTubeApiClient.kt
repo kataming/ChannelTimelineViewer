@@ -110,6 +110,22 @@ class YouTubeApiClient(
     }
 
     /** uploads プレイリストの1ページ分を取得する。 */
+    /**
+     * 視聴回数（statistics.viewCount）を 50 本ずつ取る（1回 = quota 1）。
+     * 視聴回数を非公開にしている動画は結果に含まれない。
+     */
+    suspend fun fetchViewCounts(videoIds: List<String>): Map<String, Long> {
+        val counts = mutableMapOf<String, Long>()
+        for (chunk in videoIds.chunked(50)) {
+            val body = getJson(
+                "videos",
+                listOf("part" to "statistics", "id" to chunk.joinToString(","), "maxResults" to "50"),
+            )
+            counts.putAll(viewCounts(body))
+        }
+        return counts
+    }
+
     suspend fun fetchVideosPage(playlistId: String, pageToken: String?): VideoPage {
         val query = mutableListOf(
             "part" to "snippet,contentDetails",
@@ -216,6 +232,16 @@ class YouTubeApiClient(
             if (channelId.isNullOrEmpty()) throw YouTubeApiException(YouTubeApiError.VideoNotFound)
             return channelId
         }
+
+        /** videos.list（statistics）のレスポンスから {videoId: 視聴回数} を取り出す（テスト可能）。 */
+        fun viewCounts(body: JsonObject): Map<String, Long> =
+            body["items"]?.jsonArray.orEmpty().mapNotNull { element ->
+                val item = element.jsonObject
+                val id = item.string("id") ?: return@mapNotNull null
+                val count = item["statistics"]?.jsonObject?.string("viewCount")?.toLongOrNull()
+                    ?: return@mapNotNull null
+                id to count
+            }.toMap()
 
         /** playlistItems のレスポンスを VideoItem に変換する（ネットワーク非依存＝テスト可能）。 */
         fun videoPage(body: JsonObject): VideoPage {

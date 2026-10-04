@@ -89,6 +89,7 @@
     <string name="list_search_placeholder">Buscar por título</string>
     <string name="list_sort_newest">Más recientes primero</string>
     <string name="list_sort_oldest">Más antiguos primero</string>
+    <string name="list_sort_popular">Más populares</string>
     <string name="options_captions_defaultoff">Los subtítulos empiezan desactivados.</string>
     <string name="options_captions_notloaded">Los subtítulos de este vídeo aún no se han cargado. Inicia la reproducción y vuelve a abrir esta hoja (algunos vídeos no tienen subtítulos).</string>
     <string name="options_captions_section">Subtítulos</string>
@@ -212,5 +213,6 @@
     <string name="video_skip">Omitir</string>
     <string name="video_unskip">No omitir</string>
     <string name="video_untitled">(Sin título)</string>
+    <string name="video_viewcount_format">%s visualizaciones</string>
     <string name="video_watched">Visto</string>
 </resources>

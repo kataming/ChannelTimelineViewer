@@ -65,7 +65,7 @@ final class ChannelSearchTests: XCTestCase {
 
     func testSearchKeepsNewestFirst() {
         let vm = makeVM(sample)
-        vm.sortAscending = false
+        vm.sortOrder = .newest
         vm.openSearch()
         vm.searchQuery = "chatgpt"
         XCTAssertEqual(vm.visibleVideos(isWatched: { _ in false }).map(\.id), ["c", "a"])

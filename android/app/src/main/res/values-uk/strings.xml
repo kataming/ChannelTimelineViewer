@@ -89,6 +89,7 @@
     <string name="list_search_placeholder">Пошук за назвою</string>
     <string name="list_sort_newest">Спочатку нові</string>
     <string name="list_sort_oldest">Спочатку старі</string>
+    <string name="list_sort_popular">Найпопулярніші</string>
     <string name="options_captions_defaultoff">За замовчуванням субтитри вимкнено.</string>
     <string name="options_captions_notloaded">Субтитри для цього відео ще не завантажено. Почніть відтворення, а потім знову відкрийте це вікно (деякі відео не мають субтитрів).</string>
     <string name="options_captions_section">Субтитри</string>
@@ -212,5 +213,6 @@
     <string name="video_skip">Пропуск</string>
     <string name="video_unskip">Не пропускати</string>
     <string name="video_untitled">(Без назви)</string>
+    <string name="video_viewcount_format">%s переглядів</string>
     <string name="video_watched">Переглянуто</string>
 </resources>

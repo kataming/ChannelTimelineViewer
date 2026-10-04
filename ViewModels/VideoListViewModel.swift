@@ -21,8 +21,8 @@ enum WatchFilter: String, CaseIterable, Identifiable {
 @MainActor
 final class VideoListViewModel: ObservableObject {
     @Published private(set) var videos: [VideoItem] = []
-    /// true = 古い順（publishedAt 昇順）。デフォルトは古い順。
-    @Published var sortAscending = true
+    /// 並び順。既定は古い順。人気順は視聴回数の多い順（docs/view-count.md）。
+    @Published var sortOrder: VideoSortOrder = .oldest
     @Published var watchFilter: WatchFilter = .all
     /// チャンネル内検索（タイトルの絞り込み）。この画面（＝このチャンネル）の間だけ持つ。保存しない・送らない。
     @Published var isSearching = false
@@ -37,6 +37,11 @@ final class VideoListViewModel: ObservableObject {
     let channel: Channel
     private let api: YouTubeAPIClient
     private let cache: VideoListCache
+    /// 視聴回数をまとめて取り直した日時（保存済みの一覧に入っている）。
+    private var statsUpdatedAt: Date?
+    /// 視聴回数をまとめて取り直す間隔。YouTube の規約で、保存した API のデータは
+    /// 30 日以内に取り直す必要がある。quota を抑えるため、それより短い 7 日にしておく。
+    static let viewCountRefreshInterval: TimeInterval = 7 * 24 * 3600
 
     init(channel: Channel,
          api: YouTubeAPIClient = YouTubeAPIClient(),
@@ -50,14 +55,14 @@ final class VideoListViewModel: ObservableObject {
 
     /// 並び替えのみ反映した表示用リスト。
     var displayedVideos: [VideoItem] {
-        videos.sortedByPublishedDate(ascending: sortAscending)
+        videos.sorted(by: sortOrder)
     }
     var count: Int { videos.count }
 
     /// 並び替え＋視聴フィルター＋タイトル検索を適用した最終リスト。
     /// isWatched で視聴判定を注入するためテストしやすい（View からは watchStore.isWatched を渡す）。
     func visibleVideos(isWatched: (String) -> Bool) -> [VideoItem] {
-        let sorted = videos.sortedByPublishedDate(ascending: sortAscending)
+        let sorted = videos.sorted(by: sortOrder)
         let filtered: [VideoItem]
         switch watchFilter {
         case .all:
@@ -116,8 +121,10 @@ final class VideoListViewModel: ObservableObject {
            entry.uploadsPlaylistId == nil || entry.uploadsPlaylistId == channel.uploadsPlaylistId {
             videos = entry.videos
             lastUpdatedAt = entry.updatedAt
+            statsUpdatedAt = entry.statsUpdatedAt
             errorMessage = nil
             await checkForNewVideos()
+            await refreshViewCountsIfStale()
             return
         }
 
@@ -139,7 +146,10 @@ final class VideoListViewModel: ObservableObject {
             if videos.isEmpty {
                 errorMessage = String(localized: "list.empty")
             } else {
+                statsUpdatedAt = nil
                 storeCache()
+                // 一覧は先に出し、視聴回数はあとから埋める（取れなくても一覧は使える）
+                await refreshViewCounts(for: videos.map(\.id), markRefreshed: true)
             }
         } catch let error as YouTubeAPIError {
             errorMessage = error.errorDescription
@@ -171,6 +181,7 @@ final class VideoListViewModel: ObservableObject {
             if !result.videos.isEmpty {
                 videos = (videos + result.videos).uniquedById()
                 storeCache()
+                await refreshViewCounts(for: result.videos.map(\.id), markRefreshed: false)
             } else {
                 // 新着なしでも「確認した日時」は更新しておく。
                 lastUpdatedAt = Date()
@@ -186,16 +197,37 @@ final class VideoListViewModel: ObservableObject {
         cache.remove(channel.id)
         videos = []
         lastUpdatedAt = nil
+        statsUpdatedAt = nil
         await load()
+    }
+
+    /// 視聴回数の取り直しが要るか（一度も取っていない、または 7 日以上たった）。
+    func needsViewCountRefresh(now: Date = Date()) -> Bool {
+        guard let statsUpdatedAt else { return true }
+        return now.timeIntervalSince(statsUpdatedAt) >= Self.viewCountRefreshInterval
+    }
+
+    /// 保存済みの視聴回数が古ければ、全件まとめて取り直す。
+    func refreshViewCountsIfStale(now: Date = Date()) async {
+        guard !videos.isEmpty, needsViewCountRefresh(now: now) else { return }
+        await refreshViewCounts(for: videos.map(\.id), markRefreshed: true)
+    }
+
+    /// 視聴回数を取って反映する。失敗しても一覧はそのまま使えるので、表に出さない。
+    private func refreshViewCounts(for ids: [String], markRefreshed: Bool) async {
+        guard !ids.isEmpty,
+              let counts = try? await api.fetchViewCounts(videoIds: ids) else { return }
+        videos = videos.applyingViewCounts(counts)
+        if markRefreshed { statsUpdatedAt = Date() }
+        storeCache()
     }
 
     private func storeCache() {
         let now = Date()
-        cache.save(videos, for: channel.id, uploadsPlaylistId: channel.uploadsPlaylistId, at: now)
+        cache.save(videos, for: channel.id, uploadsPlaylistId: channel.uploadsPlaylistId, at: now,
+                   statsUpdatedAt: statsUpdatedAt)
         lastUpdatedAt = now
     }
-
-    func toggleSort() { sortAscending.toggle() }
 
     /// 指定動画の表示リスト上のインデックス（再生画面の開始位置に使う）。
     func displayIndex(of video: VideoItem) -> Int {

@@ -14,6 +14,8 @@ final class VideoListCache {
         var updatedAt: Date
         /// 取得元のアップロードプレイリストID（チャンネル側で変わった場合に作り直すため）。
         var uploadsPlaylistId: String?
+        /// 視聴回数をまとめて取り直した日時（古い保存には無い＝取り直す）。
+        var statsUpdatedAt: Date?
     }
 
     private let directory: URL
@@ -49,9 +51,11 @@ final class VideoListCache {
     func save(_ videos: [VideoItem],
               for channelId: String,
               uploadsPlaylistId: String?,
-              at date: Date = Date()) {
+              at date: Date = Date(),
+              statsUpdatedAt: Date? = nil) {
         guard let url = fileURL(for: channelId), !videos.isEmpty else { return }
-        let entry = Entry(videos: videos, updatedAt: date, uploadsPlaylistId: uploadsPlaylistId)
+        let entry = Entry(videos: videos, updatedAt: date, uploadsPlaylistId: uploadsPlaylistId,
+                          statsUpdatedAt: statsUpdatedAt)
         guard let data = try? JSONEncoder().encode(entry) else { return }
         try? fileManager.createDirectory(at: directory, withIntermediateDirectories: true)
         try? data.write(to: url, options: .atomic)

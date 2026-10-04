@@ -89,6 +89,7 @@
     <string name="list_search_placeholder">Keresés cím alapján</string>
     <string name="list_sort_newest">Legújabb elöl</string>
     <string name="list_sort_oldest">Legrégebbi elöl</string>
+    <string name="list_sort_popular">Legnépszerűbb</string>
     <string name="options_captions_defaultoff">A feliratok alapértelmezés szerint ki vannak kapcsolva.</string>
     <string name="options_captions_notloaded">A videó feliratai még nem töltődtek be. Indítsd el a lejátszást, majd nyisd meg újra ezt a panelt (egyes videókhoz nincs felirat).</string>
     <string name="options_captions_section">Feliratok</string>
@@ -212,5 +213,6 @@
     <string name="video_skip">Kihagyás</string>
     <string name="video_unskip">Kihagyás visszavonása</string>
     <string name="video_untitled">(Nincs cím)</string>
+    <string name="video_viewcount_format">%s megtekintés</string>
     <string name="video_watched">Megnézve</string>
 </resources>

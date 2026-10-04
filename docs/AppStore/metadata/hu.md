@@ -86,9 +86,11 @@ A YouTube a Google LLC védjegye.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 201 / 4000 文字 -->
+<!-- 365 / 4000 文字 -->
 
 ```
+• A megtekintések száma mostantól a közzététel dátuma mellett látható a listában és a lejátszási képernyőn.
+• Új rendezés: Legnépszerűbb (a legtöbbet nézett elöl).
 • Az ingyenes verzió mostantól hirdetéseket jelenít meg – csak a videólista alján és az első képernyőn a mentett csatorna alatt. A lejátszási képernyőn soha.
 • A Pro (egyszeri vásárlás) hirdetésmentes.
 ```

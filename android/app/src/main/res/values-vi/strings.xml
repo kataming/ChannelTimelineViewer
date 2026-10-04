@@ -89,6 +89,7 @@
     <string name="list_search_placeholder">Tìm theo tiêu đề</string>
     <string name="list_sort_newest">Mới nhất trước</string>
     <string name="list_sort_oldest">Cũ nhất trước</string>
+    <string name="list_sort_popular">Phổ biến nhất</string>
     <string name="options_captions_defaultoff">Phụ đề mặc định ở trạng thái tắt.</string>
     <string name="options_captions_notloaded">Phụ đề của video này chưa được tải. Hãy bắt đầu phát, rồi mở lại trang này (một số video không có phụ đề).</string>
     <string name="options_captions_section">Phụ đề</string>
@@ -212,5 +213,6 @@
     <string name="video_skip">Bỏ qua</string>
     <string name="video_unskip">Không bỏ qua</string>
     <string name="video_untitled">(Không có tiêu đề)</string>
+    <string name="video_viewcount_format">%s lượt xem</string>
     <string name="video_watched">Đã xem</string>
 </resources>

@@ -89,6 +89,7 @@
     <string name="list_search_placeholder">தலைப்பின்படி தேடு</string>
     <string name="list_sort_newest">புதியவை முதலில்</string>
     <string name="list_sort_oldest">பழையவை முதலில்</string>
+    <string name="list_sort_popular">மிகவும் பிரபலமானவை</string>
     <string name="options_captions_defaultoff">இயல்பாக வசனங்கள் முடக்கத்தில் தொடங்கும்.</string>
     <string name="options_captions_notloaded">இந்த வீடியோவின் வசனங்கள் இன்னும் ஏற்றப்படவில்லை. இயக்கத்தைத் தொடங்கி, பின் இந்தத் தாளை மீண்டும் திறக்கவும் (சில வீடியோக்களில் வசனங்கள் இல்லை).</string>
     <string name="options_captions_section">வசனங்கள்</string>
@@ -212,5 +213,6 @@
     <string name="video_skip">தவிர்</string>
     <string name="video_unskip">தவிர்க்க வேண்டாம்</string>
     <string name="video_untitled">(தலைப்பு இல்லை)</string>
+    <string name="video_viewcount_format">%s பார்வைகள்</string>
     <string name="video_watched">பார்த்தது</string>
 </resources>

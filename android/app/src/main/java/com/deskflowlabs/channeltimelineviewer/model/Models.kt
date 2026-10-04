@@ -15,10 +15,41 @@ data class VideoItem(
     val publishedAtEpochSeconds: Long,
     val thumbnailUrl: String? = null,
     val channelId: String = "",
+    /**
+     * 視聴回数（YouTube Data API `videos.list` の statistics.viewCount）。
+     * 取れていない・非公開のときは null。保存済みの古い一覧（1.17 より前）にも無い。
+     * Long なのは、Int の上限（約21億）を超える動画があるため。
+     */
+    val viewCount: Long? = null,
 ) {
     /** YouTube で開くための公式URL。 */
     val watchUrl: String get() = "https://www.youtube.com/watch?v=$id"
 }
+
+/** 一覧の並び順（右上のメニュー）。iOS `VideoSortOrder` と同じ。 */
+enum class VideoSortOrder {
+    /** 公開日の古い順（既定） */
+    Oldest,
+    /** 公開日の新しい順 */
+    Newest,
+    /** 視聴回数の多い順。視聴回数が分からない動画は最後（その中は古い順） */
+    Popular,
+}
+
+/** 並び順を適用する。⚠️ iOS `sorted(by:)` と同じ規則にしておく。 */
+fun List<VideoItem>.sortedBy(order: VideoSortOrder): List<VideoItem> = when (order) {
+    VideoSortOrder.Oldest -> sortedByPublishedDate(ascending = true)
+    VideoSortOrder.Newest -> sortedByPublishedDate(ascending = false)
+    VideoSortOrder.Popular -> sortedWith(
+        compareBy<VideoItem> { it.viewCount == null }
+            .thenByDescending { it.viewCount ?: 0L }
+            .thenBy { it.publishedAtEpochSeconds },
+    )
+}
+
+/** 取得した視聴回数を反映する（取れなかった動画は前の値のまま）。 */
+fun List<VideoItem>.withViewCounts(counts: Map<String, Long>): List<VideoItem> =
+    map { video -> counts[video.id]?.let { video.copy(viewCount = it) } ?: video }
 
 /** publishedAt で並び替える。ascending=true で古い順。 */
 fun List<VideoItem>.sortedByPublishedDate(ascending: Boolean): List<VideoItem> =

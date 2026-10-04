@@ -86,9 +86,11 @@ YouTube jest znakiem towarowym firmy Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 190 / 4000 文字 -->
+<!-- 357 / 4000 文字 -->
 
 ```
+• Liczba wyświetleń jest teraz widoczna obok daty publikacji na liście i na ekranie odtwarzania.
+• Nowe sortowanie: Najpopularniejsze (najczęściej oglądane najpierw).
 • Wersja bezpłatna wyświetla teraz reklamy – tylko na dole listy filmów i pod zapisanym kanałem na pierwszym ekranie. Nigdy na ekranie odtwarzania.
 • Pro (jednorazowy zakup) jest bez reklam.
 ```

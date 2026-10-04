@@ -86,9 +86,11 @@ YouTube is een handelsmerk van Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 202 / 4000 文字 -->
+<!-- 340 / 4000 文字 -->
 
 ```
+• Weergaven staan nu naast de publicatiedatum in de lijst en op het afspeelscherm.
+• Nieuwe sortering: Populairste (meest bekeken eerst).
 • De gratis versie toont nu advertenties, alleen onderaan de videolijst en onder je opgeslagen kanaal op het eerste scherm. Nooit op het afspeelscherm.
 • Pro (eenmalige aankoop) heeft geen advertenties.
 ```

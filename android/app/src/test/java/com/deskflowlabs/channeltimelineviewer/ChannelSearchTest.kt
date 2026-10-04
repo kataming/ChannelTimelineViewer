@@ -5,6 +5,7 @@ import androidx.test.core.app.ApplicationProvider
 import com.deskflowlabs.channeltimelineviewer.data.VideoListCache
 import com.deskflowlabs.channeltimelineviewer.model.Channel
 import com.deskflowlabs.channeltimelineviewer.model.VideoItem
+import com.deskflowlabs.channeltimelineviewer.model.VideoSortOrder
 import com.deskflowlabs.channeltimelineviewer.model.titleMatches
 import com.deskflowlabs.channeltimelineviewer.network.YouTubeApiClient
 import com.deskflowlabs.channeltimelineviewer.viewmodel.VideoListViewModel
@@ -63,12 +64,12 @@ class ChannelSearchTest {
     )
 
     private fun visible(
-        sortAscending: Boolean = true,
+        sortOrder: VideoSortOrder = VideoSortOrder.Oldest,
         filter: WatchFilter = WatchFilter.All,
         isWatched: (String) -> Boolean = { false },
         isSearching: Boolean = true,
         query: String,
-    ) = filterVisibleVideos(sample, sortAscending, filter, isWatched, isSearching, query).map { it.id }
+    ) = filterVisibleVideos(sample, sortOrder, filter, isWatched, isSearching, query).map { it.id }
 
     @Test
     fun searchKeepsOldestFirst() {
@@ -77,7 +78,7 @@ class ChannelSearchTest {
 
     @Test
     fun searchKeepsNewestFirst() {
-        assertEquals(listOf("c", "a"), visible(sortAscending = false, query = "chatgpt"))
+        assertEquals(listOf("c", "a"), visible(sortOrder = VideoSortOrder.Newest, query = "chatgpt"))
     }
 
     @Test

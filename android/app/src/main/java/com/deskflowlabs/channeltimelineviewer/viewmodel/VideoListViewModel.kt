@@ -8,6 +8,9 @@ import com.deskflowlabs.channeltimelineviewer.data.VideoListCache
 import com.deskflowlabs.channeltimelineviewer.data.nowEpochSeconds
 import com.deskflowlabs.channeltimelineviewer.model.Channel
 import com.deskflowlabs.channeltimelineviewer.model.VideoItem
+import com.deskflowlabs.channeltimelineviewer.model.VideoSortOrder
+import com.deskflowlabs.channeltimelineviewer.model.sortedBy
+import com.deskflowlabs.channeltimelineviewer.model.withViewCounts
 import com.deskflowlabs.channeltimelineviewer.model.sortedByPublishedDate
 import com.deskflowlabs.channeltimelineviewer.model.titleMatches
 import com.deskflowlabs.channeltimelineviewer.model.uniquedById
@@ -33,13 +36,13 @@ enum class WatchFilter(@StringRes val labelRes: Int) {
  */
 fun filterVisibleVideos(
     videos: List<VideoItem>,
-    sortAscending: Boolean,
+    sortOrder: VideoSortOrder,
     watchFilter: WatchFilter,
     isWatched: (String) -> Boolean,
     isSearching: Boolean,
     searchQuery: String,
 ): List<VideoItem> {
-    val sorted = videos.sortedByPublishedDate(sortAscending)
+    val sorted = videos.sortedBy(sortOrder)
     val filtered = when (watchFilter) {
         WatchFilter.All -> sorted
         WatchFilter.Unwatched -> sorted.filterNot { isWatched(it.id) }
@@ -64,9 +67,12 @@ class VideoListViewModel(
     private val _videos = MutableStateFlow<List<VideoItem>>(emptyList())
     val videos: StateFlow<List<VideoItem>> = _videos.asStateFlow()
 
-    /** true = 古い順（publishedAt 昇順）。既定は古い順。 */
-    private val _sortAscending = MutableStateFlow(true)
-    val sortAscending: StateFlow<Boolean> = _sortAscending.asStateFlow()
+    /** 並び順。既定は古い順。人気順は視聴回数の多い順（docs/view-count.md）。 */
+    private val _sortOrder = MutableStateFlow(VideoSortOrder.Oldest)
+    val sortOrder: StateFlow<VideoSortOrder> = _sortOrder.asStateFlow()
+
+    /** 視聴回数をまとめて取り直した日時（保存済みの一覧に入っている）。 */
+    private var statsUpdatedAt: Long? = null
 
     private val _watchFilter = MutableStateFlow(WatchFilter.All)
     val watchFilter: StateFlow<WatchFilter> = _watchFilter.asStateFlow()
@@ -98,13 +104,13 @@ class VideoListViewModel(
 
     /** 並び替えのみ反映した表示用リスト。 */
     fun displayedVideos(): List<VideoItem> =
-        _videos.value.sortedByPublishedDate(_sortAscending.value)
+        _videos.value.sortedBy(_sortOrder.value)
 
     /** 並び替え＋視聴フィルター＋タイトル検索を適用した最終リスト。 */
     fun visibleVideos(isWatched: (String) -> Boolean): List<VideoItem> =
         filterVisibleVideos(
             videos = _videos.value,
-            sortAscending = _sortAscending.value,
+            sortOrder = _sortOrder.value,
             watchFilter = _watchFilter.value,
             isWatched = isWatched,
             isSearching = _isSearching.value,
@@ -144,8 +150,8 @@ class VideoListViewModel(
     /** 古い順全体での動画リスト（再生画面に渡す基準リスト）。 */
     fun oldestFirst(): List<VideoItem> = _videos.value.sortedByPublishedDate(ascending = true)
 
-    fun setSortAscending(value: Boolean) {
-        _sortAscending.value = value
+    fun setSortOrder(value: VideoSortOrder) {
+        _sortOrder.value = value
     }
 
     fun setWatchFilter(value: WatchFilter) {
@@ -160,8 +166,10 @@ class VideoListViewModel(
             if (entry != null && entry.videos.isNotEmpty()) {
                 _videos.value = entry.videos
                 _lastUpdatedAt.value = entry.updatedAtEpochSeconds
+                statsUpdatedAt = entry.statsUpdatedAtEpochSeconds
                 _errorRes.value = null
                 checkForNewVideosInternal()
+                refreshViewCountsIfStale()
                 return@launch
             }
             loadInternal()
@@ -184,6 +192,7 @@ class VideoListViewModel(
             cache.remove(channel.id)
             _videos.value = emptyList()
             _lastUpdatedAt.value = null
+            statsUpdatedAt = null
             loadInternal()
         }
     }
@@ -202,7 +211,10 @@ class VideoListViewModel(
             if (items.isEmpty()) {
                 _errorRes.value = R.string.list_empty
             } else {
+                statsUpdatedAt = null
                 storeCache()
+                // 一覧は先に出し、視聴回数はあとから埋める（取れなくても一覧は使える）
+                refreshViewCounts(items.map { it.id }, markRefreshed = true)
             }
         } catch (e: YouTubeApiException) {
             _errorRes.value = e.error.messageRes
@@ -235,6 +247,7 @@ class VideoListViewModel(
             }
             // 新着が無くても「確認した日時」は更新しておく。
             storeCache()
+            refreshViewCounts(newItems.map { it.id }, markRefreshed = false)
         } catch (e: Exception) {
             // 保存済みの一覧は表示できているので、ここでは失敗を前面に出さない。
         } finally {
@@ -242,9 +255,38 @@ class VideoListViewModel(
         }
     }
 
+    /** 視聴回数の取り直しが要るか（一度も取っていない、または 7 日以上たった）。 */
+    fun needsViewCountRefresh(now: Long = nowEpochSeconds()): Boolean {
+        val last = statsUpdatedAt ?: return true
+        return now - last >= VIEW_COUNT_REFRESH_SECONDS
+    }
+
+    /** 保存済みの視聴回数が古ければ、全件まとめて取り直す。 */
+    private suspend fun refreshViewCountsIfStale() {
+        if (_videos.value.isEmpty() || !needsViewCountRefresh()) return
+        refreshViewCounts(_videos.value.map { it.id }, markRefreshed = true)
+    }
+
+    /** 視聴回数を取って反映する。失敗しても一覧はそのまま使えるので、表に出さない。 */
+    private suspend fun refreshViewCounts(ids: List<String>, markRefreshed: Boolean) {
+        if (ids.isEmpty()) return
+        val counts = runCatching { api.fetchViewCounts(ids) }.getOrNull() ?: return
+        _videos.value = _videos.value.withViewCounts(counts)
+        if (markRefreshed) statsUpdatedAt = nowEpochSeconds()
+        storeCache()
+    }
+
     private fun storeCache() {
         val now = nowEpochSeconds()
-        cache.store(channel.id, _videos.value, now)
+        cache.store(channel.id, _videos.value, now, statsUpdatedAt)
         _lastUpdatedAt.value = now
+    }
+
+    companion object {
+        /**
+         * 視聴回数をまとめて取り直す間隔。YouTube の規約で、保存した API のデータは
+         * 30 日以内に取り直す必要がある。quota を抑えるため、それより短い 7 日にしておく（iOS と同じ）。
+         */
+        const val VIEW_COUNT_REFRESH_SECONDS = 7L * 24 * 3600
     }
 }

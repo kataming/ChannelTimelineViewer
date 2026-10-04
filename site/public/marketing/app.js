@@ -109,9 +109,18 @@ function adsSyncLine() {
 
 const isAuto = (c, field) => c.metricsSource?.[field] === 'google-ads';
 
+function playPriceSyncLine() {
+  const a = doc().playPriceSync;
+  if (!a?.lastRunAt) return '<div class="muted small" data-testid="play-price-sync">Google Play の価格の自動取得: まだ取得していません（毎朝 6:00）</div>';
+  const cls = a.status === 'ok' ? 'positive' : 'negative';
+  return `<div class="small" data-testid="play-price-sync">Google Play の価格の自動取得: <span class="badge ${cls}">${a.status === 'ok' ? 'OK' : '失敗'}</span>
+    最終 ${esc(new Date(a.lastRunAt).toLocaleString())}${a.status === 'ok' ? `（登録済み ${int(a.countries)} 国に反映・変更 ${int(a.changed)} 国）` : ''}
+    ${a.message ? `<span class="negative">${esc(a.message)}</span>` : ''}</div>`;
+}
+
 /** 「今すぐ取得」ボタン（為替 → Google 広告 → AdMob をまとめて実行。毎朝 6:00 の自動取得と同じ処理）。 */
 function syncNowButton() {
-  return `<div class="row" style="margin:6px 0"><button type="button" data-action="ads-sync" data-testid="sync-now">今すぐ取得（為替・Google 広告・AdMob）</button>
+  return `<div class="row" style="margin:6px 0"><button type="button" data-action="ads-sync" data-testid="sync-now">今すぐ取得（為替・Play 価格・Google 広告・AdMob）</button>
     <span class="muted small">毎朝 6:00（日本時間）にも自動で取得します。AdMob の数字は AdMob 側で約 4 時間遅れて反映されます。</span></div>`;
 }
 
@@ -156,6 +165,7 @@ function renderDashboard() {
     <h1>Dashboard</h1>
     ${adsSyncLine()}
     ${admobSyncLine()}
+    ${playPriceSyncLine()}
     ${fxSyncLine()}
     ${syncNowButton()}
     ${t.flowNeedsReview ? `<div class="notice" data-testid="flow-notice"><strong>Purchase flow needs review</strong> —
@@ -323,7 +333,7 @@ function renderCountry(id) {
 
         <h2>計算結果</h2>
         <div class="panel"><table data-testid="calc-table"><tbody>
-          <tr><td class="l">Price（現地）</td><td>${money(c.price, c.currency)}</td></tr>
+          <tr><td class="l">Price（現地）</td><td>${money(c.price, c.currency)}${c.priceSource === 'google-play' ? ' <span class="badge info">Google Play</span>' : ''}</td></tr>
           <tr><td class="l">Price in JPY</td><td>${yen(s.priceJPY)}</td></tr>
           <tr><td class="l">Net Revenue / Purchase</td><td data-testid="net-per">${yen(s.netPerPurchase)}</td></tr>
           <tr><td class="l">CPI${s.cpiIsManual ? '（手入力）' : ''}</td><td>${yen(s.cpi)}</td></tr>
@@ -609,7 +619,7 @@ function renderSettings() {
         ${field('集計の開始日', `<input type="date" name="startDate" value="${esc(settings.adsSync?.startDate ?? '2025-01-01')}">`)}
       </div>
       <div class="row"><button class="primary">保存</button>
-        <button type="button" data-action="ads-sync">今すぐ取得（為替・Google 広告・AdMob）</button>
+        <button type="button" data-action="ads-sync">今すぐ取得（為替・Play 価格・Google 広告・AdMob）</button>
         <span class="muted small">毎朝 6:00（日本時間）に為替 → 広告の順で自動取得します。広告は開始日〜当日の合計を取り込みます。</span></div>
       ${errorsFor('setAdsSettings')}
     </form>
@@ -622,7 +632,7 @@ function renderSettings() {
         ${field('集計の開始日', `<input type="date" name="startDate" value="${esc(settings.admobSync?.startDate ?? '2026-10-01')}">`)}
       </div>
       <div class="row"><button class="primary">保存</button>
-        <button type="button" data-action="ads-sync">今すぐ取得（為替・Google 広告・AdMob）</button>
+        <button type="button" data-action="ads-sync">今すぐ取得（為替・Play 価格・Google 広告・AdMob）</button>
         <span class="muted small">毎朝 6:00（日本時間）に、開始日〜当日の国別の見積もり収益（円）と表示回数を取り込みます。</span></div>
       ${errorsFor('setAdmobSettings')}
     </form>
@@ -800,7 +810,7 @@ view.addEventListener('click', async (event) => {
       const body = await res.json().catch(() => ({}));
       await store.init();
       const ok = res.ok && body.status !== 'error';
-      toast(ok ? '為替・Google 広告・AdMob を取り込みました' : `一部取得できませんでした: ${body.message || body.error || res.status}`);
+      toast(ok ? '為替・Play 価格・Google 広告・AdMob を取り込みました' : `一部取得できませんでした: ${body.message || body.error || res.status}`);
     } catch (e) {
       toast(`取得できませんでした: ${e.message}`);
     }

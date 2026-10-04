@@ -331,3 +331,15 @@ export function setAdsSettings(doc, { customerId, loginCustomerId, startDate }) 
   next.settings.adsSync = { ...(next.settings.adsSync ?? {}), ...values };
   return touch(next);
 }
+
+/** AdMob の自動取得の設定（パブリッシャー ID は任意。空なら見られる最初のアカウント）。 */
+export function setAdmobSettings(doc, { publisherId, startDate }) {
+  const errors = {};
+  const pub = String(publisherId ?? '').trim();
+  if (pub && !/^pub-\d{10,20}$/.test(pub)) errors.publisherId = 'パブリッシャー ID は pub- で始まる形式（例 pub-1234567890123456）';
+  const values = { publisherId: pub, startDate: readDate(startDate, 'startDate', errors) || '2026-10-01' };
+  if (Object.keys(errors).length) throw new ValidationError(errors);
+  const next = clone(doc);
+  next.settings.admobSync = { ...(next.settings.admobSync ?? {}), ...values };
+  return touch(next);
+}

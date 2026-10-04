@@ -109,6 +109,19 @@ function adsSyncLine() {
 
 const isAuto = (c, field) => c.metricsSource?.[field] === 'google-ads';
 
+// --- AdMob（アプリ内広告の収入）の自動取得 ----------------------------------------------
+
+function admobSyncLine() {
+  const a = doc().admobSync;
+  if (!a?.lastRunAt) return '<div class="muted small" data-testid="admob-sync">AdMob の自動取得: まだ取得していません（毎朝 6:00）</div>';
+  const cls = a.status === 'ok' ? 'positive' : a.status === 'warning' ? 'warning' : 'negative';
+  const label = { ok: 'OK', warning: '要確認', error: '失敗' }[a.status] ?? a.status;
+  const platforms = Object.entries(a.byPlatform ?? {}).map(([p, v]) => `${esc(p)} ${yen(v.earningsJPY)}`).join(' / ');
+  return `<div class="small" data-testid="admob-sync">AdMob の自動取得: <span class="badge ${cls}">${label}</span>
+    最終 ${esc(new Date(a.lastRunAt).toLocaleString())}${a.status === 'ok' ? `（${esc(a.from)}〜${esc(a.to)}・${int(a.countries)} 国・収益 ${yen(a.earningsJPY)}${platforms ? `［${platforms}］` : ''}）` : ''}
+    ${a.message ? `<span class="${cls === 'positive' ? '' : 'negative'}">${esc(a.message)}</span>` : ''}</div>`;
+}
+
 function fxSyncLine() {
   const f = doc().fxSync;
   const source = '出典: <a href="https://www.exchangerate-api.com" target="_blank" rel="noopener">Rates By Exchange Rate API</a>';
@@ -136,6 +149,7 @@ function renderDashboard() {
   return `
     <h1>Dashboard</h1>
     ${adsSyncLine()}
+    ${admobSyncLine()}
     ${fxSyncLine()}
     ${t.flowNeedsReview ? `<div class="notice" data-testid="flow-notice"><strong>Purchase flow needs review</strong> —
       Purchase Start は ${int(t.purchaseStarts)} 件ありますが Purchase Success は 0 件です。原因はここでは判断しません。</div>`
@@ -151,12 +165,16 @@ function renderDashboard() {
       ${kpi('Purchase Success Rate', pct(t.successRate, 3))}
       ${kpi('Total Revenue', yen(t.gross))}
       ${kpi('Google Fee', yen(t.googleFee))}
-      ${kpi('Net Revenue', yen(t.net))}
-      ${kpi('Ad Profit / Loss', yen(t.profit), { cls: sign(t.profit) })}
-      ${kpi('ROAS (net)', ratio(t.roas))}
+      ${kpi('Net Revenue (Pro)', yen(t.net))}
+      ${kpi('Ad Revenue (AdMob)', yen(t.adRevenue))}
+      ${kpi('AdMob eCPM', yen(t.adEcpm))}
+      ${kpi('Total Income', yen(t.income))}
+      ${kpi('Profit / Loss', yen(t.profit), { cls: sign(t.profit) })}
+      ${kpi('ROAS (income)', ratio(t.roas))}
     </div>
     <p class="muted small">Installs / Purchase Starts / Purchase Success は Settings の「全体の値」が入っていればそれを、無ければ国別の合計を使います。
-      広告費・売上は国別の合計です。${t.installsApprox ? 'Installs は概数（≈）です。' : ''}</p>
+      広告費・売上は国別の合計です。${t.installsApprox ? 'Installs は概数（≈）です。' : ''}<br>
+      Total Income = Net Revenue（Pro の手取り）＋ Ad Revenue（AdMob の見積もり収益・手数料控除後）。Profit / Loss = Total Income − Ad Spend。</p>
 
     <h2>Purchase Start 後の離脱がある国</h2>
     ${review.length ? `<div class="table-wrap"><table><thead><tr><th class="l">Country</th><th>Installs</th><th>Purchase Starts</th><th>Purchase Success</th><th>Start→Success</th><th class="l">Status</th></tr></thead><tbody>
@@ -219,7 +237,7 @@ function renderCountries() {
           ${th('Ad Spend')}${th('Impressions')}${th('Clicks')}${th('CPC')}${th('Installs')}${th('CPI')}
           ${th('Pro Screen Views')}${th('Purchase Starts')}${th('Purchase Success')}${th('Install→Pro')}${th('Install→Start')}${th('Install→Success')}${th('Start→Success')}
           ${th('Price ¥')}${th('Net / Purchase')}${th('Break-even Rate')}
-          ${th('Gross Revenue')}${th('Google Fee')}${th('Net Revenue')}${th('Profit / Loss')}${th('ROAS')}</tr>
+          ${th('Gross Revenue')}${th('Google Fee')}${th('Net Revenue')}${th('Ad Revenue')}${th('Profit / Loss')}${th('ROAS')}</tr>
       </thead>
       <tbody>
         ${rows.map(({ c, s }) => `<tr class="clickable" data-href="#/country/${c.id}" data-code="${esc(c.code)}">
@@ -232,7 +250,7 @@ function renderCountries() {
           <td>${pct(s.installToPro)}</td><td>${pct(s.installToStart)}</td><td>${pct(s.installToSuccess, 3)}</td>
           <td class="${s.flowNeedsReview ? 'warning' : ''}">${pct(s.startToSuccess)}</td>
           <td>${yen(s.priceJPY)}</td><td>${yen(s.netPerPurchase)}</td><td>${pct(s.breakEvenRate)}</td>
-          <td>${yen(s.gross)}</td><td>${yen(s.googleFee)}</td><td>${yen(s.net)}</td><td class="${sign(s.profit)}">${yen(s.profit)}</td><td>${ratio(s.roas)}</td>
+          <td>${yen(s.gross)}</td><td>${yen(s.googleFee)}</td><td>${yen(s.net)}</td><td>${yen(s.adRevenue)}</td><td class="${sign(s.profit)}">${yen(s.profit)}</td><td>${ratio(s.roas)}</td>
         </tr>`).join('')}
       </tbody>
     </table></div>
@@ -305,7 +323,8 @@ function renderCountry(id) {
           <tr><td class="l">Break-even Purchase Rate</td><td data-testid="break-even">${pct(s.breakEvenRate)}</td></tr>
           <tr><td class="l">Install → Purchase Success（実績）</td><td>${pct(s.installToSuccess, 3)}</td></tr>
           <tr><td class="l">Gross / Google Fee / Net</td><td>${yen(s.gross)} / ${yen(s.googleFee)} / ${yen(s.net)}</td></tr>
-          <tr><td class="l">Profit / Loss · ROAS</td><td><span class="${sign(s.profit)}">${yen(s.profit)}</span> · ${ratio(s.roas)}</td></tr>
+          <tr><td class="l">Ad Revenue（AdMob）· eCPM</td><td data-testid="ad-revenue">${yen(s.adRevenue)} · ${yen(s.adEcpm)}</td></tr>
+          <tr><td class="l">Profit / Loss · ROAS（Net + Ad Revenue − Ad Spend）</td><td><span class="${sign(s.profit)}">${yen(s.profit)}</span> · ${ratio(s.roas)}</td></tr>
         </tbody></table>
         <p class="formula muted">Net/Purchase = Price¥ × (1 − ${pct(fee.googleFeeRate, 1)} − ${pct(fee.otherFeeRate, 1)})<br>
           Break-even = CPI ÷ Net/Purchase</p>
@@ -583,9 +602,21 @@ function renderSettings() {
         ${field('集計の開始日', `<input type="date" name="startDate" value="${esc(settings.adsSync?.startDate ?? '2025-01-01')}">`)}
       </div>
       <div class="row"><button class="primary">保存</button>
-        <button type="button" data-action="ads-sync">今すぐ取得（為替・広告）</button>
+        <button type="button" data-action="ads-sync">今すぐ取得（為替・広告・AdMob）</button>
         <span class="muted small">毎朝 6:00（日本時間）に為替 → 広告の順で自動取得します。広告は開始日〜当日の合計を取り込みます。</span></div>
       ${errorsFor('setAdsSettings')}
+    </form>
+
+    <h2>AdMob（アプリ内広告の収入）の自動取得</h2>
+    <form class="panel" data-op="setAdmobSettings">
+      ${admobSyncLine()}
+      <div class="form-grid" style="margin-top:6px">
+        ${field('パブリッシャー ID（任意・pub-…）', `<input name="publisherId" value="${esc(settings.admobSync?.publisherId ?? '')}" placeholder="空なら見られる最初のアカウント">`)}
+        ${field('集計の開始日', `<input type="date" name="startDate" value="${esc(settings.admobSync?.startDate ?? '2026-10-01')}">`)}
+      </div>
+      <div class="row"><button class="primary">保存</button>
+        <span class="muted small">毎朝 6:00（日本時間）に、開始日〜当日の国別の見積もり収益（円）と表示回数を取り込みます。「今すぐ取得」は上の Google 広告の欄のボタンで一緒に動きます。</span></div>
+      ${errorsFor('setAdmobSettings')}
     </form>
 
     <h2>為替</h2>
@@ -665,6 +696,7 @@ const OPS = {
   setGlobal: (d) => (doc_) => model.setGlobal(doc_, d),
   setRate: (d, id) => (doc_) => model.setRate(doc_, id ?? d.currency, d.rate, d.updatedAt),
   setAdsSettings: (d) => (doc_) => model.setAdsSettings(doc_, d),
+  setAdmobSettings: (d) => (doc_) => model.setAdmobSettings(doc_, d),
 };
 
 async function run(name, operation, message = '保存しました') {

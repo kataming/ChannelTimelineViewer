@@ -28,13 +28,17 @@ export const LOCALIZATION_ITEMS = [
   ['adHeadline', 'Ad headline'], ['adDescription', 'Ad description'], ['screenshot', 'Screenshot'],
 ];
 
-/** 国の指標（手入力）。金額は円。 */
+/**
+ * 国の指標（手入力）。金額は円。
+ * adRevenueJPY / admobImpressions は AdMob の自動取得の値（アプリ内広告の収入。worker/admob-sync.js）。
+ */
 export const METRIC_FIELDS = [
   'adSpend', 'impressions', 'clicks', 'installs', 'cpiManual',
   'proScreenViews', 'purchaseStarts', 'purchaseSuccess', 'grossRevenueJPY',
+  'adRevenueJPY', 'admobImpressions',
 ];
 export const INTEGER_METRICS = new Set([
-  'impressions', 'clicks', 'installs', 'proScreenViews', 'purchaseStarts', 'purchaseSuccess',
+  'impressions', 'clicks', 'installs', 'proScreenViews', 'purchaseStarts', 'purchaseSuccess', 'admobImpressions',
 ]);
 
 export function emptyMetrics() {

@@ -48,6 +48,9 @@ export function countryStats(country, settings, currencies) {
   const adSpend = finite(m.adSpend);
   const netPer = netPerPurchase(country, settings, currencies);
   const cpiValue = cpi(m);
+  // アプリ内広告（AdMob）の収入。AdMob の「見積もり収益」は手数料を引いた後の額なので、そのまま足す
+  const adRevenue = finite(m.adRevenueJPY);
+  const income = sum([net, adRevenue]);
   return {
     priceJPY: priceJPY(country, currencies),
     netPerPurchase: netPer,
@@ -62,8 +65,11 @@ export function countryStats(country, settings, currencies) {
     googleFee,
     otherFees,
     net,
-    profit: sub(net, adSpend),
-    roas: div(net, adSpend),
+    adRevenue,
+    adEcpm: div(mul(adRevenue, 1000), m.admobImpressions),
+    income,
+    profit: sub(income, adSpend),
+    roas: div(income, adSpend),
     breakEvenRate: div(cpiValue, netPer),
     flowNeedsReview: isFlowNeedsReview(m),
   };
@@ -111,6 +117,9 @@ export function totals(doc) {
   const googleFee = sum(rows.map(({ s }) => s.googleFee));
   const otherFees = sum(rows.map(({ s }) => s.otherFees));
   const net = sum(rows.map(({ s }) => s.net));
+  const adRevenue = sum(rows.map(({ s }) => s.adRevenue));
+  const admobImpressions = sum(rows.map(({ c }) => c.metrics?.admobImpressions));
+  const income = sum([net, adRevenue]);
   return {
     installs,
     installsApprox: finite(g.installs) !== null && Boolean(g.installsApprox),
@@ -124,8 +133,12 @@ export function totals(doc) {
     googleFee,
     otherFees,
     net,
-    profit: sub(net ?? 0, adSpend),
-    roas: div(net, adSpend),
+    adRevenue,
+    admobImpressions,
+    adEcpm: div(mul(adRevenue, 1000), admobImpressions),
+    income,
+    profit: sub(income ?? 0, adSpend),
+    roas: div(income, adSpend),
     flowNeedsReview: (finite(purchaseStarts) ?? 0) > 0 && finite(purchaseSuccess) === 0,
   };
 }

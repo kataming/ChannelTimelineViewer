@@ -1,7 +1,7 @@
 # 公式サイトの公開手順（Cloudflare Pages ＋ 独自ドメイン）
 
 公開先: **https://channeltimeline.jewelrysunflower.com**
-中身: [`site/`](../site/)（Astro・静的・7言語）。アプリのビルドとは独立している。
+中身: [`site/`](../site/)（Astro・静的・35言語）。アプリのビルドとは独立している。
 
 Cloudflare の管理画面操作とドメインの DNS 設定は、アカウントにログインした人（＝あなた）しか行えないため、
 ここだけは手動になる。**1回設定すれば、以後は `main` に push するだけで自動デプロイされる。**

@@ -1,5 +1,8 @@
-// サイトの文言（7言語）。ここが唯一の原本で、各ページはこの辞書だけを見る。
+// サイトの文言（35言語）。最初の 7 言語はこのファイル、残り 28 言語は locales/<code>.js。
+// 各ページはこの辞書だけを見る。
 // アプリ内文言（Localization/strings.json）とは別物だが、言い回しは揃えている。
+
+import extraLocales from './locales/index.js';
 
 export const languages = [
   { code: 'en', slug: 'en', label: 'English', htmlLang: 'en', ogLocale: 'en_US' },
@@ -9,6 +12,35 @@ export const languages = [
   { code: 'de', slug: 'de', label: 'Deutsch', htmlLang: 'de', ogLocale: 'de_DE' },
   { code: 'fr', slug: 'fr', label: 'Français', htmlLang: 'fr', ogLocale: 'fr_FR' },
   { code: 'ko', slug: 'ko', label: '한국어', htmlLang: 'ko', ogLocale: 'ko_KR' },
+  // 2026-10-04 追加（アプリ画面と同じ 35 言語）。dir: 'rtl' は右から左に書く言語
+  { code: 'ar', slug: 'ar', label: 'العربية', htmlLang: 'ar', ogLocale: 'ar_AR', dir: 'rtl' },
+  { code: 'bn', slug: 'bn', label: 'বাংলা', htmlLang: 'bn', ogLocale: 'bn_BD' },
+  { code: 'cs', slug: 'cs', label: 'Čeština', htmlLang: 'cs', ogLocale: 'cs_CZ' },
+  { code: 'nl', slug: 'nl', label: 'Nederlands', htmlLang: 'nl', ogLocale: 'nl_NL' },
+  { code: 'fil', slug: 'fil', label: 'Filipino', htmlLang: 'fil', ogLocale: 'tl_PH' },
+  { code: 'el', slug: 'el', label: 'Ελληνικά', htmlLang: 'el', ogLocale: 'el_GR' },
+  { code: 'hi', slug: 'hi', label: 'हिन्दी', htmlLang: 'hi', ogLocale: 'hi_IN' },
+  { code: 'hu', slug: 'hu', label: 'Magyar', htmlLang: 'hu', ogLocale: 'hu_HU' },
+  { code: 'id', slug: 'id', label: 'Bahasa Indonesia', htmlLang: 'id', ogLocale: 'id_ID' },
+  { code: 'it', slug: 'it', label: 'Italiano', htmlLang: 'it', ogLocale: 'it_IT' },
+  { code: 'kn', slug: 'kn', label: 'ಕನ್ನಡ', htmlLang: 'kn', ogLocale: 'kn_IN' },
+  { code: 'mr', slug: 'mr', label: 'मराठी', htmlLang: 'mr', ogLocale: 'mr_IN' },
+  { code: 'pl', slug: 'pl', label: 'Polski', htmlLang: 'pl', ogLocale: 'pl_PL' },
+  { code: 'pt', slug: 'pt-br', label: 'Português (Brasil)', htmlLang: 'pt-BR', ogLocale: 'pt_BR' },
+  { code: 'pa', slug: 'pa', label: 'ਪੰਜਾਬੀ', htmlLang: 'pa', ogLocale: 'pa_IN' },
+  { code: 'ro', slug: 'ro', label: 'Română', htmlLang: 'ro', ogLocale: 'ro_RO' },
+  { code: 'ru', slug: 'ru', label: 'Русский', htmlLang: 'ru', ogLocale: 'ru_RU' },
+  { code: 'sv', slug: 'sv', label: 'Svenska', htmlLang: 'sv', ogLocale: 'sv_SE' },
+  { code: 'ta', slug: 'ta', label: 'தமிழ்', htmlLang: 'ta', ogLocale: 'ta_IN' },
+  { code: 'te', slug: 'te', label: 'తెలుగు', htmlLang: 'te', ogLocale: 'te_IN' },
+  { code: 'th', slug: 'th', label: 'ไทย', htmlLang: 'th', ogLocale: 'th_TH' },
+  { code: 'zhHant', slug: 'zh-tw', label: '繁體中文', htmlLang: 'zh-Hant', ogLocale: 'zh_TW' },
+  { code: 'tr', slug: 'tr', label: 'Türkçe', htmlLang: 'tr', ogLocale: 'tr_TR' },
+  { code: 'uk', slug: 'uk', label: 'Українська', htmlLang: 'uk', ogLocale: 'uk_UA' },
+  { code: 'ur', slug: 'ur', label: 'اردو', htmlLang: 'ur', ogLocale: 'ur_PK', dir: 'rtl' },
+  { code: 'vi', slug: 'vi', label: 'Tiếng Việt', htmlLang: 'vi', ogLocale: 'vi_VN' },
+  { code: 'ms', slug: 'ms', label: 'Bahasa Melayu', htmlLang: 'ms', ogLocale: 'ms_MY' },
+  { code: 'zu', slug: 'zu', label: 'isiZulu', htmlLang: 'zu', ogLocale: 'zu_ZA' },
 ];
 
 const en = {
@@ -19,7 +51,7 @@ const en = {
   },
   nav: { try: 'Try in browser', features: 'Features', how: 'How it works', pricing: 'Pricing', manual: 'Manual', faq: 'FAQ', support: 'Support', privacy: 'Privacy' },
   hero: {
-    badge: 'iOS 17+ · 7 languages',
+    badge: 'iOS 17+ · 35 languages',
     title: 'The YouTube channel you want to watch, in order.',
     subtitle:
       'Channel Timeline Viewer sorts a channel’s uploads by publication date — oldest first — and keeps track of how far you got. Ideal for archives, lecture series, and long-running shows.',
@@ -199,7 +231,7 @@ const ja = {
   },
   nav: { try: 'Web体験版', features: '機能', how: '使い方', pricing: '料金', manual: 'マニュアル', faq: 'よくある質問', support: 'サポート', privacy: 'プライバシー' },
   hero: {
-    badge: 'iOS 17+ ・ 7言語対応',
+    badge: 'iOS 17+ ・ 35言語対応',
     title: '観たいYouTubeチャンネルを順番に',
     // 見出しの折り返し位置。指定した区切りでしか改行しない（「順番」が割れるのを防ぐ）。
     titleLines: ['観たいYouTubeチャンネルを', '順番に'],
@@ -381,7 +413,7 @@ const zh = {
   },
   nav: { try: '网页试用', features: '功能', how: '使用方法', pricing: '价格', manual: '使用手册', faq: '常见问题', support: '支持', privacy: '隐私' },
   hero: {
-    badge: 'iOS 17+ ・ 支持 7 种语言',
+    badge: 'iOS 17+ ・ 支持 35 种语言',
     title: '想看的 YouTube 频道，按顺序看完。',
     subtitle:
       'Channel Timeline Viewer 会按发布日期（从旧到新）排列频道的投稿视频，并记住你看到哪里。适合补看往期内容、课程与长期连载。',
@@ -561,7 +593,7 @@ const es = {
   },
   nav: { try: 'Probar', features: 'Funciones', how: 'Cómo funciona', pricing: 'Precio', manual: 'Manual', faq: 'Preguntas', support: 'Soporte', privacy: 'Privacidad' },
   hero: {
-    badge: 'iOS 17+ · 7 idiomas',
+    badge: 'iOS 17+ · 35 idiomas',
     title: 'El canal de YouTube que quieres ver, en orden.',
     subtitle:
       'Channel Timeline Viewer ordena las subidas de un canal por fecha de publicación —de las más antiguas a las más recientes— y recuerda hasta dónde llegaste. Ideal para archivos, clases y series largas.',
@@ -741,7 +773,7 @@ const de = {
   },
   nav: { try: 'Testen', features: 'Funktionen', how: 'So funktioniert’s', pricing: 'Preise', manual: 'Anleitung', faq: 'FAQ', support: 'Support', privacy: 'Datenschutz' },
   hero: {
-    badge: 'iOS 17+ · 7 Sprachen',
+    badge: 'iOS 17+ · 35 Sprachen',
     title: 'Der YouTube-Kanal, den du sehen willst – der Reihe nach.',
     subtitle:
       'Channel Timeline Viewer sortiert die Uploads eines Kanals nach Veröffentlichungsdatum – die ältesten zuerst – und merkt sich, wie weit du gekommen bist. Ideal für Archive, Vorlesungsreihen und lange Serien.',
@@ -921,7 +953,7 @@ const fr = {
   },
   nav: { try: 'Essayer', features: 'Fonctions', how: 'Comment ça marche', pricing: 'Tarif', manual: 'Manuel', faq: 'FAQ', support: 'Assistance', privacy: 'Confidentialité' },
   hero: {
-    badge: 'iOS 17+ · 7 langues',
+    badge: 'iOS 17+ · 35 langues',
     title: 'La chaîne YouTube que vous voulez voir, dans l’ordre.',
     subtitle:
       'Channel Timeline Viewer classe les vidéos d’une chaîne par date de publication — de la plus ancienne à la plus récente — et retient où vous vous êtes arrêté. Idéal pour les archives, les cours et les séries au long cours.',
@@ -1101,7 +1133,7 @@ const ko = {
   },
   nav: { try: '웹 체험', features: '기능', how: '사용 방법', pricing: '가격', manual: '설명서', faq: '자주 묻는 질문', support: '지원', privacy: '개인정보' },
   hero: {
-    badge: 'iOS 17+ · 7개 언어',
+    badge: 'iOS 17+ · 35개 언어',
     title: '보고 싶은 YouTube 채널을 순서대로.',
     subtitle:
       'Channel Timeline Viewer는 채널의 업로드 동영상을 게시일순(오래된 순)으로 정리하고 어디까지 봤는지 기억합니다. 과거 영상 정주행, 강의, 장기 시리즈에 잘 맞습니다.',
@@ -1273,5 +1305,8 @@ const ko = {
   notFound: { title: '페이지를 찾을 수 없습니다', body: '찾으시는 페이지가 없습니다.', cta: '홈으로' },
 };
 
-export const dict = { en, ja, zh, es, de, fr, ko };
+export const dict = {
+  en, ja, zh, es, de, fr, ko,
+  ...Object.fromEntries(Object.entries(extraLocales).map(([code, l]) => [code, l.site || {}])),
+};
 export default dict;

@@ -196,7 +196,7 @@ for (const [name, needle] of Object.entries(parts)) {
 if (!pageSource.includes('data-screen="list"')) fail('TrialApp.astro に data-screen が無い');
 if (!appSource.includes('setScreen(')) fail('app.js に setScreen() が無い');
 
-// 文言キー（app.js が使うものが7言語すべてに在るか）
+// 文言キー（app.js が使うものが全言語に在るか）
 const usedKeys = new Set([...appSource.matchAll(/\bui\.([A-Za-z][A-Za-z0-9]*)/g)].map((m) => m[1]));
 for (const key of usedKeys) {
   if (!(key in trial.en)) {
@@ -265,7 +265,7 @@ eq(queueModel.countText(watchQueue.en, 3, 'en'), '3 videos', '件数: en 複数'
 eq(queueModel.countText(watchQueue.ja, 3, 'ja'), '3本', '件数: ja');
 eq(queueModel.countText(watchQueue.de, 1200, 'de'), '1.200 Videos', '件数: de 桁区切り');
 
-// 文言: 7言語すべてに同じキー・空でない・差し込みの数が同じ
+// 文言: 全言語に同じキー・空でない・差し込みの数が同じ
 const placeholders = (s) => (String(s).match(/\{\d+\}/g) || []).sort().join(',');
 for (const code of Object.keys(trial)) {
   const dict = watchQueue[code];
@@ -313,4 +313,4 @@ if (failures) {
   console.error(`\n体験版の点検で ${failures} 件の問題がありました。`);
   process.exit(1);
 }
-console.log('OK: Web体験版（URL解析・計算・画面と処理の対応・7言語の文言）');
+console.log('OK: Web体験版（URL解析・計算・画面と処理の対応・全言語の文言）');

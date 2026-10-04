@@ -24,7 +24,7 @@ export const proPrices = {
     },
     "android": {
       "currency": "JPY",
-      "amount": 800.0
+      "amount": 500.0
     }
   },
   "zh": {
@@ -71,6 +71,286 @@ export const proPrices = {
     "android": {
       "currency": "KRW",
       "amount": 7700.0
+    }
+  },
+  "ar": {
+    "ios": {
+      "currency": "SAR",
+      "amount": 19.99
+    },
+    "android": {
+      "currency": "SAR",
+      "amount": 21.99
+    }
+  },
+  "bn": {
+    "ios": {
+      "currency": "USD",
+      "amount": 4.99
+    },
+    "android": {
+      "currency": "BDT",
+      "amount": 99.0
+    }
+  },
+  "cs": {
+    "ios": {
+      "currency": "CZK",
+      "amount": 129.0
+    },
+    "android": {
+      "currency": "CZK",
+      "amount": 119.99
+    }
+  },
+  "nl": {
+    "ios": {
+      "currency": "EUR",
+      "amount": 5.99
+    },
+    "android": {
+      "currency": "EUR",
+      "amount": 5.99
+    }
+  },
+  "fil": {
+    "ios": {
+      "currency": "PHP",
+      "amount": 299.0
+    },
+    "android": {
+      "currency": "PHP",
+      "amount": 345.0
+    }
+  },
+  "el": {
+    "ios": {
+      "currency": "EUR",
+      "amount": 5.99
+    },
+    "android": {
+      "currency": "EUR",
+      "amount": 5.99
+    }
+  },
+  "hi": {
+    "ios": {
+      "currency": "INR",
+      "amount": 499.0
+    },
+    "android": {
+      "currency": "INR",
+      "amount": 99.0
+    }
+  },
+  "hu": {
+    "ios": {
+      "currency": "HUF",
+      "amount": 1990.0
+    },
+    "android": {
+      "currency": "HUF",
+      "amount": 1990.0
+    }
+  },
+  "id": {
+    "ios": {
+      "currency": "IDR",
+      "amount": 99000.0
+    },
+    "android": {
+      "currency": "IDR",
+      "amount": 89000.0
+    }
+  },
+  "it": {
+    "ios": {
+      "currency": "EUR",
+      "amount": 5.99
+    },
+    "android": {
+      "currency": "EUR",
+      "amount": 5.99
+    }
+  },
+  "kn": {
+    "ios": {
+      "currency": "INR",
+      "amount": 499.0
+    },
+    "android": {
+      "currency": "INR",
+      "amount": 99.0
+    }
+  },
+  "mr": {
+    "ios": {
+      "currency": "INR",
+      "amount": 499.0
+    },
+    "android": {
+      "currency": "INR",
+      "amount": 99.0
+    }
+  },
+  "pl": {
+    "ios": {
+      "currency": "PLN",
+      "amount": 24.99
+    },
+    "android": {
+      "currency": "PLN",
+      "amount": 22.99
+    }
+  },
+  "pt": {
+    "ios": {
+      "currency": "BRL",
+      "amount": 29.9
+    },
+    "android": {
+      "currency": "BRL",
+      "amount": 25.99
+    }
+  },
+  "pa": {
+    "ios": {
+      "currency": "INR",
+      "amount": 499.0
+    },
+    "android": {
+      "currency": "INR",
+      "amount": 99.0
+    }
+  },
+  "ro": {
+    "ios": {
+      "currency": "RON",
+      "amount": 29.99
+    },
+    "android": {
+      "currency": "RON",
+      "amount": 26.99
+    }
+  },
+  "ru": {
+    "ios": {
+      "currency": "RUB",
+      "amount": 449.0
+    },
+    "android": {
+      "currency": "RUB",
+      "amount": 419.0
+    }
+  },
+  "sv": {
+    "ios": {
+      "currency": "SEK",
+      "amount": 69.0
+    },
+    "android": {
+      "currency": "SEK",
+      "amount": 59.0
+    }
+  },
+  "ta": {
+    "ios": {
+      "currency": "INR",
+      "amount": 499.0
+    },
+    "android": {
+      "currency": "INR",
+      "amount": 99.0
+    }
+  },
+  "te": {
+    "ios": {
+      "currency": "INR",
+      "amount": 499.0
+    },
+    "android": {
+      "currency": "INR",
+      "amount": 99.0
+    }
+  },
+  "th": {
+    "ios": {
+      "currency": "THB",
+      "amount": 199.0
+    },
+    "android": {
+      "currency": "THB",
+      "amount": 175.0
+    }
+  },
+  "zhHant": {
+    "ios": {
+      "currency": "TWD",
+      "amount": 150.0
+    },
+    "android": {
+      "currency": "TWD",
+      "amount": 170.0
+    }
+  },
+  "tr": {
+    "ios": {
+      "currency": "TRY",
+      "amount": 249.99
+    },
+    "android": {
+      "currency": "TRY",
+      "amount": 284.99
+    }
+  },
+  "uk": {
+    "ios": {
+      "currency": "USD",
+      "amount": 5.99
+    },
+    "android": {
+      "currency": "UAH",
+      "amount": 264.99
+    }
+  },
+  "ur": {
+    "ios": {
+      "currency": "PKR",
+      "amount": 1300.0
+    },
+    "android": {
+      "currency": "PKR",
+      "amount": 399.0
+    }
+  },
+  "vi": {
+    "ios": {
+      "currency": "VND",
+      "amount": 149000.0
+    },
+    "android": {
+      "currency": "VND",
+      "amount": 130000.0
+    }
+  },
+  "ms": {
+    "ios": {
+      "currency": "MYR",
+      "amount": 22.9
+    },
+    "android": {
+      "currency": "MYR",
+      "amount": 21.99
+    }
+  },
+  "zu": {
+    "ios": {
+      "currency": "ZAR",
+      "amount": 99.99
+    },
+    "android": {
+      "currency": "ZAR",
+      "amount": 49.99
     }
   }
 };

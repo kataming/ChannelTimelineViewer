@@ -1,4 +1,4 @@
-# Channel Timeline Viewer — 公式サイト（Astro / 7言語）
+# Channel Timeline Viewer — 公式サイト（Astro / 35言語）
 
 `https://channeltimeline.jewelrysunflower.com` で公開する静的サイト。iOS アプリ本体とは独立していて、
 このフォルダだけで完結する（アプリのビルドには影響しない）。
@@ -9,7 +9,7 @@
 site/
   astro.config.mjs        公開URL（PUBLIC_SITE_URL で差し替え可）
   src/config.js           App Store / Google Play URL・問い合わせ先などの外部値
-  src/i18n/translations.js 文言の原本（7言語・唯一のソース）
+  src/i18n/translations.js 文言の原本（最初の7言語・唯一のソース。残り28言語は src/i18n/locales/<code>.js）
   src/i18n/index.js       言語ヘルパ（パス・辞書・フォールバック）
   src/layouts/Base.astro  <head>（canonical / hreflang / OGP）とスタイル
   src/components/         Header / Footer / LangSelect（言語メニュー） / StoreBadges（ストアのバッジ）
@@ -29,11 +29,11 @@ site/
     sitemap.xml.js        言語 × ページの全URL
     robots.txt.js
   src/components/TrialApp.astro  Web体験版の中身（トップのヒーローと /try/ で共用）
-  src/i18n/trial.js       Web体験版の文言（7言語）。アプリの訳を流用している
+  src/i18n/trial.js       Web体験版の文言（35言語。追加28言語は locales/）。アプリの訳を流用している
   src/trial/              Web体験版のブラウザ側コード（下記）
   functions/api/youtube.js  Cloudflare Pages Functions（APIキーを隠すための中継）
   scripts/check-build.mjs dist/ の点検（言語・hreflang・翻訳漏れ）
-  scripts/test-trial.mjs  Web体験版の点検（URL解析・計算・画面と処理の対応・7言語）
+  scripts/test-trial.mjs  Web体験版の点検（URL解析・計算・画面と処理の対応・全言語）
 ```
 
 言語は `en / ja / zh / es / de / fr / ko` の7つ。URL は `/{lang}/...`、`zh` の hreflang は `zh-Hans`。
@@ -137,13 +137,31 @@ Google Play は $4.99 を**自動換算**して €4.99 だった。税を抜く
 サンマリノ・バチカン（€4.29）は、Apple が USD で売っていて比べる相手がいないので変えていない。
 
 **ストアで価格を変えたら、このスクリプトを流し直して push する**（サイトだけ古い金額のまま
-残らないように）。`npm run check` は7言語すべてに価格が出ているかを見るので、
+残らないように）。`npm run check` は全言語に価格が出ているかを見るので、
 取得に失敗したまま公開することはない。
 
 ## 文言を直すとき
 
-`src/i18n/translations.js` だけを直す（ページ側に文言を書かない）。7言語すべてに同じキーがあること。
+`src/i18n/translations.js` だけを直す（ページ側に文言を書かない）。全言語に同じキーがあること（追加28言語は `src/i18n/locales/<code>.js` の `site`）。
 英語のキーが他言語ページに漏れていれば `npm run check` が失敗する。
+
+### 35言語（2026-10-04 に 7 → 35）
+
+アプリ画面と同じ 35 言語にそろえた。最初の 7 言語（en/ja/zh/es/de/fr/ko）は従来どおり
+`translations.js`・`manual/*.js`・`trial.js`・`watchQueue.js` にあり、追加の 28 言語は
+**1 言語 1 ファイル** `src/i18n/locales/<code>.js` に `{ site, manual, trial, watchQueue }` をまとめて持つ。
+形は英語の原本と同じ（`locales/index.js` が集めて各辞書に混ぜる）。
+
+- 英語に文言を足したら、**28 言語のファイルにも同じキーを足す**。`node scripts/check-locales.mjs`
+  （`npm run check` の最初に走る）が、キーの過不足・配列の長さ・差し込み・HTML タグ・URL・
+  「Channel Timeline Viewer」「YouTube」の欠落を見つけて止める
+- URL は `pt` → `/pt-br/`、`zhHant` → `/zh-tw/`。ほかは言語コードのまま
+- `ar`（アラビア語）と `ur`（ウルドゥー語）は右から左（`languages` の `dir: 'rtl'` → `<html dir="rtl">`）
+- 振り分け（`LangRedirect.astro`）: `zh-TW` / `zh-HK` / `zh-Hant` → 繁體中文、`pt-PT` → ポルトガル語（ブラジル）、`tl` → Filipino
+- 画像は追加していない（2026-10-04 ユーザー判断「画像はいまのままでいい」）。トップの画面写真は
+  英語版を使い（`screensFor`）、マニュアルの章の画面写真は出さない（`manualImage` は別言語の画面を出さない設計）
+- 価格は `scripts/fetch_store_prices.py` の `LANGUAGE_TERRITORIES` で「その言語の代表の国」を決めている
+  （ヒンディー語など インドの 6 言語はインド、ポルトガル語はブラジル、アラビア語はサウジアラビア）
 
 ## 公開
 
@@ -160,7 +178,7 @@ Cloudflare Pages に接続する手順は [`../docs/website-deploy-guide.md`](..
 | `src/pages/[lang]/watch-queue.astro` | `TrialApp variant="phone" mode="queue"`（既存スマホVIEWERの再利用） |
 | `src/trial/queue.js` / `queue-model.js` | キューの解析と順番再生（プレイヤー・移動・自動再生スイッチは体験版と共通） |
 | `src/trial/queue.css` | キューでは使わない部品を隠す（このページだけが読み込む） |
-| `src/i18n/watchQueue.js` | 新しく必要になった文言（7言語）。同じ意味の文言は `trial.js` の `ui.*` を使う |
+| `src/i18n/watchQueue.js` | 新しく必要になった文言（35言語。追加28言語は locales/ の `watchQueue`）。同じ意味の文言は `trial.js` の `ui.*` を使う |
 | `functions/api/youtube.js` の `op=videoInfo` | タイトル・チャンネル名・埋め込み可否（`videos.list`、50件ずつ） |
 
 仕様と点検の詳細は [`../docs/watch-queue-mode.md`](../docs/watch-queue-mode.md)。
@@ -242,11 +260,11 @@ Web の既定サイズのままだと、枠に対して文字が大きすぎて�
 ### 構成
 
 ```
-src/components/TrialApp.astro  画面の中身（静的HTML・7言語）。CSS と起動もここが持つ
+src/components/TrialApp.astro  画面の中身（静的HTML・35言語）。CSS と起動もここが持つ
                                ので、使う側は <TrialApp code variant /> を置くだけでよい
 src/pages/[lang]/try.astro  体験版のページ（variant="full"）
 src/pages/[lang]/index.astro トップ。ヒーローに variant="phone" を置いている
-src/i18n/trial.js           文言（7言語）。アプリの Localization/strings.json の訳を流用
+src/i18n/trial.js           文言（35言語。追加28言語は locales/ の `trial`）。アプリの Localization/strings.json の訳を流用
 src/trial/resolve.js        入力URLの解析（アプリの ChannelResolver と同じ規則）
 src/trial/model.js          並べ替え・絞り込み・進捗・自動再生の行き先・再生位置の規則
 src/trial/storage.js        localStorage（チャンネル1件 / 一覧 / 視聴状態 / 再生設定）
@@ -260,7 +278,7 @@ functions/api/youtube.js    中継（APIキーはここだけが持つ・エッ�
 そのため `app.js` は分岐を持たない（唯一の例外は「続きを描く」判定の基準で、
 `phone` のときだけスクロールするのが枠の中になるため `.ctv-scroll` を見る）。
 
-`app.js` が触る id が `TrialApp.astro` に無い、使っている文言キーが7言語のどれかに無い、
+`app.js` が触る id が `TrialApp.astro` に無い、使っている文言キーがいずれかの言語に無い、
 といった食い違いは `npm test` が落ちて教えてくれる。
 
 ### quota について

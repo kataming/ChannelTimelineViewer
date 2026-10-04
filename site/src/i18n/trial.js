@@ -1,10 +1,12 @@
-// Web体験版（/{lang}/try/）の文言（7言語）。
+// Web体験版（/{lang}/try/）の文言（35言語。最初の7言語はこのファイル、残りは locales/）。
 //
 // ここはサイト側の原本。アプリ内文言（Localization/strings.json）と同じ意味の項目は
 // **アプリの訳をそのまま持ってきている**（言い回しを揃えるため）。
-// 新しい項目を足すときは7言語すべてに同じキーを用意すること（npm run check が点検する）。
+// 新しい項目を足すときは全言語（locales/ も含む）に同じキーを用意すること（npm run check が点検する）。
 //
 // 差し込みは {1} {2} {3} の形。ui.js 側の fmt() が置き換える。
+
+import extraLocales from './locales/index.js';
 
 const en = {
   meta: {
@@ -1113,7 +1115,10 @@ const ko = {
   },
 };
 
-export const trial = { en, ja, zh, es, de, fr, ko };
+export const trial = {
+  en, ja, zh, es, de, fr, ko,
+  ...Object.fromEntries(Object.entries(extraLocales).filter(([, l]) => l.trial).map(([code, l]) => [code, l.trial])),
+};
 
 /** 体験版の文言（未翻訳キーは英語で埋める）。 */
 export function trialCopy(code) {

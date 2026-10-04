@@ -12,6 +12,10 @@ const { page = '', keepHash = false } = Astro.props;
 
 const fallback = path(DEFAULT_CODE, page);
 const map = Object.fromEntries(languages.map((l) => [l.htmlLang.toLowerCase(), path(l.code, page)]));
+// ブラウザが送ってくる別名（言語コードだけ・地域付き）も同じ言語へ。
+//   pt / pt-pt → ポルトガル語（ブラジル）、tl → フィリピノ語
+map.pt = path('pt', page);
+map.tl = path('fil', page);
 // 言語コード → パス。言語切替で覚えた値（ctv-lang）を引くのに使う。
 const slugs = Object.fromEntries(languages.map((l) => [l.code, path(l.code, page)]));
 ---
@@ -32,7 +36,9 @@ const slugs = Object.fromEntries(languages.map((l) => [l.code, path(l.code, page
     for (var i = 0; i < wanted.length; i++) {
       var full = wanted[i];
       var base = full.split('-')[0];
-      var hit = map[full] || map[base] || (base === 'zh' ? map['zh-hans'] : null);
+      // 中国語: 繁体字（zh-Hant / 台湾・香港・マカオ）は繁體中文、それ以外は简体中文
+      var zhHant = base === 'zh' && /^zh-(hant|tw|hk|mo)/.test(full);
+      var hit = zhHant ? map['zh-hant'] : map[full] || map[base] || (base === 'zh' ? map['zh-hans'] : null);
       if (hit) { location.replace(hit + suffix); return; }
     }
     location.replace(fallback + suffix);

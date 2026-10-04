@@ -54,6 +54,35 @@ LANGUAGE_TERRITORIES = {
     "de": {"apple": "DEU", "play": "DE"},
     "fr": {"apple": "FRA", "play": "FR"},
     "ko": {"apple": "KOR", "play": "KR"},
+    # 2026-10-04 追加の 28 言語（サイトを 35 言語にしたとき）。その言語の代表の国で出す
+    "ar": {"apple": "SAU", "play": "SA"},
+    "bn": {"apple": "BGD", "play": "BD"},
+    "cs": {"apple": "CZE", "play": "CZ"},
+    "nl": {"apple": "NLD", "play": "NL"},
+    "fil": {"apple": "PHL", "play": "PH"},
+    "el": {"apple": "GRC", "play": "GR"},
+    "hi": {"apple": "IND", "play": "IN"},
+    "hu": {"apple": "HUN", "play": "HU"},
+    "id": {"apple": "IDN", "play": "ID"},
+    "it": {"apple": "ITA", "play": "IT"},
+    "kn": {"apple": "IND", "play": "IN"},
+    "mr": {"apple": "IND", "play": "IN"},
+    "pl": {"apple": "POL", "play": "PL"},
+    "pt": {"apple": "BRA", "play": "BR"},
+    "pa": {"apple": "IND", "play": "IN"},
+    "ro": {"apple": "ROU", "play": "RO"},
+    "ru": {"apple": "RUS", "play": "RU"},
+    "sv": {"apple": "SWE", "play": "SE"},
+    "ta": {"apple": "IND", "play": "IN"},
+    "te": {"apple": "IND", "play": "IN"},
+    "th": {"apple": "THA", "play": "TH"},
+    "zhHant": {"apple": "TWN", "play": "TW"},
+    "tr": {"apple": "TUR", "play": "TR"},
+    "uk": {"apple": "UKR", "play": "UA"},
+    "ur": {"apple": "PAK", "play": "PK"},
+    "vi": {"apple": "VNM", "play": "VN"},
+    "ms": {"apple": "MYS", "play": "MY"},
+    "zu": {"apple": "ZAF", "play": "ZA"},
 }
 
 
@@ -112,6 +141,29 @@ APPLE_STOREFRONTS = {
     "DEU": ("de", "EUR"),
     "FRA": ("fr", "EUR"),
     "KOR": ("kr", "KRW"),
+    "SAU": ("sa", "SAR"),
+    "BGD": ("bd", "USD"),
+    "CZE": ("cz", "CZK"),
+    "NLD": ("nl", "EUR"),
+    "PHL": ("ph", "PHP"),
+    "GRC": ("gr", "EUR"),
+    "IND": ("in", "INR"),
+    "HUN": ("hu", "HUF"),
+    "IDN": ("id", "IDR"),
+    "ITA": ("it", "EUR"),
+    "POL": ("pl", "PLN"),
+    "BRA": ("br", "BRL"),
+    "ROU": ("ro", "RON"),
+    "RUS": ("ru", "RUB"),
+    "SWE": ("se", "SEK"),
+    "THA": ("th", "THB"),
+    "TWN": ("tw", "TWD"),
+    "TUR": ("tr", "TRY"),
+    "UKR": ("ua", "USD"),  # ウクライナの App Store はドル建て（「5,99 USD」）
+    "PAK": ("pk", "PKR"),
+    "VNM": ("vn", "VND"),
+    "MYS": ("my", "MYR"),
+    "ZAF": ("za", "ZAR"),
 }
 
 APP_ID = "6792964082"
@@ -126,14 +178,16 @@ def parse_amount(text: str) -> float | None:
     小数点かどうかは「最後の区切りのあとが1〜2桁か」で決める
     （7,700 は桁区切り、5,99 は小数点）。
     """
+    # インドネシアは「Rp 99ribu」（ribu = 千）と書かれる
+    scale = 1000 if re.search(r"\d\s*(ribu|rb)\b", text, re.I) else 1
     digits = re.sub(r"[^0-9.,]", "", text)
     if not digits:
         return None
     match = re.search(r"[.,](\d{1,2})$", digits)
     if match:
         head = digits[: match.start()].replace(",", "").replace(".", "")
-        return float(f"{head}.{match.group(1)}")
-    return float(digits.replace(",", "").replace(".", ""))
+        return float(f"{head}.{match.group(1)}") * scale
+    return float(digits.replace(",", "").replace(".", "")) * scale
 
 
 def apple_prices_from_store_pages(territories: list[str]) -> dict:
@@ -168,6 +222,7 @@ def apple_prices_from_store_pages(territories: list[str]) -> dict:
         if amount is None:
             print(f"    {territory}: 金額を読み取れません（{pairs[0][1]}）")
             continue
+        print(f"    {territory}: {pairs[0][1]} → {currency} {amount:g}")
         out[territory] = {"currency": currency, "amount": amount}
         time.sleep(2)
     print(f"  App Store（商品ページ）: {len(out)} か国の価格を取得")
@@ -284,7 +339,7 @@ def main() -> int:
 
     print("Pro の現在価格を取得します。")
     play = play_prices()
-    apple = apple_prices([w["apple"] for w in LANGUAGE_TERRITORIES.values() if w["apple"]])
+    apple = apple_prices(list(dict.fromkeys(w["apple"] for w in LANGUAGE_TERRITORIES.values() if w["apple"])))
 
     table = build_table(apple, play)
     if not table:

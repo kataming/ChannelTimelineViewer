@@ -1,6 +1,6 @@
 // dist/ の中身を機械的に点検する。Windows でも実行できるよう Node だけで完結させる。
 //   node scripts/check-build.mjs
-// 見るのは「7言語×3ページが揃っているか」「canonical / hreflang / title が入っているか」
+// 見るのは「全言語×各ページが揃っているか」「canonical / hreflang / title が入っているか」
 // 「英語の見出しが他言語ページに漏れていないか（＝翻訳漏れ）」。
 import { readFile, access } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
@@ -56,7 +56,7 @@ for (const l of languages) {
   }
 }
 
-// Pro の価格が7言語すべてに出ているか。
+// Pro の価格が全言語に出ているか。
 // prices.js は scripts/fetch_store_prices.py が作る自動生成ファイルなので、
 // 取得に失敗したまま公開してしまわないよう、ここで出力を見て確かめる。
 for (const l of languages) {

@@ -1,4 +1,4 @@
-// Watch Queue モード（/{lang}/watch-queue/）だけで使う文言（7言語）。
+// Watch Queue モード（/{lang}/watch-queue/）だけで使う文言（35言語。最初の7言語はこのファイル、残りは locales/）。
 //
 // Watch Queue モードは、Queue Launch Contract V1 のリンク（/watch-queue#v=1&ids=…）で
 // 外から来たときだけ動く第2の再生モード。通常ページ（トップ・体験版・マニュアルなど）では
@@ -7,9 +7,11 @@
 // 体験版（trial.js の ui）にすでに同じ意味の文言があるもの（前へ・次へ・最初から再生・
 // 現在位置・視聴済み・次の動画を再生・読み込み中・通信エラーなど）は、ここに持たずに
 // そちらをそのまま使う（queue.js が ui.* を参照する）。ここに置くのは新しく必要になった文言だけ。
-// 新しいキーを足すときは7言語すべてに入れること（npm test が点検する）。
+// 新しいキーを足すときは全言語（locales/ も含む）に入れること（npm test が点検する）。
 //
 // 差し込みは {1} の形。「Watch Queue」は機能名として訳さない（Pro と同じ扱い）。
+
+import extraLocales from './locales/index.js';
 
 const en = {
   meta: {
@@ -137,7 +139,10 @@ const ko = {
   noscript: '이 대기열을 재생하려면 JavaScript를 켜 주세요.',
 };
 
-export const watchQueue = { en, ja, zh, es, de, fr, ko };
+export const watchQueue = {
+  en, ja, zh, es, de, fr, ko,
+  ...Object.fromEntries(Object.entries(extraLocales).filter(([, l]) => l.watchQueue).map(([code, l]) => [code, l.watchQueue])),
+};
 
 /** Watch Queue モードの文言（未翻訳キーは英語で埋める）。 */
 export function watchQueueCopy(code) {

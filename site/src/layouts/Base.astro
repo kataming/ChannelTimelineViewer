@@ -12,7 +12,7 @@ const canonical = SITE_URL + path(lang, page);
 ---
 
 <!doctype html>
-<html lang={L.htmlLang}>
+<html lang={L.htmlLang} dir={L.dir || 'ltr'}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -127,8 +127,10 @@ const canonical = SITE_URL + path(lang, page);
       }
       details summary { cursor: pointer; font-weight: 600; }
       details p { margin: 10px 0 0; color: var(--muted); }
-      .skip { position: absolute; left: -9999px; }
-      .skip:focus { left: 12px; top: 12px; background: var(--bg-soft); padding: 8px 12px; border-radius: 8px; }
+      /* 画面外へ逃がすのは視覚的に隠すだけにする（left: -9999px は右から左の言語で
+         ページ幅を 9999px 広げてしまい、ar / ur が真っ白になった） */
+      .skip { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+      .skip:focus { width: auto; height: auto; overflow: visible; clip-path: none; inset-inline-start: 12px; top: 12px; z-index: 50; background: var(--bg-soft); padding: 8px 12px; border-radius: 8px; }
     </style>
   </head>
   <body>

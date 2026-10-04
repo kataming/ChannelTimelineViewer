@@ -1,4 +1,4 @@
-// 操作マニュアルの文言（7言語）。分量が多いので言語ごとにファイルを分けている。
+// 操作マニュアルの文言（35言語。最初の7言語はこのファイル、残りは locales/）。分量が多いので言語ごとにファイルを分けている。
 // 構造はどの言語も同じ:
 //   { title, description, lede, platformNote, badges, tocTitle,
 //     sections: [{ id, title, body?, steps: [{ title, body, only? }] }] }
@@ -11,7 +11,12 @@ import de from './de.js';
 import fr from './fr.js';
 import ko from './ko.js';
 
-export const manuals = { en, ja, zh, es, de, fr, ko };
+import extraLocales from '../locales/index.js';
+
+export const manuals = {
+  en, ja, zh, es, de, fr, ko,
+  ...Object.fromEntries(Object.entries(extraLocales).filter(([, l]) => l.manual).map(([code, l]) => [code, l.manual])),
+};
 
 /** その言語のマニュアル（未翻訳なら英語）。 */
 export function manualFor(code) {

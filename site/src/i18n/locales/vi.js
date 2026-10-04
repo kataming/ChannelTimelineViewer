@@ -220,7 +220,7 @@ export default {
     "privacy": {
       "title": "Chính sách quyền riêng tư",
       "description": "Những gì Channel Timeline Viewer lưu trữ và không lưu trữ.",
-      "updated": "Cập nhật lần cuối: ngày 4 tháng 10 năm 2026",
+      "updated": "Cập nhật lần cuối: ngày 5 tháng 10 năm 2026",
       "sections": [
         {
           "title": "1. Tóm tắt",
@@ -246,6 +246,7 @@ export default {
           "body": [
             "Ứng dụng sử dụng hai dịch vụ chính thức của YouTube (Google LLC):",
             "• YouTube Data API v3 — để lấy danh sách công khai các video đã đăng của kênh bạn nhập.",
+            "• Video phổ biến — màn hình đầu tiên của ứng dụng hiển thị các video đang phổ biến ở quốc gia của bạn. Để giữ mức sử dụng API thấp, ứng dụng lấy danh sách này từ máy chủ của chúng tôi (channeltimeline.jewelrysunflower.com), máy chủ này lấy danh sách từ YouTube Data API mỗi giờ một lần. Ứng dụng chỉ gửi mã quốc gia gồm hai chữ cái (chẳng hạn như JP); không gửi bất cứ thông tin nào nhận dạng bạn hoặc thiết bị của bạn. Như với mọi yêu cầu web, Cloudflare, đơn vị lưu trữ máy chủ, có thể ghi lại thông tin kết nối tiêu chuẩn (chẳng hạn như địa chỉ IP); chúng tôi không dùng thông tin đó để nhận dạng bạn.",
             "• YouTube IFrame Player — trình phát nhúng chính thức dùng để phát video. Trong khi phát, YouTube và Google có thể thu thập và xử lý thông tin theo chính sách riêng của họ.",
             "Ứng dụng không tải video xuống, không chặn quảng cáo, không thu thập dữ liệu web (scraping), không phát trong nền và không dùng trình phát tùy chỉnh.",
             "Chính sách quyền riêng tư của Google: https://policies.google.com/privacy",

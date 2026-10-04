@@ -220,7 +220,7 @@ export default {
     "privacy": {
       "title": "隱私權政策",
       "description": "Channel Timeline Viewer 會儲存哪些資料、不會儲存哪些資料。",
-      "updated": "最後更新：2026 年 10 月 4 日",
+      "updated": "最後更新：2026 年 10 月 5 日",
       "sections": [
         {
           "title": "1. 摘要",
@@ -246,6 +246,7 @@ export default {
           "body": [
             "本 App 使用兩項 YouTube（Google LLC）官方服務：",
             "• YouTube Data API v3 — 用於取得你輸入之頻道的公開上傳影片清單。",
+            "• 熱門影片 — App 的第一個畫面會顯示你所在國家/地區的熱門影片。為了降低 API 用量，App 會從我們的伺服器（channeltimeline.jewelrysunflower.com）取得這份清單，該伺服器每小時從 YouTube Data API 取得一次清單。App 只會傳送兩個字母的國家代碼（例如 JP），不會傳送任何可識別你或你的裝置的資訊。與任何網頁請求一樣，代管該伺服器的 Cloudflare 可能會記錄標準的連線資訊（例如 IP 位址）；我們不會用它來識別你。",
             "• YouTube IFrame Player — 用於播放的官方嵌入式播放器。播放期間，YouTube 與 Google 可能會依其各自的政策收集及處理資訊。",
             "本 App 不會下載影片、封鎖廣告、擷取網頁內容、在背景播放，也不使用自製播放器。",
             "Google 隱私權政策：https://policies.google.com/privacy",

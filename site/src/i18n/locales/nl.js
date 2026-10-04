@@ -220,7 +220,7 @@ export default {
     "privacy": {
       "title": "Privacybeleid",
       "description": "Wat Channel Timeline Viewer bewaart en wat niet.",
-      "updated": "Laatst bijgewerkt: 4 oktober 2026",
+      "updated": "Laatst bijgewerkt: 5 oktober 2026",
       "sections": [
         {
           "title": "1. Samenvatting",
@@ -246,6 +246,7 @@ export default {
           "body": [
             "De app gebruikt twee officiële diensten van YouTube (Google LLC):",
             "• YouTube Data API v3 — om de openbare lijst met uploads op te halen van het kanaal dat je invoert.",
+            "• Populaire video’s — het eerste scherm van de app toont video’s die populair zijn in jouw land. Om het API-gebruik laag te houden, haalt de app deze lijst op bij onze server (channeltimeline.jewelrysunflower.com), die hem één keer per uur ophaalt bij de YouTube Data API. De app stuurt alleen een landcode van twee letters (zoals JP); niets waarmee jij of je apparaat kan worden geïdentificeerd. Zoals bij elk webverzoek kan Cloudflare, dat de server host, standaard verbindingsgegevens vastleggen (zoals het IP-adres); wij gebruiken die niet om je te identificeren.",
             "• YouTube IFrame Player — de officiële ingesloten speler die voor het afspelen wordt gebruikt. Tijdens het afspelen kunnen YouTube en Google informatie verzamelen en verwerken volgens hun eigen beleid.",
             "De app downloadt geen video’s, blokkeert geen advertenties, scrapet niet, speelt niet af op de achtergrond en gebruikt geen eigen speler.",
             "Privacybeleid van Google: https://policies.google.com/privacy",

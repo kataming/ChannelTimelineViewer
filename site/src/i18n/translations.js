@@ -167,7 +167,7 @@ const en = {
   privacy: {
     title: 'Privacy Policy',
     description: 'What Channel Timeline Viewer stores and what it does not.',
-    updated: 'Last updated: 4 October 2026',
+    updated: 'Last updated: 5 October 2026',
     sections: [
       { title: '1. Summary', body: ['Channel Timeline Viewer keeps your data on your device. There is no account, and no server operated by us receives what you watch. The Android version measures how the app itself is used (Google Analytics for Firebase) so we can improve it: it records screen names and the kind of action, never the channels or videos you watch, and you can switch it off in the app. The iOS version contains no analytics at all. The free version shows ads from Google AdMob (see section 8); Pro shows none.'] },
       { title: '2. What is stored on your device', body: [
@@ -182,6 +182,7 @@ const en = {
       { title: '3. YouTube and Google', body: [
         'The app uses two official YouTube (Google LLC) services:',
         '• YouTube Data API v3 — to fetch the public list of uploads for the channel you enter.',
+        '• Popular videos — the first screen of the app shows videos that are popular in your country. To keep API usage low, the app gets this list from our server (channeltimeline.jewelrysunflower.com), which fetches it from the YouTube Data API once an hour. The app sends only a two-letter country code (such as JP); nothing that identifies you or your device. As with any web request, Cloudflare, which hosts the server, may log standard connection information (such as IP address); we do not use it to identify you.',
         '• YouTube IFrame Player — the official embedded player used for playback. During playback YouTube and Google may collect and process information under their own policies.',
         'The app does not download videos, block ads, scrape, play in the background, or use a custom player.',
         'Google Privacy Policy: https://policies.google.com/privacy',
@@ -349,7 +350,7 @@ const ja = {
   privacy: {
     title: 'プライバシーポリシー',
     description: 'Channel Timeline Viewer が保存するもの・しないこと。',
-    updated: '最終更新日: 2026年10月4日',
+    updated: '最終更新日: 2026年10月5日',
     sections: [
       { title: '1. 概要', body: ['Channel Timeline Viewer は、利用者のデータを端末内に保存します。アカウントはなく、当方が運営するサーバーが「何を見たか」を受け取ることもありません。Android 版のみ、アプリを改善するために「アプリ自体がどう使われているか」を Google アナリティクス（Firebase）で数えています。記録するのは画面名と操作の種類だけで、見ているチャンネルや動画は記録せず、アプリ内でいつでも止められます。iOS 版に解析ツールは入っていません。無料版には Google AdMob の広告が表示されます（8 を参照）。Pro には広告は表示されません。'] },
       { title: '2. 端末内に保存する情報', body: [
@@ -364,6 +365,7 @@ const ja = {
       { title: '3. YouTube / Google について', body: [
         '本アプリは YouTube（Google LLC）の公式サービスを2つ利用します。',
         '・YouTube Data API v3 — 入力されたチャンネルの公開された動画一覧の取得に使用します。',
+        '・人気動画の一覧 — アプリの最初の画面に、お住まいの国で人気の動画を表示します。API の利用量を抑えるため、この一覧は当方のサーバー（channeltimeline.jewelrysunflower.com）から取得します。サーバーは YouTube Data API から1時間に1回だけ一覧を取得しています。アプリが送るのは2文字の国コード（JP など）だけで、あなたや端末を識別する情報は送りません。一般的なウェブ通信と同様に、サーバーを提供する Cloudflare が接続情報（IP アドレスなど）を記録する場合がありますが、当方はそれをあなたの識別には使いません。',
         '・YouTube IFrame Player — 再生に使う公式の埋め込みプレイヤーです。再生時、YouTube／Google が独自のポリシーに基づき情報を取得・処理する場合があります。',
         '本アプリは、動画のダウンロード、広告回避、スクレイピング、バックグラウンド再生、独自プレイヤーでの再生を一切行いません。',
         'Google プライバシーポリシー: https://policies.google.com/privacy',
@@ -529,7 +531,7 @@ const zh = {
   privacy: {
     title: '隐私政策',
     description: 'Channel Timeline Viewer 会保存什么，不会做什么。',
-    updated: '最后更新：2026 年 10 月 4 日',
+    updated: '最后更新：2026 年 10 月 5 日',
     sections: [
       { title: '1. 概述', body: ['Channel Timeline Viewer 将你的数据保存在设备中。没有账号，我们也没有接收「你看了什么」的服务器。仅 Android 版为了改进应用，使用 Google Analytics for Firebase 统计「应用本身如何被使用」。记录的只是画面名称和操作类型，不记录你观看的频道或视频，并且可在应用内随时关闭。iOS 版不含任何分析工具。免费版会显示 Google AdMob 的广告（见第 8 条）；Pro 不显示广告。'] },
       { title: '2. 保存在设备上的信息', body: [
@@ -544,6 +546,7 @@ const zh = {
       { title: '3. 关于 YouTube 与 Google', body: [
         '本应用使用两项 YouTube（Google LLC）官方服务：',
         '• YouTube Data API v3 —— 获取你所输入频道的公开投稿列表。',
+        '• 热门视频 —— 应用的首个界面会显示在你所在国家/地区热门的视频。为了减少 API 用量，应用会从我们的服务器（channeltimeline.jewelrysunflower.com）获取此列表，该服务器每小时从 YouTube Data API 获取一次列表。应用只发送两个字母的国家代码（如 JP），不会发送任何可识别你或你的设备的信息。与一般网页请求一样，托管该服务器的 Cloudflare 可能会记录标准连接信息（如 IP 地址）；我们不会用它来识别你。',
         '• YouTube IFrame Player —— 用于播放的官方嵌入式播放器。播放期间，YouTube 与 Google 可能依据其自身政策收集与处理信息。',
         '本应用不下载视频、不屏蔽广告、不抓取网页、不后台播放，也不使用自制播放器。',
         'Google 隐私政策：https://policies.google.com/privacy',
@@ -709,7 +712,7 @@ const es = {
   privacy: {
     title: 'Política de privacidad',
     description: 'Qué guarda Channel Timeline Viewer y qué no hace.',
-    updated: 'Última actualización: 4 de octubre de 2026',
+    updated: 'Última actualización: 5 de octubre de 2026',
     sections: [
       { title: '1. Resumen', body: ['Channel Timeline Viewer guarda tus datos en tu dispositivo. No hay cuentas y ningún servidor nuestro recibe lo que ves. Solo la versión de Android mide cómo se usa la propia app (Google Analytics para Firebase) para poder mejorarla: registra el nombre de la pantalla y el tipo de acción, nunca los canales o vídeos que ves, y puedes desactivarlo dentro de la app. La versión de iOS no incluye ninguna analítica. La versión gratuita muestra anuncios de Google AdMob (ver la sección 8); Pro no muestra ninguno.'] },
       { title: '2. Qué se guarda en tu dispositivo', body: [
@@ -724,6 +727,7 @@ const es = {
       { title: '3. YouTube y Google', body: [
         'La app usa dos servicios oficiales de YouTube (Google LLC):',
         '• API de datos de YouTube v3: para obtener la lista pública de subidas del canal que indiques.',
+        '• Vídeos populares: la primera pantalla de la app muestra vídeos que son populares en tu país. Para reducir el uso de la API, la app obtiene esta lista de nuestro servidor (channeltimeline.jewelrysunflower.com), que la obtiene de la YouTube Data API una vez por hora. La app solo envía un código de país de dos letras (como JP); nada que te identifique a ti o a tu dispositivo. Como en cualquier petición web, Cloudflare, que aloja el servidor, puede registrar datos de conexión habituales (como la dirección IP); no los usamos para identificarte.',
         '• YouTube IFrame Player: el reproductor incrustado oficial usado para la reproducción. Durante la reproducción, YouTube y Google pueden recopilar y tratar información según sus propias políticas.',
         'La app no descarga vídeos, no bloquea anuncios, no hace scraping, no reproduce en segundo plano y no usa un reproductor propio.',
         'Política de privacidad de Google: https://policies.google.com/privacy',
@@ -889,7 +893,7 @@ const de = {
   privacy: {
     title: 'Datenschutzerklärung',
     description: 'Was Channel Timeline Viewer speichert – und was nicht.',
-    updated: 'Zuletzt aktualisiert: 4. Oktober 2026',
+    updated: 'Zuletzt aktualisiert: 5. Oktober 2026',
     sections: [
       { title: '1. Kurzfassung', body: ['Channel Timeline Viewer speichert deine Daten auf deinem Gerät. Es gibt kein Konto, und kein von uns betriebener Server erfährt, was du ansiehst. Nur die Android-Version misst mit Google Analytics für Firebase, wie die App selbst genutzt wird, damit wir sie verbessern können: erfasst werden Bildschirmnamen und die Art der Aktion, nie die Kanäle oder Videos, die du ansiehst – und du kannst es in der App abschalten. Die iOS-Version enthält keinerlei Analyse. Die kostenlose Version zeigt Werbung von Google AdMob (siehe Abschnitt 8); Pro zeigt keine.'] },
       { title: '2. Was auf dem Gerät gespeichert wird', body: [
@@ -904,6 +908,7 @@ const de = {
       { title: '3. YouTube und Google', body: [
         'Die App nutzt zwei offizielle Dienste von YouTube (Google LLC):',
         '• YouTube Data API v3 – zum Abrufen der öffentlichen Uploadliste des eingegebenen Kanals.',
+        '• Beliebte Videos – der erste Bildschirm der App zeigt Videos, die in deinem Land beliebt sind. Um die API-Nutzung gering zu halten, bezieht die App diese Liste von unserem Server (channeltimeline.jewelrysunflower.com), der sie einmal pro Stunde von der YouTube Data API abruft. Die App sendet nur einen zweistelligen Ländercode (etwa JP); nichts, was dich oder dein Gerät identifiziert. Wie bei jedem Webaufruf kann Cloudflare, das den Server bereitstellt, übliche Verbindungsdaten (etwa die IP-Adresse) protokollieren; wir verwenden sie nicht, um dich zu identifizieren.',
         '• YouTube IFrame Player – der offizielle eingebettete Player für die Wiedergabe. Während der Wiedergabe können YouTube und Google nach ihren eigenen Richtlinien Informationen erheben und verarbeiten.',
         'Die App lädt keine Videos herunter, blockiert keine Werbung, betreibt kein Scraping, spielt nicht im Hintergrund und nutzt keinen eigenen Player.',
         'Google-Datenschutzerklärung: https://policies.google.com/privacy',
@@ -1069,7 +1074,7 @@ const fr = {
   privacy: {
     title: 'Politique de confidentialité',
     description: 'Ce que Channel Timeline Viewer enregistre, et ce qu’il ne fait pas.',
-    updated: 'Dernière mise à jour : 4 octobre 2026',
+    updated: 'Dernière mise à jour : 5 octobre 2026',
     sections: [
       { title: '1. En bref', body: ['Channel Timeline Viewer conserve vos données sur votre appareil. Il n’y a pas de compte, et aucun serveur exploité par nous ne reçoit ce que vous regardez. Seule la version Android mesure la façon dont l’app elle-même est utilisée (Google Analytics pour Firebase) afin de l’améliorer : elle enregistre le nom de l’écran et le type d’action, jamais les chaînes ni les vidéos que vous regardez, et vous pouvez la désactiver dans l’app. La version iOS ne contient aucune analytique. La version gratuite affiche des publicités Google AdMob (voir la section 8) ; Pro n’en affiche aucune.'] },
       { title: '2. Ce qui est enregistré sur votre appareil', body: [
@@ -1084,6 +1089,7 @@ const fr = {
       { title: '3. YouTube et Google', body: [
         'L’app utilise deux services officiels de YouTube (Google LLC) :',
         '• API YouTube Data v3 — pour récupérer la liste publique des vidéos de la chaîne saisie.',
+        '• Vidéos populaires — le premier écran de l’app affiche des vidéos populaires dans votre pays. Pour limiter l’utilisation de l’API, l’app obtient cette liste auprès de notre serveur (channeltimeline.jewelrysunflower.com), qui la récupère auprès de la YouTube Data API une fois par heure. L’app n’envoie qu’un code pays à deux lettres (par exemple JP) ; rien qui vous identifie, vous ou votre appareil. Comme pour toute requête web, Cloudflare, qui héberge le serveur, peut journaliser des informations de connexion habituelles (adresse IP, par exemple) ; nous ne les utilisons pas pour vous identifier.',
         '• YouTube IFrame Player — le lecteur intégré officiel utilisé pour la lecture. Pendant la lecture, YouTube et Google peuvent collecter et traiter des informations selon leurs propres politiques.',
         'L’app ne télécharge pas de vidéos, ne bloque pas la publicité, ne fait pas de scraping, ne lit pas en arrière-plan et n’utilise pas de lecteur maison.',
         'Politique de confidentialité de Google : https://policies.google.com/privacy',
@@ -1249,7 +1255,7 @@ const ko = {
   privacy: {
     title: '개인정보 처리방침',
     description: 'Channel Timeline Viewer가 저장하는 것과 하지 않는 것.',
-    updated: '최종 업데이트: 2026년 10월 4일',
+    updated: '최종 업데이트: 2026년 10월 5일',
     sections: [
       { title: '1. 요약', body: ['Channel Timeline Viewer는 데이터를 기기에 저장합니다. 계정이 없고, 무엇을 보는지 받아 가는 자체 서버도 없습니다. Android 버전만, 앱을 개선하기 위해 「앱 자체가 어떻게 사용되는지」를 Google 애널리틱스(Firebase)로 셉니다. 기록하는 것은 화면 이름과 조작 종류뿐이며, 보고 있는 채널이나 동영상은 기록하지 않고 앱 안에서 언제든지 끌 수 있습니다. iOS 버전에는 분석 도구가 들어 있지 않습니다. 무료 버전에는 Google AdMob 광고가 표시됩니다(8항 참조). Pro에는 광고가 표시되지 않습니다.'] },
       { title: '2. 기기에 저장하는 정보', body: [
@@ -1264,6 +1270,7 @@ const ko = {
       { title: '3. YouTube와 Google', body: [
         '이 앱은 YouTube(Google LLC)의 공식 서비스 두 가지를 사용합니다.',
         '• YouTube Data API v3 — 입력한 채널의 공개된 업로드 목록을 가져옵니다.',
+        '• 인기 동영상 — 앱의 첫 화면에 거주하는 국가에서 인기 있는 동영상을 표시합니다. API 사용량을 줄이기 위해 앱은 이 목록을 저희 서버(channeltimeline.jewelrysunflower.com)에서 가져오며, 서버는 YouTube Data API에서 1시간에 한 번 목록을 가져옵니다. 앱이 보내는 것은 2자리 국가 코드(JP 등)뿐이며, 이용자나 기기를 식별하는 정보는 보내지 않습니다. 일반적인 웹 요청과 마찬가지로 서버를 호스팅하는 Cloudflare가 표준 연결 정보(IP 주소 등)를 기록할 수 있으나, 저희는 이를 이용자 식별에 사용하지 않습니다.',
         '• YouTube IFrame Player — 재생에 사용하는 공식 임베드 플레이어입니다. 재생 중 YouTube와 Google이 자체 정책에 따라 정보를 수집·처리할 수 있습니다.',
         '이 앱은 동영상 다운로드, 광고 차단, 스크래핑, 백그라운드 재생, 자체 플레이어 재생을 일절 하지 않습니다.',
         'Google 개인정보처리방침: https://policies.google.com/privacy',

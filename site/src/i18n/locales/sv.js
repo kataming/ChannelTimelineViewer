@@ -220,7 +220,7 @@ export default {
     "privacy": {
       "title": "Integritetspolicy",
       "description": "Vad Channel Timeline Viewer sparar och vad den inte sparar.",
-      "updated": "Senast uppdaterad: 4 oktober 2026",
+      "updated": "Senast uppdaterad: 5 oktober 2026",
       "sections": [
         {
           "title": "1. Sammanfattning",
@@ -246,6 +246,7 @@ export default {
           "body": [
             "Appen använder två officiella tjänster från YouTube (Google LLC):",
             "• YouTube Data API v3 – för att hämta den offentliga listan med uppladdningar för den kanal du anger.",
+            "• Populära videor – appens första skärm visar videor som är populära i ditt land. För att hålla nere API-användningen hämtar appen listan från vår server (channeltimeline.jewelrysunflower.com), som hämtar den från YouTube Data API en gång i timmen. Appen skickar bara en landskod på två bokstäver (till exempel JP); inget som identifierar dig eller din enhet. Som vid alla webbförfrågningar kan Cloudflare, som driftar servern, logga vanlig anslutningsinformation (till exempel IP-adress); vi använder den inte för att identifiera dig.",
             "• YouTube IFrame Player – den officiella inbäddade spelaren som används för uppspelning. Under uppspelningen kan YouTube och Google samla in och behandla information enligt sina egna policyer.",
             "Appen laddar inte ned videor, blockerar inte annonser, skrapar inte, spelar inte upp i bakgrunden och använder ingen egen spelare.",
             "Googles integritetspolicy: https://policies.google.com/privacy",

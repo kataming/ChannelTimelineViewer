@@ -220,7 +220,7 @@ export default {
     "privacy": {
       "title": "Polityka prywatności",
       "description": "Co Channel Timeline Viewer przechowuje, a czego nie.",
-      "updated": "Ostatnia aktualizacja: 4 października 2026",
+      "updated": "Ostatnia aktualizacja: 5 października 2026",
       "sections": [
         {
           "title": "1. Podsumowanie",
@@ -246,6 +246,7 @@ export default {
           "body": [
             "Aplikacja korzysta z dwóch oficjalnych usług YouTube (Google LLC):",
             "• YouTube Data API v3 — do pobierania publicznej listy filmów wpisanego kanału.",
+            "• Popularne filmy — pierwszy ekran aplikacji pokazuje filmy popularne w Twoim kraju. Aby ograniczyć wykorzystanie API, aplikacja pobiera tę listę z naszego serwera (channeltimeline.jewelrysunflower.com), który pobiera ją z YouTube Data API raz na godzinę. Aplikacja wysyła tylko dwuliterowy kod kraju (np. JP); nic, co identyfikowałoby Ciebie lub Twoje urządzenie. Jak przy każdym żądaniu internetowym, Cloudflare, który hostuje serwer, może rejestrować standardowe informacje o połączeniu (takie jak adres IP); nie używamy ich do identyfikowania Ciebie.",
             "• YouTube IFrame Player — oficjalny osadzony odtwarzacz używany do odtwarzania. Podczas odtwarzania YouTube i Google mogą zbierać i przetwarzać informacje zgodnie z własnymi zasadami.",
             "Aplikacja nie pobiera filmów, nie blokuje reklam, nie scrapuje, nie odtwarza w tle ani nie używa własnego odtwarzacza.",
             "Polityka prywatności Google: https://policies.google.com/privacy",

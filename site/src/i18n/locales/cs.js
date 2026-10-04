@@ -220,7 +220,7 @@ export default {
     "privacy": {
       "title": "Zásady ochrany osobních údajů",
       "description": "Co Channel Timeline Viewer ukládá a co ne.",
-      "updated": "Poslední aktualizace: 4. října 2026",
+      "updated": "Poslední aktualizace: 5. října 2026",
       "sections": [
         {
           "title": "1. Shrnutí",
@@ -246,6 +246,7 @@ export default {
           "body": [
             "Aplikace používá dvě oficiální služby YouTube (Google LLC):",
             "• YouTube Data API v3 — k načtení veřejného seznamu videí zadaného kanálu.",
+            "• Populární videa — první obrazovka aplikace zobrazuje videa, která jsou populární ve vaší zemi. Aby bylo využití API co nejnižší, aplikace získává tento seznam z našeho serveru (channeltimeline.jewelrysunflower.com), který jej jednou za hodinu načítá z YouTube Data API. Aplikace odesílá pouze dvoupísmenný kód země (například JP); nic, co by identifikovalo vás nebo vaše zařízení. Jako u každého webového požadavku může Cloudflare, který server hostuje, zaznamenávat standardní informace o připojení (například IP adresu); nepoužíváme je k vaší identifikaci.",
             "• YouTube IFrame Player — oficiální vložený přehrávač používaný k přehrávání. Během přehrávání mohou YouTube a Google shromažďovat a zpracovávat informace podle svých vlastních zásad.",
             "Aplikace nestahuje videa, neblokuje reklamy, nescrapuje, nepřehrává na pozadí ani nepoužívá vlastní přehrávač.",
             "Zásady ochrany soukromí Google: https://policies.google.com/privacy",

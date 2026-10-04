@@ -220,7 +220,7 @@ export default {
     "privacy": {
       "title": "Politica de confidențialitate",
       "description": "Ce stochează Channel Timeline Viewer și ce nu.",
-      "updated": "Ultima actualizare: 4 octombrie 2026",
+      "updated": "Ultima actualizare: 5 octombrie 2026",
       "sections": [
         {
           "title": "1. Rezumat",
@@ -246,6 +246,7 @@ export default {
           "body": [
             "Aplicația folosește două servicii oficiale YouTube (Google LLC):",
             "• YouTube Data API v3 — pentru a obține lista publică a videoclipurilor canalului pe care îl introduceți.",
+            "• Videoclipuri populare — primul ecran al aplicației afișează videoclipuri populare în țara dumneavoastră. Pentru a menține scăzută utilizarea API-ului, aplicația obține această listă de la serverul nostru (channeltimeline.jewelrysunflower.com), care o preia din YouTube Data API o dată pe oră. Aplicația trimite doar un cod de țară din două litere (de exemplu JP); nimic care să vă identifice pe dumneavoastră sau dispozitivul dumneavoastră. Ca la orice solicitare web, Cloudflare, care găzduiește serverul, poate înregistra informații standard despre conexiune (cum ar fi adresa IP); nu le folosim pentru a vă identifica.",
             "• YouTube IFrame Player — playerul încorporat oficial folosit pentru redare. În timpul redării, YouTube și Google pot colecta și prelucra informații conform propriilor politici.",
             "Aplicația nu descarcă videoclipuri, nu blochează reclame, nu face scraping, nu redă în fundal și nu folosește un player personalizat.",
             "Politica de confidențialitate Google: https://policies.google.com/privacy",

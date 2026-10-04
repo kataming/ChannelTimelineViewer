@@ -220,7 +220,7 @@ export default {
     "privacy": {
       "title": "Gizlilik Politikası",
       "description": "Channel Timeline Viewer neleri saklar, neleri saklamaz.",
-      "updated": "Son güncelleme: 4 Ekim 2026",
+      "updated": "Son güncelleme: 5 Ekim 2026",
       "sections": [
         {
           "title": "1. Özet",
@@ -246,6 +246,7 @@ export default {
           "body": [
             "Uygulama iki resmi YouTube (Google LLC) hizmetini kullanır:",
             "• YouTube Data API v3 — girdiğiniz kanalın herkese açık video listesini almak için.",
+            "• Popüler videolar — uygulamanın ilk ekranı, ülkenizde popüler olan videoları gösterir. API kullanımını düşük tutmak için uygulama bu listeyi sunucumuzdan (channeltimeline.jewelrysunflower.com) alır; sunucu da listeyi saatte bir kez YouTube Data API'den çeker. Uygulama yalnızca iki harfli bir ülke kodu (JP gibi) gönderir; sizi veya cihazınızı tanımlayan hiçbir şey göndermez. Her web isteğinde olduğu gibi, sunucuyu barındıran Cloudflare standart bağlantı bilgilerini (IP adresi gibi) kaydedebilir; bunları sizi tanımlamak için kullanmayız.",
             "• YouTube IFrame Player — oynatma için kullanılan resmi yerleşik oynatıcı. Oynatma sırasında YouTube ve Google kendi politikaları kapsamında bilgi toplayabilir ve işleyebilir.",
             "Uygulama video indirmez, reklam engellemez, veri kazımaz, arka planda oynatmaz ve özel bir oynatıcı kullanmaz.",
             "Google Gizlilik Politikası: https://policies.google.com/privacy",

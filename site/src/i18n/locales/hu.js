@@ -220,7 +220,7 @@ export default {
     "privacy": {
       "title": "Adatvédelmi irányelvek",
       "description": "Mit tárol és mit nem tárol a Channel Timeline Viewer.",
-      "updated": "Utolsó frissítés: 2026. október 4.",
+      "updated": "Utolsó frissítés: 2026. október 5.",
       "sections": [
         {
           "title": "1. Összefoglalás",
@@ -246,6 +246,7 @@ export default {
           "body": [
             "Az alkalmazás a YouTube (Google LLC) két hivatalos szolgáltatását használja:",
             "• YouTube Data API v3 – a megadott csatorna nyilvános feltöltési listájának lekéréséhez.",
+            "• Népszerű videók – az alkalmazás első képernyője az országodban népszerű videókat mutatja. Az API-használat alacsonyan tartása érdekében az alkalmazás ezt a listát a szerverünkről (channeltimeline.jewelrysunflower.com) kéri le, amely óránként egyszer kéri le azt a YouTube Data API-ból. Az alkalmazás csak egy kétbetűs országkódot (például JP) küld; semmit, ami téged vagy az eszközödet azonosítaná. Mint minden webes kérésnél, a szervert üzemeltető Cloudflare naplózhat szokásos kapcsolati adatokat (például IP-címet); ezeket nem használjuk a te azonosításodra.",
             "• YouTube IFrame Player – a lejátszáshoz használt hivatalos beágyazott lejátszó. Lejátszás közben a YouTube és a Google saját irányelveik szerint gyűjthetnek és kezelhetnek adatokat.",
             "Az alkalmazás nem tölt le videókat, nem blokkol hirdetéseket, nem végez scrapinget, nem játszik le a háttérben, és nem használ egyéni lejátszót.",
             "A Google adatvédelmi irányelvei: https://policies.google.com/privacy",

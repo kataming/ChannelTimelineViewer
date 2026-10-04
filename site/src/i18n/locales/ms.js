@@ -220,7 +220,7 @@ export default {
     "privacy": {
       "title": "Dasar Privasi",
       "description": "Apa yang disimpan dan apa yang tidak disimpan oleh Channel Timeline Viewer.",
-      "updated": "Kemas kini terakhir: 4 Oktober 2026",
+      "updated": "Kemas kini terakhir: 5 Oktober 2026",
       "sections": [
         {
           "title": "1. Ringkasan",
@@ -246,6 +246,7 @@ export default {
           "body": [
             "Apl ini menggunakan dua perkhidmatan rasmi YouTube (Google LLC):",
             "• YouTube Data API v3 — untuk mendapatkan senarai awam muat naik bagi saluran yang anda masukkan.",
+            "• Video popular — skrin pertama apl memaparkan video yang popular di negara anda. Untuk mengurangkan penggunaan API, apl mendapatkan senarai ini daripada pelayan kami (channeltimeline.jewelrysunflower.com), yang mengambilnya daripada YouTube Data API sekali sejam. Apl hanya menghantar kod negara dua huruf (seperti JP); tiada apa-apa yang mengenal pasti anda atau peranti anda. Seperti mana-mana permintaan web, Cloudflare, yang mengehoskan pelayan itu, mungkin merekodkan maklumat sambungan standard (seperti alamat IP); kami tidak menggunakannya untuk mengenal pasti anda.",
             "• YouTube IFrame Player — pemain terbenam rasmi yang digunakan untuk main balik. Semasa main balik, YouTube dan Google mungkin mengumpul dan memproses maklumat di bawah dasar mereka sendiri.",
             "Apl ini tidak memuat turun video, menyekat iklan, mengikis (scrape) data, bermain di latar belakang atau menggunakan pemain tersuai.",
             "Dasar Privasi Google: https://policies.google.com/privacy",

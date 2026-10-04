@@ -220,7 +220,7 @@ export default {
     "privacy": {
       "title": "Kebijakan Privasi",
       "description": "Apa yang disimpan dan yang tidak disimpan oleh Channel Timeline Viewer.",
-      "updated": "Terakhir diperbarui: 4 Oktober 2026",
+      "updated": "Terakhir diperbarui: 5 Oktober 2026",
       "sections": [
         {
           "title": "1. Ringkasan",
@@ -246,6 +246,7 @@ export default {
           "body": [
             "Aplikasi ini menggunakan dua layanan resmi YouTube (Google LLC):",
             "• YouTube Data API v3 — untuk mengambil daftar publik video unggahan dari channel yang Anda masukkan.",
+            "• Video populer — layar pertama aplikasi menampilkan video yang populer di negara Anda. Untuk menekan penggunaan API, aplikasi mengambil daftar ini dari server kami (channeltimeline.jewelrysunflower.com), yang mengambilnya dari YouTube Data API satu kali setiap jam. Aplikasi hanya mengirim kode negara dua huruf (seperti JP); tidak ada apa pun yang mengidentifikasi Anda atau perangkat Anda. Seperti halnya permintaan web lainnya, Cloudflare, yang menjadi host server tersebut, dapat mencatat informasi koneksi standar (seperti alamat IP); kami tidak menggunakannya untuk mengidentifikasi Anda.",
             "• YouTube IFrame Player — pemutar tersemat resmi yang digunakan untuk pemutaran. Selama pemutaran, YouTube dan Google dapat mengumpulkan dan memproses informasi berdasarkan kebijakan mereka sendiri.",
             "Aplikasi ini tidak mengunduh video, memblokir iklan, melakukan scraping, memutar di latar belakang, atau menggunakan pemutar buatan sendiri.",
             "Kebijakan Privasi Google: https://policies.google.com/privacy",

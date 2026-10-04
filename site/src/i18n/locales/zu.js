@@ -220,7 +220,7 @@ export default {
     "privacy": {
       "title": "Inqubomgomo Yobumfihlo",
       "description": "Lokho i-Channel Timeline Viewer ekugcinayo nalokho engakugcini.",
-      "updated": "Kubuyekezwe okokugcina: 4 Okthoba 2026",
+      "updated": "Kubuyekezwe okokugcina: 5 Okthoba 2026",
       "sections": [
         {
           "title": "1. Isifinyezo",
@@ -246,6 +246,7 @@ export default {
           "body": [
             "I-app isebenzisa izinsiza ezimbili ezisemthethweni ze-YouTube (Google LLC):",
             "• YouTube Data API v3 — ukuthola uhlu lomphakathi lwamavidiyo esiteshi osifakile.",
+            "• Amavidiyo athandwayo — isikrini sokuqala se-app sibonisa amavidiyo athandwayo ezweni lakho. Ukuze ukusetshenziswa kwe-API kuhlale kuphansi, i-app ithola lolu hlu kuseva yethu (channeltimeline.jewelrysunflower.com), elulanda ku-YouTube Data API kanye ngehora. I-app ithumela kuphela ikhodi yezwe enezinhlamvu ezimbili (njenge-JP); ayithumeli lutho olukhomba wena noma idivayisi yakho. Njengakunoma isiphi isicelo sewebhu, i-Cloudflare, ephethe iseva, ingarekhoda ulwazi olujwayelekile loxhumano (njengekheli le-IP); asilusebenzisi ukukukhomba.",
             "• YouTube IFrame Player — isidlali esishumekiwe esisemthethweni esisetshenziselwa ukudlala. Ngesikhathi sokudlala i-YouTube ne-Google zingaqoqa futhi zicubungule ulwazi ngaphansi kwezinqubomgomo zazo.",
             "I-app ayilandi amavidiyo, ayivimbi izikhangiso, ayiklwebhi, ayidlali ngemuva, futhi ayisebenzisi isidlali sangokwezifiso.",
             "Inqubomgomo Yobumfihlo ye-Google: https://policies.google.com/privacy",

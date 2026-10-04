@@ -220,7 +220,7 @@ export default {
     "privacy": {
       "title": "Informativa sulla privacy",
       "description": "Cosa salva Channel Timeline Viewer e cosa no.",
-      "updated": "Ultimo aggiornamento: 4 ottobre 2026",
+      "updated": "Ultimo aggiornamento: 5 ottobre 2026",
       "sections": [
         {
           "title": "1. Sintesi",
@@ -246,6 +246,7 @@ export default {
           "body": [
             "L’app usa due servizi ufficiali di YouTube (Google LLC):",
             "• YouTube Data API v3 — per ottenere l’elenco pubblico dei caricamenti del canale che inserisci.",
+            "• Video popolari — la prima schermata dell’app mostra i video popolari nel tuo paese. Per contenere l’uso dell’API, l’app ottiene questo elenco dal nostro server (channeltimeline.jewelrysunflower.com), che lo recupera dalla YouTube Data API una volta all’ora. L’app invia solo un codice paese di due lettere (come JP); nulla che identifichi te o il tuo dispositivo. Come per qualsiasi richiesta web, Cloudflare, che ospita il server, può registrare le informazioni di connessione standard (come l’indirizzo IP); non le usiamo per identificarti.",
             "• YouTube IFrame Player — il player incorporato ufficiale usato per la riproduzione. Durante la riproduzione YouTube e Google possono raccogliere e trattare informazioni secondo le proprie norme.",
             "L’app non scarica video, non blocca la pubblicità, non fa scraping, non riproduce in background e non usa un player personalizzato.",
             "Norme sulla privacy di Google: https://policies.google.com/privacy",

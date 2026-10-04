@@ -194,6 +194,12 @@
     <string name="tutorial_example_note">Capturile de ecran folosesc ca exemplu canalul public al NASA. Această aplicație nu este afiliată cu YouTube sau NASA și nu este aprobată ori sponsorizată de acestea.</string>
     <string name="tutorial_next">Înainte</string>
     <string name="tutorial_open_a11y">Vedeți cum adăugați un canal</string>
+    <string name="tutorial_pick_body">Vom afișa toate videoclipurile canalului său, de la cel mai vechi.</string>
+    <string name="tutorial_pick_error">Videoclipurile nu s-au putut încărca. Adăugați un canal din YouTube.</string>
+    <string name="tutorial_pick_howto">Adăugați prin Distribuiți din YouTube</string>
+    <string name="tutorial_pick_loading">Se încarcă videoclipurile populare…</string>
+    <string name="tutorial_pick_other">Vreți să alegeți singur un canal?</string>
+    <string name="tutorial_pick_title">Alegeți dintre videoclipurile populare</string>
     <string name="tutorial_progress_format">%1$s din %2$s</string>
     <string name="tutorial_skip">Omiteți</string>
     <string name="tutorial_step1_body">În aplicația YouTube, deschideți un videoclip de pe canalul pe care doriți să-l adăugați sau chiar pagina canalului.</string>

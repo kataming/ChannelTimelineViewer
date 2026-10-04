@@ -194,6 +194,12 @@
     <string name="tutorial_example_note">Tangkapan skrin menggunakan saluran awam NASA sebagai contoh. Apl ini tidak bergabung dengan, disokong atau ditaja oleh YouTube atau NASA.</string>
     <string name="tutorial_next">Seterusnya</string>
     <string name="tutorial_open_a11y">Lihat cara menambah saluran</string>
+    <string name="tutorial_pick_body">Kami akan menyusun semua video saluran itu, dari yang paling lama.</string>
+    <string name="tutorial_pick_error">Video tidak dapat dimuatkan. Tambah saluran daripada YouTube.</string>
+    <string name="tutorial_pick_howto">Tambah melalui Kongsi dalam YouTube</string>
+    <string name="tutorial_pick_loading">Memuatkan video popular…</string>
+    <string name="tutorial_pick_other">Mahu memilih saluran sendiri?</string>
+    <string name="tutorial_pick_title">Pilih daripada video popular</string>
     <string name="tutorial_progress_format">%1$s daripada %2$s</string>
     <string name="tutorial_skip">Langkau</string>
     <string name="tutorial_step1_body">Dalam apl YouTube, buka video daripada saluran yang ingin anda tambah, atau halaman saluran itu sendiri.</string>

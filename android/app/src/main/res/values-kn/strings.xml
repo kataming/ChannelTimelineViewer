@@ -194,6 +194,12 @@
     <string name="tutorial_example_note">ಸ್ಕ್ರೀನ್‌ಶಾಟ್‌ಗಳು NASA ದ ಸಾರ್ವಜನಿಕ ಚಾನೆಲ್ ಅನ್ನು ಉದಾಹರಣೆಯಾಗಿ ಬಳಸುತ್ತವೆ. ಈ ಆ್ಯಪ್ YouTube ಅಥವಾ NASA ಜೊತೆ ಸಂಯೋಜಿತವಾಗಿಲ್ಲ, ಅವುಗಳಿಂದ ಅನುಮೋದಿತವಾಗಿಲ್ಲ ಅಥವಾ ಪ್ರಾಯೋಜಿತವಾಗಿಲ್ಲ.</string>
     <string name="tutorial_next">ಮುಂದೆ</string>
     <string name="tutorial_open_a11y">ಚಾನೆಲ್ ಸೇರಿಸುವುದು ಹೇಗೆಂದು ನೋಡಿ</string>
+    <string name="tutorial_pick_body">ಆ ವೀಡಿಯೊದ ಚಾನಲ್‌ನ ಎಲ್ಲಾ ವೀಡಿಯೊಗಳನ್ನು ಹಳೆಯದರಿಂದ ಕ್ರಮವಾಗಿ ತೋರಿಸುತ್ತೇವೆ.</string>
+    <string name="tutorial_pick_error">ವೀಡಿಯೊಗಳನ್ನು ಲೋಡ್ ಮಾಡಲಾಗಲಿಲ್ಲ. YouTube ನಿಂದ ಚಾನಲ್ ಸೇರಿಸಿ.</string>
+    <string name="tutorial_pick_howto">YouTube ಹಂಚಿಕೆಯಿಂದ ಸೇರಿಸಿ</string>
+    <string name="tutorial_pick_loading">ಜನಪ್ರಿಯ ವೀಡಿಯೊಗಳನ್ನು ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ…</string>
+    <string name="tutorial_pick_other">ನೀವೇ ಚಾನಲ್ ಆರಿಸಬೇಕೆ?</string>
+    <string name="tutorial_pick_title">ಜನಪ್ರಿಯ ವೀಡಿಯೊಗಳಿಂದ ಆರಿಸಿ</string>
     <string name="tutorial_progress_format">%2$s ರಲ್ಲಿ %1$s</string>
     <string name="tutorial_skip">ಸ್ಕಿಪ್</string>
     <string name="tutorial_step1_body">YouTube ಆ್ಯಪ್‌ನಲ್ಲಿ, ನೀವು ಸೇರಿಸಲು ಬಯಸುವ ಚಾನೆಲ್‌ನ ವೀಡಿಯೊವನ್ನು ಅಥವಾ ಆ ಚಾನೆಲ್ ಪುಟವನ್ನು ತೆರೆಯಿರಿ.</string>

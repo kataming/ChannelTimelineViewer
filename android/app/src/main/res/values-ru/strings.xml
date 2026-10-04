@@ -194,6 +194,12 @@
     <string name="tutorial_example_note">На снимках экрана в качестве примера используется публичный канал NASA. Приложение не связано с YouTube или NASA и не одобрено и не спонсируется ими.</string>
     <string name="tutorial_next">Далее</string>
     <string name="tutorial_open_a11y">Как добавить канал</string>
+    <string name="tutorial_pick_body">Мы покажем все видео этого канала — от самых старых.</string>
+    <string name="tutorial_pick_error">Не удалось загрузить видео. Добавьте канал из YouTube.</string>
+    <string name="tutorial_pick_howto">Добавить через «Поделиться» в YouTube</string>
+    <string name="tutorial_pick_loading">Загрузка популярных видео…</string>
+    <string name="tutorial_pick_other">Хотите выбрать канал сами?</string>
+    <string name="tutorial_pick_title">Выберите из популярных видео</string>
     <string name="tutorial_progress_format">%1$s из %2$s</string>
     <string name="tutorial_skip">Пропустить</string>
     <string name="tutorial_step1_body">В приложении YouTube откройте видео с канала, который хотите добавить, или саму страницу канала.</string>

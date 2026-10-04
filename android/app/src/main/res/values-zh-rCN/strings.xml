@@ -194,6 +194,12 @@
     <string name="tutorial_example_note">截图以 NASA 的公开频道作为示例。本应用与 YouTube 及 NASA 无关，未获得其认可或赞助。</string>
     <string name="tutorial_next">下一步</string>
     <string name="tutorial_open_a11y">查看添加频道的方法</string>
+    <string name="tutorial_pick_body">我们会按从旧到新的顺序，列出该视频所属频道的全部视频。</string>
+    <string name="tutorial_pick_error">无法加载视频。请从 YouTube 添加频道。</string>
+    <string name="tutorial_pick_howto">通过 YouTube 的分享添加</string>
+    <string name="tutorial_pick_loading">正在加载热门视频…</string>
+    <string name="tutorial_pick_other">想自己选择频道？</string>
+    <string name="tutorial_pick_title">从热门视频中选择</string>
     <string name="tutorial_progress_format">%1$s / %2$s</string>
     <string name="tutorial_skip">跳过</string>
     <string name="tutorial_step1_body">在 YouTube 应用中打开想添加的频道的视频，或该频道的页面。</string>

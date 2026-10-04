@@ -194,6 +194,12 @@
     <string name="tutorial_example_note">اسکرین شاٹس میں مثال کے طور پر NASA کا عوامی چینل استعمال کیا گیا ہے۔ یہ ایپ YouTube یا NASA سے وابستہ نہیں، نہ ان کی توثیق یا سرپرستی حاصل ہے۔</string>
     <string name="tutorial_next">اگلا</string>
     <string name="tutorial_open_a11y">چینل شامل کرنے کا طریقہ دیکھیں</string>
+    <string name="tutorial_pick_body">ہم اس ویڈیو کے چینل کی تمام ویڈیوز سب سے پرانی سے ترتیب میں دکھائیں گے۔</string>
+    <string name="tutorial_pick_error">ویڈیوز لوڈ نہیں ہو سکیں۔ YouTube سے چینل شامل کریں۔</string>
+    <string name="tutorial_pick_howto">YouTube کے شیئر سے شامل کریں</string>
+    <string name="tutorial_pick_loading">مقبول ویڈیوز لوڈ ہو رہی ہیں…</string>
+    <string name="tutorial_pick_other">خود چینل منتخب کرنا چاہتے ہیں؟</string>
+    <string name="tutorial_pick_title">مقبول ویڈیوز میں سے منتخب کریں</string>
     <string name="tutorial_progress_format">%2$s میں سے %1$s</string>
     <string name="tutorial_skip">چھوڑیں</string>
     <string name="tutorial_step1_body">YouTube ایپ میں اس چینل کی کوئی ویڈیو کھولیں جسے آپ شامل کرنا چاہتے ہیں، یا خود چینل کا صفحہ۔</string>

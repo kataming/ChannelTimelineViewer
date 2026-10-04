@@ -387,6 +387,18 @@
     <string name="tutorial_next">Next</string>
     <!-- 読み上げ: チュートリアルを開く -->
     <string name="tutorial_open_a11y">See how to add a channel</string>
+    <!-- 初回の案内: 選んだ動画のチャンネルを古い順に並べる説明 -->
+    <string name="tutorial_pick_body">We\'ll line up every video from its channel, oldest first.</string>
+    <!-- 初回の案内: 人気の動画を読み込めなかった -->
+    <string name="tutorial_pick_error">Couldn\'t load videos. Please add a channel from YouTube.</string>
+    <!-- 初回の案内: YouTube から追加する手順（4ステップ）を開くボタン -->
+    <string name="tutorial_pick_howto">Add via Share in YouTube</string>
+    <!-- 初回の案内: 人気の動画を読み込み中 -->
+    <string name="tutorial_pick_loading">Loading popular videos…</string>
+    <!-- 初回の案内: 並んだ中に見たいチャンネルが無い人向けの見出し -->
+    <string name="tutorial_pick_other">Want to choose a channel yourself?</string>
+    <!-- 初回の案内: 人気の動画から選ぶ画面の見出し -->
+    <string name="tutorial_pick_title">Pick from popular videos</string>
     <!-- 進み具合（%1$@ / %2$@） -->
     <string name="tutorial_progress_format">%1$s of %2$s</string>
     <!-- スキップ -->

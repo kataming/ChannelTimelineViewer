@@ -194,6 +194,12 @@
     <string name="tutorial_example_note">Les captures utilisent la chaîne publique de la NASA à titre d’exemple. Cette app n’est ni affiliée, ni approuvée, ni sponsorisée par YouTube ou la NASA.</string>
     <string name="tutorial_next">Suivant</string>
     <string name="tutorial_open_a11y">Voir comment ajouter une chaîne</string>
+    <string name="tutorial_pick_body">Nous afficherons toutes les vidéos de sa chaîne, des plus anciennes aux plus récentes.</string>
+    <string name="tutorial_pick_error">Impossible de charger les vidéos. Ajoutez une chaîne depuis YouTube.</string>
+    <string name="tutorial_pick_howto">Ajouter via Partager dans YouTube</string>
+    <string name="tutorial_pick_loading">Chargement des vidéos populaires…</string>
+    <string name="tutorial_pick_other">Vous voulez choisir vous-même une chaîne ?</string>
+    <string name="tutorial_pick_title">Choisir parmi les vidéos populaires</string>
     <string name="tutorial_progress_format">%1$s sur %2$s</string>
     <string name="tutorial_skip">Passer</string>
     <string name="tutorial_step1_body">Dans l’app YouTube, ouvrez une vidéo de la chaîne à ajouter, ou la page de la chaîne.</string>

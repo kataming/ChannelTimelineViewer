@@ -194,6 +194,12 @@
     <string name="tutorial_example_note">스크린샷은 예시로 NASA의 공개 채널을 사용합니다. 이 앱은 YouTube 및 NASA와 관련이 없으며 승인이나 후원을 받지 않았습니다.</string>
     <string name="tutorial_next">다음</string>
     <string name="tutorial_open_a11y">채널 추가 방법 보기</string>
+    <string name="tutorial_pick_body">고른 동영상 채널의 모든 동영상을 오래된 순으로 보여 드려요.</string>
+    <string name="tutorial_pick_error">동영상을 불러오지 못했습니다. YouTube에서 채널을 추가해 주세요.</string>
+    <string name="tutorial_pick_howto">YouTube 공유로 추가</string>
+    <string name="tutorial_pick_loading">인기 동영상을 불러오는 중…</string>
+    <string name="tutorial_pick_other">직접 채널을 고르려면</string>
+    <string name="tutorial_pick_title">인기 동영상에서 고르기</string>
     <string name="tutorial_progress_format">%1$s / %2$s</string>
     <string name="tutorial_skip">건너뛰기</string>
     <string name="tutorial_step1_body">YouTube 앱에서 추가하려는 채널의 동영상이나 채널 페이지를 엽니다.</string>

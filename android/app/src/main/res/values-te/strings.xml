@@ -194,6 +194,12 @@
     <string name="tutorial_example_note">స్క్రీన్‌షాట్‌లు NASA పబ్లిక్ ఛానెల్‌ను ఉదాహరణగా ఉపయోగిస్తాయి. ఈ యాప్ YouTube లేదా NASA తో అనుబంధించబడలేదు, వాటిచే ఆమోదించబడలేదు లేదా ప్రాయోజితం చేయబడలేదు.</string>
     <string name="tutorial_next">తర్వాత</string>
     <string name="tutorial_open_a11y">ఛానెల్‌ను ఎలా జోడించాలో చూడండి</string>
+    <string name="tutorial_pick_body">ఆ వీడియో ఛానెల్‌లోని అన్ని వీడియోలను పాతవాటి నుండి క్రమంగా చూపిస్తాం.</string>
+    <string name="tutorial_pick_error">వీడియోలను లోడ్ చేయలేకపోయాం. YouTube నుండి ఛానెల్ జోడించండి.</string>
+    <string name="tutorial_pick_howto">YouTube షేర్ ద్వారా జోడించండి</string>
+    <string name="tutorial_pick_loading">ప్రజాదరణ పొందిన వీడియోలు లోడ్ అవుతున్నాయి…</string>
+    <string name="tutorial_pick_other">మీరే ఛానెల్ ఎంచుకోవాలనుకుంటున్నారా?</string>
+    <string name="tutorial_pick_title">ప్రజాదరణ పొందిన వీడియోల నుండి ఎంచుకోండి</string>
     <string name="tutorial_progress_format">%2$s లో %1$s</string>
     <string name="tutorial_skip">దాటవేయి</string>
     <string name="tutorial_step1_body">YouTube యాప్‌లో, మీరు జోడించాలనుకుంటున్న ఛానెల్ వీడియోను లేదా ఆ ఛానెల్ పేజీని తెరవండి.</string>

@@ -194,6 +194,12 @@
     <string name="tutorial_example_note">ਸਕ੍ਰੀਨਸ਼ਾਟਾਂ ਵਿੱਚ ਉਦਾਹਰਣ ਵਜੋਂ NASA ਦਾ ਜਨਤਕ ਚੈਨਲ ਵਰਤਿਆ ਗਿਆ ਹੈ। ਇਹ ਐਪ YouTube ਜਾਂ NASA ਨਾਲ ਸੰਬੰਧਿਤ ਨਹੀਂ ਹੈ, ਨਾ ਹੀ ਉਹਨਾਂ ਵੱਲੋਂ ਸਮਰਥਿਤ ਜਾਂ ਸਪਾਂਸਰ ਕੀਤੀ ਗਈ ਹੈ।</string>
     <string name="tutorial_next">ਅੱਗੇ</string>
     <string name="tutorial_open_a11y">ਚੈਨਲ ਜੋੜਨ ਦਾ ਤਰੀਕਾ ਦੇਖੋ</string>
+    <string name="tutorial_pick_body">ਅਸੀਂ ਉਸ ਵੀਡੀਓ ਦੇ ਚੈਨਲ ਦੇ ਸਾਰੇ ਵੀਡੀਓ ਸਭ ਤੋਂ ਪੁਰਾਣੇ ਤੋਂ ਕ੍ਰਮ ਵਿੱਚ ਦਿਖਾਵਾਂਗੇ।</string>
+    <string name="tutorial_pick_error">ਵੀਡੀਓ ਲੋਡ ਨਹੀਂ ਹੋ ਸਕੇ। YouTube ਤੋਂ ਚੈਨਲ ਸ਼ਾਮਲ ਕਰੋ।</string>
+    <string name="tutorial_pick_howto">YouTube ਦੇ ਸਾਂਝਾ ਕਰੋ ਤੋਂ ਸ਼ਾਮਲ ਕਰੋ</string>
+    <string name="tutorial_pick_loading">ਪ੍ਰਸਿੱਧ ਵੀਡੀਓ ਲੋਡ ਹੋ ਰਹੇ ਹਨ…</string>
+    <string name="tutorial_pick_other">ਖੁਦ ਚੈਨਲ ਚੁਣਨਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
+    <string name="tutorial_pick_title">ਪ੍ਰਸਿੱਧ ਵੀਡੀਓ ਵਿੱਚੋਂ ਚੁਣੋ</string>
     <string name="tutorial_progress_format">%2$s ਵਿੱਚੋਂ %1$s</string>
     <string name="tutorial_skip">ਛੱਡੋ</string>
     <string name="tutorial_step1_body">YouTube ਐਪ ਵਿੱਚ, ਜਿਹੜਾ ਚੈਨਲ ਜੋੜਨਾ ਹੈ ਉਸਦਾ ਕੋਈ ਵੀਡੀਓ ਜਾਂ ਉਸਦਾ ਚੈਨਲ ਪੰਨਾ ਖੋਲ੍ਹੋ।</string>

@@ -194,6 +194,12 @@
     <string name="tutorial_example_note">Tangkapan layar menggunakan channel publik NASA sebagai contoh. Aplikasi ini tidak berafiliasi dengan, didukung, atau disponsori oleh YouTube maupun NASA.</string>
     <string name="tutorial_next">Berikutnya</string>
     <string name="tutorial_open_a11y">Lihat cara menambahkan channel</string>
+    <string name="tutorial_pick_body">Kami akan menampilkan semua video dari channel-nya, mulai dari yang terlama.</string>
+    <string name="tutorial_pick_error">Video tidak dapat dimuat. Tambahkan channel dari YouTube.</string>
+    <string name="tutorial_pick_howto">Tambahkan lewat Bagikan di YouTube</string>
+    <string name="tutorial_pick_loading">Memuat video populer…</string>
+    <string name="tutorial_pick_other">Ingin memilih channel sendiri?</string>
+    <string name="tutorial_pick_title">Pilih dari video populer</string>
     <string name="tutorial_progress_format">%1$s dari %2$s</string>
     <string name="tutorial_skip">Lewati</string>
     <string name="tutorial_step1_body">Di aplikasi YouTube, buka video dari channel yang ingin Anda tambahkan, atau halaman channel itu sendiri.</string>

@@ -194,6 +194,12 @@
     <string name="tutorial_example_note">स्क्रीनशॉटमध्ये उदाहरण म्हणून NASA चे सार्वजनिक चॅनेल वापरले आहे. हे ॲप YouTube किंवा NASA शी संलग्न नाही, तसेच त्यांच्याकडून मान्यताप्राप्त किंवा प्रायोजित नाही.</string>
     <string name="tutorial_next">पुढे</string>
     <string name="tutorial_open_a11y">चॅनेल कसे जोडावे ते पहा</string>
+    <string name="tutorial_pick_body">त्या व्हिडिओच्या चॅनेलचे सर्व व्हिडिओ सर्वात जुन्यापासून क्रमाने दाखवू.</string>
+    <string name="tutorial_pick_error">व्हिडिओ लोड करता आले नाहीत. YouTube वरून चॅनेल जोडा.</string>
+    <string name="tutorial_pick_howto">YouTube च्या शेअरमधून जोडा</string>
+    <string name="tutorial_pick_loading">लोकप्रिय व्हिडिओ लोड होत आहेत…</string>
+    <string name="tutorial_pick_other">स्वतः चॅनेल निवडायचे आहे?</string>
+    <string name="tutorial_pick_title">लोकप्रिय व्हिडिओंमधून निवडा</string>
     <string name="tutorial_progress_format">%2$s पैकी %1$s</string>
     <string name="tutorial_skip">वगळा</string>
     <string name="tutorial_step1_body">YouTube ॲपमध्ये, तुम्हाला जोडायच्या चॅनेलचा एखादा व्हिडिओ किंवा चॅनेल पेज उघडा.</string>

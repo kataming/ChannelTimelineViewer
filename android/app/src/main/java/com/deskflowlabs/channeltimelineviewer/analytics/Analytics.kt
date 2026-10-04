@@ -357,6 +357,9 @@ interface Analytics {
         /** 保存済みの一覧から開いた。 */
         const val SAVED = "saved"
 
+        /** 最初の案内に並べた人気の動画から選んで開いた。 */
+        const val POPULAR = "popular"
+
         /** ロック中のチャンネルへ切り替えて開いた。 */
         const val SWITCH = "switch"
 

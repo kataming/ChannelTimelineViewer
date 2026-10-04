@@ -194,6 +194,12 @@
     <string name="tutorial_example_note">স্ক্রিনশটে উদাহরণ হিসেবে NASA-র পাবলিক চ্যানেল ব্যবহার করা হয়েছে। এই অ্যাপটি YouTube বা NASA-র সঙ্গে যুক্ত নয়, এবং তাদের দ্বারা অনুমোদিত বা স্পনসর করা নয়।</string>
     <string name="tutorial_next">পরবর্তী</string>
     <string name="tutorial_open_a11y">কীভাবে চ্যানেল যোগ করবেন দেখুন</string>
+    <string name="tutorial_pick_body">ভিডিওটির চ্যানেলের সব ভিডিও পুরোনো থেকে নতুন ক্রমে সাজিয়ে দেখাব।</string>
+    <string name="tutorial_pick_error">ভিডিও লোড করা যায়নি। YouTube থেকে একটি চ্যানেল যোগ করুন।</string>
+    <string name="tutorial_pick_howto">YouTube-এর শেয়ার থেকে যোগ করুন</string>
+    <string name="tutorial_pick_loading">জনপ্রিয় ভিডিও লোড হচ্ছে…</string>
+    <string name="tutorial_pick_other">নিজে চ্যানেল বেছে নিতে চাইলে</string>
+    <string name="tutorial_pick_title">জনপ্রিয় ভিডিও থেকে বেছে নিন</string>
     <string name="tutorial_progress_format">%2$s-এর মধ্যে %1$s</string>
     <string name="tutorial_skip">এড়িয়ে যান</string>
     <string name="tutorial_step1_body">YouTube অ্যাপে, যে চ্যানেল যোগ করতে চান তার একটি ভিডিও বা চ্যানেলের পেজটি খুলুন।</string>

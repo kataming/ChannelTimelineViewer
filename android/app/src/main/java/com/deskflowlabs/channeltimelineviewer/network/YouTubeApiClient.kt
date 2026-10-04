@@ -23,6 +23,15 @@ import java.util.concurrent.TimeUnit
 /** 動画一覧の1ページ分。 */
 data class VideoPage(val items: List<VideoItem>, val nextPageToken: String?)
 
+/** 最初の案内に並べる人気の動画（選ぶとその投稿チャンネルを開く）。 */
+data class PopularVideo(
+    val videoId: String,
+    val title: String,
+    val channelId: String,
+    val channelTitle: String,
+    val thumbnailUrl: String?,
+)
+
 /**
  * YouTube Data API v3 クライアント。iOS 版 `Services/YouTubeAPIClient.swift` の移植。
  * スクレイピングは行わず、公式の Data API のみを使う。
@@ -36,6 +45,8 @@ class YouTubeApiClient(
      * 素の HTTP で呼ぶときは、Google のライブラリが付けているヘッダーを自分で付ける必要がある。
      */
     private val appIdentity: AndroidAppIdentity? = null,
+    /** 人気動画の一覧を国ごとに持っている当方のサーバー（site/functions/api/popular.js）。 */
+    private val popularUrl: String = "https://channeltimeline.jewelrysunflower.com/api/popular",
 ) {
 
     /** 暴走防止のための最大ページ数（50件/ページ × 100 = 5000本）。 */
@@ -53,6 +64,47 @@ class YouTubeApiClient(
             is ChannelIdentifier.Video ->
                 fetchChannel(listOf("id" to fetchChannelIdForVideo(identifier.videoId)))
         }
+
+    /**
+     * 最初の案内に並べる、その国でいま人気の動画。
+     *
+     * まず当方のサーバー（[popularUrl]・Cloudflare）から読む。サーバーが国ごとに1時間だけ持っているので、
+     * 利用者が何人いても・何度入れ直しても、アプリの quota は使わない（2026-10-05・ユーザー判断）。
+     * 送るのは2文字の国コードだけ。サーバーが落ちているときだけ、直接 YouTube に問い合わせる（quota 1）。
+     */
+    suspend fun fetchPopularVideos(regionCode: String?): List<PopularVideo> {
+        val region = regionCode?.uppercase()?.takeIf { it.matches(Regex("[A-Z]{2}")) }
+        val fromServer = runCatching {
+            val url = Uri.parse(popularUrl).buildUpon()
+                .apply { if (region != null) appendQueryParameter("region", region) }
+                .build().toString()
+            val body = withContext(Dispatchers.IO) {
+                httpClient.newCall(Request.Builder().url(url).get().build()).execute().use { response ->
+                    if (!response.isSuccessful) throw IOException("HTTP ${response.code}")
+                    response.body?.string().orEmpty()
+                }
+            }
+            popularFromServer(json.parseToJsonElement(body).jsonObject)
+        }.onFailure { Log.w("YouTubeApiClient", "popular server unavailable: ${it.message}") }
+            .getOrNull()
+        if (!fromServer.isNullOrEmpty()) return fromServer
+        return fetchPopularVideosDirect(region)
+    }
+
+    /**
+     * YouTube に直接問い合わせる（chart=mostPopular・quota 1）。サーバーが使えないときの予備。
+     * 国に対応していない（400 など）ときは国を指定せずに取り直す。同じチャンネルは1本だけにする。
+     */
+    private suspend fun fetchPopularVideosDirect(regionCode: String?, maxResults: Int = 50): List<PopularVideo> {
+        val base = listOf("part" to "snippet", "chart" to "mostPopular", "maxResults" to maxResults.toString())
+        val body = if (regionCode.isNullOrBlank()) {
+            getJson("videos", base)
+        } else {
+            runCatching { getJson("videos", base + ("regionCode" to regionCode)) }
+                .getOrElse { getJson("videos", base) }
+        }
+        return popularVideos(body)
+    }
 
     /** videoId からその動画を投稿したチャンネルの channelId を取得する（videos.list / quota 1）。 */
     suspend fun fetchChannelIdForVideo(videoId: String): String {
@@ -225,6 +277,35 @@ class YouTubeApiClient(
                 .build()
         }
 
+        /** 当方のサーバー（/api/popular）の答え `{ region, items: [...] }` を読む。 */
+        fun popularFromServer(body: JsonObject): List<PopularVideo> =
+            body["items"]?.jsonArray.orEmpty().mapNotNull { element ->
+                val item = element.jsonObject
+                PopularVideo(
+                    videoId = item.string("videoId") ?: return@mapNotNull null,
+                    title = item.string("title") ?: UNTITLED_VIDEO,
+                    channelId = item.string("channelId") ?: return@mapNotNull null,
+                    channelTitle = item.string("channelTitle") ?: UNTITLED_CHANNEL,
+                    thumbnailUrl = item.string("thumbnailUrl"),
+                )
+            }.distinctBy { it.channelId }
+
+        /** chart=mostPopular のレスポンスを読む（ネットワーク非依存＝テスト可能）。同じチャンネルは最初の1本だけ。 */
+        fun popularVideos(body: JsonObject): List<PopularVideo> =
+            body["items"]?.jsonArray.orEmpty().mapNotNull { element ->
+                val item = element.jsonObject
+                val snippet = item["snippet"]?.jsonObject ?: return@mapNotNull null
+                val videoId = item.string("id") ?: return@mapNotNull null
+                val channelId = snippet.string("channelId") ?: return@mapNotNull null
+                PopularVideo(
+                    videoId = videoId,
+                    title = snippet.string("title") ?: UNTITLED_VIDEO,
+                    channelId = channelId,
+                    channelTitle = snippet.string("channelTitle") ?: UNTITLED_CHANNEL,
+                    thumbnailUrl = bestThumbnail(snippet),
+                )
+            }.distinctBy { it.channelId }
+
         /** videos.list のレスポンスから channelId を取り出す（ネットワーク非依存＝テスト可能）。 */
         fun channelIdFromVideosList(body: JsonObject): String {
             val channelId = body["items"]?.jsonArray?.firstOrNull()?.jsonObject
@@ -287,6 +368,8 @@ class YouTubeApiClient(
         }
 
         private fun JsonObject.string(key: String): String? =
-            runCatching { this[key]?.jsonPrimitive?.content }.getOrNull()
+            // JSON の null は文字列 "null" にしない（サーバーの答えではサムネイルが null のことがある）。
+            runCatching { this[key]?.takeUnless { it is kotlinx.serialization.json.JsonNull }?.jsonPrimitive?.content }
+                .getOrNull()
     }
 }

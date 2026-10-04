@@ -423,6 +423,18 @@
 "tutorial.next" = "Susunod";
 /* 読み上げ: チュートリアルを開く */
 "tutorial.open.a11y" = "Tingnan kung paano magdagdag ng channel";
+/* 初回の案内: 選んだ動画のチャンネルを古い順に並べる説明 */
+"tutorial.pick.body" = "Ililista namin ang lahat ng video ng channel nito, mula sa pinakaluma.";
+/* 初回の案内: 人気の動画を読み込めなかった */
+"tutorial.pick.error" = "Hindi ma-load ang mga video. Magdagdag ng channel mula sa YouTube.";
+/* 初回の案内: YouTube から追加する手順（4ステップ）を開くボタン */
+"tutorial.pick.howto" = "Magdagdag gamit ang Share sa YouTube";
+/* 初回の案内: 人気の動画を読み込み中 */
+"tutorial.pick.loading" = "Nilo-load ang mga sikat na video…";
+/* 初回の案内: 並んだ中に見たいチャンネルが無い人向けの見出し */
+"tutorial.pick.other" = "Gusto mo bang ikaw ang pumili ng channel?";
+/* 初回の案内: 人気の動画から選ぶ画面の見出し */
+"tutorial.pick.title" = "Pumili mula sa mga sikat na video";
 /* 進み具合（%1$@ / %2$@） */
 "tutorial.progress.format" = "%1$@ sa %2$@";
 /* スキップ */

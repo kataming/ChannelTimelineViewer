@@ -194,6 +194,12 @@
     <string name="tutorial_example_note">Zrzuty ekranu przedstawiają jako przykład publiczny kanał NASA. Ta aplikacja nie jest powiązana z YouTube ani NASA, ani przez nie zatwierdzona czy sponsorowana.</string>
     <string name="tutorial_next">Dalej</string>
     <string name="tutorial_open_a11y">Zobacz, jak dodać kanał</string>
+    <string name="tutorial_pick_body">Ułożymy wszystkie filmy z jego kanału od najstarszego.</string>
+    <string name="tutorial_pick_error">Nie udało się wczytać filmów. Dodaj kanał z YouTube.</string>
+    <string name="tutorial_pick_howto">Dodaj przez Udostępnij w YouTube</string>
+    <string name="tutorial_pick_loading">Ładowanie popularnych filmów…</string>
+    <string name="tutorial_pick_other">Chcesz sam wybrać kanał?</string>
+    <string name="tutorial_pick_title">Wybierz spośród popularnych filmów</string>
     <string name="tutorial_progress_format">%1$s z %2$s</string>
     <string name="tutorial_skip">Pomiń</string>
     <string name="tutorial_step1_body">W aplikacji YouTube otwórz film z kanału, który chcesz dodać, albo samą stronę kanału.</string>

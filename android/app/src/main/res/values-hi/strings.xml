@@ -194,6 +194,12 @@
     <string name="tutorial_example_note">स्क्रीनशॉट में उदाहरण के लिए NASA का सार्वजनिक चैनल इस्तेमाल किया गया है। यह ऐप YouTube या NASA से संबद्ध नहीं है, न ही उनके द्वारा समर्थित या प्रायोजित है।</string>
     <string name="tutorial_next">आगे</string>
     <string name="tutorial_open_a11y">चैनल जोड़ने का तरीका देखें</string>
+    <string name="tutorial_pick_body">हम उस वीडियो के चैनल के सभी वीडियो सबसे पुराने से क्रम में दिखाएंगे।</string>
+    <string name="tutorial_pick_error">वीडियो लोड नहीं हो सके। YouTube से चैनल जोड़ें।</string>
+    <string name="tutorial_pick_howto">YouTube के शेयर से जोड़ें</string>
+    <string name="tutorial_pick_loading">लोकप्रिय वीडियो लोड हो रहे हैं…</string>
+    <string name="tutorial_pick_other">खुद चैनल चुनना चाहते हैं?</string>
+    <string name="tutorial_pick_title">लोकप्रिय वीडियो में से चुनें</string>
     <string name="tutorial_progress_format">%2$s में से %1$s</string>
     <string name="tutorial_skip">छोड़ें</string>
     <string name="tutorial_step1_body">YouTube ऐप में, जिस चैनल को जोड़ना है उसका कोई वीडियो या उसका चैनल पेज खोलें।</string>

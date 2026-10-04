@@ -194,6 +194,12 @@
     <string name="tutorial_example_note">截圖以 NASA 的公開頻道為例。本 App 與 YouTube 或 NASA 無任何關聯，也未獲其認可或贊助。</string>
     <string name="tutorial_next">下一步</string>
     <string name="tutorial_open_a11y">查看如何新增頻道</string>
+    <string name="tutorial_pick_body">我們會依由舊到新的順序，列出該影片所屬頻道的所有影片。</string>
+    <string name="tutorial_pick_error">無法載入影片。請從 YouTube 新增頻道。</string>
+    <string name="tutorial_pick_howto">透過 YouTube 的分享新增</string>
+    <string name="tutorial_pick_loading">正在載入熱門影片…</string>
+    <string name="tutorial_pick_other">想自己選擇頻道？</string>
+    <string name="tutorial_pick_title">從熱門影片中選擇</string>
     <string name="tutorial_progress_format">%1$s / %2$s</string>
     <string name="tutorial_skip">略過</string>
     <string name="tutorial_step1_body">在 YouTube App 中，開啟想新增之頻道的影片，或該頻道的頁面。</string>

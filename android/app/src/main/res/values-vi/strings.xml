@@ -194,6 +194,12 @@
     <string name="tutorial_example_note">Ảnh chụp màn hình dùng kênh công khai của NASA làm ví dụ. Ứng dụng này không liên kết với, không được chứng thực hay tài trợ bởi YouTube hoặc NASA.</string>
     <string name="tutorial_next">Tiếp</string>
     <string name="tutorial_open_a11y">Xem cách thêm kênh</string>
+    <string name="tutorial_pick_body">Chúng tôi sẽ xếp toàn bộ video của kênh đó, từ cũ nhất.</string>
+    <string name="tutorial_pick_error">Không tải được video. Hãy thêm kênh từ YouTube.</string>
+    <string name="tutorial_pick_howto">Thêm qua nút Chia sẻ trong YouTube</string>
+    <string name="tutorial_pick_loading">Đang tải video phổ biến…</string>
+    <string name="tutorial_pick_other">Muốn tự chọn kênh?</string>
+    <string name="tutorial_pick_title">Chọn từ video phổ biến</string>
     <string name="tutorial_progress_format">%1$s/%2$s</string>
     <string name="tutorial_skip">Bỏ qua</string>
     <string name="tutorial_step1_body">Trong ứng dụng YouTube, mở một video của kênh bạn muốn thêm, hoặc chính trang kênh đó.</string>

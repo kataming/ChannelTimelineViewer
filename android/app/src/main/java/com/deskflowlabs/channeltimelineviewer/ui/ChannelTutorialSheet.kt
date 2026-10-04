@@ -6,6 +6,18 @@ import android.net.Uri
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.style.TextOverflow
+import coil.compose.AsyncImage
+import com.deskflowlabs.channeltimelineviewer.network.PopularVideo
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,6 +32,8 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.ModalBottomSheetProperties
+import androidx.compose.material3.SheetValue
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -61,16 +75,43 @@ fun ChannelTutorialSheet(
     onDismiss: () -> Unit,
     onComplete: () -> Unit,
     onSkip: (stepNumber: Int) -> Unit,
+    loadPopular: suspend () -> List<PopularVideo>,
+    onPickVideo: (PopularVideo) -> Unit,
+    /**
+     * 下へのスワイプ・外側のタップ・戻るボタンで閉じられるか。
+     * 初めての人（まだ1チャンネルも無い人）には false にする。ここで閉じると
+     * 何もできない画面が残るだけなので、動画を選ぶか「YouTube から追加する」へ進むまで残す。
+     */
+    dismissible: Boolean = true,
 ) {
     val context = LocalContext.current
     val appName = stringResource(R.string.app_name)
     val steps = tutorialSteps()
     var index by remember { mutableIntStateOf(0) }
-    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    // 最初は「人気の動画から選ぶ」画面。YouTube から追加する手順（4ステップ）は、選びたい動画が無い人だけが見る。
+    var showSteps by rememberSaveable { mutableStateOf(false) }
+    val sheetState = rememberModalBottomSheetState(
+        skipPartiallyExpanded = true,
+        confirmValueChange = { dismissible || it != SheetValue.Hidden },
+    )
     val step = steps[index]
     val isLast = index == steps.lastIndex
 
-    ModalBottomSheet(onDismissRequest = onDismiss, sheetState = sheetState) {
+    ModalBottomSheet(
+        onDismissRequest = { if (dismissible) onDismiss() },
+        sheetState = sheetState,
+        properties = ModalBottomSheetProperties(shouldDismissOnBackPress = dismissible),
+    ) {
+        if (!showSteps) {
+            PopularVideoPicker(
+                loadPopular = loadPopular,
+                onPickVideo = onPickVideo,
+                onShowSteps = { showSteps = true },
+                // 初めての人には「閉じる」を出さない（選ぶか、YouTube から追加する方へ進む）。
+                onClose = if (dismissible) ({ onSkip(0) }) else null,
+            )
+            return@ModalBottomSheet
+        }
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -112,10 +153,9 @@ fun ChannelTutorialSheet(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                if (index > 0) {
-                    OutlinedButton(onClick = { index -= 1 }) {
-                        Text(stringResource(R.string.tutorial_back))
-                    }
+                // 1つ目の手順の「戻る」は、人気の動画を選ぶ画面へ戻る。
+                OutlinedButton(onClick = { if (index > 0) index -= 1 else showSteps = false }) {
+                    Text(stringResource(R.string.tutorial_back))
                 }
                 if (isLast) {
                     Button(
@@ -147,6 +187,107 @@ fun ChannelTutorialSheet(
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
+        }
+    }
+}
+
+/**
+ * 初めての人向けの最初の画面: その国でいま人気の動画を並べ、選んだ動画のチャンネルをそのまま開く。
+ * URL を持っていない人でも、アプリの中だけで「チャンネルの動画を古い順に見る」まで行けるようにする。
+ * 読み込めなかったときは、従来どおり YouTube から追加する手順へ案内する。
+ */
+@Composable
+private fun PopularVideoPicker(
+    loadPopular: suspend () -> List<PopularVideo>,
+    onPickVideo: (PopularVideo) -> Unit,
+    onShowSteps: () -> Unit,
+    onClose: (() -> Unit)?,
+) {
+    var videos by remember { mutableStateOf<List<PopularVideo>?>(null) }
+    var failed by remember { mutableStateOf(false) }
+    LaunchedEffect(Unit) {
+        runCatching { loadPopular() }
+            .onSuccess { videos = it; failed = it.isEmpty() }
+            .onFailure { failed = true }
+    }
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .verticalScroll(rememberScrollState())
+            .padding(horizontal = 20.dp)
+            .padding(bottom = 28.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
+    ) {
+        Text(stringResource(R.string.tutorial_pick_title), style = MaterialTheme.typography.titleLarge)
+        Text(
+            stringResource(R.string.tutorial_pick_body),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+
+        val list = videos
+        when {
+            failed -> Text(
+                stringResource(R.string.tutorial_pick_error),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.error,
+            )
+            list == null -> Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                modifier = Modifier.padding(vertical = 24.dp),
+            ) {
+                CircularProgressIndicator(modifier = Modifier.size(24.dp), strokeWidth = 2.dp)
+                Text(stringResource(R.string.tutorial_pick_loading))
+            }
+            else -> list.forEach { video ->
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(10.dp))
+                        .clickable { onPickVideo(video) }
+                        .padding(vertical = 4.dp),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    AsyncImage(
+                        model = video.thumbnailUrl,
+                        contentDescription = null,
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .width(144.dp)
+                            .aspectRatio(16f / 9f)
+                            .clip(RoundedCornerShape(8.dp)),
+                    )
+                    Column(Modifier.weight(1f)) {
+                        Text(
+                            video.title,
+                            style = MaterialTheme.typography.bodyMedium,
+                            maxLines = 2,
+                            overflow = TextOverflow.Ellipsis,
+                        )
+                        Text(
+                            video.channelTitle,
+                            style = MaterialTheme.typography.labelMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                        )
+                    }
+                }
+            }
+        }
+
+        Spacer(Modifier.height(4.dp))
+        Text(stringResource(R.string.tutorial_pick_other), style = MaterialTheme.typography.labelLarge)
+        OutlinedButton(onClick = onShowSteps, modifier = Modifier.fillMaxWidth()) {
+            Text(stringResource(R.string.tutorial_pick_howto))
+        }
+        if (onClose != null) {
+            TextButton(onClick = onClose, modifier = Modifier.align(Alignment.CenterHorizontally)) {
+                Text(stringResource(R.string.tutorial_close))
+            }
         }
     }
 }

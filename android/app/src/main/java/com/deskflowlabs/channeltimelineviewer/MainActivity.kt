@@ -25,6 +25,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.compose.currentStateAsState
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.deskflowlabs.channeltimelineviewer.ads.AnchorAdaptiveBanner
 import com.deskflowlabs.channeltimelineviewer.ads.MrecAdSlot
@@ -251,10 +253,18 @@ private fun AppRoot(
     var tutorialShown by rememberSaveable { mutableStateOf(false) }
     var tutorialSource by remember { mutableStateOf(Analytics.Source.FIRST_TIME) }
 
-    LaunchedEffect(tutorialDone, savedChannels.isEmpty(), screen) {
-        if (screen !is Screen.Input) return@LaunchedEffect
+    // 初めての人（まだ1チャンネルも無い人）には、入力画面に戻るたびに出す。YouTube へ行って
+    // 共有せずに戻ってきた人も、何もできない画面に取り残さないため（2026-10-05・ユーザー判断）。
+    val lifecycleState by LocalLifecycleOwner.current.lifecycle.currentStateAsState()
+    val isResumed = lifecycleState.isAtLeast(Lifecycle.State.RESUMED)
+    LaunchedEffect(screen) {
+        // 一覧・再生画面の上には重ねない。
+        if (screen !is Screen.Input && tutorialSource == Analytics.Source.FIRST_TIME) tutorialShown = false
+    }
+    LaunchedEffect(tutorialDone, savedChannels.isEmpty(), screen, isResumed) {
+        if (screen !is Screen.Input || !isResumed) return@LaunchedEffect
         if (skipTutorial) return@LaunchedEffect
-        if (tutorialDone || savedChannels.isNotEmpty() || tutorialShown) return@LaunchedEffect
+        if (savedChannels.isNotEmpty() || tutorialShown) return@LaunchedEffect
         tutorialSource = Analytics.Source.FIRST_TIME
         tutorialShown = true
         container.analytics.log(
@@ -284,6 +294,16 @@ private fun AppRoot(
                     Analytics.Event.CHANNEL_TUTORIAL_SKIP,
                     Analytics.Param.VALUE to stepNumber,
                 )
+            },
+            // 端末の国の人気動画（国が分からなければ YouTube の既定）。
+            loadPopular = { container.api.fetchPopularVideos(java.util.Locale.getDefault().country) },
+            dismissible = tutorialSource != Analytics.Source.FIRST_TIME,
+            onPickVideo = { video ->
+                tutorialShown = false
+                if (tutorialSource == Analytics.Source.FIRST_TIME) {
+                    container.channelTutorial.markCompleted()
+                }
+                inputViewModel.openPopular(video.channelId)
             },
         )
     }

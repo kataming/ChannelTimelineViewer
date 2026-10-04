@@ -194,6 +194,12 @@
     <string name="tutorial_example_note">Skärmbilderna använder NASA:s offentliga kanal som exempel. Den här appen är inte ansluten till, godkänd av eller sponsrad av YouTube eller NASA.</string>
     <string name="tutorial_next">Nästa</string>
     <string name="tutorial_open_a11y">Se hur du lägger till en kanal</string>
+    <string name="tutorial_pick_body">Vi listar alla videor från kanalen, äldst först.</string>
+    <string name="tutorial_pick_error">Det gick inte att läsa in videorna. Lägg till en kanal från YouTube.</string>
+    <string name="tutorial_pick_howto">Lägg till via Dela i YouTube</string>
+    <string name="tutorial_pick_loading">Läser in populära videor…</string>
+    <string name="tutorial_pick_other">Vill du välja en kanal själv?</string>
+    <string name="tutorial_pick_title">Välj bland populära videor</string>
     <string name="tutorial_progress_format">%1$s av %2$s</string>
     <string name="tutorial_skip">Hoppa över</string>
     <string name="tutorial_step1_body">Öppna en video från kanalen du vill lägga till, eller själva kanalsidan, i YouTube-appen.</string>

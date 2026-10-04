@@ -194,6 +194,12 @@
     <string name="tutorial_example_note">As capturas de tela usam o canal público da NASA como exemplo. Este app não é afiliado, endossado nem patrocinado pelo YouTube ou pela NASA.</string>
     <string name="tutorial_next">Próximo</string>
     <string name="tutorial_open_a11y">Ver como adicionar um canal</string>
+    <string name="tutorial_pick_body">Vamos listar todos os vídeos do canal, do mais antigo ao mais recente.</string>
+    <string name="tutorial_pick_error">Não foi possível carregar os vídeos. Adicione um canal pelo YouTube.</string>
+    <string name="tutorial_pick_howto">Adicionar pelo Compartilhar do YouTube</string>
+    <string name="tutorial_pick_loading">Carregando vídeos populares…</string>
+    <string name="tutorial_pick_other">Quer escolher um canal você mesmo?</string>
+    <string name="tutorial_pick_title">Escolha entre os vídeos populares</string>
     <string name="tutorial_progress_format">%1$s de %2$s</string>
     <string name="tutorial_skip">Pular</string>
     <string name="tutorial_step1_body">No app do YouTube, abra um vídeo do canal que você quer adicionar ou a própria página do canal.</string>

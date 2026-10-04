@@ -194,6 +194,12 @@
     <string name="tutorial_example_note">A képernyőképek példaként a NASA nyilvános csatornáját mutatják. Ez az alkalmazás nem áll kapcsolatban a YouTube-bal vagy a NASA-val, és azok nem támogatják vagy szponzorálják.</string>
     <string name="tutorial_next">Tovább</string>
     <string name="tutorial_open_a11y">Csatorna hozzáadásának módja</string>
+    <string name="tutorial_pick_body">A csatorna összes videóját a legrégebbitől kezdve sorba rendezzük.</string>
+    <string name="tutorial_pick_error">Nem sikerült betölteni a videókat. Adj hozzá csatornát a YouTube-ról.</string>
+    <string name="tutorial_pick_howto">Hozzáadás a YouTube Megosztás funkciójával</string>
+    <string name="tutorial_pick_loading">Népszerű videók betöltése…</string>
+    <string name="tutorial_pick_other">Saját magad választanál csatornát?</string>
+    <string name="tutorial_pick_title">Válassz a népszerű videók közül</string>
     <string name="tutorial_progress_format">%1$s / %2$s</string>
     <string name="tutorial_skip">Kihagyás</string>
     <string name="tutorial_step1_body">A YouTube alkalmazásban nyiss meg egy videót a hozzáadni kívánt csatornáról, vagy magát a csatornaoldalt.</string>

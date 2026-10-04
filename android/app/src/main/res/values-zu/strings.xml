@@ -194,6 +194,12 @@
     <string name="tutorial_example_note">Izithombe-skrini zisebenzisa isiteshi somphakathi se-NASA njengesibonelo. Le app ayihlangene, ayigunyazwanga, futhi ayixhaswanga yi-YouTube noma i-NASA.</string>
     <string name="tutorial_next">Okulandelayo</string>
     <string name="tutorial_open_a11y">Bona ukuthi ungengeza kanjani isiteshi</string>
+    <string name="tutorial_pick_body">Sizobeka wonke amavidiyo esiteshi sayo, kusukela kwelidala kakhulu.</string>
+    <string name="tutorial_pick_error">Amavidiyo awakwazanga ukulayishwa. Engeza isiteshi ku-YouTube.</string>
+    <string name="tutorial_pick_howto">Engeza ngokwabelana ku-YouTube</string>
+    <string name="tutorial_pick_loading">Ilayisha amavidiyo adumile…</string>
+    <string name="tutorial_pick_other">Ufuna ukuzikhethela isiteshi?</string>
+    <string name="tutorial_pick_title">Khetha kumavidiyo adumile</string>
     <string name="tutorial_progress_format">%1$s kwangu-%2$s</string>
     <string name="tutorial_skip">Yeqa</string>
     <string name="tutorial_step1_body">Ku-app ye-YouTube, vula ividiyo evela esiteshini ofuna ukusengeza, noma ikhasi lesiteshi uqobo.</string>

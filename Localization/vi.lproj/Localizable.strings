@@ -423,6 +423,18 @@
 "tutorial.next" = "Tiếp";
 /* 読み上げ: チュートリアルを開く */
 "tutorial.open.a11y" = "Xem cách thêm kênh";
+/* 初回の案内: 選んだ動画のチャンネルを古い順に並べる説明 */
+"tutorial.pick.body" = "Chúng tôi sẽ xếp toàn bộ video của kênh đó, từ cũ nhất.";
+/* 初回の案内: 人気の動画を読み込めなかった */
+"tutorial.pick.error" = "Không tải được video. Hãy thêm kênh từ YouTube.";
+/* 初回の案内: YouTube から追加する手順（4ステップ）を開くボタン */
+"tutorial.pick.howto" = "Thêm qua nút Chia sẻ trong YouTube";
+/* 初回の案内: 人気の動画を読み込み中 */
+"tutorial.pick.loading" = "Đang tải video phổ biến…";
+/* 初回の案内: 並んだ中に見たいチャンネルが無い人向けの見出し */
+"tutorial.pick.other" = "Muốn tự chọn kênh?";
+/* 初回の案内: 人気の動画から選ぶ画面の見出し */
+"tutorial.pick.title" = "Chọn từ video phổ biến";
 /* 進み具合（%1$@ / %2$@） */
 "tutorial.progress.format" = "%1$@/%2$@";
 /* スキップ */

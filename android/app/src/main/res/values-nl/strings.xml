@@ -194,6 +194,12 @@
     <string name="tutorial_example_note">De schermafbeeldingen gebruiken het openbare kanaal van NASA als voorbeeld. Deze app is niet gelieerd aan, goedgekeurd door of gesponsord door YouTube of NASA.</string>
     <string name="tutorial_next">Volgende</string>
     <string name="tutorial_open_a11y">Bekijk hoe je een kanaal toevoegt</string>
+    <string name="tutorial_pick_body">We zetten alle video\'s van dat kanaal op een rij, oudste eerst.</string>
+    <string name="tutorial_pick_error">Video\'s konden niet worden geladen. Voeg een kanaal toe via YouTube.</string>
+    <string name="tutorial_pick_howto">Toevoegen via Delen in YouTube</string>
+    <string name="tutorial_pick_loading">Populaire video\'s laden…</string>
+    <string name="tutorial_pick_other">Wil je zelf een kanaal kiezen?</string>
+    <string name="tutorial_pick_title">Kies uit populaire video\'s</string>
     <string name="tutorial_progress_format">%1$s van %2$s</string>
     <string name="tutorial_skip">Sla over</string>
     <string name="tutorial_step1_body">Open in de YouTube-app een video van het kanaal dat je wilt toevoegen, of de kanaalpagina zelf.</string>

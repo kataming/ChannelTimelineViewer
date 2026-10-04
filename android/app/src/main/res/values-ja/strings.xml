@@ -194,6 +194,12 @@
     <string name="tutorial_example_note">画面は例として NASA の公開チャンネルを使っています。本アプリは YouTube および NASA とは関係がなく、提携・公認を受けたものではありません。</string>
     <string name="tutorial_next">次へ</string>
     <string name="tutorial_open_a11y">チャンネルの追加方法を見る</string>
+    <string name="tutorial_pick_body">選んだ動画のチャンネルの全動画を、古い順に並べます。</string>
+    <string name="tutorial_pick_error">動画を読み込めませんでした。YouTube から追加してください。</string>
+    <string name="tutorial_pick_howto">YouTube の共有から追加する</string>
+    <string name="tutorial_pick_loading">人気の動画を読み込み中…</string>
+    <string name="tutorial_pick_other">自分でチャンネルを選ぶときは</string>
+    <string name="tutorial_pick_title">人気動画から選ぶ</string>
     <string name="tutorial_progress_format">%1$s / %2$s</string>
     <string name="tutorial_skip">スキップ</string>
     <string name="tutorial_step1_body">YouTubeアプリで、追加したいチャンネルの動画かチャンネルのページを開きます。</string>

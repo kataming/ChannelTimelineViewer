@@ -194,6 +194,12 @@
     <string name="tutorial_example_note">Τα στιγμιότυπα οθόνης χρησιμοποιούν ως παράδειγμα το δημόσιο κανάλι της NASA. Αυτή η εφαρμογή δεν συνδέεται με το YouTube ή τη NASA ούτε έχει εγκριθεί ή χορηγηθεί από αυτά.</string>
     <string name="tutorial_next">Επόμενο</string>
     <string name="tutorial_open_a11y">Δείτε πώς προσθέτετε ένα κανάλι</string>
+    <string name="tutorial_pick_body">Θα παρουσιάσουμε όλα τα βίντεο του καναλιού του, από τα παλαιότερα.</string>
+    <string name="tutorial_pick_error">Δεν ήταν δυνατή η φόρτωση. Προσθέστε ένα κανάλι από το YouTube.</string>
+    <string name="tutorial_pick_howto">Προσθήκη μέσω Κοινοποίησης στο YouTube</string>
+    <string name="tutorial_pick_loading">Φόρτωση δημοφιλών βίντεο…</string>
+    <string name="tutorial_pick_other">Θέλετε να επιλέξετε μόνοι σας κανάλι;</string>
+    <string name="tutorial_pick_title">Επιλέξτε από δημοφιλή βίντεο</string>
     <string name="tutorial_progress_format">%1$s από %2$s</string>
     <string name="tutorial_skip">Παράλειψη</string>
     <string name="tutorial_step1_body">Στην εφαρμογή YouTube, ανοίξτε ένα βίντεο από το κανάλι που θέλετε να προσθέσετε ή την ίδια τη σελίδα του καναλιού.</string>

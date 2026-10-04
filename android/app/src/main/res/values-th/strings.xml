@@ -194,6 +194,12 @@
     <string name="tutorial_example_note">ภาพหน้าจอใช้ช่องสาธารณะของ NASA เป็นตัวอย่าง แอปนี้ไม่มีส่วนเกี่ยวข้อง ไม่ได้รับการรับรอง หรือการสนับสนุนจาก YouTube หรือ NASA</string>
     <string name="tutorial_next">ถัดไป</string>
     <string name="tutorial_open_a11y">ดูวิธีเพิ่มช่อง</string>
+    <string name="tutorial_pick_body">เราจะเรียงวิดีโอทั้งหมดของช่องนั้นจากเก่าไปใหม่</string>
+    <string name="tutorial_pick_error">โหลดวิดีโอไม่ได้ โปรดเพิ่มช่องจาก YouTube</string>
+    <string name="tutorial_pick_howto">เพิ่มผ่านการแชร์ใน YouTube</string>
+    <string name="tutorial_pick_loading">กำลังโหลดวิดีโอยอดนิยม…</string>
+    <string name="tutorial_pick_other">อยากเลือกช่องเองไหม</string>
+    <string name="tutorial_pick_title">เลือกจากวิดีโอยอดนิยม</string>
     <string name="tutorial_progress_format">%1$s จาก %2$s</string>
     <string name="tutorial_skip">ข้าม</string>
     <string name="tutorial_step1_body">ในแอป YouTube ให้เปิดวิดีโอจากช่องที่คุณต้องการเพิ่ม หรือเปิดหน้าช่องนั้นโดยตรง</string>

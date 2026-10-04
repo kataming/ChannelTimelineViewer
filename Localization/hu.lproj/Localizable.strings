@@ -423,6 +423,18 @@
 "tutorial.next" = "Tovább";
 /* 読み上げ: チュートリアルを開く */
 "tutorial.open.a11y" = "Csatorna hozzáadásának módja";
+/* 初回の案内: 選んだ動画のチャンネルを古い順に並べる説明 */
+"tutorial.pick.body" = "A csatorna összes videóját a legrégebbitől kezdve sorba rendezzük.";
+/* 初回の案内: 人気の動画を読み込めなかった */
+"tutorial.pick.error" = "Nem sikerült betölteni a videókat. Adj hozzá csatornát a YouTube-ról.";
+/* 初回の案内: YouTube から追加する手順（4ステップ）を開くボタン */
+"tutorial.pick.howto" = "Hozzáadás a YouTube Megosztás funkciójával";
+/* 初回の案内: 人気の動画を読み込み中 */
+"tutorial.pick.loading" = "Népszerű videók betöltése…";
+/* 初回の案内: 並んだ中に見たいチャンネルが無い人向けの見出し */
+"tutorial.pick.other" = "Saját magad választanál csatornát?";
+/* 初回の案内: 人気の動画から選ぶ画面の見出し */
+"tutorial.pick.title" = "Válassz a népszerű videók közül";
 /* 進み具合（%1$@ / %2$@） */
 "tutorial.progress.format" = "%1$@ / %2$@";
 /* スキップ */

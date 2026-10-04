@@ -194,6 +194,12 @@
     <string name="tutorial_example_note">Ginagamit ng mga screenshot ang pampublikong channel ng NASA bilang halimbawa. Ang app na ito ay hindi kaanib, hindi ineendorso, at hindi isinusponsor ng YouTube o NASA.</string>
     <string name="tutorial_next">Susunod</string>
     <string name="tutorial_open_a11y">Tingnan kung paano magdagdag ng channel</string>
+    <string name="tutorial_pick_body">Ililista namin ang lahat ng video ng channel nito, mula sa pinakaluma.</string>
+    <string name="tutorial_pick_error">Hindi ma-load ang mga video. Magdagdag ng channel mula sa YouTube.</string>
+    <string name="tutorial_pick_howto">Magdagdag gamit ang Share sa YouTube</string>
+    <string name="tutorial_pick_loading">Nilo-load ang mga sikat na video…</string>
+    <string name="tutorial_pick_other">Gusto mo bang ikaw ang pumili ng channel?</string>
+    <string name="tutorial_pick_title">Pumili mula sa mga sikat na video</string>
     <string name="tutorial_progress_format">%1$s sa %2$s</string>
     <string name="tutorial_skip">Laktawan</string>
     <string name="tutorial_step1_body">Sa YouTube app, magbukas ng video mula sa channel na gusto mong idagdag, o ang mismong page ng channel.</string>

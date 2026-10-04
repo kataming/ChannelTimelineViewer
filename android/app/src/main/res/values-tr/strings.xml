@@ -194,6 +194,12 @@
     <string name="tutorial_example_note">Ekran görüntülerinde örnek olarak NASA\'nın herkese açık kanalı kullanılmıştır. Bu uygulama YouTube veya NASA ile bağlantılı değildir; onlar tarafından onaylanmamış veya desteklenmemiştir.</string>
     <string name="tutorial_next">İleri</string>
     <string name="tutorial_open_a11y">Kanal eklemeyi öğren</string>
+    <string name="tutorial_pick_body">Kanalının tüm videolarını en eskiden başlayarak sıralayacağız.</string>
+    <string name="tutorial_pick_error">Videolar yüklenemedi. YouTube\'dan bir kanal ekleyin.</string>
+    <string name="tutorial_pick_howto">YouTube\'da Paylaş ile ekle</string>
+    <string name="tutorial_pick_loading">Popüler videolar yükleniyor…</string>
+    <string name="tutorial_pick_other">Kanalı kendiniz mi seçmek istiyorsunuz?</string>
+    <string name="tutorial_pick_title">Popüler videolardan seçin</string>
     <string name="tutorial_progress_format">%1$s / %2$s</string>
     <string name="tutorial_skip">Atla</string>
     <string name="tutorial_step1_body">YouTube uygulamasında, eklemek istediğiniz kanalın bir videosunu veya kanal sayfasının kendisini açın.</string>

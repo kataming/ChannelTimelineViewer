@@ -139,6 +139,11 @@ class ChannelInputViewModel(
         resolve(url, Analytics.Source.SHARE)
     }
 
+    /** 最初の案内の「人気の動画」から選んだ動画の、投稿チャンネルを開く。 */
+    fun openPopular(channelId: String) {
+        resolve("https://www.youtube.com/channel/$channelId", Analytics.Source.POPULAR)
+    }
+
     /** お気に入り（最近使った）から開く。ロック中なら開かずに案内を出す。 */
     fun open(favorite: FavoriteChannel) {
         if (favorite.id !in usableChannelIds()) {

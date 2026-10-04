@@ -194,6 +194,12 @@
     <string name="tutorial_example_note">تستخدم لقطات الشاشة قناة NASA العامة كمثال. هذا التطبيق غير تابع لـ YouTube أو NASA وغير معتمد أو مموَّل منهما.</string>
     <string name="tutorial_next">التالي</string>
     <string name="tutorial_open_a11y">طريقة إضافة قناة</string>
+    <string name="tutorial_pick_body">سنعرض كل فيديوهات قناته من الأقدم إلى الأحدث.</string>
+    <string name="tutorial_pick_error">تعذّر تحميل الفيديوهات. أضف قناة من YouTube.</string>
+    <string name="tutorial_pick_howto">الإضافة عبر المشاركة في YouTube</string>
+    <string name="tutorial_pick_loading">جارٍ تحميل الفيديوهات الرائجة…</string>
+    <string name="tutorial_pick_other">تريد اختيار قناة بنفسك؟</string>
+    <string name="tutorial_pick_title">اختر من الفيديوهات الرائجة</string>
     <string name="tutorial_progress_format">%1$s من %2$s</string>
     <string name="tutorial_skip">تخطٍّ</string>
     <string name="tutorial_step1_body">في تطبيق YouTube، افتح فيديو من القناة التي تريد إضافتها، أو صفحة القناة نفسها.</string>

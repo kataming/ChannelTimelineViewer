@@ -423,6 +423,18 @@
 "tutorial.next" = "Next";
 /* 読み上げ: チュートリアルを開く */
 "tutorial.open.a11y" = "See how to add a channel";
+/* 初回の案内: 選んだ動画のチャンネルを古い順に並べる説明 */
+"tutorial.pick.body" = "We'll line up every video from its channel, oldest first.";
+/* 初回の案内: 人気の動画を読み込めなかった */
+"tutorial.pick.error" = "Couldn't load videos. Please add a channel from YouTube.";
+/* 初回の案内: YouTube から追加する手順（4ステップ）を開くボタン */
+"tutorial.pick.howto" = "Add via Share in YouTube";
+/* 初回の案内: 人気の動画を読み込み中 */
+"tutorial.pick.loading" = "Loading popular videos…";
+/* 初回の案内: 並んだ中に見たいチャンネルが無い人向けの見出し */
+"tutorial.pick.other" = "Want to choose a channel yourself?";
+/* 初回の案内: 人気の動画から選ぶ画面の見出し */
+"tutorial.pick.title" = "Pick from popular videos";
 /* 進み具合（%1$@ / %2$@） */
 "tutorial.progress.format" = "%1$@ of %2$@";
 /* スキップ */

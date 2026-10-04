@@ -194,6 +194,12 @@
     <string name="tutorial_example_note">திரைப்பிடிப்புகள் NASA இன் பொதுச் சேனலை உதாரணமாகப் பயன்படுத்துகின்றன. இந்த ஆப் YouTube அல்லது NASA உடன் இணைக்கப்படவில்லை, அவற்றால் அங்கீகரிக்கப்படவில்லை அல்லது நிதியுதவி பெறவில்லை.</string>
     <string name="tutorial_next">அடுத்து</string>
     <string name="tutorial_open_a11y">சேனலைச் சேர்ப்பது எப்படி என்று பார்</string>
+    <string name="tutorial_pick_body">அந்த வீடியோவின் சேனலின் எல்லா வீடியோக்களையும் பழையதிலிருந்து வரிசையாகக் காட்டுவோம்.</string>
+    <string name="tutorial_pick_error">வீடியோக்களை ஏற்ற முடியவில்லை. YouTube இலிருந்து சேனலைச் சேர்க்கவும்.</string>
+    <string name="tutorial_pick_howto">YouTube பகிர்வு மூலம் சேர்</string>
+    <string name="tutorial_pick_loading">பிரபல வீடியோக்கள் ஏற்றப்படுகின்றன…</string>
+    <string name="tutorial_pick_other">நீங்களே சேனலைத் தேர்ந்தெடுக்க வேண்டுமா?</string>
+    <string name="tutorial_pick_title">பிரபல வீடியோக்களிலிருந்து தேர்ந்தெடுங்கள்</string>
     <string name="tutorial_progress_format">%2$s இல் %1$s</string>
     <string name="tutorial_skip">தவிர்</string>
     <string name="tutorial_step1_body">YouTube ஆப்பில், நீங்கள் சேர்க்க விரும்பும் சேனலின் வீடியோவையோ அல்லது சேனல் பக்கத்தையோ திறக்கவும்.</string>

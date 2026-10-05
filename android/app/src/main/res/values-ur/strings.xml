@@ -243,6 +243,6 @@
     <string name="video_skip">چھوڑیں</string>
     <string name="video_unskip">نہ چھوڑیں</string>
     <string name="video_untitled">(کوئی عنوان نہیں)</string>
-    <string name="video_viewcount_format">%s ملاحظات</string>
+    <string name="video_viewcount_format">%s ویوز</string>
     <string name="video_watched">دیکھی گئی</string>
 </resources>

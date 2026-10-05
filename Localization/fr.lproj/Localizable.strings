@@ -75,6 +75,14 @@
 "captions.off" = "Désactivés";
 /* チャンネル名が取得できないとき */
 "channel.untitled" = "(Sans nom de chaîne)";
+/* コピーした YouTube のリンクを見つけたときの説明 */
+"clip.dialog.body" = "Nous allons ouvrir la chaîne du lien YouTube copié, vidéos les plus anciennes en premier.";
+/* コピーしたリンクを開かないときに、コピーを消すボタン */
+"clip.dialog.clear" = "Effacer la copie";
+/* コピーしたリンクを開くボタン */
+"clip.dialog.open" = "Ouvrir";
+/* コピーした YouTube のリンクを見つけたときの確認 */
+"clip.dialog.title" = "Ouvrir le lien copié ?";
 /* クリップボードにURLが無いとき */
 "clipboard.notFound" = "Aucun lien YouTube n’a été trouvé dans le presse-papiers. Collez une URL et réessayez.";
 /* 共通: キャンセル */
@@ -181,8 +189,12 @@
 "list.error.title" = "Échec du chargement";
 /* 取得中 */
 "list.loading" = "Chargement des vidéos…";
+/* 一覧の全件を読み込み中の進み具合。%1$@=何％、%2$@=読んだ本数、%3$@=全体の本数 */
+"list.loading.progress" = "Chargement des vidéos… %1$@ %% (%2$@ sur %3$@)";
 /* 読み上げ: 並び替えと表示 */
 "list.menu.a11y" = "Trier et filtrer";
+/* 動画一覧のメニュー: 一覧の一番下へ移る */
+"list.menu.bottom" = "Aller en bas";
 /* 新着を確認 */
 "list.menu.checkNew" = "Rechercher les nouveautés";
 /* すべて再読み込み */
@@ -191,6 +203,8 @@
 "list.menu.show" = "Afficher";
 /* 並び替えメニュー */
 "list.menu.sort" = "Trier";
+/* 動画一覧のメニュー: 一覧の一番上へ移る */
+"list.menu.top" = "Aller en haut";
 /* 次に見る（%@ に本数） */
 "list.next.new.format" = "À suivre : n° %@";
 /* 続きから（%@ に本数） */
@@ -317,6 +331,8 @@
 "pro.disabled.title" = "Pro n’est plus actif";
 /* ホームからPro画面へ入る行の説明 */
 "pro.entry.body" = "Achat unique. La version gratuite enregistre une chaîne.";
+/* 最初の画面の Pro の入口（pro.entry.body の下の行） */
+"pro.entry.noReload" = "Avec Pro, plus besoin de recharger les vidéos à chaque fois.";
 /* ホームからPro画面へ入る行の見出し */
 "pro.entry.title" = "Enregistrer plusieurs chaînes (Pro)";
 /* 購入できなかった */
@@ -331,6 +347,8 @@
 "pro.freeFeatures.header" = "Ce qu’offre la version gratuite";
 /* Pro 画面の見出し（買い切りであることを明示） */
 "pro.headline" = "Un achat unique qui débloque l’enregistrement de plusieurs chaînes.";
+/* 保存チャンネルを削除するときの Pro の案内（replaceHint の下の行） */
+"pro.limit.noReload" = "Plus besoin de recharger les vidéos à chaque fois.";
 /* 入れ替えるボタン */
 "pro.limit.replace" = "Remplacer";
 /* 警告のあとに出す Pro への誘導 */
@@ -340,7 +358,7 @@
 /* 上限の案内でProへ進むボタン */
 "pro.limit.upgrade" = "Passer à Pro";
 /* 上限の案内から Pro の説明画面へ進むボタン */
-"pro.limit.viewPro" = "Voir ce que Pro inclut";
+"pro.limit.viewPro" = "Plusieurs chaînes avec Pro";
 /* 入れ替えの警告（%@ に外れるチャンネル名）。大きめ・太字・赤で出す */
 "pro.limit.warning.format" = "Si vous remplacez cette chaîne, l’historique, la progression et les notes de la chaîne enregistrée « %@ » seront supprimés.";
 /* 一覧でロック中を示すラベル */

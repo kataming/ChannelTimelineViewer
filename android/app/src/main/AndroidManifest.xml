@@ -4,6 +4,13 @@
 
     <!-- 一覧の取得（API）と、公式プレイヤーの表示に必要 -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 「YouTube の共有から追加する」の「アプリに戻る」通知（Android 13 以降は利用者が許可したときだけ出す） -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <!-- 「アプリに戻る」の通知を、YouTube を見ているあいだ出し直すための短時間のサービス（ui/CopyGuideService.kt） -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <!-- 同じく、YouTube の上の画面の端に「アプリに戻る」ボタンを出すため（ui/CopyGuideOverlay.kt）。
+         利用者が設定画面で許可したときだけ。許可しない人には通知で案内する -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <!-- Firebase Analytics と Google Mobile Ads が既定で足してくる広告ID（AD_ID）の権限を**取り除く**。
          本アプリは広告識別子を使ったトラッキングを行わない、とプライバシーポリシーに
@@ -40,6 +47,12 @@
         <!-- configChanges: 画面の向きが変わっても Activity を作り直さない。
              作り直すと WebView が捨てられ、全画面にして横向きにした瞬間に再生が
              止まってしまう（Compose 側は向きの変化に自分で追随する）。 -->
+        <!-- 「YouTube の共有から追加する」のあいだだけ動く。Android 14 以降は短時間のサービス（約3分まで） -->
+        <service
+            android:name=".ui.CopyGuideService"
+            android:exported="false"
+            android:foregroundServiceType="shortService" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

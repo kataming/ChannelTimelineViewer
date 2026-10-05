@@ -75,6 +75,14 @@
 "captions.off" = "關閉";
 /* チャンネル名が取得できないとき */
 "channel.untitled" = "（無頻道名稱）";
+/* コピーした YouTube のリンクを見つけたときの説明 */
+"clip.dialog.body" = "將依由舊到新的順序，開啟你複製的 YouTube 連結所屬的頻道。";
+/* コピーしたリンクを開かないときに、コピーを消すボタン */
+"clip.dialog.clear" = "清除複製內容";
+/* コピーしたリンクを開くボタン */
+"clip.dialog.open" = "開啟";
+/* コピーした YouTube のリンクを見つけたときの確認 */
+"clip.dialog.title" = "要開啟複製的連結嗎？";
 /* クリップボードにURLが無いとき */
 "clipboard.notFound" = "剪貼簿中找不到 YouTube 連結。請貼上網址後再試一次。";
 /* 共通: キャンセル */
@@ -181,8 +189,12 @@
 "list.error.title" = "無法載入";
 /* 取得中 */
 "list.loading" = "正在載入影片…";
+/* 一覧の全件を読み込み中の進み具合。%1$@=何％、%2$@=読んだ本数、%3$@=全体の本数 */
+"list.loading.progress" = "正在載入影片… %1$@%%（%2$@ / %3$@ 部）";
 /* 読み上げ: 並び替えと表示 */
 "list.menu.a11y" = "排序與篩選";
+/* 動画一覧のメニュー: 一覧の一番下へ移る */
+"list.menu.bottom" = "跳到底部";
 /* 新着を確認 */
 "list.menu.checkNew" = "檢查新影片";
 /* すべて再読み込み */
@@ -191,6 +203,8 @@
 "list.menu.show" = "顯示";
 /* 並び替えメニュー */
 "list.menu.sort" = "排序";
+/* 動画一覧のメニュー: 一覧の一番上へ移る */
+"list.menu.top" = "回到頂端";
 /* 次に見る（%@ に本数） */
 "list.next.new.format" = "下一部：第 %@ 部";
 /* 続きから（%@ に本数） */
@@ -317,6 +331,8 @@
 "pro.disabled.title" = "Pro 已停用";
 /* ホームからPro画面へ入る行の説明 */
 "pro.entry.body" = "一次購買。免費版可儲存一個頻道。";
+/* 最初の画面の Pro の入口（pro.entry.body の下の行） */
+"pro.entry.noReload" = "Pro 版不必每次重新載入影片。";
 /* ホームからPro画面へ入る行の見出し */
 "pro.entry.title" = "儲存多個頻道（Pro）";
 /* 購入できなかった */
@@ -331,6 +347,8 @@
 "pro.freeFeatures.header" = "免費版可使用的功能";
 /* Pro 画面の見出し（買い切りであることを明示） */
 "pro.headline" = "一次購買，即可解鎖儲存多個頻道。";
+/* 保存チャンネルを削除するときの Pro の案内（replaceHint の下の行） */
+"pro.limit.noReload" = "不必每次重新載入影片。";
 /* 入れ替えるボタン */
 "pro.limit.replace" = "替換";
 /* 警告のあとに出す Pro への誘導 */
@@ -340,7 +358,7 @@
 /* 上限の案内でProへ進むボタン */
 "pro.limit.upgrade" = "取得 Pro";
 /* 上限の案内から Pro の説明画面へ進むボタン */
-"pro.limit.viewPro" = "查看 Pro 的內容";
+"pro.limit.viewPro" = "用 Pro 儲存多個頻道";
 /* 入れ替えの警告（%@ に外れるチャンネル名）。大きめ・太字・赤で出す */
 "pro.limit.warning.format" = "替換這個頻道會刪除目前儲存的「%@」的觀看紀錄、進度和筆記。";
 /* 一覧でロック中を示すラベル */

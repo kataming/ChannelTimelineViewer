@@ -75,6 +75,14 @@
 "captions.off" = "Desativadas";
 /* チャンネル名が取得できないとき */
 "channel.untitled" = "(Sem nome de canal)";
+/* コピーした YouTube のリンクを見つけたときの説明 */
+"clip.dialog.body" = "Vamos abrir o canal do link do YouTube que você copiou, com os vídeos mais antigos primeiro.";
+/* コピーしたリンクを開かないときに、コピーを消すボタン */
+"clip.dialog.clear" = "Limpar cópia";
+/* コピーしたリンクを開くボタン */
+"clip.dialog.open" = "Abrir";
+/* コピーした YouTube のリンクを見つけたときの確認 */
+"clip.dialog.title" = "Abrir o link copiado?";
 /* クリップボードにURLが無いとき */
 "clipboard.notFound" = "Nenhum link do YouTube foi encontrado na área de transferência. Cole uma URL e tente novamente.";
 /* 共通: キャンセル */
@@ -181,8 +189,12 @@
 "list.error.title" = "Não foi possível carregar";
 /* 取得中 */
 "list.loading" = "Carregando vídeos…";
+/* 一覧の全件を読み込み中の進み具合。%1$@=何％、%2$@=読んだ本数、%3$@=全体の本数 */
+"list.loading.progress" = "Carregando vídeos… %1$@%% (%2$@ de %3$@)";
 /* 読み上げ: 並び替えと表示 */
 "list.menu.a11y" = "Ordenar e filtrar";
+/* 動画一覧のメニュー: 一覧の一番下へ移る */
+"list.menu.bottom" = "Ir para o final";
 /* 新着を確認 */
 "list.menu.checkNew" = "Verificar novos vídeos";
 /* すべて再読み込み */
@@ -191,6 +203,8 @@
 "list.menu.show" = "Mostrar";
 /* 並び替えメニュー */
 "list.menu.sort" = "Ordenar";
+/* 動画一覧のメニュー: 一覧の一番上へ移る */
+"list.menu.top" = "Ir para o topo";
 /* 次に見る（%@ に本数） */
 "list.next.new.format" = "A seguir: nº %@";
 /* 続きから（%@ に本数） */
@@ -317,6 +331,8 @@
 "pro.disabled.title" = "O Pro não está mais ativo";
 /* ホームからPro画面へ入る行の説明 */
 "pro.entry.body" = "Compra única. A versão gratuita salva um canal.";
+/* 最初の画面の Pro の入口（pro.entry.body の下の行） */
+"pro.entry.noReload" = "Com o Pro, não é preciso recarregar os vídeos toda vez.";
 /* ホームからPro画面へ入る行の見出し */
 "pro.entry.title" = "Salvar vários canais (Pro)";
 /* 購入できなかった */
@@ -331,6 +347,8 @@
 "pro.freeFeatures.header" = "O que você tem de graça";
 /* Pro 画面の見出し（買い切りであることを明示） */
 "pro.headline" = "Uma compra única que libera salvar vários canais.";
+/* 保存チャンネルを削除するときの Pro の案内（replaceHint の下の行） */
+"pro.limit.noReload" = "Não é preciso recarregar os vídeos toda vez.";
 /* 入れ替えるボタン */
 "pro.limit.replace" = "Substituir";
 /* 警告のあとに出す Pro への誘導 */
@@ -340,7 +358,7 @@
 /* 上限の案内でProへ進むボタン */
 "pro.limit.upgrade" = "Obter o Pro";
 /* 上限の案内から Pro の説明画面へ進むボタン */
-"pro.limit.viewPro" = "Ver o que o Pro inclui";
+"pro.limit.viewPro" = "Vários canais com o Pro";
 /* 入れ替えの警告（%@ に外れるチャンネル名）。大きめ・太字・赤で出す */
 "pro.limit.warning.format" = "Substituir este canal apaga o histórico de assistidos, o progresso e as notas do canal salvo atualmente, “%@”.";
 /* 一覧でロック中を示すラベル */

@@ -75,6 +75,14 @@
 "captions.off" = "Av";
 /* チャンネル名が取得できないとき */
 "channel.untitled" = "(Inget kanalnamn)";
+/* コピーした YouTube のリンクを見つけたときの説明 */
+"clip.dialog.body" = "Vi öppnar kanalen för YouTube-länken du kopierade, med de äldsta videorna först.";
+/* コピーしたリンクを開かないときに、コピーを消すボタン */
+"clip.dialog.clear" = "Rensa kopian";
+/* コピーしたリンクを開くボタン */
+"clip.dialog.open" = "Öppna";
+/* コピーした YouTube のリンクを見つけたときの確認 */
+"clip.dialog.title" = "Öppna länken du kopierade?";
 /* クリップボードにURLが無いとき */
 "clipboard.notFound" = "Ingen YouTube-länk hittades i urklipp. Klistra in en URL och försök igen.";
 /* 共通: キャンセル */
@@ -181,8 +189,12 @@
 "list.error.title" = "Kunde inte läsa in";
 /* 取得中 */
 "list.loading" = "Läser in videor…";
+/* 一覧の全件を読み込み中の進み具合。%1$@=何％、%2$@=読んだ本数、%3$@=全体の本数 */
+"list.loading.progress" = "Läser in videor… %1$@ %% (%2$@ av %3$@)";
 /* 読み上げ: 並び替えと表示 */
 "list.menu.a11y" = "Sortera och filtrera";
+/* 動画一覧のメニュー: 一覧の一番下へ移る */
+"list.menu.bottom" = "Till botten";
 /* 新着を確認 */
 "list.menu.checkNew" = "Sök efter nya videor";
 /* すべて再読み込み */
@@ -191,6 +203,8 @@
 "list.menu.show" = "Visa";
 /* 並び替えメニュー */
 "list.menu.sort" = "Sortera";
+/* 動画一覧のメニュー: 一覧の一番上へ移る */
+"list.menu.top" = "Till toppen";
 /* 次に見る（%@ に本数） */
 "list.next.new.format" = "Nästa: nr %@";
 /* 続きから（%@ に本数） */
@@ -317,6 +331,8 @@
 "pro.disabled.title" = "Pro är inte längre aktivt";
 /* ホームからPro画面へ入る行の説明 */
 "pro.entry.body" = "Engångsköp. Gratisversionen sparar en kanal.";
+/* 最初の画面の Pro の入口（pro.entry.body の下の行） */
+"pro.entry.noReload" = "Med Pro behöver du inte läsa in videorna på nytt varje gång.";
 /* ホームからPro画面へ入る行の見出し */
 "pro.entry.title" = "Spara flera kanaler (Pro)";
 /* 購入できなかった */
@@ -331,6 +347,8 @@
 "pro.freeFeatures.header" = "Det här får du gratis";
 /* Pro 画面の見出し（買い切りであることを明示） */
 "pro.headline" = "Ett engångsköp som låser upp sparande av flera kanaler.";
+/* 保存チャンネルを削除するときの Pro の案内（replaceHint の下の行） */
+"pro.limit.noReload" = "Du behöver inte läsa in videorna på nytt varje gång.";
 /* 入れ替えるボタン */
 "pro.limit.replace" = "Byt ut";
 /* 警告のあとに出す Pro への誘導 */
@@ -340,7 +358,7 @@
 /* 上限の案内でProへ進むボタン */
 "pro.limit.upgrade" = "Skaffa Pro";
 /* 上限の案内から Pro の説明画面へ進むボタン */
-"pro.limit.viewPro" = "Se vad Pro innehåller";
+"pro.limit.viewPro" = "Flera kanaler med Pro";
 /* 入れ替えの警告（%@ に外れるチャンネル名）。大きめ・太字・赤で出す */
 "pro.limit.warning.format" = "Om du byter ut kanalen raderas visningshistorik, förlopp och anteckningar för den nu sparade ”%@”.";
 /* 一覧でロック中を示すラベル */

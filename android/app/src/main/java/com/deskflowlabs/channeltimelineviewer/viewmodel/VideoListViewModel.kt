@@ -91,6 +91,10 @@ class VideoListViewModel(
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
 
+    /** 全件を読み込み中の進み具合（読んだ本数, 全体の本数）。読み込み中でなければ null。 */
+    private val _loadProgress = MutableStateFlow<Pair<Int, Int>?>(null)
+    val loadProgress: StateFlow<Pair<Int, Int>?> = _loadProgress.asStateFlow()
+
     /** 保存済みの一覧を表示したまま、新着だけを確認している最中か。 */
     private val _isCheckingForNew = MutableStateFlow(false)
     val isCheckingForNew: StateFlow<Boolean> = _isCheckingForNew.asStateFlow()
@@ -206,7 +210,7 @@ class VideoListViewModel(
         _errorRes.value = null
         _isLoading.value = true
         try {
-            val items = api.fetchVideos(playlistId)
+            val items = api.fetchVideos(playlistId) { loaded, total -> _loadProgress.value = loaded to total }
             _videos.value = items
             if (items.isEmpty()) {
                 _errorRes.value = R.string.list_empty
@@ -222,6 +226,7 @@ class VideoListViewModel(
             _errorRes.value = YouTubeApiError.Unknown.messageRes
         } finally {
             _isLoading.value = false
+            _loadProgress.value = null
         }
     }
 

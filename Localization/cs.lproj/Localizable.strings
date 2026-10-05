@@ -75,6 +75,14 @@
 "captions.off" = "Vypnuto";
 /* チャンネル名が取得できないとき */
 "channel.untitled" = "(Bez názvu kanálu)";
+/* コピーした YouTube のリンクを見つけたときの説明 */
+"clip.dialog.body" = "Otevřeme kanál ze zkopírovaného odkazu na YouTube, od nejstarších videí.";
+/* コピーしたリンクを開かないときに、コピーを消すボタン */
+"clip.dialog.clear" = "Vymazat zkopírované";
+/* コピーしたリンクを開くボタン */
+"clip.dialog.open" = "Otevřít";
+/* コピーした YouTube のリンクを見つけたときの確認 */
+"clip.dialog.title" = "Otevřít zkopírovaný odkaz?";
 /* クリップボードにURLが無いとき */
 "clipboard.notFound" = "Ve schránce nebyl nalezen žádný odkaz na YouTube. Vložte adresu URL a zkuste to znovu.";
 /* 共通: キャンセル */
@@ -181,8 +189,12 @@
 "list.error.title" = "Nelze načíst";
 /* 取得中 */
 "list.loading" = "Načítání videí…";
+/* 一覧の全件を読み込み中の進み具合。%1$@=何％、%2$@=読んだ本数、%3$@=全体の本数 */
+"list.loading.progress" = "Načítání videí… %1$@ %% (%2$@ z %3$@)";
 /* 読み上げ: 並び替えと表示 */
 "list.menu.a11y" = "Řazení a filtr";
+/* 動画一覧のメニュー: 一覧の一番下へ移る */
+"list.menu.bottom" = "Na konec";
 /* 新着を確認 */
 "list.menu.checkNew" = "Zkontrolovat nová videa";
 /* すべて再読み込み */
@@ -191,6 +203,8 @@
 "list.menu.show" = "Zobrazit";
 /* 並び替えメニュー */
 "list.menu.sort" = "Řazení";
+/* 動画一覧のメニュー: 一覧の一番上へ移る */
+"list.menu.top" = "Na začátek";
 /* 次に見る（%@ に本数） */
 "list.next.new.format" = "Na řadě: č. %@";
 /* 続きから（%@ に本数） */
@@ -317,6 +331,8 @@
 "pro.disabled.title" = "Pro už není aktivní";
 /* ホームからPro画面へ入る行の説明 */
 "pro.entry.body" = "Jednorázový nákup. Bezplatná verze uloží jeden kanál.";
+/* 最初の画面の Pro の入口（pro.entry.body の下の行） */
+"pro.entry.noReload" = "S Pro není nutné videa pokaždé znovu načítat.";
 /* ホームからPro画面へ入る行の見出し */
 "pro.entry.title" = "Uložit více kanálů (Pro)";
 /* 購入できなかった */
@@ -331,6 +347,8 @@
 "pro.freeFeatures.header" = "Co získáte zdarma";
 /* Pro 画面の見出し（買い切りであることを明示） */
 "pro.headline" = "Jednorázový nákup, který odemkne ukládání více kanálů.";
+/* 保存チャンネルを削除するときの Pro の案内（replaceHint の下の行） */
+"pro.limit.noReload" = "Videa není nutné pokaždé znovu načítat.";
 /* 入れ替えるボタン */
 "pro.limit.replace" = "Nahradit";
 /* 警告のあとに出す Pro への誘導 */
@@ -340,7 +358,7 @@
 /* 上限の案内でProへ進むボタン */
 "pro.limit.upgrade" = "Získat Pro";
 /* 上限の案内から Pro の説明画面へ進むボタン */
-"pro.limit.viewPro" = "Co obsahuje Pro";
+"pro.limit.viewPro" = "Více kanálů s Pro";
 /* 入れ替えの警告（%@ に外れるチャンネル名）。大きめ・太字・赤で出す */
 "pro.limit.warning.format" = "Nahrazením tohoto kanálu smažete historii zhlédnutí, průběh a poznámky aktuálně uloženého kanálu „%@“.";
 /* 一覧でロック中を示すラベル */

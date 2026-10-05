@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 通知の小さいアイコン（単色。アプリアイコンの「3本線＋再生」を簡略化したもの） -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M3,6h11v2.5H3z M3,10.75h8v2.5H3z M3,15.5h5v2.5H3z M15,9.5v9l7,-4.5z" />
+</vector>

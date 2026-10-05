@@ -27,7 +27,9 @@ import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Button
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.ui.graphics.Color
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -68,6 +70,10 @@ fun ChannelInputScreen(
     onOpenAbout: () -> Unit,
     onOpenPro: () -> Unit,
     onOpenFavorite: (FavoriteChannel) -> Unit,
+    /** 「YouTube の共有から追加する」の案内を開く。 */
+    onOpenCopyGuide: () -> Unit = {},
+    /** 「人気動画から選ぶ」（案内シートの人気動画の一覧を開く）。 */
+    onOpenPopular: () -> Unit = {},
     /** 無料版の広告（MREC）。広告を出さないとき・読み込めていないときは null。 */
     mrecSlot: (@Composable () -> Unit)? = null,
 ) {
@@ -119,34 +125,13 @@ fun ChannelInputScreen(
                 }
             }
 
-            item {
-                Text(
-                    stringResource(R.string.input_section_header),
-                    style = MaterialTheme.typography.titleSmall,
-                )
-            }
-
-            item {
-                OutlinedTextField(
-                    value = urlText,
-                    onValueChange = viewModel::setUrlText,
-                    modifier = Modifier.fillMaxWidth(),
-                    singleLine = true,
-                    placeholder = { Text("https://www.youtube.com/@handle") },
-                    trailingIcon = {
-                        if (urlText.isNotEmpty()) {
-                            IconButton(onClick = { viewModel.setUrlText("") }) {
-                                Icon(Icons.Default.Clear, stringResource(R.string.input_clear_a11y))
-                            }
-                        }
-                    },
-                )
-            }
-
+            // チャンネルURLの入力欄は、検索機能を入れるまで出さない（2026-10-05・ユーザー判断）。
+            // 追加の入口は「YouTube の共有から追加する」（コピーして戻る案内）と、人気動画の案内。
+            // 入力欄の処理（ChannelInputViewModel.fetch）は検索機能で使うので残してある。
             item {
                 Button(
-                    onClick = viewModel::fetch,
-                    enabled = !isLoading && urlText.isNotBlank(),
+                    onClick = onOpenCopyGuide,
+                    enabled = !isLoading,
                     modifier = Modifier.fillMaxWidth(),
                 ) {
                     if (isLoading) {
@@ -157,10 +142,25 @@ fun ChannelInputScreen(
                     }
                     Text(
                         text = stringResource(
-                            if (isLoading) R.string.input_fetching else R.string.input_fetch
+                            if (isLoading) R.string.input_fetching else R.string.tutorial_pick_howto
                         ),
                         modifier = Modifier.padding(start = if (isLoading) 8.dp else 0.dp),
                     )
+                }
+            }
+
+            // 「人気動画から選ぶ」: 共有の案内の下に白い背景のボタンで置く（2026-10-05・ユーザー指定）。
+            // 初回の案内と同じ人気動画の一覧を開き、選んだ動画のチャンネルをそのまま開く。
+            item {
+                OutlinedButton(
+                    onClick = onOpenPopular,
+                    enabled = !isLoading,
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ButtonDefaults.outlinedButtonColors(
+                        containerColor = if (isSystemInDarkTheme()) MaterialTheme.colorScheme.surface else Color.White,
+                    ),
+                ) {
+                    Text(stringResource(R.string.tutorial_pick_title))
                 }
             }
 
@@ -172,15 +172,6 @@ fun ChannelInputScreen(
                         style = MaterialTheme.typography.bodyMedium,
                     )
                 }
-            }
-
-            item {
-                Text(
-                    // Android は共有からそのままアプリが開くので、iOS とは説明を変えている。
-                    stringResource(R.string.input_share_android, stringResource(R.string.app_name)),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
             }
 
             item {
@@ -298,10 +289,17 @@ fun ChannelInputScreen(
                         color = MaterialTheme.colorScheme.error,
                     )
                     if (!isPro) {
-                        Text(
-                            stringResource(R.string.pro_limit_replacehint),
-                            style = MaterialTheme.typography.bodyMedium,
-                        )
+                        Column {
+                            Text(
+                                stringResource(R.string.pro_limit_replacehint),
+                                style = MaterialTheme.typography.bodyMedium,
+                            )
+                            // Pro なら保存した一覧がそのまま残るので、開くたびに読み込み直さなくて済む。
+                            Text(
+                                stringResource(R.string.pro_limit_noreload),
+                                style = MaterialTheme.typography.bodyMedium,
+                            )
+                        }
                         Button(onClick = onOpenPro, modifier = Modifier.fillMaxWidth()) {
                             Text(stringResource(R.string.pro_limit_viewpro))
                         }
@@ -374,6 +372,11 @@ private fun ProEntryCard(isPro: Boolean, onOpen: () -> Unit) {
             if (!isPro) {
                 Text(
                     stringResource(R.string.pro_entry_body),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                Text(
+                    stringResource(R.string.pro_entry_noreload),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )

@@ -20,8 +20,8 @@ import java.time.Instant
 import java.time.format.DateTimeParseException
 import java.util.concurrent.TimeUnit
 
-/** 動画一覧の1ページ分。 */
-data class VideoPage(val items: List<VideoItem>, val nextPageToken: String?)
+/** 動画一覧の1ページ分。[totalResults] はプレイリスト全体の本数（読み込みの進み具合を出すのに使う）。 */
+data class VideoPage(val items: List<VideoItem>, val nextPageToken: String?, val totalResults: Int? = null)
 
 /** 最初の案内に並べる人気の動画（選ぶとその投稿チャンネルを開く）。 */
 data class PopularVideo(
@@ -113,16 +113,27 @@ class YouTubeApiClient(
         return channelIdFromVideosList(body)
     }
 
-    /** uploads プレイリストから全動画を取得し、古い順（publishedAt 昇順）で返す。 */
-    suspend fun fetchVideos(playlistId: String): List<VideoItem> {
+    /**
+     * uploads プレイリストから全動画を取得し、古い順（publishedAt 昇順）で返す。
+     *
+     * @param onProgress 1ページ読むごとに（読んだ本数, 全体の本数）。全体は最初のページの
+     *   pageInfo.totalResults（追加の quota なし）で、上限（[maxPages] × 50）で頭打ちにする。
+     */
+    suspend fun fetchVideos(
+        playlistId: String,
+        onProgress: (loaded: Int, total: Int) -> Unit = { _, _ -> },
+    ): List<VideoItem> {
         val all = mutableListOf<VideoItem>()
         var token: String? = null
         var page = 0
+        var total = 0
         do {
             val result = fetchVideosPage(playlistId, token)
             all += result.items
             token = result.nextPageToken
             page += 1
+            if (total == 0) total = minOf(result.totalResults ?: 0, maxPages * 50)
+            if (total > 0) onProgress(minOf(all.size, total), total)
         } while (token != null && page < maxPages)
         return all.sortedByPublishedDate(ascending = true)
     }
@@ -345,7 +356,10 @@ class YouTubeApiClient(
                         ?: snippet?.string("channelId").orEmpty(),
                 )
             }
-            return VideoPage(items, body.string("nextPageToken"))
+            val total = runCatching {
+                body["pageInfo"]?.jsonObject?.get("totalResults")?.jsonPrimitive?.content?.toInt()
+            }.getOrNull()
+            return VideoPage(items, body.string("nextPageToken"), total)
         }
 
         /** 一番大きいサムネイルを選ぶ（maxres → standard → high → medium → default）。 */

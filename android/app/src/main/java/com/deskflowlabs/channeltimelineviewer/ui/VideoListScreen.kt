@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -21,6 +22,8 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Sort
@@ -46,6 +49,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -68,6 +72,7 @@ import com.deskflowlabs.channeltimelineviewer.ui.theme.SkippedOrange
 import com.deskflowlabs.channeltimelineviewer.ui.theme.WatchedGreen
 import com.deskflowlabs.channeltimelineviewer.viewmodel.VideoListViewModel
 import com.deskflowlabs.channeltimelineviewer.viewmodel.WatchFilter
+import kotlinx.coroutines.launch
 import java.text.DateFormat
 import java.util.Date
 
@@ -90,6 +95,7 @@ fun VideoListScreen(
 ) {
     val videos by viewModel.videos.collectAsStateWithLifecycle()
     val isLoading by viewModel.isLoading.collectAsStateWithLifecycle()
+    val loadProgress by viewModel.loadProgress.collectAsStateWithLifecycle()
     val isCheckingForNew by viewModel.isCheckingForNew.collectAsStateWithLifecycle()
     val lastUpdatedAt by viewModel.lastUpdatedAt.collectAsStateWithLifecycle()
     val errorRes by viewModel.errorRes.collectAsStateWithLifecycle()
@@ -122,6 +128,9 @@ fun VideoListScreen(
     }
 
     var menuOpen by remember { mutableStateOf(false) }
+    // メニューの「一番上へ」「一番下へ」で使う（5,000本を超えるチャンネルでは指で端まで行くのが大変なため）。
+    val listState = rememberLazyListState()
+    val scope = rememberCoroutineScope()
 
     Scaffold(
         bottomBar = bottomBar,
@@ -224,6 +233,28 @@ fun VideoListScreen(
                                 menuOpen = false
                             },
                         )
+                        Divider()
+                        // 一覧の端へ一気に移る（2026-10-05・ユーザー要望）。本数が多いと動きを付けると
+                        // 何秒も流れ続けるので、アニメーションせずに飛ぶ。
+                        DropdownMenuItem(
+                            text = { Text(stringResource(R.string.list_menu_top)) },
+                            leadingIcon = { Icon(Icons.Default.KeyboardArrowUp, null) },
+                            onClick = {
+                                menuOpen = false
+                                scope.launch { listState.scrollToItem(0) }
+                            },
+                        )
+                        DropdownMenuItem(
+                            text = { Text(stringResource(R.string.list_menu_bottom)) },
+                            leadingIcon = { Icon(Icons.Default.KeyboardArrowDown, null) },
+                            onClick = {
+                                menuOpen = false
+                                scope.launch {
+                                    val last = listState.layoutInfo.totalItemsCount - 1
+                                    if (last >= 0) listState.scrollToItem(last)
+                                }
+                            },
+                        )
                     }
                 },
             )
@@ -235,17 +266,35 @@ fun VideoListScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
             ) {
-                CircularProgressIndicator()
-                Text(
-                    stringResource(R.string.list_loading),
-                    modifier = Modifier.padding(top = 12.dp),
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
+                // 全体の本数が分かったら、何％読んだかを出す（例: 動画を取得中… 45%（1,250 / 2,800本））。
+                val progress = loadProgress
+                if (progress == null) {
+                    CircularProgressIndicator()
+                    Text(
+                        stringResource(R.string.list_loading),
+                        modifier = Modifier.padding(top = 12.dp),
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                } else {
+                    val (loaded, total) = progress
+                    val numbers = java.text.NumberFormat.getIntegerInstance()
+                    CircularProgressIndicator(progress = { loaded.toFloat() / total })
+                    Text(
+                        stringResource(
+                            R.string.list_loading_progress,
+                            (loaded * 100 / total).toString(),
+                            numbers.format(loaded),
+                            numbers.format(total),
+                        ),
+                        modifier = Modifier.padding(top = 12.dp),
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
             }
             return@Scaffold
         }
 
-        LazyColumn(modifier = Modifier.fillMaxSize().padding(padding)) {
+        LazyColumn(state = listState, modifier = Modifier.fillMaxSize().padding(padding)) {
             item {
                 ProgressHeader(
                     watchedCount = watchStore.watchedCount(videos.map { it.id }),

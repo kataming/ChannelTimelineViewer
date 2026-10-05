@@ -75,6 +75,14 @@
 "captions.off" = "Ki";
 /* チャンネル名が取得できないとき */
 "channel.untitled" = "(Nincs csatornanév)";
+/* コピーした YouTube のリンクを見つけたときの説明 */
+"clip.dialog.body" = "Megnyitjuk a kimásolt YouTube-link csatornáját, a legrégebbi videókkal kezdve.";
+/* コピーしたリンクを開かないときに、コピーを消すボタン */
+"clip.dialog.clear" = "Másolat törlése";
+/* コピーしたリンクを開くボタン */
+"clip.dialog.open" = "Megnyitás";
+/* コピーした YouTube のリンクを見つけたときの確認 */
+"clip.dialog.title" = "Megnyitod a kimásolt linket?";
 /* クリップボードにURLが無いとき */
 "clipboard.notFound" = "Nem található YouTube-link a vágólapon. Illessz be egy URL-t, és próbáld újra.";
 /* 共通: キャンセル */
@@ -181,8 +189,12 @@
 "list.error.title" = "Nem sikerült betölteni";
 /* 取得中 */
 "list.loading" = "Videók betöltése…";
+/* 一覧の全件を読み込み中の進み具合。%1$@=何％、%2$@=読んだ本数、%3$@=全体の本数 */
+"list.loading.progress" = "Videók betöltése… %1$@%% (%2$@ / %3$@)";
 /* 読み上げ: 並び替えと表示 */
 "list.menu.a11y" = "Rendezés és szűrés";
+/* 動画一覧のメニュー: 一覧の一番下へ移る */
+"list.menu.bottom" = "Ugrás az aljára";
 /* 新着を確認 */
 "list.menu.checkNew" = "Új videók keresése";
 /* すべて再読み込み */
@@ -191,6 +203,8 @@
 "list.menu.show" = "Megjelenítés";
 /* 並び替えメニュー */
 "list.menu.sort" = "Rendezés";
+/* 動画一覧のメニュー: 一覧の一番上へ移る */
+"list.menu.top" = "Ugrás a tetejére";
 /* 次に見る（%@ に本数） */
 "list.next.new.format" = "Következik: %@.";
 /* 続きから（%@ に本数） */
@@ -317,6 +331,8 @@
 "pro.disabled.title" = "A Pro már nem aktív";
 /* ホームからPro画面へ入る行の説明 */
 "pro.entry.body" = "Egyszeri vásárlás. Az ingyenes verzió egy csatornát ment.";
+/* 最初の画面の Pro の入口（pro.entry.body の下の行） */
+"pro.entry.noReload" = "A Próval nem kell minden alkalommal újratölteni a videókat.";
 /* ホームからPro画面へ入る行の見出し */
 "pro.entry.title" = "Több csatorna mentése (Pro)";
 /* 購入できなかった */
@@ -331,6 +347,8 @@
 "pro.freeFeatures.header" = "Mit kapsz ingyen";
 /* Pro 画面の見出し（買い切りであることを明示） */
 "pro.headline" = "Egyszeri vásárlás, amely feloldja több csatorna mentését.";
+/* 保存チャンネルを削除するときの Pro の案内（replaceHint の下の行） */
+"pro.limit.noReload" = "Nem kell minden alkalommal újratölteni a videókat.";
 /* 入れ替えるボタン */
 "pro.limit.replace" = "Csere";
 /* 警告のあとに出す Pro への誘導 */
@@ -340,7 +358,7 @@
 /* 上限の案内でProへ進むボタン */
 "pro.limit.upgrade" = "Pro beszerzése";
 /* 上限の案内から Pro の説明画面へ進むボタン */
-"pro.limit.viewPro" = "Mit tartalmaz a Pro";
+"pro.limit.viewPro" = "Több csatorna a Próval";
 /* 入れ替えの警告（%@ に外れるチャンネル名）。大きめ・太字・赤で出す */
 "pro.limit.warning.format" = "A csatorna cseréje törli a jelenleg mentett „%@” csatorna megnézési előzményeit, haladását és jegyzeteit.";
 /* 一覧でロック中を示すラベル */

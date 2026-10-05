@@ -75,6 +75,14 @@
 "captions.off" = "Kapalı";
 /* チャンネル名が取得できないとき */
 "channel.untitled" = "(Kanal adı yok)";
+/* コピーした YouTube のリンクを見つけたときの説明 */
+"clip.dialog.body" = "Kopyaladığınız YouTube bağlantısının kanalını en eski videolardan başlayarak açacağız.";
+/* コピーしたリンクを開かないときに、コピーを消すボタン */
+"clip.dialog.clear" = "Kopyalananı temizle";
+/* コピーしたリンクを開くボタン */
+"clip.dialog.open" = "Aç";
+/* コピーした YouTube のリンクを見つけたときの確認 */
+"clip.dialog.title" = "Kopyaladığınız bağlantı açılsın mı?";
 /* クリップボードにURLが無いとき */
 "clipboard.notFound" = "Panoda YouTube bağlantısı bulunamadı. Bir URL yapıştırıp tekrar deneyin.";
 /* 共通: キャンセル */
@@ -181,8 +189,12 @@
 "list.error.title" = "Yüklenemedi";
 /* 取得中 */
 "list.loading" = "Videolar yükleniyor…";
+/* 一覧の全件を読み込み中の進み具合。%1$@=何％、%2$@=読んだ本数、%3$@=全体の本数 */
+"list.loading.progress" = "Videolar yükleniyor… %1$@%% (%2$@ / %3$@)";
 /* 読み上げ: 並び替えと表示 */
 "list.menu.a11y" = "Sırala ve filtrele";
+/* 動画一覧のメニュー: 一覧の一番下へ移る */
+"list.menu.bottom" = "En alta git";
 /* 新着を確認 */
 "list.menu.checkNew" = "Yeni videoları kontrol et";
 /* すべて再読み込み */
@@ -191,6 +203,8 @@
 "list.menu.show" = "Göster";
 /* 並び替えメニュー */
 "list.menu.sort" = "Sırala";
+/* 動画一覧のメニュー: 一覧の一番上へ移る */
+"list.menu.top" = "En üste git";
 /* 次に見る（%@ に本数） */
 "list.next.new.format" = "Sıradaki: #%@";
 /* 続きから（%@ に本数） */
@@ -317,6 +331,8 @@
 "pro.disabled.title" = "Pro artık etkin değil";
 /* ホームからPro画面へ入る行の説明 */
 "pro.entry.body" = "Tek seferlik satın alma. Ücretsiz sürüm bir kanal kaydeder.";
+/* 最初の画面の Pro の入口（pro.entry.body の下の行） */
+"pro.entry.noReload" = "Pro ile videoları her seferinde yeniden yüklemeniz gerekmez.";
 /* ホームからPro画面へ入る行の見出し */
 "pro.entry.title" = "Birden fazla kanal kaydet (Pro)";
 /* 購入できなかった */
@@ -331,6 +347,8 @@
 "pro.freeFeatures.header" = "Ücretsiz olarak neler var";
 /* Pro 画面の見出し（買い切りであることを明示） */
 "pro.headline" = "Birden fazla kanal kaydetmenin kilidini açan tek seferlik satın alma.";
+/* 保存チャンネルを削除するときの Pro の案内（replaceHint の下の行） */
+"pro.limit.noReload" = "Videoları her seferinde yeniden yüklemeniz gerekmez.";
 /* 入れ替えるボタン */
 "pro.limit.replace" = "Değiştir";
 /* 警告のあとに出す Pro への誘導 */
@@ -340,7 +358,7 @@
 /* 上限の案内でProへ進むボタン */
 "pro.limit.upgrade" = "Pro'yu edinin";
 /* 上限の案内から Pro の説明画面へ進むボタン */
-"pro.limit.viewPro" = "Pro'da neler var";
+"pro.limit.viewPro" = "Pro ile birden çok kanal";
 /* 入れ替えの警告（%@ に外れるチャンネル名）。大きめ・太字・赤で出す */
 "pro.limit.warning.format" = "Bu kanalı değiştirmek, şu anda kayıtlı olan “%@” kanalının izleme geçmişini, ilerlemesini ve notlarını siler.";
 /* 一覧でロック中を示すラベル */

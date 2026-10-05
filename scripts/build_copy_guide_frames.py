@@ -1,0 +1,262 @@
+# -*- coding: utf-8 -*-
+"""「YouTube の共有から追加する」の案内アニメ（Android）用のコマ画像を作る。
+
+実機（720x1520・3ボタンナビ）で、NASA の動画を開いて次の3枚を撮り、
+docs/tutorial/raw/copyguide-<言語>-<番号>.png に置く:
+  1 … 動画の画面（［共有］が見えている）
+  2 … ［共有］を押して共有パネルが出たところ（［コピー］が見えている）
+  3 … ［コピー］を押した直後（「コピーされました」が出ている）
+
+加工:
+  - 上のステータスバーを切り落とす
+  - 動画の映像と、下に出るおすすめ動画はぼかす（他人の映像をアプリ内で見せないため）
+  - 押す場所を緑の枠で囲む（既存の案内画像と同じ緑）
+  - 丸数字（①②③）と、そこから押す場所へ向かう曲がった矢印を描く
+    （2026-10-05 ユーザー指定。参考: 丸の中に数字・白抜きで黒い縁の矢印）
+
+使い方: python scripts/build_copy_guide_frames.py ja   （言語を省略すると raw にある全言語）
+出力:   android/app/src/main/res/drawable-<言語>-nodpi/copyguide_frame<番号>.jpg
+        （英語は drawable-nodpi = 既定。案内の文字と同じく、未対応の言語は英語の絵になる）
+"""
+from __future__ import annotations
+
+import math
+import sys
+from pathlib import Path
+
+from PIL import Image, ImageDraw, ImageFilter, ImageFont
+
+ROOT = Path(__file__).resolve().parent.parent
+RAW = ROOT / "docs" / "tutorial" / "raw"
+RES = ROOT / "android" / "app" / "src" / "main" / "res"
+GREEN = (46, 125, 50)
+INK = (20, 20, 20)
+WHITE = (255, 255, 255)
+
+# 言語 → drawable のフォルダ
+DIRS = {
+    "ja": "drawable-ja-nodpi", "en": "drawable-nodpi", "zh": "drawable-zh-rCN-nodpi",
+    "es": "drawable-es-nodpi", "de": "drawable-de-nodpi", "fr": "drawable-fr-nodpi", "ko": "drawable-ko-nodpi",
+}
+
+STATUS_BAR = 48  # 切り落とす高さ（元画像のピクセル）
+NAV_TOP = 1424   # ナビゲーションバーの上端
+PLAYER = (48, 452)  # 動画の映像の上下
+
+# コマごとの設定（元画像のピクセル座標）。言語で位置がずれたら、ここを言語別に足す。
+#   badge … 丸数字の中心   tip … 矢印の先（押す場所のすぐ手前）   bend … 矢印の曲がり具合（制御点）
+FRAMES = {
+    1: {"blur": [PLAYER, (900, NAV_TOP)], "boxes": [(492, 603, 568, 683)],
+        "badge": (640, 250), "tip": (548, 590), "bend": (668, 470)},
+    2: {"blur": [PLAYER], "boxes": [(28, 1068, 470, 1172)],
+        "badge": (640, 1120), "tip": (482, 1120), "bend": (560, 1070)},
+    3: {"blur": [PLAYER, (900, 1208), (1314, NAV_TOP)],
+        "boxes": [(14, 1208, 706, 1314), (138, 1434, 218, 1508)],
+        "badge": (470, 1368), "tip": (228, 1458), "bend": (330, 1350)},
+}
+
+
+def font(size: int) -> ImageFont.FreeTypeFont:
+    for name in ("arialbd.ttf", "seguisb.ttf", "DejaVuSans-Bold.ttf"):
+        try:
+            return ImageFont.truetype(name, size)
+        except OSError:
+            continue
+    return ImageFont.load_default()
+
+
+def bezier(p0, p1, p2, steps=60):
+    return [((1 - t) ** 2 * p0[0] + 2 * (1 - t) * t * p1[0] + t ** 2 * p2[0],
+             (1 - t) ** 2 * p0[1] + 2 * (1 - t) * t * p1[1] + t ** 2 * p2[1])
+            for t in (i / steps for i in range(steps + 1))]
+
+
+def arrow(draw: ImageDraw.ImageDraw, start, bend, tip, body=16, edge=5) -> None:
+    """白抜きで黒い縁の、曲がった矢印（参考画像の形）。"""
+    pts = bezier(start, bend, tip)
+    (x1, y1), (x2, y2) = pts[-6], pts[-1]
+    ang = math.atan2(y2 - y1, x2 - x1)
+    head_len, head_w = 44, 30
+    nx, ny = math.cos(ang + math.pi / 2), math.sin(ang + math.pi / 2)
+    base = (x2 - head_len * math.cos(ang), y2 - head_len * math.sin(ang))
+    head = [(base[0] + head_w * nx, base[1] + head_w * ny), (x2, y2), (base[0] - head_w * nx, base[1] - head_w * ny)]
+    shaft = [p for p in pts if math.dist(p, (x2, y2)) > head_len] + [base]
+    # 黒い縁（太い線と大きい三角）→ 白い中身（細い線と小さい三角）の順に重ねる
+    draw.line(shaft, fill=INK, width=body + edge * 2, joint="curve")
+    cx, cy = sum(p[0] for p in head) / 3, sum(p[1] for p in head) / 3
+    outer = [(cx + (px - cx) * 1.18, cy + (py - cy) * 1.18) for px, py in head]
+    draw.polygon(outer, fill=INK)
+    draw.line(shaft, fill=WHITE, width=body, joint="curve")
+    inner = [(cx + (px - cx) * 0.82, cy + (py - cy) * 0.82) for px, py in head]
+    draw.polygon(inner, fill=WHITE)
+
+
+def badge(draw: ImageDraw.ImageDraw, center, number: int, r=46) -> None:
+    x, y = center
+    draw.ellipse([x - r, y - r, x + r, y + r], fill=WHITE, outline=INK, width=8)
+    f = font(int(r * 1.35))
+    draw.text((x, y + 2), str(number), font=f, fill=INK, anchor="mm")
+
+
+# ［共有］アイコンの中心の x（言語でボタンの文字の長さが違い、少し左右にずれる）。撮り直したら見て直す。
+SHARE_X = {"ja": 530, "en": 516, "zh": 516, "es": 517, "de": 518, "fr": 516, "ko": 516}
+
+
+def spec_for(lang: str, number: int) -> dict:
+    spec = dict(FRAMES[number])
+    if number == 1:
+        cx = SHARE_X.get(lang, 530)
+        spec["boxes"] = [(cx - 38, 603, cx + 38, 683)]
+        spec["tip"] = (cx + 18, 590)
+    return spec
+
+
+# ③を「アプリに戻る」の通知にした版（2026-10-05）。copyguide-<言語>-3n.png（通知の一覧を引き下ろした画面）が
+# あれば、その中の「アプリに戻る」のカードだけを切り出して、「コピーされました」の画面の上部に貼る
+# （画面上部に出るポップアップと同じ見た目。一覧には撮影した端末の他の通知も写るので、そのままは使わない）。
+CARD = (8, 950, 712, 1157)          # 通知の一覧の中の「アプリに戻る」のカード
+CARD_HEADER = (84, 980, 350, 1020)  # カードの上の行（アプリ名）。試験版の名前が出るので書き直す
+CARD_TOP = 64                       # 貼る位置（元画像の y）
+NOTIFY_FRAME3 = {"blur": [PLAYER, (900, 1208), (1314, NAV_TOP)],
+                 "boxes": [], "badge": (600, 470), "tip": (560, CARD_TOP + 214), "bend": (650, 380)}
+
+
+def notification_card(lang: str) -> Image.Image:
+    shade = Image.open(RAW / f"copyguide-{lang}-3n.png").convert("RGB")
+    card = shade.crop(CARD)
+    draw = ImageDraw.Draw(card)
+    l, t, r, b = CARD_HEADER
+    ox, oy = CARD[0], CARD[1]
+    draw.rectangle([l - ox, t - oy, r - ox, b - oy], fill=WHITE)
+    try:
+        f = ImageFont.truetype("YuGothM.ttc", 23)
+    except OSError:
+        f = font(23)
+    draw.text((l - ox + 4, (t + b) / 2 - oy), "Channel Timeline Viewer・現在" if lang == "ja" else "Channel Timeline Viewer",
+              font=f, fill=(95, 99, 104), anchor="lm")
+    # 角を丸めて影を付ける
+    mask = Image.new("L", card.size, 0)
+    ImageDraw.Draw(mask).rounded_rectangle([0, 0, card.width - 1, card.height - 1], radius=18, fill=255)
+    out = Image.new("RGBA", card.size)
+    out.paste(card, (0, 0), mask)
+    return out
+
+
+def build(lang: str, number: int) -> None:
+    src = RAW / f"copyguide-{lang}-{number}.png"
+    img = Image.open(src).convert("RGB")
+    spec = spec_for(lang, number)
+    with_card = number == 3 and (RAW / f"copyguide-{lang}-3n.png").exists()
+    if with_card:
+        spec = dict(NOTIFY_FRAME3)
+    for top, bottom in spec["blur"]:
+        region = img.crop((0, top, img.width, bottom)).filter(ImageFilter.GaussianBlur(18))
+        img.paste(region, (0, top))
+    if with_card:
+        card = notification_card(lang)
+        shadow = Image.new("RGBA", (card.width + 30, card.height + 30), (0, 0, 0, 0))
+        ImageDraw.Draw(shadow).rounded_rectangle([15, 18, card.width + 15, card.height + 15], radius=20, fill=(0, 0, 0, 110))
+        shadow = shadow.filter(ImageFilter.GaussianBlur(8))
+        img.paste(shadow, (CARD[0] - 15, CARD_TOP - 15), shadow)
+        img.paste(card, (CARD[0], CARD_TOP), card)
+        spec["boxes"] = [(CARD[0] - 2, CARD_TOP - 2, CARD[2] + 2, CARD_TOP + card.height + 2)]
+    draw = ImageDraw.Draw(img)
+    for l, t, r, b in spec["boxes"]:
+        draw.rounded_rectangle([l, t, r, b], radius=14, outline=GREEN, width=6)
+    arrow(draw, spec["badge"], spec["bend"], spec["tip"])
+    badge(draw, spec["badge"], number)
+    img = img.crop((0, STATUS_BAR, img.width, img.height))
+    out = RES / DIRS[lang] / f"copyguide_frame{number}.jpg"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    img.save(out, quality=82, optimize=True)
+    print(f"  {out.relative_to(ROOT)}  {img.size}")
+
+
+# ③を「画面の端のロゴのボタン」にした版（2026-10-05・ユーザー指定）。
+# 「他のアプリの上に重ねて表示」を許可した人に見せる（許可していない人には通知の③のまま）。
+# 「コピーされました」の画面（copyguide-<言語>-3.png）に、アプリが実際に出すボタン
+# （ui/CopyGuideOverlay.kt: 56dp の緑の丸＋ロゴ＋白い縁・右端から 6dp・高さの 70% あたり）を描き、
+# 丸数字の代わりに「クリック」の文字から矢印でボタンを指す。実機は 320dpi（1dp = 2px）。
+LOGO_GREEN = (0x17, 0x91, 0x4A)
+LOGO_D = 112                 # 56dp
+LOGO_CENTER = (720 - 12 - LOGO_D // 2, 1000)
+CLICK_LABEL = {"ja": "クリック", "en": "Tap", "zh": "点击", "es": "Toca", "de": "Tippen", "fr": "Touchez", "ko": "탭"}
+CLICK_FONT = {"ja": "YuGothB.ttc", "zh": "msyhbd.ttc", "ko": "malgunbd.ttf"}
+# 文字の中心（元画像のピクセル）。下のぼかした画面の左寄り（上の YouTube の文字に重ねると読みにくい・ユーザー指摘）
+CLICK_CENTER = (230, 1090)
+
+
+def overlay_logo(d: int) -> Image.Image:
+    """CopyGuideOverlay と同じ見た目のボタン（緑の丸・白い縁・ic_launcher_foreground のロゴ）。"""
+    k = 4  # 大きく描いて縮め、縁を滑らかにする
+    big = Image.new("RGBA", (d * k, d * k), (0, 0, 0, 0))
+    g = ImageDraw.Draw(big)
+    g.ellipse([0, 0, d * k - 1, d * k - 1], fill=WHITE)
+    edge = 2 * 2 * k  # 2dp
+    g.ellipse([edge, edge, d * k - 1 - edge, d * k - 1 - edge], fill=LOGO_GREEN)
+    s = d * k / 108  # ロゴのベクター（108 四方・中身は 27 ずらした 54 四方）
+    off = 27 * s
+
+    def bar(x1, x2, y):
+        g.rounded_rectangle([off + x1 * s - 2.5 * s, off + y * s, off + x2 * s + 2.5 * s, off + (y + 5) * s],
+                            radius=2.5 * s, fill=WHITE)
+    bar(8, 38, 10)
+    bar(8, 31, 24.5)
+    bar(8, 24, 39)
+    g.polygon([(off + 40 * s, off + 20 * s), (off + 52 * s, off + 27 * s), (off + 40 * s, off + 34 * s)], fill=WHITE)
+    return big.resize((d, d), Image.LANCZOS)
+
+
+def click_label(draw: ImageDraw.ImageDraw, lang: str, center) -> tuple:
+    """白い角丸の札に黒い縁、太字の「クリック」。札の右端の中央を返す（矢印の出発点）。"""
+    name = CLICK_FONT.get(lang)
+    try:
+        f = ImageFont.truetype(name, 50) if name else font(50)
+    except OSError:
+        f = font(50)
+    text = CLICK_LABEL.get(lang, CLICK_LABEL["en"])
+    l, t, r, b = draw.textbbox(center, text, font=f, anchor="mm")
+    pad_x, pad_y = 30, 18
+    box = [l - pad_x, t - pad_y, r + pad_x, b + pad_y]
+    draw.rounded_rectangle(box, radius=(box[3] - box[1]) // 2, fill=WHITE, outline=INK, width=8)
+    draw.text(center, text, font=f, fill=INK, anchor="mm")
+    return box
+
+
+def build_overlay(lang: str) -> None:
+    img = Image.open(RAW / f"copyguide-{lang}-3.png").convert("RGB")
+    for top, bottom in FRAMES[3]["blur"]:
+        region = img.crop((0, top, img.width, bottom)).filter(ImageFilter.GaussianBlur(18))
+        img.paste(region, (0, top))
+    logo = overlay_logo(LOGO_D)
+    cx, cy = LOGO_CENTER
+    img.paste(logo, (cx - LOGO_D // 2, cy - LOGO_D // 2), logo)
+    draw = ImageDraw.Draw(img)
+    # 押す場所の緑の枠（他のコマと同じ）。丸いボタンなので丸で囲む。
+    ring = LOGO_D // 2 + 14
+    draw.ellipse([cx - ring, cy - ring, cx + ring, cy + ring], outline=GREEN, width=6)
+    # 矢印を先に描き、札をその上に重ねる（出発点が札の下に隠れるように）。
+    probe = ImageDraw.Draw(Image.new("RGB", (1, 1)))
+    box = click_label(probe, lang, CLICK_CENTER)
+    start = (box[2] - 10, (box[1] + box[3]) / 2)
+    tip = (cx - ring - 10, cy + 4)
+    arrow(draw, start, ((start[0] + tip[0]) / 2 + 10, start[1] + 10), tip)
+    click_label(draw, lang, CLICK_CENTER)
+    img = img.crop((0, STATUS_BAR, img.width, img.height))
+    out = RES / DIRS[lang] / "copyguide_frame3_overlay.jpg"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    img.save(out, quality=82, optimize=True)
+    print(f"  {out.relative_to(ROOT)}  {img.size}")
+
+
+def main() -> int:
+    langs = sys.argv[1:] or sorted({p.name.split("-")[1] for p in RAW.glob("copyguide-*-1.png")})
+    for lang in langs:
+        for number in FRAMES:
+            build(lang, number)
+        build_overlay(lang)
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

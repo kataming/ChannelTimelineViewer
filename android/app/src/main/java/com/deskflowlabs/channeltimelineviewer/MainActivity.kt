@@ -19,6 +19,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.ui.res.stringResource
+import com.deskflowlabs.channeltimelineviewer.ui.CopyLinkGuide
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -61,6 +66,12 @@ class MainActivity : ComponentActivity() {
     /** 共有（ACTION_SEND）で受け取った YouTube URL。 */
     private val sharedUrl = MutableStateFlow<String?>(null)
 
+    /** コピーされていた YouTube の URL（「開きますか？」と聞く）。 */
+    private val copiedUrl = MutableStateFlow<String?>(null)
+
+    /** 一度聞いた（開いた・断った）コピーは、二度は聞かない。 */
+    private val handledClipPrefs by lazy { getSharedPreferences("copy_link_guide", MODE_PRIVATE) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         // 画面の端から端まで描く（Android 15 以降は既定の挙動。それより前の端末でも見た目を揃える）。
         // 各画面は Scaffold の余白をそのまま使っているので、上下のバーに文字が潜り込むことはない。
@@ -87,6 +98,12 @@ class MainActivity : ComponentActivity() {
         val adsResetConsent = BuildConfig.DEBUG && intent?.getBooleanExtra("adsResetConsent", false) == true
         //   --ez noAds true       … 広告を出さない（ストア用スクリーンショットにテスト広告を写さないため）
         val noAds = BuildConfig.DEBUG && intent?.getBooleanExtra("noAds", false) == true
+        //   --ez postCopyGuideNotification true … 「アプリに戻る」の通知だけを出して終わる（案内の画像を撮るため）
+        if (BuildConfig.DEBUG && intent?.getBooleanExtra("postCopyGuideNotification", false) == true) {
+            CopyLinkGuide.postNotification(this)
+            finish()
+            return
+        }
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -113,6 +130,13 @@ class MainActivity : ComponentActivity() {
                                 container,
                                 sharedUrl,
                                 skipTutorial,
+                                copiedUrl = copiedUrl,
+                                onResumedCheckClipboard = ::checkCopiedLink,
+                                onCopiedUrlAnswered = { url, open ->
+                                    copiedUrl.value = null
+                                    markClipHandled(url)
+                                    if (open) sharedUrl.value = url else CopyLinkGuide.clearClipboard(this)
+                                },
                                 openAdsPrivacyOptions = { container.ads.showPrivacyOptions(this) },
                             )
                         }
@@ -137,6 +161,40 @@ class MainActivity : ComponentActivity() {
         super.onNewIntent(intent)
         setIntent(intent)
         handleShareIntent(intent)
+    }
+
+    /**
+     * 前面に来て入力を受け付けられるようになったら、コピーされた YouTube のリンクを見る。
+     * Android 10 以降は、前面でフォーカスを持っているときしかクリップボードを読めない。
+     */
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        if (hasFocus) checkCopiedLink()
+    }
+
+    /**
+     * コピーされた YouTube のリンクを見る。案内のシート（別ウィンドウ）が出ているあいだは
+     * Activity 側の onWindowFocusChanged が呼ばれないので、画面側からも前面に戻ったときに呼ぶ。
+     */
+    private fun checkCopiedLink() {
+        // 案内から YouTube へ行っていた人が戻ってきた（戻るボタン・最近使ったアプリのどちらでも）:
+        // 新しくコピーしたリンクがあれば、聞かずにそのまま開く。
+        CopyLinkGuide.takeNewlyCopiedUrl(this)?.let { url ->
+            markClipHandled(url)
+            sharedUrl.value = url
+            return
+        }
+        // それ以外で、まだ聞いていない YouTube のリンクがコピーされていれば「開きますか？」と聞く。
+        val url = CopyLinkGuide.copiedYouTubeUrl(this) ?: return
+        if (url != handledClipPrefs.getString(KEY_LAST_CLIP, null)) copiedUrl.value = url
+    }
+
+    private fun markClipHandled(url: String) {
+        handledClipPrefs.edit().putString(KEY_LAST_CLIP, url).apply()
+    }
+
+    private companion object {
+        const val KEY_LAST_CLIP = "last_handled_clip"
     }
 
     /**
@@ -193,8 +251,42 @@ private fun AppRoot(
     // Activity が要る（同意フォームは Activity の上に出す）ので、MainActivity から渡す。
     // LocalContext はデバッグの言語切り替えで Activity 以外に差し替わることがあるため使わない。
     openAdsPrivacyOptions: () -> Unit = {},
+    copiedUrl: MutableStateFlow<String?> = MutableStateFlow(null),
+    onCopiedUrlAnswered: (url: String, open: Boolean) -> Unit = { _, _ -> },
+    onResumedCheckClipboard: () -> Unit = {},
 ) {
     var screen by remember { mutableStateOf<Screen>(Screen.Input) }
+
+    // 前面に戻ったら、少し待ってからコピーされたリンクを見る（フォーカスが戻る前は読めないので数回試す）。
+    val resumeState by LocalLifecycleOwner.current.lifecycle.currentStateAsState()
+    LaunchedEffect(resumeState.isAtLeast(Lifecycle.State.RESUMED)) {
+        if (!resumeState.isAtLeast(Lifecycle.State.RESUMED)) return@LaunchedEffect
+        repeat(3) {
+            kotlinx.coroutines.delay(400)
+            onResumedCheckClipboard()
+        }
+    }
+
+    // コピーされていた YouTube のリンク（通知を使わずに自分で戻ってきた人向け）。開くかどうかを聞く。
+    val copied by copiedUrl.collectAsStateWithLifecycle()
+    copied?.let { url ->
+        AlertDialog(
+            onDismissRequest = { onCopiedUrlAnswered(url, false) },
+            title = { Text(stringResource(R.string.clip_dialog_title)) },
+            text = { Text(stringResource(R.string.clip_dialog_body)) },
+            confirmButton = {
+                TextButton(onClick = { onCopiedUrlAnswered(url, true) }) {
+                    Text(stringResource(R.string.clip_dialog_open))
+                }
+            },
+            // 開かないときは、コピーそのものを消す（同じリンクで何度も聞かれないように・2026-10-05 ユーザー指定）。
+            dismissButton = {
+                TextButton(onClick = { onCopiedUrlAnswered(url, false) }) {
+                    Text(stringResource(R.string.clip_dialog_clear))
+                }
+            },
+        )
+    }
     var showOptions by remember { mutableStateOf(false) }
 
     val inputViewModel: ChannelInputViewModel = viewModel(
@@ -252,6 +344,8 @@ private fun AppRoot(
     val savedChannels by container.favorites.favorites.collectAsStateWithLifecycle()
     var tutorialShown by rememberSaveable { mutableStateOf(false) }
     var tutorialSource by remember { mutableStateOf(Analytics.Source.FIRST_TIME) }
+    // 最初の画面の［YouTube の共有から追加する］から開いたときは、案内をその画面から始める。
+    var tutorialStartWithCopyGuide by remember { mutableStateOf(false) }
 
     // 初めての人（まだ1チャンネルも無い人）には、入力画面に戻るたびに出す。YouTube へ行って
     // 共有せずに戻ってきた人も、何もできない画面に取り残さないため（2026-10-05・ユーザー判断）。
@@ -259,18 +353,35 @@ private fun AppRoot(
     val isResumed = lifecycleState.isAtLeast(Lifecycle.State.RESUMED)
     LaunchedEffect(screen) {
         // 一覧・再生画面の上には重ねない。
-        if (screen !is Screen.Input && tutorialSource == Analytics.Source.FIRST_TIME) tutorialShown = false
+        // 自分で開いた案内（［YouTube の共有から追加する］など）も含めて、一覧・再生画面の上には残さない。
+        // 残すと、コピーして戻ってチャンネルを開いたあとに案内が前に出てしまう（2026-10-05 に実際に起きた）。
+        if (screen !is Screen.Input) tutorialShown = false
     }
     LaunchedEffect(tutorialDone, savedChannels.isEmpty(), screen, isResumed) {
         if (screen !is Screen.Input || !isResumed) return@LaunchedEffect
         if (skipTutorial) return@LaunchedEffect
         if (savedChannels.isNotEmpty() || tutorialShown) return@LaunchedEffect
         tutorialSource = Analytics.Source.FIRST_TIME
+        tutorialStartWithCopyGuide = false
         tutorialShown = true
         container.analytics.log(
             Analytics.Event.CHANNEL_TUTORIAL_VIEW,
             Analytics.Param.SOURCE to Analytics.Source.FIRST_TIME,
         )
+    }
+
+    // 案内（初めての人には閉じにくくしてある）が出ているときの戻るボタンは、アプリを終了せず
+    // 案内だけを閉じて最初の画面に戻す（2026-10-05・ユーザー指摘）。
+    androidx.activity.compose.BackHandler(enabled = tutorialShown) { tutorialShown = false }
+
+    // 端末の戻るボタンでも、画面左上の矢印と同じ画面へ戻る（以前は最初の画面以外でもアプリが終了していた）。
+    // 再生画面は一覧へ、一覧・Pro・このアプリについては最初の画面へ。最初の画面ではこれまでどおり終了する。
+    // 画面ごとの BackHandler（検索を閉じる・全画面を抜ける）はこれより後に登録されるので、そちらが先に効く。
+    androidx.activity.compose.BackHandler(enabled = !tutorialShown && screen !is Screen.Input) {
+        screen = when (val current = screen) {
+            is Screen.Play -> Screen.Videos(current.channel, keepSearch = true)
+            else -> Screen.Input
+        }
     }
 
     if (tutorialShown) {
@@ -298,6 +409,7 @@ private fun AppRoot(
             // 端末の国の人気動画（国が分からなければ YouTube の既定）。
             loadPopular = { container.api.fetchPopularVideos(java.util.Locale.getDefault().country) },
             dismissible = tutorialSource != Analytics.Source.FIRST_TIME,
+            startWithCopyGuide = tutorialStartWithCopyGuide,
             onPickVideo = { video ->
                 tutorialShown = false
                 if (tutorialSource == Analytics.Source.FIRST_TIME) {
@@ -318,6 +430,16 @@ private fun AppRoot(
             onOpenAbout = { screen = Screen.About },
             onOpenPro = { screen = Screen.Pro },
             onOpenFavorite = { favorite -> inputViewModel.open(favorite) },
+            onOpenCopyGuide = {
+                tutorialSource = Analytics.Source.MANUAL
+                tutorialStartWithCopyGuide = true
+                tutorialShown = true
+            },
+            onOpenPopular = {
+                tutorialSource = Analytics.Source.MANUAL
+                tutorialStartWithCopyGuide = false
+                tutorialShown = true
+            },
             // MREC は保存チャンネルの一覧の下にだけ置く（docs/admob-ads.md）。
             // 1件も保存していない人（初回）には読み込みもしない。
             mrecSlot = (if (savedChannels.isNotEmpty()) rememberMrecAd(container.ads) else null)
@@ -331,6 +453,7 @@ private fun AppRoot(
             onOpenAdsPrivacyOptions = openAdsPrivacyOptions,
             onShowTutorial = {
                 tutorialSource = Analytics.Source.MANUAL
+                tutorialStartWithCopyGuide = false
                 tutorialShown = true
                 container.analytics.log(
                     Analytics.Event.CHANNEL_TUTORIAL_VIEW,

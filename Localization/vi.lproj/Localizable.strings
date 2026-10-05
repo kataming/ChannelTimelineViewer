@@ -75,6 +75,14 @@
 "captions.off" = "Tắt";
 /* チャンネル名が取得できないとき */
 "channel.untitled" = "(Không có tên kênh)";
+/* コピーした YouTube のリンクを見つけたときの説明 */
+"clip.dialog.body" = "Chúng tôi sẽ mở kênh của đường liên kết YouTube bạn đã sao chép, từ video cũ nhất.";
+/* コピーしたリンクを開かないときに、コピーを消すボタン */
+"clip.dialog.clear" = "Xóa nội dung đã sao chép";
+/* コピーしたリンクを開くボタン */
+"clip.dialog.open" = "Mở";
+/* コピーした YouTube のリンクを見つけたときの確認 */
+"clip.dialog.title" = "Mở đường liên kết bạn đã sao chép?";
 /* クリップボードにURLが無いとき */
 "clipboard.notFound" = "Không tìm thấy liên kết YouTube trong bộ nhớ tạm. Hãy dán URL và thử lại.";
 /* 共通: キャンセル */
@@ -181,8 +189,12 @@
 "list.error.title" = "Không tải được";
 /* 取得中 */
 "list.loading" = "Đang tải video…";
+/* 一覧の全件を読み込み中の進み具合。%1$@=何％、%2$@=読んだ本数、%3$@=全体の本数 */
+"list.loading.progress" = "Đang tải video… %1$@%% (%2$@ / %3$@)";
 /* 読み上げ: 並び替えと表示 */
 "list.menu.a11y" = "Sắp xếp và lọc";
+/* 動画一覧のメニュー: 一覧の一番下へ移る */
+"list.menu.bottom" = "Xuống cuối";
 /* 新着を確認 */
 "list.menu.checkNew" = "Kiểm tra video mới";
 /* すべて再読み込み */
@@ -191,6 +203,8 @@
 "list.menu.show" = "Hiển thị";
 /* 並び替えメニュー */
 "list.menu.sort" = "Sắp xếp";
+/* 動画一覧のメニュー: 一覧の一番上へ移る */
+"list.menu.top" = "Lên đầu";
 /* 次に見る（%@ に本数） */
 "list.next.new.format" = "Tiếp theo: #%@";
 /* 続きから（%@ に本数） */
@@ -317,6 +331,8 @@
 "pro.disabled.title" = "Pro không còn hoạt động";
 /* ホームからPro画面へ入る行の説明 */
 "pro.entry.body" = "Mua một lần. Phiên bản miễn phí lưu được một kênh.";
+/* 最初の画面の Pro の入口（pro.entry.body の下の行） */
+"pro.entry.noReload" = "Với Pro, bạn không cần tải lại video mỗi lần.";
 /* ホームからPro画面へ入る行の見出し */
 "pro.entry.title" = "Lưu nhiều kênh (Pro)";
 /* 購入できなかった */
@@ -331,6 +347,8 @@
 "pro.freeFeatures.header" = "Những gì bạn có miễn phí";
 /* Pro 画面の見出し（買い切りであることを明示） */
 "pro.headline" = "Mua một lần để mở khóa tính năng lưu nhiều kênh.";
+/* 保存チャンネルを削除するときの Pro の案内（replaceHint の下の行） */
+"pro.limit.noReload" = "Không cần tải lại video mỗi lần.";
 /* 入れ替えるボタン */
 "pro.limit.replace" = "Thay thế";
 /* 警告のあとに出す Pro への誘導 */
@@ -340,7 +358,7 @@
 /* 上限の案内でProへ進むボタン */
 "pro.limit.upgrade" = "Mua Pro";
 /* 上限の案内から Pro の説明画面へ進むボタン */
-"pro.limit.viewPro" = "Xem Pro có gì";
+"pro.limit.viewPro" = "Nhiều kênh với Pro";
 /* 入れ替えの警告（%@ に外れるチャンネル名）。大きめ・太字・赤で出す */
 "pro.limit.warning.format" = "Thay kênh này sẽ xóa lịch sử đã xem, tiến độ và ghi chú của kênh đang lưu “%@”.";
 /* 一覧でロック中を示すラベル */

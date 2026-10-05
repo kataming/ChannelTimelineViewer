@@ -75,6 +75,14 @@
 "captions.off" = "Nonaktif";
 /* チャンネル名が取得できないとき */
 "channel.untitled" = "(Tanpa nama channel)";
+/* コピーした YouTube のリンクを見つけたときの説明 */
+"clip.dialog.body" = "Kami akan membuka channel dari link YouTube yang Anda salin, mulai dari video terlama.";
+/* コピーしたリンクを開かないときに、コピーを消すボタン */
+"clip.dialog.clear" = "Hapus salinan";
+/* コピーしたリンクを開くボタン */
+"clip.dialog.open" = "Buka";
+/* コピーした YouTube のリンクを見つけたときの確認 */
+"clip.dialog.title" = "Buka link yang Anda salin?";
 /* クリップボードにURLが無いとき */
 "clipboard.notFound" = "Tidak ada tautan YouTube di papan klip. Tempel URL lalu coba lagi.";
 /* 共通: キャンセル */
@@ -181,8 +189,12 @@
 "list.error.title" = "Tidak dapat memuat";
 /* 取得中 */
 "list.loading" = "Memuat video…";
+/* 一覧の全件を読み込み中の進み具合。%1$@=何％、%2$@=読んだ本数、%3$@=全体の本数 */
+"list.loading.progress" = "Memuat video… %1$@%% (%2$@ dari %3$@)";
 /* 読み上げ: 並び替えと表示 */
 "list.menu.a11y" = "Urutkan dan filter";
+/* 動画一覧のメニュー: 一覧の一番下へ移る */
+"list.menu.bottom" = "Ke paling bawah";
 /* 新着を確認 */
 "list.menu.checkNew" = "Periksa video baru";
 /* すべて再読み込み */
@@ -191,6 +203,8 @@
 "list.menu.show" = "Tampilkan";
 /* 並び替えメニュー */
 "list.menu.sort" = "Urutkan";
+/* 動画一覧のメニュー: 一覧の一番上へ移る */
+"list.menu.top" = "Ke paling atas";
 /* 次に見る（%@ に本数） */
 "list.next.new.format" = "Berikutnya: #%@";
 /* 続きから（%@ に本数） */
@@ -317,6 +331,8 @@
 "pro.disabled.title" = "Pro tidak lagi aktif";
 /* ホームからPro画面へ入る行の説明 */
 "pro.entry.body" = "Sekali bayar. Versi gratis menyimpan satu channel.";
+/* 最初の画面の Pro の入口（pro.entry.body の下の行） */
+"pro.entry.noReload" = "Dengan Pro, tidak perlu memuat ulang video setiap kali.";
 /* ホームからPro画面へ入る行の見出し */
 "pro.entry.title" = "Simpan banyak channel (Pro)";
 /* 購入できなかった */
@@ -331,6 +347,8 @@
 "pro.freeFeatures.header" = "Yang Anda dapatkan secara gratis";
 /* Pro 画面の見出し（買い切りであることを明示） */
 "pro.headline" = "Pembelian sekali bayar yang membuka fitur simpan banyak channel.";
+/* 保存チャンネルを削除するときの Pro の案内（replaceHint の下の行） */
+"pro.limit.noReload" = "Tidak perlu memuat ulang video setiap kali.";
 /* 入れ替えるボタン */
 "pro.limit.replace" = "Ganti";
 /* 警告のあとに出す Pro への誘導 */
@@ -340,7 +358,7 @@
 /* 上限の案内でProへ進むボタン */
 "pro.limit.upgrade" = "Dapatkan Pro";
 /* 上限の案内から Pro の説明画面へ進むボタン */
-"pro.limit.viewPro" = "Lihat isi Pro";
+"pro.limit.viewPro" = "Banyak channel dengan Pro";
 /* 入れ替えの警告（%@ に外れるチャンネル名）。大きめ・太字・赤で出す */
 "pro.limit.warning.format" = "Mengganti channel ini akan menghapus riwayat tontonan, progres, dan catatan dari “%@” yang saat ini tersimpan.";
 /* 一覧でロック中を示すラベル */

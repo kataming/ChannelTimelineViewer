@@ -167,11 +167,13 @@ class ChannelInputViewModel(
     fun replaceSavedChannel() {
         val pending = _pendingUpgrade.value ?: return
         val savedNewestFirst = favorites.favorites.value.map { it.id }
-        ChannelSlotPolicy.idsToRemoveForReplacement(savedNewestFirst)
-            .forEach(dataRemover::removeChannel)
+        val leaving = ChannelSlotPolicy.idsToRemoveForReplacement(savedNewestFirst)
         _pendingUpgrade.value = null
         analytics.log(Analytics.Event.CHANNEL_REPLACE)
+        // 先に新しいチャンネルを保存してから古い方を消す（保存が一瞬0件になると、
+        // 初めての人向けの案内が出てしまうため）。
         openResolved(pending.channel, pending.source)
+        leaving.filter { it != pending.channel.id }.forEach(dataRemover::removeChannel)
     }
 
     /** Pro を買ったあとに、保留していたチャンネルをそのまま開く。 */

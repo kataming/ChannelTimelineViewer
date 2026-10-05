@@ -5,7 +5,11 @@ import android.content.Intent
 import android.net.Uri
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.size
@@ -13,6 +17,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.material3.AlertDialog
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
@@ -83,6 +88,8 @@ fun ChannelTutorialSheet(
      * 何もできない画面が残るだけなので、動画を選ぶか「YouTube から追加する」へ進むまで残す。
      */
     dismissible: Boolean = true,
+    /** 最初から「YouTube の共有から追加する」の案内を開く（最初の画面のボタンから来たとき）。 */
+    startWithCopyGuide: Boolean = false,
 ) {
     val context = LocalContext.current
     val appName = stringResource(R.string.app_name)
@@ -90,6 +97,13 @@ fun ChannelTutorialSheet(
     var index by remember { mutableIntStateOf(0) }
     // 最初は「人気の動画から選ぶ」画面。YouTube から追加する手順（4ステップ）は、選びたい動画が無い人だけが見る。
     var showSteps by rememberSaveable { mutableStateOf(false) }
+    // 「YouTube の共有から追加する」= コピーして通知から戻る案内。従来の4ステップはそこから開く。
+    var showCopyGuide by rememberSaveable { mutableStateOf(startWithCopyGuide) }
+    // 開くたびに、指定された画面から始める（前回の表示状態を引き継がない）。
+    LaunchedEffect(startWithCopyGuide) {
+        showCopyGuide = startWithCopyGuide
+        showSteps = false
+    }
     val sheetState = rememberModalBottomSheetState(
         skipPartiallyExpanded = true,
         confirmValueChange = { dismissible || it != SheetValue.Hidden },
@@ -98,15 +112,24 @@ fun ChannelTutorialSheet(
     val isLast = index == steps.lastIndex
 
     ModalBottomSheet(
-        onDismissRequest = { if (dismissible) onDismiss() },
+        // 戻るボタンでは閉じて最初の画面に戻す（アプリを終了させない）。下へのスワイプと外側のタップは
+        // confirmValueChange で止めているので、ここに来るのは戻るボタン（と閉じてよいとき）だけ。
+        onDismissRequest = onDismiss,
         sheetState = sheetState,
-        properties = ModalBottomSheetProperties(shouldDismissOnBackPress = dismissible),
+        properties = ModalBottomSheetProperties(shouldDismissOnBackPress = true),
     ) {
+        if (showCopyGuide && !showSteps) {
+            CopyLinkGuidePage(
+                onBack = { showCopyGuide = false },
+                onShowSteps = { showSteps = true },
+            )
+            return@ModalBottomSheet
+        }
         if (!showSteps) {
             PopularVideoPicker(
                 loadPopular = loadPopular,
                 onPickVideo = onPickVideo,
-                onShowSteps = { showSteps = true },
+                onShowSteps = { showCopyGuide = true },
                 // 初めての人には「閉じる」を出さない（選ぶか、YouTube から追加する方へ進む）。
                 onClose = if (dismissible) ({ onSkip(0) }) else null,
             )
@@ -287,6 +310,182 @@ private fun PopularVideoPicker(
         if (onClose != null) {
             TextButton(onClick = onClose, modifier = Modifier.align(Alignment.CenterHorizontally)) {
                 Text(stringResource(R.string.tutorial_close))
+            }
+        }
+    }
+}
+
+/**
+ * 「YouTube の共有から追加する」: YouTube で［共有］→［コピー］を押し、通知をタップして戻ってもらう。
+ * 共有メニューの中から本アプリを探す手間をなくすため（2026-10-05・ユーザー判断）。仕組みは [CopyLinkGuide]。
+ */
+@Composable
+private fun CopyLinkGuidePage(
+    onBack: () -> Unit,
+    onShowSteps: () -> Unit,
+) {
+    val context = LocalContext.current
+    val appName = stringResource(R.string.app_name)
+    // 「アプリに戻る」の通知を出してから YouTube を開く。通知を押す（または戻るボタンで戻る）と、
+    // MainActivity がコピーされたリンクを読んでチャンネルを開く。
+    val goToYouTube = {
+        CopyLinkGuide.startAwaiting(context)
+        CopyLinkGuide.postNotification(context)
+        openYouTube(context)
+    }
+    // Android 13 以降は通知の許可を先に聞く。許可されなくても YouTube は開く（戻るボタンで戻れば読める）。
+    val askPermission = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) {
+        goToYouTube()
+    }
+    val goWithNotification = {
+        if (CopyLinkGuide.needsPermission(context)) {
+            askPermission.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+        } else {
+            goToYouTube()
+        }
+    }
+    // 画面の端の「アプリに戻る」ボタン（[CopyGuideOverlay]）。許可は設定画面でしか出せない。
+    var overlayAllowed by remember { mutableStateOf(CopyGuideOverlay.canShow(context)) }
+    var askOverlay by remember { mutableStateOf(false) }
+    // 案内の流れの途中で設定画面へ行ったときは、戻ってきたらそのまま YouTube を開く。
+    var continueAfterSettings by remember { mutableStateOf(false) }
+    val overlaySettings = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        overlayAllowed = CopyGuideOverlay.canShow(context)
+        if (continueAfterSettings) {
+            continueAfterSettings = false
+            if (overlayAllowed) goToYouTube() else goWithNotification()
+        }
+    }
+    val openOverlaySettings = { thenGo: Boolean ->
+        CopyGuideOverlay.markAsked(context)
+        continueAfterSettings = thenGo
+        val launched = runCatching { overlaySettings.launch(CopyGuideOverlay.settingsIntent(context)) }.isSuccess
+        if (!launched && thenGo) {
+            continueAfterSettings = false
+            goWithNotification()
+        }
+    }
+
+    if (askOverlay) {
+        AlertDialog(
+            onDismissRequest = { askOverlay = false },
+            title = { Text(stringResource(R.string.copyguide_overlay_ask_title)) },
+            text = { Text(stringResource(R.string.copyguide_overlay_ask_body)) },
+            confirmButton = {
+                Button(onClick = {
+                    askOverlay = false
+                    openOverlaySettings(true)
+                }) { Text(stringResource(R.string.copyguide_overlay_ask_allow)) }
+            },
+            dismissButton = {
+                TextButton(onClick = {
+                    askOverlay = false
+                    CopyGuideOverlay.markAsked(context)
+                    goWithNotification()
+                }) { Text(stringResource(R.string.copyguide_overlay_ask_skip)) }
+            },
+        )
+    }
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .verticalScroll(rememberScrollState())
+            .padding(horizontal = 20.dp)
+            .padding(bottom = 28.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
+    ) {
+        Text(stringResource(R.string.copyguide_title), style = MaterialTheme.typography.titleLarge)
+        // 見出しと同じ大きさで、やることだけを2行で（2026-10-05・ユーザー指定）。
+        Text(
+            stringResource(if (overlayAllowed) R.string.copyguide_step1_overlay else R.string.copyguide_step1),
+            style = MaterialTheme.typography.titleLarge,
+        )
+        // ［共有］→［コピー］→「コピーされました」と戻るボタン、を実際の画面（NASA の動画）で順に見せる。
+        CopyGuideAnimation(overlay = overlayAllowed)
+
+        Button(
+            onClick = {
+                when {
+                    overlayAllowed -> goToYouTube()
+                    // 初回だけ「画面の端にボタンを出しますか？」と聞く。断った人は通知で案内する。
+                    !CopyGuideOverlay.wasAsked(context) -> askOverlay = true
+                    else -> goWithNotification()
+                }
+            },
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Text(stringResource(R.string.copyguide_open))
+        }
+        // 一度断った人にも、あとから画面の端のボタンに切り替えられる入口を残す。
+        if (!overlayAllowed && CopyGuideOverlay.wasAsked(context)) {
+            TextButton(
+                onClick = { openOverlaySettings(false) },
+                modifier = Modifier.align(Alignment.CenterHorizontally),
+            ) {
+                Text(stringResource(R.string.copyguide_overlay_enable))
+            }
+        }
+        OutlinedButton(onClick = onBack, modifier = Modifier.fillMaxWidth()) {
+            Text(stringResource(R.string.tutorial_back))
+        }
+        TextButton(onClick = onShowSteps, modifier = Modifier.align(Alignment.CenterHorizontally)) {
+            Text(stringResource(R.string.copyguide_legacy, appName))
+        }
+    }
+}
+
+/**
+ * 「YouTube の共有から追加する」の流れを、3枚の画面写真を自動で切り替えて見せる（動画の代わり）。
+ * 各写真には ①②③ の丸数字と、押す場所を指す矢印を描き込んである（2026-10-05・ユーザー指定）。
+ * 本物の録画にしないのは、他人の映像（動画の中身）をアプリ内で流さないため。映像部分はぼかしてある。
+ * 画像は scripts/build_copy_guide_frames.py で作る（7言語。drawable-<言語>-nodpi/copyguide_frame1〜3）。
+ * [overlay]（画面の端のボタンを許可済み）なら、③は通知ではなく「クリック」→ロゴのボタンの絵
+ * （copyguide_frame3_overlay・2026-10-05 ユーザー指定）。
+ */
+@Composable
+private fun CopyGuideAnimation(overlay: Boolean) {
+    val frames = remember(overlay) {
+        listOf(
+            R.drawable.copyguide_frame1,
+            R.drawable.copyguide_frame2,
+            if (overlay) R.drawable.copyguide_frame3_overlay else R.drawable.copyguide_frame3,
+        )
+    }
+    var index by remember { mutableIntStateOf(0) }
+    LaunchedEffect(Unit) {
+        while (true) {
+            kotlinx.coroutines.delay(if (index == frames.lastIndex) 2800L else 2200L)
+            index = (index + 1) % frames.size
+        }
+    }
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        androidx.compose.animation.Crossfade(targetState = index, label = "copyGuide") { i ->
+            Image(
+                painter = painterResource(frames[i]),
+                contentDescription = null,
+                modifier = Modifier
+                    .fillMaxWidth(0.62f)
+                    .clip(RoundedCornerShape(12.dp))
+                    .border(1.dp, MaterialTheme.colorScheme.outlineVariant, RoundedCornerShape(12.dp)),
+            )
+        }
+        // いま何枚目か（1 → 2 → 3）。
+        Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+            frames.indices.forEach { i ->
+                androidx.compose.foundation.layout.Box(
+                    Modifier
+                        .size(8.dp)
+                        .clip(androidx.compose.foundation.shape.CircleShape)
+                        .background(
+                            if (i == index) MaterialTheme.colorScheme.primary
+                            else MaterialTheme.colorScheme.outlineVariant,
+                        ),
+                )
             }
         }
     }

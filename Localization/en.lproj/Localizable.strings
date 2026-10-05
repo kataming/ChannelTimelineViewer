@@ -75,6 +75,14 @@
 "captions.off" = "Off";
 /* チャンネル名が取得できないとき */
 "channel.untitled" = "(No channel name)";
+/* コピーした YouTube のリンクを見つけたときの説明 */
+"clip.dialog.body" = "We'll open the channel of the YouTube link you copied, oldest videos first.";
+/* コピーしたリンクを開かないときに、コピーを消すボタン */
+"clip.dialog.clear" = "Clear copied link";
+/* コピーしたリンクを開くボタン */
+"clip.dialog.open" = "Open";
+/* コピーした YouTube のリンクを見つけたときの確認 */
+"clip.dialog.title" = "Open the link you copied?";
 /* クリップボードにURLが無いとき */
 "clipboard.notFound" = "No YouTube link was found on the clipboard. Paste a URL and try again.";
 /* 共通: キャンセル */
@@ -181,8 +189,12 @@
 "list.error.title" = "Couldn’t load";
 /* 取得中 */
 "list.loading" = "Loading videos…";
+/* 一覧の全件を読み込み中の進み具合。%1$@=何％、%2$@=読んだ本数、%3$@=全体の本数 */
+"list.loading.progress" = "Loading videos… %1$@%% (%2$@ of %3$@)";
 /* 読み上げ: 並び替えと表示 */
 "list.menu.a11y" = "Sort and filter";
+/* 動画一覧のメニュー: 一覧の一番下へ移る */
+"list.menu.bottom" = "Go to bottom";
 /* 新着を確認 */
 "list.menu.checkNew" = "Check for new videos";
 /* すべて再読み込み */
@@ -191,6 +203,8 @@
 "list.menu.show" = "Show";
 /* 並び替えメニュー */
 "list.menu.sort" = "Sort";
+/* 動画一覧のメニュー: 一覧の一番上へ移る */
+"list.menu.top" = "Go to top";
 /* 次に見る（%@ に本数） */
 "list.next.new.format" = "Up next: #%@";
 /* 続きから（%@ に本数） */
@@ -317,6 +331,8 @@
 "pro.disabled.title" = "Pro is no longer active";
 /* ホームからPro画面へ入る行の説明 */
 "pro.entry.body" = "One-time purchase. The free version saves one channel.";
+/* 最初の画面の Pro の入口（pro.entry.body の下の行） */
+"pro.entry.noReload" = "With Pro, you don't need to reload videos every time.";
 /* ホームからPro画面へ入る行の見出し */
 "pro.entry.title" = "Save multiple channels (Pro)";
 /* 購入できなかった */
@@ -331,6 +347,8 @@
 "pro.freeFeatures.header" = "What you get for free";
 /* Pro 画面の見出し（買い切りであることを明示） */
 "pro.headline" = "A one-time purchase that unlocks saving multiple channels.";
+/* 保存チャンネルを削除するときの Pro の案内（replaceHint の下の行） */
+"pro.limit.noReload" = "No need to reload videos every time.";
 /* 入れ替えるボタン */
 "pro.limit.replace" = "Replace";
 /* 警告のあとに出す Pro への誘導 */
@@ -340,7 +358,7 @@
 /* 上限の案内でProへ進むボタン */
 "pro.limit.upgrade" = "Get Pro";
 /* 上限の案内から Pro の説明画面へ進むボタン */
-"pro.limit.viewPro" = "See what Pro includes";
+"pro.limit.viewPro" = "Get Pro for multiple channels";
 /* 入れ替えの警告（%@ に外れるチャンネル名）。大きめ・太字・赤で出す */
 "pro.limit.warning.format" = "Replacing this channel deletes the watched history, progress, and notes of the currently saved “%@”.";
 /* 一覧でロック中を示すラベル */

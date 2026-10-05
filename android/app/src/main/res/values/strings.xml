@@ -59,6 +59,14 @@
     <string name="captions_off">Off</string>
     <!-- チャンネル名が取得できないとき -->
     <string name="channel_untitled">(No channel name)</string>
+    <!-- コピーした YouTube のリンクを見つけたときの説明 -->
+    <string name="clip_dialog_body">We\'ll open the channel of the YouTube link you copied, oldest videos first.</string>
+    <!-- コピーしたリンクを開かないときに、コピーを消すボタン -->
+    <string name="clip_dialog_clear">Clear copied link</string>
+    <!-- コピーしたリンクを開くボタン -->
+    <string name="clip_dialog_open">Open</string>
+    <!-- コピーした YouTube のリンクを見つけたときの確認 -->
+    <string name="clip_dialog_title">Open the link you copied?</string>
     <!-- クリップボードにURLが無いとき -->
     <string name="clipboard_notfound">No YouTube link was found on the clipboard. Paste a URL and try again.</string>
     <!-- 共通: キャンセル -->
@@ -71,6 +79,32 @@
     <string name="common_done">Done</string>
     <!-- 再試行 -->
     <string name="common_retry">Try again</string>
+    <!-- YouTube の共有から追加: 共有メニューから %@ を選ぶ従来の手順を開く -->
+    <string name="copyguide_legacy">See how to pick %s from the Share menu</string>
+    <!-- 通知チャンネル名（Android の設定に出る） -->
+    <string name="copyguide_notification_channel">How-to guidance</string>
+    <!-- YouTube の共有から追加: 画面の端のボタンを出しているときの通知チャンネル名（端末の通知設定に出る） -->
+    <string name="copyguide_notification_channel_quiet">How-to guidance (no pop-up)</string>
+    <!-- YouTube の共有から追加: 押されるまで出しておく通知の文 -->
+    <string name="copyguide_notification_text">Return to the app</string>
+    <!-- YouTube の共有から追加: YouTube を開くボタン -->
+    <string name="copyguide_open">Open YouTube</string>
+    <!-- YouTube の共有から追加: 設定画面へ進むボタン -->
+    <string name="copyguide_overlay_ask_allow">Allow</string>
+    <!-- YouTube の共有から追加: 画面の端のボタンの説明と、設定で許可する項目名 -->
+    <string name="copyguide_overlay_ask_body">A small icon of this app appears over YouTube. Tap it to come back. You can drag it with your finger.\n\nOn the next screen, turn on “Display over other apps”.</string>
+    <!-- YouTube の共有から追加: 許可せず通知で案内するボタン -->
+    <string name="copyguide_overlay_ask_skip">Use a notification instead</string>
+    <!-- YouTube の共有から追加: 画面の端のボタンを出すか聞く見出し -->
+    <string name="copyguide_overlay_ask_title">Show a “return” icon at the screen edge?</string>
+    <!-- YouTube の共有から追加: 一度断った人があとから許可する入口 -->
+    <string name="copyguide_overlay_enable">Show a return icon at the screen edge</string>
+    <!-- YouTube の共有から追加: 見出しの下に見出しと同じ大きさで出す（①［共有］ → ②［コピー］／あとは通知から／このアプリに戻れます） -->
+    <string name="copyguide_step1">①[Share] → ②[Copy link]\nThen come back to this app\nfrom the notification</string>
+    <!-- YouTube の共有から追加: 画面の端のボタンを許可した人向けの手順（step1 の通知の代わりにアイコン） -->
+    <string name="copyguide_step1_overlay">①[Share] → ②[Copy link]\nThen tap the icon at the screen edge\nto come back to this app</string>
+    <!-- YouTube の共有から追加: 見出し -->
+    <string name="copyguide_title">After you play a video in YouTube</string>
     <!-- 画面下部の注意書き -->
     <string name="disclaimer_short">This app is not the official YouTube app. Playback uses YouTube’s official embedded player; it does not download videos, block ads, or play in the background.</string>
     <!-- エラー: APIキー未設定 -->
@@ -149,8 +183,12 @@
     <string name="list_error_title">Couldn’t load</string>
     <!-- 取得中 -->
     <string name="list_loading">Loading videos…</string>
+    <!-- 一覧の全件を読み込み中の進み具合。%1$@=何％、%2$@=読んだ本数、%3$@=全体の本数 -->
+    <string name="list_loading_progress">Loading videos… %1$s%% (%2$s of %3$s)</string>
     <!-- 読み上げ: 並び替えと表示 -->
     <string name="list_menu_a11y">Sort and filter</string>
+    <!-- 動画一覧のメニュー: 一覧の一番下へ移る -->
+    <string name="list_menu_bottom">Go to bottom</string>
     <!-- 新着を確認 -->
     <string name="list_menu_checknew">Check for new videos</string>
     <!-- すべて再読み込み -->
@@ -159,6 +197,8 @@
     <string name="list_menu_show">Show</string>
     <!-- 並び替えメニュー -->
     <string name="list_menu_sort">Sort</string>
+    <!-- 動画一覧のメニュー: 一覧の一番上へ移る -->
+    <string name="list_menu_top">Go to top</string>
     <!-- 次に見る（%@ に本数） -->
     <string name="list_next_new_format">Up next: #%s</string>
     <!-- 続きから（%@ に本数） -->
@@ -295,6 +335,8 @@
     <string name="pro_disabled_title">Pro is no longer active</string>
     <!-- ホームからPro画面へ入る行の説明 -->
     <string name="pro_entry_body">One-time purchase. The free version saves one channel.</string>
+    <!-- 最初の画面の Pro の入口（pro.entry.body の下の行） -->
+    <string name="pro_entry_noreload">With Pro, you don\'t need to reload videos every time.</string>
     <!-- ホームからPro画面へ入る行の見出し -->
     <string name="pro_entry_title">Save multiple channels (Pro)</string>
     <!-- 購入できなかった -->
@@ -309,6 +351,8 @@
     <string name="pro_freefeatures_header">What you get for free</string>
     <!-- Pro 画面の見出し（買い切りであることを明示） -->
     <string name="pro_headline">A one-time purchase that unlocks saving multiple channels.</string>
+    <!-- 保存チャンネルを削除するときの Pro の案内（replaceHint の下の行） -->
+    <string name="pro_limit_noreload">No need to reload videos every time.</string>
     <!-- 入れ替えるボタン -->
     <string name="pro_limit_replace">Replace</string>
     <!-- 警告のあとに出す Pro への誘導 -->
@@ -318,7 +362,7 @@
     <!-- 上限の案内でProへ進むボタン -->
     <string name="pro_limit_upgrade">Get Pro</string>
     <!-- 上限の案内から Pro の説明画面へ進むボタン -->
-    <string name="pro_limit_viewpro">See what Pro includes</string>
+    <string name="pro_limit_viewpro">Get Pro for multiple channels</string>
     <!-- 入れ替えの警告（%@ に外れるチャンネル名）。大きめ・太字・赤で出す -->
     <string name="pro_limit_warning_format">Replacing this channel deletes the watched history, progress, and notes of the currently saved “%s”.</string>
     <!-- 一覧でロック中を示すラベル -->

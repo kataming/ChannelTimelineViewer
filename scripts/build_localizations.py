@@ -45,7 +45,7 @@ INFO_PLIST_KEYS = {
 # Android 版だけで使う文言（iOS には出番が無い）。翻訳の原本は共通の strings.json に
 # 置きつつ、iOS の Localizable.strings には書き出さない。
 # ※ Android 側（build_android_strings.py）には SKIP_PREFIXES という逆向きの仕組みがある。
-ANDROID_ONLY_PREFIXES = ("about.analytics.", "pro.cancelSurvey.")  # pro.cancelSurvey.* = 購入をやめた直後のアンケート（Android 1.16〜）
+ANDROID_ONLY_PREFIXES = ("about.analytics.", "pro.cancelSurvey.", "copyguide.")  # pro.cancelSurvey.* = 購入をやめた直後のアンケート（Android 1.16〜）／copyguide.* = YouTube の共有から追加（Android の案内）
 
 
 def is_android_only(key: str) -> bool:

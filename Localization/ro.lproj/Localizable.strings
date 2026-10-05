@@ -75,6 +75,14 @@
 "captions.off" = "Dezactivate";
 /* チャンネル名が取得できないとき */
 "channel.untitled" = "(Fără numele canalului)";
+/* コピーした YouTube のリンクを見つけたときの説明 */
+"clip.dialog.body" = "Vom deschide canalul linkului YouTube copiat, începând cu cele mai vechi videoclipuri.";
+/* コピーしたリンクを開かないときに、コピーを消すボタン */
+"clip.dialog.clear" = "Ștergeți copia";
+/* コピーしたリンクを開くボタン */
+"clip.dialog.open" = "Deschideți";
+/* コピーした YouTube のリンクを見つけたときの確認 */
+"clip.dialog.title" = "Deschideți linkul copiat?";
 /* クリップボードにURLが無いとき */
 "clipboard.notFound" = "Nu s-a găsit niciun link YouTube în clipboard. Lipiți o adresă URL și încercați din nou.";
 /* 共通: キャンセル */
@@ -181,8 +189,12 @@
 "list.error.title" = "Nu s-a putut încărca";
 /* 取得中 */
 "list.loading" = "Se încarcă videoclipurile…";
+/* 一覧の全件を読み込み中の進み具合。%1$@=何％、%2$@=読んだ本数、%3$@=全体の本数 */
+"list.loading.progress" = "Se încarcă videoclipurile… %1$@%% (%2$@ din %3$@)";
 /* 読み上げ: 並び替えと表示 */
 "list.menu.a11y" = "Sortare și filtrare";
+/* 動画一覧のメニュー: 一覧の一番下へ移る */
+"list.menu.bottom" = "Mergi jos";
 /* 新着を確認 */
 "list.menu.checkNew" = "Verificați videoclipurile noi";
 /* すべて再読み込み */
@@ -191,6 +203,8 @@
 "list.menu.show" = "Afișare";
 /* 並び替えメニュー */
 "list.menu.sort" = "Sortare";
+/* 動画一覧のメニュー: 一覧の一番上へ移る */
+"list.menu.top" = "Mergi sus";
 /* 次に見る（%@ に本数） */
 "list.next.new.format" = "Urmează: nr. %@";
 /* 続きから（%@ に本数） */
@@ -317,6 +331,8 @@
 "pro.disabled.title" = "Pro nu mai este activ";
 /* ホームからPro画面へ入る行の説明 */
 "pro.entry.body" = "Achiziție unică. Versiunea gratuită salvează un canal.";
+/* 最初の画面の Pro の入口（pro.entry.body の下の行） */
+"pro.entry.noReload" = "Cu Pro nu mai trebuie să reîncărcați videoclipurile de fiecare dată.";
 /* ホームからPro画面へ入る行の見出し */
 "pro.entry.title" = "Salvați mai multe canale (Pro)";
 /* 購入できなかった */
@@ -331,6 +347,8 @@
 "pro.freeFeatures.header" = "Ce primiți gratuit";
 /* Pro 画面の見出し（買い切りであることを明示） */
 "pro.headline" = "O achiziție unică ce deblochează salvarea mai multor canale.";
+/* 保存チャンネルを削除するときの Pro の案内（replaceHint の下の行） */
+"pro.limit.noReload" = "Nu mai trebuie să reîncărcați videoclipurile de fiecare dată.";
 /* 入れ替えるボタン */
 "pro.limit.replace" = "Înlocuiți";
 /* 警告のあとに出す Pro への誘導 */
@@ -340,7 +358,7 @@
 /* 上限の案内でProへ進むボタン */
 "pro.limit.upgrade" = "Obțineți Pro";
 /* 上限の案内から Pro の説明画面へ進むボタン */
-"pro.limit.viewPro" = "Vedeți ce include Pro";
+"pro.limit.viewPro" = "Mai multe canale cu Pro";
 /* 入れ替えの警告（%@ に外れるチャンネル名）。大きめ・太字・赤で出す */
 "pro.limit.warning.format" = "Înlocuirea acestui canal șterge istoricul vizionărilor, progresul și notițele canalului salvat în prezent, „%@”.";
 /* 一覧でロック中を示すラベル */

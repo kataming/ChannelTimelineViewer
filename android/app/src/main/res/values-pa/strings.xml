@@ -50,6 +50,8 @@
     <string name="copyguide_overlay_ask_skip">ਸੂਚਨਾ ਵਰਤੋ</string>
     <string name="copyguide_overlay_ask_title">ਕੀ ਸਕ੍ਰੀਨ ਦੇ ਕਿਨਾਰੇ “ਵਾਪਸ ਜਾਓ” ਆਈਕਨ ਦਿਖਾਉਣਾ ਹੈ?</string>
     <string name="copyguide_overlay_enable">ਸਕ੍ਰੀਨ ਦੇ ਕਿਨਾਰੇ ਵਾਪਸੀ ਆਈਕਨ ਦਿਖਾਓ</string>
+    <string name="copyguide_overlay_settings_hint_app">ਸਵਿੱਚ ਚਾਲੂ ਕਰੋ, YouTube ਖੁੱਲ੍ਹ ਜਾਵੇਗਾ</string>
+    <string name="copyguide_overlay_settings_hint_list">“%s” ਚੁਣ ਕੇ ਚਾਲੂ ਕਰੋ, YouTube ਖੁੱਲ੍ਹ ਜਾਵੇਗਾ</string>
     <string name="copyguide_step1">①[ਸਾਂਝਾ ਕਰੋ] → ②[ਲਿੰਕ ਕਾਪੀ ਕਰੋ]\nਫਿਰ ਸੂਚਨਾ ਤੋਂ\nਇਸ ਐਪ \'ਤੇ ਵਾਪਸ ਆਓ</string>
     <string name="copyguide_step1_overlay">①[ਸਾਂਝਾ ਕਰੋ] → ②[ਲਿੰਕ ਕਾਪੀ ਕਰੋ]\nਫਿਰ ਸਕ੍ਰੀਨ ਦੇ ਕਿਨਾਰੇ ਵਾਲੇ ਆਈਕਨ ਤੋਂ\nਇਸ ਐਪ \'ਤੇ ਵਾਪਸ ਆਓ</string>
     <string name="copyguide_title">YouTube ਵਿੱਚ ਚਲਾਉਣ ਤੋਂ ਬਾਅਦ</string>

@@ -50,6 +50,8 @@
     <string name="copyguide_overlay_ask_skip">নোটিফিকেশন দিয়ে জানান</string>
     <string name="copyguide_overlay_ask_title">স্ক্রিনের কিনারায় “ফিরে যান” আইকন দেখাবেন?</string>
     <string name="copyguide_overlay_enable">স্ক্রিনের কিনারায় ফেরার আইকন দেখান</string>
+    <string name="copyguide_overlay_settings_hint_app">সুইচ চালু করলে YouTube খুলবে</string>
+    <string name="copyguide_overlay_settings_hint_list">“%s” বেছে চালু করলে YouTube খুলবে</string>
     <string name="copyguide_step1">①[শেয়ার] → ②[লিঙ্ক কপি করুন]\nতারপর নোটিফিকেশন থেকে\nএই অ্যাপে ফিরে আসুন</string>
     <string name="copyguide_step1_overlay">①[শেয়ার] → ②[লিঙ্ক কপি করুন]\nতারপর স্ক্রিনের কিনারার আইকনে ট্যাপ করে\nএই অ্যাপে ফিরে আসুন</string>
     <string name="copyguide_title">YouTube-এ ভিডিও চালানোর পর</string>

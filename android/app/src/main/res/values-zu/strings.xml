@@ -50,6 +50,8 @@
     <string name="copyguide_overlay_ask_skip">Sebenzisa isaziso</string>
     <string name="copyguide_overlay_ask_title">Bonisa isithonjana sokubuyela emaphethelweni esikrini?</string>
     <string name="copyguide_overlay_enable">Bonisa isithonjana sokubuyela emaphethelweni</string>
+    <string name="copyguide_overlay_settings_hint_app">Vula iswishi ukuze kuvuleke i-YouTube</string>
+    <string name="copyguide_overlay_settings_hint_list">Khetha “%s” uyivule ukuze kuvuleke i-YouTube</string>
     <string name="copyguide_step1">①[Yabelana] → ②[Kopisha isixhumanisi]\nBese ubuyela kule app\nusebenzisa isaziso</string>
     <string name="copyguide_step1_overlay">①[Yabelana] → ②[Kopisha isixhumanisi]\nBese uthepha isithonjana emaphethelweni\nukuze ubuyele kule app</string>
     <string name="copyguide_title">Ngemuva kokudlala ividiyo ku-YouTube</string>

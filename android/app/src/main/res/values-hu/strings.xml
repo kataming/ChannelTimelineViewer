@@ -50,6 +50,8 @@
     <string name="copyguide_overlay_ask_skip">Értesítés használata</string>
     <string name="copyguide_overlay_ask_title">Megjelenjen egy visszatérő ikon a képernyő szélén?</string>
     <string name="copyguide_overlay_enable">Visszatérő ikon a képernyő szélén</string>
+    <string name="copyguide_overlay_settings_hint_app">Kapcsold be a kapcsolót – megnyílik a YouTube</string>
+    <string name="copyguide_overlay_settings_hint_list">Válaszd ki: „%s”, és kapcsold be – megnyílik a YouTube</string>
     <string name="copyguide_step1">①[Megosztás] → ②[Link másolása]\nUtána az értesítéssel\nvisszatérhetsz ide</string>
     <string name="copyguide_step1_overlay">①[Megosztás] → ②[Link másolása]\nUtána a képernyő szélén lévő ikonnal\nvisszatérhetsz ide</string>
     <string name="copyguide_title">Miután elindítottad a videót a YouTube-on</string>

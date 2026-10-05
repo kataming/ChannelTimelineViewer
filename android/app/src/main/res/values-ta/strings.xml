@@ -50,6 +50,8 @@
     <string name="copyguide_overlay_ask_skip">அறிவிப்பைப் பயன்படுத்து</string>
     <string name="copyguide_overlay_ask_title">திரையின் ஓரத்தில் “திரும்பு” ஐகானைக் காட்டவா?</string>
     <string name="copyguide_overlay_enable">திரையின் ஓரத்தில் திரும்பும் ஐகானைக் காட்டு</string>
+    <string name="copyguide_overlay_settings_hint_app">சுவிட்சை இயக்கினால் YouTube திறக்கும்</string>
+    <string name="copyguide_overlay_settings_hint_list">“%s” ஐத் தேர்ந்தெடுத்து இயக்கினால் YouTube திறக்கும்</string>
     <string name="copyguide_step1">①[பகிர்] → ②[இணைப்பை நகலெடு]\nபிறகு அறிவிப்பிலிருந்து\nஇந்த ஆப்ஸுக்குத் திரும்புங்கள்</string>
     <string name="copyguide_step1_overlay">①[பகிர்] → ②[இணைப்பை நகலெடு]\nபிறகு திரையின் ஓரத்தில் உள்ள ஐகானைத் தட்டி\nஇந்த ஆப்ஸுக்குத் திரும்புங்கள்</string>
     <string name="copyguide_title">YouTube-இல் இயக்கிய பிறகு</string>

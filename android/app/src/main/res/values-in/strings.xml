@@ -50,6 +50,8 @@
     <string name="copyguide_overlay_ask_skip">Pakai notifikasi saja</string>
     <string name="copyguide_overlay_ask_title">Tampilkan ikon “kembali” di tepi layar?</string>
     <string name="copyguide_overlay_enable">Tampilkan ikon kembali di tepi layar</string>
+    <string name="copyguide_overlay_settings_hint_app">Aktifkan tombolnya untuk membuka YouTube</string>
+    <string name="copyguide_overlay_settings_hint_list">Pilih “%s” lalu aktifkan untuk membuka YouTube</string>
     <string name="copyguide_step1">①[Bagikan] → ②[Salin link]\nLalu kembali ke aplikasi ini\nlewat notifikasi</string>
     <string name="copyguide_step1_overlay">①[Bagikan] → ②[Salin link]\nLalu ketuk ikon di tepi layar\nuntuk kembali ke aplikasi ini</string>
     <string name="copyguide_title">Setelah memutar video di YouTube</string>

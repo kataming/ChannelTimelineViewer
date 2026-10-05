@@ -50,6 +50,8 @@
     <string name="copyguide_overlay_ask_skip">ใช้การแจ้งเตือนแทน</string>
     <string name="copyguide_overlay_ask_title">แสดงไอคอน “กลับ” ที่ขอบจอไหม</string>
     <string name="copyguide_overlay_enable">แสดงไอคอนกลับที่ขอบจอ</string>
+    <string name="copyguide_overlay_settings_hint_app">เปิดสวิตช์แล้ว YouTube จะเปิดขึ้น</string>
+    <string name="copyguide_overlay_settings_hint_list">เลือก “%s” แล้วเปิด YouTube จะเปิดขึ้น</string>
     <string name="copyguide_step1">①[แชร์] → ②[คัดลอกลิงก์]\nจากนั้นแตะการแจ้งเตือน\nเพื่อกลับมาที่แอปนี้</string>
     <string name="copyguide_step1_overlay">①[แชร์] → ②[คัดลอกลิงก์]\nจากนั้นแตะไอคอนที่ขอบจอ\nเพื่อกลับมาที่แอปนี้</string>
     <string name="copyguide_title">หลังจากเล่นวิดีโอใน YouTube</string>

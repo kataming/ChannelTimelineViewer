@@ -50,6 +50,8 @@
     <string name="copyguide_overlay_ask_skip">Użyj powiadomienia</string>
     <string name="copyguide_overlay_ask_title">Pokazać ikonę powrotu przy krawędzi ekranu?</string>
     <string name="copyguide_overlay_enable">Pokaż ikonę powrotu przy krawędzi</string>
+    <string name="copyguide_overlay_settings_hint_app">Włącz przełącznik, aby otworzyć YouTube</string>
+    <string name="copyguide_overlay_settings_hint_list">Wybierz „%s” i włącz, aby otworzyć YouTube</string>
     <string name="copyguide_step1">①[Udostępnij] → ②[Kopiuj link]\nPotem wróć do aplikacji\nprzez powiadomienie</string>
     <string name="copyguide_step1_overlay">①[Udostępnij] → ②[Kopiuj link]\nPotem wróć do aplikacji\nikoną przy krawędzi ekranu</string>
     <string name="copyguide_title">Po odtworzeniu filmu w YouTube</string>

@@ -50,6 +50,8 @@
     <string name="copyguide_overlay_ask_skip">Gamitin ang notification</string>
     <string name="copyguide_overlay_ask_title">Ipakita ang icon na “bumalik” sa gilid ng screen?</string>
     <string name="copyguide_overlay_enable">Ipakita ang icon na pambalik sa gilid</string>
+    <string name="copyguide_overlay_settings_hint_app">I-on ang switch para buksan ang YouTube</string>
+    <string name="copyguide_overlay_settings_hint_list">Piliin ang “%s” at i-on para buksan ang YouTube</string>
     <string name="copyguide_step1">①[Share] → ②[Kopyahin ang link]\nPagkatapos, bumalik sa app\nmula sa notification</string>
     <string name="copyguide_step1_overlay">①[Share] → ②[Kopyahin ang link]\nPagkatapos, i-tap ang icon sa gilid\npara bumalik sa app</string>
     <string name="copyguide_title">Pagkatapos i-play sa YouTube</string>

@@ -99,6 +99,10 @@
     <string name="copyguide_overlay_ask_title">Show a “return” icon at the screen edge?</string>
     <!-- YouTube の共有から追加: 一度断った人があとから許可する入口 -->
     <string name="copyguide_overlay_enable">Show a return icon at the screen edge</string>
+    <!-- YouTube の共有から追加: 重ねて表示の設定画面（Android 10 以前・このアプリの画面が直接開く）のトースト。2行に収める -->
+    <string name="copyguide_overlay_settings_hint_app">Turn the switch on to open YouTube</string>
+    <!-- YouTube の共有から追加: 重ねて表示の設定画面（Android 11 以降・一覧）のトースト。%@ = アプリ名。2行に収める -->
+    <string name="copyguide_overlay_settings_hint_list">Pick “%s” and turn it on to open YouTube</string>
     <!-- YouTube の共有から追加: 見出しの下に見出しと同じ大きさで出す（①［共有］ → ②［コピー］／あとは通知から／このアプリに戻れます） -->
     <string name="copyguide_step1">①[Share] → ②[Copy link]\nThen come back to this app\nfrom the notification</string>
     <!-- YouTube の共有から追加: 画面の端のボタンを許可した人向けの手順（step1 の通知の代わりにアイコン） -->

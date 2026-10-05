@@ -50,6 +50,8 @@
     <string name="copyguide_overlay_ask_skip">Χρήση ειδοποίησης</string>
     <string name="copyguide_overlay_ask_title">Να εμφανίζεται εικονίδιο επιστροφής στην άκρη της οθόνης;</string>
     <string name="copyguide_overlay_enable">Εμφάνιση εικονιδίου επιστροφής στην άκρη</string>
+    <string name="copyguide_overlay_settings_hint_app">Ενεργοποιήστε τον διακόπτη για να ανοίξει το YouTube</string>
+    <string name="copyguide_overlay_settings_hint_list">Επιλέξτε «%s» και ενεργοποιήστε για να ανοίξει το YouTube</string>
     <string name="copyguide_step1">①[Κοινοποίηση] → ②[Αντιγραφή συνδέσμου]\nΜετά επιστρέψτε στην εφαρμογή\nαπό την ειδοποίηση</string>
     <string name="copyguide_step1_overlay">①[Κοινοποίηση] → ②[Αντιγραφή συνδέσμου]\nΜετά πατήστε το εικονίδιο στην άκρη\nγια να επιστρέψετε στην εφαρμογή</string>
     <string name="copyguide_title">Αφού παίξετε το βίντεο στο YouTube</string>

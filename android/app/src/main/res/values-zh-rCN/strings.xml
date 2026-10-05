@@ -50,6 +50,8 @@
     <string name="copyguide_overlay_ask_skip">改用通知提示</string>
     <string name="copyguide_overlay_ask_title">要在屏幕边缘显示“返回”图标吗？</string>
     <string name="copyguide_overlay_enable">在屏幕边缘显示返回图标</string>
+    <string name="copyguide_overlay_settings_hint_app">开启开关即可打开 YouTube</string>
+    <string name="copyguide_overlay_settings_hint_list">选择“%s”并开启，即可打开 YouTube</string>
     <string name="copyguide_step1">①［分享］ → ②［复制链接］\n之后点通知\n就能回到本应用</string>
     <string name="copyguide_step1_overlay">①［分享］ → ②［复制链接］\n之后点屏幕边缘的图标\n就能回到本应用</string>
     <string name="copyguide_title">在 YouTube 播放视频后</string>

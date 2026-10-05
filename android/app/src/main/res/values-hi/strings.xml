@@ -50,6 +50,8 @@
     <string name="copyguide_overlay_ask_skip">सूचना से बताएं</string>
     <string name="copyguide_overlay_ask_title">स्क्रीन के किनारे पर “वापस जाएं” आइकॉन दिखाएं?</string>
     <string name="copyguide_overlay_enable">स्क्रीन के किनारे वापसी आइकॉन दिखाएं</string>
+    <string name="copyguide_overlay_settings_hint_app">स्विच चालू करें, YouTube खुल जाएगा</string>
+    <string name="copyguide_overlay_settings_hint_list">“%s” चुनकर चालू करें, YouTube खुल जाएगा</string>
     <string name="copyguide_step1">①[शेयर] → ②[लिंक कॉपी करें]\nफिर सूचना से\nइस ऐप पर लौटें</string>
     <string name="copyguide_step1_overlay">①[शेयर] → ②[लिंक कॉपी करें]\nफिर स्क्रीन के किनारे वाले आइकॉन से\nइस ऐप पर लौटें</string>
     <string name="copyguide_title">YouTube में वीडियो चलाने के बाद</string>

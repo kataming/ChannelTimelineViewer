@@ -50,6 +50,8 @@
     <string name="copyguide_overlay_ask_skip">اطلاع استعمال کریں</string>
     <string name="copyguide_overlay_ask_title">کیا اسکرین کے کنارے پر “واپس جائیں” آئیکن دکھائیں؟</string>
     <string name="copyguide_overlay_enable">اسکرین کے کنارے واپسی کا آئیکن دکھائیں</string>
+    <string name="copyguide_overlay_settings_hint_app">سوئچ آن کریں، YouTube کھل جائے گا</string>
+    <string name="copyguide_overlay_settings_hint_list">“%s” منتخب کر کے آن کریں، YouTube کھل جائے گا</string>
     <string name="copyguide_step1">①[شیئر] ← ②[لنک کاپی کریں]\nپھر اطلاع سے\nاس ایپ پر واپس آئیں</string>
     <string name="copyguide_step1_overlay">①[شیئر] ← ②[لنک کاپی کریں]\nپھر اسکرین کے کنارے والے آئیکن سے\nاس ایپ پر واپس آئیں</string>
     <string name="copyguide_title">YouTube میں ویڈیو چلانے کے بعد</string>

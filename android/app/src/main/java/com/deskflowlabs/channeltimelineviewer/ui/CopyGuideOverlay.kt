@@ -65,9 +65,54 @@ object CopyGuideOverlay {
         prefs(context).edit().putBoolean(KEY_ASKED, true).apply()
     }
 
-    /** 許可の設定画面（このアプリの項目を直接開く）。 */
+    /**
+     * 許可の設定画面（このアプリの項目を開く。Android 11 以降は OS の仕様でアプリの一覧から始まる）。
+     * 設定は別のタスクで開く: このアプリのタスクに積むと、あとでロゴを押して戻ったときに
+     * アプリではなく設定画面が前に出てしまうため。
+     */
     fun settingsIntent(context: Context): Intent =
         Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:${context.packageName}"))
+            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+
+    private const val WATCH_EVERY_MILLIS = 400L
+    private const val WATCH_FOR_MILLIS = 3 * 60_000L
+    private var watcher: Runnable? = null
+    private var continuedFromSettings = false
+
+    /**
+     * 設定画面でスイッチがオンにされるのを見張り、オンになったら [onGranted] を1回だけ呼ぶ
+     * （2026-10-05・ユーザー要望: 許可したら設定画面に取り残さず、そのまま YouTube へ進める）。
+     * アプリが裏にいるあいだも動く。許可を持っていれば、裏からでも画面を開ける（Android の例外規定）。
+     */
+    fun watchForGrant(context: Context, onGranted: (Context) -> Unit) {
+        stopWatching()
+        continuedFromSettings = false
+        val app = context.applicationContext
+        val until = System.currentTimeMillis() + WATCH_FOR_MILLIS
+        val check = object : Runnable {
+            override fun run() {
+                if (canShow(app)) {
+                    watcher = null
+                    continuedFromSettings = true
+                    onGranted(app)
+                } else if (System.currentTimeMillis() < until) {
+                    handler.postDelayed(this, WATCH_EVERY_MILLIS)
+                } else {
+                    watcher = null
+                }
+            }
+        }
+        watcher = check
+        handler.postDelayed(check, WATCH_EVERY_MILLIS)
+    }
+
+    fun stopWatching() {
+        watcher?.let(handler::removeCallbacks)
+        watcher = null
+    }
+
+    /** 見張りが YouTube へ進めたか（1回読むと消える）。アプリに戻ったときに二重に開かないため。 */
+    fun consumeContinuedFromSettings(): Boolean = continuedFromSettings.also { continuedFromSettings = false }
 
     /** ボタンを出す。許可が無い・出せなかったときは false（呼び出し側は通知で案内する）。 */
     fun show(context: Context): Boolean {

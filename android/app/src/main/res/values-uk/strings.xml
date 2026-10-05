@@ -50,6 +50,8 @@
     <string name="copyguide_overlay_ask_skip">Використати сповіщення</string>
     <string name="copyguide_overlay_ask_title">Показувати значок «Повернутися» біля краю екрана?</string>
     <string name="copyguide_overlay_enable">Показувати значок повернення біля краю</string>
+    <string name="copyguide_overlay_settings_hint_app">Увімкніть перемикач — відкриється YouTube</string>
+    <string name="copyguide_overlay_settings_hint_list">Виберіть «%s» і ввімкніть — відкриється YouTube</string>
     <string name="copyguide_step1">①[Поширити] → ②[Копіювати посилання]\nПотім поверніться в застосунок\nчерез сповіщення</string>
     <string name="copyguide_step1_overlay">①[Поширити] → ②[Копіювати посилання]\nПотім поверніться в застосунок\nчерез значок біля краю екрана</string>
     <string name="copyguide_title">Увімкнувши відео в YouTube</string>

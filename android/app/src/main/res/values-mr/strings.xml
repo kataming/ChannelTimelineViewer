@@ -50,6 +50,8 @@
     <string name="copyguide_overlay_ask_skip">सूचना वापरा</string>
     <string name="copyguide_overlay_ask_title">स्क्रीनच्या कडेला “परत जा” आयकॉन दाखवायचा?</string>
     <string name="copyguide_overlay_enable">स्क्रीनच्या कडेला परत जाण्याचा आयकॉन दाखवा</string>
+    <string name="copyguide_overlay_settings_hint_app">स्विच सुरू करा, YouTube उघडेल</string>
+    <string name="copyguide_overlay_settings_hint_list">“%s” निवडून सुरू करा, YouTube उघडेल</string>
     <string name="copyguide_step1">①[शेअर] → ②[लिंक कॉपी करा]\nमग सूचनेतून\nया अ‍ॅपवर परत या</string>
     <string name="copyguide_step1_overlay">①[शेअर] → ②[लिंक कॉपी करा]\nमग स्क्रीनच्या कडेवरील आयकॉनवरून\nया अ‍ॅपवर परत या</string>
     <string name="copyguide_title">YouTube मध्ये प्ले केल्यानंतर</string>

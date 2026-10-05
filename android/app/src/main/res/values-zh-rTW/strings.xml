@@ -50,6 +50,8 @@
     <string name="copyguide_overlay_ask_skip">改用通知提示</string>
     <string name="copyguide_overlay_ask_title">要在螢幕邊緣顯示「返回」圖示嗎？</string>
     <string name="copyguide_overlay_enable">在螢幕邊緣顯示返回圖示</string>
+    <string name="copyguide_overlay_settings_hint_app">開啟開關即可開啟 YouTube</string>
+    <string name="copyguide_overlay_settings_hint_list">選擇「%s」並開啟，即可開啟 YouTube</string>
     <string name="copyguide_step1">①［分享］ → ②［複製連結］\n之後點通知\n就能回到本 App</string>
     <string name="copyguide_step1_overlay">①［分享］ → ②［複製連結］\n之後點螢幕邊緣的圖示\n就能回到本 App</string>
     <string name="copyguide_title">在 YouTube 播放影片後</string>

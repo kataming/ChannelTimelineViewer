@@ -50,6 +50,8 @@
     <string name="copyguide_overlay_ask_skip">Guna pemberitahuan</string>
     <string name="copyguide_overlay_ask_title">Tunjukkan ikon “kembali” di tepi skrin?</string>
     <string name="copyguide_overlay_enable">Tunjukkan ikon kembali di tepi skrin</string>
+    <string name="copyguide_overlay_settings_hint_app">Hidupkan suis untuk membuka YouTube</string>
+    <string name="copyguide_overlay_settings_hint_list">Pilih “%s” dan hidupkan untuk membuka YouTube</string>
     <string name="copyguide_step1">①[Kongsi] → ②[Salin pautan]\nKemudian kembali ke apl ini\nmelalui pemberitahuan</string>
     <string name="copyguide_step1_overlay">①[Kongsi] → ②[Salin pautan]\nKemudian ketik ikon di tepi skrin\nuntuk kembali ke apl ini</string>
     <string name="copyguide_title">Selepas memainkan video di YouTube</string>

@@ -50,6 +50,8 @@
     <string name="copyguide_overlay_ask_skip">Dùng thông báo</string>
     <string name="copyguide_overlay_ask_title">Hiện biểu tượng “quay lại” ở mép màn hình?</string>
     <string name="copyguide_overlay_enable">Hiện biểu tượng quay lại ở mép màn hình</string>
+    <string name="copyguide_overlay_settings_hint_app">Bật công tắc để mở YouTube</string>
+    <string name="copyguide_overlay_settings_hint_list">Chọn “%s” rồi bật để mở YouTube</string>
     <string name="copyguide_step1">①[Chia sẻ] → ②[Sao chép đường liên kết]\nSau đó quay lại ứng dụng\ntừ thông báo</string>
     <string name="copyguide_step1_overlay">①[Chia sẻ] → ②[Sao chép đường liên kết]\nSau đó nhấn biểu tượng ở mép màn hình\nđể quay lại ứng dụng</string>
     <string name="copyguide_title">Sau khi phát video trên YouTube</string>

@@ -50,6 +50,8 @@
     <string name="copyguide_overlay_ask_skip">Usar uma notificação</string>
     <string name="copyguide_overlay_ask_title">Mostrar um ícone de voltar na borda da tela?</string>
     <string name="copyguide_overlay_enable">Mostrar ícone de voltar na borda</string>
+    <string name="copyguide_overlay_settings_hint_app">Ative a chave para abrir o YouTube</string>
+    <string name="copyguide_overlay_settings_hint_list">Escolha “%s” e ative para abrir o YouTube</string>
     <string name="copyguide_step1">①[Compartilhar] → ②[Copiar link]\nDepois volte a este app\npela notificação</string>
     <string name="copyguide_step1_overlay">①[Compartilhar] → ②[Copiar link]\nDepois toque no ícone na borda\npara voltar a este app</string>
     <string name="copyguide_title">Depois de assistir no YouTube</string>

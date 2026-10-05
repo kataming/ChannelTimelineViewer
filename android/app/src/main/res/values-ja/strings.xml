@@ -50,6 +50,8 @@
     <string name="copyguide_overlay_ask_skip">通知で案内する</string>
     <string name="copyguide_overlay_ask_title">画面の端に「戻る」アイコンを出しますか？</string>
     <string name="copyguide_overlay_enable">戻るアイコンを画面の端に出す</string>
+    <string name="copyguide_overlay_settings_hint_app">スイッチをオンにすると YouTube が開きます</string>
+    <string name="copyguide_overlay_settings_hint_list">「%s」を選んでオンにすると YouTube が開きます</string>
     <string name="copyguide_step1">①［共有］ → ②［コピー］\nあとは通知から\nこのアプリに戻れます</string>
     <string name="copyguide_step1_overlay">①［共有］ → ②［コピー］\nあとは画面の端のアイコンから\nこのアプリに戻れます</string>
     <string name="copyguide_title">YouTubeで再生したあとに</string>

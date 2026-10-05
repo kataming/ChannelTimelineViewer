@@ -50,6 +50,8 @@
     <string name="copyguide_overlay_ask_skip">Utiliser une notification</string>
     <string name="copyguide_overlay_ask_title">Afficher une icône de retour au bord de l\'écran ?</string>
     <string name="copyguide_overlay_enable">Afficher une icône de retour au bord</string>
+    <string name="copyguide_overlay_settings_hint_app">Activez l\'interrupteur pour ouvrir YouTube</string>
+    <string name="copyguide_overlay_settings_hint_list">Choisissez « %s » et activez-le pour ouvrir YouTube</string>
     <string name="copyguide_step1">①[Partager] → ②[Copier le lien]\nEnsuite, revenez dans cette app\ngrâce à la notification</string>
     <string name="copyguide_step1_overlay">①[Partager] → ②[Copier le lien]\nEnsuite, touchez l\'icône au bord\npour revenir dans cette app</string>
     <string name="copyguide_title">Après avoir lancé la vidéo dans YouTube</string>

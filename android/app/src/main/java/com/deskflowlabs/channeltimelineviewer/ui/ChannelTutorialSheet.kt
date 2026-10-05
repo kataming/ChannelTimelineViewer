@@ -52,6 +52,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.rememberUpdatedState
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
@@ -351,23 +356,55 @@ private fun CopyLinkGuidePage(
     // 通知の説明に切り替えるのは、許可しないと決めた人だけ（2026-10-05・ユーザー指摘）。
     val showOverlayGuide = overlayAllowed || !overlayAsked
     var askOverlay by remember { mutableStateOf(false) }
-    // 案内の流れの途中で設定画面へ行ったときは、戻ってきたらそのまま YouTube を開く。
-    var continueAfterSettings by remember { mutableStateOf(false) }
-    val overlaySettings = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        overlayAllowed = CopyGuideOverlay.canShow(context)
-        if (continueAfterSettings) {
-            continueAfterSettings = false
-            if (overlayAllowed) goToYouTube() else goWithNotification()
+    // 設定画面へ行っているあいだは、戻ってきたときにすることを覚えておく（null = 行っていない）。
+    // true なら、戻ってきたら YouTube へ進む（案内の流れの途中で設定へ行ったとき）。
+    var settingsPending by remember { mutableStateOf<Boolean?>(null) }
+    val onBackFromSettings by rememberUpdatedState {
+        val thenGo = settingsPending
+        if (thenGo != null) {
+            settingsPending = null
+            CopyGuideOverlay.stopWatching()
+            overlayAllowed = CopyGuideOverlay.canShow(context)
+            // スイッチをオンにした時点で YouTube へ進めてある（ロゴを押して戻ってきた）なら何もしない。
+            if (!CopyGuideOverlay.consumeContinuedFromSettings() && thenGo) {
+                if (overlayAllowed) goToYouTube() else goWithNotification()
+            }
         }
+    }
+    val lifecycleOwner = LocalLifecycleOwner.current
+    DisposableEffect(lifecycleOwner) {
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_RESUME) onBackFromSettings()
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+        onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
     }
     val openOverlaySettings = { thenGo: Boolean ->
         CopyGuideOverlay.markAsked(context)
         overlayAsked = true
-        continueAfterSettings = thenGo
-        val launched = runCatching { overlaySettings.launch(CopyGuideOverlay.settingsIntent(context)) }.isSuccess
-        if (!launched && thenGo) {
-            continueAfterSettings = false
-            goWithNotification()
+        // スイッチがオンになったら、設定画面から戻るのを待たずに YouTube を開いてロゴを出す。
+        if (thenGo) {
+            CopyGuideOverlay.watchForGrant(context) { app ->
+                CopyLinkGuide.startAwaiting(app)
+                CopyGuideOverlay.show(app)
+                CopyLinkGuide.postNotification(app)
+                openYouTube(app)
+            }
+        }
+        val launched = runCatching { context.startActivity(CopyGuideOverlay.settingsIntent(context)) }.isSuccess
+        if (launched) {
+            settingsPending = thenGo
+            // 設定画面の上に、何をすればよいかを出す（Android 11 以降は一覧から選ぶ必要がある）。
+            val label = context.applicationInfo.loadLabel(context.packageManager).toString()
+            val hint = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
+                context.getString(R.string.copyguide_overlay_settings_hint_list, label)
+            } else {
+                context.getString(R.string.copyguide_overlay_settings_hint_app)
+            }
+            android.widget.Toast.makeText(context.applicationContext, hint, android.widget.Toast.LENGTH_LONG).show()
+        } else {
+            CopyGuideOverlay.stopWatching()
+            if (thenGo) goWithNotification()
         }
     }
 
@@ -556,8 +593,10 @@ private fun tutorialSteps(): List<TutorialStep> = remember {
  */
 private fun openYouTube(context: android.content.Context) {
     val uri = Uri.parse("https://www.youtube.com/")
-    val app = Intent(Intent.ACTION_VIEW, uri).setPackage("com.google.android.youtube")
+    // 画面（Activity）以外から開くとき（設定で許可された直後）は新しいタスクとして開く必要がある。
+    val flags = if (context is android.app.Activity) 0 else Intent.FLAG_ACTIVITY_NEW_TASK
+    val app = Intent(Intent.ACTION_VIEW, uri).setPackage("com.google.android.youtube").addFlags(flags)
     runCatching { context.startActivity(app) }
-        .recoverCatching { context.startActivity(Intent(Intent.ACTION_VIEW, uri)) }
+        .recoverCatching { context.startActivity(Intent(Intent.ACTION_VIEW, uri).addFlags(flags)) }
         .onFailure { if (it !is ActivityNotFoundException) throw it }
 }

@@ -50,6 +50,8 @@
     <string name="copyguide_overlay_ask_skip">Bildirim kullan</string>
     <string name="copyguide_overlay_ask_title">Ekranın kenarında bir “geri dön” simgesi gösterilsin mi?</string>
     <string name="copyguide_overlay_enable">Kenarda geri dönüş simgesi göster</string>
+    <string name="copyguide_overlay_settings_hint_app">Anahtarı açın, YouTube açılır</string>
+    <string name="copyguide_overlay_settings_hint_list">“%s” öğesini seçip açın, YouTube açılır</string>
     <string name="copyguide_step1">①[Paylaş] → ②[Bağlantıyı kopyala]\nSonra bildirimden\nbu uygulamaya dönün</string>
     <string name="copyguide_step1_overlay">①[Paylaş] → ②[Bağlantıyı kopyala]\nSonra ekranın kenarındaki simgeyle\nbu uygulamaya dönün</string>
     <string name="copyguide_title">Videoyu YouTube\'da oynattıktan sonra</string>

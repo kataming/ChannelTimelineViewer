@@ -50,6 +50,8 @@
     <string name="copyguide_overlay_ask_skip">Folosiți o notificare</string>
     <string name="copyguide_overlay_ask_title">Afișați o pictogramă de revenire la marginea ecranului?</string>
     <string name="copyguide_overlay_enable">Afișați pictograma de revenire la margine</string>
+    <string name="copyguide_overlay_settings_hint_app">Activați comutatorul pentru a deschide YouTube</string>
+    <string name="copyguide_overlay_settings_hint_list">Alegeți „%s” și activați pentru a deschide YouTube</string>
     <string name="copyguide_step1">①[Distribuiți] → ②[Copiați linkul]\nApoi reveniți în aplicație\ndin notificare</string>
     <string name="copyguide_step1_overlay">①[Distribuiți] → ②[Copiați linkul]\nApoi atingeți pictograma de la margine\npentru a reveni în aplicație</string>
     <string name="copyguide_title">După ce redați videoclipul în YouTube</string>

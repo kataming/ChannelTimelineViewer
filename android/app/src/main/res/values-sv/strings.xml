@@ -50,6 +50,8 @@
     <string name="copyguide_overlay_ask_skip">Använd en avisering</string>
     <string name="copyguide_overlay_ask_title">Visa en tillbaka-ikon vid skärmkanten?</string>
     <string name="copyguide_overlay_enable">Visa en tillbaka-ikon vid kanten</string>
+    <string name="copyguide_overlay_settings_hint_app">Slå på reglaget för att öppna YouTube</string>
+    <string name="copyguide_overlay_settings_hint_list">Välj ”%s” och slå på för att öppna YouTube</string>
     <string name="copyguide_step1">①[Dela] → ②[Kopiera länk]\nSedan tar aviseringen dig\ntillbaka till appen</string>
     <string name="copyguide_step1_overlay">①[Dela] → ②[Kopiera länk]\nTryck sedan på ikonen vid kanten\nför att komma tillbaka till appen</string>
     <string name="copyguide_title">När du har spelat upp videon i YouTube</string>

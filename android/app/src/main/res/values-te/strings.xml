@@ -50,6 +50,8 @@
     <string name="copyguide_overlay_ask_skip">నోటిఫికేషన్ ఉపయోగించు</string>
     <string name="copyguide_overlay_ask_title">స్క్రీన్ అంచులో “తిరిగి వెళ్లు” ఐకాన్ చూపించాలా?</string>
     <string name="copyguide_overlay_enable">స్క్రీన్ అంచులో తిరిగి వెళ్లే ఐకాన్ చూపించు</string>
+    <string name="copyguide_overlay_settings_hint_app">స్విచ్ ఆన్ చేస్తే YouTube తెరుచుకుంటుంది</string>
+    <string name="copyguide_overlay_settings_hint_list">“%s”ను ఎంచుకుని ఆన్ చేస్తే YouTube తెరుచుకుంటుంది</string>
     <string name="copyguide_step1">①[షేర్] → ②[లింక్‌ను కాపీ చేయండి]\nఆ తర్వాత నోటిఫికేషన్ నుండి\nఈ యాప్‌కు తిరిగి రండి</string>
     <string name="copyguide_step1_overlay">①[షేర్] → ②[లింక్‌ను కాపీ చేయండి]\nఆ తర్వాత స్క్రీన్ అంచులోని ఐకాన్‌ను నొక్కి\nఈ యాప్‌కు తిరిగి రండి</string>
     <string name="copyguide_title">YouTubeలో ప్లే చేసిన తర్వాత</string>

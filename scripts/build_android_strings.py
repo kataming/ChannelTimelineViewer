@@ -85,7 +85,10 @@ EXTRA_STRINGS = {"app_name": "Channel Timeline Viewer"}
 # ⚠️ ここは strings.json のキーの綴りで書く（Android のリソース名ではない）。
 #    "about.onetap." と書いても "about.oneTap." には当たらない。
 SKIP_PREFIXES = ("handoff.", "shareTips.", "share.", "openExtension.", "notification.",
-                 "about.share.", "about.pin.", "about.oneTap.", "about.notify.")
+                 "about.share.", "about.pin.", "about.oneTap.", "about.notify.",
+                 # iOS 用の「YouTube の共有から追加する」（左上の「◀ アプリ名」で戻る案内）。
+                 # Android は copyguide.*（通知・画面の端のボタン）を使う。
+                 "copyguide.ios.")
 # iOS だけで使う文言（Apple アカウント・価格取得の再試行）。Android 側には出さない。
 SKIP_KEYS = {
     "pro.restore.hint.apple",

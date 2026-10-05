@@ -95,6 +95,18 @@
 "common.done" = "完成";
 /* 再試行 */
 "common.retry" = "重試";
+/* iOS: 共有メニューから %@ を選ぶ従来の手順を開く（Android の copyguide.legacy と同じ訳） */
+"copyguide.ios.legacy" = "查看如何從「分享」選單選擇 %@";
+/* iOS: 案内から YouTube へ行って戻ったが、コピーされた YouTube のリンクが無かった */
+"copyguide.ios.notFound" = "找不到已複製的 YouTube 連結。請在 YouTube 中點［分享］→［複製連結］後再回來。";
+/* iOS: YouTube を開くボタン（Android の copyguide.open と同じ訳） */
+"copyguide.ios.open" = "開啟 YouTube";
+/* iOS: 戻ったときに iOS が出す「ペーストの許可」の説明。読むのは YouTube のリンクだけ */
+"copyguide.ios.pasteNote" = "返回時如果詢問是否允許貼上，請允許。我們只讀取你複製的 YouTube 連結，不會傳送到任何地方。";
+/* iOS: ①［共有］→②［コピー］→③ 左上の「◀ アプリ名」で戻る。%@ = アプリの表示名（iOS が左上に出す戻るリンクの名前） */
+"copyguide.ios.step1" = "①［分享］ → ②［複製連結］\n③ 點左上角的「◀ %@」\n就能回到本 App";
+/* iOS: YouTube の共有から追加の見出し（Android の copyguide.title と同じ訳） */
+"copyguide.ios.title" = "在 YouTube 播放影片後";
 /* 画面下部の注意書き */
 "disclaimer.short" = "本 App 並非 YouTube 官方 App。播放使用 YouTube 官方的嵌入式播放器，不會下載影片、封鎖廣告或在背景播放。";
 /* エラー: APIキー未設定 */

@@ -95,6 +95,18 @@
 "common.done" = "Klar";
 /* 再試行 */
 "common.retry" = "Försök igen";
+/* iOS: 共有メニューから %@ を選ぶ従来の手順を開く（Android の copyguide.legacy と同じ訳） */
+"copyguide.ios.legacy" = "Se hur du väljer %@ i Dela-menyn";
+/* iOS: 案内から YouTube へ行って戻ったが、コピーされた YouTube のリンクが無かった */
+"copyguide.ios.notFound" = "Ingen kopierad YouTube-länk hittades. Tryck på Dela → Kopiera länk i YouTube och kom sedan tillbaka.";
+/* iOS: YouTube を開くボタン（Android の copyguide.open と同じ訳） */
+"copyguide.ios.open" = "Öppna YouTube";
+/* iOS: 戻ったときに iOS が出す「ペーストの許可」の説明。読むのは YouTube のリンクだけ */
+"copyguide.ios.pasteNote" = "Om du tillfrågas om inklistring ska tillåtas när du kommer tillbaka, tillåt det. Vi läser bara YouTube-länken du kopierade och skickar den ingenstans.";
+/* iOS: ①［共有］→②［コピー］→③ 左上の「◀ アプリ名」で戻る。%@ = アプリの表示名（iOS が左上に出す戻るリンクの名前） */
+"copyguide.ios.step1" = "①[Dela] → ②[Kopiera länk]\n③ Tryck på ”◀ %@” uppe till vänster\nför att komma tillbaka till appen";
+/* iOS: YouTube の共有から追加の見出し（Android の copyguide.title と同じ訳） */
+"copyguide.ios.title" = "När du har spelat upp videon i YouTube";
 /* 画面下部の注意書き */
 "disclaimer.short" = "Den här appen är inte den officiella YouTube-appen. Uppspelningen använder YouTubes officiella inbäddade spelare; appen laddar inte ned videor, blockerar inte annonser och spelar inte upp i bakgrunden.";
 /* エラー: APIキー未設定 */

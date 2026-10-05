@@ -48,8 +48,13 @@ INFO_PLIST_KEYS = {
 ANDROID_ONLY_PREFIXES = ("about.analytics.", "pro.cancelSurvey.", "copyguide.")  # pro.cancelSurvey.* = 購入をやめた直後のアンケート（Android 1.16〜）／copyguide.* = YouTube の共有から追加（Android の案内）
 
 
+# copyguide.* のうち、iOS 用に別に用意した copyguide.ios.* は iOS に書き出す
+# （iOS は画面の端のボタンも通知も使わず、左上の「◀ アプリ名」で戻る案内にしている）。
+IOS_EXCEPTION_PREFIXES = ("copyguide.ios.",)
+
+
 def is_android_only(key: str) -> bool:
-    return key.startswith(ANDROID_ONLY_PREFIXES)
+    return key.startswith(ANDROID_ONLY_PREFIXES) and not key.startswith(IOS_EXCEPTION_PREFIXES)
 
 
 def escape(value: str) -> str:

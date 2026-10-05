@@ -95,6 +95,18 @@
 "common.done" = "Tapos na";
 /* 再試行 */
 "common.retry" = "Subukang muli";
+/* iOS: 共有メニューから %@ を選ぶ従来の手順を開く（Android の copyguide.legacy と同じ訳） */
+"copyguide.ios.legacy" = "Tingnan kung paano piliin ang %@ sa Share menu";
+/* iOS: 案内から YouTube へ行って戻ったが、コピーされた YouTube のリンクが無かった */
+"copyguide.ios.notFound" = "Walang nakitang kinopyang YouTube link. Sa YouTube, i-tap ang Share → Kopyahin ang link, saka bumalik.";
+/* iOS: YouTube を開くボタン（Android の copyguide.open と同じ訳） */
+"copyguide.ios.open" = "Buksan ang YouTube";
+/* iOS: 戻ったときに iOS が出す「ペーストの許可」の説明。読むのは YouTube のリンクだけ */
+"copyguide.ios.pasteNote" = "Kung tanungin ka kung papayagan ang pag-paste pagbalik mo, payagan ito. Ang kinopya mong YouTube link lang ang binabasa namin at hindi namin ito ipinapadala kahit saan.";
+/* iOS: ①［共有］→②［コピー］→③ 左上の「◀ アプリ名」で戻る。%@ = アプリの表示名（iOS が左上に出す戻るリンクの名前） */
+"copyguide.ios.step1" = "①[Share] → ②[Kopyahin ang link]\n③ I-tap ang “◀ %@” sa kaliwang itaas\npara bumalik sa app na ito";
+/* iOS: YouTube の共有から追加の見出し（Android の copyguide.title と同じ訳） */
+"copyguide.ios.title" = "Pagkatapos i-play sa YouTube";
 /* 画面下部の注意書き */
 "disclaimer.short" = "Hindi ito ang opisyal na YouTube app. Ginagamit sa pag-play ang opisyal na embedded player ng YouTube; hindi ito nagda-download ng video, hindi nagba-block ng ad, at hindi nagpe-play sa background.";
 /* エラー: APIキー未設定 */

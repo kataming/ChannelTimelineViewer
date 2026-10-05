@@ -8,6 +8,13 @@ struct VideoListView: View {
     @EnvironmentObject private var playbackSettings: PlaybackSettingsStore
     @StateObject private var viewModel: VideoListViewModel
     @FocusState private var searchFocused: Bool
+    /// メニューの「一番上へ」「一番下へ」。同じ方向を続けて押しても動くよう、押すたびに番号を変える。
+    @State private var scrollRequest: ScrollRequest?
+
+    private struct ScrollRequest: Equatable {
+        let edge: VideoListScrollTarget.Edge
+        let serial: Int
+    }
 
     init(channel: Channel) {
         _viewModel = StateObject(wrappedValue: VideoListViewModel(channel: channel))
@@ -59,6 +66,20 @@ struct VideoListView: View {
                         } label: {
                             Label("list.menu.reloadAll", systemImage: "arrow.triangle.2.circlepath")
                         }
+                        // 本数の多いチャンネル向け（5,000本超もある）。アニメーションなしで一気に飛ぶ。
+                        Divider()
+                        Button {
+                            requestScroll(.top)
+                        } label: {
+                            Label("list.menu.top", systemImage: "arrow.up.to.line")
+                        }
+                        .disabled(viewModel.videos.isEmpty)
+                        Button {
+                            requestScroll(.bottom)
+                        } label: {
+                            Label("list.menu.bottom", systemImage: "arrow.down.to.line")
+                        }
+                        .disabled(viewModel.videos.isEmpty)
                     } label: {
                         Image(systemName: "line.3.horizontal.decrease.circle")
                     }
@@ -71,6 +92,10 @@ struct VideoListView: View {
             }
             // 再生画面で視聴済みにして戻った時などに進捗を更新する。
             .onChange(of: watchStore.watchedCount) { _, _ in updateProgress() }
+    }
+
+    private func requestScroll(_ edge: VideoListScrollTarget.Edge) {
+        scrollRequest = ScrollRequest(edge: edge, serial: (scrollRequest?.serial ?? 0) + 1)
     }
 
     /// このチャンネルの進捗（総数・視聴済み数）を ChannelProgressStore に反映する。
@@ -154,9 +179,12 @@ struct VideoListView: View {
     private var list: some View {
         // 絞り込み（並び替え＋視聴フィルター＋検索）は1回だけ計算して使い回す。
         let visible = self.visible
-        return List {
+        return ScrollViewReader { proxy in
+        List {
             if viewModel.isSearching {
-                Section { searchRow }
+                Section {
+                    searchRow.id(VideoListScrollTarget.searchRowID)
+                }
             }
 
             Section {
@@ -217,6 +245,21 @@ struct VideoListView: View {
             await viewModel.checkForNewVideos()
             updateProgress()
         }
+        // メニューの「一番上へ」「一番下へ」。数千本でも待たせないよう、アニメーションなしで飛ぶ。
+        .onChange(of: scrollRequest) { _, request in
+            guard let request,
+                  let target = VideoListScrollTarget.id(
+                      for: request.edge,
+                      isSearching: viewModel.isSearching,
+                      hasProgressRow: totalCount > 0,
+                      visibleVideoIds: visible.map(\.id)) else { return }
+            var transaction = Transaction()
+            transaction.disablesAnimations = true
+            withTransaction(transaction) {
+                proxy.scrollTo(target, anchor: request.edge == .top ? .top : .bottom)
+            }
+        }
+        }
     }
 
     @ViewBuilder
@@ -234,6 +277,7 @@ struct VideoListView: View {
                 ProgressView(value: rate).tint(.green)
             }
             .padding(.vertical, 2)
+            .id(VideoListScrollTarget.progressRowID)
         }
     }
 

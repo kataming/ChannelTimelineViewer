@@ -95,6 +95,18 @@
 "common.done" = "완료";
 /* 再試行 */
 "common.retry" = "다시 시도";
+/* iOS: 共有メニューから %@ を選ぶ従来の手順を開く（Android の copyguide.legacy と同じ訳） */
+"copyguide.ios.legacy" = "‘공유’ 메뉴에서 %@ 선택하는 방법 보기";
+/* iOS: 案内から YouTube へ行って戻ったが、コピーされた YouTube のリンクが無かった */
+"copyguide.ios.notFound" = "복사한 YouTube 링크를 찾지 못했습니다. YouTube에서 [공유] → [링크 복사]를 누른 뒤 돌아와 주세요.";
+/* iOS: YouTube を開くボタン（Android の copyguide.open と同じ訳） */
+"copyguide.ios.open" = "YouTube 열기";
+/* iOS: 戻ったときに iOS が出す「ペーストの許可」の説明。読むのは YouTube のリンクだけ */
+"copyguide.ios.pasteNote" = "돌아왔을 때 붙여넣기를 허용할지 묻는다면 허용해 주세요. 복사한 YouTube 링크만 읽으며 어디에도 보내지 않습니다.";
+/* iOS: ①［共有］→②［コピー］→③ 左上の「◀ アプリ名」で戻る。%@ = アプリの表示名（iOS が左上に出す戻るリンクの名前） */
+"copyguide.ios.step1" = "①[공유] → ②[링크 복사]\n③ 왼쪽 위의 ‘◀ %@’을(를) 누르면\n이 앱으로 돌아옵니다";
+/* iOS: YouTube の共有から追加の見出し（Android の copyguide.title と同じ訳） */
+"copyguide.ios.title" = "YouTube에서 재생한 다음";
 /* 画面下部の注意書き */
 "disclaimer.short" = "이 앱은 YouTube 공식 앱이 아닙니다. 재생에는 YouTube 공식 임베드 플레이어를 사용하며 다운로드·광고 차단·백그라운드 재생은 하지 않습니다.";
 /* エラー: APIキー未設定 */

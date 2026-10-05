@@ -6,12 +6,26 @@ struct VideoPage {
     let nextPageToken: String?
 }
 
+/// 「人気動画から選ぶ」に並べる動画（選ぶとその投稿チャンネルを開く）。
+struct PopularVideo: Identifiable, Equatable {
+    let videoId: String
+    let title: String
+    let channelId: String
+    let channelTitle: String
+    let thumbnailURL: URL?
+
+    var id: String { videoId }
+}
+
 /// YouTube Data API v3 クライアント。
 /// スクレイピングは行わず、公式の Data API のみを使用する。
 final class YouTubeAPIClient {
 
     private let session: URLSession
     private let baseURL = "https://www.googleapis.com/youtube/v3"
+    /// 人気動画の一覧を国ごとに持っている当方のサーバー（site/functions/api/popular.js）。
+    /// Android（`YouTubeApiClient.fetchPopularVideos`）と同じものを使う。
+    private let popularURL = "https://channeltimeline.jewelrysunflower.com/api/popular"
     /// 暴走防止のための最大ページ数（50件/ページ × 100 = 5000本）。
     private let maxPages = 100
 
@@ -46,6 +60,97 @@ final class YouTubeAPIClient {
             let channelId = try await fetchChannelId(forVideoId: videoId)
             return try await fetchChannel(query: [("id", channelId)])
         }
+    }
+
+    /// 「人気動画から選ぶ」に並べる、その国でいま人気の動画。
+    ///
+    /// まず当方のサーバー（`popularURL`・Cloudflare）から読む。サーバーが国ごとに1時間だけ持っているので、
+    /// 利用者が何人いても・何度入れ直しても、アプリの quota は使わない（2026-10-05・Android と同じ判断）。
+    /// 送るのは2文字の国コードだけ。サーバーが使えないときだけ、直接 YouTube に問い合わせる（quota 1）。
+    func fetchPopularVideos(regionCode: String?) async throws -> [PopularVideo] {
+        let region = Self.normalizedRegion(regionCode)
+        if var comps = URLComponents(string: popularURL) {
+            if let region { comps.queryItems = [URLQueryItem(name: "region", value: region)] }
+            if let url = comps.url,
+               let result = try? await session.data(from: url),
+               let http = result.1 as? HTTPURLResponse, (200...299).contains(http.statusCode),
+               let videos = try? Self.popularVideos(fromServerJSON: result.0), !videos.isEmpty {
+                return videos
+            }
+        }
+        return try await fetchPopularVideosDirect(region: region)
+    }
+
+    /// YouTube に直接問い合わせる（chart=mostPopular・quota 1）。サーバーが使えないときの予備。
+    /// 国に対応していない（400 など）ときは国を指定せずに取り直す。
+    private func fetchPopularVideosDirect(region: String?) async throws -> [PopularVideo] {
+        let base: [(String, String)] = [("part", "snippet"), ("chart", "mostPopular"), ("maxResults", "50")]
+        let data: Data
+        if let region {
+            do {
+                data = try await getData("videos", query: base + [("regionCode", region)])
+            } catch {
+                data = try await getData("videos", query: base)
+            }
+        } else {
+            data = try await getData("videos", query: base)
+        }
+        return try Self.popularVideos(fromChartJSON: data)
+    }
+
+    /// 国コードを2文字の大文字にそろえる（それ以外は nil＝国を指定しない）。
+    static func normalizedRegion(_ code: String?) -> String? {
+        guard let upper = code?.uppercased(), upper.count == 2,
+              upper.allSatisfy({ $0.isASCII && $0.isLetter }) else { return nil }
+        return upper
+    }
+
+    /// 当方のサーバー（/api/popular）の答え `{ region, items: [...] }` を読む（テスト可能）。
+    /// 同じチャンネルは最初の1本だけにする。
+    static func popularVideos(fromServerJSON data: Data) throws -> [PopularVideo] {
+        let response: PopularServerResponse
+        do {
+            response = try JSONDecoder().decode(PopularServerResponse.self, from: data)
+        } catch {
+            throw YouTubeAPIError.decodingError
+        }
+        let videos = (response.items ?? []).compactMap { item -> PopularVideo? in
+            guard let videoId = item.videoId, !videoId.isEmpty,
+                  let channelId = item.channelId, !channelId.isEmpty else { return nil }
+            return PopularVideo(
+                videoId: videoId,
+                title: item.title?.nonEmpty ?? String(localized: "video.untitled"),
+                channelId: channelId,
+                channelTitle: item.channelTitle?.nonEmpty ?? String(localized: "channel.untitled"),
+                thumbnailURL: item.thumbnailUrl.flatMap(URL.init(string:)))
+        }
+        return distinctByChannel(videos)
+    }
+
+    /// chart=mostPopular の videos.list の答えを読む（テスト可能）。同じチャンネルは最初の1本だけ。
+    static func popularVideos(fromChartJSON data: Data) throws -> [PopularVideo] {
+        let response: VideoListResponse
+        do {
+            response = try JSONDecoder().decode(VideoListResponse.self, from: data)
+        } catch {
+            throw YouTubeAPIError.decodingError
+        }
+        let videos = response.items.compactMap { item -> PopularVideo? in
+            guard let videoId = item.id, !videoId.isEmpty,
+                  let channelId = item.snippet?.channelId, !channelId.isEmpty else { return nil }
+            return PopularVideo(
+                videoId: videoId,
+                title: item.snippet?.title?.nonEmpty ?? String(localized: "video.untitled"),
+                channelId: channelId,
+                channelTitle: item.snippet?.channelTitle?.nonEmpty ?? String(localized: "channel.untitled"),
+                thumbnailURL: item.snippet?.thumbnails?.mediumURL)
+        }
+        return distinctByChannel(videos)
+    }
+
+    private static func distinctByChannel(_ videos: [PopularVideo]) -> [PopularVideo] {
+        var seen = Set<String>()
+        return videos.filter { seen.insert($0.channelId).inserted }
     }
 
     /// videoId からその動画を投稿したチャンネルの channelId を取得する（videos.list / quota 1）。
@@ -312,7 +417,25 @@ private struct VideoListResponse: Decodable {
         let channelId: String?
         let channelTitle: String?
         let title: String?
+        let thumbnails: Thumbnails?
     }
+}
+
+/// 当方のサーバー（/api/popular）の答え。
+private struct PopularServerResponse: Decodable {
+    let items: [Item]?
+    struct Item: Decodable {
+        let videoId: String?
+        let title: String?
+        let channelId: String?
+        let channelTitle: String?
+        let thumbnailUrl: String?
+    }
+}
+
+private extension String {
+    /// 空文字なら nil。
+    var nonEmpty: String? { isEmpty ? nil : self }
 }
 
 /// videos.list（statistics）用。
@@ -372,6 +495,12 @@ private struct Thumbnails: Decodable {
 
     struct Thumb: Decodable {
         let url: String?
+    }
+
+    /// 一覧の小さな表示に向くサムネイルURL（medium 優先）。
+    var mediumURL: URL? {
+        let candidate = medium?.url ?? high?.url ?? `default`?.url
+        return candidate.flatMap(URL.init(string:))
     }
 
     /// 利用可能な中で品質の高いサムネイルURL。

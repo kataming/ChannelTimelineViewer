@@ -95,6 +95,18 @@
 "common.done" = "Gata";
 /* 再試行 */
 "common.retry" = "Reîncercați";
+/* iOS: 共有メニューから %@ を選ぶ従来の手順を開く（Android の copyguide.legacy と同じ訳） */
+"copyguide.ios.legacy" = "Vedeți cum să alegeți %@ din meniul Distribuiți";
+/* iOS: 案内から YouTube へ行って戻ったが、コピーされた YouTube のリンクが無かった */
+"copyguide.ios.notFound" = "Nu am găsit un link YouTube copiat. În YouTube, atingeți Distribuiți → Copiați linkul, apoi reveniți.";
+/* iOS: YouTube を開くボタン（Android の copyguide.open と同じ訳） */
+"copyguide.ios.open" = "Deschideți YouTube";
+/* iOS: 戻ったときに iOS が出す「ペーストの許可」の説明。読むのは YouTube のリンクだけ */
+"copyguide.ios.pasteNote" = "Dacă la revenire sunteți întrebat dacă permiteți lipirea, permiteți. Citim doar linkul YouTube copiat și nu îl trimitem nicăieri.";
+/* iOS: ①［共有］→②［コピー］→③ 左上の「◀ アプリ名」で戻る。%@ = アプリの表示名（iOS が左上に出す戻るリンクの名前） */
+"copyguide.ios.step1" = "①[Distribuiți] → ②[Copiați linkul]\n③ Atingeți „◀ %@” din stânga sus\npentru a reveni în aplicație";
+/* iOS: YouTube の共有から追加の見出し（Android の copyguide.title と同じ訳） */
+"copyguide.ios.title" = "După ce redați videoclipul în YouTube";
 /* 画面下部の注意書き */
 "disclaimer.short" = "Această aplicație nu este aplicația oficială YouTube. Redarea folosește playerul încorporat oficial YouTube; nu descarcă videoclipuri, nu blochează reclame și nu redă în fundal.";
 /* エラー: APIキー未設定 */

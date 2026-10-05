@@ -99,6 +99,21 @@ final class ChannelInputViewModel: ObservableObject {
         await fetch(context: context)
     }
 
+    /// 「人気動画から選ぶ」で選んだ動画の、投稿チャンネルを開く（Android の openPopular と同じ）。
+    func openPopular(_ video: PopularVideo, context: ChannelAccessContext) async {
+        await openSharedLink(Self.channelURLString(forChannelId: video.channelId), context: context)
+    }
+
+    /// channelId からチャンネルの URL を作る（解決は既存の resolveChannel に任せる）。
+    nonisolated static func channelURLString(forChannelId channelId: String) -> String {
+        "https://www.youtube.com/channel/\(channelId)"
+    }
+
+    /// 人気の動画を読む（端末の国。分からなければ YouTube の既定）。
+    func loadPopularVideos() async throws -> [PopularVideo] {
+        try await api.fetchPopularVideos(regionCode: Locale.current.region?.identifier)
+    }
+
     /// 保存済みの一覧から開く。ロック中なら開かずに案内を出す。
     func open(_ favorite: FavoriteChannel, context: ChannelAccessContext) {
         guard context.usableChannelIds.contains(favorite.id) else {

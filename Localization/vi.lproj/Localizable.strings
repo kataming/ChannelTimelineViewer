@@ -95,6 +95,18 @@
 "common.done" = "Xong";
 /* 再試行 */
 "common.retry" = "Thử lại";
+/* iOS: 共有メニューから %@ を選ぶ従来の手順を開く（Android の copyguide.legacy と同じ訳） */
+"copyguide.ios.legacy" = "Xem cách chọn %@ từ menu Chia sẻ";
+/* iOS: 案内から YouTube へ行って戻ったが、コピーされた YouTube のリンクが無かった */
+"copyguide.ios.notFound" = "Không tìm thấy đường liên kết YouTube đã sao chép. Trong YouTube, chạm Chia sẻ → Sao chép đường liên kết rồi quay lại.";
+/* iOS: YouTube を開くボタン（Android の copyguide.open と同じ訳） */
+"copyguide.ios.open" = "Mở YouTube";
+/* iOS: 戻ったときに iOS が出す「ペーストの許可」の説明。読むのは YouTube のリンクだけ */
+"copyguide.ios.pasteNote" = "Nếu khi quay lại bạn được hỏi có cho phép dán không, hãy cho phép. Chúng tôi chỉ đọc đường liên kết YouTube bạn đã sao chép và không gửi đi đâu cả.";
+/* iOS: ①［共有］→②［コピー］→③ 左上の「◀ アプリ名」で戻る。%@ = アプリの表示名（iOS が左上に出す戻るリンクの名前） */
+"copyguide.ios.step1" = "①[Chia sẻ] → ②[Sao chép đường liên kết]\n③ Chạm vào “◀ %@” ở góc trên bên trái\nđể quay lại ứng dụng này";
+/* iOS: YouTube の共有から追加の見出し（Android の copyguide.title と同じ訳） */
+"copyguide.ios.title" = "Sau khi phát video trên YouTube";
 /* 画面下部の注意書き */
 "disclaimer.short" = "Ứng dụng này không phải là ứng dụng YouTube chính thức. Việc phát video dùng trình phát nhúng chính thức của YouTube; ứng dụng không tải video xuống, không chặn quảng cáo và không phát trong nền.";
 /* エラー: APIキー未設定 */

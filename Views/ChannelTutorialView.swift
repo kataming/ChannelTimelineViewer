@@ -6,8 +6,10 @@ import UIKit
 /// なぜ要るか: 追加の入口が「YouTube の共有 → このアプリを選ぶ」で、
 /// 初めての人には見つけられない。入れた直後に何もできずに終わるのを防ぐ。
 ///
-/// 出すのは**初めてチャンネルを追加しようとしたとき**だけ（起動のたびには出さない）。
-/// あとは「ⓘ このアプリについて」からいつでも開き直せる。
+/// 2026-10-05 からは「チャンネルの追加」のシート（`ChannelAddGuideView`）の中の1ページで、
+/// 「YouTube の共有から追加する」の案内の下の「共有メニューから〜を選ぶ方法を見る」から開く
+/// （Android と同じ並び）。**この画面は NavigationStack を持たない**（シート側が持つ）。
+/// 閉じるのも呼び出し側（`onComplete` / `onSkip` を受けてシートを閉じる）。
 ///
 /// 画像は実機で撮った本物の画面を**7言語ぶん**用意してある（`tutorial_step1_ja` など）。
 /// **説明文は画像に焼き込まない**ので、絵と文字の言語がいつも揃う。
@@ -18,7 +20,6 @@ struct ChannelTutorialView: View {
     /// 途中でやめた／閉じた。何手順目だったかを渡す。
     let onSkip: (Int) -> Void
 
-    @Environment(\.dismiss) private var dismiss
     @State private var index = 0
 
     /// 手順の数。iOS は**5つ**（共有したあと通知をタップして初めて一覧が開くため）。
@@ -75,45 +76,42 @@ struct ChannelTutorialView: View {
     private var step: Int { index + 1 }
 
     var body: some View {
-        NavigationStack {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 14) {
-                    Text(String(format: String(localized: "tutorial.progress.format"),
-                                "\(step)", "\(stepCount)"))
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
+        ScrollView {
+            VStack(alignment: .leading, spacing: 14) {
+                Text(String(format: String(localized: "tutorial.progress.format"),
+                            "\(step)", "\(stepCount)"))
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
 
-                    Text(String(format: NSLocalizedString(titleKey(step), comment: ""),
-                                AppInfo.displayName))
-                        .font(.title3.bold())
+                Text(String(format: NSLocalizedString(titleKey(step), comment: ""),
+                            AppInfo.displayName))
+                    .font(.title3.bold())
 
-                    Text(String(format: NSLocalizedString(bodyKey(step), comment: ""),
-                                AppInfo.displayName))
-                        .font(.body)
-                        .fixedSize(horizontal: false, vertical: true)
+                Text(String(format: NSLocalizedString(bodyKey(step), comment: ""),
+                            AppInfo.displayName))
+                    .font(.body)
+                    .fixedSize(horizontal: false, vertical: true)
 
-                    stepImage
+                stepImage
 
-                    controls
+                controls
 
-                    // 例として他社のチャンネルを出している以上、関係が無いことは必ず書く。
-                    Text("tutorial.example.note")
-                        .font(.caption2)
-                        .foregroundStyle(.secondary)
-                        .fixedSize(horizontal: false, vertical: true)
-                        .padding(.top, 4)
-                }
-                .padding(20)
-                .frame(maxWidth: .infinity, alignment: .leading)
+                // 例として他社のチャンネルを出している以上、関係が無いことは必ず書く。
+                Text("tutorial.example.note")
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .padding(.top, 4)
             }
-            .navigationTitle(Text("tutorial.title"))
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button(isLast ? "tutorial.close" : "tutorial.skip") {
-                        onSkip(index + 1)
-                        dismiss()
-                    }
+            .padding(20)
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .navigationTitle(Text("tutorial.title"))
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(isLast ? "tutorial.close" : "tutorial.skip") {
+                    onSkip(index + 1)
                 }
             }
         }
@@ -149,7 +147,6 @@ struct ChannelTutorialView: View {
                 Button {
                     openYouTube()
                     onComplete()
-                    dismiss()
                 } label: {
                     Text("tutorial.cta").frame(maxWidth: .infinity)
                 }

@@ -18,12 +18,16 @@ struct ChannelInputView: View {
     /// MREC は画面単位で読み込む（Form の行の中で読むと、読み込み前に空の行が出るため）。
     @StateObject private var mrecLoader = BannerAdLoader()
     @StateObject private var viewModel = ChannelInputViewModel()
+    /// 「YouTube の共有から追加する」で YouTube へ行っているか（戻ったらコピーしたリンクを開く）。
+    @StateObject private var copyGuide = CopyLinkGuideStore()
     @State private var showAbout = false
     @State private var showPro = false
     @State private var showFreeChannelPicker = false
     @State private var showTutorial = false
     /// 案内を自分で開き直したのか（初回の自動表示と区別する）。
     @State private var tutorialWasManual = false
+    /// 案内をどのページから始めるか（人気動画／YouTube の共有から追加する）。
+    @State private var tutorialStart: ChannelAddGuideView.Start = .popular
     @State private var clipboardMessage: String?
     @Environment(\.scenePhase) private var scenePhase
 
@@ -91,6 +95,8 @@ struct ChannelInputView: View {
                 }
 
                 shareNotificationHint
+
+                addButtons
 
                 Section {
                     HStack(spacing: 8) {
@@ -224,7 +230,11 @@ struct ChannelInputView: View {
             .onChange(of: scenePhase) { _, phase in
                 guard phase == .active else { return }
                 Task { await pro.refreshEntitlement() }
+                // 「YouTube の共有から追加する」から戻ってきた（◀ アプリ名・アプリの切り替えのどちらでも）。
+                Task { @MainActor in await openCopiedLinkIfReturning() }
             }
+            // YouTube にいるあいだにアプリが終了していた場合（コールドスタート）も拾う。
+            .task { await openCopiedLinkIfReturning() }
             // 「チャンネルの追加方法」の案内。
             // 出すのは**初めて追加しようとしたとき**だけ（起動のたびには出さない）。
             // 判定: まだ見ていない かつ 保存チャンネルが1件も無い＝まだ1つも追加できていない人。
@@ -232,18 +242,36 @@ struct ChannelInputView: View {
                 guard !channelTutorial.isCompleted,
                       favoriteStore.favorites.isEmpty else { return }
                 tutorialWasManual = false
+                // 初めての人には、まず人気動画から選んでもらう（Android と同じ・2026-10-05）。
+                tutorialStart = .popular
                 showTutorial = true
             }
             .sheet(isPresented: $showTutorial) {
-                ChannelTutorialView(
-                    onComplete: { completeTutorialIfFirstTime() },
-                    onSkip: { _ in completeTutorialIfFirstTime() })
+                ChannelAddGuideView(
+                    start: tutorialStart,
+                    // 初めての人（自動で出したとき）はスワイプで閉じない。
+                    dismissible: tutorialWasManual,
+                    loadPopular: { try await viewModel.loadPopularVideos() },
+                    onPickVideo: { video in
+                        closeTutorial()
+                        Task { @MainActor in
+                            await viewModel.openPopular(video, context: context)
+                        }
+                    },
+                    onGoToYouTube: {
+                        copyGuide.startAwaiting()
+                        closeTutorial()
+                        openYouTube()
+                    },
+                    onComplete: { closeTutorial() },
+                    onSkip: { _ in closeTutorial() })
             }
             .sheet(isPresented: $showAbout) {
                 // シートにも明示的に渡しておく（環境の引き継ぎに依存しない）。
                 AboutView(onShowTutorial: {
                     showAbout = false
                     tutorialWasManual = true
+                    tutorialStart = .popular
                     showTutorial = true
                 })
                 .environmentObject(notificationPermission)
@@ -259,6 +287,93 @@ struct ChannelInputView: View {
 
     private func startFetch() {
         Task { await viewModel.fetch(context: context) }
+    }
+
+    /// 追加の入口（Android の最初の画面と同じ並び・2026-10-05）。
+    /// 主ボタン「YouTube の共有から追加する」と、その下に白い背景の「人気動画から選ぶ」。
+    @ViewBuilder
+    private var addButtons: some View {
+        Section {
+            Button {
+                openGuide(.copyGuide)
+            } label: {
+                HStack(spacing: 8) {
+                    if viewModel.isLoading {
+                        ProgressView().tint(.white)
+                    }
+                    Text(viewModel.isLoading ? "input.fetching" : "tutorial.pick.howto")
+                        .font(.body.bold())
+                }
+                .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.borderedProminent)
+            .controlSize(.large)
+            .disabled(viewModel.isLoading)
+            .listRowInsets(EdgeInsets(top: 4, leading: 0, bottom: 4, trailing: 0))
+            .listRowBackground(Color.clear)
+            .listRowSeparator(.hidden)
+            .accessibilityIdentifier("addFromYouTube")
+
+            Button {
+                openGuide(.popular)
+            } label: {
+                Text("tutorial.pick.title")
+                    .font(.body.bold())
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 13)
+                    .background(
+                        RoundedRectangle(cornerRadius: 12, style: .continuous)
+                            .fill(Color(uiColor: .secondarySystemGroupedBackground)))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12, style: .continuous)
+                            .stroke(Color(uiColor: .separator), lineWidth: 1))
+                    .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .foregroundStyle(.tint)
+            .disabled(viewModel.isLoading)
+            .listRowInsets(EdgeInsets(top: 4, leading: 0, bottom: 4, trailing: 0))
+            .listRowBackground(Color.clear)
+            .listRowSeparator(.hidden)
+            .accessibilityIdentifier("pickFromPopular")
+        }
+    }
+
+    /// 最初の画面のボタンから案内を開く（自分で開いたので閉じられる・初回の印は変えない）。
+    private func openGuide(_ start: ChannelAddGuideView.Start) {
+        tutorialWasManual = true
+        tutorialStart = start
+        showTutorial = true
+    }
+
+    /// 案内のシートを閉じる（初回の自動表示なら「見た」印を付ける）。
+    private func closeTutorial() {
+        completeTutorialIfFirstTime()
+        showTutorial = false
+    }
+
+    /// YouTube を開く（特定のチャンネルへは飛ばさない）。YouTube アプリが入っていれば
+    /// ユニバーサルリンクでそちらが開き、iOS が左上に「◀ アプリ名」の戻るリンクを出す。
+    private func openYouTube() {
+        guard let url = URL(string: "https://www.youtube.com/") else { return }
+        UIApplication.shared.open(url)
+    }
+
+    /// 「YouTube の共有から追加する」で YouTube へ行っていた人が戻ってきたら、コピーしたリンクのチャンネルを開く。
+    /// 案内から行っていないとき・何もコピーしていないときは何もしない（クリップボードの中身も読まない）。
+    @MainActor
+    private func openCopiedLinkIfReturning() async {
+        switch await copyGuide.takeNewlyCopiedLink() {
+        case .link(let link):
+            clipboardMessage = nil
+            // 同じコピーで「共有されたURLを開く」のボタンを重ねて出さない。
+            clipboardDetector.dismissCurrent()
+            await viewModel.openSharedLink(link, context: context)
+        case .notYouTube:
+            clipboardMessage = String(localized: "copyguide.ios.notFound")
+        case .none:
+            break
+        }
     }
 
     /// Pro（複数チャンネル保存）への入口。購入後は状態表示になる。

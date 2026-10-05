@@ -9,6 +9,13 @@ protocol PasteboardProviding {
     func containsProbableURL() async -> Bool
     /// 実際の文字列を読む（ユーザー操作の直後にだけ呼ぶ）。
     func readString() -> String?
+    /// クリップボードが書き換わるたびに増える番号（中身は読まない）。
+    var changeCount: Int { get }
+}
+
+extension PasteboardProviding {
+    /// 番号を持たないテスト用のクリップボードでは、常に「書き換わった」扱いにする。
+    var changeCount: Int { -1 }
 }
 
 /// 共有シートから受け取った URL を、メインアプリ側で拾い上げるための検出器。
@@ -27,6 +34,8 @@ final class ClipboardLinkDetector: ObservableObject {
     private let pasteboard: PasteboardProviding
     /// 一度開いた URL は再提示しない。
     private var dismissedLink: String?
+    /// このコピーではボタンを出さない（`dismissCurrent()`）。次に何かコピーされたら解除。
+    private var dismissedChangeCount: Int?
 
     init(pasteboard: PasteboardProviding = SystemPasteboard()) {
         self.pasteboard = pasteboard
@@ -34,6 +43,11 @@ final class ClipboardLinkDetector: ObservableObject {
 
     /// 画面表示時・フォアグラウンド復帰時に呼ぶ。
     func refresh() async {
+        if let dismissedChangeCount, dismissedChangeCount == pasteboard.changeCount {
+            hasCandidate = false
+            return
+        }
+        dismissedChangeCount = nil
         hasCandidate = await pasteboard.containsProbableURL()
     }
 
@@ -57,6 +71,14 @@ final class ClipboardLinkDetector: ObservableObject {
     func dismiss() {
         hasCandidate = false
     }
+
+    /// いまクリップボードにある内容では、もうボタンを出さない（別の経路ですでに開いたとき）。
+    /// 何か新しくコピーされたら、また出るようになる。
+    func dismissCurrent() {
+        let count = pasteboard.changeCount
+        dismissedChangeCount = count >= 0 ? count : nil
+        hasCandidate = false
+    }
 }
 
 #if canImport(UIKit)
@@ -71,10 +93,13 @@ struct SystemPasteboard: PasteboardProviding {
     func readString() -> String? {
         UIPasteboard.general.string
     }
+
+    var changeCount: Int { UIPasteboard.general.changeCount }
 }
 #else
 struct SystemPasteboard: PasteboardProviding {
     func containsProbableURL() async -> Bool { false }
     func readString() -> String? { nil }
+    var changeCount: Int { 0 }
 }
 #endif

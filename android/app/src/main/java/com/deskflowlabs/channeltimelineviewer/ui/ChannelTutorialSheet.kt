@@ -346,6 +346,10 @@ private fun CopyLinkGuidePage(
     }
     // 画面の端の「アプリに戻る」ボタン（[CopyGuideOverlay]）。許可は設定画面でしか出せない。
     var overlayAllowed by remember { mutableStateOf(CopyGuideOverlay.canShow(context)) }
+    var overlayAsked by remember { mutableStateOf(CopyGuideOverlay.wasAsked(context)) }
+    // 説明（文と③の絵）は、まだ聞いていない人にも画面の端のボタンの方を見せる（これから勧めるのはそちら）。
+    // 通知の説明に切り替えるのは、許可しないと決めた人だけ（2026-10-05・ユーザー指摘）。
+    val showOverlayGuide = overlayAllowed || !overlayAsked
     var askOverlay by remember { mutableStateOf(false) }
     // 案内の流れの途中で設定画面へ行ったときは、戻ってきたらそのまま YouTube を開く。
     var continueAfterSettings by remember { mutableStateOf(false) }
@@ -358,6 +362,7 @@ private fun CopyLinkGuidePage(
     }
     val openOverlaySettings = { thenGo: Boolean ->
         CopyGuideOverlay.markAsked(context)
+        overlayAsked = true
         continueAfterSettings = thenGo
         val launched = runCatching { overlaySettings.launch(CopyGuideOverlay.settingsIntent(context)) }.isSuccess
         if (!launched && thenGo) {
@@ -381,6 +386,7 @@ private fun CopyLinkGuidePage(
                 TextButton(onClick = {
                     askOverlay = false
                     CopyGuideOverlay.markAsked(context)
+                    overlayAsked = true
                     goWithNotification()
                 }) { Text(stringResource(R.string.copyguide_overlay_ask_skip)) }
             },
@@ -398,18 +404,18 @@ private fun CopyLinkGuidePage(
         Text(stringResource(R.string.copyguide_title), style = MaterialTheme.typography.titleLarge)
         // 見出しと同じ大きさで、やることだけを2行で（2026-10-05・ユーザー指定）。
         Text(
-            stringResource(if (overlayAllowed) R.string.copyguide_step1_overlay else R.string.copyguide_step1),
+            stringResource(if (showOverlayGuide) R.string.copyguide_step1_overlay else R.string.copyguide_step1),
             style = MaterialTheme.typography.titleLarge,
         )
         // ［共有］→［コピー］→「コピーされました」と戻るボタン、を実際の画面（NASA の動画）で順に見せる。
-        CopyGuideAnimation(overlay = overlayAllowed)
+        CopyGuideAnimation(overlay = showOverlayGuide)
 
         Button(
             onClick = {
                 when {
                     overlayAllowed -> goToYouTube()
                     // 初回だけ「画面の端にボタンを出しますか？」と聞く。断った人は通知で案内する。
-                    !CopyGuideOverlay.wasAsked(context) -> askOverlay = true
+                    !overlayAsked -> askOverlay = true
                     else -> goWithNotification()
                 }
             },
@@ -418,7 +424,7 @@ private fun CopyLinkGuidePage(
             Text(stringResource(R.string.copyguide_open))
         }
         // 一度断った人にも、あとから画面の端のボタンに切り替えられる入口を残す。
-        if (!overlayAllowed && CopyGuideOverlay.wasAsked(context)) {
+        if (!overlayAllowed && overlayAsked) {
             TextButton(
                 onClick = { openOverlaySettings(false) },
                 modifier = Modifier.align(Alignment.CenterHorizontally),
@@ -440,7 +446,7 @@ private fun CopyLinkGuidePage(
  * 各写真には ①②③ の丸数字と、押す場所を指す矢印を描き込んである（2026-10-05・ユーザー指定）。
  * 本物の録画にしないのは、他人の映像（動画の中身）をアプリ内で流さないため。映像部分はぼかしてある。
  * 画像は scripts/build_copy_guide_frames.py で作る（7言語。drawable-<言語>-nodpi/copyguide_frame1〜3）。
- * [overlay]（画面の端のボタンを許可済み）なら、③は通知ではなく「クリック」→ロゴのボタンの絵
+ * [overlay]（画面の端のボタンを許可済み・またはまだ聞いていない）なら、③は通知ではなく「クリック」→ロゴのボタンの絵
  * （copyguide_frame3_overlay・2026-10-05 ユーザー指定）。
  */
 @Composable

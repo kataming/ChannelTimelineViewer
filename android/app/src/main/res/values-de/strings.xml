@@ -51,8 +51,7 @@
     <string name="copyguide_overlay_enable">Zurück-Symbol am Rand anzeigen</string>
     <string name="copyguide_overlay_settings_hint_app">Schalter aktivieren, um YouTube zu öffnen</string>
     <string name="copyguide_overlay_settings_hint_list">Wähle „%s“ und aktiviere es, um YouTube zu öffnen</string>
-    <string name="copyguide_step1">①[Teilen] → ②[Link kopieren]\nDanach über die Mitteilung\nzurück zu dieser App</string>
-    <string name="copyguide_step1_overlay">①[Teilen] → ②[Link kopieren]\nDanach über das Symbol am Rand\nzurück zu dieser App</string>
+    <string name="copyguide_step1">Nur 3 Mal tippen</string>
     <string name="copyguide_title">Nach dem Abspielen in YouTube</string>
     <string name="disclaimer_short">Diese App ist nicht die offizielle YouTube-App. Die Wiedergabe nutzt den offiziellen eingebetteten YouTube-Player; es werden keine Videos heruntergeladen, keine Werbung blockiert und nicht im Hintergrund abgespielt.</string>
     <string name="error_apikeymissing">Es ist kein API-Schlüssel konfiguriert.</string>

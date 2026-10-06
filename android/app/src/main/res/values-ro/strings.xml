@@ -51,8 +51,7 @@
     <string name="copyguide_overlay_enable">Afișați pictograma de revenire la margine</string>
     <string name="copyguide_overlay_settings_hint_app">Activați comutatorul pentru a deschide YouTube</string>
     <string name="copyguide_overlay_settings_hint_list">Alegeți „%s” și activați pentru a deschide YouTube</string>
-    <string name="copyguide_step1">①[Distribuiți] → ②[Copiați linkul]\nApoi reveniți în aplicație\ndin notificare</string>
-    <string name="copyguide_step1_overlay">①[Distribuiți] → ②[Copiați linkul]\nApoi atingeți pictograma de la margine\npentru a reveni în aplicație</string>
+    <string name="copyguide_step1">Doar 3 atingeri</string>
     <string name="copyguide_title">După ce redați videoclipul în YouTube</string>
     <string name="disclaimer_short">Această aplicație nu este aplicația oficială YouTube. Redarea folosește playerul încorporat oficial YouTube; nu descarcă videoclipuri, nu blochează reclame și nu redă în fundal.</string>
     <string name="error_apikeymissing">Nu este configurată nicio cheie API.</string>

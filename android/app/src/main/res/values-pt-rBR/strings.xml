@@ -51,8 +51,7 @@
     <string name="copyguide_overlay_enable">Mostrar ícone de voltar na borda</string>
     <string name="copyguide_overlay_settings_hint_app">Ative a chave para abrir o YouTube</string>
     <string name="copyguide_overlay_settings_hint_list">Escolha “%s” e ative para abrir o YouTube</string>
-    <string name="copyguide_step1">①[Compartilhar] → ②[Copiar link]\nDepois volte a este app\npela notificação</string>
-    <string name="copyguide_step1_overlay">①[Compartilhar] → ②[Copiar link]\nDepois toque no ícone na borda\npara voltar a este app</string>
+    <string name="copyguide_step1">Só 3 toques</string>
     <string name="copyguide_title">Depois de assistir no YouTube</string>
     <string name="disclaimer_short">Este app não é o app oficial do YouTube. A reprodução usa o player incorporado oficial do YouTube; ele não baixa vídeos, não bloqueia anúncios e não reproduz em segundo plano.</string>
     <string name="error_apikeymissing">Nenhuma chave de API está configurada.</string>

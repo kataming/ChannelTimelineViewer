@@ -51,8 +51,7 @@
     <string name="copyguide_overlay_enable">화면 가장자리에 돌아가기 아이콘 표시</string>
     <string name="copyguide_overlay_settings_hint_app">스위치를 켜면 YouTube가 열립니다</string>
     <string name="copyguide_overlay_settings_hint_list">\'%s\'을(를) 선택해 켜면 YouTube가 열립니다</string>
-    <string name="copyguide_step1">①[공유] → ②[링크 복사]\n그다음 알림을 눌러\n이 앱으로 돌아오세요</string>
-    <string name="copyguide_step1_overlay">①[공유] → ②[링크 복사]\n그다음 화면 가장자리의 아이콘을 눌러\n이 앱으로 돌아오세요</string>
+    <string name="copyguide_step1">3번만 누르면 끝</string>
     <string name="copyguide_title">YouTube에서 재생한 다음</string>
     <string name="disclaimer_short">이 앱은 YouTube 공식 앱이 아닙니다. 재생에는 YouTube 공식 임베드 플레이어를 사용하며 다운로드·광고 차단·백그라운드 재생은 하지 않습니다.</string>
     <string name="error_apikeymissing">API 키가 설정되지 않았습니다.</string>

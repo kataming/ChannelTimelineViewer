@@ -51,8 +51,7 @@
     <string name="copyguide_overlay_enable">Visa en tillbaka-ikon vid kanten</string>
     <string name="copyguide_overlay_settings_hint_app">Slå på reglaget för att öppna YouTube</string>
     <string name="copyguide_overlay_settings_hint_list">Välj ”%s” och slå på för att öppna YouTube</string>
-    <string name="copyguide_step1">①[Dela] → ②[Kopiera länk]\nSedan tar aviseringen dig\ntillbaka till appen</string>
-    <string name="copyguide_step1_overlay">①[Dela] → ②[Kopiera länk]\nTryck sedan på ikonen vid kanten\nför att komma tillbaka till appen</string>
+    <string name="copyguide_step1">Bara 3 tryck</string>
     <string name="copyguide_title">När du har spelat upp videon i YouTube</string>
     <string name="disclaimer_short">Den här appen är inte den officiella YouTube-appen. Uppspelningen använder YouTubes officiella inbäddade spelare; appen laddar inte ned videor, blockerar inte annonser och spelar inte upp i bakgrunden.</string>
     <string name="error_apikeymissing">Ingen API-nyckel är konfigurerad.</string>

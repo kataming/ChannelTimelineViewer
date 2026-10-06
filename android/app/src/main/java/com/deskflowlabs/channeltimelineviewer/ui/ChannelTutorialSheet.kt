@@ -439,9 +439,10 @@ private fun CopyLinkGuidePage(
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         Text(stringResource(R.string.copyguide_title), style = MaterialTheme.typography.titleLarge)
-        // 見出しと同じ大きさで、やることだけを2行で（2026-10-05・ユーザー指定）。
+        // 見出しと同じ大きさで「3つ押すだけ」の一言。手順は下の絵で見せる
+        // （2026-10-06・ユーザー指定。iOS の「4つ押すだけ」に合わせた。通知でも画面端のボタンでも3回）。
         Text(
-            stringResource(if (showOverlayGuide) R.string.copyguide_step1_overlay else R.string.copyguide_step1),
+            stringResource(R.string.copyguide_step1),
             style = MaterialTheme.typography.titleLarge,
         )
         // ［共有］→［コピー］→「コピーされました」と戻るボタン、を実際の画面（NASA の動画）で順に見せる。

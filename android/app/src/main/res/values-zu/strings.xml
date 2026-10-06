@@ -51,8 +51,7 @@
     <string name="copyguide_overlay_enable">Bonisa isithonjana sokubuyela emaphethelweni</string>
     <string name="copyguide_overlay_settings_hint_app">Vula iswishi ukuze kuvuleke i-YouTube</string>
     <string name="copyguide_overlay_settings_hint_list">Khetha “%s” uyivule ukuze kuvuleke i-YouTube</string>
-    <string name="copyguide_step1">①[Yabelana] → ②[Kopisha isixhumanisi]\nBese ubuyela kule app\nusebenzisa isaziso</string>
-    <string name="copyguide_step1_overlay">①[Yabelana] → ②[Kopisha isixhumanisi]\nBese uthepha isithonjana emaphethelweni\nukuze ubuyele kule app</string>
+    <string name="copyguide_step1">Ama-tap ama-3 kuphela</string>
     <string name="copyguide_title">Ngemuva kokudlala ividiyo ku-YouTube</string>
     <string name="disclaimer_short">Le app akuyona i-app esemthethweni ye-YouTube. Ukudlala kusebenzisa isidlali esishumekiwe esisemthethweni se-YouTube; ayilandi amavidiyo, ayivimbi izikhangiso, futhi ayidlali ngemuva.</string>
     <string name="error_apikeymissing">Ayikho i-API key esethiwe.</string>

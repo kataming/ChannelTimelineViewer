@@ -51,8 +51,7 @@
     <string name="copyguide_overlay_enable">在螢幕邊緣顯示返回圖示</string>
     <string name="copyguide_overlay_settings_hint_app">開啟開關即可開啟 YouTube</string>
     <string name="copyguide_overlay_settings_hint_list">選擇「%s」並開啟，即可開啟 YouTube</string>
-    <string name="copyguide_step1">①［分享］ → ②［複製連結］\n之後點通知\n就能回到本 App</string>
-    <string name="copyguide_step1_overlay">①［分享］ → ②［複製連結］\n之後點螢幕邊緣的圖示\n就能回到本 App</string>
+    <string name="copyguide_step1">只要點 3 下</string>
     <string name="copyguide_title">在 YouTube 播放影片後</string>
     <string name="disclaimer_short">本 App 並非 YouTube 官方 App。播放使用 YouTube 官方的嵌入式播放器，不會下載影片、封鎖廣告或在背景播放。</string>
     <string name="error_apikeymissing">尚未設定 API 金鑰。</string>

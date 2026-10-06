@@ -51,8 +51,7 @@
     <string name="copyguide_overlay_enable">Visszatérő ikon a képernyő szélén</string>
     <string name="copyguide_overlay_settings_hint_app">Kapcsold be a kapcsolót – megnyílik a YouTube</string>
     <string name="copyguide_overlay_settings_hint_list">Válaszd ki: „%s”, és kapcsold be – megnyílik a YouTube</string>
-    <string name="copyguide_step1">①[Megosztás] → ②[Link másolása]\nUtána az értesítéssel\nvisszatérhetsz ide</string>
-    <string name="copyguide_step1_overlay">①[Megosztás] → ②[Link másolása]\nUtána a képernyő szélén lévő ikonnal\nvisszatérhetsz ide</string>
+    <string name="copyguide_step1">Csak 3 koppintás</string>
     <string name="copyguide_title">Miután elindítottad a videót a YouTube-on</string>
     <string name="disclaimer_short">Ez az alkalmazás nem a hivatalos YouTube alkalmazás. A lejátszáshoz a YouTube hivatalos beágyazott lejátszóját használja; nem tölt le videókat, nem blokkol hirdetéseket, és nem játszik le a háttérben.</string>
     <string name="error_apikeymissing">Nincs beállítva API-kulcs.</string>

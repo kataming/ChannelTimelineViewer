@@ -51,8 +51,7 @@
     <string name="copyguide_overlay_enable">Показувати значок повернення біля краю</string>
     <string name="copyguide_overlay_settings_hint_app">Увімкніть перемикач — відкриється YouTube</string>
     <string name="copyguide_overlay_settings_hint_list">Виберіть «%s» і ввімкніть — відкриється YouTube</string>
-    <string name="copyguide_step1">①[Поширити] → ②[Копіювати посилання]\nПотім поверніться в застосунок\nчерез сповіщення</string>
-    <string name="copyguide_step1_overlay">①[Поширити] → ②[Копіювати посилання]\nПотім поверніться в застосунок\nчерез значок біля краю екрана</string>
+    <string name="copyguide_step1">Лише 3 дотики</string>
     <string name="copyguide_title">Увімкнувши відео в YouTube</string>
     <string name="disclaimer_short">Це не офіційний застосунок YouTube. Для відтворення використовується офіційний вбудований плеєр YouTube; застосунок не завантажує відео, не блокує рекламу й не відтворює у фоновому режимі.</string>
     <string name="error_apikeymissing">Ключ API не налаштовано.</string>

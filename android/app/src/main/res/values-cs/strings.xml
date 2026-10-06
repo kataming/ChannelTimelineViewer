@@ -51,8 +51,7 @@
     <string name="copyguide_overlay_enable">Zobrazit ikonu pro návrat na okraji</string>
     <string name="copyguide_overlay_settings_hint_app">Zapněte přepínač – otevře se YouTube</string>
     <string name="copyguide_overlay_settings_hint_list">Vyberte „%s“ a zapněte – otevře se YouTube</string>
-    <string name="copyguide_step1">①[Sdílet] → ②[Kopírovat odkaz]\nPak se vraťte do aplikace\npřes oznámení</string>
-    <string name="copyguide_step1_overlay">①[Sdílet] → ②[Kopírovat odkaz]\nPak se vraťte do aplikace\nikonou na okraji obrazovky</string>
+    <string name="copyguide_step1">Stačí 3 klepnutí</string>
     <string name="copyguide_title">Po spuštění videa v YouTube</string>
     <string name="disclaimer_short">Tato aplikace není oficiální aplikací YouTube. K přehrávání používá oficiální vložený přehrávač YouTube; videa nestahuje, neblokuje reklamy a nepřehrává na pozadí.</string>
     <string name="error_apikeymissing">Není nastaven klíč API.</string>

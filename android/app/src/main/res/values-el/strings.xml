@@ -51,8 +51,7 @@
     <string name="copyguide_overlay_enable">Εμφάνιση εικονιδίου επιστροφής στην άκρη</string>
     <string name="copyguide_overlay_settings_hint_app">Ενεργοποιήστε τον διακόπτη για να ανοίξει το YouTube</string>
     <string name="copyguide_overlay_settings_hint_list">Επιλέξτε «%s» και ενεργοποιήστε για να ανοίξει το YouTube</string>
-    <string name="copyguide_step1">①[Κοινοποίηση] → ②[Αντιγραφή συνδέσμου]\nΜετά επιστρέψτε στην εφαρμογή\nαπό την ειδοποίηση</string>
-    <string name="copyguide_step1_overlay">①[Κοινοποίηση] → ②[Αντιγραφή συνδέσμου]\nΜετά πατήστε το εικονίδιο στην άκρη\nγια να επιστρέψετε στην εφαρμογή</string>
+    <string name="copyguide_step1">Μόνο 3 πατήματα</string>
     <string name="copyguide_title">Αφού παίξετε το βίντεο στο YouTube</string>
     <string name="disclaimer_short">Αυτή η εφαρμογή δεν είναι η επίσημη εφαρμογή YouTube. Η αναπαραγωγή γίνεται μέσω του επίσημου ενσωματωμένου προγράμματος αναπαραγωγής του YouTube· η εφαρμογή δεν κατεβάζει βίντεο, δεν αποκλείει διαφημίσεις και δεν αναπαράγει στο παρασκήνιο.</string>
     <string name="error_apikeymissing">Δεν έχει οριστεί κλειδί API.</string>

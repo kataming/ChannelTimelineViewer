@@ -51,8 +51,7 @@
     <string name="copyguide_overlay_enable">Tunjukkan ikon kembali di tepi skrin</string>
     <string name="copyguide_overlay_settings_hint_app">Hidupkan suis untuk membuka YouTube</string>
     <string name="copyguide_overlay_settings_hint_list">Pilih “%s” dan hidupkan untuk membuka YouTube</string>
-    <string name="copyguide_step1">①[Kongsi] → ②[Salin pautan]\nKemudian kembali ke apl ini\nmelalui pemberitahuan</string>
-    <string name="copyguide_step1_overlay">①[Kongsi] → ②[Salin pautan]\nKemudian ketik ikon di tepi skrin\nuntuk kembali ke apl ini</string>
+    <string name="copyguide_step1">Hanya 3 ketikan</string>
     <string name="copyguide_title">Selepas memainkan video di YouTube</string>
     <string name="disclaimer_short">Apl ini bukan apl YouTube rasmi. Main balik menggunakan pemain terbenam rasmi YouTube; apl ini tidak memuat turun video, tidak menyekat iklan dan tidak dimainkan di latar belakang.</string>
     <string name="error_apikeymissing">Kunci API belum dikonfigurasikan.</string>

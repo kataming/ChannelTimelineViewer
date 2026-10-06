@@ -51,8 +51,7 @@
     <string name="copyguide_overlay_enable">Ipakita ang icon na pambalik sa gilid</string>
     <string name="copyguide_overlay_settings_hint_app">I-on ang switch para buksan ang YouTube</string>
     <string name="copyguide_overlay_settings_hint_list">Piliin ang “%s” at i-on para buksan ang YouTube</string>
-    <string name="copyguide_step1">①[Share] → ②[Kopyahin ang link]\nPagkatapos, bumalik sa app\nmula sa notification</string>
-    <string name="copyguide_step1_overlay">①[Share] → ②[Kopyahin ang link]\nPagkatapos, i-tap ang icon sa gilid\npara bumalik sa app</string>
+    <string name="copyguide_step1">3 na tap lang</string>
     <string name="copyguide_title">Pagkatapos i-play sa YouTube</string>
     <string name="disclaimer_short">Hindi ito ang opisyal na YouTube app. Ginagamit sa pag-play ang opisyal na embedded player ng YouTube; hindi ito nagda-download ng video, hindi nagba-block ng ad, at hindi nagpe-play sa background.</string>
     <string name="error_apikeymissing">Walang naka-configure na API key.</string>

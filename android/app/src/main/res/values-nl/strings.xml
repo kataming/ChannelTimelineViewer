@@ -51,8 +51,7 @@
     <string name="copyguide_overlay_enable">Terug-icoon aan de rand tonen</string>
     <string name="copyguide_overlay_settings_hint_app">Zet de schakelaar aan om YouTube te openen</string>
     <string name="copyguide_overlay_settings_hint_list">Kies ‘%s’ en zet het aan om YouTube te openen</string>
-    <string name="copyguide_step1">①[Delen] → ②[Link kopiëren]\nDaarna ga je via de melding\nterug naar deze app</string>
-    <string name="copyguide_step1_overlay">①[Delen] → ②[Link kopiëren]\nDaarna ga je via het icoon aan de rand\nterug naar deze app</string>
+    <string name="copyguide_step1">Slechts 3 keer tikken</string>
     <string name="copyguide_title">Nadat je de video in YouTube afspeelt</string>
     <string name="disclaimer_short">Deze app is niet de officiële YouTube-app. Afspelen gebeurt via de officiële ingesloten speler van YouTube; de app downloadt geen video\'s, blokkeert geen advertenties en speelt niet af op de achtergrond.</string>
     <string name="error_apikeymissing">Er is geen API-sleutel ingesteld.</string>

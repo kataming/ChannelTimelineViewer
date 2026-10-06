@@ -51,8 +51,7 @@
     <string name="copyguide_overlay_enable">Mostra un\'icona per tornare sul bordo</string>
     <string name="copyguide_overlay_settings_hint_app">Attiva l\'interruttore per aprire YouTube</string>
     <string name="copyguide_overlay_settings_hint_list">Scegli “%s” e attivalo per aprire YouTube</string>
-    <string name="copyguide_step1">①[Condividi] → ②[Copia link]\nPoi torna in questa app\ndalla notifica</string>
-    <string name="copyguide_step1_overlay">①[Condividi] → ②[Copia link]\nPoi tocca l\'icona sul bordo\nper tornare in questa app</string>
+    <string name="copyguide_step1">Bastano 3 tocchi</string>
     <string name="copyguide_title">Dopo aver avviato il video su YouTube</string>
     <string name="disclaimer_short">Questa app non è l’app ufficiale di YouTube. La riproduzione usa il player incorporato ufficiale di YouTube; l’app non scarica video, non blocca la pubblicità e non riproduce in background.</string>
     <string name="error_apikeymissing">Nessuna chiave API configurata.</string>

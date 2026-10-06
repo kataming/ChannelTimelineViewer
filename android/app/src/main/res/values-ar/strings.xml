@@ -51,8 +51,7 @@
     <string name="copyguide_overlay_enable">إظهار أيقونة العودة على حافة الشاشة</string>
     <string name="copyguide_overlay_settings_hint_app">فعّل المفتاح لفتح YouTube</string>
     <string name="copyguide_overlay_settings_hint_list">اختر «%s» وفعّله لفتح YouTube</string>
-    <string name="copyguide_step1">①[مشاركة] ← ②[نسخ الرابط]\nثم عُد إلى هذا التطبيق\nمن الإشعار</string>
-    <string name="copyguide_step1_overlay">①[مشاركة] ← ②[نسخ الرابط]\nثم اضغط الأيقونة على حافة الشاشة\nللعودة إلى هذا التطبيق</string>
+    <string name="copyguide_step1">3 نقرات فقط</string>
     <string name="copyguide_title">بعد تشغيل الفيديو في YouTube</string>
     <string name="disclaimer_short">هذا التطبيق ليس تطبيق YouTube الرسمي. يستخدم التشغيل مشغل YouTube المضمَّن الرسمي، ولا يقوم بتنزيل الفيديوهات أو حظر الإعلانات أو التشغيل في الخلفية.</string>
     <string name="error_apikeymissing">لم يتم إعداد مفتاح API.</string>

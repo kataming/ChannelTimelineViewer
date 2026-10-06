@@ -51,8 +51,7 @@
     <string name="copyguide_overlay_enable">ਸਕ੍ਰੀਨ ਦੇ ਕਿਨਾਰੇ ਵਾਪਸੀ ਆਈਕਨ ਦਿਖਾਓ</string>
     <string name="copyguide_overlay_settings_hint_app">ਸਵਿੱਚ ਚਾਲੂ ਕਰੋ, YouTube ਖੁੱਲ੍ਹ ਜਾਵੇਗਾ</string>
     <string name="copyguide_overlay_settings_hint_list">“%s” ਚੁਣ ਕੇ ਚਾਲੂ ਕਰੋ, YouTube ਖੁੱਲ੍ਹ ਜਾਵੇਗਾ</string>
-    <string name="copyguide_step1">①[ਸਾਂਝਾ ਕਰੋ] → ②[ਲਿੰਕ ਕਾਪੀ ਕਰੋ]\nਫਿਰ ਸੂਚਨਾ ਤੋਂ\nਇਸ ਐਪ \'ਤੇ ਵਾਪਸ ਆਓ</string>
-    <string name="copyguide_step1_overlay">①[ਸਾਂਝਾ ਕਰੋ] → ②[ਲਿੰਕ ਕਾਪੀ ਕਰੋ]\nਫਿਰ ਸਕ੍ਰੀਨ ਦੇ ਕਿਨਾਰੇ ਵਾਲੇ ਆਈਕਨ ਤੋਂ\nਇਸ ਐਪ \'ਤੇ ਵਾਪਸ ਆਓ</string>
+    <string name="copyguide_step1">ਸਿਰਫ਼ 3 ਟੈਪ</string>
     <string name="copyguide_title">YouTube ਵਿੱਚ ਚਲਾਉਣ ਤੋਂ ਬਾਅਦ</string>
     <string name="disclaimer_short">ਇਹ ਅਧਿਕਾਰਤ YouTube ਐਪ ਨਹੀਂ ਹੈ। ਪਲੇਬੈਕ ਲਈ YouTube ਦਾ ਅਧਿਕਾਰਤ ਏਮਬੈੱਡ ਕੀਤਾ ਪਲੇਅਰ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ; ਇਹ ਵੀਡੀਓ ਡਾਊਨਲੋਡ ਨਹੀਂ ਕਰਦਾ, ਇਸ਼ਤਿਹਾਰ ਬਲੌਕ ਨਹੀਂ ਕਰਦਾ ਅਤੇ ਬੈਕਗ੍ਰਾਊਂਡ ਵਿੱਚ ਨਹੀਂ ਚਲਾਉਂਦਾ।</string>
     <string name="error_apikeymissing">ਕੋਈ API ਕੁੰਜੀ ਸੈੱਟ ਨਹੀਂ ਹੈ।</string>

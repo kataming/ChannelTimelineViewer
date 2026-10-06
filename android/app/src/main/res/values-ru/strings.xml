@@ -51,8 +51,7 @@
     <string name="copyguide_overlay_enable">Показывать значок возврата у края</string>
     <string name="copyguide_overlay_settings_hint_app">Включите переключатель — откроется YouTube</string>
     <string name="copyguide_overlay_settings_hint_list">Выберите «%s» и включите — откроется YouTube</string>
-    <string name="copyguide_step1">①[Поделиться] → ②[Копировать ссылку]\nЗатем вернитесь в приложение\nчерез уведомление</string>
-    <string name="copyguide_step1_overlay">①[Поделиться] → ②[Копировать ссылку]\nЗатем вернитесь в приложение\nчерез значок у края экрана</string>
+    <string name="copyguide_step1">Всего 3 нажатия</string>
     <string name="copyguide_title">Включив видео в YouTube</string>
     <string name="disclaimer_short">Это не официальное приложение YouTube. Для воспроизведения используется официальный встроенный плеер YouTube; приложение не скачивает видео, не блокирует рекламу и не воспроизводит в фоновом режиме.</string>
     <string name="error_apikeymissing">Ключ API не настроен.</string>

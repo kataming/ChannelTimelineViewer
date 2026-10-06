@@ -51,8 +51,7 @@
     <string name="copyguide_overlay_enable">戻るアイコンを画面の端に出す</string>
     <string name="copyguide_overlay_settings_hint_app">スイッチをオンにすると YouTube が開きます</string>
     <string name="copyguide_overlay_settings_hint_list">「%s」を選んでオンにすると YouTube が開きます</string>
-    <string name="copyguide_step1">①［共有］ → ②［コピー］\nあとは通知から\nこのアプリに戻れます</string>
-    <string name="copyguide_step1_overlay">①［共有］ → ②［コピー］\nあとは画面の端のアイコンから\nこのアプリに戻れます</string>
+    <string name="copyguide_step1">3つ押すだけ</string>
     <string name="copyguide_title">YouTubeで再生したあとに</string>
     <string name="disclaimer_short">このアプリは YouTube 公式アプリではありません。再生は YouTube 公式の埋め込みプレイヤーを使用し、ダウンロード・広告回避・バックグラウンド再生は行いません。</string>
     <string name="error_apikeymissing">APIキーが設定されていません</string>

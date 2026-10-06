@@ -51,8 +51,7 @@
     <string name="copyguide_overlay_enable">திரையின் ஓரத்தில் திரும்பும் ஐகானைக் காட்டு</string>
     <string name="copyguide_overlay_settings_hint_app">சுவிட்சை இயக்கினால் YouTube திறக்கும்</string>
     <string name="copyguide_overlay_settings_hint_list">“%s” ஐத் தேர்ந்தெடுத்து இயக்கினால் YouTube திறக்கும்</string>
-    <string name="copyguide_step1">①[பகிர்] → ②[இணைப்பை நகலெடு]\nபிறகு அறிவிப்பிலிருந்து\nஇந்த ஆப்ஸுக்குத் திரும்புங்கள்</string>
-    <string name="copyguide_step1_overlay">①[பகிர்] → ②[இணைப்பை நகலெடு]\nபிறகு திரையின் ஓரத்தில் உள்ள ஐகானைத் தட்டி\nஇந்த ஆப்ஸுக்குத் திரும்புங்கள்</string>
+    <string name="copyguide_step1">3 தட்டல்கள் போதும்</string>
     <string name="copyguide_title">YouTube-இல் இயக்கிய பிறகு</string>
     <string name="disclaimer_short">இந்த ஆப் அதிகாரப்பூர்வ YouTube ஆப் அல்ல. இயக்கத்திற்கு YouTube இன் அதிகாரப்பூர்வ உட்பொதி பிளேயர் பயன்படுத்தப்படுகிறது; இது வீடியோக்களைப் பதிவிறக்காது, விளம்பரங்களைத் தடுக்காது, பின்னணியில் இயக்காது.</string>
     <string name="error_apikeymissing">API விசை அமைக்கப்படவில்லை.</string>

@@ -51,8 +51,7 @@
     <string name="copyguide_overlay_enable">Kenarda geri dönüş simgesi göster</string>
     <string name="copyguide_overlay_settings_hint_app">Anahtarı açın, YouTube açılır</string>
     <string name="copyguide_overlay_settings_hint_list">“%s” öğesini seçip açın, YouTube açılır</string>
-    <string name="copyguide_step1">①[Paylaş] → ②[Bağlantıyı kopyala]\nSonra bildirimden\nbu uygulamaya dönün</string>
-    <string name="copyguide_step1_overlay">①[Paylaş] → ②[Bağlantıyı kopyala]\nSonra ekranın kenarındaki simgeyle\nbu uygulamaya dönün</string>
+    <string name="copyguide_step1">Sadece 3 dokunuş</string>
     <string name="copyguide_title">Videoyu YouTube\'da oynattıktan sonra</string>
     <string name="disclaimer_short">Bu uygulama resmi YouTube uygulaması değildir. Oynatma, YouTube\'un resmi yerleşik oynatıcısını kullanır; uygulama video indirmez, reklam engellemez ve arka planda oynatmaz.</string>
     <string name="error_apikeymissing">API anahtarı yapılandırılmamış.</string>

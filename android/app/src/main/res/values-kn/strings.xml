@@ -51,8 +51,7 @@
     <string name="copyguide_overlay_enable">ಪರದೆಯ ಅಂಚಿನಲ್ಲಿ ಹಿಂತಿರುಗುವ ಐಕಾನ್ ತೋರಿಸಿ</string>
     <string name="copyguide_overlay_settings_hint_app">ಸ್ವಿಚ್ ಆನ್ ಮಾಡಿದರೆ YouTube ತೆರೆಯುತ್ತದೆ</string>
     <string name="copyguide_overlay_settings_hint_list">“%s” ಆಯ್ಕೆಮಾಡಿ ಆನ್ ಮಾಡಿದರೆ YouTube ತೆರೆಯುತ್ತದೆ</string>
-    <string name="copyguide_step1">①[ಹಂಚಿಕೊಳ್ಳಿ] → ②[ಲಿಂಕ್ ನಕಲಿಸಿ]\nನಂತರ ಅಧಿಸೂಚನೆಯಿಂದ\nಈ ಆ್ಯಪ್‌ಗೆ ಹಿಂತಿರುಗಿ</string>
-    <string name="copyguide_step1_overlay">①[ಹಂಚಿಕೊಳ್ಳಿ] → ②[ಲಿಂಕ್ ನಕಲಿಸಿ]\nನಂತರ ಪರದೆಯ ಅಂಚಿನ ಐಕಾನ್ ಒತ್ತಿ\nಈ ಆ್ಯಪ್‌ಗೆ ಹಿಂತಿರುಗಿ</string>
+    <string name="copyguide_step1">ಕೇವಲ 3 ಟ್ಯಾಪ್</string>
     <string name="copyguide_title">YouTube ನಲ್ಲಿ ಪ್ಲೇ ಮಾಡಿದ ನಂತರ</string>
     <string name="disclaimer_short">ಈ ಆ್ಯಪ್ ಅಧಿಕೃತ YouTube ಆ್ಯಪ್ ಅಲ್ಲ. ಪ್ಲೇಬ್ಯಾಕ್ YouTube ನ ಅಧಿಕೃತ ಎಂಬೆಡ್ ಮಾಡಿದ ಪ್ಲೇಯರ್ ಅನ್ನು ಬಳಸುತ್ತದೆ; ಇದು ವೀಡಿಯೊಗಳನ್ನು ಡೌನ್‌ಲೋಡ್ ಮಾಡುವುದಿಲ್ಲ, ಜಾಹೀರಾತುಗಳನ್ನು ನಿರ್ಬಂಧಿಸುವುದಿಲ್ಲ ಅಥವಾ ಹಿನ್ನೆಲೆಯಲ್ಲಿ ಪ್ಲೇ ಮಾಡುವುದಿಲ್ಲ.</string>
     <string name="error_apikeymissing">API ಕೀ ಕಾನ್ಫಿಗರ್ ಮಾಡಿಲ್ಲ.</string>

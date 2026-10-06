@@ -51,8 +51,7 @@
     <string name="copyguide_overlay_enable">اسکرین کے کنارے واپسی کا آئیکن دکھائیں</string>
     <string name="copyguide_overlay_settings_hint_app">سوئچ آن کریں، YouTube کھل جائے گا</string>
     <string name="copyguide_overlay_settings_hint_list">“%s” منتخب کر کے آن کریں، YouTube کھل جائے گا</string>
-    <string name="copyguide_step1">①[شیئر] ← ②[لنک کاپی کریں]\nپھر اطلاع سے\nاس ایپ پر واپس آئیں</string>
-    <string name="copyguide_step1_overlay">①[شیئر] ← ②[لنک کاپی کریں]\nپھر اسکرین کے کنارے والے آئیکن سے\nاس ایپ پر واپس آئیں</string>
+    <string name="copyguide_step1">بس 3 ٹیپ</string>
     <string name="copyguide_title">YouTube میں ویڈیو چلانے کے بعد</string>
     <string name="disclaimer_short">یہ ایپ YouTube کی آفیشل ایپ نہیں ہے۔ پلے بیک YouTube کا آفیشل ایمبیڈڈ پلیئر استعمال کرتا ہے؛ یہ ویڈیوز ڈاؤن لوڈ نہیں کرتی، اشتہارات نہیں روکتی اور بیک گراؤنڈ میں نہیں چلاتی۔</string>
     <string name="error_apikeymissing">کوئی API کلید سیٹ نہیں ہے۔</string>

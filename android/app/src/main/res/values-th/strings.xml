@@ -51,8 +51,7 @@
     <string name="copyguide_overlay_enable">แสดงไอคอนกลับที่ขอบจอ</string>
     <string name="copyguide_overlay_settings_hint_app">เปิดสวิตช์แล้ว YouTube จะเปิดขึ้น</string>
     <string name="copyguide_overlay_settings_hint_list">เลือก “%s” แล้วเปิด YouTube จะเปิดขึ้น</string>
-    <string name="copyguide_step1">①[แชร์] → ②[คัดลอกลิงก์]\nจากนั้นแตะการแจ้งเตือน\nเพื่อกลับมาที่แอปนี้</string>
-    <string name="copyguide_step1_overlay">①[แชร์] → ②[คัดลอกลิงก์]\nจากนั้นแตะไอคอนที่ขอบจอ\nเพื่อกลับมาที่แอปนี้</string>
+    <string name="copyguide_step1">แตะแค่ 3 ครั้ง</string>
     <string name="copyguide_title">หลังจากเล่นวิดีโอใน YouTube</string>
     <string name="disclaimer_short">แอปนี้ไม่ใช่แอป YouTube อย่างเป็นทางการ การเล่นใช้เครื่องเล่นแบบฝังอย่างเป็นทางการของ YouTube และไม่ดาวน์โหลดวิดีโอ ไม่บล็อกโฆษณา และไม่เล่นในเบื้องหลัง</string>
     <string name="error_apikeymissing">ยังไม่ได้ตั้งค่าคีย์ API</string>

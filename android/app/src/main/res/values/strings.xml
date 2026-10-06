@@ -101,10 +101,8 @@
     <string name="copyguide_overlay_settings_hint_app">Turn the switch on to open YouTube</string>
     <!-- YouTube の共有から追加: 重ねて表示の設定画面（Android 11 以降・一覧）のトースト。%@ = アプリ名。2行に収める -->
     <string name="copyguide_overlay_settings_hint_list">Pick “%s” and turn it on to open YouTube</string>
-    <!-- YouTube の共有から追加: 見出しの下に見出しと同じ大きさで出す（①［共有］ → ②［コピー］／あとは通知から／このアプリに戻れます） -->
-    <string name="copyguide_step1">①[Share] → ②[Copy link]\nThen come back to this app\nfrom the notification</string>
-    <!-- YouTube の共有から追加: 画面の端のボタンを許可した人向けの手順（step1 の通知の代わりにアイコン） -->
-    <string name="copyguide_step1_overlay">①[Share] → ②[Copy link]\nThen tap the icon at the screen edge\nto come back to this app</string>
+    <!-- Android: 案内の見出しの下（見出しと同じ大きさ）。手順は画像（①共有 ②コピー ③通知またはロゴ）で見せるので一言だけ（2026-10-06 ユーザー指定・iOS の「4つ押すだけ」に合わせた） -->
+    <string name="copyguide_step1">Just 3 taps</string>
     <!-- YouTube の共有から追加: 見出し -->
     <string name="copyguide_title">After you play a video in YouTube</string>
     <!-- 画面下部の注意書き -->

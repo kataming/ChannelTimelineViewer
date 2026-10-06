@@ -103,6 +103,10 @@
 "copyguide.ios.open" = "YouTube openen";
 /* iOS: 戻ったときに iOS が出す「ペーストの許可」の説明。読むのは YouTube のリンクだけ */
 "copyguide.ios.pasteNote" = "Als bij terugkomst wordt gevraagd of plakken mag, sta het dan toe. We lezen alleen de gekopieerde YouTube-link en sturen die nergens heen.";
+/* iOS: 毎回のペースト確認をなくす手順（設定 → このアプリ → 他のアプリからペースト → 許可）。2026-10-06 ユーザー判断 */
+"copyguide.ios.pasteSetting" = "Wil je niet elke keer gevraagd worden om plakken toe te staan, zet dan in Instellingen ‘Plakken vanuit andere apps’ op ‘Sta toe’ voor deze app.";
+/* iOS: このアプリの設定画面を開くボタン */
+"copyguide.ios.pasteSetting.open" = "Open Instellingen";
 /* iOS: ①［共有］→②［コピー］→③ 左上の「◀ アプリ名」で戻る。%@ = アプリの表示名（iOS が左上に出す戻るリンクの名前） */
 "copyguide.ios.step1" = "①[Delen] → ②[Link kopiëren]\n③ Tik linksboven op ‘◀ %@’\nom terug te gaan naar deze app";
 /* iOS: YouTube の共有から追加の見出し（Android の copyguide.title と同じ訳） */

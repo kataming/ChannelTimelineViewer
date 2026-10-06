@@ -103,6 +103,10 @@
 "copyguide.ios.open" = "Buka YouTube";
 /* iOS: 戻ったときに iOS が出す「ペーストの許可」の説明。読むのは YouTube のリンクだけ */
 "copyguide.ios.pasteNote" = "Jika saat kembali Anda ditanya apakah mengizinkan tempel, izinkan saja. Kami hanya membaca link YouTube yang Anda salin dan tidak mengirimkannya ke mana pun.";
+/* iOS: 毎回のペースト確認をなくす手順（設定 → このアプリ → 他のアプリからペースト → 許可）。2026-10-06 ユーザー判断 */
+"copyguide.ios.pasteSetting" = "Agar tidak ditanya izin menempel setiap kali, atur “Tempel dari App Lain” ke “Izinkan” untuk app ini di Pengaturan.";
+/* iOS: このアプリの設定画面を開くボタン */
+"copyguide.ios.pasteSetting.open" = "Buka Pengaturan";
 /* iOS: ①［共有］→②［コピー］→③ 左上の「◀ アプリ名」で戻る。%@ = アプリの表示名（iOS が左上に出す戻るリンクの名前） */
 "copyguide.ios.step1" = "①[Bagikan] → ②[Salin link]\n③ Ketuk “◀ %@” di kiri atas\nuntuk kembali ke aplikasi ini";
 /* iOS: YouTube の共有から追加の見出し（Android の copyguide.title と同じ訳） */

@@ -199,6 +199,24 @@ private struct CopyLinkGuidePage: View {
                     .font(.footnote)
                     .foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
+                // 毎回の「ペーストを許可しますか？」は、設定で［ほかのAppからペースト］を［許可］にすると出なくなる
+                // （2026-10-06・ユーザー判断）。アプリからは設定を変えられないので、このアプリの設定画面を開く。
+                VStack(alignment: .leading, spacing: 6) {
+                    Text("copyguide.ios.pasteSetting")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                    Button {
+                        if let url = URL(string: UIApplication.openSettingsURLString) {
+                            UIApplication.shared.open(url)
+                        }
+                    } label: {
+                        Label("copyguide.ios.pasteSetting.open", systemImage: "gearshape")
+                            .font(.footnote.bold())
+                    }
+                    .buttonStyle(.bordered)
+                    .controlSize(.small)
+                }
 
                 Button(action: onGoToYouTube) {
                     Text("copyguide.ios.open")

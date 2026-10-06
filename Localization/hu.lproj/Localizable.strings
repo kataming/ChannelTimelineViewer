@@ -103,6 +103,10 @@
 "copyguide.ios.open" = "YouTube megnyitása";
 /* iOS: 戻ったときに iOS が出す「ペーストの許可」の説明。読むのは YouTube のリンクだけ */
 "copyguide.ios.pasteNote" = "Ha visszatéréskor megkérdezi, engedélyezed-e a beillesztést, engedélyezd. Csak a kimásolt YouTube-linket olvassuk, és nem küldjük sehova.";
+/* iOS: 毎回のペースト確認をなくす手順（設定 → このアプリ → 他のアプリからペースト → 許可）。2026-10-06 ユーザー判断 */
+"copyguide.ios.pasteSetting" = "Hogy ne kérdezzen rá minden alkalommal a beillesztésre, a Beállításokban állítsd ennél az appnál a „Beillesztés más appokból” lehetőséget „Engedélyezés” értékre.";
+/* iOS: このアプリの設定画面を開くボタン */
+"copyguide.ios.pasteSetting.open" = "Beállítások megnyitása";
 /* iOS: ①［共有］→②［コピー］→③ 左上の「◀ アプリ名」で戻る。%@ = アプリの表示名（iOS が左上に出す戻るリンクの名前） */
 "copyguide.ios.step1" = "①[Megosztás] → ②[Link másolása]\n③ Koppints a bal felső „◀ %@” gombra,\nés visszatérsz ide";
 /* iOS: YouTube の共有から追加の見出し（Android の copyguide.title と同じ訳） */

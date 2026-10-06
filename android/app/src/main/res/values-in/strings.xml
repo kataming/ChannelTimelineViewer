@@ -34,7 +34,6 @@
     <string name="clip_dialog_clear">Hapus salinan</string>
     <string name="clip_dialog_open">Buka</string>
     <string name="clip_dialog_title">Buka link yang Anda salin?</string>
-    <string name="clipboard_notfound">Tidak ada tautan YouTube di papan klip. Tempel URL lalu coba lagi.</string>
     <string name="common_cancel">Batal</string>
     <string name="common_close">Tutup</string>
     <string name="common_delete">Hapus</string>

@@ -32,7 +32,7 @@
 /* 設定アプリで許可するボタン */
 "about.notify.settings" = "Cho phép thông báo trong Cài đặt";
 /* 通知の説明 */
-"about.oneTap.body" = "Nếu bạn cho phép thông báo, một thông báo sẽ xuất hiện ngay sau khi bạn chia sẻ và chỉ cần nhấn một lần là mở kênh đó. Đây là thông báo duy nhất được dùng — không có tin tức hay quảng cáo, và không có thông báo đẩy từ máy chủ. Nếu bạn không cho phép, hãy mở ứng dụng và dùng “Mở liên kết đã chia sẻ”.";
+"about.oneTap.body" = "Nếu bạn cho phép thông báo, một thông báo sẽ xuất hiện ngay sau khi bạn chia sẻ và chỉ cần nhấn một lần là mở kênh đó. Đây là thông báo duy nhất được dùng — không có tin tức hay quảng cáo, và không có thông báo đẩy từ máy chủ.";
 /* 見出し: ワンタップで開く */
 "about.oneTap.header" = "Mở bằng một lần nhấn từ bảng chia sẻ";
 /* 読み上げ: このアプリについて */
@@ -58,7 +58,7 @@
 /* 共有機能の説明（%@ にアプリ名） */
 "about.share.body1" = "Chọn “%@” từ nút chia sẻ trong ứng dụng YouTube hoặc Safari, ứng dụng sẽ nhận URL kênh hoặc video đã chia sẻ. Tính năng chia sẻ chỉ nhận URL — không gửi gì ra bên ngoài.";
 /* 共有後の流れの説明 */
-"about.share.body2" = "Sau đó, hãy mở ứng dụng này, “Mở liên kết đã chia sẻ” sẽ xuất hiện trên màn hình đầu tiên. iOS không cho phép bảng chia sẻ mở ứng dụng trực tiếp, nên mới có cách này.";
+"about.share.body2" = "Sau đó, nhấn vào thông báo xuất hiện để mở kênh. iOS không cho phép bảng chia sẻ mở ứng dụng trực tiếp, nên mới có cách này.";
 /* 見出し: 共有シートから開く */
 "about.share.header" = "Mở từ bảng chia sẻ";
 /* アプリの説明 */
@@ -83,8 +83,6 @@
 "clip.dialog.open" = "Mở";
 /* コピーした YouTube のリンクを見つけたときの確認 */
 "clip.dialog.title" = "Mở đường liên kết bạn đã sao chép?";
-/* クリップボードにURLが無いとき */
-"clipboard.notFound" = "Không tìm thấy liên kết YouTube trong bộ nhớ tạm. Hãy dán URL và thử lại.";
 /* 共通: キャンセル */
 "common.cancel" = "Hủy";
 /* 閉じる */
@@ -180,9 +178,9 @@
 /* URL読み取り中 */
 "handoff.reading" = "Đang đọc URL đã chia sẻ…";
 /* 通知を勧める案内 */
-"handoff.received.askNotification" = "Đã nhận URL.\nNếu bạn cho phép thông báo, chỉ cần nhấn vào thông báo xuất hiện tiếp theo.\n(Nếu không, hãy mở ứng dụng và dùng “Mở liên kết đã chia sẻ”.)";
-/* 受け取り完了の案内（%@ にアプリ名） */
-"handoff.received.format" = "Đã nhận URL.\nMở %@ và nhấn “Mở liên kết đã chia sẻ” để xem kênh này.";
+"handoff.received.askNotification" = "Đã nhận URL.\nNếu bạn cho phép thông báo, chỉ cần nhấn vào thông báo xuất hiện tiếp theo.";
+/* 共有拡張: 通知が許可されておらず開けないとき（%@ = アプリ名）。「共有されたURLを開く」は 2026-10-06 に廃止 */
+"handoff.received.format" = "Đã nhận URL nhưng không thể mở từ đây vì chưa cho phép thông báo.\nHãy cho phép thông báo của %@ trong Cài đặt.";
 /* 読み上げ: 入力を消去 */
 "input.clear.a11y" = "Xóa văn bản";
 /* 動画を取得ボタン */
@@ -445,10 +443,6 @@
 "repeat.off" = "Tắt";
 /* リピート: 1本 */
 "repeat.one" = "Một video";
-/* クリップボードにURLがある案内 */
-"share.clipboardHint" = "Liên kết bạn đã chia sẻ đang có trong bộ nhớ tạm.";
-/* 共有されたURLを開くボタン */
-"share.openSharedURL" = "Mở liên kết đã chia sẻ";
 /* 共有直後の通知を許可してもらう理由（入力画面・未許可のときだけ出す） */
 "shareTips.notify.why" = "Nhấn vào thông báo xuất hiện ngay sau khi bạn chia sẻ sẽ mở kênh ngay lập tức. Chúng tôi không bao giờ gửi thông báo tin tức hay quảng cáo.";
 /* 前へ */

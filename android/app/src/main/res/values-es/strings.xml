@@ -34,7 +34,6 @@
     <string name="clip_dialog_clear">Borrar lo copiado</string>
     <string name="clip_dialog_open">Abrir</string>
     <string name="clip_dialog_title">¿Abrir el enlace que copiaste?</string>
-    <string name="clipboard_notfound">No se encontró ningún enlace de YouTube en el portapapeles. Pega una URL e inténtalo de nuevo.</string>
     <string name="common_cancel">Cancelar</string>
     <string name="common_close">Cerrar</string>
     <string name="common_delete">Eliminar</string>

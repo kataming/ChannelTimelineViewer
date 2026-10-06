@@ -34,7 +34,6 @@
     <string name="clip_dialog_clear">Limpar cópia</string>
     <string name="clip_dialog_open">Abrir</string>
     <string name="clip_dialog_title">Abrir o link copiado?</string>
-    <string name="clipboard_notfound">Nenhum link do YouTube foi encontrado na área de transferência. Cole uma URL e tente novamente.</string>
     <string name="common_cancel">Cancelar</string>
     <string name="common_close">Fechar</string>
     <string name="common_delete">Excluir</string>

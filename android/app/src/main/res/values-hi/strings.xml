@@ -34,7 +34,6 @@
     <string name="clip_dialog_clear">कॉपी साफ़ करें</string>
     <string name="clip_dialog_open">खोलें</string>
     <string name="clip_dialog_title">कॉपी किया गया लिंक खोलें?</string>
-    <string name="clipboard_notfound">क्लिपबोर्ड पर कोई YouTube लिंक नहीं मिला। URL पेस्ट करके फिर कोशिश करें।</string>
     <string name="common_cancel">रद्द करें</string>
     <string name="common_close">बंद करें</string>
     <string name="common_delete">हटाएं</string>

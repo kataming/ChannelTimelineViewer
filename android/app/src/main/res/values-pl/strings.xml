@@ -34,7 +34,6 @@
     <string name="clip_dialog_clear">Wyczyść skopiowane</string>
     <string name="clip_dialog_open">Otwórz</string>
     <string name="clip_dialog_title">Otworzyć skopiowany link?</string>
-    <string name="clipboard_notfound">W schowku nie znaleziono linku do YouTube. Wklej adres URL i spróbuj ponownie.</string>
     <string name="common_cancel">Anuluj</string>
     <string name="common_close">Zamknij</string>
     <string name="common_delete">Usuń</string>

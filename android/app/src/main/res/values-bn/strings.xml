@@ -34,7 +34,6 @@
     <string name="clip_dialog_clear">কপি মুছুন</string>
     <string name="clip_dialog_open">খুলুন</string>
     <string name="clip_dialog_title">কপি করা লিঙ্কটি খুলবেন?</string>
-    <string name="clipboard_notfound">ক্লিপবোর্ডে কোনো YouTube লিংক পাওয়া যায়নি। একটি URL পেস্ট করে আবার চেষ্টা করুন।</string>
     <string name="common_cancel">বাতিল</string>
     <string name="common_close">বন্ধ করুন</string>
     <string name="common_delete">মুছুন</string>

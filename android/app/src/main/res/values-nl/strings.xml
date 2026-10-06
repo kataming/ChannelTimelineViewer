@@ -34,7 +34,6 @@
     <string name="clip_dialog_clear">Kopie wissen</string>
     <string name="clip_dialog_open">Openen</string>
     <string name="clip_dialog_title">Gekopieerde link openen?</string>
-    <string name="clipboard_notfound">Er is geen YouTube-link op het klembord gevonden. Plak een URL en probeer het opnieuw.</string>
     <string name="common_cancel">Annuleer</string>
     <string name="common_close">Sluit</string>
     <string name="common_delete">Verwijder</string>

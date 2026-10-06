@@ -54,9 +54,10 @@ final class HandoffViewController: UIViewController {
         // （`NSExtensionContext.open` が使えるのは Today / iMessage 拡張のみ）。
         // 環境によっては通る場合があるので一応試し、駄目なら
         //   1) 通知を許可済み → ローカル通知（タップでアプリが開く）
-        //   2) 未許可 → クリップボード経由（アプリを開くと「共有されたURLを開く」が出る）
-        // の順にフォールバックする。どちらの場合もクリップボードには入れておく。
-        UIPasteboard.general.string = link
+        //   2) 未許可 → その場で通知の許可を求める（許可されなければ、ここからは開けない）
+        // の順にフォールバックする。
+        // 以前は未許可のときのためにクリップボードへも入れ、アプリの「共有されたURLを開く」で
+        // 拾っていたが、その入口は 2026-10-06 に廃止した（ユーザー判断）。クリップボードは書き換えない。
         pendingLink = link
         statusLabel.text = String(format: String(localized: "handoff.passing.format"),
                                   AppInfo.displayName)

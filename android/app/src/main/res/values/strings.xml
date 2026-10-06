@@ -67,8 +67,6 @@
     <string name="clip_dialog_open">Open</string>
     <!-- コピーした YouTube のリンクを見つけたときの確認 -->
     <string name="clip_dialog_title">Open the link you copied?</string>
-    <!-- クリップボードにURLが無いとき -->
-    <string name="clipboard_notfound">No YouTube link was found on the clipboard. Paste a URL and try again.</string>
     <!-- 共通: キャンセル -->
     <string name="common_cancel">Cancel</string>
     <!-- 閉じる -->

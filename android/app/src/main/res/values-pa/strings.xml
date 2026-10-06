@@ -34,7 +34,6 @@
     <string name="clip_dialog_clear">ਕਾਪੀ ਸਾਫ਼ ਕਰੋ</string>
     <string name="clip_dialog_open">ਖੋਲ੍ਹੋ</string>
     <string name="clip_dialog_title">ਕਾਪੀ ਕੀਤਾ ਲਿੰਕ ਖੋਲ੍ਹਣਾ ਹੈ?</string>
-    <string name="clipboard_notfound">ਕਲਿੱਪਬੋਰਡ \'ਤੇ ਕੋਈ YouTube ਲਿੰਕ ਨਹੀਂ ਮਿਲਿਆ। URL ਪੇਸਟ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।</string>
     <string name="common_cancel">ਰੱਦ ਕਰੋ</string>
     <string name="common_close">ਬੰਦ ਕਰੋ</string>
     <string name="common_delete">ਮਿਟਾਓ</string>

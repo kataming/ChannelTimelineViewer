@@ -34,7 +34,6 @@
     <string name="clip_dialog_clear">清除複製內容</string>
     <string name="clip_dialog_open">開啟</string>
     <string name="clip_dialog_title">要開啟複製的連結嗎？</string>
-    <string name="clipboard_notfound">剪貼簿中找不到 YouTube 連結。請貼上網址後再試一次。</string>
     <string name="common_cancel">取消</string>
     <string name="common_close">關閉</string>
     <string name="common_delete">刪除</string>

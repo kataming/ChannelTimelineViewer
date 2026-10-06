@@ -32,7 +32,7 @@
 /* 設定アプリで許可するボタン */
 "about.notify.settings" = "Vumela izaziso kuzilungiselelo";
 /* 通知の説明 */
-"about.oneTap.body" = "Uma uvumela izaziso, kuzovela esisodwa ngokushesha ngemuva kokwabelana futhi ukuthepha kanye kuvula leso siteshi. Yileso kuphela isaziso esisetshenziswayo — azikho izindaba noma ukukhangisa, futhi azikho izaziso eziphushwa yiseva. Uma ungazivumeli, vula i-app bese usebenzisa okuthi “Vula isixhumanisi okwabelwane ngaso”.";
+"about.oneTap.body" = "Uma uvumela izaziso, kuzovela esisodwa ngokushesha ngemuva kokwabelana futhi ukuthepha kanye kuvula leso siteshi. Yileso kuphela isaziso esisetshenziswayo — azikho izindaba noma ukukhangisa, futhi azikho izaziso eziphushwa yiseva.";
 /* 見出し: ワンタップで開く */
 "about.oneTap.header" = "Ukuvula ngokuthepha kanye usuka ephepheni lokwabelana";
 /* 読み上げ: このアプリについて */
@@ -58,7 +58,7 @@
 /* 共有機能の説明（%@ にアプリ名） */
 "about.share.body1" = "Khetha “%@” enkinobhweni yokwabelana ku-app ye-YouTube noma ku-Safari bese i-app ithola i-URL yesiteshi noma yevidiyo okwabelwane ngayo. Ukwabelana kuthola i-URL kuphela — akukho okuthunyelwa ndawo.";
 /* 共有後の流れの説明 */
-"about.share.body2" = "Ngemuva kwalokho, vula le app bese kuvela okuthi “Vula isixhumanisi okwabelwane ngaso” esikrinini sokuqala. I-iOS ayivumeli iphepha lokwabelana ukuthi livule i-app ngqo, yingakho kwenziwa kanje.";
+"about.share.body2" = "Ngemva kwalokho, thepha isaziso esivelayo ukuze uvule isiteshi. I-iOS ayivumeli iphepha lokwabelana ukuthi livule i-app ngqo, yingakho kwenziwa kanje.";
 /* 見出し: 共有シートから開く */
 "about.share.header" = "Ukuvula usuka ephepheni lokwabelana";
 /* アプリの説明 */
@@ -83,8 +83,6 @@
 "clip.dialog.open" = "Vula";
 /* コピーした YouTube のリンクを見つけたときの確認 */
 "clip.dialog.title" = "Vula isixhumanisi osikopishile?";
-/* クリップボードにURLが無いとき */
-"clipboard.notFound" = "Asitholanga isixhumanisi se-YouTube ebhodini lokunamathisela. Namathisela i-URL bese uzama futhi.";
 /* 共通: キャンセル */
 "common.cancel" = "Khansela";
 /* 閉じる */
@@ -180,9 +178,9 @@
 /* URL読み取り中 */
 "handoff.reading" = "Ifunda i-URL okwabelwane ngayo…";
 /* 通知を勧める案内 */
-"handoff.received.askNotification" = "I-URL itholakele.\nUma uvumela izaziso, ungamane uthephe isaziso esizovela ngokulandelayo.\n(Uma kungenjalo, vula i-app bese usebenzisa okuthi “Vula isixhumanisi okwabelwane ngaso”.)";
-/* 受け取り完了の案内（%@ にアプリ名） */
-"handoff.received.format" = "I-URL itholakele.\nVula i-%@ bese uthepha okuthi “Vula isixhumanisi okwabelwane ngaso” ukuze ubuke lesi siteshi.";
+"handoff.received.askNotification" = "I-URL itholakele.\nUma uvumela izaziso, ungamane uthephe isaziso esizovela ngokulandelayo.";
+/* 共有拡張: 通知が許可されておらず開けないとき（%@ = アプリ名）。「共有されたURLを開く」は 2026-10-06 に廃止 */
+"handoff.received.format" = "I-URL itholakele, kodwa ayikwazi ukuvulwa lapha ngoba izaziso azivunyelwe.\nSicela uvumele izaziso ze-%@ ku-Amasethingi.";
 /* 読み上げ: 入力を消去 */
 "input.clear.a11y" = "Sula umbhalo";
 /* 動画を取得ボタン */
@@ -445,10 +443,6 @@
 "repeat.off" = "Valiwe";
 /* リピート: 1本 */
 "repeat.one" = "Eyodwa";
-/* クリップボードにURLがある案内 */
-"share.clipboardHint" = "Isixhumanisi owabelane ngaso sikubhodi lokunamathisela.";
-/* 共有されたURLを開くボタン */
-"share.openSharedURL" = "Vula isixhumanisi okwabelwane ngaso";
 /* 共有直後の通知を許可してもらう理由（入力画面・未許可のときだけ出す） */
 "shareTips.notify.why" = "Ukuthepha isaziso esivela ngokushesha ngemuva kokwabelana kuvula isiteshi ngaso leso sikhathi. Asisoze sithumela izaziso zezindaba noma zokukhangisa.";
 /* 前へ */

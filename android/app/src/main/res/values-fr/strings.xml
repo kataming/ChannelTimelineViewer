@@ -34,7 +34,6 @@
     <string name="clip_dialog_clear">Effacer la copie</string>
     <string name="clip_dialog_open">Ouvrir</string>
     <string name="clip_dialog_title">Ouvrir le lien copié ?</string>
-    <string name="clipboard_notfound">Aucun lien YouTube n’a été trouvé dans le presse-papiers. Collez une URL et réessayez.</string>
     <string name="common_cancel">Annuler</string>
     <string name="common_close">Fermer</string>
     <string name="common_delete">Supprimer</string>

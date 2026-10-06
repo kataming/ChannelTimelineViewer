@@ -34,7 +34,6 @@
     <string name="clip_dialog_clear">コピーをクリア</string>
     <string name="clip_dialog_open">開く</string>
     <string name="clip_dialog_title">コピーしたリンクを開きますか？</string>
-    <string name="clipboard_notfound">クリップボードに YouTube のURLが見つかりませんでした。URLを貼り付けて取得してください。</string>
     <string name="common_cancel">キャンセル</string>
     <string name="common_close">閉じる</string>
     <string name="common_delete">削除</string>

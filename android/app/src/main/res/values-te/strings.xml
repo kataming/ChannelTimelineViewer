@@ -34,7 +34,6 @@
     <string name="clip_dialog_clear">కాపీని తొలగించండి</string>
     <string name="clip_dialog_open">తెరవండి</string>
     <string name="clip_dialog_title">కాపీ చేసిన లింక్‌ను తెరవాలా?</string>
-    <string name="clipboard_notfound">క్లిప్‌బోర్డ్‌లో YouTube లింక్ కనుగొనబడలేదు. URL ను పేస్ట్ చేసి మళ్లీ ప్రయత్నించండి.</string>
     <string name="common_cancel">రద్దు చేయి</string>
     <string name="common_close">మూసివేయి</string>
     <string name="common_delete">తొలగించు</string>

@@ -32,7 +32,7 @@
 /* 設定アプリで許可するボタン */
 "about.notify.settings" = "Izinkan notifikasi di Pengaturan";
 /* 通知の説明 */
-"about.oneTap.body" = "Jika Anda mengizinkan notifikasi, sebuah notifikasi akan muncul tepat setelah Anda berbagi dan sekali ketuk akan membuka channel tersebut. Hanya notifikasi itu yang digunakan — tanpa berita atau promosi, dan tanpa notifikasi push dari server. Jika Anda tidak mengizinkannya, buka aplikasi dan gunakan “Buka tautan yang dibagikan”.";
+"about.oneTap.body" = "Jika Anda mengizinkan notifikasi, sebuah notifikasi akan muncul tepat setelah Anda berbagi dan sekali ketuk akan membuka channel tersebut. Hanya notifikasi itu yang digunakan — tanpa berita atau promosi, dan tanpa notifikasi push dari server.";
 /* 見出し: ワンタップで開く */
 "about.oneTap.header" = "Membuka dengan sekali ketuk dari lembar berbagi";
 /* 読み上げ: このアプリについて */
@@ -58,7 +58,7 @@
 /* 共有機能の説明（%@ にアプリ名） */
 "about.share.body1" = "Pilih “%@” dari tombol berbagi di aplikasi YouTube atau Safari, dan aplikasi akan menerima URL channel atau video yang dibagikan. Fitur berbagi hanya menerima URL — tidak ada yang dikirim ke mana pun.";
 /* 共有後の流れの説明 */
-"about.share.body2" = "Setelah itu, buka aplikasi ini dan “Buka tautan yang dibagikan” akan muncul di layar pertama. iOS tidak mengizinkan lembar berbagi membuka aplikasi secara langsung, karena itulah alurnya seperti ini.";
+"about.share.body2" = "Setelah itu, ketuk notifikasi yang muncul untuk membuka saluran. iOS tidak mengizinkan lembar berbagi membuka aplikasi secara langsung, karena itulah alurnya seperti ini.";
 /* 見出し: 共有シートから開く */
 "about.share.header" = "Membuka dari lembar berbagi";
 /* アプリの説明 */
@@ -83,8 +83,6 @@
 "clip.dialog.open" = "Buka";
 /* コピーした YouTube のリンクを見つけたときの確認 */
 "clip.dialog.title" = "Buka link yang Anda salin?";
-/* クリップボードにURLが無いとき */
-"clipboard.notFound" = "Tidak ada tautan YouTube di papan klip. Tempel URL lalu coba lagi.";
 /* 共通: キャンセル */
 "common.cancel" = "Batal";
 /* 閉じる */
@@ -180,9 +178,9 @@
 /* URL読み取り中 */
 "handoff.reading" = "Membaca URL yang dibagikan…";
 /* 通知を勧める案内 */
-"handoff.received.askNotification" = "URL diterima.\nJika Anda mengizinkan notifikasi, cukup ketuk notifikasi yang muncul berikutnya.\n(Jika tidak, buka aplikasi dan gunakan “Buka tautan yang dibagikan”.)";
-/* 受け取り完了の案内（%@ にアプリ名） */
-"handoff.received.format" = "URL diterima.\nBuka %@ dan ketuk “Buka tautan yang dibagikan” untuk melihat channel ini.";
+"handoff.received.askNotification" = "URL diterima.\nJika Anda mengizinkan notifikasi, cukup ketuk notifikasi yang muncul berikutnya.";
+/* 共有拡張: 通知が許可されておらず開けないとき（%@ = アプリ名）。「共有されたURLを開く」は 2026-10-06 に廃止 */
+"handoff.received.format" = "URL diterima, tetapi tidak bisa dibuka dari sini karena notifikasi tidak diizinkan.\nIzinkan notifikasi untuk %@ di Pengaturan.";
 /* 読み上げ: 入力を消去 */
 "input.clear.a11y" = "Hapus teks";
 /* 動画を取得ボタン */
@@ -445,10 +443,6 @@
 "repeat.off" = "Nonaktif";
 /* リピート: 1本 */
 "repeat.one" = "Satu";
-/* クリップボードにURLがある案内 */
-"share.clipboardHint" = "Tautan yang Anda bagikan ada di papan klip.";
-/* 共有されたURLを開くボタン */
-"share.openSharedURL" = "Buka tautan yang dibagikan";
 /* 共有直後の通知を許可してもらう理由（入力画面・未許可のときだけ出す） */
 "shareTips.notify.why" = "Mengetuk notifikasi yang muncul tepat setelah Anda berbagi akan langsung membuka channel tersebut. Kami tidak pernah mengirim notifikasi berita atau promosi.";
 /* 前へ */

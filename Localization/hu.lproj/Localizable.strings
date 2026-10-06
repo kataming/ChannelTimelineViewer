@@ -32,7 +32,7 @@
 /* 設定アプリで許可するボタン */
 "about.notify.settings" = "Értesítések engedélyezése a Beállításokban";
 /* 通知の説明 */
-"about.oneTap.body" = "Ha engedélyezed az értesítéseket, közvetlenül a megosztás után megjelenik egy értesítés, és egyetlen koppintással megnyithatod a csatornát. Ez az egyetlen használt értesítés – nincsenek hírek vagy reklámok, és nincsenek szerveroldali push-értesítések. Ha nem engedélyezed, nyisd meg az alkalmazást, és használd a „Megosztott link megnyitása” lehetőséget.";
+"about.oneTap.body" = "Ha engedélyezed az értesítéseket, közvetlenül a megosztás után megjelenik egy értesítés, és egyetlen koppintással megnyithatod a csatornát. Ez az egyetlen használt értesítés – nincsenek hírek vagy reklámok, és nincsenek szerveroldali push-értesítések.";
 /* 見出し: ワンタップで開く */
 "about.oneTap.header" = "Megnyitás egy koppintással a megosztási menüből";
 /* 読み上げ: このアプリについて */
@@ -58,7 +58,7 @@
 /* 共有機能の説明（%@ にアプリ名） */
 "about.share.body1" = "Ha a YouTube alkalmazásban vagy a Safariban a megosztás gombbal ezt választod: „%@”, az alkalmazás megkapja a megosztott csatorna vagy videó URL-jét. A megosztás csak fogadja az URL-t – semmit nem küld sehova.";
 /* 共有後の流れの説明 */
-"about.share.body2" = "Ezután nyisd meg ezt az alkalmazást, és az első képernyőn megjelenik a „Megosztott link megnyitása”. Az iOS nem engedi, hogy a megosztási menü közvetlenül elindítson egy alkalmazást, ezért működik így.";
+"about.share.body2" = "Ezután koppints a megjelenő értesítésre, és megnyílik a csatorna. Az iOS nem engedi, hogy a megosztási menü közvetlenül elindítson egy alkalmazást, ezért működik így.";
 /* 見出し: 共有シートから開く */
 "about.share.header" = "Megnyitás a megosztási menüből";
 /* アプリの説明 */
@@ -83,8 +83,6 @@
 "clip.dialog.open" = "Megnyitás";
 /* コピーした YouTube のリンクを見つけたときの確認 */
 "clip.dialog.title" = "Megnyitod a kimásolt linket?";
-/* クリップボードにURLが無いとき */
-"clipboard.notFound" = "Nem található YouTube-link a vágólapon. Illessz be egy URL-t, és próbáld újra.";
 /* 共通: キャンセル */
 "common.cancel" = "Mégse";
 /* 閉じる */
@@ -180,9 +178,9 @@
 /* URL読み取り中 */
 "handoff.reading" = "A megosztott URL beolvasása…";
 /* 通知を勧める案内 */
-"handoff.received.askNotification" = "Az URL megérkezett.\nHa engedélyezed az értesítéseket, elég a következőként megjelenő értesítésre koppintanod.\n(Ha nem, nyisd meg az alkalmazást, és használd a „Megosztott link megnyitása” lehetőséget.)";
-/* 受け取り完了の案内（%@ にアプリ名） */
-"handoff.received.format" = "Az URL megérkezett.\nNyisd meg ezt: %@, és koppints a „Megosztott link megnyitása” gombra a csatorna megtekintéséhez.";
+"handoff.received.askNotification" = "Az URL megérkezett.\nHa engedélyezed az értesítéseket, elég a következőként megjelenő értesítésre koppintanod.";
+/* 共有拡張: 通知が許可されておらず開けないとき（%@ = アプリ名）。「共有されたURLを開く」は 2026-10-06 に廃止 */
+"handoff.received.format" = "Az URL megérkezett, de innen nem nyitható meg, mert az értesítések nincsenek engedélyezve.\nEngedélyezd a(z) %@ értesítéseit a Beállításokban.";
 /* 読み上げ: 入力を消去 */
 "input.clear.a11y" = "Szöveg törlése";
 /* 動画を取得ボタン */
@@ -445,10 +443,6 @@
 "repeat.off" = "Ki";
 /* リピート: 1本 */
 "repeat.one" = "Egy";
-/* クリップボードにURLがある案内 */
-"share.clipboardHint" = "A megosztott link a vágólapon van.";
-/* 共有されたURLを開くボタン */
-"share.openSharedURL" = "Megosztott link megnyitása";
 /* 共有直後の通知を許可してもらう理由（入力画面・未許可のときだけ出す） */
 "shareTips.notify.why" = "A megosztás után azonnal megjelenő értesítésre koppintva rögtön megnyílik a csatorna. Soha nem küldünk híreket vagy reklámértesítéseket.";
 /* 前へ */

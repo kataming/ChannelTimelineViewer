@@ -32,7 +32,7 @@
 /* 設定アプリで許可するボタン */
 "about.notify.settings" = "Povolit oznámení v Nastavení";
 /* 通知の説明 */
-"about.oneTap.body" = "Pokud povolíte oznámení, hned po sdílení se zobrazí oznámení a jediným klepnutím otevřete daný kanál. Je to jediné oznámení, které aplikace používá – žádné novinky ani propagace a žádná push oznámení ze serveru. Pokud oznámení nepovolíte, otevřete aplikaci a použijte „Otevřít sdílený odkaz“.";
+"about.oneTap.body" = "Pokud povolíte oznámení, hned po sdílení se zobrazí oznámení a jediným klepnutím otevřete daný kanál. Je to jediné oznámení, které aplikace používá – žádné novinky ani propagace a žádná push oznámení ze serveru.";
 /* 見出し: ワンタップで開く */
 "about.oneTap.header" = "Otevření jedním klepnutím z nabídky sdílení";
 /* 読み上げ: このアプリについて */
@@ -58,7 +58,7 @@
 /* 共有機能の説明（%@ にアプリ名） */
 "about.share.body1" = "Když v aplikaci YouTube nebo v Safari zvolíte v nabídce sdílení „%@“, aplikace přijme sdílenou adresu URL kanálu nebo videa. Sdílení pouze přijímá adresu URL – nic se nikam neodesílá.";
 /* 共有後の流れの説明 */
-"about.share.body2" = "Potom otevřete tuto aplikaci a na první obrazovce se zobrazí „Otevřít sdílený odkaz“. iOS neumožňuje, aby nabídka sdílení aplikaci spustila přímo, proto tento postup.";
+"about.share.body2" = "Poté klepněte na zobrazené oznámení a kanál se otevře. iOS neumožňuje, aby nabídka sdílení aplikaci spustila přímo, proto tento postup.";
 /* 見出し: 共有シートから開く */
 "about.share.header" = "Otevření z nabídky sdílení";
 /* アプリの説明 */
@@ -83,8 +83,6 @@
 "clip.dialog.open" = "Otevřít";
 /* コピーした YouTube のリンクを見つけたときの確認 */
 "clip.dialog.title" = "Otevřít zkopírovaný odkaz?";
-/* クリップボードにURLが無いとき */
-"clipboard.notFound" = "Ve schránce nebyl nalezen žádný odkaz na YouTube. Vložte adresu URL a zkuste to znovu.";
 /* 共通: キャンセル */
 "common.cancel" = "Zrušit";
 /* 閉じる */
@@ -180,9 +178,9 @@
 /* URL読み取り中 */
 "handoff.reading" = "Čtení sdílené adresy URL…";
 /* 通知を勧める案内 */
-"handoff.received.askNotification" = "Adresa URL přijata.\nPokud povolíte oznámení, stačí klepnout na oznámení, které se zobrazí vzápětí.\n(Jinak otevřete aplikaci a použijte „Otevřít sdílený odkaz“.)";
-/* 受け取り完了の案内（%@ にアプリ名） */
-"handoff.received.format" = "Adresa URL přijata.\nOtevřete %@ a klepnutím na „Otevřít sdílený odkaz“ zobrazíte tento kanál.";
+"handoff.received.askNotification" = "Adresa URL přijata.\nPokud povolíte oznámení, stačí klepnout na oznámení, které se zobrazí vzápětí.";
+/* 共有拡張: 通知が許可されておらず開けないとき（%@ = アプリ名）。「共有されたURLを開く」は 2026-10-06 に廃止 */
+"handoff.received.format" = "URL bylo přijato, ale odsud ho nelze otevřít, protože oznámení nejsou povolena.\nPovolte prosím oznámení pro %@ v Nastavení.";
 /* 読み上げ: 入力を消去 */
 "input.clear.a11y" = "Vymazat text";
 /* 動画を取得ボタン */
@@ -445,10 +443,6 @@
 "repeat.off" = "Vypnuto";
 /* リピート: 1本 */
 "repeat.one" = "Jedno";
-/* クリップボードにURLがある案内 */
-"share.clipboardHint" = "Sdílený odkaz je ve schránce.";
-/* 共有されたURLを開くボタン */
-"share.openSharedURL" = "Otevřít sdílený odkaz";
 /* 共有直後の通知を許可してもらう理由（入力画面・未許可のときだけ出す） */
 "shareTips.notify.why" = "Klepnutím na oznámení, které se zobrazí hned po sdílení, se kanál rovnou otevře. Nikdy neposíláme novinky ani propagační oznámení.";
 /* 前へ */

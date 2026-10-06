@@ -34,7 +34,6 @@
     <string name="clip_dialog_clear">ล้างสิ่งที่คัดลอก</string>
     <string name="clip_dialog_open">เปิด</string>
     <string name="clip_dialog_title">เปิดลิงก์ที่คัดลอกไว้ไหม</string>
-    <string name="clipboard_notfound">ไม่พบลิงก์ YouTube ในคลิปบอร์ด วาง URL แล้วลองอีกครั้ง</string>
     <string name="common_cancel">ยกเลิก</string>
     <string name="common_close">ปิด</string>
     <string name="common_delete">ลบ</string>

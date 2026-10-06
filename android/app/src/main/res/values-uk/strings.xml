@@ -34,7 +34,6 @@
     <string name="clip_dialog_clear">Очистити скопійоване</string>
     <string name="clip_dialog_open">Відкрити</string>
     <string name="clip_dialog_title">Відкрити скопійоване посилання?</string>
-    <string name="clipboard_notfound">У буфері обміну не знайдено посилання YouTube. Вставте URL-адресу й спробуйте ще раз.</string>
     <string name="common_cancel">Скасувати</string>
     <string name="common_close">Закрити</string>
     <string name="common_delete">Видалити</string>

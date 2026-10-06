@@ -34,7 +34,6 @@
     <string name="clip_dialog_clear">Xóa nội dung đã sao chép</string>
     <string name="clip_dialog_open">Mở</string>
     <string name="clip_dialog_title">Mở đường liên kết bạn đã sao chép?</string>
-    <string name="clipboard_notfound">Không tìm thấy liên kết YouTube trong bộ nhớ tạm. Hãy dán URL và thử lại.</string>
     <string name="common_cancel">Hủy</string>
     <string name="common_close">Đóng</string>
     <string name="common_delete">Xóa</string>

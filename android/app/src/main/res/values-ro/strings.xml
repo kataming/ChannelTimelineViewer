@@ -34,7 +34,6 @@
     <string name="clip_dialog_clear">Ștergeți copia</string>
     <string name="clip_dialog_open">Deschideți</string>
     <string name="clip_dialog_title">Deschideți linkul copiat?</string>
-    <string name="clipboard_notfound">Nu s-a găsit niciun link YouTube în clipboard. Lipiți o adresă URL și încercați din nou.</string>
     <string name="common_cancel">Anulați</string>
     <string name="common_close">Închideți</string>
     <string name="common_delete">Ștergeți</string>

@@ -32,7 +32,7 @@
 /* 設定アプリで許可するボタン */
 "about.notify.settings" = "Payagan ang notification sa Settings";
 /* 通知の説明 */
-"about.oneTap.body" = "Kung papayagan mo ang mga notification, may lalabas agad pagkatapos mong mag-share at isang tap lang ay bubukas na ang channel na iyon. Iyan lang ang notification na ginagamit — walang balita o promosyon, at walang server push notification. Kung hindi mo papayagan, buksan ang app at gamitin ang “Buksan ang ibinahaging link”.";
+"about.oneTap.body" = "Kung papayagan mo ang mga notification, may lalabas agad pagkatapos mong mag-share at isang tap lang ay bubukas na ang channel na iyon. Iyan lang ang notification na ginagamit — walang balita o promosyon, at walang server push notification.";
 /* 見出し: ワンタップで開く */
 "about.oneTap.header" = "Pagbubukas sa isang tap mula sa share sheet";
 /* 読み上げ: このアプリについて */
@@ -58,7 +58,7 @@
 /* 共有機能の説明（%@ にアプリ名） */
 "about.share.body1" = "Piliin ang “%@” mula sa share button sa YouTube app o Safari at matatanggap ng app ang ibinahaging URL ng channel o video. URL lang ang natatanggap sa pag-share — walang ipinapadala kahit saan.";
 /* 共有後の流れの説明 */
-"about.share.body2" = "Pagkatapos, buksan ang app na ito at lalabas ang “Buksan ang ibinahaging link” sa unang screen. Hindi pinapayagan ng iOS na direktang magbukas ng app ang share sheet, kaya ganito ang proseso.";
+"about.share.body2" = "Pagkatapos, i-tap ang lalabas na notification para buksan ang channel. Hindi pinapayagan ng iOS na direktang magbukas ng app ang share sheet, kaya ganito ang proseso.";
 /* 見出し: 共有シートから開く */
 "about.share.header" = "Pagbubukas mula sa share sheet";
 /* アプリの説明 */
@@ -83,8 +83,6 @@
 "clip.dialog.open" = "Buksan";
 /* コピーした YouTube のリンクを見つけたときの確認 */
 "clip.dialog.title" = "Buksan ang link na kinopya mo?";
-/* クリップボードにURLが無いとき */
-"clipboard.notFound" = "Walang nahanap na YouTube link sa clipboard. Mag-paste ng URL at subukang muli.";
 /* 共通: キャンセル */
 "common.cancel" = "Kanselahin";
 /* 閉じる */
@@ -180,9 +178,9 @@
 /* URL読み取り中 */
 "handoff.reading" = "Binabasa ang ibinahaging URL…";
 /* 通知を勧める案内 */
-"handoff.received.askNotification" = "Natanggap ang URL.\nKung papayagan mo ang mga notification, i-tap mo lang ang susunod na lalabas na notification.\n(Kung hindi, buksan ang app at gamitin ang “Buksan ang ibinahaging link”.)";
-/* 受け取り完了の案内（%@ にアプリ名） */
-"handoff.received.format" = "Natanggap ang URL.\nBuksan ang %@ at i-tap ang “Buksan ang ibinahaging link” para makita ang channel na ito.";
+"handoff.received.askNotification" = "Natanggap ang URL.\nKung papayagan mo ang mga notification, i-tap mo lang ang susunod na lalabas na notification.";
+/* 共有拡張: 通知が許可されておらず開けないとき（%@ = アプリ名）。「共有されたURLを開く」は 2026-10-06 に廃止 */
+"handoff.received.format" = "Natanggap ang URL, pero hindi ito mabubuksan dito dahil hindi pinapayagan ang mga notification.\nPayagan ang mga notification ng %@ sa Settings.";
 /* 読み上げ: 入力を消去 */
 "input.clear.a11y" = "I-clear ang text";
 /* 動画を取得ボタン */
@@ -445,10 +443,6 @@
 "repeat.off" = "Off";
 /* リピート: 1本 */
 "repeat.one" = "Isa";
-/* クリップボードにURLがある案内 */
-"share.clipboardHint" = "Nasa clipboard ang link na ibinahagi mo.";
-/* 共有されたURLを開くボタン */
-"share.openSharedURL" = "Buksan ang ibinahaging link";
 /* 共有直後の通知を許可してもらう理由（入力画面・未許可のときだけ出す） */
 "shareTips.notify.why" = "Kapag na-tap ang notification na lalabas agad pagkatapos mong mag-share, bubukas agad ang channel. Hindi kami kailanman nagpapadala ng notification ng balita o promosyon.";
 /* 前へ */

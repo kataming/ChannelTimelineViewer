@@ -34,7 +34,6 @@
     <string name="clip_dialog_clear">ನಕಲನ್ನು ತೆರವುಗೊಳಿಸಿ</string>
     <string name="clip_dialog_open">ತೆರೆಯಿರಿ</string>
     <string name="clip_dialog_title">ನಕಲಿಸಿದ ಲಿಂಕ್ ತೆರೆಯಬೇಕೇ?</string>
-    <string name="clipboard_notfound">ಕ್ಲಿಪ್‌ಬೋರ್ಡ್‌ನಲ್ಲಿ ಯಾವುದೇ YouTube ಲಿಂಕ್ ಕಂಡುಬಂದಿಲ್ಲ. URL ಅನ್ನು ಅಂಟಿಸಿ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.</string>
     <string name="common_cancel">ರದ್ದುಮಾಡಿ</string>
     <string name="common_close">ಮುಚ್ಚಿ</string>
     <string name="common_delete">ಅಳಿಸಿ</string>

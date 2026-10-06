@@ -32,7 +32,7 @@
 /* 設定アプリで許可するボタン */
 "about.notify.settings" = "Meldingen toestaan in Instellingen";
 /* 通知の説明 */
-"about.oneTap.body" = "Als je meldingen toestaat, verschijnt er direct na het delen een melding en opent één tik dat kanaal. Dat is de enige melding die wordt gebruikt — geen nieuws of promoties, en geen pushmeldingen van een server. Sta je ze niet toe, open dan de app en gebruik ‘Gedeelde link openen’.";
+"about.oneTap.body" = "Als je meldingen toestaat, verschijnt er direct na het delen een melding en opent één tik dat kanaal. Dat is de enige melding die wordt gebruikt — geen nieuws of promoties, en geen pushmeldingen van een server.";
 /* 見出し: ワンタップで開く */
 "about.oneTap.header" = "Met één tik openen vanuit het deelmenu";
 /* 読み上げ: このアプリについて */
@@ -58,7 +58,7 @@
 /* 共有機能の説明（%@ にアプリ名） */
 "about.share.body1" = "Kies ‘%@’ via de deelknop in de YouTube-app of Safari en de app ontvangt de URL van het gedeelde kanaal of de gedeelde video. Bij het delen wordt alleen de URL ontvangen — er wordt niets verstuurd.";
 /* 共有後の流れの説明 */
-"about.share.body2" = "Open daarna deze app en ‘Gedeelde link openen’ verschijnt op het eerste scherm. iOS staat niet toe dat een deelmenu een app direct opent, vandaar deze werkwijze.";
+"about.share.body2" = "Tik daarna op de melding die verschijnt om het kanaal te openen. iOS staat niet toe dat een deelmenu een app direct opent, vandaar deze werkwijze.";
 /* 見出し: 共有シートから開く */
 "about.share.header" = "Openen via het deelmenu";
 /* アプリの説明 */
@@ -83,8 +83,6 @@
 "clip.dialog.open" = "Openen";
 /* コピーした YouTube のリンクを見つけたときの確認 */
 "clip.dialog.title" = "Gekopieerde link openen?";
-/* クリップボードにURLが無いとき */
-"clipboard.notFound" = "Er is geen YouTube-link op het klembord gevonden. Plak een URL en probeer het opnieuw.";
 /* 共通: キャンセル */
 "common.cancel" = "Annuleer";
 /* 閉じる */
@@ -180,9 +178,9 @@
 /* URL読み取り中 */
 "handoff.reading" = "Gedeelde URL lezen…";
 /* 通知を勧める案内 */
-"handoff.received.askNotification" = "URL ontvangen.\nAls je meldingen toestaat, hoef je alleen op de melding te tikken die hierna verschijnt.\n(Anders open je de app en gebruik je ‘Gedeelde link openen’.)";
-/* 受け取り完了の案内（%@ にアプリ名） */
-"handoff.received.format" = "URL ontvangen.\nOpen %@ en tik op ‘Gedeelde link openen’ om dit kanaal te bekijken.";
+"handoff.received.askNotification" = "URL ontvangen.\nAls je meldingen toestaat, hoef je alleen op de melding te tikken die hierna verschijnt.";
+/* 共有拡張: 通知が許可されておらず開けないとき（%@ = アプリ名）。「共有されたURLを開く」は 2026-10-06 に廃止 */
+"handoff.received.format" = "URL ontvangen, maar die kan hier niet worden geopend omdat meldingen niet zijn toegestaan.\nSta meldingen voor %@ toe in Instellingen.";
 /* 読み上げ: 入力を消去 */
 "input.clear.a11y" = "Tekst wissen";
 /* 動画を取得ボタン */
@@ -445,10 +443,6 @@
 "repeat.off" = "Uit";
 /* リピート: 1本 */
 "repeat.one" = "Eén";
-/* クリップボードにURLがある案内 */
-"share.clipboardHint" = "De link die je hebt gedeeld staat op het klembord.";
-/* 共有されたURLを開くボタン */
-"share.openSharedURL" = "Gedeelde link openen";
 /* 共有直後の通知を許可してもらう理由（入力画面・未許可のときだけ出す） */
 "shareTips.notify.why" = "Als je tikt op de melding die direct na het delen verschijnt, wordt het kanaal meteen geopend. We sturen nooit nieuws of promotionele meldingen.";
 /* 前へ */

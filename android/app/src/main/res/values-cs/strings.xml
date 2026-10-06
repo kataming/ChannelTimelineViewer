@@ -34,7 +34,6 @@
     <string name="clip_dialog_clear">Vymazat zkopírované</string>
     <string name="clip_dialog_open">Otevřít</string>
     <string name="clip_dialog_title">Otevřít zkopírovaný odkaz?</string>
-    <string name="clipboard_notfound">Ve schránce nebyl nalezen žádný odkaz na YouTube. Vložte adresu URL a zkuste to znovu.</string>
     <string name="common_cancel">Zrušit</string>
     <string name="common_close">Zavřít</string>
     <string name="common_delete">Smazat</string>

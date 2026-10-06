@@ -34,7 +34,6 @@
     <string name="clip_dialog_clear">Másolat törlése</string>
     <string name="clip_dialog_open">Megnyitás</string>
     <string name="clip_dialog_title">Megnyitod a kimásolt linket?</string>
-    <string name="clipboard_notfound">Nem található YouTube-link a vágólapon. Illessz be egy URL-t, és próbáld újra.</string>
     <string name="common_cancel">Mégse</string>
     <string name="common_close">Bezárás</string>
     <string name="common_delete">Törlés</string>

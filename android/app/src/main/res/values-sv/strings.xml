@@ -34,7 +34,6 @@
     <string name="clip_dialog_clear">Rensa kopian</string>
     <string name="clip_dialog_open">Öppna</string>
     <string name="clip_dialog_title">Öppna länken du kopierade?</string>
-    <string name="clipboard_notfound">Ingen YouTube-länk hittades i urklipp. Klistra in en URL och försök igen.</string>
     <string name="common_cancel">Avbryt</string>
     <string name="common_close">Stäng</string>
     <string name="common_delete">Radera</string>

@@ -4,7 +4,6 @@ import SwiftUI
 struct ChannelInputView: View {
     @EnvironmentObject private var favoriteStore: FavoriteChannelStore
     @EnvironmentObject private var sharedLinkRouter: SharedLinkRouter
-    @EnvironmentObject private var clipboardDetector: ClipboardLinkDetector
     @EnvironmentObject private var notificationPermission: NotificationPermission
     @EnvironmentObject private var progressStore: ChannelProgressStore
     @EnvironmentObject private var watchHistoryStore: WatchHistoryStore
@@ -68,22 +67,6 @@ struct ChannelInputView: View {
                             .foregroundStyle(.orange)
                         Text("api.notConfigured.detail")
                             .font(.footnote)
-                            .foregroundStyle(.secondary)
-                    }
-                }
-
-                // 共有シートから受け取った URL は、iOS の仕様でアプリを直接開けないため
-                // クリップボード経由で渡ってくる。ここでワンタップで開けるようにする。
-                if clipboardDetector.hasCandidate {
-                    Section {
-                        Button {
-                            openFromClipboard()
-                        } label: {
-                            Label("share.openSharedURL", systemImage: "doc.on.clipboard")
-                                .font(.body.bold())
-                        }
-                        Text("share.clipboardHint")
-                            .font(.caption)
                             .foregroundStyle(.secondary)
                     }
                 }
@@ -165,11 +148,9 @@ struct ChannelInputView: View {
                                   viewModel.urlText.trimmingCharacters(in: .whitespaces).isEmpty)
                     } header: {
                         Text("input.section.header")
-                    } footer: {
-                        // 入力例はプレースホルダで示しているので、ここでは繰り返さない。
-                        Text(String(format: String(localized: "input.section.footer"),
-                                    AppInfo.displayName))
                     }
+                    // 以前の説明文（input.section.footer）は「共有されたURLを開く」に触れていたので出さない
+                    // （その入口は 2026-10-06 に廃止）。この欄自体も撮影のときだけ出る。
                 }
 
                 if let error = viewModel.errorMessage {
@@ -411,11 +392,6 @@ struct ChannelInputView: View {
 
     @MainActor
     private func handleCopied(_ outcome: CopyLinkGuideStore.Outcome) async {
-        if outcome != .none {
-            // この案内で扱ったコピーには「共有されたURLを開く」（共有シート経由の受け取り用）を出さない。
-            // 出すと、許可しなかったときに別の入口が急に現れて混乱する（2026-10-06・ユーザー指摘）。
-            clipboardDetector.dismissCurrent()
-        }
         switch outcome {
         case .link(let link):
             clipboardMessage = nil
@@ -556,19 +532,6 @@ struct ChannelInputView: View {
             } footer: {
                 Text("shareTips.notify.why")
             }
-        }
-    }
-
-    /// クリップボードにある共有URLを開く（ボタンを押したときだけ中身を読む）。
-    private func openFromClipboard() {
-        clipboardMessage = nil
-        guard let link = clipboardDetector.takeYouTubeLink() else {
-            clipboardMessage = String(localized: "clipboard.notFound")
-            return
-        }
-        sharedLinkRouter.markShareHandoffUsed()
-        Task { @MainActor in
-            await viewModel.openSharedLink(link, context: context)
         }
     }
 

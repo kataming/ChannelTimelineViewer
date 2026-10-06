@@ -32,7 +32,7 @@
 /* 設定アプリで許可するボタン */
 "about.notify.settings" = "Permiteți notificările în Configurări";
 /* 通知の説明 */
-"about.oneTap.body" = "Dacă permiteți notificările, imediat după partajare apare o notificare, iar o singură atingere deschide canalul respectiv. Este singura notificare folosită — fără noutăți sau promoții și fără notificări push de la server. Dacă nu le permiteți, deschideți aplicația și folosiți „Deschideți linkul partajat”.";
+"about.oneTap.body" = "Dacă permiteți notificările, imediat după partajare apare o notificare, iar o singură atingere deschide canalul respectiv. Este singura notificare folosită — fără noutăți sau promoții și fără notificări push de la server.";
 /* 見出し: ワンタップで開く */
 "about.oneTap.header" = "Deschidere cu o singură atingere din foaia de partajare";
 /* 読み上げ: このアプリについて */
@@ -58,7 +58,7 @@
 /* 共有機能の説明（%@ にアプリ名） */
 "about.share.body1" = "Alegeți „%@” din butonul de partajare al aplicației YouTube sau din Safari, iar aplicația primește adresa URL a canalului sau a videoclipului partajat. Partajarea doar primește adresa URL — nu se trimite nimic nicăieri.";
 /* 共有後の流れの説明 */
-"about.share.body2" = "Apoi deschideți această aplicație, iar pe primul ecran apare „Deschideți linkul partajat”. iOS nu permite ca foaia de partajare să lanseze direct o aplicație, de aceea funcționează astfel.";
+"about.share.body2" = "Apoi atingeți notificarea care apare pentru a deschide canalul. iOS nu permite ca foaia de partajare să lanseze direct o aplicație, de aceea funcționează astfel.";
 /* 見出し: 共有シートから開く */
 "about.share.header" = "Deschiderea din foaia de partajare";
 /* アプリの説明 */
@@ -83,8 +83,6 @@
 "clip.dialog.open" = "Deschideți";
 /* コピーした YouTube のリンクを見つけたときの確認 */
 "clip.dialog.title" = "Deschideți linkul copiat?";
-/* クリップボードにURLが無いとき */
-"clipboard.notFound" = "Nu s-a găsit niciun link YouTube în clipboard. Lipiți o adresă URL și încercați din nou.";
 /* 共通: キャンセル */
 "common.cancel" = "Anulați";
 /* 閉じる */
@@ -180,9 +178,9 @@
 /* URL読み取り中 */
 "handoff.reading" = "Se citește adresa URL partajată…";
 /* 通知を勧める案内 */
-"handoff.received.askNotification" = "Adresa URL a fost primită.\nDacă permiteți notificările, trebuie doar să atingeți notificarea care apare imediat.\n(Altfel, deschideți aplicația și folosiți „Deschideți linkul partajat”.)";
-/* 受け取り完了の案内（%@ にアプリ名） */
-"handoff.received.format" = "Adresa URL a fost primită.\nDeschideți %@ și atingeți „Deschideți linkul partajat” pentru a vedea acest canal.";
+"handoff.received.askNotification" = "Adresa URL a fost primită.\nDacă permiteți notificările, trebuie doar să atingeți notificarea care apare imediat.";
+/* 共有拡張: 通知が許可されておらず開けないとき（%@ = アプリ名）。「共有されたURLを開く」は 2026-10-06 に廃止 */
+"handoff.received.format" = "URL-ul a fost primit, dar nu poate fi deschis de aici pentru că notificările nu sunt permise.\nPermiteți notificările pentru %@ în Configurări.";
 /* 読み上げ: 入力を消去 */
 "input.clear.a11y" = "Ștergeți textul";
 /* 動画を取得ボタン */
@@ -445,10 +443,6 @@
 "repeat.off" = "Dezactivat";
 /* リピート: 1本 */
 "repeat.one" = "Unul";
-/* クリップボードにURLがある案内 */
-"share.clipboardHint" = "Linkul partajat se află în clipboard.";
-/* 共有されたURLを開くボタン */
-"share.openSharedURL" = "Deschideți linkul partajat";
 /* 共有直後の通知を許可してもらう理由（入力画面・未許可のときだけ出す） */
 "shareTips.notify.why" = "Atingând notificarea care apare imediat după partajare, canalul se deschide direct. Nu trimitem niciodată notificări cu noutăți sau promoții.";
 /* 前へ */

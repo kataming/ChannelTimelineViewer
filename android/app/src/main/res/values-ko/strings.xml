@@ -34,7 +34,6 @@
     <string name="clip_dialog_clear">복사 내용 지우기</string>
     <string name="clip_dialog_open">열기</string>
     <string name="clip_dialog_title">복사한 링크를 열까요?</string>
-    <string name="clipboard_notfound">클립보드에서 YouTube URL을 찾지 못했습니다. URL을 붙여넣고 다시 시도하세요.</string>
     <string name="common_cancel">취소</string>
     <string name="common_close">닫기</string>
     <string name="common_delete">삭제</string>

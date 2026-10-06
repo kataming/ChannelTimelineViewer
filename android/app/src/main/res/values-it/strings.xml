@@ -34,7 +34,6 @@
     <string name="clip_dialog_clear">Cancella copia</string>
     <string name="clip_dialog_open">Apri</string>
     <string name="clip_dialog_title">Aprire il link copiato?</string>
-    <string name="clipboard_notfound">Nessun link YouTube trovato negli appunti. Incolla un URL e riprova.</string>
     <string name="common_cancel">Annulla</string>
     <string name="common_close">Chiudi</string>
     <string name="common_delete">Elimina</string>

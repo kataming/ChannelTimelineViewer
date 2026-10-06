@@ -34,7 +34,6 @@
     <string name="clip_dialog_clear">Διαγραφή αντιγραφής</string>
     <string name="clip_dialog_open">Άνοιγμα</string>
     <string name="clip_dialog_title">Άνοιγμα του συνδέσμου που αντιγράψατε;</string>
-    <string name="clipboard_notfound">Δεν βρέθηκε σύνδεσμος YouTube στο πρόχειρο. Επικολλήστε ένα URL και δοκιμάστε ξανά.</string>
     <string name="common_cancel">Ακύρωση</string>
     <string name="common_close">Κλείσιμο</string>
     <string name="common_delete">Διαγραφή</string>

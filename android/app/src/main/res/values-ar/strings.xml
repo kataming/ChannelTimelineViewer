@@ -34,7 +34,6 @@
     <string name="clip_dialog_clear">مسح المنسوخ</string>
     <string name="clip_dialog_open">فتح</string>
     <string name="clip_dialog_title">هل تريد فتح الرابط الذي نسخته؟</string>
-    <string name="clipboard_notfound">لم يتم العثور على رابط YouTube في الحافظة. الصق عنوان URL وحاول مرة أخرى.</string>
     <string name="common_cancel">إلغاء</string>
     <string name="common_close">إغلاق</string>
     <string name="common_delete">حذف</string>

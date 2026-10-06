@@ -32,7 +32,7 @@
 /* 設定アプリで許可するボタン */
 "about.notify.settings" = "Ayarlar'dan bildirimlere izin ver";
 /* 通知の説明 */
-"about.oneTap.body" = "Bildirimlere izin verirseniz, paylaştıktan hemen sonra bir bildirim görünür ve tek dokunuşla o kanal açılır. Kullanılan tek bildirim budur — haber veya tanıtım yok, sunucudan anlık bildirim de yok. İzin vermezseniz uygulamayı açıp “Paylaşılan bağlantıyı aç” seçeneğini kullanın.";
+"about.oneTap.body" = "Bildirimlere izin verirseniz, paylaştıktan hemen sonra bir bildirim görünür ve tek dokunuşla o kanal açılır. Kullanılan tek bildirim budur — haber veya tanıtım yok, sunucudan anlık bildirim de yok.";
 /* 見出し: ワンタップで開く */
 "about.oneTap.header" = "Paylaşım sayfasından tek dokunuşla açma";
 /* 読み上げ: このアプリについて */
@@ -58,7 +58,7 @@
 /* 共有機能の説明（%@ にアプリ名） */
 "about.share.body1" = "YouTube uygulamasındaki veya Safari'deki paylaş düğmesinden “%@” seçeneğini seçin; uygulama paylaşılan kanal veya video URL'sini alır. Paylaşım yalnızca URL'yi alır — hiçbir yere bir şey gönderilmez.";
 /* 共有後の流れの説明 */
-"about.share.body2" = "Ardından bu uygulamayı açın; ilk ekranda “Paylaşılan bağlantıyı aç” görünür. iOS, paylaşım sayfasının bir uygulamayı doğrudan başlatmasına izin vermediği için akış bu şekildedir.";
+"about.share.body2" = "Ardından görünen bildirime dokunarak kanalı açın. iOS, paylaşım sayfasının bir uygulamayı doğrudan başlatmasına izin vermediği için akış bu şekildedir.";
 /* 見出し: 共有シートから開く */
 "about.share.header" = "Paylaşım sayfasından açma";
 /* アプリの説明 */
@@ -83,8 +83,6 @@
 "clip.dialog.open" = "Aç";
 /* コピーした YouTube のリンクを見つけたときの確認 */
 "clip.dialog.title" = "Kopyaladığınız bağlantı açılsın mı?";
-/* クリップボードにURLが無いとき */
-"clipboard.notFound" = "Panoda YouTube bağlantısı bulunamadı. Bir URL yapıştırıp tekrar deneyin.";
 /* 共通: キャンセル */
 "common.cancel" = "İptal";
 /* 閉じる */
@@ -180,9 +178,9 @@
 /* URL読み取り中 */
 "handoff.reading" = "Paylaşılan URL okunuyor…";
 /* 通知を勧める案内 */
-"handoff.received.askNotification" = "URL alındı.\nBildirimlere izin verirseniz, ardından görünen bildirime dokunmanız yeterli.\n(Aksi halde uygulamayı açıp “Paylaşılan bağlantıyı aç” seçeneğini kullanın.)";
-/* 受け取り完了の案内（%@ にアプリ名） */
-"handoff.received.format" = "URL alındı.\nBu kanalı görmek için %@ uygulamasını açıp “Paylaşılan bağlantıyı aç”a dokunun.";
+"handoff.received.askNotification" = "URL alındı.\nBildirimlere izin verirseniz, ardından görünen bildirime dokunmanız yeterli.";
+/* 共有拡張: 通知が許可されておらず開けないとき（%@ = アプリ名）。「共有されたURLを開く」は 2026-10-06 に廃止 */
+"handoff.received.format" = "URL alındı ancak bildirimlere izin verilmediği için buradan açılamıyor.\nLütfen Ayarlar’da %@ için bildirimlere izin verin.";
 /* 読み上げ: 入力を消去 */
 "input.clear.a11y" = "Metni temizle";
 /* 動画を取得ボタン */
@@ -445,10 +443,6 @@
 "repeat.off" = "Kapalı";
 /* リピート: 1本 */
 "repeat.one" = "Bir";
-/* クリップボードにURLがある案内 */
-"share.clipboardHint" = "Paylaştığınız bağlantı panoda.";
-/* 共有されたURLを開くボタン */
-"share.openSharedURL" = "Paylaşılan bağlantıyı aç";
 /* 共有直後の通知を許可してもらう理由（入力画面・未許可のときだけ出す） */
 "shareTips.notify.why" = "Paylaştıktan hemen sonra görünen bildirime dokunmak kanalı doğrudan açar. Asla haber veya tanıtım bildirimi göndermeyiz.";
 /* 前へ */

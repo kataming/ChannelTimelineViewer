@@ -32,7 +32,7 @@
 /* 設定アプリで許可するボタン */
 "about.notify.settings" = "Zezwól na powiadomienia w Ustawieniach";
 /* 通知の説明 */
-"about.oneTap.body" = "Jeśli zezwolisz na powiadomienia, zaraz po udostępnieniu pojawi się powiadomienie, a jedno stuknięcie otworzy ten kanał. To jedyne używane powiadomienie — żadnych nowości ani promocji i żadnych powiadomień push z serwera. Jeśli nie zezwolisz, otwórz aplikację i użyj „Otwórz udostępniony link”.";
+"about.oneTap.body" = "Jeśli zezwolisz na powiadomienia, zaraz po udostępnieniu pojawi się powiadomienie, a jedno stuknięcie otworzy ten kanał. To jedyne używane powiadomienie — żadnych nowości ani promocji i żadnych powiadomień push z serwera.";
 /* 見出し: ワンタップで開く */
 "about.oneTap.header" = "Otwieranie jednym stuknięciem z arkusza udostępniania";
 /* 読み上げ: このアプリについて */
@@ -58,7 +58,7 @@
 /* 共有機能の説明（%@ にアプリ名） */
 "about.share.body1" = "Wybierz „%@” po stuknięciu przycisku udostępniania w aplikacji YouTube lub w Safari, a aplikacja otrzyma udostępniony adres URL kanału lub filmu. Udostępnianie tylko odbiera adres URL — nic nie jest nigdzie wysyłane.";
 /* 共有後の流れの説明 */
-"about.share.body2" = "Następnie otwórz tę aplikację — na pierwszym ekranie pojawi się „Otwórz udostępniony link”. iOS nie pozwala arkuszowi udostępniania uruchamiać aplikacji bezpośrednio, dlatego działa to w ten sposób.";
+"about.share.body2" = "Następnie dotknij wyświetlonego powiadomienia, aby otworzyć kanał. iOS nie pozwala arkuszowi udostępniania uruchamiać aplikacji bezpośrednio, dlatego działa to w ten sposób.";
 /* 見出し: 共有シートから開く */
 "about.share.header" = "Otwieranie z arkusza udostępniania";
 /* アプリの説明 */
@@ -83,8 +83,6 @@
 "clip.dialog.open" = "Otwórz";
 /* コピーした YouTube のリンクを見つけたときの確認 */
 "clip.dialog.title" = "Otworzyć skopiowany link?";
-/* クリップボードにURLが無いとき */
-"clipboard.notFound" = "W schowku nie znaleziono linku do YouTube. Wklej adres URL i spróbuj ponownie.";
 /* 共通: キャンセル */
 "common.cancel" = "Anuluj";
 /* 閉じる */
@@ -180,9 +178,9 @@
 /* URL読み取り中 */
 "handoff.reading" = "Odczytywanie udostępnionego adresu URL…";
 /* 通知を勧める案内 */
-"handoff.received.askNotification" = "Odebrano adres URL.\nJeśli zezwolisz na powiadomienia, wystarczy stuknąć powiadomienie, które zaraz się pojawi.\n(W przeciwnym razie otwórz aplikację i użyj „Otwórz udostępniony link”).";
-/* 受け取り完了の案内（%@ にアプリ名） */
-"handoff.received.format" = "Odebrano adres URL.\nOtwórz %@ i stuknij „Otwórz udostępniony link”, aby wyświetlić ten kanał.";
+"handoff.received.askNotification" = "Odebrano adres URL.\nJeśli zezwolisz na powiadomienia, wystarczy stuknąć powiadomienie, które zaraz się pojawi.";
+/* 共有拡張: 通知が許可されておらず開けないとき（%@ = アプリ名）。「共有されたURLを開く」は 2026-10-06 に廃止 */
+"handoff.received.format" = "Otrzymano URL, ale nie można go stąd otworzyć, bo powiadomienia nie są dozwolone.\nZezwól na powiadomienia %@ w Ustawieniach.";
 /* 読み上げ: 入力を消去 */
 "input.clear.a11y" = "Wyczyść tekst";
 /* 動画を取得ボタン */
@@ -445,10 +443,6 @@
 "repeat.off" = "Wył.";
 /* リピート: 1本 */
 "repeat.one" = "Jeden";
-/* クリップボードにURLがある案内 */
-"share.clipboardHint" = "Udostępniony link jest w schowku.";
-/* 共有されたURLを開くボタン */
-"share.openSharedURL" = "Otwórz udostępniony link";
 /* 共有直後の通知を許可してもらう理由（入力画面・未許可のときだけ出す） */
 "shareTips.notify.why" = "Stuknięcie powiadomienia, które pojawia się zaraz po udostępnieniu, od razu otwiera kanał. Nigdy nie wysyłamy nowości ani powiadomień promocyjnych.";
 /* 前へ */

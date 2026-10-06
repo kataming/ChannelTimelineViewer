@@ -25,8 +25,6 @@ struct ChannelTimelineViewerApp: App {
     // 通知タップからも渡ってくるので共有インスタンスを使う。
     @StateObject private var sharedLinkRouter = SharedLinkRouter.shared
     @StateObject private var notificationPermission = NotificationPermission()
-    // 共有シートから直接アプリを開けない iOS 仕様のため、クリップボード経由でも拾えるようにする。
-    @StateObject private var clipboardDetector = ClipboardLinkDetector()
     /// 「チャンネルの追加方法」の案内を見終わったか（初回だけ自動で出すための印）。
     @StateObject private var channelTutorial = ChannelTutorialStore()
     @Environment(\.scenePhase) private var scenePhase
@@ -52,7 +50,6 @@ struct ChannelTimelineViewerApp: App {
                 .environmentObject(proStore)
                 .environmentObject(activeChannelStore)
                 .environmentObject(sharedLinkRouter)
-                .environmentObject(clipboardDetector)
                 .environmentObject(notificationPermission)
                 .environmentObject(channelTutorial)
                 .environmentObject(ads)
@@ -60,19 +57,14 @@ struct ChannelTimelineViewerApp: App {
                     // channeltimelineviewer://share?url=... 以外は無視する。
                     sharedLinkRouter.handle(url)
                 }
-                // 共有してからアプリに戻ってきたタイミングで、クリップボードの URL を拾えるようにする。
                 .task {
                     // 広告の準備（同意 → 初期化）。Pro なら何もしない。画面の表示は待たせない。
                     ads.activate()
-                    await clipboardDetector.refresh()
                     await notificationPermission.refresh()
                 }
                 .onChange(of: scenePhase) { _, phase in
                     guard phase == .active else { return }
-                    Task {
-                        await clipboardDetector.refresh()
-                        await notificationPermission.refresh()
-                    }
+                    Task { await notificationPermission.refresh() }
                 }
         }
     }

@@ -34,7 +34,6 @@
     <string name="clip_dialog_clear">நகலை அழி</string>
     <string name="clip_dialog_open">திற</string>
     <string name="clip_dialog_title">நகலெடுத்த இணைப்பைத் திறக்கவா?</string>
-    <string name="clipboard_notfound">கிளிப்போர்டில் YouTube இணைப்பு எதுவும் இல்லை. ஒரு URL ஐ ஒட்டி மீண்டும் முயலவும்.</string>
     <string name="common_cancel">ரத்துசெய்</string>
     <string name="common_close">மூடு</string>
     <string name="common_delete">நீக்கு</string>

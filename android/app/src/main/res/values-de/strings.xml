@@ -34,7 +34,6 @@
     <string name="clip_dialog_clear">Kopie löschen</string>
     <string name="clip_dialog_open">Öffnen</string>
     <string name="clip_dialog_title">Kopierten Link öffnen?</string>
-    <string name="clipboard_notfound">In der Zwischenablage wurde kein YouTube-Link gefunden. Füge eine URL ein und versuche es erneut.</string>
     <string name="common_cancel">Abbrechen</string>
     <string name="common_close">Schließen</string>
     <string name="common_delete">Löschen</string>

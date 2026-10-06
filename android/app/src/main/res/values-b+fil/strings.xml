@@ -34,7 +34,6 @@
     <string name="clip_dialog_clear">I-clear ang kinopya</string>
     <string name="clip_dialog_open">Buksan</string>
     <string name="clip_dialog_title">Buksan ang link na kinopya mo?</string>
-    <string name="clipboard_notfound">Walang nahanap na YouTube link sa clipboard. Mag-paste ng URL at subukang muli.</string>
     <string name="common_cancel">Kanselahin</string>
     <string name="common_close">Isara</string>
     <string name="common_delete">I-delete</string>

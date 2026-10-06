@@ -32,7 +32,7 @@
 /* 設定アプリで許可するボタン */
 "about.notify.settings" = "Allow notifications in Settings";
 /* 通知の説明 */
-"about.oneTap.body" = "If you allow notifications, one appears right after you share and a single tap opens that channel. That is the only notification used — no news or promotions, and no server push notifications. If you don’t allow them, open the app and use “Open shared link”.";
+"about.oneTap.body" = "If you allow notifications, one appears right after you share and a single tap opens that channel. That is the only notification used — no news or promotions, and no server push notifications.";
 /* 見出し: ワンタップで開く */
 "about.oneTap.header" = "One-tap opening from the share sheet";
 /* 読み上げ: このアプリについて */
@@ -58,7 +58,7 @@
 /* 共有機能の説明（%@ にアプリ名） */
 "about.share.body1" = "Choose “%@” from the share button in the YouTube app or Safari and the app receives the shared channel or video URL. Sharing only receives the URL — nothing is sent anywhere.";
 /* 共有後の流れの説明 */
-"about.share.body2" = "After that, open this app and “Open shared link” appears on the first screen. iOS does not allow a share sheet to launch an app directly, hence this flow.";
+"about.share.body2" = "After that, tap the notification that appears to open the channel. iOS does not allow a share sheet to launch an app directly, hence this flow.";
 /* 見出し: 共有シートから開く */
 "about.share.header" = "Opening from the share sheet";
 /* アプリの説明 */
@@ -83,8 +83,6 @@
 "clip.dialog.open" = "Open";
 /* コピーした YouTube のリンクを見つけたときの確認 */
 "clip.dialog.title" = "Open the link you copied?";
-/* クリップボードにURLが無いとき */
-"clipboard.notFound" = "No YouTube link was found on the clipboard. Paste a URL and try again.";
 /* 共通: キャンセル */
 "common.cancel" = "Cancel";
 /* 閉じる */
@@ -180,9 +178,9 @@
 /* URL読み取り中 */
 "handoff.reading" = "Reading the shared URL…";
 /* 通知を勧める案内 */
-"handoff.received.askNotification" = "Got the URL.\nIf you allow notifications, you can just tap the notification that appears next.\n(Otherwise, open the app and use “Open shared link”.)";
-/* 受け取り完了の案内（%@ にアプリ名） */
-"handoff.received.format" = "Got the URL.\nOpen %@ and tap “Open shared link” to view this channel.";
+"handoff.received.askNotification" = "Got the URL.\nIf you allow notifications, you can just tap the notification that appears next.";
+/* 共有拡張: 通知が許可されておらず開けないとき（%@ = アプリ名）。「共有されたURLを開く」は 2026-10-06 に廃止 */
+"handoff.received.format" = "Got the URL, but it can't be opened from here because notifications aren't allowed.\nPlease allow notifications for %@ in Settings.";
 /* 読み上げ: 入力を消去 */
 "input.clear.a11y" = "Clear text";
 /* 動画を取得ボタン */
@@ -445,10 +443,6 @@
 "repeat.off" = "Off";
 /* リピート: 1本 */
 "repeat.one" = "One";
-/* クリップボードにURLがある案内 */
-"share.clipboardHint" = "The link you shared is on the clipboard.";
-/* 共有されたURLを開くボタン */
-"share.openSharedURL" = "Open shared link";
 /* 共有直後の通知を許可してもらう理由（入力画面・未許可のときだけ出す） */
 "shareTips.notify.why" = "Tapping the notification that appears right after you share opens the channel straight away. We never send news or promotional notifications.";
 /* 前へ */

@@ -98,6 +98,8 @@ final class ScreenshotUITests: XCTestCase {
         app.launchArguments += ["-channelTutorialCompleted", "YES"]
         // 無料版の広告（デバッグはテスト広告）をストアの画像に写さない。
         app.launchArguments += ["-NoAds", "YES"]
+        // 最初の画面の URL 入力欄は通常は出さないので、撮影のときだけ出す（ChannelInputView.showsURLField）。
+        app.launchArguments += ["-ShowURLField", "YES"]
         app.launch()
     }
 

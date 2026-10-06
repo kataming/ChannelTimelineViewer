@@ -98,44 +98,51 @@ struct ChannelInputView: View {
 
                 addButtons
 
-                Section {
-                    HStack(spacing: 8) {
-                        TextField("https://www.youtube.com/@handle", text: $viewModel.urlText)
-                            .textInputAutocapitalization(.never)
-                            .autocorrectionDisabled()
-                            .keyboardType(.URL)
-                            .submitLabel(.go)
-                            .onSubmit { startFetch() }
+                // チャンネル URL の入力欄は出さない（2026-10-06・ユーザー判断。Android と同じ）。
+                // 共有・コピーから戻ったときは openSharedLink が裏で urlText を入れて読み込むので、
+                // 欄が無くても動く。読み込み中は上の主ボタンが「取得中」になる。
+                // App Store 用スクリーンショットの UI テストだけは欄に URL を打ち込むので、
+                // 起動引数 `-ShowURLField YES` のときだけ出す。
+                if showsURLField {
+                    Section {
+                        HStack(spacing: 8) {
+                            TextField("https://www.youtube.com/@handle", text: $viewModel.urlText)
+                                .textInputAutocapitalization(.never)
+                                .autocorrectionDisabled()
+                                .keyboardType(.URL)
+                                .submitLabel(.go)
+                                .onSubmit { startFetch() }
 
-                        if !viewModel.urlText.isEmpty {
-                            Button {
-                                viewModel.urlText = ""
-                                viewModel.errorMessage = nil
-                            } label: {
-                                Image(systemName: "xmark.circle.fill")
-                                    .foregroundStyle(.secondary)
+                            if !viewModel.urlText.isEmpty {
+                                Button {
+                                    viewModel.urlText = ""
+                                    viewModel.errorMessage = nil
+                                } label: {
+                                    Image(systemName: "xmark.circle.fill")
+                                        .foregroundStyle(.secondary)
+                                }
+                                .buttonStyle(.plain)
+                                .accessibilityLabel(String(localized: "input.clear.a11y"))
                             }
-                            .buttonStyle(.plain)
-                            .accessibilityLabel(String(localized: "input.clear.a11y"))
                         }
-                    }
 
-                    Button(action: startFetch) {
-                        HStack {
-                            if viewModel.isLoading {
-                                ProgressView().padding(.trailing, 4)
+                        Button(action: startFetch) {
+                            HStack {
+                                if viewModel.isLoading {
+                                    ProgressView().padding(.trailing, 4)
+                                }
+                                Text(viewModel.isLoading ? "input.fetching" : "input.fetch")
                             }
-                            Text(viewModel.isLoading ? "input.fetching" : "input.fetch")
                         }
+                        .disabled(viewModel.isLoading ||
+                                  viewModel.urlText.trimmingCharacters(in: .whitespaces).isEmpty)
+                    } header: {
+                        Text("input.section.header")
+                    } footer: {
+                        // 入力例はプレースホルダで示しているので、ここでは繰り返さない。
+                        Text(String(format: String(localized: "input.section.footer"),
+                                    AppInfo.displayName))
                     }
-                    .disabled(viewModel.isLoading ||
-                              viewModel.urlText.trimmingCharacters(in: .whitespaces).isEmpty)
-                } header: {
-                    Text("input.section.header")
-                } footer: {
-                    // 入力例はプレースホルダで示しているので、ここでは繰り返さない。
-                    Text(String(format: String(localized: "input.section.footer"),
-                                AppInfo.displayName))
                 }
 
                 if let error = viewModel.errorMessage {
@@ -284,6 +291,9 @@ struct ChannelInputView: View {
             }
         }
     }
+
+    /// チャンネル URL の入力欄を出すか（スクリーンショット撮影の UI テストだけ）。
+    private var showsURLField: Bool { UserDefaults.standard.bool(forKey: "ShowURLField") }
 
     private func startFetch() {
         Task { await viewModel.fetch(context: context) }

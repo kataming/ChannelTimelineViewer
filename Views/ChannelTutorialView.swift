@@ -31,19 +31,7 @@ struct ChannelTutorialView: View {
     /// asset catalog は言語で切り替わらないので、`tutorial_step1_ja` のように
     /// **名前に言語を入れて**持ち、ここで組み立てる。用意が無い言語は英語に落とす。
     /// 文言は 35 言語あるが、画像はストアのスクショと同じく 7 言語のまま（2026-10-01 のユーザー判断）。
-    private var imageLanguage: String {
-        let available = ["en", "ja", "zh_Hans", "es", "de", "fr", "ko"]
-        let preferred = Locale.preferredLanguages.first ?? "en"
-        let language = Locale(identifier: preferred).language
-        let code = language.languageCode?.identifier ?? "en"
-        if code == "zh" {
-            // 繁体字（zh-Hant / 台湾・香港・マカオ）に簡体字の画像を見せない。Android も同じく英語に落ちる。
-            let traditional = language.script == .hanTraditional
-                || ["TW", "HK", "MO"].contains(language.region?.identifier ?? "")
-            return traditional ? "en" : "zh_Hans"
-        }
-        return available.contains(code) ? code : "en"
-    }
+    private var imageLanguage: String { TutorialImageLanguage.current }
 
     private func imageName(for step: Int) -> String {
         "tutorial_step\(step)_\(imageLanguage)"
@@ -171,5 +159,22 @@ struct ChannelTutorialView: View {
     private func openYouTube() {
         guard let url = URL(string: "https://www.youtube.com/") else { return }
         UIApplication.shared.open(url)
+    }
+}
+
+/// 案内の画像（実機の画面・7言語）を選ぶための言語。チュートリアルと「YouTube の共有から追加する」で共用。
+enum TutorialImageLanguage {
+    static var current: String {
+        let available = ["en", "ja", "zh_Hans", "es", "de", "fr", "ko"]
+        let preferred = Locale.preferredLanguages.first ?? "en"
+        let language = Locale(identifier: preferred).language
+        let code = language.languageCode?.identifier ?? "en"
+        if code == "zh" {
+            // 繁体字（zh-Hant / 台湾・香港・マカオ）に簡体字の画像を見せない。Android も同じく英語に落ちる。
+            let traditional = language.script == .hanTraditional
+                || ["TW", "HK", "MO"].contains(language.region?.identifier ?? "")
+            return traditional ? "en" : "zh_Hans"
+        }
+        return available.contains(code) ? code : "en"
     }
 }

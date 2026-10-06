@@ -249,12 +249,104 @@ def build_overlay(lang: str) -> None:
     print(f"  {out.relative_to(ROOT)}  {img.size}")
 
 
+# ---- iOS 版（2026-10-06・ユーザー指定）-------------------------------------------------
+# iOS の画面はこちらで撮れないので、Android で撮った YouTube の画面（YouTube 独自の画面なので
+# iOS でもほぼ同じ）を元に iOS の見た目へ加工する:
+#   - 上端の Android のステータスバーを、iOS の「◀ Channel Timeline Viewer」（アプリから YouTube を
+#     開いたとき iOS が左上に出す戻るリンク）入りのステータスバーに描き替える
+#   - 下端の Android のナビゲーションバー（◁ ○ □）を外し、iOS のホームインジケーターにする
+#   - ③は「左上の ◀ を押す」（iOS の案内の手順）。①②は Android と同じ
+# 出力: Resources/Assets.xcassets/copyguide_ios_frame<番号>_<言語>.imageset/
+#   （asset catalog は言語で切り替わらないので名前に言語を入れる。ChannelTutorialView と同じ方式）
+ASSETS = ROOT / "Resources" / "Assets.xcassets"
+IOS_LANG = {"ja": "ja", "en": "en", "zh": "zh_Hans", "es": "es", "de": "de", "fr": "fr", "ko": "ko"}
+IOS_BAR = 56                      # iOS のステータスバーの高さ（出力画像のピクセル）
+IOS_BACK_TEXT = "Channel Timeline Viewer"
+IOS_HOME = 34                     # ホームインジケーターの帯
+
+
+def ios_status_bar(img: Image.Image, top_color) -> tuple:
+    """上端に iOS のステータスバー（左に「◀ アプリ名」）を描き、戻るリンクの範囲を返す。"""
+    draw = ImageDraw.Draw(img)
+    draw.rectangle([0, 0, img.width, IOS_BAR], fill=top_color)
+    ink = WHITE if sum(top_color) < 384 else INK
+    f = font(22)
+    cy = IOS_BAR // 2 + 2
+    # ◀（フォントに無いことがあるので三角形で描く）
+    draw.polygon([(30, cy), (41, cy - 8), (41, cy + 8)], fill=ink)
+    draw.text((48, cy), IOS_BACK_TEXT, font=f, fill=ink, anchor="lm")
+    right = 48 + draw.textlength(IOS_BACK_TEXT, font=f)
+    # 右側の電池（簡略）
+    bx = img.width - 64
+    draw.rounded_rectangle([bx, cy - 10, bx + 38, cy + 10], radius=5, outline=ink, width=2)
+    draw.rounded_rectangle([bx + 4, cy - 6, bx + 30, cy + 6], radius=2, fill=ink)
+    draw.rectangle([bx + 40, cy - 4, bx + 43, cy + 4], fill=ink)
+    return (18, cy - 18, int(right) + 12, cy + 18)
+
+
+def build_ios(lang: str, number: int) -> None:
+    src = RAW / f"copyguide-{lang}-{number}.png"
+    img = Image.open(src).convert("RGB")
+    spec = dict(spec_for(lang, number))
+    blur = list(spec["blur"])
+    if number == 2:
+        # 共有パネルの共有先の並び（Viber・Bluetooth など）と［コピー］より下（Quick Share 等）は
+        # Android の端末に固有で、iPhone では違うものが出るのでぼかす。［コピー］の行だけ見せる。
+        for top, bottom in [(840, 1015), (1185, NAV_TOP)]:
+            # パネルの幅（左右の余白の内側）だけをぼかす。外までぼかすと縁ににじむ
+            region = img.crop((18, top, img.width - 18, bottom)).filter(ImageFilter.GaussianBlur(18))
+            img.paste(region, (18, top))
+    for top, bottom in blur:
+        region = img.crop((0, top, img.width, min(bottom, NAV_TOP))).filter(ImageFilter.GaussianBlur(18))
+        img.paste(region, (0, top))
+    # Android のステータスバーとナビゲーションバーを外す
+    img = img.crop((0, STATUS_BAR, img.width, NAV_TOP))
+    page = Image.new("RGB", (img.width, IOS_BAR + img.height + IOS_HOME), WHITE)
+    page.paste(img, (0, IOS_BAR))
+    dy = IOS_BAR - STATUS_BAR      # 元画像の y → 出力の y
+    top_color = img.getpixel((img.width // 2, 4))
+    back = ios_status_bar(page, top_color)
+    draw = ImageDraw.Draw(page)
+    # ホームインジケーター
+    draw.rounded_rectangle([page.width // 2 - 70, page.height - 18, page.width // 2 + 70, page.height - 11],
+                           radius=4, fill=INK)
+    if number == 3:
+        # ③ 左上の「◀ アプリ名」を押す
+        draw.rounded_rectangle(back, radius=12, outline=GREEN, width=6)
+        badge_at = (470, 250)
+        tip = ((back[0] + back[2]) // 2 + 30, back[3] + 12)
+        arrow(draw, badge_at, (480, 120), tip)
+        badge(draw, badge_at, 3)
+    else:
+        for l, t, r, b in spec["boxes"]:
+            draw.rounded_rectangle([l, t + dy, r, b + dy], radius=14, outline=GREEN, width=6)
+        bx, by = spec["badge"]
+        tx, ty = spec["tip"]
+        mx, my = spec["bend"]
+        arrow(draw, (bx, by + dy), (mx, my + dy), (tx, ty + dy))
+        badge(draw, (bx, by + dy), number)
+    name = f"copyguide_ios_frame{number}_{IOS_LANG[lang]}"
+    folder = ASSETS / f"{name}.imageset"
+    folder.mkdir(parents=True, exist_ok=True)
+    page.save(folder / f"{name}.jpg", quality=82, optimize=True)
+    (folder / "Contents.json").write_text(
+        '{\n  "images" : [\n    { "filename" : "' + name + '.jpg", "idiom" : "universal" }\n  ],\n'
+        '  "info" : { "author" : "xcode", "version" : 1 }\n}\n', encoding="utf-8")
+    print(f"  {folder.relative_to(ROOT)}  {page.size}")
+
+
 def main() -> int:
-    langs = sys.argv[1:] or sorted({p.name.split("-")[1] for p in RAW.glob("copyguide-*-1.png")})
+    args = sys.argv[1:]
+    ios_only = "--ios" in args
+    langs = [a for a in args if not a.startswith("--")] or \
+        sorted({p.name.split("-")[1] for p in RAW.glob("copyguide-*-1.png")})
     for lang in langs:
+        if not ios_only:
+            for number in FRAMES:
+                build(lang, number)
+            build_overlay(lang)
         for number in FRAMES:
-            build(lang, number)
-        build_overlay(lang)
+            build_ios(lang, number)
     return 0
 
 

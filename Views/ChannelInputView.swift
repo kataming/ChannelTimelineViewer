@@ -407,10 +407,12 @@ struct ChannelInputView: View {
     @ViewBuilder
     private func promptSheet(for prompt: ChannelInputViewModel.Prompt) -> some View {
         switch prompt {
-        case .replace(_, let leavingTitles):
+        case .replace:
+            // チャンネル名は並べない（複数保存していた人だと名前が5件6件と並んで長くなり、
+            // シートのタイトルに重なっていた。2026-10-06・ユーザー指定の文言）。
             DestructiveConfirmSheet(
                 title: "pro.limit.title",
-                warning: String(format: String(localized: "pro.limit.warning.format"), leavingTitles),
+                warning: String(localized: "pro.limit.warning"),
                 note: "pro.limit.replaceHint") {
                     PrimarySheetButton(title: "pro.limit.viewPro") {
                         viewModel.dismissPrompt()

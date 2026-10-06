@@ -371,6 +371,8 @@
 "pro.limit.upgrade" = "Passa a Pro";
 /* 上限の案内から Pro の説明画面へ進むボタン */
 "pro.limit.viewPro" = "Più canali con Pro";
+/* 入れ替えの警告（iOS・チャンネル名を入れない版）。大きめ・太字・赤で出す。名前を並べると長くなりタイトルに重なったため（2026-10-06・ユーザー指定） */
+"pro.limit.warning" = "Se lo sostituisci con questo canale, la cronologia dei video visti, i progressi e le note del canale salvato attualmente verranno eliminati.";
 /* 入れ替えの警告（%@ に外れるチャンネル名）。大きめ・太字・赤で出す */
 "pro.limit.warning.format" = "Sostituendo questo canale verranno eliminati la cronologia di visione, l’avanzamento e le note di «%@», attualmente salvato.";
 /* 一覧でロック中を示すラベル */

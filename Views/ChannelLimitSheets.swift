@@ -15,31 +15,33 @@ struct DestructiveConfirmSheet<Actions: View>: View {
 
     var body: some View {
         NavigationStack {
-            VStack(alignment: .leading, spacing: 20) {
-                Text(warning)
-                    .font(.title3.bold())
-                    .foregroundStyle(.red)
-                    .fixedSize(horizontal: false, vertical: true)
-                    .accessibilityAddTraits(.isHeader)
-
-                if let note {
-                    Text(note)
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
+            // 文が長くてシートに収まらないときは、上のタイトルに重ならずスクロールさせる。
+            ScrollView {
+                VStack(alignment: .leading, spacing: 20) {
+                    Text(warning)
+                        .font(.title3.bold())
+                        .foregroundStyle(.red)
                         .fixedSize(horizontal: false, vertical: true)
-                }
+                        .accessibilityAddTraits(.isHeader)
 
-                VStack(spacing: 12) {
-                    actions()
+                    if let note {
+                        Text(note)
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
 
-                    Button("common.cancel") { dismiss() }
-                        .font(.body)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 6)
+                    VStack(spacing: 12) {
+                        actions()
+
+                        Button("common.cancel") { dismiss() }
+                            .font(.body)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 6)
+                    }
                 }
-                Spacer()
+                .padding(20)
             }
-            .padding(20)
             .navigationTitle(title)
             .navigationBarTitleDisplayMode(.inline)
         }

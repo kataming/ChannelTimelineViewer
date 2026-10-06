@@ -371,6 +371,8 @@
 "pro.limit.upgrade" = "Pro beszerzése";
 /* 上限の案内から Pro の説明画面へ進むボタン */
 "pro.limit.viewPro" = "Több csatorna a Próval";
+/* 入れ替えの警告（iOS・チャンネル名を入れない版）。大きめ・太字・赤で出す。名前を並べると長くなりタイトルに重なったため（2026-10-06・ユーザー指定） */
+"pro.limit.warning" = "Ha erre a csatornára cseréled, a jelenleg mentett csatorna megtekintési előzményei, haladása és jegyzetei törlődnek.";
 /* 入れ替えの警告（%@ に外れるチャンネル名）。大きめ・太字・赤で出す */
 "pro.limit.warning.format" = "A csatorna cseréje törli a jelenleg mentett „%@” csatorna megnézési előzményeit, haladását és jegyzeteit.";
 /* 一覧でロック中を示すラベル */

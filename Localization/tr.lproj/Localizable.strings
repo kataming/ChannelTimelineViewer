@@ -371,6 +371,8 @@
 "pro.limit.upgrade" = "Pro'yu edinin";
 /* 上限の案内から Pro の説明画面へ進むボタン */
 "pro.limit.viewPro" = "Pro ile birden çok kanal";
+/* 入れ替えの警告（iOS・チャンネル名を入れない版）。大きめ・太字・赤で出す。名前を並べると長くなりタイトルに重なったため（2026-10-06・ユーザー指定） */
+"pro.limit.warning" = "Bu kanalla değiştirirseniz, şu an kayıtlı kanalın izlenme geçmişi, ilerlemesi ve notları silinir.";
 /* 入れ替えの警告（%@ に外れるチャンネル名）。大きめ・太字・赤で出す */
 "pro.limit.warning.format" = "Bu kanalı değiştirmek, şu anda kayıtlı olan “%@” kanalının izleme geçmişini, ilerlemesini ve notlarını siler.";
 /* 一覧でロック中を示すラベル */

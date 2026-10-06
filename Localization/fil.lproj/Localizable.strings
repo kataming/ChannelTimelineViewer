@@ -371,6 +371,8 @@
 "pro.limit.upgrade" = "Kunin ang Pro";
 /* 上限の案内から Pro の説明画面へ進むボタン */
 "pro.limit.viewPro" = "Maraming channel gamit ang Pro";
+/* 入れ替えの警告（iOS・チャンネル名を入れない版）。大きめ・太字・赤で出す。名前を並べると長くなりタイトルに重なったため（2026-10-06・ユーザー指定） */
+"pro.limit.warning" = "Kapag pinalitan mo ng channel na ito, mabubura ang history ng napanood, progreso, at mga tala ng kasalukuyang naka-save na channel.";
 /* 入れ替えの警告（%@ に外れるチャンネル名）。大きめ・太字・赤で出す */
 "pro.limit.warning.format" = "Ang pagpapalit sa channel na ito ay magbubura ng history ng napanood, progreso, at mga tala ng kasalukuyang naka-save na “%@”.";
 /* 一覧でロック中を示すラベル */

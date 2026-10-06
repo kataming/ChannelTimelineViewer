@@ -371,6 +371,8 @@
 "pro.limit.upgrade" = "Obter o Pro";
 /* 上限の案内から Pro の説明画面へ進むボタン */
 "pro.limit.viewPro" = "Vários canais com o Pro";
+/* 入れ替えの警告（iOS・チャンネル名を入れない版）。大きめ・太字・赤で出す。名前を並べると長くなりタイトルに重なったため（2026-10-06・ユーザー指定） */
+"pro.limit.warning" = "Se você substituir por este canal, o histórico de assistidos, o progresso e as notas do canal salvo atualmente serão excluídos.";
 /* 入れ替えの警告（%@ に外れるチャンネル名）。大きめ・太字・赤で出す */
 "pro.limit.warning.format" = "Substituir este canal apaga o histórico de assistidos, o progresso e as notas do canal salvo atualmente, “%@”.";
 /* 一覧でロック中を示すラベル */

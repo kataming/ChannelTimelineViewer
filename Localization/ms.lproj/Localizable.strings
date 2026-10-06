@@ -371,6 +371,8 @@
 "pro.limit.upgrade" = "Dapatkan Pro";
 /* 上限の案内から Pro の説明画面へ進むボタン */
 "pro.limit.viewPro" = "Berbilang saluran dengan Pro";
+/* 入れ替えの警告（iOS・チャンネル名を入れない版）。大きめ・太字・赤で出す。名前を並べると長くなりタイトルに重なったため（2026-10-06・ユーザー指定） */
+"pro.limit.warning" = "Jika diganti dengan saluran ini, sejarah tontonan, kemajuan dan nota saluran yang disimpan sekarang akan dipadam.";
 /* 入れ替えの警告（%@ に外れるチャンネル名）。大きめ・太字・赤で出す */
 "pro.limit.warning.format" = "Menggantikan saluran ini akan memadamkan sejarah tontonan, kemajuan dan nota bagi “%@” yang sedang disimpan.";
 /* 一覧でロック中を示すラベル */

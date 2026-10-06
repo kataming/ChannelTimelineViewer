@@ -371,6 +371,8 @@
 "pro.limit.upgrade" = "Neem Pro";
 /* 上限の案内から Pro の説明画面へ進むボタン */
 "pro.limit.viewPro" = "Meerdere kanalen met Pro";
+/* 入れ替えの警告（iOS・チャンネル名を入れない版）。大きめ・太字・赤で出す。名前を並べると長くなりタイトルに重なったため（2026-10-06・ユーザー指定） */
+"pro.limit.warning" = "Als je het vervangt door dit kanaal, worden de bekeken-geschiedenis, voortgang en notities van het nu opgeslagen kanaal verwijderd.";
 /* 入れ替えの警告（%@ に外れるチャンネル名）。大きめ・太字・赤で出す */
 "pro.limit.warning.format" = "Als je dit kanaal vervangt, worden de kijkgeschiedenis, voortgang en notities van het nu bewaarde ‘%@’ verwijderd.";
 /* 一覧でロック中を示すラベル */

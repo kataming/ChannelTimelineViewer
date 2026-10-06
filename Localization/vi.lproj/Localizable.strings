@@ -371,6 +371,8 @@
 "pro.limit.upgrade" = "Mua Pro";
 /* 上限の案内から Pro の説明画面へ進むボタン */
 "pro.limit.viewPro" = "Nhiều kênh với Pro";
+/* 入れ替えの警告（iOS・チャンネル名を入れない版）。大きめ・太字・赤で出す。名前を並べると長くなりタイトルに重なったため（2026-10-06・ユーザー指定） */
+"pro.limit.warning" = "Nếu thay bằng kênh này, lịch sử đã xem, tiến độ và ghi chú của kênh đang lưu sẽ bị xóa.";
 /* 入れ替えの警告（%@ に外れるチャンネル名）。大きめ・太字・赤で出す */
 "pro.limit.warning.format" = "Thay kênh này sẽ xóa lịch sử đã xem, tiến độ và ghi chú của kênh đang lưu “%@”.";
 /* 一覧でロック中を示すラベル */

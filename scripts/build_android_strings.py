@@ -101,6 +101,8 @@ SKIP_KEYS = {
     "tutorial.step3.body.ios",
     "tutorial.step4.body.ios",
     "tutorial.step4.title.ios",
+    # 入れ替えの警告のチャンネル名なし版。iOS だけ（Android は名前入りの pro.limit.warning.format のまま）
+    "pro.limit.warning",
 }
 
 

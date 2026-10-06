@@ -371,6 +371,8 @@
 "pro.limit.upgrade" = "Get Pro";
 /* 上限の案内から Pro の説明画面へ進むボタン */
 "pro.limit.viewPro" = "Get Pro for multiple channels";
+/* 入れ替えの警告（iOS・チャンネル名を入れない版）。大きめ・太字・赤で出す。名前を並べると長くなりタイトルに重なったため（2026-10-06・ユーザー指定） */
+"pro.limit.warning" = "If you replace it with this channel, the watched history, progress, and notes of your currently saved channel will be deleted.";
 /* 入れ替えの警告（%@ に外れるチャンネル名）。大きめ・太字・赤で出す */
 "pro.limit.warning.format" = "Replacing this channel deletes the watched history, progress, and notes of the currently saved “%@”.";
 /* 一覧でロック中を示すラベル */

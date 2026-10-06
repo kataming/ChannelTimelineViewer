@@ -86,9 +86,13 @@ YouTube adalah merek dagang Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 358 / 4000 文字 -->
+<!-- 607 / 4000 文字 -->
 
 ```
+• Pilih video populer untuk langsung membuka salurannya.
+• Tambahkan saluran dengan mengetuk Bagikan → Salin link di YouTube lalu kembali.
+• Baru di menu daftar: “Ke paling atas” dan “Ke paling bawah”.
+• Saat memuat kini ditampilkan progresnya (%).
 • Jumlah tayangan kini muncul di samping tanggal publikasi di daftar dan layar pemutar.
 • Urutan baru: Terpopuler (paling banyak ditonton dulu).
 • Versi gratis kini menampilkan iklan — hanya di bagian bawah daftar video dan di bawah channel tersimpan pada layar pertama. Iklan tidak pernah muncul di layar pemutar.

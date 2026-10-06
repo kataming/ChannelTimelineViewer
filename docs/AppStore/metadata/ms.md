@@ -86,9 +86,13 @@ YouTube ialah tanda dagangan Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 380 / 4000 文字 -->
+<!-- 627 / 4000 文字 -->
 
 ```
+• Pilih video popular untuk terus membuka salurannya.
+• Tambah saluran dengan mengetik Kongsi → Salin pautan dalam YouTube dan kembali.
+• Baharu dalam menu senarai: “Ke paling atas” dan “Ke paling bawah”.
+• Pemuatan kini menunjukkan kemajuan (%).
 • Jumlah tontonan kini dipaparkan di sebelah tarikh terbit dalam senarai dan pada skrin pemain.
 • Susunan baharu: Paling popular (paling banyak ditonton dahulu).
 • Versi percuma kini memaparkan iklan — hanya di bahagian bawah senarai video dan di bawah saluran tersimpan pada skrin pertama. Iklan tidak pernah muncul pada skrin pemain.

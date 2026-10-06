@@ -86,9 +86,13 @@ YouTube ist eine Marke von Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 398 / 4000 文字 -->
+<!-- 645 / 4000 文字 -->
 
 ```
+• Wähle ein beliebtes Video, um seinen Kanal sofort zu öffnen.
+• Kanal hinzufügen: in YouTube Teilen → Link kopieren tippen und zurückkehren.
+• Neu im Listenmenü: „Zum Anfang“ und „Zum Ende“.
+• Beim Laden wird jetzt der Fortschritt (%) angezeigt.
 • Aufrufe werden jetzt neben dem Veröffentlichungsdatum in der Liste und auf dem Wiedergabebildschirm angezeigt.
 • Neue Sortierung: Beliebteste (meiste Aufrufe zuerst).
 • Die kostenlose Version zeigt jetzt Werbung – nur unten in der Videoliste und unter deinem gespeicherten Kanal auf dem ersten Bildschirm. Auf dem Wiedergabebildschirm erscheint nie Werbung.

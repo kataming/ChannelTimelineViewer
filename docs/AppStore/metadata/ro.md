@@ -86,9 +86,13 @@ YouTube este o marcă comercială a Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 363 / 4000 文字 -->
+<!-- 608 / 4000 文字 -->
 
 ```
+• Alegeți un videoclip popular ca să deschideți imediat canalul lui.
+• Adăugați un canal atingând Distribuiți → Copiați linkul în YouTube și revenind.
+• Nou în meniul listei: „Mergi sus” și „Mergi jos”.
+• Încărcarea afișează acum progresul (%).
 • Numărul de vizionări apare acum lângă data publicării, în listă și pe ecranul de redare.
 • Sortare nouă: Cele mai populare (cele mai vizionate primele).
 • Versiunea gratuită afișează acum reclame — doar în partea de jos a listei de videoclipuri și sub canalul salvat de pe primul ecran. Niciodată pe ecranul de redare.

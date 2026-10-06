@@ -86,9 +86,13 @@ YouTube is een handelsmerk van Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 340 / 4000 文字 -->
+<!-- 569 / 4000 文字 -->
 
 ```
+• Kies een populaire video om het kanaal meteen te openen.
+• Voeg een kanaal toe via Delen → Link kopiëren in YouTube en kom terug.
+• Nieuw in het lijstmenu: ‘Naar boven’ en ‘Naar beneden’.
+• Het laden toont nu de voortgang (%).
 • Weergaven staan nu naast de publicatiedatum in de lijst en op het afspeelscherm.
 • Nieuwe sortering: Populairste (meest bekeken eerst).
 • De gratis versie toont nu advertenties, alleen onderaan de videolijst en onder je opgeslagen kanaal op het eerste scherm. Nooit op het afspeelscherm.

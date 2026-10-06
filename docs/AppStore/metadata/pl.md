@@ -86,9 +86,13 @@ YouTube jest znakiem towarowym firmy Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 357 / 4000 文字 -->
+<!-- 587 / 4000 文字 -->
 
 ```
+• Wybierz popularny film, aby od razu otworzyć jego kanał.
+• Dodaj kanał: w YouTube dotknij Udostępnij → Kopiuj link i wróć.
+• Nowe w menu listy: „Przejdź na górę” i „Przejdź na dół”.
+• Podczas wczytywania widać teraz postęp (%).
 • Liczba wyświetleń jest teraz widoczna obok daty publikacji na liście i na ekranie odtwarzania.
 • Nowe sortowanie: Najpopularniejsze (najczęściej oglądane najpierw).
 • Wersja bezpłatna wyświetla teraz reklamy – tylko na dole listy filmów i pod zapisanym kanałem na pierwszym ekranie. Nigdy na ekranie odtwarzania.

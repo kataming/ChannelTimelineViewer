@@ -86,9 +86,13 @@ A YouTube a Google LLC védjegye.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 365 / 4000 文字 -->
+<!-- 615 / 4000 文字 -->
 
 ```
+• Válassz egy népszerű videót, és azonnal megnyílik a csatornája.
+• Csatorna hozzáadása: a YouTube-ban Megosztás → Link másolása, majd vissza.
+• Új a lista menüjében: „Ugrás a tetejére” és „Ugrás az aljára”.
+• Betöltéskor most látszik a haladás (%).
 • A megtekintések száma mostantól a közzététel dátuma mellett látható a listában és a lejátszási képernyőn.
 • Új rendezés: Legnépszerűbb (a legtöbbet nézett elöl).
 • Az ingyenes verzió mostantól hirdetéseket jelenít meg – csak a videólista alján és az első képernyőn a mentett csatorna alatt. A lejátszási képernyőn soha.

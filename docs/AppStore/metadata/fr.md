@@ -86,9 +86,13 @@ YouTube est une marque de Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 399 / 4000 文字 -->
+<!-- 685 / 4000 文字 -->
 
 ```
+• Choisissez une vidéo populaire pour ouvrir sa chaîne aussitôt.
+• Ajoutez une chaîne en touchant Partager → Copier le lien dans YouTube, puis en revenant.
+• Nouveaux « Aller en haut » et « Aller en bas » dans le menu de la liste.
+• Le chargement affiche maintenant la progression (%).
 • Le nombre de vues s’affiche désormais à côté de la date de publication, dans la liste et sur l’écran de lecture.
 • Nouveau tri : Les plus populaires (les plus vues d’abord).
 • La version gratuite affiche désormais des publicités, uniquement en bas de la liste des vidéos et sous votre chaîne enregistrée sur le premier écran. Jamais sur l’écran de lecture.

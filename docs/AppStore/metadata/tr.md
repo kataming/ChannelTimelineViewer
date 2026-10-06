@@ -86,9 +86,13 @@ YouTube, Google LLC'nin ticari markasıdır.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 350 / 4000 文字 -->
+<!-- 588 / 4000 文字 -->
 
 ```
+• Popüler bir video seçin, kanalı hemen açılsın.
+• YouTube'da Paylaş → Bağlantıyı kopyala'ya dokunup geri dönerek kanal ekleyin.
+• Liste menüsünde yeni: “En üste git” ve “En alta git”.
+• Yükleme sırasında artık ilerleme (%) gösteriliyor.
 • Görüntülenme sayısı artık listede ve oynatıcı ekranında yayın tarihinin yanında görünüyor.
 • Yeni sıralama: En popüler (en çok izlenen önce).
 • Ücretsiz sürümde artık reklam gösteriliyor; yalnızca video listesinin altında ve ilk ekranda kayıtlı kanalınızın altında. Oynatıcı ekranında asla gösterilmez.

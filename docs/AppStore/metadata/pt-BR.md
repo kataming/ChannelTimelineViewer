@@ -86,9 +86,13 @@ YouTube é uma marca comercial da Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 330 / 4000 文字 -->
+<!-- 576 / 4000 文字 -->
 
 ```
+• Escolha um vídeo popular para abrir o canal na hora.
+• Adicione um canal tocando em Compartilhar → Copiar link no YouTube e voltando.
+• Novo no menu da lista: “Ir para o topo” e “Ir para o final”.
+• O carregamento agora mostra o progresso (%).
 • As visualizações agora aparecem ao lado da data de publicação na lista e na tela do player.
 • Nova ordenação: Mais populares (mais vistos primeiro).
 • A versão gratuita agora exibe anúncios — só no fim da lista de vídeos e abaixo do canal salvo na primeira tela. Nunca na tela do player.

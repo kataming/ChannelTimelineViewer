@@ -86,9 +86,13 @@ YouTube je ochranná známka společnosti Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 355 / 4000 文字 -->
+<!-- 587 / 4000 文字 -->
 
 ```
+• Vyberte populární video a hned se otevře jeho kanál.
+• Kanál přidáte klepnutím na Sdílet → Kopírovat odkaz v YouTube a návratem zpět.
+• Nové položky „Na začátek“ a „Na konec“ v nabídce seznamu.
+• Načítání nyní ukazuje průběh (%).
 • Počet zhlédnutí se nyní zobrazuje vedle data zveřejnění v seznamu i na obrazovce přehrávání.
 • Nové řazení: Nejoblíbenější (nejsledovanější první).
 • Bezplatná verze nyní zobrazuje reklamy – jen dole v seznamu videí a pod uloženým kanálem na první obrazovce. Na obrazovce přehrávání se reklamy nikdy nezobrazují.

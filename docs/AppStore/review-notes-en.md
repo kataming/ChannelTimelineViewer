@@ -44,7 +44,18 @@ SHARE EXTENSIONS
 - iOS does not allow a share extension to launch its containing app directly, so when the user has
   allowed notifications the app posts a single local notification right after sharing that opens the
   channel when tapped. No promotional, marketing or re-engagement notifications are ever sent, and no
-  remote push notifications are used. Allowing notifications is optional; a clipboard fallback exists.
+  remote push notifications are used. Allowing notifications is optional; without them the user can
+  add a channel with "Add via Share in YouTube" (below). The extensions never write to the clipboard.
+
+ADD VIA SHARE IN YOUTUBE (CLIPBOARD READ)
+- From the in-app guide the user taps "Open YouTube", then in YouTube taps Share -> Copy link and
+  returns with the "< Channel Timeline Viewer" back link at the top left. The app then reads the
+  copied YouTube link and opens that channel.
+- The clipboard is read only when the user comes back from YouTube after starting from this guide, and
+  only once per copy, after checking without reading the contents (changeCount / detectPatterns) that
+  something new and URL-like was copied. iOS shows its paste permission prompt before the read. The
+  content is used only to recognize a YouTube URL and show the channel; it is never sent anywhere,
+  and anything that is not a YouTube link is ignored.
 
 IN-APP PURCHASE AND ADS
 - One non-consumable in-app purchase, "Pro" (pro_unlock), lets you save more than one channel.
@@ -58,11 +69,16 @@ IN-APP PURCHASE AND ADS
 - The app does not use App Tracking Transparency and does not access the IDFA.
 
 HOW TO TEST
-1. Launch the app and enter a public channel URL, for example https://www.youtube.com/@3blue1brown
-2. Tap "Get videos" — the uploads are listed oldest first.
-3. Tap a video — it plays in the official embedded player. Use the navigation buttons to move.
-4. Tap the "i" button on the first screen to see the in-app notices (not the official YouTube app, etc.).
-5. Optional: share a YouTube channel or video from Safari and choose this app.
+1. Launch the app. On first launch a list of popular videos appears (or tap "Pick from popular
+   videos" on the first screen). Tap any video — all uploads of its channel are listed oldest first.
+   No YouTube app or account is needed.
+2. Tap a video — it plays in the official embedded player. Use the navigation buttons to move.
+3. Tap the "i" button on the first screen to see the in-app notices (not the official YouTube app, etc.).
+4. Optional ("Add via Share in YouTube", needs the YouTube app): tap it on the first screen, tap
+   "Open YouTube", open any video, tap Share -> Copy link, return with "< Channel Timeline Viewer" at
+   the top left, and allow the paste prompt. The channel of the copied video opens.
+5. Optional: share a YouTube channel or video from Safari, choose this app and allow notifications;
+   tap the notification that appears to open the channel.
 
 The submitted build contains a valid YouTube Data API v3 key, so no test account is required.
 

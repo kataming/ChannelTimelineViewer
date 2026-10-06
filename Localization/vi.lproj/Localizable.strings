@@ -93,24 +93,22 @@
 "common.done" = "Xong";
 /* 再試行 */
 "common.retry" = "Thử lại";
-/* iOS: 共有メニューから %@ を選ぶ従来の手順を開く（Android の copyguide.legacy と同じ訳） */
-"copyguide.ios.legacy" = "Xem cách chọn %@ từ menu Chia sẻ";
+/* iOS: 共有シートで本アプリを選ぶ従来の手順を開くリンク */
+"copyguide.ios.legacy" = "Cách mở từ YouTube";
 /* iOS: 案内から YouTube へ行って戻ったが、コピーされた YouTube のリンクが無かった */
 "copyguide.ios.notFound" = "Không tìm thấy đường liên kết YouTube đã sao chép. Trong YouTube, chạm Chia sẻ → Sao chép đường liên kết rồi quay lại.";
 /* iOS: YouTube を開くボタン（Android の copyguide.open と同じ訳） */
 "copyguide.ios.open" = "Mở YouTube";
 /* iOS: 共有の案内から戻ったが「ペーストを許可しない」を押されて読めなかった */
 "copyguide.ios.pasteDenied" = "Không được phép dán nên không đọc được đường liên kết đã sao chép.";
-/* iOS: 戻ったときに iOS が出す「ペーストの許可」の説明。読むのは YouTube のリンクだけ */
-"copyguide.ios.pasteNote" = "Nếu khi quay lại bạn được hỏi có cho phép dán không, hãy cho phép. Chúng tôi chỉ đọc đường liên kết YouTube bạn đã sao chép và không gửi đi đâu cả.";
 /* iOS: 毎回のペースト確認をなくす手順（設定 → このアプリ → 他のアプリからペースト → 許可）。2026-10-06 ユーザー判断 */
 "copyguide.ios.pasteSetting" = "Để không bị hỏi cho phép dán mỗi lần, hãy đặt “Dán từ ứng dụng khác” thành “Cho phép” cho ứng dụng này trong Cài đặt.";
-/* iOS: このアプリの設定画面を開くボタン */
-"copyguide.ios.pasteSetting.open" = "Mở Cài đặt";
+/* iOS: このアプリの設定画面を開くボタン（ほかのAppからペースト＝許可にしてもらう） */
+"copyguide.ios.pasteSetting.open" = "Luôn cho phép dán";
 /* iOS: もう一度クリップボードを読む（ペーストの確認がまた出る） */
 "copyguide.ios.retry" = "Thử lại";
-/* iOS: ①［共有］→②［コピー］→③ 左上の「◀ アプリ名」で戻る。%@ = アプリの表示名（iOS が左上に出す戻るリンクの名前） */
-"copyguide.ios.step1" = "①[Chia sẻ] → ②[Sao chép đường liên kết]\n③ Chạm vào “◀ %@” ở góc trên bên trái\nđể quay lại ứng dụng này";
+/* iOS: 案内の見出しの下。手順は画像（①共有 ②コピー ③◀で戻る ④ペーストを許可）で見せるので一言だけ（2026-10-06 ユーザー指定） */
+"copyguide.ios.step1" = "Chỉ cần 4 lần nhấn";
 /* iOS: YouTube の共有から追加の見出し（Android の copyguide.title と同じ訳） */
 "copyguide.ios.title" = "Sau khi phát video trên YouTube";
 /* 画面下部の注意書き */

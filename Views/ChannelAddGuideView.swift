@@ -198,33 +198,31 @@ private struct CopyLinkGuidePage: View {
                         Button("tutorial.close", action: onClose)
                     }
                 }
-                Text(String(format: String(localized: "copyguide.ios.step1"), AppInfo.displayName))
-                    .font(.title3)
+                // 手順は絵で見せるので、文は「4つ押すだけ」の一言（2026-10-06・ユーザー指定）。
+                // 見出しと同じ大きさ・太さ（2026-10-06・ユーザー指定）
+                Text("copyguide.ios.step1")
+                    .font(.title2.bold())
                     .fixedSize(horizontal: false, vertical: true)
-                // ①［共有］→ ②［コピー］→ ③ 左上の「◀」を、画面の絵で順に見せる（Android と同じ・2026-10-06）。
+                // ①［共有］→ ②［コピー］→ ③ 左上の「◀」→ ④［ペーストを許可］を、画面の絵で順に見せる。
                 CopyGuideSlides()
-                Text("copyguide.ios.pasteNote")
-                    .font(.footnote)
-                    .foregroundStyle(.secondary)
-                    .fixedSize(horizontal: false, vertical: true)
-                // 毎回の「ペーストを許可しますか？」は、設定で［ほかのAppからペースト］を［許可］にすると出なくなる
-                // （2026-10-06・ユーザー判断）。アプリからは設定を変えられないので、このアプリの設定画面を開く。
-                VStack(alignment: .leading, spacing: 6) {
-                    Text("copyguide.ios.pasteSetting")
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
-                        .fixedSize(horizontal: false, vertical: true)
-                    Button {
-                        if let url = URL(string: UIApplication.openSettingsURLString) {
-                            UIApplication.shared.open(url)
-                        }
-                    } label: {
-                        Label("copyguide.ios.pasteSetting.open", systemImage: "gearshape")
-                            .font(.footnote.bold())
+                // 毎回の「ペーストを許可しますか？」は、設定で［ほかのAppからペースト］を［許可］にすると出なくなる。
+                // アプリからは設定を変えられないので、このアプリの設定画面を開く（説明文は出さない・ユーザー指定）。
+                Button {
+                    if let url = URL(string: UIApplication.openSettingsURLString) {
+                        UIApplication.shared.open(url)
                     }
-                    .buttonStyle(.bordered)
-                    .controlSize(.small)
+                } label: {
+                    Label {
+                        Text("copyguide.ios.pasteSetting.open")
+                            .font(.subheadline.bold())
+                    } icon: {
+                        Image(systemName: "gearshape")
+                            .font(.title3)
+                    }
                 }
+                .buttonStyle(.bordered)
+                .controlSize(.regular)
+                .frame(maxWidth: .infinity)
 
                 Button(action: onGoToYouTube) {
                     Text("copyguide.ios.open")
@@ -236,7 +234,7 @@ private struct CopyLinkGuidePage: View {
                 .padding(.top, 4)
 
                 Button(action: onShowSteps) {
-                    Text(String(format: String(localized: "copyguide.ios.legacy"), AppInfo.displayName))
+                    Text("copyguide.ios.legacy")
                         .font(.subheadline)
                         .frame(maxWidth: .infinity)
                 }
@@ -251,15 +249,16 @@ private struct CopyLinkGuidePage: View {
     }
 }
 
-/// 「YouTube の共有から追加する」の流れを、3枚の画面の絵を自動で切り替えて見せる（動画の代わり）。
+/// 「YouTube の共有から追加する」の流れを、4枚の画面の絵を自動で切り替えて見せる（動画の代わり）。
 ///
-/// 絵は `scripts/build_copy_guide_frames.py --ios` で作る（7言語。`copyguide_ios_frame1〜3_<言語>`）。
+/// 絵は `scripts/build_copy_guide_frames.py --ios` で作る（7言語。`copyguide_ios_frame1〜4_<言語>`）。
+/// ④は戻ったときに iOS が出す「ペーストを許可」の確認（2026-10-06 追加）。
 /// iOS の画面はこちらで撮れないので、Android で撮った YouTube の画面（YouTube 独自の画面なので
 /// iOS でもほぼ同じ）を元に、上端を iOS の「◀ アプリ名」入りのステータスバーへ描き替えている。
 /// 他人の映像（動画の中身）はぼかしてある。Android の `CopyGuideAnimation` と同じ間隔で切り替える。
 private struct CopyGuideSlides: View {
     @State private var index = 0
-    private let count = 3
+    private let count = 4
 
     private func image(_ number: Int) -> UIImage? {
         UIImage(named: "copyguide_ios_frame\(number)_\(TutorialImageLanguage.current)")
@@ -285,7 +284,7 @@ private struct CopyGuideSlides: View {
             .animation(.easeInOut(duration: 0.35), value: index)
             .accessibilityHidden(true)
 
-            // いま何枚目か（1 → 2 → 3）
+            // いま何枚目か（1 → 2 → 3 → 4）
             HStack(spacing: 6) {
                 ForEach(0..<count, id: \.self) { i in
                     Circle()

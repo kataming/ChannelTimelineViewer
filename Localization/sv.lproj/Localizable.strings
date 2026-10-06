@@ -93,24 +93,22 @@
 "common.done" = "Klar";
 /* 再試行 */
 "common.retry" = "Försök igen";
-/* iOS: 共有メニューから %@ を選ぶ従来の手順を開く（Android の copyguide.legacy と同じ訳） */
-"copyguide.ios.legacy" = "Se hur du väljer %@ i Dela-menyn";
+/* iOS: 共有シートで本アプリを選ぶ従来の手順を開くリンク */
+"copyguide.ios.legacy" = "Så öppnar du från YouTube";
 /* iOS: 案内から YouTube へ行って戻ったが、コピーされた YouTube のリンクが無かった */
 "copyguide.ios.notFound" = "Ingen kopierad YouTube-länk hittades. Tryck på Dela → Kopiera länk i YouTube och kom sedan tillbaka.";
 /* iOS: YouTube を開くボタン（Android の copyguide.open と同じ訳） */
 "copyguide.ios.open" = "Öppna YouTube";
 /* iOS: 共有の案内から戻ったが「ペーストを許可しない」を押されて読めなかった */
 "copyguide.ios.pasteDenied" = "Inklistring tilläts inte, så den kopierade länken kunde inte läsas.";
-/* iOS: 戻ったときに iOS が出す「ペーストの許可」の説明。読むのは YouTube のリンクだけ */
-"copyguide.ios.pasteNote" = "Om du tillfrågas om inklistring ska tillåtas när du kommer tillbaka, tillåt det. Vi läser bara YouTube-länken du kopierade och skickar den ingenstans.";
 /* iOS: 毎回のペースト確認をなくす手順（設定 → このアプリ → 他のアプリからペースト → 許可）。2026-10-06 ユーザー判断 */
 "copyguide.ios.pasteSetting" = "Om du inte vill få frågan om inklistring varje gång ställer du in ”Klistra in från andra appar” på ”Tillåt” för den här appen i Inställningar.";
-/* iOS: このアプリの設定画面を開くボタン */
-"copyguide.ios.pasteSetting.open" = "Öppna Inställningar";
+/* iOS: このアプリの設定画面を開くボタン（ほかのAppからペースト＝許可にしてもらう） */
+"copyguide.ios.pasteSetting.open" = "Tillåt alltid inklistring";
 /* iOS: もう一度クリップボードを読む（ペーストの確認がまた出る） */
 "copyguide.ios.retry" = "Försök igen";
-/* iOS: ①［共有］→②［コピー］→③ 左上の「◀ アプリ名」で戻る。%@ = アプリの表示名（iOS が左上に出す戻るリンクの名前） */
-"copyguide.ios.step1" = "①[Dela] → ②[Kopiera länk]\n③ Tryck på ”◀ %@” uppe till vänster\nför att komma tillbaka till appen";
+/* iOS: 案内の見出しの下。手順は画像（①共有 ②コピー ③◀で戻る ④ペーストを許可）で見せるので一言だけ（2026-10-06 ユーザー指定） */
+"copyguide.ios.step1" = "Bara 4 tryck";
 /* iOS: YouTube の共有から追加の見出し（Android の copyguide.title と同じ訳） */
 "copyguide.ios.title" = "När du har spelat upp videon i YouTube";
 /* 画面下部の注意書き */

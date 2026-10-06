@@ -93,24 +93,22 @@
 "common.done" = "Gereed";
 /* 再試行 */
 "common.retry" = "Opnieuw";
-/* iOS: 共有メニューから %@ を選ぶ従来の手順を開く（Android の copyguide.legacy と同じ訳） */
-"copyguide.ios.legacy" = "Bekijk hoe je %@ kiest in het menu Delen";
+/* iOS: 共有シートで本アプリを選ぶ従来の手順を開くリンク */
+"copyguide.ios.legacy" = "Zo open je het vanuit YouTube";
 /* iOS: 案内から YouTube へ行って戻ったが、コピーされた YouTube のリンクが無かった */
 "copyguide.ios.notFound" = "Geen gekopieerde YouTube-link gevonden. Tik in YouTube op Delen → Link kopiëren en kom dan terug.";
 /* iOS: YouTube を開くボタン（Android の copyguide.open と同じ訳） */
 "copyguide.ios.open" = "YouTube openen";
 /* iOS: 共有の案内から戻ったが「ペーストを許可しない」を押されて読めなかった */
 "copyguide.ios.pasteDenied" = "Plakken is niet toegestaan, dus de gekopieerde link kon niet worden gelezen.";
-/* iOS: 戻ったときに iOS が出す「ペーストの許可」の説明。読むのは YouTube のリンクだけ */
-"copyguide.ios.pasteNote" = "Als bij terugkomst wordt gevraagd of plakken mag, sta het dan toe. We lezen alleen de gekopieerde YouTube-link en sturen die nergens heen.";
 /* iOS: 毎回のペースト確認をなくす手順（設定 → このアプリ → 他のアプリからペースト → 許可）。2026-10-06 ユーザー判断 */
 "copyguide.ios.pasteSetting" = "Wil je niet elke keer gevraagd worden om plakken toe te staan, zet dan in Instellingen ‘Plakken vanuit andere apps’ op ‘Sta toe’ voor deze app.";
-/* iOS: このアプリの設定画面を開くボタン */
-"copyguide.ios.pasteSetting.open" = "Open Instellingen";
+/* iOS: このアプリの設定画面を開くボタン（ほかのAppからペースト＝許可にしてもらう） */
+"copyguide.ios.pasteSetting.open" = "Plakken altijd toestaan";
 /* iOS: もう一度クリップボードを読む（ペーストの確認がまた出る） */
 "copyguide.ios.retry" = "Opnieuw proberen";
-/* iOS: ①［共有］→②［コピー］→③ 左上の「◀ アプリ名」で戻る。%@ = アプリの表示名（iOS が左上に出す戻るリンクの名前） */
-"copyguide.ios.step1" = "①[Delen] → ②[Link kopiëren]\n③ Tik linksboven op ‘◀ %@’\nom terug te gaan naar deze app";
+/* iOS: 案内の見出しの下。手順は画像（①共有 ②コピー ③◀で戻る ④ペーストを許可）で見せるので一言だけ（2026-10-06 ユーザー指定） */
+"copyguide.ios.step1" = "Slechts 4 keer tikken";
 /* iOS: YouTube の共有から追加の見出し（Android の copyguide.title と同じ訳） */
 "copyguide.ios.title" = "Nadat je de video in YouTube afspeelt";
 /* 画面下部の注意書き */

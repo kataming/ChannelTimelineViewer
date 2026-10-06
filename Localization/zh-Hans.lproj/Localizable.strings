@@ -93,24 +93,22 @@
 "common.done" = "完成";
 /* 再試行 */
 "common.retry" = "重试";
-/* iOS: 共有メニューから %@ を選ぶ従来の手順を開く（Android の copyguide.legacy と同じ訳） */
-"copyguide.ios.legacy" = "查看如何从“分享”菜单中选择 %@";
+/* iOS: 共有シートで本アプリを選ぶ従来の手順を開くリンク */
+"copyguide.ios.legacy" = "从 YouTube 打开的方法";
 /* iOS: 案内から YouTube へ行って戻ったが、コピーされた YouTube のリンクが無かった */
 "copyguide.ios.notFound" = "未找到已复制的 YouTube 链接。请在 YouTube 中点［分享］→［复制链接］后再回来。";
 /* iOS: YouTube を開くボタン（Android の copyguide.open と同じ訳） */
 "copyguide.ios.open" = "打开 YouTube";
 /* iOS: 共有の案内から戻ったが「ペーストを許可しない」を押されて読めなかった */
 "copyguide.ios.pasteDenied" = "由于未允许粘贴，无法读取复制的链接。";
-/* iOS: 戻ったときに iOS が出す「ペーストの許可」の説明。読むのは YouTube のリンクだけ */
-"copyguide.ios.pasteNote" = "返回时如果询问是否允许粘贴，请允许。我们只读取你复制的 YouTube 链接，不会发送到任何地方。";
 /* iOS: 毎回のペースト確認をなくす手順（設定 → このアプリ → 他のアプリからペースト → 許可）。2026-10-06 ユーザー判断 */
 "copyguide.ios.pasteSetting" = "若不想每次都被询问是否允许粘贴，请在设置中将本应用的“从其他App粘贴”设为“允许”。";
-/* iOS: このアプリの設定画面を開くボタン */
-"copyguide.ios.pasteSetting.open" = "打开设置";
+/* iOS: このアプリの設定画面を開くボタン（ほかのAppからペースト＝許可にしてもらう） */
+"copyguide.ios.pasteSetting.open" = "允许所有粘贴";
 /* iOS: もう一度クリップボードを読む（ペーストの確認がまた出る） */
 "copyguide.ios.retry" = "重新读取";
-/* iOS: ①［共有］→②［コピー］→③ 左上の「◀ アプリ名」で戻る。%@ = アプリの表示名（iOS が左上に出す戻るリンクの名前） */
-"copyguide.ios.step1" = "①［分享］ → ②［复制链接］\n③ 点左上角的“◀ %@”\n就能回到本应用";
+/* iOS: 案内の見出しの下。手順は画像（①共有 ②コピー ③◀で戻る ④ペーストを許可）で見せるので一言だけ（2026-10-06 ユーザー指定） */
+"copyguide.ios.step1" = "只需点 4 下";
 /* iOS: YouTube の共有から追加の見出し（Android の copyguide.title と同じ訳） */
 "copyguide.ios.title" = "在 YouTube 播放视频后";
 /* 画面下部の注意書き */

@@ -93,24 +93,22 @@
 "common.done" = "Kwenziwe";
 /* 再試行 */
 "common.retry" = "Zama futhi";
-/* iOS: 共有メニューから %@ を選ぶ従来の手順を開く（Android の copyguide.legacy と同じ訳） */
-"copyguide.ios.legacy" = "Bona ukuthi ukhetha kanjani u-%@ kumenyu yokwabelana";
+/* iOS: 共有シートで本アプリを選ぶ従来の手順を開くリンク */
+"copyguide.ios.legacy" = "Indlela yokuvula ku-YouTube";
 /* iOS: 案内から YouTube へ行って戻ったが、コピーされた YouTube のリンクが無かった */
 "copyguide.ios.notFound" = "Asitholanga isixhumanisi se-YouTube esikopishiwe. Ku-YouTube, thepha u-Yabelana → Kopisha isixhumanisi, bese ubuya.";
 /* iOS: YouTube を開くボタン（Android の copyguide.open と同じ訳） */
 "copyguide.ios.open" = "Vula i-YouTube";
 /* iOS: 共有の案内から戻ったが「ペーストを許可しない」を押されて読めなかった */
 "copyguide.ios.pasteDenied" = "Ukunamathisela akuvunyelwanga, ngakho isixhumanisi esikopishiwe asikwazanga ukufundwa.";
-/* iOS: 戻ったときに iOS が出す「ペーストの許可」の説明。読むのは YouTube のリンクだけ */
-"copyguide.ios.pasteNote" = "Uma ubuzwa ukuthi uyakuvumela yini ukunamathisela lapho ubuya, kuvumele. Sifunda kuphela isixhumanisi se-YouTube osikopishile futhi asisithumeli ndawo.";
 /* iOS: 毎回のペースト確認をなくす手順（設定 → このアプリ → 他のアプリからペースト → 許可）。2026-10-06 ユーザー判断 */
 "copyguide.ios.pasteSetting" = "Ukuze ungabuzwa njalo ukuthi uyavumela yini ukunamathisela, ku-Amasethingi setha okuthi “Namathisela kusuka kwamanye ama-app” kube ngu-“Vumela” kule app.";
-/* iOS: このアプリの設定画面を開くボタン */
-"copyguide.ios.pasteSetting.open" = "Vula Amasethingi";
+/* iOS: このアプリの設定画面を開くボタン（ほかのAppからペースト＝許可にしてもらう） */
+"copyguide.ios.pasteSetting.open" = "Vumela konke ukunamathisela";
 /* iOS: もう一度クリップボードを読む（ペーストの確認がまた出る） */
 "copyguide.ios.retry" = "Zama futhi";
-/* iOS: ①［共有］→②［コピー］→③ 左上の「◀ アプリ名」で戻る。%@ = アプリの表示名（iOS が左上に出す戻るリンクの名前） */
-"copyguide.ios.step1" = "①[Yabelana] → ②[Kopisha isixhumanisi]\n③ Thepha u-“◀ %@” phezulu kwesobunxele\nukuze ubuyele kule app";
+/* iOS: 案内の見出しの下。手順は画像（①共有 ②コピー ③◀で戻る ④ペーストを許可）で見せるので一言だけ（2026-10-06 ユーザー指定） */
+"copyguide.ios.step1" = "Ama-tap angu-4 kuphela";
 /* iOS: YouTube の共有から追加の見出し（Android の copyguide.title と同じ訳） */
 "copyguide.ios.title" = "Ngemuva kokudlala ividiyo ku-YouTube";
 /* 画面下部の注意書き */

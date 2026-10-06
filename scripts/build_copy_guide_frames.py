@@ -335,6 +335,127 @@ def build_ios(lang: str, number: int) -> None:
     print(f"  {folder.relative_to(ROOT)}  {page.size}")
 
 
+# ④ 戻ったときに iOS が出す「ペーストを許可」の確認（2026-10-06・ユーザー指定）。
+# iOS の画面は撮れないので、アプリの最初の画面（文言は strings.json から）を簡略に描き、
+# その上に iOS の確認ダイアログを描く。ダイアログの文言は iOS の表示に合わせた（実機と細部が違えば直す）。
+PASTE_ALERT = {
+    "ja": ("“Channel Timeline Viewer”に“YouTube”からペーストしようとしています。よろしいですか?",
+           "許可しますか?", "ペーストを許可しない", "ペーストを許可"),
+    "en": ("“Channel Timeline Viewer” would like to paste from “YouTube”",
+           "Do you want to allow this?", "Don’t Allow Paste", "Allow Paste"),
+    "zh": ("“Channel Timeline Viewer”想要粘贴来自“YouTube”的内容",
+           "要允许吗？", "不允许粘贴", "允许粘贴"),
+    "es": ("“Channel Timeline Viewer” quiere pegar desde “YouTube”",
+           "¿Quieres permitirlo?", "No permitir pegar", "Permitir pegar"),
+    "de": ("„Channel Timeline Viewer“ möchte aus „YouTube“ einsetzen",
+           "Möchtest du das erlauben?", "Einsetzen nicht erlauben", "Einsetzen erlauben"),
+    "fr": ("« Channel Timeline Viewer » souhaite coller depuis « YouTube »",
+           "Voulez-vous l’autoriser ?", "Ne pas autoriser le collage", "Autoriser le collage"),
+    "ko": ("‘Channel Timeline Viewer’이(가) ‘YouTube’에서 붙여넣으려고 합니다.",
+           "허용하겠습니까?", "붙여넣기 허용 안 함", "붙여넣기 허용"),
+}
+UI_FONT = {"ja": ("YuGothB.ttc", "YuGothM.ttc"), "zh": ("msyhbd.ttc", "msyh.ttc"),
+           "ko": ("malgunbd.ttf", "malgun.ttf")}
+STRINGS_LANG = {"zh": "zh-Hans"}
+
+
+def ui_font(lang: str, size: int, bold: bool) -> ImageFont.FreeTypeFont:
+    names = UI_FONT.get(lang, ("seguisb.ttf", "segoeui.ttf"))
+    try:
+        return ImageFont.truetype(names[0] if bold else names[1], size)
+    except OSError:
+        return font(size)
+
+
+def wrap(draw: ImageDraw.ImageDraw, text: str, f, width: int) -> list[str]:
+    """幅に収まるように折り返す（空白の無い言語は1文字ずつ）。"""
+    lines, line = [], ""
+    cjk = any("぀" <= c <= "鿿" for c in text)
+    # 日本語・中国語は1文字ずつ折り返すが、英単語（YouTube など）の途中では切らない
+    import re as _re
+    tokens = _re.findall(r"[A-Za-z0-9’'“”\"]+ ?|.", text) if cjk else text.split(" ")
+    joiner = "" if cjk else " "
+    for tok in tokens:
+        trial = (line + joiner + tok) if line else tok
+        if draw.textlength(trial, font=f) <= width:
+            line = trial
+        else:
+            if line:
+                lines.append(line)
+            line = tok
+    if line:
+        lines.append(line)
+    return lines
+
+
+def build_ios_paste(lang: str) -> None:
+    import json
+    strings = json.loads((ROOT / "Localization" / "strings.json").read_text(encoding="utf-8"))
+    key = STRINGS_LANG.get(lang, lang)
+    W, H = 720, IOS_BAR + (NAV_TOP - STATUS_BAR) + IOS_HOME
+    page = Image.new("RGB", (W, H), (242, 242, 247))
+    draw = ImageDraw.Draw(page)
+    # ステータスバー（左に時刻）
+    draw.text((52, IOS_BAR // 2 + 2), "9:41", font=ui_font("en", 24, True), fill=INK, anchor="lm")
+    bx = W - 64
+    cy = IOS_BAR // 2 + 2
+    draw.rounded_rectangle([bx, cy - 10, bx + 38, cy + 10], radius=5, outline=INK, width=2)
+    draw.rounded_rectangle([bx + 4, cy - 6, bx + 30, cy + 6], radius=2, fill=INK)
+    # アプリの最初の画面（簡略）
+    draw.text((32, 150), "Channel Timeline", font=ui_font("en", 58, True), fill=INK, anchor="lm")
+    blue = (52, 120, 246)
+    draw.rounded_rectangle([24, 210, W - 24, 290], radius=40, fill=blue)
+    draw.text((W // 2, 250), strings["tutorial.pick.howto"][key], font=ui_font(lang, 28, True), fill=WHITE, anchor="mm")
+    draw.rounded_rectangle([24, 310, W - 24, 386], radius=20, fill=WHITE, outline=(205, 205, 210), width=2)
+    draw.text((W // 2, 348), strings["tutorial.pick.title"][key], font=ui_font(lang, 28, True), fill=blue, anchor="mm")
+    for top in (420, 560, 700, 840):
+        draw.rounded_rectangle([24, top, W - 24, top + 116], radius=22, fill=WHITE)
+        draw.rounded_rectangle([48, top + 28, 300, top + 50], radius=8, fill=(225, 225, 230))
+        draw.rounded_rectangle([48, top + 66, 520, top + 84], radius=8, fill=(235, 235, 240))
+    # 暗くする
+    dim = Image.new("RGBA", (W, H), (0, 0, 0, 90))
+    page = Image.alpha_composite(page.convert("RGBA"), dim).convert("RGB")
+    draw = ImageDraw.Draw(page)
+    # 確認ダイアログ
+    title, sub, deny, allow = PASTE_ALERT[lang]
+    ft, fs, fb = ui_font(lang, 30, True), ui_font(lang, 24, False), ui_font(lang, 28, False)
+    aw = 560
+    ax = (W - aw) // 2
+    tlines = wrap(draw, title, ft, aw - 80)
+    line_h = 40
+    ah = 50 + len(tlines) * line_h + 46 + 30 + 84 * 2 + 16 + 30
+    ay = (H - ah) // 2 + 40
+    draw.rounded_rectangle([ax, ay, ax + aw, ay + ah], radius=44, fill=(246, 246, 248))
+    y = ay + 50
+    for line in tlines:
+        draw.text((ax + 40, y), line, font=ft, fill=INK, anchor="lm")
+        y += line_h
+    draw.text((ax + 40, y + 6), sub, font=fs, fill=(110, 110, 115), anchor="lm")
+    y += 56
+    # ペーストを許可しない（青）／ペーストを許可（灰）
+    draw.rounded_rectangle([ax + 30, y, ax + aw - 30, y + 72], radius=36, fill=blue)
+    draw.text((W // 2, y + 36), deny, font=fb, fill=WHITE, anchor="mm")
+    y2 = y + 84
+    draw.rounded_rectangle([ax + 30, y2, ax + aw - 30, y2 + 72], radius=36, fill=(222, 222, 226))
+    draw.text((W // 2, y2 + 36), allow, font=fb, fill=INK, anchor="mm")
+    # 押す場所（ペーストを許可）
+    box = (ax + 22, y2 - 8, ax + aw - 22, y2 + 80)
+    draw.rounded_rectangle(box, radius=44, outline=GREEN, width=6)
+    badge_at = (W - 120, y2 + 250)
+    arrow(draw, badge_at, (W - 70, y2 + 160), (W // 2 + 150, box[3] + 10))
+    badge(draw, badge_at, 4)
+    # ホームインジケーター
+    draw.rounded_rectangle([W // 2 - 70, H - 18, W // 2 + 70, H - 11], radius=4, fill=INK)
+    name = f"copyguide_ios_frame4_{IOS_LANG[lang]}"
+    folder = ASSETS / f"{name}.imageset"
+    folder.mkdir(parents=True, exist_ok=True)
+    page.save(folder / f"{name}.jpg", quality=82, optimize=True)
+    (folder / "Contents.json").write_text(
+        '{\n  "images" : [\n    { "filename" : "' + name + '.jpg", "idiom" : "universal" }\n  ],\n'
+        '  "info" : { "author" : "xcode", "version" : 1 }\n}\n', encoding="utf-8")
+    print(f"  {folder.relative_to(ROOT)}  {page.size}")
+
+
 def main() -> int:
     args = sys.argv[1:]
     ios_only = "--ios" in args
@@ -347,6 +468,7 @@ def main() -> int:
             build_overlay(lang)
         for number in FRAMES:
             build_ios(lang, number)
+        build_ios_paste(lang)
     return 0
 
 

@@ -207,7 +207,7 @@ export default {
         },
         {
           "q": "Delen vanuit YouTube opent de app niet",
-          "a": "iOS staat niet toe dat een deelmenu een app direct opent. Sta meldingen toe en tik op de melding die direct na het delen verschijnt, of open de app en gebruik ‘Gedeelde link openen’."
+          "a": "iOS staat niet toe dat een deelmenu een app direct opent. Sta meldingen toe en tik op de melding die direct na het delen verschijnt."
         },
         {
           "q": "Ik heb Pro gekocht, maar het is niet actief",
@@ -220,7 +220,7 @@ export default {
     "privacy": {
       "title": "Privacybeleid",
       "description": "Wat Channel Timeline Viewer bewaart en wat niet.",
-      "updated": "Laatst bijgewerkt: 5 oktober 2026",
+      "updated": "Laatst bijgewerkt: 6 oktober 2026",
       "sections": [
         {
           "title": "1. Samenvatting",
@@ -262,7 +262,8 @@ export default {
         {
           "title": "5. Delen vanuit andere apps",
           "body": [
-            "De deelextensie ontvangt alleen de URL (of tekst met een URL) die je deelt. Die wordt op het apparaat verwerkt en gebruikt om het kanaal op te zoeken via de officiële API. Ze wordt nergens anders naartoe gestuurd. URL’s die niet van YouTube zijn, worden genegeerd."
+            "De deelextensie ontvangt alleen de URL (of tekst met een URL) die je deelt. Die wordt op het apparaat verwerkt en gebruikt om het kanaal op te zoeken via de officiële API. Ze wordt nergens anders naartoe gestuurd. URL’s die niet van YouTube zijn, worden genegeerd.",
+            "Als je in de app ‘Toevoegen via Delen in YouTube’ gebruikt, leest de app, wanneer je in YouTube een link kopieert en terugkeert naar de app, alleen de gekopieerde YouTube-link op het apparaat (op iOS verschijnt eerst een bevestiging). Wat wordt gelezen, wordt nergens naartoe gestuurd, en andere inhoud dan YouTube-links wordt niet gebruikt."
           ]
         },
         {
@@ -389,7 +390,7 @@ export default {
           },
           {
             "title": "Delen vanuit YouTube",
-            "body": "Tik op de deelknop in de YouTube-app of Safari en kies ‘Open in Channel Timeline’. iOS laat een deelmenu een app niet direct openen, dus sta meldingen toe en tik op de melding die direct na het delen verschijnt. Wil je dat liever niet, open dan de app en tik op ‘Gedeelde link openen’.",
+            "body": "Tik op de deelknop in de YouTube-app of Safari en kies ‘Open in Channel Timeline’. iOS laat een deelmenu een app niet direct openen, dus sta meldingen toe en tik op de melding die direct na het delen verschijnt.",
             "only": "ios"
           },
           {
@@ -572,7 +573,7 @@ export default {
           },
           {
             "title": "Delen opent de app niet",
-            "body": "iOS staat niet toe dat een deelmenu een app direct opent. Sta meldingen toe en tik op de melding die direct na het delen verschijnt, of open de app en gebruik ‘Gedeelde link openen’.",
+            "body": "iOS staat niet toe dat een deelmenu een app direct opent. Sta meldingen toe en tik op de melding die direct na het delen verschijnt.",
             "only": "ios"
           },
           {

@@ -207,7 +207,7 @@ export default {
         },
         {
           "q": "Berkongsi daripada YouTube tidak membuka apl",
-          "a": "iOS tidak membenarkan helaian kongsi melancarkan apl secara terus. Benarkan pemberitahuan dan ketik pemberitahuan yang muncul sejurus selepas berkongsi, atau buka apl dan gunakan “Buka pautan yang dikongsi”."
+          "a": "iOS tidak membenarkan helaian kongsi melancarkan apl secara terus. Benarkan pemberitahuan dan ketik pemberitahuan yang muncul sejurus selepas berkongsi."
         },
         {
           "q": "Saya telah membeli Pro tetapi ia tidak aktif",
@@ -220,7 +220,7 @@ export default {
     "privacy": {
       "title": "Dasar Privasi",
       "description": "Apa yang disimpan dan apa yang tidak disimpan oleh Channel Timeline Viewer.",
-      "updated": "Kemas kini terakhir: 5 Oktober 2026",
+      "updated": "Kemas kini terakhir: 6 Oktober 2026",
       "sections": [
         {
           "title": "1. Ringkasan",
@@ -262,7 +262,8 @@ export default {
         {
           "title": "5. Berkongsi daripada apl lain",
           "body": [
-            "Sambungan kongsi hanya menerima URL (atau teks yang mengandungi URL) yang anda kongsi. Ia dihuraikan pada peranti dan digunakan untuk mencari saluran melalui API rasmi. Ia tidak dihantar ke tempat lain. URL bukan YouTube diabaikan."
+            "Sambungan kongsi hanya menerima URL (atau teks yang mengandungi URL) yang anda kongsi. Ia dihuraikan pada peranti dan digunakan untuk mencari saluran melalui API rasmi. Ia tidak dihantar ke tempat lain. URL bukan YouTube diabaikan.",
+            "Apabila anda menggunakan “Tambah melalui Kongsi dalam YouTube” dalam apl, selepas anda menyalin pautan dalam YouTube dan kembali ke apl, apl hanya membaca pautan YouTube yang disalin, pada peranti (pada iOS, pengesahan dipaparkan sebelum dibaca). Kandungan yang dibaca tidak dihantar ke mana-mana, dan kandungan selain YouTube tidak digunakan."
           ]
         },
         {
@@ -389,7 +390,7 @@ export default {
           },
           {
             "title": "Kongsi daripada YouTube",
-            "body": "Ketik butang kongsi dalam apl YouTube atau Safari dan pilih “Buka dalam Channel Timeline”. iOS tidak membenarkan helaian kongsi melancarkan apl secara terus, jadi benarkan pemberitahuan dan ketik pemberitahuan yang muncul sejurus selepas berkongsi. Jika anda tidak mahu, buka apl dan ketik “Buka pautan yang dikongsi”.",
+            "body": "Ketik butang kongsi dalam apl YouTube atau Safari dan pilih “Buka dalam Channel Timeline”. iOS tidak membenarkan helaian kongsi melancarkan apl secara terus, jadi benarkan pemberitahuan dan ketik pemberitahuan yang muncul sejurus selepas berkongsi.",
             "only": "ios"
           },
           {
@@ -572,7 +573,7 @@ export default {
           },
           {
             "title": "Berkongsi tidak membuka apl",
-            "body": "iOS tidak membenarkan helaian kongsi melancarkan apl secara terus. Benarkan pemberitahuan dan ketik pemberitahuan yang muncul sejurus selepas berkongsi, atau buka apl dan gunakan “Buka pautan yang dikongsi”.",
+            "body": "iOS tidak membenarkan helaian kongsi melancarkan apl secara terus. Benarkan pemberitahuan dan ketik pemberitahuan yang muncul sejurus selepas berkongsi.",
             "only": "ios"
           },
           {

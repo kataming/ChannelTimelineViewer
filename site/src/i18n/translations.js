@@ -158,7 +158,7 @@ const en = {
       { q: 'The channel URL is not accepted', a: 'Use the channel page URL (for example youtube.com/@handle or youtube.com/channel/UC…). A video URL works too — the app finds the channel that published it.' },
       { q: 'The list stops partway or shows an error', a: 'Very large channels take a while on first load. If the error mentions quota, try again later — the app uses the YouTube Data API, which has a daily limit.' },
       { q: 'A video will not play', a: 'Some videos are restricted from playing outside YouTube by their owner. Use “Open in YouTube” in the “…” menu (or “Comment on YouTube”) for those.' },
-      { q: 'Sharing from YouTube does not open the app', a: 'iOS does not allow a share sheet to launch an app directly. Allow notifications and tap the notification that appears right after sharing, or open the app and use “Open shared link”.' },
+      { q: 'Sharing from YouTube does not open the app', a: 'iOS does not allow a share sheet to launch an app directly. Allow notifications and tap the notification that appears right after sharing.' },
       { q: 'I bought Pro but it is not active', a: 'Open the Pro screen and tap “Restore purchase”. As long as you are signed in with the same Apple Account, the purchase comes back. It is a one-time purchase, so you are never charged twice.' },
     ],
     responseTitle: 'Response time',
@@ -167,7 +167,7 @@ const en = {
   privacy: {
     title: 'Privacy Policy',
     description: 'What Channel Timeline Viewer stores and what it does not.',
-    updated: 'Last updated: 5 October 2026',
+    updated: 'Last updated: 6 October 2026',
     sections: [
       { title: '1. Summary', body: ['Channel Timeline Viewer keeps your data on your device. There is no account, and no server operated by us receives what you watch. The Android version measures how the app itself is used (Google Analytics for Firebase) so we can improve it: it records screen names and the kind of action, never the channels or videos you watch, and you can switch it off in the app. The iOS version contains no analytics at all. The free version shows ads from Google AdMob (see section 8); Pro shows none.'] },
       { title: '2. What is stored on your device', body: [
@@ -190,7 +190,8 @@ const en = {
       { title: '4. The relay page used for playback', body: [
         'To display the official embedded player correctly, the player screen loads a small static page we publish on GitHub Pages (https://kataming.github.io/ChannelTimelineViewer/player.html) and embeds the official player inside it. That page only displays the player; it contains no analytics or tracking. As with any web request, GitHub may log standard connection information (such as IP address).'] },
       { title: '5. Sharing from other apps', body: [
-        'The share extension receives only the URL (or text containing a URL) you share. It is parsed on the device and used to look up the channel through the official API. It is not sent anywhere else. Non-YouTube URLs are ignored.'] },
+        'The share extension receives only the URL (or text containing a URL) you share. It is parsed on the device and used to look up the channel through the official API. It is not sent anywhere else. Non-YouTube URLs are ignored.',
+        'If you use “Add via Share in YouTube” in the app, then when you copy a link in YouTube and return to the app, the app reads only the copied YouTube link, on the device (on iOS, a confirmation appears before it is read). What it reads is not sent anywhere, and nothing other than YouTube links is used.'] },
       { title: '6. Notifications', body: [
         'iOS does not allow a share sheet to launch an app directly. If — and only if — you allow notifications, the app posts one local notification right after you share, so you can tap it to open the channel. It contains only the shared YouTube URL and is handled on the device. No promotional, re-engagement, or server push notifications are ever sent.'] },
       { title: '7. Purchases (Pro)', body: [
@@ -341,7 +342,7 @@ const ja = {
       { q: 'チャンネルURLが受け付けられない', a: 'チャンネルページのURL（例: youtube.com/@handle、youtube.com/channel/UC…）をお使いください。動画のURLでも構いません（投稿元チャンネルを特定します）。' },
       { q: '一覧が途中で止まる／エラーが出る', a: '本数が非常に多いチャンネルは初回に時間がかかります。quota（上限）に関するエラーの場合は時間をおいてお試しください。YouTube Data API には1日の上限があります。' },
       { q: '動画が再生できない', a: '投稿者の設定により YouTube 外での再生が制限されている動画があります。その場合は「…」メニューの「YouTubeで開く」（または「YouTubeでコメントする」）をご利用ください。' },
-      { q: '共有してもアプリが開かない', a: 'iOS の仕様上、共有シートからアプリを直接起動することはできません。通知を許可して、共有直後に出る通知をタップするか、アプリを開いて「共有されたURLを開く」をご利用ください。' },
+      { q: '共有してもアプリが開かない', a: 'iOS の仕様上、共有シートからアプリを直接起動することはできません。通知を許可して、共有直後に出る通知をタップしてください。' },
       { q: 'Pro を購入したのに反映されない', a: 'Pro の画面で「購入を復元」をタップしてください。購入時と同じ Apple アカウントでサインインしていれば復元できます。買い切りのため、二重に請求されることはありません。' },
     ],
     responseTitle: '返信について',
@@ -350,7 +351,7 @@ const ja = {
   privacy: {
     title: 'プライバシーポリシー',
     description: 'Channel Timeline Viewer が保存するもの・しないこと。',
-    updated: '最終更新日: 2026年10月5日',
+    updated: '最終更新日: 2026年10月6日',
     sections: [
       { title: '1. 概要', body: ['Channel Timeline Viewer は、利用者のデータを端末内に保存します。アカウントはなく、当方が運営するサーバーが「何を見たか」を受け取ることもありません。Android 版のみ、アプリを改善するために「アプリ自体がどう使われているか」を Google アナリティクス（Firebase）で数えています。記録するのは画面名と操作の種類だけで、見ているチャンネルや動画は記録せず、アプリ内でいつでも止められます。iOS 版に解析ツールは入っていません。無料版には Google AdMob の広告が表示されます（8 を参照）。Pro には広告は表示されません。'] },
       { title: '2. 端末内に保存する情報', body: [
@@ -373,7 +374,8 @@ const ja = {
       { title: '4. 再生時に読み込む中継ページ', body: [
         '公式の埋め込みプレイヤーを正しく表示するため、再生画面では当方が GitHub Pages 上で公開している静的ページ（https://kataming.github.io/ChannelTimelineViewer/player.html）を読み込み、その中に公式プレイヤーを埋め込みます。このページは公式プレイヤーを表示するだけで、解析やトラッキングは行いません。なお、一般的な Web アクセスと同様に、配信元である GitHub 社に通信記録（IPアドレス等）が残る場合があります。'] },
       { title: '5. 他アプリからの共有', body: [
-        '共有シートが受け取るのは、共有された URL（または URL を含むテキスト）だけです。端末内で解析し、公式 API へのチャンネル／動画の問い合わせにのみ使用します。他所へ送信することはありません。YouTube 以外の URL は何もせず無視します。'] },
+        '共有シートが受け取るのは、共有された URL（または URL を含むテキスト）だけです。端末内で解析し、公式 API へのチャンネル／動画の問い合わせにのみ使用します。他所へ送信することはありません。YouTube 以外の URL は何もせず無視します。',
+        'アプリの「YouTube の共有から追加する」を使うと、YouTube でリンクをコピーしてアプリに戻ったときに、コピーされた YouTube のリンクだけを端末内で読み取ります（iOS では読み取りの前に確認が表示されます）。読み取った内容は外部に送信せず、YouTube 以外の内容は使いません。'] },
       { title: '6. 通知', body: [
         'iOS の仕様上、共有シートからアプリを直接起動できません。通知を許可いただいた場合に限り、共有した直後に「タップして開く」ためのローカル通知を1件だけ表示します。内容は共有された YouTube の URL のみで、端末内で処理します。お知らせ・宣伝・再訪を促す通知や、サーバーからのプッシュ通知は一切送りません。'] },
       { title: '7. アプリ内課金（Pro）について', body: [
@@ -522,7 +524,7 @@ const zh = {
       { q: '频道网址无法识别', a: '请使用频道页面的网址（例如 youtube.com/@handle、youtube.com/channel/UC…）。视频网址也可以，应用会找到发布该视频的频道。' },
       { q: '列表中途停止或出现错误', a: '视频数量非常多的频道首次加载会较慢。若错误提到配额（quota），请稍后再试——YouTube Data API 有每日上限。' },
       { q: '视频无法播放', a: '部分视频被发布者限制在 YouTube 之外播放。此时请使用“…”菜单中的“在 YouTube 中打开”（或“在 YouTube 上评论”）。' },
-      { q: '分享后应用没有打开', a: '由于 iOS 的限制，分享面板无法直接启动应用。请允许通知并点按分享后立即出现的通知，或打开应用使用“打开分享的链接”。' },
+      { q: '分享后应用没有打开', a: '由于 iOS 的限制，分享面板无法直接启动应用。请允许通知并点按分享后立即出现的通知。' },
       { q: '已购买 Pro 但没有生效', a: '请在 Pro 界面点按“恢复购买”。只要使用与购买时相同的 Apple 账户登录即可恢复。由于是一次性买断，不会重复扣费。' },
     ],
     responseTitle: '回复时间',
@@ -531,7 +533,7 @@ const zh = {
   privacy: {
     title: '隐私政策',
     description: 'Channel Timeline Viewer 会保存什么，不会做什么。',
-    updated: '最后更新：2026 年 10 月 5 日',
+    updated: '最后更新：2026 年 10 月 6 日',
     sections: [
       { title: '1. 概述', body: ['Channel Timeline Viewer 将你的数据保存在设备中。没有账号，我们也没有接收「你看了什么」的服务器。仅 Android 版为了改进应用，使用 Google Analytics for Firebase 统计「应用本身如何被使用」。记录的只是画面名称和操作类型，不记录你观看的频道或视频，并且可在应用内随时关闭。iOS 版不含任何分析工具。免费版会显示 Google AdMob 的广告（见第 8 条）；Pro 不显示广告。'] },
       { title: '2. 保存在设备上的信息', body: [
@@ -554,7 +556,8 @@ const zh = {
       { title: '4. 播放时加载的中转页面', body: [
         '为了正确显示官方嵌入式播放器，播放界面会加载我们发布在 GitHub Pages 上的一个静态页面（https://kataming.github.io/ChannelTimelineViewer/player.html），并在其中嵌入官方播放器。该页面仅用于显示播放器，不含分析或追踪代码。与一般网页访问一样，页面的分发方 GitHub 可能会保留通信记录（如 IP 地址）。'] },
       { title: '5. 来自其他应用的分享', body: [
-        '共享扩展只接收你分享的网址（或包含网址的文本）。它在设备上解析，仅用于通过官方 API 查询频道／视频，不会发送到其他地方。非 YouTube 网址会被忽略。'] },
+        '共享扩展只接收你分享的网址（或包含网址的文本）。它在设备上解析，仅用于通过官方 API 查询频道／视频，不会发送到其他地方。非 YouTube 网址会被忽略。',
+        '使用应用中的“通过 YouTube 的分享添加”时，在 YouTube 中复制链接并返回应用后，应用只会在设备上读取所复制的 YouTube 链接（在 iOS 上，读取前会显示确认）。读取的内容不会发送到外部，YouTube 以外的内容也不会被使用。'] },
       { title: '6. 通知', body: [
         '由于 iOS 的限制，分享面板无法直接启动应用。仅当你允许通知时，应用会在分享后立即发送一条本地通知，点按即可打开频道。通知只包含所分享的 YouTube 网址，并在设备上处理。我们绝不发送宣传、召回类通知或服务器推送通知。'] },
       { title: '7. 关于应用内购买（Pro）', body: [
@@ -703,7 +706,7 @@ const es = {
       { q: 'No acepta la URL del canal', a: 'Usa la URL de la página del canal (por ejemplo youtube.com/@handle o youtube.com/channel/UC…). También sirve una URL de vídeo: la app localiza el canal que lo publicó.' },
       { q: 'La lista se detiene o da error', a: 'Los canales muy grandes tardan en la primera carga. Si el error menciona la cuota, inténtalo más tarde: la API de datos de YouTube tiene un límite diario.' },
       { q: 'Un vídeo no se reproduce', a: 'Algunos vídeos tienen restringida la reproducción fuera de YouTube por su autor. En esos casos usa «Abrir en YouTube» en el menú «…» (o «Comentar en YouTube»).' },
-      { q: 'Compartir no abre la app', a: 'iOS no permite que una hoja para compartir abra una app directamente. Permite las notificaciones y toca la que aparece justo después de compartir, o abre la app y usa «Abrir el enlace compartido».' },
+      { q: 'Compartir no abre la app', a: 'iOS no permite que una hoja para compartir abra una app directamente. Permite las notificaciones y toca la que aparece justo después de compartir.' },
       { q: 'He comprado Pro pero no se activa', a: 'Abre la pantalla de Pro y toca «Restaurar compra». Si has iniciado sesión con la misma cuenta de Apple, la compra vuelve. Es un pago único, así que nunca se cobra dos veces.' },
     ],
     responseTitle: 'Tiempo de respuesta',
@@ -712,7 +715,7 @@ const es = {
   privacy: {
     title: 'Política de privacidad',
     description: 'Qué guarda Channel Timeline Viewer y qué no hace.',
-    updated: 'Última actualización: 5 de octubre de 2026',
+    updated: 'Última actualización: 6 de octubre de 2026',
     sections: [
       { title: '1. Resumen', body: ['Channel Timeline Viewer guarda tus datos en tu dispositivo. No hay cuentas y ningún servidor nuestro recibe lo que ves. Solo la versión de Android mide cómo se usa la propia app (Google Analytics para Firebase) para poder mejorarla: registra el nombre de la pantalla y el tipo de acción, nunca los canales o vídeos que ves, y puedes desactivarlo dentro de la app. La versión de iOS no incluye ninguna analítica. La versión gratuita muestra anuncios de Google AdMob (ver la sección 8); Pro no muestra ninguno.'] },
       { title: '2. Qué se guarda en tu dispositivo', body: [
@@ -735,7 +738,8 @@ const es = {
       { title: '4. La página intermedia usada para reproducir', body: [
         'Para mostrar correctamente el reproductor incrustado oficial, la pantalla del reproductor carga una pequeña página estática que publicamos en GitHub Pages (https://kataming.github.io/ChannelTimelineViewer/player.html) e incrusta el reproductor oficial dentro. Esa página solo muestra el reproductor; no contiene analítica ni rastreo. Como en cualquier petición web, GitHub puede registrar datos de conexión habituales (como la dirección IP).'] },
       { title: '5. Compartir desde otras apps', body: [
-        'La extensión para compartir recibe únicamente la URL (o el texto que la contiene) que compartes. Se analiza en el dispositivo y se usa solo para consultar el canal mediante la API oficial. No se envía a ningún otro sitio. Las URL que no son de YouTube se ignoran.'] },
+        'La extensión para compartir recibe únicamente la URL (o el texto que la contiene) que compartes. Se analiza en el dispositivo y se usa solo para consultar el canal mediante la API oficial. No se envía a ningún otro sitio. Las URL que no son de YouTube se ignoran.',
+        'Si usas «Añadir con Compartir en YouTube» en la app, al copiar un enlace en YouTube y volver a la app, esta lee en el dispositivo solo el enlace de YouTube copiado (en iOS se muestra una confirmación antes de leerlo). Lo que se lee no se envía a ningún sitio y no se usa nada que no sea de YouTube.'] },
       { title: '6. Notificaciones', body: [
         'iOS no permite que una hoja para compartir abra una app directamente. Solo si permites las notificaciones, la app envía una notificación local justo después de compartir para que puedas tocarla y abrir el canal. Contiene únicamente la URL de YouTube compartida y se procesa en el dispositivo. Nunca se envían notificaciones promocionales, de reenganche ni push desde servidores.'] },
       { title: '7. Compras (Pro)', body: [
@@ -884,7 +888,7 @@ const de = {
       { q: 'Die Kanal-URL wird nicht akzeptiert', a: 'Nutze die URL der Kanalseite (z. B. youtube.com/@handle oder youtube.com/channel/UC…). Eine Video-URL geht auch – die App findet den veröffentlichenden Kanal.' },
       { q: 'Die Liste bricht ab oder zeigt einen Fehler', a: 'Sehr große Kanäle brauchen beim ersten Laden Zeit. Nennt der Fehler ein Kontingent (Quota), versuche es später erneut – die YouTube Data API hat ein Tageslimit.' },
       { q: 'Ein Video lässt sich nicht abspielen', a: 'Manche Videos sind vom Uploader außerhalb von YouTube gesperrt. Nutze dann „In YouTube öffnen“ im „…“-Menü (oder „Auf YouTube kommentieren“).' },
-      { q: 'Teilen öffnet die App nicht', a: 'iOS erlaubt es nicht, aus dem Teilen-Menü direkt eine App zu starten. Erlaube Mitteilungen und tippe auf die Mitteilung direkt nach dem Teilen – oder öffne die App und nutze „Geteilten Link öffnen“.' },
+      { q: 'Teilen öffnet die App nicht', a: 'iOS erlaubt es nicht, aus dem Teilen-Menü direkt eine App zu starten. Erlaube Mitteilungen und tippe auf die Mitteilung direkt nach dem Teilen.' },
       { q: 'Ich habe Pro gekauft, es ist aber nicht aktiv', a: 'Öffne den Pro-Bildschirm und tippe auf „Kauf wiederherstellen“. Mit demselben Apple-Account kommt der Kauf zurück. Es ist ein einmaliger Kauf – doppelt bezahlt wird nie.' },
     ],
     responseTitle: 'Antwortzeit',
@@ -893,7 +897,7 @@ const de = {
   privacy: {
     title: 'Datenschutzerklärung',
     description: 'Was Channel Timeline Viewer speichert – und was nicht.',
-    updated: 'Zuletzt aktualisiert: 5. Oktober 2026',
+    updated: 'Zuletzt aktualisiert: 6. Oktober 2026',
     sections: [
       { title: '1. Kurzfassung', body: ['Channel Timeline Viewer speichert deine Daten auf deinem Gerät. Es gibt kein Konto, und kein von uns betriebener Server erfährt, was du ansiehst. Nur die Android-Version misst mit Google Analytics für Firebase, wie die App selbst genutzt wird, damit wir sie verbessern können: erfasst werden Bildschirmnamen und die Art der Aktion, nie die Kanäle oder Videos, die du ansiehst – und du kannst es in der App abschalten. Die iOS-Version enthält keinerlei Analyse. Die kostenlose Version zeigt Werbung von Google AdMob (siehe Abschnitt 8); Pro zeigt keine.'] },
       { title: '2. Was auf dem Gerät gespeichert wird', body: [
@@ -916,7 +920,8 @@ const de = {
       { title: '4. Die Zwischenseite für die Wiedergabe', body: [
         'Damit der offizielle eingebettete Player korrekt dargestellt wird, lädt der Player-Bildschirm eine kleine statische Seite, die wir auf GitHub Pages veröffentlichen (https://kataming.github.io/ChannelTimelineViewer/player.html), und bettet den offiziellen Player darin ein. Diese Seite zeigt nur den Player; sie enthält keine Analyse und kein Tracking. Wie bei jedem Webaufruf kann GitHub übliche Verbindungsdaten (etwa die IP-Adresse) protokollieren.'] },
       { title: '5. Teilen aus anderen Apps', body: [
-        'Die Teilen-Erweiterung erhält ausschließlich die geteilte URL (oder den Text, der sie enthält). Sie wird auf dem Gerät ausgewertet und nur für die Abfrage des Kanals über die offizielle API verwendet. Sie wird nirgendwo anders hingesendet. Nicht-YouTube-URLs werden ignoriert.'] },
+        'Die Teilen-Erweiterung erhält ausschließlich die geteilte URL (oder den Text, der sie enthält). Sie wird auf dem Gerät ausgewertet und nur für die Abfrage des Kanals über die offizielle API verwendet. Sie wird nirgendwo anders hingesendet. Nicht-YouTube-URLs werden ignoriert.',
+        'Wenn du in der App „Über ‚Teilen‘ in YouTube hinzufügen“ nutzt, liest die App, sobald du in YouTube einen Link kopierst und zur App zurückkehrst, nur den kopierten YouTube-Link auf dem Gerät aus (unter iOS erscheint vorher eine Bestätigung). Das Gelesene wird nirgendwohin gesendet, und Inhalte, die nicht von YouTube stammen, werden nicht verwendet.'] },
       { title: '6. Mitteilungen', body: [
         'iOS erlaubt es nicht, aus dem Teilen-Menü direkt eine App zu starten. Nur wenn du Mitteilungen erlaubst, sendet die App direkt nach dem Teilen eine lokale Mitteilung, die du antippen kannst, um den Kanal zu öffnen. Sie enthält nur die geteilte YouTube-URL und wird auf dem Gerät verarbeitet. Werbe-, Reaktivierungs- oder Server-Push-Mitteilungen werden nie gesendet.'] },
       { title: '7. Käufe (Pro)', body: [
@@ -1065,7 +1070,7 @@ const fr = {
       { q: 'L’URL de la chaîne est refusée', a: 'Utilisez l’URL de la page de la chaîne (par exemple youtube.com/@handle ou youtube.com/channel/UC…). Une URL de vidéo convient aussi : l’app retrouve la chaîne qui l’a publiée.' },
       { q: 'La liste s’arrête ou affiche une erreur', a: 'Les très grandes chaînes prennent du temps au premier chargement. Si l’erreur mentionne un quota, réessayez plus tard : l’API YouTube Data a une limite quotidienne.' },
       { q: 'Une vidéo ne se lit pas', a: 'Certaines vidéos sont bloquées hors de YouTube par leur auteur. Utilisez alors « Ouvrir dans YouTube » dans le menu « … » (ou « Commenter sur YouTube »).' },
-      { q: 'Le partage n’ouvre pas l’app', a: 'iOS ne permet pas à une feuille de partage de lancer une app directement. Autorisez les notifications et touchez celle qui apparaît juste après le partage, ou ouvrez l’app et utilisez « Ouvrir le lien partagé ».' },
+      { q: 'Le partage n’ouvre pas l’app', a: 'iOS ne permet pas à une feuille de partage de lancer une app directement. Autorisez les notifications et touchez celle qui apparaît juste après le partage.' },
       { q: 'J’ai acheté Pro mais il n’est pas actif', a: 'Ouvrez l’écran Pro et touchez « Restaurer l’achat ». Avec le même compte Apple, l’achat revient. C’est un achat unique : vous n’êtes jamais débité deux fois.' },
     ],
     responseTitle: 'Délai de réponse',
@@ -1074,7 +1079,7 @@ const fr = {
   privacy: {
     title: 'Politique de confidentialité',
     description: 'Ce que Channel Timeline Viewer enregistre, et ce qu’il ne fait pas.',
-    updated: 'Dernière mise à jour : 5 octobre 2026',
+    updated: 'Dernière mise à jour : 6 octobre 2026',
     sections: [
       { title: '1. En bref', body: ['Channel Timeline Viewer conserve vos données sur votre appareil. Il n’y a pas de compte, et aucun serveur exploité par nous ne reçoit ce que vous regardez. Seule la version Android mesure la façon dont l’app elle-même est utilisée (Google Analytics pour Firebase) afin de l’améliorer : elle enregistre le nom de l’écran et le type d’action, jamais les chaînes ni les vidéos que vous regardez, et vous pouvez la désactiver dans l’app. La version iOS ne contient aucune analytique. La version gratuite affiche des publicités Google AdMob (voir la section 8) ; Pro n’en affiche aucune.'] },
       { title: '2. Ce qui est enregistré sur votre appareil', body: [
@@ -1097,7 +1102,8 @@ const fr = {
       { title: '4. La page relais utilisée pour la lecture', body: [
         'Pour afficher correctement le lecteur intégré officiel, l’écran de lecture charge une petite page statique que nous publions sur GitHub Pages (https://kataming.github.io/ChannelTimelineViewer/player.html) et y intègre le lecteur officiel. Cette page ne fait qu’afficher le lecteur ; elle ne contient ni analytique ni traceur. Comme pour toute requête web, GitHub peut journaliser des informations de connexion habituelles (adresse IP, par exemple).'] },
       { title: '5. Partage depuis d’autres apps', body: [
-        'L’extension de partage ne reçoit que l’URL (ou le texte la contenant) que vous partagez. Elle est analysée sur l’appareil et sert uniquement à interroger la chaîne via l’API officielle. Elle n’est envoyée nulle part ailleurs. Les URL non YouTube sont ignorées.'] },
+        'L’extension de partage ne reçoit que l’URL (ou le texte la contenant) que vous partagez. Elle est analysée sur l’appareil et sert uniquement à interroger la chaîne via l’API officielle. Elle n’est envoyée nulle part ailleurs. Les URL non YouTube sont ignorées.',
+        'Si vous utilisez « Ajouter via Partager dans YouTube » dans l’app, lorsque vous copiez un lien dans YouTube puis revenez dans l’app, celle-ci lit uniquement le lien YouTube copié, sur l’appareil (sur iOS, une confirmation s’affiche avant la lecture). Ce qui est lu n’est envoyé nulle part, et aucun contenu autre que YouTube n’est utilisé.'] },
       { title: '6. Notifications', body: [
         'iOS ne permet pas à une feuille de partage de lancer une app directement. Uniquement si vous autorisez les notifications, l’app envoie une notification locale juste après le partage afin que vous puissiez la toucher pour ouvrir la chaîne. Elle ne contient que l’URL YouTube partagée et est traitée sur l’appareil. Aucune notification promotionnelle, de relance ou push depuis un serveur n’est jamais envoyée.'] },
       { title: '7. Achats (Pro)', body: [
@@ -1246,7 +1252,7 @@ const ko = {
       { q: '채널 URL이 인식되지 않습니다', a: '채널 페이지 URL(예: youtube.com/@handle, youtube.com/channel/UC…)을 사용하세요. 동영상 URL도 괜찮습니다. 앱이 게시한 채널을 찾아 줍니다.' },
       { q: '목록이 중간에 멈추거나 오류가 납니다', a: '동영상이 아주 많은 채널은 첫 로딩에 시간이 걸립니다. 오류에 할당량(quota)이 언급되면 잠시 후 다시 시도하세요. YouTube Data API에는 하루 한도가 있습니다.' },
       { q: '동영상이 재생되지 않습니다', a: '게시자가 YouTube 외부 재생을 제한한 동영상이 있습니다. 그럴 때는 ‘…’ 메뉴의 ‘YouTube에서 열기’(또는 ‘YouTube에서 댓글 달기’)를 사용하세요.' },
-      { q: '공유해도 앱이 열리지 않습니다', a: 'iOS 사양상 공유 시트에서 앱을 직접 실행할 수 없습니다. 알림을 허용하고 공유 직후 표시되는 알림을 탭하거나, 앱을 열어 ‘공유된 URL 열기’를 사용하세요.' },
+      { q: '공유해도 앱이 열리지 않습니다', a: 'iOS 사양상 공유 시트에서 앱을 직접 실행할 수 없습니다. 알림을 허용하고 공유 직후 표시되는 알림을 탭하세요.' },
       { q: 'Pro를 구매했는데 적용되지 않습니다', a: 'Pro 화면에서 ‘구매 복원’을 탭하세요. 구매할 때와 같은 Apple 계정으로 로그인되어 있으면 복원됩니다. 1회 결제이므로 이중으로 청구되지 않습니다.' },
     ],
     responseTitle: '답변 시간',
@@ -1255,7 +1261,7 @@ const ko = {
   privacy: {
     title: '개인정보 처리방침',
     description: 'Channel Timeline Viewer가 저장하는 것과 하지 않는 것.',
-    updated: '최종 업데이트: 2026년 10월 5일',
+    updated: '최종 업데이트: 2026년 10월 6일',
     sections: [
       { title: '1. 요약', body: ['Channel Timeline Viewer는 데이터를 기기에 저장합니다. 계정이 없고, 무엇을 보는지 받아 가는 자체 서버도 없습니다. Android 버전만, 앱을 개선하기 위해 「앱 자체가 어떻게 사용되는지」를 Google 애널리틱스(Firebase)로 셉니다. 기록하는 것은 화면 이름과 조작 종류뿐이며, 보고 있는 채널이나 동영상은 기록하지 않고 앱 안에서 언제든지 끌 수 있습니다. iOS 버전에는 분석 도구가 들어 있지 않습니다. 무료 버전에는 Google AdMob 광고가 표시됩니다(8항 참조). Pro에는 광고가 표시되지 않습니다.'] },
       { title: '2. 기기에 저장하는 정보', body: [
@@ -1278,7 +1284,8 @@ const ko = {
       { title: '4. 재생 시 불러오는 중계 페이지', body: [
         '공식 임베드 플레이어를 올바르게 표시하기 위해, 재생 화면은 저희가 GitHub Pages에 게시한 작은 정적 페이지(https://kataming.github.io/ChannelTimelineViewer/player.html)를 불러와 그 안에 공식 플레이어를 임베드합니다. 이 페이지는 플레이어를 표시할 뿐 분석이나 추적 코드를 포함하지 않습니다. 일반적인 웹 요청과 마찬가지로 배포처인 GitHub에 통신 기록(IP 주소 등)이 남을 수 있습니다.'] },
       { title: '5. 다른 앱에서의 공유', body: [
-        '공유 확장은 공유한 URL(또는 URL이 포함된 텍스트)만 받습니다. 기기에서 해석해 공식 API로 채널을 조회하는 데에만 사용하며 다른 곳으로 보내지 않습니다. YouTube가 아닌 URL은 무시합니다.'] },
+        '공유 확장은 공유한 URL(또는 URL이 포함된 텍스트)만 받습니다. 기기에서 해석해 공식 API로 채널을 조회하는 데에만 사용하며 다른 곳으로 보내지 않습니다. YouTube가 아닌 URL은 무시합니다.',
+        '앱의 ‘YouTube 공유로 추가’를 사용하면, YouTube에서 링크를 복사하고 앱으로 돌아왔을 때 복사된 YouTube 링크만 기기 안에서 읽습니다(iOS에서는 읽기 전에 확인 창이 표시됩니다). 읽은 내용은 외부로 전송하지 않으며 YouTube 이외의 내용은 사용하지 않습니다.'] },
       { title: '6. 알림', body: [
         'iOS 사양상 공유 시트에서 앱을 직접 실행할 수 없습니다. 알림을 허용한 경우에 한해, 공유 직후 탭하여 열 수 있는 로컬 알림을 한 건만 표시합니다. 내용은 공유된 YouTube URL뿐이며 기기에서 처리합니다. 홍보·재방문 유도 알림이나 서버 푸시 알림은 보내지 않습니다.'] },
       { title: '7. 인앱 결제(Pro)', body: [

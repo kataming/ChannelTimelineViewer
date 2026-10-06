@@ -207,7 +207,7 @@ export default {
         },
         {
           "q": "Compartilhar pelo YouTube não abre o app",
-          "a": "O iOS não permite que uma planilha de compartilhamento abra um app diretamente. Permita notificações e toque na notificação que aparece logo depois de compartilhar, ou abra o app e use “Abrir link compartilhado”."
+          "a": "O iOS não permite que uma planilha de compartilhamento abra um app diretamente. Permita notificações e toque na notificação que aparece logo depois de compartilhar."
         },
         {
           "q": "Comprei o Pro, mas ele não está ativo",
@@ -220,7 +220,7 @@ export default {
     "privacy": {
       "title": "Política de Privacidade",
       "description": "O que o Channel Timeline Viewer armazena e o que não armazena.",
-      "updated": "Última atualização: 5 de outubro de 2026",
+      "updated": "Última atualização: 6 de outubro de 2026",
       "sections": [
         {
           "title": "1. Resumo",
@@ -262,7 +262,8 @@ export default {
         {
           "title": "5. Compartilhamento a partir de outros apps",
           "body": [
-            "A extensão de compartilhamento recebe apenas a URL (ou o texto que contém uma URL) que você compartilha. Ela é analisada no aparelho e usada para buscar o canal por meio da API oficial. Ela não é enviada para nenhum outro lugar. URLs que não são do YouTube são ignoradas."
+            "A extensão de compartilhamento recebe apenas a URL (ou o texto que contém uma URL) que você compartilha. Ela é analisada no aparelho e usada para buscar o canal por meio da API oficial. Ela não é enviada para nenhum outro lugar. URLs que não são do YouTube são ignoradas.",
+            "Ao usar “Adicionar pelo Compartilhar do YouTube” no app, quando você copia um link no YouTube e volta ao app, ele lê no aparelho apenas o link do YouTube copiado (no iOS, uma confirmação aparece antes da leitura). O que é lido não é enviado para lugar nenhum, e nenhum conteúdo que não seja do YouTube é usado."
           ]
         },
         {
@@ -389,7 +390,7 @@ export default {
           },
           {
             "title": "Compartilhe a partir do YouTube",
-            "body": "Toque no botão de compartilhar no app do YouTube ou no Safari e escolha “Abrir no Channel Timeline”. O iOS não permite que uma planilha de compartilhamento abra um app diretamente, então permita notificações e toque na notificação que aparece logo depois de compartilhar. Se preferir não fazer isso, abra o app e toque em “Abrir link compartilhado”.",
+            "body": "Toque no botão de compartilhar no app do YouTube ou no Safari e escolha “Abrir no Channel Timeline”. O iOS não permite que uma planilha de compartilhamento abra um app diretamente, então permita notificações e toque na notificação que aparece logo depois de compartilhar.",
             "only": "ios"
           },
           {
@@ -572,7 +573,7 @@ export default {
           },
           {
             "title": "Compartilhar não abre o app",
-            "body": "O iOS não permite que uma planilha de compartilhamento abra um app diretamente. Permita notificações e toque na notificação que aparece logo depois de compartilhar, ou abra o app e use “Abrir link compartilhado”.",
+            "body": "O iOS não permite que uma planilha de compartilhamento abra um app diretamente. Permita notificações e toque na notificação que aparece logo depois de compartilhar.",
             "only": "ios"
           },
           {

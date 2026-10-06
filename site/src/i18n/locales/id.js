@@ -207,7 +207,7 @@ export default {
         },
         {
           "q": "Berbagi dari YouTube tidak membuka aplikasi",
-          "a": "iOS tidak mengizinkan lembar berbagi membuka aplikasi secara langsung. Izinkan notifikasi dan ketuk notifikasi yang muncul tepat setelah berbagi, atau buka aplikasi dan gunakan “Buka tautan yang dibagikan”."
+          "a": "iOS tidak mengizinkan lembar berbagi membuka aplikasi secara langsung. Izinkan notifikasi dan ketuk notifikasi yang muncul tepat setelah berbagi."
         },
         {
           "q": "Saya sudah membeli Pro, tetapi belum aktif",
@@ -220,7 +220,7 @@ export default {
     "privacy": {
       "title": "Kebijakan Privasi",
       "description": "Apa yang disimpan dan yang tidak disimpan oleh Channel Timeline Viewer.",
-      "updated": "Terakhir diperbarui: 5 Oktober 2026",
+      "updated": "Terakhir diperbarui: 6 Oktober 2026",
       "sections": [
         {
           "title": "1. Ringkasan",
@@ -262,7 +262,8 @@ export default {
         {
           "title": "5. Berbagi dari aplikasi lain",
           "body": [
-            "Ekstensi berbagi hanya menerima URL (atau teks yang berisi URL) yang Anda bagikan. URL tersebut diurai di perangkat dan digunakan untuk mencari channel melalui API resmi. URL tersebut tidak dikirim ke tempat lain. URL selain YouTube diabaikan."
+            "Ekstensi berbagi hanya menerima URL (atau teks yang berisi URL) yang Anda bagikan. URL tersebut diurai di perangkat dan digunakan untuk mencari channel melalui API resmi. URL tersebut tidak dikirim ke tempat lain. URL selain YouTube diabaikan.",
+            "Saat Anda menggunakan “Tambahkan lewat Bagikan di YouTube” di aplikasi, aplikasi hanya membaca tautan YouTube yang disalin, di perangkat, ketika Anda menyalin tautan di YouTube lalu kembali ke aplikasi (di iOS, konfirmasi ditampilkan sebelum dibaca). Isi yang dibaca tidak dikirim ke mana pun, dan konten selain YouTube tidak digunakan."
           ]
         },
         {
@@ -389,7 +390,7 @@ export default {
           },
           {
             "title": "Bagikan dari YouTube",
-            "body": "Ketuk tombol berbagi di aplikasi YouTube atau Safari lalu pilih “Buka di Channel Timeline”. iOS tidak mengizinkan lembar berbagi membuka aplikasi secara langsung, jadi izinkan notifikasi dan ketuk notifikasi yang muncul tepat setelah berbagi. Jika tidak ingin, buka aplikasi dan ketuk “Buka tautan yang dibagikan”.",
+            "body": "Ketuk tombol berbagi di aplikasi YouTube atau Safari lalu pilih “Buka di Channel Timeline”. iOS tidak mengizinkan lembar berbagi membuka aplikasi secara langsung, jadi izinkan notifikasi dan ketuk notifikasi yang muncul tepat setelah berbagi.",
             "only": "ios"
           },
           {
@@ -572,7 +573,7 @@ export default {
           },
           {
             "title": "Berbagi tidak membuka aplikasi",
-            "body": "iOS tidak mengizinkan lembar berbagi membuka aplikasi secara langsung. Izinkan notifikasi dan ketuk notifikasi yang muncul tepat setelah berbagi, atau buka aplikasi dan gunakan “Buka tautan yang dibagikan”.",
+            "body": "iOS tidak mengizinkan lembar berbagi membuka aplikasi secara langsung. Izinkan notifikasi dan ketuk notifikasi yang muncul tepat setelah berbagi.",
             "only": "ios"
           },
           {

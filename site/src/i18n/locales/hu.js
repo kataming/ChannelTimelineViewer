@@ -207,7 +207,7 @@ export default {
         },
         {
           "q": "A YouTube-ról megosztva nem nyílik meg az alkalmazás",
-          "a": "Az iOS nem engedi, hogy a megosztási menü közvetlenül elindítson egy alkalmazást. Engedélyezd az értesítéseket, és koppints a megosztás után azonnal megjelenő értesítésre, vagy nyisd meg az alkalmazást, és használd a „Megosztott link megnyitása” lehetőséget."
+          "a": "Az iOS nem engedi, hogy a megosztási menü közvetlenül elindítson egy alkalmazást. Engedélyezd az értesítéseket, és koppints a megosztás után azonnal megjelenő értesítésre."
         },
         {
           "q": "Megvettem a Pro verziót, de nem aktív",
@@ -220,7 +220,7 @@ export default {
     "privacy": {
       "title": "Adatvédelmi irányelvek",
       "description": "Mit tárol és mit nem tárol a Channel Timeline Viewer.",
-      "updated": "Utolsó frissítés: 2026. október 5.",
+      "updated": "Utolsó frissítés: 2026. október 6.",
       "sections": [
         {
           "title": "1. Összefoglalás",
@@ -262,7 +262,8 @@ export default {
         {
           "title": "5. Megosztás más alkalmazásokból",
           "body": [
-            "A megosztási bővítmény csak az általad megosztott URL-t (vagy URL-t tartalmazó szöveget) kapja meg. Ezt az eszköz dolgozza fel, és a csatorna hivatalos API-n keresztüli megkeresésére használja. Máshová nem kerül elküldésre. A nem YouTube-os URL-eket figyelmen kívül hagyja."
+            "A megosztási bővítmény csak az általad megosztott URL-t (vagy URL-t tartalmazó szöveget) kapja meg. Ezt az eszköz dolgozza fel, és a csatorna hivatalos API-n keresztüli megkeresésére használja. Máshová nem kerül elküldésre. A nem YouTube-os URL-eket figyelmen kívül hagyja.",
+            "Ha az alkalmazásban a „Hozzáadás a YouTube Megosztás funkciójával” lehetőséget használod, akkor amikor a YouTube-ban kimásolsz egy linket, és visszatérsz az alkalmazásba, az alkalmazás az eszközön csak a kimásolt YouTube-linket olvassa be (iOS-en a beolvasás előtt megerősítés jelenik meg). A beolvasott tartalom sehová nem kerül elküldésre, és a YouTube-on kívüli tartalmat nem használja."
           ]
         },
         {
@@ -389,7 +390,7 @@ export default {
           },
           {
             "title": "Megosztás a YouTube-ról",
-            "body": "Koppints a megosztás gombra a YouTube alkalmazásban vagy a Safariban, és válaszd a „Megnyitás itt: Channel Timeline” lehetőséget. Az iOS nem engedi, hogy a megosztási menü közvetlenül elindítson egy alkalmazást, ezért engedélyezd az értesítéseket, és koppints a megosztás után azonnal megjelenő értesítésre. Ha ezt nem szeretnéd, nyisd meg az alkalmazást, és koppints a „Megosztott link megnyitása” gombra.",
+            "body": "Koppints a megosztás gombra a YouTube alkalmazásban vagy a Safariban, és válaszd a „Megnyitás itt: Channel Timeline” lehetőséget. Az iOS nem engedi, hogy a megosztási menü közvetlenül elindítson egy alkalmazást, ezért engedélyezd az értesítéseket, és koppints a megosztás után azonnal megjelenő értesítésre.",
             "only": "ios"
           },
           {
@@ -572,7 +573,7 @@ export default {
           },
           {
             "title": "Megosztáskor nem nyílik meg az alkalmazás",
-            "body": "Az iOS nem engedi, hogy a megosztási menü közvetlenül elindítson egy alkalmazást. Engedélyezd az értesítéseket, és koppints a megosztás után azonnal megjelenő értesítésre, vagy nyisd meg az alkalmazást, és használd a „Megosztott link megnyitása” lehetőséget.",
+            "body": "Az iOS nem engedi, hogy a megosztási menü közvetlenül elindítson egy alkalmazást. Engedélyezd az értesítéseket, és koppints a megosztás után azonnal megjelenő értesítésre.",
             "only": "ios"
           },
           {

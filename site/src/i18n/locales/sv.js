@@ -207,7 +207,7 @@ export default {
         },
         {
           "q": "Delning från YouTube öppnar inte appen",
-          "a": "iOS tillåter inte att ett delningsblad startar en app direkt. Tillåt notiser och tryck på notisen som visas direkt efter att du har delat, eller öppna appen och använd ”Öppna delad länk”."
+          "a": "iOS tillåter inte att ett delningsblad startar en app direkt. Tillåt notiser och tryck på notisen som visas direkt efter att du har delat."
         },
         {
           "q": "Jag har köpt Pro men det är inte aktivt",
@@ -220,7 +220,7 @@ export default {
     "privacy": {
       "title": "Integritetspolicy",
       "description": "Vad Channel Timeline Viewer sparar och vad den inte sparar.",
-      "updated": "Senast uppdaterad: 5 oktober 2026",
+      "updated": "Senast uppdaterad: 6 oktober 2026",
       "sections": [
         {
           "title": "1. Sammanfattning",
@@ -262,7 +262,8 @@ export default {
         {
           "title": "5. Delning från andra appar",
           "body": [
-            "Delningstillägget tar bara emot den URL (eller text som innehåller en URL) som du delar. Den tolkas på enheten och används för att slå upp kanalen via det officiella API:et. Den skickas inte någon annanstans. URL:er som inte kommer från YouTube ignoreras."
+            "Delningstillägget tar bara emot den URL (eller text som innehåller en URL) som du delar. Den tolkas på enheten och används för att slå upp kanalen via det officiella API:et. Den skickas inte någon annanstans. URL:er som inte kommer från YouTube ignoreras.",
+            "När du använder ”Lägg till via Dela i YouTube” i appen läser appen, när du kopierar en länk i YouTube och går tillbaka till appen, bara den kopierade YouTube-länken på enheten (på iOS visas en bekräftelse innan den läses). Det som läses skickas ingenstans, och inget annat än YouTube-innehåll används."
           ]
         },
         {
@@ -389,7 +390,7 @@ export default {
           },
           {
             "title": "Dela från YouTube",
-            "body": "Tryck på delningsknappen i YouTube-appen eller Safari och välj ”Öppna i Channel Timeline”. iOS låter inte ett delningsblad starta en app direkt, så tillåt notiser och tryck på notisen som visas direkt efter att du har delat. Om du hellre vill slippa det öppnar du appen och trycker på ”Öppna delad länk”.",
+            "body": "Tryck på delningsknappen i YouTube-appen eller Safari och välj ”Öppna i Channel Timeline”. iOS låter inte ett delningsblad starta en app direkt, så tillåt notiser och tryck på notisen som visas direkt efter att du har delat.",
             "only": "ios"
           },
           {
@@ -572,7 +573,7 @@ export default {
           },
           {
             "title": "Delning öppnar inte appen",
-            "body": "iOS tillåter inte att ett delningsblad startar en app direkt. Tillåt notiser och tryck på notisen som visas direkt efter att du har delat, eller öppna appen och använd ”Öppna delad länk”.",
+            "body": "iOS tillåter inte att ett delningsblad startar en app direkt. Tillåt notiser och tryck på notisen som visas direkt efter att du har delat.",
             "only": "ios"
           },
           {

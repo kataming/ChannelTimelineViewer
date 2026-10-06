@@ -207,7 +207,7 @@ export default {
         },
         {
           "q": "Udostępnianie z YouTube nie otwiera aplikacji",
-          "a": "iOS nie pozwala arkuszowi udostępniania bezpośrednio uruchamiać aplikacji. Zezwól na powiadomienia i stuknij powiadomienie, które pojawi się zaraz po udostępnieniu, albo otwórz aplikację i użyj „Otwórz udostępniony link”."
+          "a": "iOS nie pozwala arkuszowi udostępniania bezpośrednio uruchamiać aplikacji. Zezwól na powiadomienia i stuknij powiadomienie, które pojawi się zaraz po udostępnieniu."
         },
         {
           "q": "Kupiłem Pro, ale nie jest aktywne",
@@ -220,7 +220,7 @@ export default {
     "privacy": {
       "title": "Polityka prywatności",
       "description": "Co Channel Timeline Viewer przechowuje, a czego nie.",
-      "updated": "Ostatnia aktualizacja: 5 października 2026",
+      "updated": "Ostatnia aktualizacja: 6 października 2026",
       "sections": [
         {
           "title": "1. Podsumowanie",
@@ -262,7 +262,8 @@ export default {
         {
           "title": "5. Udostępnianie z innych aplikacji",
           "body": [
-            "Rozszerzenie udostępniania otrzymuje tylko udostępniany adres URL (lub tekst zawierający adres URL). Jest on analizowany na urządzeniu i używany do wyszukania kanału przez oficjalne API. Nie jest nigdzie indziej wysyłany. Adresy URL spoza YouTube są ignorowane."
+            "Rozszerzenie udostępniania otrzymuje tylko udostępniany adres URL (lub tekst zawierający adres URL). Jest on analizowany na urządzeniu i używany do wyszukania kanału przez oficjalne API. Nie jest nigdzie indziej wysyłany. Adresy URL spoza YouTube są ignorowane.",
+            "Gdy używasz w aplikacji funkcji „Dodaj przez Udostępnij w YouTube”, po skopiowaniu linku w YouTube i powrocie do aplikacji aplikacja odczytuje na urządzeniu tylko skopiowany link do YouTube (w iOS przed odczytem wyświetla się potwierdzenie). Odczytana treść nie jest nigdzie wysyłana, a treści inne niż z YouTube nie są używane."
           ]
         },
         {
@@ -389,7 +390,7 @@ export default {
           },
           {
             "title": "Udostępnianie z YouTube",
-            "body": "Stuknij przycisk udostępniania w aplikacji YouTube lub w Safari i wybierz „Otwórz w Channel Timeline”. iOS nie pozwala arkuszowi udostępniania bezpośrednio uruchamiać aplikacji, więc zezwól na powiadomienia i stuknij powiadomienie, które pojawi się zaraz po udostępnieniu. Jeśli wolisz tego nie robić, otwórz aplikację i stuknij „Otwórz udostępniony link”.",
+            "body": "Stuknij przycisk udostępniania w aplikacji YouTube lub w Safari i wybierz „Otwórz w Channel Timeline”. iOS nie pozwala arkuszowi udostępniania bezpośrednio uruchamiać aplikacji, więc zezwól na powiadomienia i stuknij powiadomienie, które pojawi się zaraz po udostępnieniu.",
             "only": "ios"
           },
           {
@@ -572,7 +573,7 @@ export default {
           },
           {
             "title": "Udostępnianie nie otwiera aplikacji",
-            "body": "iOS nie pozwala arkuszowi udostępniania bezpośrednio uruchamiać aplikacji. Zezwól na powiadomienia i stuknij powiadomienie, które pojawi się zaraz po udostępnieniu, albo otwórz aplikację i użyj „Otwórz udostępniony link”.",
+            "body": "iOS nie pozwala arkuszowi udostępniania bezpośrednio uruchamiać aplikacji. Zezwól na powiadomienia i stuknij powiadomienie, które pojawi się zaraz po udostępnieniu.",
             "only": "ios"
           },
           {

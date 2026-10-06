@@ -29,7 +29,7 @@ export default {
       steps: [
         { title: 'Paste a URL', body: 'On the first screen, put a channel URL (for example youtube.com/@handle or youtube.com/channel/UC…) into the “Channel URL” field and tap “Get videos”. A video URL works too — the app finds the channel that published it.' },
         { title: 'Large channels take a while', body: 'The first load fetches every upload, so channels with many videos take longer. Just wait while “Loading videos...” is showing.' },
-        { title: 'Share from YouTube', body: 'Tap the share button in the YouTube app or Safari and choose “Open in Channel Timeline”. iOS does not let a share sheet launch an app directly, so allow notifications and tap the notification that appears right after sharing. If you prefer not to, open the app and tap “Open shared link”.', only: 'ios' },
+        { title: 'Share from YouTube', body: 'Tap the share button in the YouTube app or Safari and choose “Open in Channel Timeline”. iOS does not let a share sheet launch an app directly, so allow notifications and tap the notification that appears right after sharing.', only: 'ios' },
         { title: 'Put it at the front of the share sheet', body: 'iOS decides the order of the share sheet, so the app cannot set it. Scroll the row of apps to the far right → “More” → “Edit” → tap “+” next to “Open in Channel Timeline” → drag it to the top → “Done”.', only: 'ios' },
         { title: 'Share from YouTube', body: 'Tap the share button in the YouTube app or your browser and choose “Open in Channel Timeline”. The channel’s video list opens straight away — no notification permission needed.', only: 'android' },
         { title: 'Channels stay available', body: 'Channels you have opened appear under “Recent channels”. Next time they open immediately, and new uploads are checked in the background.' },
@@ -101,7 +101,7 @@ export default {
         { title: 'The channel URL is not accepted', body: 'Use the URL of the channel page (youtube.com/@handle, youtube.com/channel/UC…). A video URL works too.' },
         { title: 'The list stops partway or shows an error', body: 'Very large channels take a while on the first load. If the error mentions quota, try again later — the YouTube API has a daily limit.' },
         { title: 'A video will not play', body: 'Some videos are blocked from playing outside YouTube by their owner. Use “Open in YouTube” in the “…” menu (or “Comment on YouTube”) for those.' },
-        { title: 'Sharing does not open the app', body: 'iOS does not allow a share sheet to launch an app directly. Allow notifications and tap the notification that appears right after sharing, or open the app and use “Open shared link”.', only: 'ios' },
+        { title: 'Sharing does not open the app', body: 'iOS does not allow a share sheet to launch an app directly. Allow notifications and tap the notification that appears right after sharing.', only: 'ios' },
         { title: 'Volume differs between videos', body: 'That comes from the recording level of the videos themselves and the app cannot even it out. YouTube’s “Stable Volume” is not available in embedded players, so use “Open in YouTube” in the “…” menu for videos where it bothers you.' },
         { title: 'My progress disappeared', body: 'Watched history, progress, and notes are stored on your device only. They are erased when you delete the app, or when you delete or replace a channel, and cannot be recovered.' },
       ],

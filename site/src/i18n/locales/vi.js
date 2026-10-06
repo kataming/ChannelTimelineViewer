@@ -207,7 +207,7 @@ export default {
         },
         {
           "q": "Chia sẻ từ YouTube nhưng ứng dụng không mở",
-          "a": "iOS không cho phép bảng chia sẻ mở ứng dụng trực tiếp. Hãy cho phép thông báo và nhấn vào thông báo xuất hiện ngay sau khi chia sẻ, hoặc mở ứng dụng và dùng “Mở liên kết đã chia sẻ”."
+          "a": "iOS không cho phép bảng chia sẻ mở ứng dụng trực tiếp. Hãy cho phép thông báo và nhấn vào thông báo xuất hiện ngay sau khi chia sẻ."
         },
         {
           "q": "Tôi đã mua Pro nhưng chưa được kích hoạt",
@@ -220,7 +220,7 @@ export default {
     "privacy": {
       "title": "Chính sách quyền riêng tư",
       "description": "Những gì Channel Timeline Viewer lưu trữ và không lưu trữ.",
-      "updated": "Cập nhật lần cuối: ngày 5 tháng 10 năm 2026",
+      "updated": "Cập nhật lần cuối: ngày 6 tháng 10 năm 2026",
       "sections": [
         {
           "title": "1. Tóm tắt",
@@ -262,7 +262,8 @@ export default {
         {
           "title": "5. Chia sẻ từ ứng dụng khác",
           "body": [
-            "Tiện ích mở rộng chia sẻ chỉ nhận URL (hoặc văn bản chứa URL) mà bạn chia sẻ. Nội dung này được phân tích trên thiết bị và dùng để tra cứu kênh thông qua API chính thức. Nó không được gửi đi bất kỳ nơi nào khác. Các URL không thuộc YouTube sẽ bị bỏ qua."
+            "Tiện ích mở rộng chia sẻ chỉ nhận URL (hoặc văn bản chứa URL) mà bạn chia sẻ. Nội dung này được phân tích trên thiết bị và dùng để tra cứu kênh thông qua API chính thức. Nó không được gửi đi bất kỳ nơi nào khác. Các URL không thuộc YouTube sẽ bị bỏ qua.",
+            "Khi bạn dùng “Thêm qua nút Chia sẻ trong YouTube” trong ứng dụng, lúc bạn sao chép một liên kết trong YouTube rồi quay lại ứng dụng, ứng dụng chỉ đọc liên kết YouTube đã sao chép ngay trên thiết bị (trên iOS, một hộp xác nhận sẽ hiện ra trước khi đọc). Nội dung đã đọc không được gửi đi đâu và mọi nội dung không thuộc YouTube đều không được sử dụng."
           ]
         },
         {
@@ -389,7 +390,7 @@ export default {
           },
           {
             "title": "Chia sẻ từ YouTube",
-            "body": "Nhấn nút chia sẻ trong ứng dụng YouTube hoặc Safari và chọn “Mở bằng Channel Timeline”. iOS không cho phép bảng chia sẻ mở ứng dụng trực tiếp, vì vậy hãy cho phép thông báo và nhấn vào thông báo xuất hiện ngay sau khi chia sẻ. Nếu không muốn dùng thông báo, hãy mở ứng dụng và nhấn “Mở liên kết đã chia sẻ”.",
+            "body": "Nhấn nút chia sẻ trong ứng dụng YouTube hoặc Safari và chọn “Mở bằng Channel Timeline”. iOS không cho phép bảng chia sẻ mở ứng dụng trực tiếp, vì vậy hãy cho phép thông báo và nhấn vào thông báo xuất hiện ngay sau khi chia sẻ.",
             "only": "ios"
           },
           {
@@ -572,7 +573,7 @@ export default {
           },
           {
             "title": "Chia sẻ nhưng ứng dụng không mở",
-            "body": "iOS không cho phép bảng chia sẻ mở ứng dụng trực tiếp. Hãy cho phép thông báo và nhấn vào thông báo xuất hiện ngay sau khi chia sẻ, hoặc mở ứng dụng và dùng “Mở liên kết đã chia sẻ”.",
+            "body": "iOS không cho phép bảng chia sẻ mở ứng dụng trực tiếp. Hãy cho phép thông báo và nhấn vào thông báo xuất hiện ngay sau khi chia sẻ.",
             "only": "ios"
           },
           {

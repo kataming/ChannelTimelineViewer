@@ -207,7 +207,7 @@ export default {
         },
         {
           "q": "Partajarea din YouTube nu deschide aplicația",
-          "a": "iOS nu permite ca foaia de partajare să lanseze direct o aplicație. Permiteți notificările și atingeți notificarea care apare imediat după partajare, sau deschideți aplicația și folosiți „Deschideți linkul partajat”."
+          "a": "iOS nu permite ca foaia de partajare să lanseze direct o aplicație. Permiteți notificările și atingeți notificarea care apare imediat după partajare."
         },
         {
           "q": "Am cumpărat Pro, dar nu este activ",
@@ -220,7 +220,7 @@ export default {
     "privacy": {
       "title": "Politica de confidențialitate",
       "description": "Ce stochează Channel Timeline Viewer și ce nu.",
-      "updated": "Ultima actualizare: 5 octombrie 2026",
+      "updated": "Ultima actualizare: 6 octombrie 2026",
       "sections": [
         {
           "title": "1. Rezumat",
@@ -262,7 +262,8 @@ export default {
         {
           "title": "5. Partajarea din alte aplicații",
           "body": [
-            "Extensia de partajare primește doar adresa URL (sau textul care conține o adresă URL) pe care o partajați. Aceasta este analizată pe dispozitiv și folosită pentru a căuta canalul prin API-ul oficial. Nu este trimisă nicăieri altundeva. Adresele URL care nu sunt de YouTube sunt ignorate."
+            "Extensia de partajare primește doar adresa URL (sau textul care conține o adresă URL) pe care o partajați. Aceasta este analizată pe dispozitiv și folosită pentru a căuta canalul prin API-ul oficial. Nu este trimisă nicăieri altundeva. Adresele URL care nu sunt de YouTube sunt ignorate.",
+            "Când folosiți „Adăugați prin Distribuiți din YouTube” în aplicație, după ce copiați un link în YouTube și reveniți în aplicație, aceasta citește pe dispozitiv doar linkul YouTube copiat (pe iOS se afișează o confirmare înainte de citire). Ce se citește nu este trimis nicăieri și nu se folosește niciun conținut în afară de YouTube."
           ]
         },
         {
@@ -389,7 +390,7 @@ export default {
           },
           {
             "title": "Partajare din YouTube",
-            "body": "Atingeți butonul de partajare din aplicația YouTube sau din Safari și alegeți „Deschideți în Channel Timeline”. iOS nu permite ca foaia de partajare să lanseze direct o aplicație, așa că permiteți notificările și atingeți notificarea care apare imediat după partajare. Dacă preferați să nu le permiteți, deschideți aplicația și atingeți „Deschideți linkul partajat”.",
+            "body": "Atingeți butonul de partajare din aplicația YouTube sau din Safari și alegeți „Deschideți în Channel Timeline”. iOS nu permite ca foaia de partajare să lanseze direct o aplicație, așa că permiteți notificările și atingeți notificarea care apare imediat după partajare.",
             "only": "ios"
           },
           {
@@ -572,7 +573,7 @@ export default {
           },
           {
             "title": "Partajarea nu deschide aplicația",
-            "body": "iOS nu permite ca foaia de partajare să lanseze direct o aplicație. Permiteți notificările și atingeți notificarea care apare imediat după partajare, sau deschideți aplicația și folosiți „Deschideți linkul partajat”.",
+            "body": "iOS nu permite ca foaia de partajare să lanseze direct o aplicație. Permiteți notificările și atingeți notificarea care apare imediat după partajare.",
             "only": "ios"
           },
           {

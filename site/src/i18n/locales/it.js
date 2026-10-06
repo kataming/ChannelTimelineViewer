@@ -207,7 +207,7 @@ export default {
         },
         {
           "q": "Condividendo da YouTube l’app non si apre",
-          "a": "iOS non consente a un menu di condivisione di avviare direttamente un’app. Consenti le notifiche e tocca quella che appare subito dopo la condivisione, oppure apri l’app e usa «Apri il link condiviso»."
+          "a": "iOS non consente a un menu di condivisione di avviare direttamente un’app. Consenti le notifiche e tocca quella che appare subito dopo la condivisione."
         },
         {
           "q": "Ho acquistato Pro ma non è attivo",
@@ -220,7 +220,7 @@ export default {
     "privacy": {
       "title": "Informativa sulla privacy",
       "description": "Cosa salva Channel Timeline Viewer e cosa no.",
-      "updated": "Ultimo aggiornamento: 5 ottobre 2026",
+      "updated": "Ultimo aggiornamento: 6 ottobre 2026",
       "sections": [
         {
           "title": "1. Sintesi",
@@ -262,7 +262,8 @@ export default {
         {
           "title": "5. Condivisione da altre app",
           "body": [
-            "L’estensione di condivisione riceve solo l’URL (o il testo contenente un URL) che condividi. Viene analizzato sul dispositivo e usato per cercare il canale tramite l’API ufficiale. Non viene inviato altrove. Gli URL non di YouTube vengono ignorati."
+            "L’estensione di condivisione riceve solo l’URL (o il testo contenente un URL) che condividi. Viene analizzato sul dispositivo e usato per cercare il canale tramite l’API ufficiale. Non viene inviato altrove. Gli URL non di YouTube vengono ignorati.",
+            "Se usi «Aggiungi con Condividi in YouTube» nell’app, quando copi un link in YouTube e torni all’app, questa legge sul dispositivo solo il link di YouTube copiato (su iOS viene mostrata una conferma prima della lettura). Ciò che viene letto non viene inviato da nessuna parte e non viene usato alcun contenuto diverso da YouTube."
           ]
         },
         {
@@ -389,7 +390,7 @@ export default {
           },
           {
             "title": "Condividi da YouTube",
-            "body": "Tocca il pulsante di condivisione nell’app YouTube o in Safari e scegli «Apri in Channel Timeline». iOS non consente a un menu di condivisione di avviare direttamente un’app, quindi consenti le notifiche e tocca quella che appare subito dopo la condivisione. Se preferisci di no, apri l’app e tocca «Apri il link condiviso».",
+            "body": "Tocca il pulsante di condivisione nell’app YouTube o in Safari e scegli «Apri in Channel Timeline». iOS non consente a un menu di condivisione di avviare direttamente un’app, quindi consenti le notifiche e tocca quella che appare subito dopo la condivisione.",
             "only": "ios"
           },
           {
@@ -572,7 +573,7 @@ export default {
           },
           {
             "title": "La condivisione non apre l’app",
-            "body": "iOS non consente a un menu di condivisione di avviare direttamente un’app. Consenti le notifiche e tocca quella che appare subito dopo la condivisione, oppure apri l’app e usa «Apri il link condiviso».",
+            "body": "iOS non consente a un menu di condivisione di avviare direttamente un’app. Consenti le notifiche e tocca quella che appare subito dopo la condivisione.",
             "only": "ios"
           },
           {

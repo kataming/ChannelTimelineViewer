@@ -28,7 +28,7 @@ export default {
       steps: [
         { title: '粘贴网址', body: '在首屏的「频道网址」栏输入频道网址（例如 youtube.com/@handle、youtube.com/channel/UC…），然后点按「获取视频」。视频网址也可以，应用会自动找到发布该视频的频道。' },
         { title: '视频多的频道需要时间', body: '首次会取回全部投稿视频，视频越多等待越久。显示「正在获取视频...」期间请稍候。' },
-        { title: '从 YouTube 分享', body: '在 YouTube 应用或 Safari 中点按分享按钮，选择「在 Channel Timeline 中打开」。由于 iOS 的限制，分享面板无法直接启动应用，因此建议允许通知，分享后点按立即出现的通知即可打开。若不允许通知，请打开应用并点按「打开分享的链接」。', only: 'ios' },
+        { title: '从 YouTube 分享', body: '在 YouTube 应用或 Safari 中点按分享按钮，选择「在 Channel Timeline 中打开」。由于 iOS 的限制，分享面板无法直接启动应用，因此建议允许通知，分享后点按立即出现的通知即可打开。', only: 'ios' },
         { title: '固定到分享面板前排', body: '分享目标的顺序由 iOS 决定，应用无法指定。将分享面板中应用图标一行滑到最右 →「更多」→ 右上角「编辑」→ 点按「在 Channel Timeline 中打开」左侧的「＋」→ 拖到最上方 →「完成」。', only: 'ios' },
         { title: '从 YouTube 分享', body: '在 YouTube 应用或浏览器中点按分享按钮，选择「在 Channel Timeline 中打开」，该频道的视频列表会直接打开，无需通知权限。', only: 'android' },
         { title: '添加过的频道会保留', body: '打开过的频道会出现在「最近使用的频道」中。下次可立即打开，新视频会在后台检查。' },
@@ -100,7 +100,7 @@ export default {
         { title: '频道网址无法识别', body: '请使用频道页面的网址（youtube.com/@handle、youtube.com/channel/UC… 等）。视频网址也可以。' },
         { title: '列表中途停止或出现错误', body: '视频数量非常多的频道首次加载会较慢。若错误中提到配额（quota），请稍后再试——YouTube 的 API 有每日上限。' },
         { title: '视频无法播放', body: '部分视频被发布者限制在 YouTube 之外播放。此时请使用「…」菜单中的「在 YouTube 中打开」（或「在 YouTube 上评论」）。' },
-        { title: '分享后应用没有打开', body: '由于 iOS 的限制，分享面板无法直接启动应用。请允许通知并点按分享后立即出现的通知，或打开应用使用「打开分享的链接」。', only: 'ios' },
+        { title: '分享后应用没有打开', body: '由于 iOS 的限制，分享面板无法直接启动应用。请允许通知并点按分享后立即出现的通知。', only: 'ios' },
         { title: '各个视频音量不一致', body: '这源于视频本身的录音电平差异，应用无法统一。YouTube 的「稳定音量」在嵌入式播放器中无法使用，因此介意的视频请通过「…」菜单中的「在 YouTube 中打开」观看。' },
         { title: '进度消失了', body: '已观看记录、进度与备注仅保存在设备内。删除应用，或删除、替换频道时会一并清除，且无法恢复。' },
       ],

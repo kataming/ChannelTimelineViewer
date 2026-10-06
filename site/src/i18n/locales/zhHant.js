@@ -207,7 +207,7 @@ export default {
         },
         {
           "q": "從 YouTube 分享後沒有開啟 App",
-          "a": "iOS 不允許從分享表單直接啟動 App。請允許通知，並點一下分享後立即出現的通知；或是開啟 App 並使用「開啟分享的連結」。"
+          "a": "iOS 不允許從分享表單直接啟動 App。請允許通知，並點一下分享後立即出現的通知。"
         },
         {
           "q": "已購買 Pro 但沒有啟用",
@@ -220,7 +220,7 @@ export default {
     "privacy": {
       "title": "隱私權政策",
       "description": "Channel Timeline Viewer 會儲存哪些資料、不會儲存哪些資料。",
-      "updated": "最後更新：2026 年 10 月 5 日",
+      "updated": "最後更新：2026 年 10 月 6 日",
       "sections": [
         {
           "title": "1. 摘要",
@@ -262,7 +262,8 @@ export default {
         {
           "title": "5. 從其他 App 分享",
           "body": [
-            "分享延伸功能只會接收你分享的網址（或包含網址的文字）。這些內容會在裝置上解析，並用於透過官方 API 查詢頻道，不會傳送到其他任何地方。非 YouTube 的網址會被忽略。"
+            "分享延伸功能只會接收你分享的網址（或包含網址的文字）。這些內容會在裝置上解析，並用於透過官方 API 查詢頻道，不會傳送到其他任何地方。非 YouTube 的網址會被忽略。",
+            "使用 App 中的「透過 YouTube 的分享新增」時，在 YouTube 複製連結並回到 App 後，App 只會在裝置上讀取所複製的 YouTube 連結（在 iOS 上，讀取前會顯示確認）。讀取的內容不會傳送到外部，也不會使用 YouTube 以外的內容。"
           ]
         },
         {
@@ -389,7 +390,7 @@ export default {
           },
           {
             "title": "從 YouTube 分享",
-            "body": "在 YouTube App 或 Safari 中點分享按鈕，然後選擇「以 Channel Timeline 開啟」。iOS 不允許從分享表單直接啟動 App，因此請允許通知，並點一下分享後立即出現的通知。如果不想使用通知，也可以開啟 App 並點「開啟分享的連結」。",
+            "body": "在 YouTube App 或 Safari 中點分享按鈕，然後選擇「以 Channel Timeline 開啟」。iOS 不允許從分享表單直接啟動 App，因此請允許通知，並點一下分享後立即出現的通知。",
             "only": "ios"
           },
           {
@@ -572,7 +573,7 @@ export default {
           },
           {
             "title": "分享後沒有開啟 App",
-            "body": "iOS 不允許從分享表單直接啟動 App。請允許通知，並點一下分享後立即出現的通知；或是開啟 App 並使用「開啟分享的連結」。",
+            "body": "iOS 不允許從分享表單直接啟動 App。請允許通知，並點一下分享後立即出現的通知。",
             "only": "ios"
           },
           {

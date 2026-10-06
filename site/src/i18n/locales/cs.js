@@ -207,7 +207,7 @@ export default {
         },
         {
           "q": "Sdílení z YouTube neotevře aplikaci",
-          "a": "iOS neumožňuje, aby nabídka sdílení aplikaci spustila přímo. Povolte oznámení a klepněte na oznámení, které se zobrazí hned po sdílení, nebo otevřete aplikaci a použijte „Otevřít sdílený odkaz“."
+          "a": "iOS neumožňuje, aby nabídka sdílení aplikaci spustila přímo. Povolte oznámení a klepněte na oznámení, které se zobrazí hned po sdílení."
         },
         {
           "q": "Koupil(a) jsem Pro, ale není aktivní",
@@ -220,7 +220,7 @@ export default {
     "privacy": {
       "title": "Zásady ochrany osobních údajů",
       "description": "Co Channel Timeline Viewer ukládá a co ne.",
-      "updated": "Poslední aktualizace: 5. října 2026",
+      "updated": "Poslední aktualizace: 6. října 2026",
       "sections": [
         {
           "title": "1. Shrnutí",
@@ -262,7 +262,8 @@ export default {
         {
           "title": "5. Sdílení z jiných aplikací",
           "body": [
-            "Rozšíření pro sdílení přijímá pouze adresu URL (nebo text obsahující adresu URL), kterou sdílíte. Zpracuje se v zařízení a použije se k vyhledání kanálu prostřednictvím oficiálního API. Nikam jinam se neodesílá. Adresy URL mimo YouTube se ignorují."
+            "Rozšíření pro sdílení přijímá pouze adresu URL (nebo text obsahující adresu URL), kterou sdílíte. Zpracuje se v zařízení a použije se k vyhledání kanálu prostřednictvím oficiálního API. Nikam jinam se neodesílá. Adresy URL mimo YouTube se ignorují.",
+            "Když v aplikaci použijete „Přidat přes Sdílet v YouTube“, aplikace po zkopírování odkazu v YouTube a návratu do aplikace přečte v zařízení pouze zkopírovaný odkaz na YouTube (v iOS se před přečtením zobrazí potvrzení). Přečtený obsah se nikam neodesílá a nic jiného než obsah z YouTube se nepoužívá."
           ]
         },
         {
@@ -389,7 +390,7 @@ export default {
           },
           {
             "title": "Sdílení z YouTube",
-            "body": "Klepněte na tlačítko sdílení v aplikaci YouTube nebo v Safari a zvolte „Otevřít v Channel Timeline“. iOS neumožňuje, aby nabídka sdílení aplikaci spustila přímo, proto povolte oznámení a klepněte na oznámení, které se zobrazí hned po sdílení. Pokud to nechcete, otevřete aplikaci a klepněte na „Otevřít sdílený odkaz“.",
+            "body": "Klepněte na tlačítko sdílení v aplikaci YouTube nebo v Safari a zvolte „Otevřít v Channel Timeline“. iOS neumožňuje, aby nabídka sdílení aplikaci spustila přímo, proto povolte oznámení a klepněte na oznámení, které se zobrazí hned po sdílení.",
             "only": "ios"
           },
           {
@@ -572,7 +573,7 @@ export default {
           },
           {
             "title": "Sdílení neotevře aplikaci",
-            "body": "iOS neumožňuje, aby nabídka sdílení aplikaci spustila přímo. Povolte oznámení a klepněte na oznámení, které se zobrazí hned po sdílení, nebo otevřete aplikaci a použijte „Otevřít sdílený odkaz“.",
+            "body": "iOS neumožňuje, aby nabídka sdílení aplikaci spustila přímo. Povolte oznámení a klepněte na oznámení, které se zobrazí hned po sdílení.",
             "only": "ios"
           },
           {

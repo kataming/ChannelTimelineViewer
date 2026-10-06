@@ -207,7 +207,7 @@ export default {
         },
         {
           "q": "Hindi nabubuksan ang app kapag nag-share mula sa YouTube",
-          "a": "Hindi pinapayagan ng iOS na direktang magbukas ng app ang share sheet. Payagan ang mga notification at i-tap ang notification na lalabas pagkatapos mong mag-share, o buksan ang app at gamitin ang “Buksan ang ibinahaging link”."
+          "a": "Hindi pinapayagan ng iOS na direktang magbukas ng app ang share sheet. Payagan ang mga notification at i-tap ang notification na lalabas pagkatapos mong mag-share."
         },
         {
           "q": "Bumili ako ng Pro pero hindi ito aktibo",
@@ -220,7 +220,7 @@ export default {
     "privacy": {
       "title": "Patakaran sa Privacy",
       "description": "Kung ano ang iniimbak at hindi iniimbak ng Channel Timeline Viewer.",
-      "updated": "Huling na-update: Oktubre 5, 2026",
+      "updated": "Huling na-update: Oktubre 6, 2026",
       "sections": [
         {
           "title": "1. Buod",
@@ -262,7 +262,8 @@ export default {
         {
           "title": "5. Pag-share mula sa ibang app",
           "body": [
-            "Ang share extension ay tumatanggap lang ng URL (o text na may URL) na ibinabahagi mo. Pinoproseso ito sa device at ginagamit para hanapin ang channel sa pamamagitan ng opisyal na API. Hindi ito ipinapadala saanman. Binabalewala ang mga URL na hindi galing sa YouTube."
+            "Ang share extension ay tumatanggap lang ng URL (o text na may URL) na ibinabahagi mo. Pinoproseso ito sa device at ginagamit para hanapin ang channel sa pamamagitan ng opisyal na API. Hindi ito ipinapadala saanman. Binabalewala ang mga URL na hindi galing sa YouTube.",
+            "Kapag ginamit mo ang “Magdagdag gamit ang Share sa YouTube” sa app, babasahin lang ng app sa device ang kinopyang YouTube link kapag kinopya mo ang link sa YouTube at bumalik ka sa app (sa iOS, may lalabas na kumpirmasyon bago ito basahin). Hindi ipinapadala kahit saan ang nabasa, at hindi ginagamit ang anumang nilalamang hindi galing sa YouTube."
           ]
         },
         {
@@ -389,7 +390,7 @@ export default {
           },
           {
             "title": "Mag-share mula sa YouTube",
-            "body": "I-tap ang share button sa YouTube app o Safari at piliin ang “Buksan sa Channel Timeline”. Hindi pinapayagan ng iOS na direktang magbukas ng app ang share sheet, kaya payagan ang mga notification at i-tap ang notification na lalabas pagkatapos mong mag-share. Kung ayaw mo nito, buksan ang app at i-tap ang “Buksan ang ibinahaging link”.",
+            "body": "I-tap ang share button sa YouTube app o Safari at piliin ang “Buksan sa Channel Timeline”. Hindi pinapayagan ng iOS na direktang magbukas ng app ang share sheet, kaya payagan ang mga notification at i-tap ang notification na lalabas pagkatapos mong mag-share.",
             "only": "ios"
           },
           {
@@ -572,7 +573,7 @@ export default {
           },
           {
             "title": "Hindi nabubuksan ang app kapag nag-share",
-            "body": "Hindi pinapayagan ng iOS na direktang magbukas ng app ang share sheet. Payagan ang mga notification at i-tap ang notification na lalabas pagkatapos mong mag-share, o buksan ang app at gamitin ang “Buksan ang ibinahaging link”.",
+            "body": "Hindi pinapayagan ng iOS na direktang magbukas ng app ang share sheet. Payagan ang mga notification at i-tap ang notification na lalabas pagkatapos mong mag-share.",
             "only": "ios"
           },
           {

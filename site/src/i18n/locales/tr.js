@@ -207,7 +207,7 @@ export default {
         },
         {
           "q": "YouTube'dan paylaşmak uygulamayı açmıyor",
-          "a": "iOS, paylaşım sayfasının bir uygulamayı doğrudan başlatmasına izin vermez. Bildirimlere izin verin ve paylaştıktan hemen sonra görünen bildirime dokunun ya da uygulamayı açıp “Paylaşılan bağlantıyı aç”ı kullanın."
+          "a": "iOS, paylaşım sayfasının bir uygulamayı doğrudan başlatmasına izin vermez. Bildirimlere izin verin ve paylaştıktan hemen sonra görünen bildirime dokunun."
         },
         {
           "q": "Pro satın aldım ama etkin değil",
@@ -220,7 +220,7 @@ export default {
     "privacy": {
       "title": "Gizlilik Politikası",
       "description": "Channel Timeline Viewer neleri saklar, neleri saklamaz.",
-      "updated": "Son güncelleme: 5 Ekim 2026",
+      "updated": "Son güncelleme: 6 Ekim 2026",
       "sections": [
         {
           "title": "1. Özet",
@@ -262,7 +262,8 @@ export default {
         {
           "title": "5. Diğer uygulamalardan paylaşım",
           "body": [
-            "Paylaşım uzantısı yalnızca paylaştığınız URL'yi (veya URL içeren metni) alır. Bu, cihazda ayrıştırılır ve resmi API aracılığıyla kanalı bulmak için kullanılır. Başka hiçbir yere gönderilmez. YouTube dışındaki URL'ler yok sayılır."
+            "Paylaşım uzantısı yalnızca paylaştığınız URL'yi (veya URL içeren metni) alır. Bu, cihazda ayrıştırılır ve resmi API aracılığıyla kanalı bulmak için kullanılır. Başka hiçbir yere gönderilmez. YouTube dışındaki URL'ler yok sayılır.",
+            "Uygulamada “YouTube'da Paylaş ile ekle”yi kullandığınızda, YouTube'da bir bağlantı kopyalayıp uygulamaya döndüğünüzde uygulama cihazda yalnızca kopyalanan YouTube bağlantısını okur (iOS'ta okumadan önce bir onay gösterilir). Okunan içerik hiçbir yere gönderilmez ve YouTube dışındaki hiçbir içerik kullanılmaz."
           ]
         },
         {
@@ -389,7 +390,7 @@ export default {
           },
           {
             "title": "YouTube'dan paylaşın",
-            "body": "YouTube uygulamasında veya Safari'de paylaş düğmesine dokunun ve “Channel Timeline'da Aç”ı seçin. iOS, paylaşım sayfasının bir uygulamayı doğrudan başlatmasına izin vermediği için bildirimlere izin verin ve paylaştıktan hemen sonra görünen bildirime dokunun. İzin vermek istemezseniz uygulamayı açıp “Paylaşılan bağlantıyı aç”a dokunun.",
+            "body": "YouTube uygulamasında veya Safari'de paylaş düğmesine dokunun ve “Channel Timeline'da Aç”ı seçin. iOS, paylaşım sayfasının bir uygulamayı doğrudan başlatmasına izin vermediği için bildirimlere izin verin ve paylaştıktan hemen sonra görünen bildirime dokunun.",
             "only": "ios"
           },
           {
@@ -572,7 +573,7 @@ export default {
           },
           {
             "title": "Paylaşmak uygulamayı açmıyor",
-            "body": "iOS, paylaşım sayfasının bir uygulamayı doğrudan başlatmasına izin vermez. Bildirimlere izin verin ve paylaştıktan hemen sonra görünen bildirime dokunun ya da uygulamayı açıp “Paylaşılan bağlantıyı aç”ı kullanın.",
+            "body": "iOS, paylaşım sayfasının bir uygulamayı doğrudan başlatmasına izin vermez. Bildirimlere izin verin ve paylaştıktan hemen sonra görünen bildirime dokunun.",
             "only": "ios"
           },
           {

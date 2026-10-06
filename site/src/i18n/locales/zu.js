@@ -207,7 +207,7 @@ export default {
         },
         {
           "q": "Ukwabelana usuka ku-YouTube akuyivuli i-app",
-          "a": "I-iOS ayivumeli iphepha lokwabelana ukuthi livule i-app ngqo. Vumela izaziso bese uthepha isaziso esivela ngokushesha ngemuva kokwabelana, noma uvule i-app bese usebenzisa okuthi “Vula isixhumanisi okwabelwane ngaso”."
+          "a": "I-iOS ayivumeli iphepha lokwabelana ukuthi livule i-app ngqo. Vumela izaziso bese uthepha isaziso esivela ngokushesha ngemuva kokwabelana."
         },
         {
           "q": "Ngithenge i-Pro kodwa ayisebenzi",
@@ -220,7 +220,7 @@ export default {
     "privacy": {
       "title": "Inqubomgomo Yobumfihlo",
       "description": "Lokho i-Channel Timeline Viewer ekugcinayo nalokho engakugcini.",
-      "updated": "Kubuyekezwe okokugcina: 5 Okthoba 2026",
+      "updated": "Kubuyekezwe okokugcina: 6 Okthoba 2026",
       "sections": [
         {
           "title": "1. Isifinyezo",
@@ -262,7 +262,8 @@ export default {
         {
           "title": "5. Ukwabelana usuka kwamanye ama-app",
           "body": [
-            "Isandiso sokwabelana sithola kuphela i-URL (noma umbhalo oqukethe i-URL) owabelana ngayo. Ihlaziywa kudivayisi futhi isetshenziselwe ukuthola isiteshi nge-API esemthethweni. Ayithunyelwa kwenye indawo. Ama-URL angewona e-YouTube ayashaywa indiva."
+            "Isandiso sokwabelana sithola kuphela i-URL (noma umbhalo oqukethe i-URL) owabelana ngayo. Ihlaziywa kudivayisi futhi isetshenziselwe ukuthola isiteshi nge-API esemthethweni. Ayithunyelwa kwenye indawo. Ama-URL angewona e-YouTube ayashaywa indiva.",
+            "Uma usebenzisa okuthi “Engeza ngokwabelana ku-YouTube” ku-app, lapho ukopisha isixhumanisi ku-YouTube bese ubuyela ku-app, i-app ifunda kuphela isixhumanisi se-YouTube esikopishiwe, kudivayisi (ku-iOS, kuboniswa isiqinisekiso ngaphambi kokuthi sifundwe). Okufundiwe akuthunyelwa ndawo, futhi akusetshenziswa lutho olungelona olwe-YouTube."
           ]
         },
         {
@@ -389,7 +390,7 @@ export default {
           },
           {
             "title": "Yabelana usuka ku-YouTube",
-            "body": "Thepha inkinobho yokwabelana ku-app ye-YouTube noma ku-Safari bese ukhetha okuthi “Vula ku-Channel Timeline”. I-iOS ayivumeli iphepha lokwabelana ukuthi livule i-app ngqo, ngakho vumela izaziso bese uthepha isaziso esivela ngokushesha ngemuva kokwabelana. Uma ungathandi, vula i-app bese uthepha okuthi “Vula isixhumanisi okwabelwane ngaso”.",
+            "body": "Thepha inkinobho yokwabelana ku-app ye-YouTube noma ku-Safari bese ukhetha okuthi “Vula ku-Channel Timeline”. I-iOS ayivumeli iphepha lokwabelana ukuthi livule i-app ngqo, ngakho vumela izaziso bese uthepha isaziso esivela ngokushesha ngemuva kokwabelana.",
             "only": "ios"
           },
           {
@@ -572,7 +573,7 @@ export default {
           },
           {
             "title": "Ukwabelana akuyivuli i-app",
-            "body": "I-iOS ayivumeli iphepha lokwabelana ukuthi livule i-app ngqo. Vumela izaziso bese uthepha isaziso esivela ngokushesha ngemuva kokwabelana, noma uvule i-app bese usebenzisa okuthi “Vula isixhumanisi okwabelwane ngaso”.",
+            "body": "I-iOS ayivumeli iphepha lokwabelana ukuthi livule i-app ngqo. Vumela izaziso bese uthepha isaziso esivela ngokushesha ngemuva kokwabelana.",
             "only": "ios"
           },
           {

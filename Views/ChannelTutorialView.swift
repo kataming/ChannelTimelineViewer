@@ -164,10 +164,20 @@ struct ChannelTutorialView: View {
 
 /// 案内の画像（実機の画面・7言語）を選ぶための言語。チュートリアルと「YouTube の共有から追加する」で共用。
 enum TutorialImageLanguage {
+    /// 画像を用意している言語（ストアのスクショと同じ 7 言語）。
+    static let available = ["en", "ja", "zh_Hans", "es", "de", "fr", "ko"]
+
+    /// いまアプリが**実際に表示している言語**に合わせる（2026-10-06）。
+    /// 以前は端末の言語（Locale.preferredLanguages）を見ていたため、iPhone の設定でアプリだけ
+    /// 別の言語にしていると、文字は英語なのに画像は日本語、のようにずれていた。
     static var current: String {
-        let available = ["en", "ja", "zh_Hans", "es", "de", "fr", "ko"]
-        let preferred = Locale.preferredLanguages.first ?? "en"
-        let language = Locale(identifier: preferred).language
+        imageLanguage(forLocalization: Bundle.main.preferredLocalizations.first ?? "en")
+    }
+
+    /// アプリの表示言語（lproj の名前。"ja" / "zh-Hans" / "zh-Hant" / "pt-BR" など）→ 画像の言語。
+    /// 用意が無い言語は英語に落とす。
+    static func imageLanguage(forLocalization localization: String) -> String {
+        let language = Locale(identifier: localization).language
         let code = language.languageCode?.identifier ?? "en"
         if code == "zh" {
             // 繁体字（zh-Hant / 台湾・香港・マカオ）に簡体字の画像を見せない。Android も同じく英語に落ちる。

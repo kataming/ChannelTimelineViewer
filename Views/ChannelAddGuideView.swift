@@ -89,6 +89,16 @@ private struct PopularVideoPickerPage: View {
     var body: some View {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 12) {
+                // 見出し「人気動画から選ぶ」は、共有の案内の見出しと同じ大きさ・太さで本文の先頭に置く
+                // （2026-10-06・ユーザー指定）。上のバーは隠し、閉じるは見出しの横。
+                HStack(alignment: .firstTextBaseline) {
+                    Text("tutorial.pick.title")
+                        .font(.title2.bold())
+                    Spacer(minLength: 8)
+                    if let onClose {
+                        Button("tutorial.close", action: onClose)
+                    }
+                }
                 Text("tutorial.pick.body")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
@@ -128,15 +138,8 @@ private struct PopularVideoPickerPage: View {
             }
             .padding(20)
         }
-        .navigationTitle(Text("tutorial.pick.title"))
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            if let onClose {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("tutorial.close", action: onClose)
-                }
-            }
-        }
+        .toolbar(.hidden, for: .navigationBar)
         .task {
             guard videos == nil, !failed else { return }
             do {

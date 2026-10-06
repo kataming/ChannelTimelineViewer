@@ -618,6 +618,34 @@ def attach_build(client: Client, bundle_id: str, build_version: str | None) -> i
     return 0
 
 
+def expire_build(client: Client, bundle_id: str, build_version: str) -> int:
+    """TestFlight のビルドを取り下げる（期限切れにする）。元に戻せない。
+
+    不採用にした試作のビルドが「最新」として配られ続けないようにするため（2026-10-06 追加）。
+    App Store のバージョンに紐づいているビルドは取り下げない（審査中・公開中のものを壊さないため）。
+    """
+    if not build_version:
+        raise SystemExit("--build で取り下げるビルド番号を指定してください（空は不可）。")
+    app = find_app(client, bundle_id)
+    builds = client.get(
+        f"/v1/builds?filter[app]={app['id']}&filter[version]={build_version}"
+        "&include=preReleaseVersion,appStoreVersion&limit=5").get("data", [])
+    if len(builds) != 1:
+        raise SystemExit(f"build {build_version} がちょうど1件見つかりません（{len(builds)} 件）。")
+    build = builds[0]
+    attached = (build.get("relationships", {}).get("appStoreVersion", {}) or {}).get("data")
+    if attached:
+        raise SystemExit(f"build {build_version} は App Store のバージョンに紐づいているので取り下げません。")
+    if build["attributes"].get("expired"):
+        print(f"build {build_version} はすでに取り下げ済みです。")
+        return 0
+    print(f"build {build_version}（処理状態 {build['attributes'].get('processingState')}）を取り下げます")
+    client.write("PATCH", f"/v1/builds/{build['id']}",
+                 {"data": {"type": "builds", "id": build["id"], "attributes": {"expired": True}}})
+    print("完了しました。")
+    return 0
+
+
 def set_category(client: Client, bundle_id: str, primary: str, secondary: str | None) -> int:
     """主要カテゴリ（必要なら副カテゴリ）を設定する。"""
     app = find_app(client, bundle_id)
@@ -1107,7 +1135,7 @@ def main() -> int:
     parser.add_argument(
         "--mode",
         choices=["status", "push", "attach-build", "category", "review", "screenshots",
-                 "fill-screenshots", "diagnose", "submit", "cancel"],
+                 "fill-screenshots", "diagnose", "submit", "cancel", "expire-build"],
         default="status")
     parser.add_argument("--primary-category", default="EDUCATION")
     parser.add_argument("--screenshots-dir", default="screenshots",
@@ -1141,6 +1169,8 @@ def main() -> int:
             return cancel_submission(client, args.bundle_id)
         if args.mode == "submit":
             return submit_for_review(client, args.bundle_id)
+        if args.mode == "expire-build":
+            return expire_build(client, args.bundle_id, args.build)
         if args.mode == "diagnose":
             return diagnose(client, args.bundle_id)
         if args.mode == "screenshots":

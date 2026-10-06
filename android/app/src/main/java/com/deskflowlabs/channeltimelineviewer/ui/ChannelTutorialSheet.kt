@@ -125,7 +125,6 @@ fun ChannelTutorialSheet(
     ) {
         if (showCopyGuide && !showSteps) {
             CopyLinkGuidePage(
-                onBack = { showCopyGuide = false },
                 onShowSteps = { showSteps = true },
             )
             return@ModalBottomSheet
@@ -326,7 +325,6 @@ private fun PopularVideoPicker(
  */
 @Composable
 private fun CopyLinkGuidePage(
-    onBack: () -> Unit,
     onShowSteps: () -> Unit,
 ) {
     val context = LocalContext.current
@@ -469,9 +467,7 @@ private fun CopyLinkGuidePage(
                 Text(stringResource(R.string.copyguide_overlay_enable))
             }
         }
-        OutlinedButton(onClick = onBack, modifier = Modifier.fillMaxWidth()) {
-            Text(stringResource(R.string.tutorial_back))
-        }
+        // ［前へ］は置かない（2026-10-06・ユーザー指定）。閉じるのは端末の戻る操作・シートを下げる操作で。
         TextButton(onClick = onShowSteps, modifier = Modifier.align(Alignment.CenterHorizontally)) {
             Text(stringResource(R.string.copyguide_legacy))
         }

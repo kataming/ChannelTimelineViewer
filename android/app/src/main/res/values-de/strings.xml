@@ -39,7 +39,7 @@
     <string name="common_delete">Löschen</string>
     <string name="common_done">Fertig</string>
     <string name="common_retry">Erneut versuchen</string>
-    <string name="copyguide_legacy">So wählst du %s im Menü „Teilen“ aus</string>
+    <string name="copyguide_legacy">So öffnest du es aus YouTube</string>
     <string name="copyguide_notification_channel">Bedienhinweise</string>
     <string name="copyguide_notification_channel_quiet">Anleitung (ohne Pop-up)</string>
     <string name="copyguide_notification_text">Zurück zur App</string>

@@ -330,7 +330,6 @@ private fun CopyLinkGuidePage(
     onShowSteps: () -> Unit,
 ) {
     val context = LocalContext.current
-    val appName = stringResource(R.string.app_name)
     // 「アプリに戻る」の通知を出してから YouTube を開く。通知を押す（または戻るボタンで戻る）と、
     // MainActivity がコピーされたリンクを読んでチャンネルを開く。
     val goToYouTube = {
@@ -474,7 +473,7 @@ private fun CopyLinkGuidePage(
             Text(stringResource(R.string.tutorial_back))
         }
         TextButton(onClick = onShowSteps, modifier = Modifier.align(Alignment.CenterHorizontally)) {
-            Text(stringResource(R.string.copyguide_legacy, appName))
+            Text(stringResource(R.string.copyguide_legacy))
         }
     }
 }

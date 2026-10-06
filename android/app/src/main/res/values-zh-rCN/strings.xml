@@ -39,7 +39,7 @@
     <string name="common_delete">删除</string>
     <string name="common_done">完成</string>
     <string name="common_retry">重试</string>
-    <string name="copyguide_legacy">查看如何从“分享”菜单中选择 %s</string>
+    <string name="copyguide_legacy">从 YouTube 打开的方法</string>
     <string name="copyguide_notification_channel">操作指引</string>
     <string name="copyguide_notification_channel_quiet">使用说明（不弹出）</string>
     <string name="copyguide_notification_text">返回应用</string>

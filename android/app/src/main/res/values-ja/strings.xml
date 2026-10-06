@@ -39,7 +39,7 @@
     <string name="common_delete">削除</string>
     <string name="common_done">完了</string>
     <string name="common_retry">再試行</string>
-    <string name="copyguide_legacy">共有メニューから %s を選ぶ方法を見る</string>
+    <string name="copyguide_legacy">YouTube側から開く方法はこちら</string>
     <string name="copyguide_notification_channel">操作の案内</string>
     <string name="copyguide_notification_channel_quiet">案内（ポップアップなし）</string>
     <string name="copyguide_notification_text">アプリに戻る</string>

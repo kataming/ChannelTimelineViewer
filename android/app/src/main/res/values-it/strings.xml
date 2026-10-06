@@ -39,7 +39,7 @@
     <string name="common_delete">Elimina</string>
     <string name="common_done">Fine</string>
     <string name="common_retry">Riprova</string>
-    <string name="copyguide_legacy">Scopri come scegliere %s dal menu Condividi</string>
+    <string name="copyguide_legacy">Come aprirlo da YouTube</string>
     <string name="copyguide_notification_channel">Guida all\'uso</string>
     <string name="copyguide_notification_channel_quiet">Istruzioni (senza pop-up)</string>
     <string name="copyguide_notification_text">Torna all\'app</string>

@@ -39,7 +39,7 @@
     <string name="common_delete">Xóa</string>
     <string name="common_done">Xong</string>
     <string name="common_retry">Thử lại</string>
-    <string name="copyguide_legacy">Xem cách chọn %s từ menu Chia sẻ</string>
+    <string name="copyguide_legacy">Cách mở từ YouTube</string>
     <string name="copyguide_notification_channel">Hướng dẫn sử dụng</string>
     <string name="copyguide_notification_channel_quiet">Hướng dẫn (không bật lên)</string>
     <string name="copyguide_notification_text">Quay lại ứng dụng</string>

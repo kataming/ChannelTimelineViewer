@@ -39,7 +39,7 @@
     <string name="common_delete">Radera</string>
     <string name="common_done">Klar</string>
     <string name="common_retry">Försök igen</string>
-    <string name="copyguide_legacy">Se hur du väljer %s i Dela-menyn</string>
+    <string name="copyguide_legacy">Så öppnar du från YouTube</string>
     <string name="copyguide_notification_channel">Vägledning</string>
     <string name="copyguide_notification_channel_quiet">Instruktioner (utan popup)</string>
     <string name="copyguide_notification_text">Tillbaka till appen</string>

@@ -39,7 +39,7 @@
     <string name="common_delete">நீக்கு</string>
     <string name="common_done">முடிந்தது</string>
     <string name="common_retry">மீண்டும் முயல்</string>
-    <string name="copyguide_legacy">பகிர் மெனுவில் %s தேர்வுசெய்வது எப்படி எனப் பார்க்கவும்</string>
+    <string name="copyguide_legacy">YouTube-இலிருந்து திறக்கும் வழி</string>
     <string name="copyguide_notification_channel">பயன்பாட்டு வழிகாட்டி</string>
     <string name="copyguide_notification_channel_quiet">வழிகாட்டல் (பாப்-அப் இல்லாமல்)</string>
     <string name="copyguide_notification_text">ஆப்ஸுக்குத் திரும்பு</string>

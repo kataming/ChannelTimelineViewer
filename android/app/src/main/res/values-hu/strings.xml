@@ -39,7 +39,7 @@
     <string name="common_delete">Törlés</string>
     <string name="common_done">Kész</string>
     <string name="common_retry">Újra</string>
-    <string name="copyguide_legacy">Nézd meg, hogyan választhatod a(z) %s lehetőséget a Megosztás menüben</string>
+    <string name="copyguide_legacy">Így nyithatod meg a YouTube-ból</string>
     <string name="copyguide_notification_channel">Használati útmutató</string>
     <string name="copyguide_notification_channel_quiet">Útmutató (felugró ablak nélkül)</string>
     <string name="copyguide_notification_text">Vissza az alkalmazásba</string>

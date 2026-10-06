@@ -39,7 +39,7 @@
     <string name="common_delete">حذف کریں</string>
     <string name="common_done">ہو گیا</string>
     <string name="common_retry">دوبارہ کوشش کریں</string>
-    <string name="copyguide_legacy">شیئر مینو سے %s منتخب کرنے کا طریقہ دیکھیں</string>
+    <string name="copyguide_legacy">YouTube سے کھولنے کا طریقہ</string>
     <string name="copyguide_notification_channel">استعمال کی رہنمائی</string>
     <string name="copyguide_notification_channel_quiet">رہنمائی (پاپ اپ کے بغیر)</string>
     <string name="copyguide_notification_text">ایپ پر واپس جائیں</string>

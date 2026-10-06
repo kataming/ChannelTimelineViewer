@@ -39,7 +39,7 @@
     <string name="common_delete">ਮਿਟਾਓ</string>
     <string name="common_done">ਹੋ ਗਿਆ</string>
     <string name="common_retry">ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ</string>
-    <string name="copyguide_legacy">ਸਾਂਝਾ ਕਰੋ ਮੀਨੂ ਵਿੱਚੋਂ %s ਚੁਣਨ ਦਾ ਤਰੀਕਾ ਦੇਖੋ</string>
+    <string name="copyguide_legacy">YouTube ਤੋਂ ਖੋਲ੍ਹਣ ਦਾ ਤਰੀਕਾ</string>
     <string name="copyguide_notification_channel">ਵਰਤੋਂ ਦੀ ਸੇਧ</string>
     <string name="copyguide_notification_channel_quiet">ਮਾਰਗਦਰਸ਼ਨ (ਪੌਪ-ਅੱਪ ਤੋਂ ਬਿਨਾਂ)</string>
     <string name="copyguide_notification_text">ਐਪ \'ਤੇ ਵਾਪਸ ਜਾਓ</string>

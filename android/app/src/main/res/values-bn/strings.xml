@@ -39,7 +39,7 @@
     <string name="common_delete">মুছুন</string>
     <string name="common_done">সম্পন্ন</string>
     <string name="common_retry">আবার চেষ্টা করুন</string>
-    <string name="copyguide_legacy">শেয়ার মেনু থেকে %s বেছে নেওয়ার উপায় দেখুন</string>
+    <string name="copyguide_legacy">YouTube থেকে খোলার উপায়</string>
     <string name="copyguide_notification_channel">ব্যবহারের নির্দেশনা</string>
     <string name="copyguide_notification_channel_quiet">নির্দেশনা (পপ-আপ ছাড়া)</string>
     <string name="copyguide_notification_text">অ্যাপে ফিরে যান</string>

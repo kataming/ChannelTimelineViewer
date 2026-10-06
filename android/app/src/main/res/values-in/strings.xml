@@ -39,7 +39,7 @@
     <string name="common_delete">Hapus</string>
     <string name="common_done">Selesai</string>
     <string name="common_retry">Coba lagi</string>
-    <string name="copyguide_legacy">Lihat cara memilih %s dari menu Bagikan</string>
+    <string name="copyguide_legacy">Cara membuka dari YouTube</string>
     <string name="copyguide_notification_channel">Panduan penggunaan</string>
     <string name="copyguide_notification_channel_quiet">Panduan (tanpa pop-up)</string>
     <string name="copyguide_notification_text">Kembali ke aplikasi</string>

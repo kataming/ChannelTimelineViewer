@@ -39,7 +39,7 @@
     <string name="common_delete">Usuń</string>
     <string name="common_done">Gotowe</string>
     <string name="common_retry">Spróbuj ponownie</string>
-    <string name="copyguide_legacy">Zobacz, jak wybrać %s w menu Udostępnij</string>
+    <string name="copyguide_legacy">Jak otworzyć z YouTube</string>
     <string name="copyguide_notification_channel">Wskazówki</string>
     <string name="copyguide_notification_channel_quiet">Instrukcje (bez wyskakującego okna)</string>
     <string name="copyguide_notification_text">Wróć do aplikacji</string>

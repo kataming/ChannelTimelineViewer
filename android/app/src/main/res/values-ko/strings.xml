@@ -39,7 +39,7 @@
     <string name="common_delete">삭제</string>
     <string name="common_done">완료</string>
     <string name="common_retry">다시 시도</string>
-    <string name="copyguide_legacy">‘공유’ 메뉴에서 %s 선택하는 방법 보기</string>
+    <string name="copyguide_legacy">YouTube에서 여는 방법 보기</string>
     <string name="copyguide_notification_channel">사용 안내</string>
     <string name="copyguide_notification_channel_quiet">안내(팝업 없음)</string>
     <string name="copyguide_notification_text">앱으로 돌아가기</string>

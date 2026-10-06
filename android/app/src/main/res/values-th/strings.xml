@@ -39,7 +39,7 @@
     <string name="common_delete">ลบ</string>
     <string name="common_done">เสร็จสิ้น</string>
     <string name="common_retry">ลองอีกครั้ง</string>
-    <string name="copyguide_legacy">ดูวิธีเลือก %s จากเมนูแชร์</string>
+    <string name="copyguide_legacy">วิธีเปิดจาก YouTube</string>
     <string name="copyguide_notification_channel">คำแนะนำการใช้งาน</string>
     <string name="copyguide_notification_channel_quiet">คำแนะนำ (ไม่มีป๊อปอัป)</string>
     <string name="copyguide_notification_text">กลับไปที่แอป</string>

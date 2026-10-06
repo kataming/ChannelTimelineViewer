@@ -39,7 +39,7 @@
     <string name="common_delete">ಅಳಿಸಿ</string>
     <string name="common_done">ಮುಗಿದಿದೆ</string>
     <string name="common_retry">ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ</string>
-    <string name="copyguide_legacy">ಹಂಚಿಕೊಳ್ಳಿ ಮೆನುವಿನಿಂದ %s ಆಯ್ಕೆ ಮಾಡುವ ವಿಧಾನ ನೋಡಿ</string>
+    <string name="copyguide_legacy">YouTube ನಿಂದ ತೆರೆಯುವ ವಿಧಾನ</string>
     <string name="copyguide_notification_channel">ಬಳಕೆಯ ಮಾರ್ಗದರ್ಶನ</string>
     <string name="copyguide_notification_channel_quiet">ಮಾರ್ಗದರ್ಶನ (ಪಾಪ್-ಅಪ್ ಇಲ್ಲದೆ)</string>
     <string name="copyguide_notification_text">ಆ್ಯಪ್‌ಗೆ ಹಿಂತಿರುಗಿ</string>

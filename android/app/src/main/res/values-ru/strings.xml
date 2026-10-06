@@ -39,7 +39,7 @@
     <string name="common_delete">Удалить</string>
     <string name="common_done">Готово</string>
     <string name="common_retry">Повторить</string>
-    <string name="copyguide_legacy">Как выбрать %s в меню «Поделиться»</string>
+    <string name="copyguide_legacy">Как открыть из YouTube</string>
     <string name="copyguide_notification_channel">Подсказки</string>
     <string name="copyguide_notification_channel_quiet">Подсказки (без всплывающих окон)</string>
     <string name="copyguide_notification_text">Вернуться в приложение</string>

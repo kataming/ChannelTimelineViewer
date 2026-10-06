@@ -39,7 +39,7 @@
     <string name="common_delete">Verwijder</string>
     <string name="common_done">Gereed</string>
     <string name="common_retry">Opnieuw</string>
-    <string name="copyguide_legacy">Bekijk hoe je %s kiest in het menu Delen</string>
+    <string name="copyguide_legacy">Zo open je het vanuit YouTube</string>
     <string name="copyguide_notification_channel">Uitleg</string>
     <string name="copyguide_notification_channel_quiet">Uitleg (zonder pop-up)</string>
     <string name="copyguide_notification_text">Terug naar de app</string>

@@ -39,7 +39,7 @@
     <string name="common_delete">Sil</string>
     <string name="common_done">Bitti</string>
     <string name="common_retry">Tekrar dene</string>
-    <string name="copyguide_legacy">Paylaş menüsünden %s seçeneğini nasıl seçeceğinizi görün</string>
+    <string name="copyguide_legacy">YouTube’dan açma yolu</string>
     <string name="copyguide_notification_channel">Kullanım rehberi</string>
     <string name="copyguide_notification_channel_quiet">Yönlendirme (açılır pencere yok)</string>
     <string name="copyguide_notification_text">Uygulamaya dön</string>

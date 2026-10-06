@@ -39,7 +39,7 @@
     <string name="common_delete">हटवा</string>
     <string name="common_done">पूर्ण</string>
     <string name="common_retry">पुन्हा प्रयत्न करा</string>
-    <string name="copyguide_legacy">शेअर मेनूमधून %s कसे निवडायचे ते पहा</string>
+    <string name="copyguide_legacy">YouTube मधून उघडण्याची पद्धत</string>
     <string name="copyguide_notification_channel">वापर मार्गदर्शन</string>
     <string name="copyguide_notification_channel_quiet">मार्गदर्शन (पॉप-अपशिवाय)</string>
     <string name="copyguide_notification_text">अ‍ॅपवर परत जा</string>

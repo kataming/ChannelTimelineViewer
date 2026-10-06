@@ -39,7 +39,7 @@
     <string name="common_delete">حذف</string>
     <string name="common_done">تم</string>
     <string name="common_retry">إعادة المحاولة</string>
-    <string name="copyguide_legacy">اعرف كيفية اختيار %s من قائمة المشاركة</string>
+    <string name="copyguide_legacy">طريقة الفتح من YouTube</string>
     <string name="copyguide_notification_channel">إرشادات الاستخدام</string>
     <string name="copyguide_notification_channel_quiet">إرشادات (بدون نافذة منبثقة)</string>
     <string name="copyguide_notification_text">العودة إلى التطبيق</string>

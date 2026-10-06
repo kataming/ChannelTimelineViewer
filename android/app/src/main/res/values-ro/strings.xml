@@ -39,7 +39,7 @@
     <string name="common_delete">Ștergeți</string>
     <string name="common_done">Gata</string>
     <string name="common_retry">Reîncercați</string>
-    <string name="copyguide_legacy">Vedeți cum să alegeți %s din meniul Distribuiți</string>
+    <string name="copyguide_legacy">Cum se deschide din YouTube</string>
     <string name="copyguide_notification_channel">Ghid de utilizare</string>
     <string name="copyguide_notification_channel_quiet">Instrucțiuni (fără pop-up)</string>
     <string name="copyguide_notification_text">Înapoi la aplicație</string>

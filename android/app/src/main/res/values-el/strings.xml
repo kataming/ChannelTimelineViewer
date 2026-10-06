@@ -39,7 +39,7 @@
     <string name="common_delete">Διαγραφή</string>
     <string name="common_done">Τέλος</string>
     <string name="common_retry">Δοκιμή ξανά</string>
-    <string name="copyguide_legacy">Δείτε πώς να επιλέξετε %s από το μενού Κοινοποίησης</string>
+    <string name="copyguide_legacy">Πώς ανοίγει από το YouTube</string>
     <string name="copyguide_notification_channel">Οδηγίες χρήσης</string>
     <string name="copyguide_notification_channel_quiet">Οδηγίες (χωρίς αναδυόμενο)</string>
     <string name="copyguide_notification_text">Επιστροφή στην εφαρμογή</string>

@@ -39,7 +39,7 @@
     <string name="common_delete">Susa</string>
     <string name="common_done">Kwenziwe</string>
     <string name="common_retry">Zama futhi</string>
-    <string name="copyguide_legacy">Bona ukuthi ukhetha kanjani u-%s kumenyu yokwabelana</string>
+    <string name="copyguide_legacy">Indlela yokuvula ku-YouTube</string>
     <string name="copyguide_notification_channel">Isiqondiso sokusebenzisa</string>
     <string name="copyguide_notification_channel_quiet">Isiqondiso (ngaphandle kwe-pop-up)</string>
     <string name="copyguide_notification_text">Buyela ku-app</string>

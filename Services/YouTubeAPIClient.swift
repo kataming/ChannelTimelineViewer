@@ -1,9 +1,10 @@
 import Foundation
 
-/// 動画一覧の1ページ分。
+/// 動画一覧の1ページ分。`totalResults` はプレイリスト全体の本数（読み込みの進み具合を出すのに使う）。
 struct VideoPage {
     let items: [VideoItem]
     let nextPageToken: String?
+    var totalResults: Int? = nil
 }
 
 /// 「人気動画から選ぶ」に並べる動画（選ぶとその投稿チャンネルを開く）。
@@ -188,15 +189,24 @@ final class YouTubeAPIClient {
 
     /// uploads プレイリストから全動画を取得し、古い順（publishedAt 昇順）で返す。
     /// uploads プレイリストは新しい順で返るため、古い順表示には全ページの取得が必要。
-    func fetchVideos(playlistId: String) async throws -> [VideoItem] {
+    ///
+    /// - Parameter onProgress: 1ページ読むごとに（読んだ本数, 全体の本数）。全体は最初のページの
+    ///   `pageInfo.totalResults`（追加の quota なし）で、上限（`maxPages` × 50）で頭打ちにする。
+    ///   Android の `YouTubeApiClient.fetchVideos` と同じ。
+    func fetchVideos(playlistId: String,
+                     onProgress: @MainActor @Sendable (_ loaded: Int, _ total: Int) -> Void = { _, _ in })
+        async throws -> [VideoItem] {
         var all: [VideoItem] = []
         var token: String? = nil
         var page = 0
+        var total = 0
         repeat {
             let result = try await fetchVideosPage(playlistId: playlistId, pageToken: token)
             all.append(contentsOf: result.items)
             token = result.nextPageToken
             page += 1
+            if total == 0 { total = Self.progressTotal(result.totalResults, maxPages: maxPages) }
+            if total > 0 { await onProgress(min(all.count, total), total) }
         } while token != nil && page < maxPages
 
         return all.sortedByPublishedDate(ascending: true)
@@ -257,6 +267,11 @@ final class YouTubeAPIClient {
         return counts
     }
 
+    /// 進み具合の分母。API が返す全体の本数を、読みに行く上限（ページ数 × 50）で頭打ちにする。
+    static func progressTotal(_ totalResults: Int?, maxPages: Int) -> Int {
+        min(totalResults ?? 0, maxPages * 50)
+    }
+
     /// uploads プレイリストの1ページ分を取得する。
     func fetchVideosPage(playlistId: String, pageToken: String?) async throws -> VideoPage {
         var query: [(String, String)] = [
@@ -282,7 +297,8 @@ final class YouTubeAPIClient {
                 channelId: item.snippet?.videoOwnerChannelId ?? item.snippet?.channelId ?? ""
             )
         }
-        return VideoPage(items: items, nextPageToken: response.nextPageToken)
+        return VideoPage(items: items, nextPageToken: response.nextPageToken,
+                         totalResults: response.pageInfo?.totalResults)
     }
 
     // MARK: - Private helpers
@@ -463,6 +479,10 @@ private struct SearchListResponse: Decodable {
 private struct PlaylistItemListResponse: Decodable {
     let items: [Item]
     let nextPageToken: String?
+    let pageInfo: PageInfo?
+    struct PageInfo: Decodable {
+        let totalResults: Int?
+    }
     struct Item: Decodable {
         let snippet: Snippet?
         let contentDetails: ContentDetails?

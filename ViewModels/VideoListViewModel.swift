@@ -28,6 +28,8 @@ final class VideoListViewModel: ObservableObject {
     @Published var isSearching = false
     @Published var searchQuery = ""
     @Published var isLoading = false
+    /// 一覧を最初から読み込んでいるときの進み具合（読んだ本数, 全体の本数）。全体が分からないうちは nil。
+    @Published private(set) var loadProgress: (loaded: Int, total: Int)?
     /// 保存済みの一覧を表示したまま、新着だけを確認している最中か。
     @Published private(set) var isCheckingForNew = false
     /// 一覧を最後に取得・更新した日時（保存済みを使ったときはその日時）。
@@ -139,10 +141,16 @@ final class VideoListViewModel: ObservableObject {
         }
         errorMessage = nil
         isLoading = true
-        defer { isLoading = false }
+        loadProgress = nil
+        defer {
+            isLoading = false
+            loadProgress = nil
+        }
 
         do {
-            videos = try await api.fetchVideos(playlistId: playlistId)
+            videos = try await api.fetchVideos(playlistId: playlistId) { [weak self] loaded, total in
+                self?.loadProgress = (loaded, total)
+            }
             if videos.isEmpty {
                 errorMessage = String(localized: "list.empty")
             } else {

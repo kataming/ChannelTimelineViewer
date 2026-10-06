@@ -112,8 +112,25 @@ struct VideoListView: View {
     @ViewBuilder
     private var content: some View {
         if viewModel.isLoading && viewModel.videos.isEmpty {
-            ProgressView("list.loading")
+            // 全体の本数が分かったら、何％読んだかを出す（例: 動画を取得中… 45%（1,250 / 2,800本））。
+            // Android の VideoListScreen と同じ。
+            if let progress = viewModel.loadProgress, progress.total > 0 {
+                let numbers = NumberFormatter.localizedString
+                ProgressView(value: Double(progress.loaded), total: Double(progress.total)) {
+                    Text(String(format: String(localized: "list.loading.progress"),
+                                String(progress.loaded * 100 / progress.total),
+                                numbers(NSNumber(value: progress.loaded), .decimal),
+                                numbers(NSNumber(value: progress.total), .decimal)))
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                        .monospacedDigit()
+                }
+                .padding(.horizontal, 40)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+            } else {
+                ProgressView("list.loading")
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
         } else if let error = viewModel.errorMessage, viewModel.videos.isEmpty {
             ContentUnavailableView {
                 Label("list.error.title", systemImage: "exclamationmark.triangle")

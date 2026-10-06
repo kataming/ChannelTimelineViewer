@@ -101,12 +101,16 @@
 "copyguide.ios.notFound" = "We couldn't find a copied YouTube link. In YouTube, tap Share → Copy link, then come back.";
 /* iOS: YouTube を開くボタン（Android の copyguide.open と同じ訳） */
 "copyguide.ios.open" = "Open YouTube";
+/* iOS: 共有の案内から戻ったが「ペーストを許可しない」を押されて読めなかった */
+"copyguide.ios.pasteDenied" = "Pasting wasn't allowed, so the copied link couldn't be read.";
 /* iOS: 戻ったときに iOS が出す「ペーストの許可」の説明。読むのは YouTube のリンクだけ */
 "copyguide.ios.pasteNote" = "If you're asked whether to allow pasting when you come back, please allow it. We only read the YouTube link you copied and never send it anywhere.";
 /* iOS: 毎回のペースト確認をなくす手順（設定 → このアプリ → 他のアプリからペースト → 許可）。2026-10-06 ユーザー判断 */
 "copyguide.ios.pasteSetting" = "To stop being asked to allow pasting every time, set “Paste from Other Apps” to “Allow” for this app in Settings.";
 /* iOS: このアプリの設定画面を開くボタン */
 "copyguide.ios.pasteSetting.open" = "Open Settings";
+/* iOS: もう一度クリップボードを読む（ペーストの確認がまた出る） */
+"copyguide.ios.retry" = "Try again";
 /* iOS: ①［共有］→②［コピー］→③ 左上の「◀ アプリ名」で戻る。%@ = アプリの表示名（iOS が左上に出す戻るリンクの名前） */
 "copyguide.ios.step1" = "①[Share] → ②[Copy link]\n③ Tap “◀ %@” at the top left\nto come back to this app";
 /* iOS: YouTube の共有から追加の見出し（Android の copyguide.title と同じ訳） */

@@ -33,8 +33,11 @@ final class CopyLinkGuideStore: ObservableObject {
         case none
         /// 新しくコピーされた YouTube のリンク。待ち状態は終わっている。
         case link(String)
-        /// 新しく何かコピーされたが、YouTube のリンクではなかった（または読めなかった）。
+        /// 新しく何かコピーされたが、YouTube のリンクではなかった。
         case notYouTube
+        /// URL らしきものはあるのに中身を読めなかった＝「ペーストを許可しない」を押された。
+        /// 待ち状態は続けるので、`retryRead()` でもう一度読める。
+        case pasteDenied
     }
 
     /// 案内から YouTube を開いてから、この時間までに戻ってきたら「コピーしに行っていた」とみなす（Android と同じ 30 分）。
@@ -93,10 +96,18 @@ final class CopyLinkGuideStore: ObservableObject {
         defaults.set(current, forKey: Self.baselineKey)
 
         guard await pasteboard.containsProbableWebURL() else { return .notYouTube }
-        guard let raw = pasteboard.readText(),
-              let link = SharedLinkParser.extractYouTubeURLString(from: raw) else {
-            return .notYouTube
-        }
+        return read()
+    }
+
+    /// 「ペーストを許可しない」を押されたあとの［もう一度読み込む］。もう一度だけ中身を読む（確認がまた出る）。
+    func retryRead() -> Outcome {
+        guard isAwaiting else { return .none }
+        return read()
+    }
+
+    private func read() -> Outcome {
+        guard let raw = pasteboard.readText() else { return .pasteDenied }
+        guard let link = SharedLinkParser.extractYouTubeURLString(from: raw) else { return .notYouTube }
         stopAwaiting()
         return .link(link)
     }

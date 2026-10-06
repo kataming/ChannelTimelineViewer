@@ -12,13 +12,15 @@ final class CopyLinkGuideStoreTests: XCTestCase {
         var changeCount = 10
         var looksLikeURL = true
         var content: String?
+        /// 「ペーストを許可しない」を押された（中身が読めない）。
+        var denied = false
         private(set) var readCount = 0
 
         func containsProbableWebURL() async -> Bool { looksLikeURL }
 
         func readText() -> String? {
             readCount += 1
-            return content
+            return denied ? nil : content
         }
 
         /// YouTube で［コピー］した、の代わり。
@@ -146,5 +148,21 @@ final class CopyLinkGuideStoreTests: XCTestCase {
         let relaunched = makeStore()
         let outcome = await relaunched.takeNewlyCopiedLink()
         guard case .link = outcome else { return XCTFail("リンクを返すはず: \(outcome)") }
+    }
+
+    /// 「ペーストを許可しない」を押されたら pasteDenied を返し、待ち続ける。［もう一度読み込む］で読める。
+    func testPasteDeniedCanBeRetried() async {
+        let store = makeStore()
+        store.startAwaiting()
+        pasteboard.copy("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+        pasteboard.denied = true
+
+        let outcome = await store.takeNewlyCopiedLink()
+        XCTAssertEqual(outcome, .pasteDenied)
+        XCTAssertTrue(store.isAwaiting)
+
+        pasteboard.denied = false
+        guard case .link = store.retryRead() else { return XCTFail("許可されたら読めるはず") }
+        XCTAssertFalse(store.isAwaiting)
     }
 }

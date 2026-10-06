@@ -29,6 +29,8 @@ struct ChannelInputView: View {
     /// 案内をどのページから始めるか（人気動画／YouTube の共有から追加する）。
     @State private var tutorialStart: ChannelAddGuideView.Start = .popular
     @State private var clipboardMessage: String?
+    /// 「YouTube の共有から追加する」から戻ったが、ペーストを許可されず読めなかった。
+    @State private var pasteDenied = false
     @Environment(\.scenePhase) private var scenePhase
 
     /// 保存件数の制限とロックの判定に要るもの一式。
@@ -83,6 +85,31 @@ struct ChannelInputView: View {
                         Text("share.clipboardHint")
                             .font(.caption)
                             .foregroundStyle(.secondary)
+                    }
+                }
+
+                if pasteDenied {
+                    Section {
+                        Label("copyguide.ios.pasteDenied", systemImage: "info.circle")
+                            .font(.footnote)
+                            .foregroundStyle(.secondary)
+                        Button {
+                            Task { @MainActor in await retryCopiedLink() }
+                        } label: {
+                            Label("copyguide.ios.retry", systemImage: "arrow.clockwise")
+                                .font(.body.bold())
+                        }
+                        Text("copyguide.ios.pasteSetting")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                        Button {
+                            if let url = URL(string: UIApplication.openSettingsURLString) {
+                                UIApplication.shared.open(url)
+                            }
+                        } label: {
+                            Label("copyguide.ios.pasteSetting.open", systemImage: "gearshape")
+                                .font(.footnote)
+                        }
                     }
                 }
 
@@ -373,14 +400,33 @@ struct ChannelInputView: View {
     /// 案内から行っていないとき・何もコピーしていないときは何もしない（クリップボードの中身も読まない）。
     @MainActor
     private func openCopiedLinkIfReturning() async {
-        switch await copyGuide.takeNewlyCopiedLink() {
+        await handleCopied(await copyGuide.takeNewlyCopiedLink())
+    }
+
+    /// ［もう一度読み込む］（ペーストを許可しなかったあと）。
+    @MainActor
+    private func retryCopiedLink() async {
+        await handleCopied(copyGuide.retryRead())
+    }
+
+    @MainActor
+    private func handleCopied(_ outcome: CopyLinkGuideStore.Outcome) async {
+        if outcome != .none {
+            // この案内で扱ったコピーには「共有されたURLを開く」（共有シート経由の受け取り用）を出さない。
+            // 出すと、許可しなかったときに別の入口が急に現れて混乱する（2026-10-06・ユーザー指摘）。
+            clipboardDetector.dismissCurrent()
+        }
+        switch outcome {
         case .link(let link):
             clipboardMessage = nil
-            // 同じコピーで「共有されたURLを開く」のボタンを重ねて出さない。
-            clipboardDetector.dismissCurrent()
+            pasteDenied = false
             await viewModel.openSharedLink(link, context: context)
         case .notYouTube:
+            pasteDenied = false
             clipboardMessage = String(localized: "copyguide.ios.notFound")
+        case .pasteDenied:
+            clipboardMessage = nil
+            pasteDenied = true
         case .none:
             break
         }

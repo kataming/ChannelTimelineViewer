@@ -188,8 +188,16 @@ private struct CopyLinkGuidePage: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
-                Text("copyguide.ios.title")
-                    .font(.title2.bold())
+                // 見出し「YouTube の共有から追加する」は出さない（押したボタンと同じ文言で無駄・2026-10-06
+                // ユーザー指摘）。最初の画面から開いたときは上のバーごと隠し、閉じるはここに置いて上に詰める。
+                HStack(alignment: .firstTextBaseline) {
+                    Text("copyguide.ios.title")
+                        .font(.title2.bold())
+                    Spacer(minLength: 8)
+                    if let onClose {
+                        Button("tutorial.close", action: onClose)
+                    }
+                }
                 Text(String(format: String(localized: "copyguide.ios.step1"), AppInfo.displayName))
                     .font(.title3)
                     .fixedSize(horizontal: false, vertical: true)
@@ -237,15 +245,9 @@ private struct CopyLinkGuidePage: View {
             .padding(20)
             .frame(maxWidth: .infinity, alignment: .leading)
         }
-        .navigationTitle(Text("tutorial.pick.howto"))
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            if let onClose {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("tutorial.close", action: onClose)
-                }
-            }
-        }
+        // 人気動画の画面から進んできたとき（onClose なし）は「戻る」が要るのでバーを残す。
+        .toolbar(onClose == nil ? .automatic : .hidden, for: .navigationBar)
     }
 }
 

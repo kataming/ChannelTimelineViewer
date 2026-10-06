@@ -101,12 +101,16 @@
 "copyguide.ios.notFound" = "Zkopírovaný odkaz na YouTube jsme nenašli. V YouTube klepněte na Sdílet → Kopírovat odkaz a vraťte se.";
 /* iOS: YouTube を開くボタン（Android の copyguide.open と同じ訳） */
 "copyguide.ios.open" = "Otevřít YouTube";
+/* iOS: 共有の案内から戻ったが「ペーストを許可しない」を押されて読めなかった */
+"copyguide.ios.pasteDenied" = "Vložení nebylo povoleno, proto nešlo zkopírovaný odkaz načíst.";
 /* iOS: 戻ったときに iOS が出す「ペーストの許可」の説明。読むのは YouTube のリンクだけ */
 "copyguide.ios.pasteNote" = "Pokud se po návratu zobrazí dotaz na povolení vložení, povolte ho. Čteme jen zkopírovaný odkaz na YouTube a nikam ho neposíláme.";
 /* iOS: 毎回のペースト確認をなくす手順（設定 → このアプリ → 他のアプリからペースト → 許可）。2026-10-06 ユーザー判断 */
 "copyguide.ios.pasteSetting" = "Aby se aplikace pokaždé neptala na povolení vložení, nastavte v Nastavení u této aplikace „Vkládat z jiných aplikací“ na „Povolit“.";
 /* iOS: このアプリの設定画面を開くボタン */
 "copyguide.ios.pasteSetting.open" = "Otevřít Nastavení";
+/* iOS: もう一度クリップボードを読む（ペーストの確認がまた出る） */
+"copyguide.ios.retry" = "Zkusit znovu";
 /* iOS: ①［共有］→②［コピー］→③ 左上の「◀ アプリ名」で戻る。%@ = アプリの表示名（iOS が左上に出す戻るリンクの名前） */
 "copyguide.ios.step1" = "①[Sdílet] → ②[Kopírovat odkaz]\n③ Klepněte vlevo nahoře na „◀ %@“\na vrátíte se do aplikace";
 /* iOS: YouTube の共有から追加の見出し（Android の copyguide.title と同じ訳） */

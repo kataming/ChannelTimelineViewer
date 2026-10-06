@@ -101,12 +101,16 @@
 "copyguide.ios.notFound" = "コピーされた YouTube のリンクが見つかりませんでした。YouTube で［共有］→［コピー］してから戻ってきてください。";
 /* iOS: YouTube を開くボタン（Android の copyguide.open と同じ訳） */
 "copyguide.ios.open" = "YouTubeを開く";
+/* iOS: 共有の案内から戻ったが「ペーストを許可しない」を押されて読めなかった */
+"copyguide.ios.pasteDenied" = "ペーストが許可されなかったため、コピーしたリンクを読み込めませんでした。";
 /* iOS: 戻ったときに iOS が出す「ペーストの許可」の説明。読むのは YouTube のリンクだけ */
 "copyguide.ios.pasteNote" = "戻ったときに「ペーストを許可しますか？」と聞かれたら、許可してください。読むのはコピーした YouTube のリンクだけで、どこにも送りません。";
 /* iOS: 毎回のペースト確認をなくす手順（設定 → このアプリ → 他のアプリからペースト → 許可）。2026-10-06 ユーザー判断 */
 "copyguide.ios.pasteSetting" = "毎回「ペーストを許可しますか？」と聞かれないようにするには、設定でこのアプリの［ほかのAppからペースト］を［許可］にしてください。";
 /* iOS: このアプリの設定画面を開くボタン */
 "copyguide.ios.pasteSetting.open" = "設定を開く";
+/* iOS: もう一度クリップボードを読む（ペーストの確認がまた出る） */
+"copyguide.ios.retry" = "もう一度読み込む";
 /* iOS: ①［共有］→②［コピー］→③ 左上の「◀ アプリ名」で戻る。%@ = アプリの表示名（iOS が左上に出す戻るリンクの名前） */
 "copyguide.ios.step1" = "①［共有］ → ②［コピー］\n③ 左上の「◀ %@」を押すと\nこのアプリに戻れます";
 /* iOS: YouTube の共有から追加の見出し（Android の copyguide.title と同じ訳） */

@@ -101,12 +101,16 @@
 "copyguide.ios.notFound" = "Kein kopierter YouTube-Link gefunden. Tippe in YouTube auf Teilen → Link kopieren und komm dann zurück.";
 /* iOS: YouTube を開くボタン（Android の copyguide.open と同じ訳） */
 "copyguide.ios.open" = "YouTube öffnen";
+/* iOS: 共有の案内から戻ったが「ペーストを許可しない」を押されて読めなかった */
+"copyguide.ios.pasteDenied" = "Das Einsetzen wurde nicht erlaubt, daher konnte der kopierte Link nicht gelesen werden.";
 /* iOS: 戻ったときに iOS が出す「ペーストの許可」の説明。読むのは YouTube のリンクだけ */
 "copyguide.ios.pasteNote" = "Wenn du beim Zurückkehren gefragt wirst, ob das Einsetzen erlaubt werden soll, erlaube es bitte. Wir lesen nur den kopierten YouTube-Link und senden ihn nirgendwohin.";
 /* iOS: 毎回のペースト確認をなくす手順（設定 → このアプリ → 他のアプリからペースト → 許可）。2026-10-06 ユーザー判断 */
 "copyguide.ios.pasteSetting" = "Damit du nicht jedes Mal gefragt wirst, ob das Einsetzen erlaubt ist, stelle in den Einstellungen für diese App „Aus anderen Apps einsetzen“ auf „Erlauben“.";
 /* iOS: このアプリの設定画面を開くボタン */
 "copyguide.ios.pasteSetting.open" = "Einstellungen öffnen";
+/* iOS: もう一度クリップボードを読む（ペーストの確認がまた出る） */
+"copyguide.ios.retry" = "Erneut versuchen";
 /* iOS: ①［共有］→②［コピー］→③ 左上の「◀ アプリ名」で戻る。%@ = アプリの表示名（iOS が左上に出す戻るリンクの名前） */
 "copyguide.ios.step1" = "①[Teilen] → ②[Link kopieren]\n③ Tippe oben links auf „◀ %@“,\num zu dieser App zurückzukehren";
 /* iOS: YouTube の共有から追加の見出し（Android の copyguide.title と同じ訳） */

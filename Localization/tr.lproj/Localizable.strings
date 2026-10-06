@@ -101,12 +101,16 @@
 "copyguide.ios.notFound" = "Kopyalanmış bir YouTube bağlantısı bulunamadı. YouTube'da Paylaş → Bağlantıyı kopyala'ya dokunup geri dönün.";
 /* iOS: YouTube を開くボタン（Android の copyguide.open と同じ訳） */
 "copyguide.ios.open" = "YouTube'u aç";
+/* iOS: 共有の案内から戻ったが「ペーストを許可しない」を押されて読めなかった */
+"copyguide.ios.pasteDenied" = "Yapıştırmaya izin verilmediği için kopyalanan bağlantı okunamadı.";
 /* iOS: 戻ったときに iOS が出す「ペーストの許可」の説明。読むのは YouTube のリンクだけ */
 "copyguide.ios.pasteNote" = "Geri döndüğünüzde yapıştırmaya izin verip vermeyeceğiniz sorulursa izin verin. Yalnızca kopyaladığınız YouTube bağlantısını okuruz ve hiçbir yere göndermeyiz.";
 /* iOS: 毎回のペースト確認をなくす手順（設定 → このアプリ → 他のアプリからペースト → 許可）。2026-10-06 ユーザー判断 */
 "copyguide.ios.pasteSetting" = "Her seferinde yapıştırma izni sorulmaması için Ayarlar’da bu uygulama için “Diğer Uygulamalardan Yapıştır” seçeneğini “İzin Ver” yapın.";
 /* iOS: このアプリの設定画面を開くボタン */
 "copyguide.ios.pasteSetting.open" = "Ayarlar’ı Aç";
+/* iOS: もう一度クリップボードを読む（ペーストの確認がまた出る） */
+"copyguide.ios.retry" = "Tekrar dene";
 /* iOS: ①［共有］→②［コピー］→③ 左上の「◀ アプリ名」で戻る。%@ = アプリの表示名（iOS が左上に出す戻るリンクの名前） */
 "copyguide.ios.step1" = "①[Paylaş] → ②[Bağlantıyı kopyala]\n③ Sol üstteki “◀ %@” düğmesine dokunarak\nbu uygulamaya dönün";
 /* iOS: YouTube の共有から追加の見出し（Android の copyguide.title と同じ訳） */

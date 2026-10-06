@@ -48,7 +48,13 @@ final class ClipboardLinkDetector: ObservableObject {
             return
         }
         dismissedChangeCount = nil
-        hasCandidate = await pasteboard.containsProbableURL()
+        let found = await pasteboard.containsProbableURL()
+        // 待っているあいだに dismissCurrent() された（「YouTube の共有から追加する」で処理済み）なら出さない。
+        if let dismissedChangeCount, dismissedChangeCount == pasteboard.changeCount {
+            hasCandidate = false
+            return
+        }
+        hasCandidate = found
     }
 
     /// ボタンが押されたときに呼ぶ。YouTube の URL なら返す（それ以外は nil）。

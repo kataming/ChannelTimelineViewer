@@ -52,4 +52,23 @@ final class AdsPreviewUITests: XCTestCase {
         Thread.sleep(forTimeInterval: 5)
         AdsTestSupport.capture("\(prefix)-c-videolist", in: self)
     }
+
+    /// 再生画面の本文の中のバナー（移動ボタンと「YouTubeでコメントする」の間・2026-10-09〜）。
+    /// 1画面目に広告と「YouTubeでコメントする」まで収まるかを見る。
+    func test3_無料_再生画面() throws {
+        app.launchArguments += AdsTestSupport.seedArguments(
+            channels: [AdsTestSupport.nasa], active: AdsTestSupport.nasa.id, proCached: false)
+        app.launch()
+        let title = app.staticTexts["NASA"]
+        XCTAssertTrue(title.waitForExistence(timeout: 60), "保存チャンネルが表示されない")
+        title.tap()
+        XCTAssertTrue(AdsTestSupport.anchor(in: app).waitForExistence(timeout: 60), "アンカー型バナーが出ない")
+        // 一覧の最初の動画を開く。
+        let firstVideo = app.cells.element(boundBy: 2)
+        XCTAssertTrue(firstVideo.waitForExistence(timeout: 30), "動画の行が無い")
+        firstVideo.tap()
+        XCTAssertTrue(AdsTestSupport.player(in: app).waitForExistence(timeout: 60), "再生画面のバナーが出ない")
+        Thread.sleep(forTimeInterval: 5)
+        AdsTestSupport.capture("03-free-player", in: self)
+    }
 }

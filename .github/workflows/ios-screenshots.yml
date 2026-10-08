@@ -28,6 +28,10 @@ on:
         description: '撮影する言語（カンマ区切り）。App Store の各言語に貼るぶんを撮る'
         required: false
         default: 'en,ja,zh-Hans,es,de,fr,ko'
+      only_testing:
+        description: '一部のテストだけ撮る（例: ChannelTimelineViewerUITests/AdsPreviewUITests）。空なら全部'
+        required: false
+        default: ''
 
 jobs:
   plan:
@@ -127,8 +131,11 @@ jobs:
           CHANNEL_URL: ${{ inputs.channel_url }}
           WATCHED_COUNT: ${{ inputs.watched_count }}
           LANGUAGE: ${{ matrix.language }}
+          ONLY_TESTING: ${{ inputs.only_testing }}
         run: |
           set -o pipefail
+          ONLY_ARGS=()
+          if [ -n "$ONLY_TESTING" ]; then ONLY_ARGS=("-only-testing:$ONLY_TESTING"); fi
           # TEST_RUNNER_ 付きの値は「xcodebuild の環境変数」として渡すと、接頭辞を外して
           # テストランナーのプロセス環境に入る。ビルド設定(KEY=VALUE 引数)として渡しても
           # テスト実行時には届かないので注意。
@@ -142,6 +149,7 @@ jobs:
             -configuration Debug \
             -destination "platform=iOS Simulator,name=$SIM_NAME" \
             -resultBundlePath "$RESULT_PATH" \
+            "${ONLY_ARGS[@]}" \
             CODE_SIGNING_ALLOWED=NO \
             test
 

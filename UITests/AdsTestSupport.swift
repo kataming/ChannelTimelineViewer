@@ -41,6 +41,10 @@ enum AdsTestSupport {
         app.descendants(matching: .any)["ad.mrec"]
     }
 
+    static func player(in app: XCUIApplication) -> XCUIElement {
+        app.descendants(matching: .any)["ad.player"]
+    }
+
     static func capture(_ name: String, in test: XCTestCase) {
         let attachment = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
         attachment.name = name

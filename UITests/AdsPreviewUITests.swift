@@ -63,10 +63,11 @@ final class AdsPreviewUITests: XCTestCase {
         XCTAssertTrue(title.waitForExistence(timeout: 60), "保存チャンネルが表示されない")
         title.tap()
         XCTAssertTrue(AdsTestSupport.anchor(in: app).waitForExistence(timeout: 60), "アンカー型バナーが出ない")
-        // 一覧の最初の動画を開く。
-        let firstVideo = app.cells.element(boundBy: 2)
-        XCTAssertTrue(firstVideo.waitForExistence(timeout: 30), "動画の行が無い")
-        firstVideo.tap()
+        // 「次に見る」の行（一覧の上のほう）を開く。本数の多いチャンネルでは要素の検索が時間切れに
+        // なるので、画面上の位置で押す。
+        Thread.sleep(forTimeInterval: 5)
+        AdsTestSupport.capture("03-free-list-before-tap", in: self)
+        app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.27)).tap()
         XCTAssertTrue(AdsTestSupport.player(in: app).waitForExistence(timeout: 60), "再生画面のバナーが出ない")
         Thread.sleep(forTimeInterval: 5)
         AdsTestSupport.capture("03-free-player", in: self)

@@ -230,3 +230,19 @@ CI を通してから Firebase を上げる。
 | `.github/workflows/android-release.yml` | Secrets から本物を復元（未設定なら失敗させる） |
 | `Localization/strings.json` | 画面の文言（`about.analytics.*`・Android 専用） |
 | `docs/privacy-policy.md` / `site/src/i18n/translations.js` | プライバシーポリシー（7言語） |
+
+---
+
+## 2026-10-08: AdMob とのリンク・BigQuery への書き出し（Claude が管理画面で設定・アプリの変更なし）
+
+- **AdMob ↔ Firebase**: AdMob の Android アプリ（`ca-app-pub-8473234147163541~6355589502`）を Firebase プロジェクト
+  `channel-timeline` の Android アプリにリンク（AdMob → 設定 → リンクされたサービス → アプリリンクの管理）。
+  iOS は Firebase が無いのでリンクしていない。指標が出るまで最長 48 時間
+- **インプレッション単位の広告収益**: AdMob のアカウント設定でオン。広告の表示ごとの収益が Firebase / GA4 に
+  `ad_impression` として入り、Firebase で広告の ARPU などを見られるようになる（Google Mobile Ads SDK 25.5.0 なので要件を満たす）
+- **GA4 → BigQuery**: Firebase → プロジェクトの設定 → 統合 → BigQuery でリンク。Google アナリティクスのみ・**毎日**の書き出し
+  （ストリーミングはオフ＝費用なし）・**広告 ID は含めない**・リージョン **asia-northeast1**（あとから変更できない）。
+  最初の書き出しで `analytics_<プロパティID>` データセットができる（約 24 時間後）。
+  **過去分はさかのぼって書き出されない**ので、利用者単位のコホート（バージョン別 D1/D3/D7 など）は 2026-10-09 以降のデータで出せる。
+  料金: プロジェクトは Blaze（従量制）だが、保存 10GiB・検索 1TiB/月 は無料。今の量なら無料枠に収まる見込み
+- 送る中身（アプリのイベント）は何も変えていないので、プライバシーポリシー・データセーフティの申告は変更不要

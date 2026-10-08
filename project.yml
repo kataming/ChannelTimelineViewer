@@ -102,6 +102,7 @@ targets:
         ADMOB_APP_ID: "ca-app-pub-8473234147163541~1733818213"
         ADMOB_BANNER_UNIT_ID: "ca-app-pub-8473234147163541/5972446128"
         ADMOB_MREC_UNIT_ID: "ca-app-pub-8473234147163541/5289919841"
+        ADMOB_PLAYER_BANNER_UNIT_ID: "ca-app-pub-8473234147163541/1147045147"
       configs:
         # 開発中は本番 ID を書いてもテスト用のアプリ ID を使う（広告ユニットも AdsConfig がテスト用に固定する）。
         Debug:

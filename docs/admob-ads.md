@@ -19,17 +19,41 @@
 | --- | --- | --- |
 | 動画一覧 | **アンカー型アダプティブバナー**（画面下に固定） | 一覧をスクロールして選ぶ画面で、下端は操作が無い。一覧の最後の行も広告の上までスクロールできる |
 | 最初の画面（入力・保存チャンネル） | **MREC**（保存チャンネルの一覧の後ろに1つ） | 入力欄・取得ボタン・Pro の案内より下。**保存チャンネルが0件（初回）の人には出さない・読み込みもしない** |
-| 再生画面 | **なし** | YouTube のプレイヤー・移動ボタン・自動再生の切り替えに重ねない（III.G.1.c・誤タップ防止） |
+| 再生画面 | **バナー 320×50**（本文の中・移動ボタンと「YouTubeでコメントする」の間。2026-10-09〜・Android 1.20 / iOS 1.5.1 から） | 下の「再生画面のバナー」を参照 |
 | Pro の購入画面 | なし | 購入の操作の邪魔をしない |
 | このアプリについて | なし | 規約・プライバシーの説明画面 |
 
 - 1つの画面に広告は1つだけ（バナーと MREC を同じ画面に出さない）
+- 「広告」の表示は MREC にだけ付ける。アンカーバナー・再生画面のバナーには付けない（2026-10-09・ユーザー判断）
 - MREC には「広告（ads.label）」の表示と枠線を付ける。動画やチャンネルの行（サムネイル付き）と同じ見た目にしない
 - バナーは区切り線の下に置き、ナビゲーションバー／ホームインジケーターに重ねない（Android は `navigationBarsPadding`、iOS は `safeAreaInset`）
 - どちらも**読み込めてから場所を取る**。読み込み中・失敗・オフライン・Pro のときは空白を残さない
 - 大きさは Google が現在推奨している「大きいアンカー型」
   （Android `AdSize.getLargeAnchoredAdaptiveBannerAdSize` / iOS `largeAnchoredAdaptiveBanner(width:)`）。
   高さは 50〜150dp・画面の20%以内。従来の `getCurrentOrientationAnchoredAdaptiveBannerAdSize` は SDK 25 で非推奨
+
+### 再生画面のバナー（2026-10-09・ユーザー判断）
+
+人気動画・コピーした動画URLから来たら**すぐ再生し、一覧は再生画面の裏で読み込む**ようにした
+（再生までの到達率を上げるため）。その分、一覧画面のバナーを見る機会が減るので、再生画面にもバナーを置く。
+「課金したら広告が消える」ことに気づいてもらう狙いもある。
+
+- 置き場所は**本文の中**（スクロールと一緒に動く。画面に固定しない）。移動ボタン行と「YouTubeでコメントする」の間
+  - 「YouTubeでコメントする」は補助機能なので、その上に置いてよい。**次へ等の主要ボタンは広告で隠さない**
+  - ⚠️ **プレイヤーの上・中・プレイヤーに重なる位置には置かない**（YouTube API 規約 III.G.1.3 の「プレイヤーの上・中に広告を置かない」）
+  - 上下に余白（4dp/pt＋行間）を取り、移動ボタンの押し間違いを防ぐ
+- 大きさは高さ一定の**標準バナー 320×50**（`AdSize.BANNER` / `AdSizeBanner`）。1画面目に収めるため
+- 1画面目に収めるため、［自動再生］［未視聴のみ再生］の見出しを同じ大きさにそろえ、下の小さい説明文を外した
+  （360×760dp と 411×914dp のエミュレーターで、広告と「YouTubeでコメントする」まで1画面目に入ることを確認）
+- 収益を分けて見るため、**専用の広告ユニット**にしてある（2026-10-09 に Claude が AdMob で作成）:
+  - Android「CTV Android player banner」`ca-app-pub-8473234147163541/8692519361`（`ADMOB_PLAYER_BANNER_UNIT_ID`）
+  - iOS「CTV iOS player banner」`ca-app-pub-8473234147163541/1147045147`（`project.yml` の同名の設定）
+  - 未設定なら一覧のバナーと同じユニットを使う（`AdsConfig.playerBannerUnit`）
+- 部品: Android `ads/AdViews.kt` の `PlayerBannerAd`、iOS `Views/AdViews.swift` の `PlayerBannerAdView`
+
+⚠️ **外向けの記載は、この版をストアに出すときに直す**（いまのストア版・サイト・プライバシーポリシーは
+「再生画面には出さない」と書いてあり、公開中のアプリとは合っている。先に直すと食い違う）。直す場所は7章の表の
+「再生画面には出さない」の行。
 
 ### ⚠️ YouTube API の規約（III.G.1.d）との関係 — 判断が必要
 
@@ -42,8 +66,8 @@ YouTube API Services Developer Policies **III.G.1.d** は、「YouTube API の�
   「独立した価値」を主張できる余地はあるが、**判定は YouTube 側**（API の監査・クォータ申請で見られうる）
 - YouTube API Data を一切表示しない画面は「このアプリについて」だけ
 
-置き場所は `MainActivity.kt`（Android）と `VideoListView.swift` / `ChannelInputView.swift`（iOS）の
-それぞれ1行で決めているので、方針が変わったら移すのは簡単。**本番 ID を入れる前に判断すること。**
+置き場所は `MainActivity.kt`・`PlayerScreen.kt`（Android）と `VideoListView.swift` / `ChannelInputView.swift` /
+`PlayerView.swift`（iOS）のそれぞれ1行で決めているので、方針が変わったら移すのは簡単。**本番 ID を入れる前に判断すること。**
 
 ---
 
@@ -81,10 +105,10 @@ YouTube API Services Developer Policies **III.G.1.d** は、「YouTube API の�
 
 **AdMob の ID は秘密情報ではない**（アプリに入って誰でも読める）。本番 ID の入れ方:
 
-- Android: `ADMOB_APP_ID` / `ADMOB_BANNER_UNIT_ID` / `ADMOB_MREC_UNIT_ID` を
+- Android: `ADMOB_APP_ID` / `ADMOB_BANNER_UNIT_ID` / `ADMOB_MREC_UNIT_ID`（任意で `ADMOB_PLAYER_BANNER_UNIT_ID`）を
   環境変数・`android/local.properties`・`android/gradle.properties` のどれかに書く
   （CI で使うなら `android/gradle.properties` に書いてコミットするのがいちばん手間が少ない）
-- iOS: `project.yml` のアプリ本体ターゲットの `ADMOB_APP_ID` / `ADMOB_BANNER_UNIT_ID` / `ADMOB_MREC_UNIT_ID`
+- iOS: `project.yml` のアプリ本体ターゲットの `ADMOB_APP_ID` / `ADMOB_BANNER_UNIT_ID` / `ADMOB_MREC_UNIT_ID`（任意で `ADMOB_PLAYER_BANNER_UNIT_ID`）
   （`App/Info.plist` に入る）
 
 ### デバッグ用の起動オプション
@@ -207,6 +231,7 @@ Android（エミュレーター API 36・デバッグ＝テスト広告）:
 - EEA（`adsEea`）: 起動時に同意フォームが出る → 「同意しない」でも限定広告が出る →
   「このアプリについて」に「広告のプライバシー設定」が出て、押すとフォームが開く
 - 再生画面に広告は出ない。プレイヤーの再生・自動再生の切り替え・移動ボタンは従来どおり
+  （※ 2026-10-09 に方針変更。再生画面の本文の中にバナーを置くようにした。1章の「再生画面のバナー」）
 - リリース（R8・本番 ID なし）: 広告は出ず、UMP・Ads のログも0。動画の再生も動く
 
 iOS:

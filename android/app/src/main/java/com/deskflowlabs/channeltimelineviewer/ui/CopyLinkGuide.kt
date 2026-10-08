@@ -117,6 +117,8 @@ object CopyLinkGuide {
             .build()
     }
 
+    // 通知の権限は直前の needsPermission で確かめている（Lint はそれを追えない）。
+    @android.annotation.SuppressLint("MissingPermission")
     fun notify(context: Context, notification: android.app.Notification) {
         if (needsPermission(context)) return
         runCatching { NotificationManagerCompat.from(context).notify(NOTIFICATION_ID, notification) }

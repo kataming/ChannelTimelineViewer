@@ -50,39 +50,43 @@ struct PlayerView: View {
         )
     }
 
-    var body: some View {
-        Group {
-            if let video = viewModel.currentVideo {
-                // プレイヤーは常に 16:9。大きさは変えない（レイアウトが崩れるため）。
-                // 公式プレイヤーの設定メニューはプレイヤーの下端から上へ伸びるので、
-                // このサイズのままでも「速度／字幕／その他のオプション」は収まる。
-                VStack(spacing: 0) {
-                    YouTubePlayerWebView(
-                        videoId: video.id,
-                        autoplayOnLoad: true,
-                        startSeconds: viewModel.startSecondsForCurrent,
-                        command: viewModel.command,
-                        onStateChange: { state in viewModel.handleState(state) },
-                        onTimeUpdate: { id, seconds, duration in
-                            viewModel.handleTimeUpdate(videoId: id, seconds: seconds, duration: duration)
-                        },
-                        onNearEnd: { id in viewModel.handleNearEnd(videoId: id) },
-                        onOptions: { options in viewModel.handleOptions(options) }
-                    )
-                    .aspectRatio(16.0 / 9.0, contentMode: .fit)
-                    .frame(maxWidth: .infinity)
-                    .background(Color.black)
+    /// プレイヤーと本文（型チェックが重くならないよう body から分けている）。
+    @ViewBuilder
+    private var playerContent: some View {
+        if let video = viewModel.currentVideo {
+            // プレイヤーは常に 16:9。大きさは変えない（レイアウトが崩れるため）。
+            // 公式プレイヤーの設定メニューはプレイヤーの下端から上へ伸びるので、
+            // このサイズのままでも「速度／字幕／その他のオプション」は収まる。
+            VStack(spacing: 0) {
+                YouTubePlayerWebView(
+                    videoId: video.id,
+                    autoplayOnLoad: true,
+                    startSeconds: viewModel.startSecondsForCurrent,
+                    command: viewModel.command,
+                    onStateChange: { state in viewModel.handleState(state) },
+                    onTimeUpdate: { id, seconds, duration in
+                        viewModel.handleTimeUpdate(videoId: id, seconds: seconds, duration: duration)
+                    },
+                    onNearEnd: { id in viewModel.handleNearEnd(videoId: id) },
+                    onOptions: { options in viewModel.handleOptions(options) }
+                )
+                .aspectRatio(16.0 / 9.0, contentMode: .fit)
+                .frame(maxWidth: .infinity)
+                .background(Color.black)
 
-                    ScrollView {
-                        details(for: video)
-                    }
-                    // 下にスワイプしてもキーボードを下げられるようにする。
-                    .scrollDismissesKeyboard(.interactively)
+                ScrollView {
+                    details(for: video)
                 }
-            } else {
-                ContentUnavailableView("player.noVideos", systemImage: "film")
+                // 下にスワイプしてもキーボードを下げられるようにする。
+                .scrollDismissesKeyboard(.interactively)
             }
+        } else {
+            ContentUnavailableView("player.noVideos", systemImage: "film")
         }
+    }
+
+    var body: some View {
+        playerContent
         // いまどのチャンネルを見ているかが分かるように、画面上部にチャンネル名を出す。
         .navigationTitle(channel.title)
         .navigationBarTitleDisplayMode(.inline)
@@ -120,14 +124,15 @@ struct PlayerView: View {
         .onDisappear {
             ScreenSleepController.shared.setKeepScreenOn(false)
         }
-        .background {
-            // すぐ再生した動画の後ろで、チャンネルの一覧を読み込む。読み込めたら古い順の一覧を差し込み、
-            // 自動再生の「次」（1本新しい動画）が決まる。
-            if let backgroundList, viewModel.isAwaitingList {
-                BackgroundListFeed(list: backgroundList) { list in
-                    feed(from: list)
-                }
-            }
+        .background { backgroundListFeed }
+    }
+
+    /// すぐ再生した動画の後ろで、チャンネルの一覧を読み込む。読み込めたら古い順の一覧を差し込み、
+    /// 自動再生の「次」（1本新しい動画）が決まる。
+    @ViewBuilder
+    private var backgroundListFeed: some View {
+        if let backgroundList, viewModel.isAwaitingList {
+            BackgroundListFeed(list: backgroundList, onChange: feed(from:))
         }
     }
 

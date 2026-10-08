@@ -133,7 +133,7 @@ export default {
       },
       {
         "q": "Kukhona izikhangiso noma ukubhalisela?",
-        "a": "Inguqulo yamahhala ibonisa izikhangiso (hhayi neze esikrinini sesidlali). Akukho ukubhalisela okukhokhelwa njalo. I-app imahhala futhi ilondoloza isiteshi esisodwa, futhi ngaphakathi kwaleso siteshi akukho okukhawulelwe. I-Pro ingukuthenga kanye ongakuzikhethela okususa izikhangiso futhi kukuvumele ugcine iziteshi eziningana, ngasinye sinenqubekelaphambili yaso. Akukho okubuye kukhokhiswe ngemuva kwalokho."
+        "a": "Inguqulo yamahhala ibonisa izikhangiso (hhayi neze phezu kwesidlali sevidiyo). Akukho ukubhalisela okukhokhelwa njalo. I-app imahhala futhi ilondoloza isiteshi esisodwa, futhi ngaphakathi kwaleso siteshi akukho okukhawulelwe. I-Pro ingukuthenga kanye ongakuzikhethela okususa izikhangiso futhi kukuvumele ugcine iziteshi eziningana, ngasinye sinenqubekelaphambili yaso. Akukho okubuye kukhokhiswe ngemuva kwalokho."
       },
       {
         "q": "Ikhona inguqulo ye-Android?",
@@ -220,7 +220,7 @@ export default {
     "privacy": {
       "title": "Inqubomgomo Yobumfihlo",
       "description": "Lokho i-Channel Timeline Viewer ekugcinayo nalokho engakugcini.",
-      "updated": "Kubuyekezwe okokugcina: 6 Okthoba 2026",
+      "updated": "Kubuyekezwe okokugcina: 9 Okthoba 2026",
       "sections": [
         {
           "title": "1. Isifinyezo",
@@ -281,7 +281,7 @@ export default {
         {
           "title": "8. Ukukhangisa (inguqulo yamahhala)",
           "body": [
-            "Inguqulo yamahhala ibonisa izikhangiso ezivela ku-Google AdMob (Google LLC): isibhengezo ezansi kohlu lwamavidiyo nesikhangiso esisodwa ngaphansi kohlu lweziteshi ezilondoloziwe esikrinini sokuqala. Izikhangiso azibonakali neze esikrinini sesidlali. I-Pro ayibonisi zikhangiso, futhi i-SDK yezikhangiso ayiqaliswa kubasebenzisi be-Pro.",
+            "Inguqulo yamahhala ibonisa izikhangiso ezivela ku-Google AdMob (Google LLC): isibhengezo ezansi kohlu lwamavidiyo nesikhangiso esisodwa ngaphansi kohlu lweziteshi ezilondoloziwe esikrinini sokuqala. Isikrini sesidlali naso sibonisa isibhengezo esisodwa ngaphansi kwezinkinobho zokudlala; izikhangiso azibekwa neze phezu kwesidlali sevidiyo. I-Pro ayibonisi zikhangiso, futhi i-SDK yezikhangiso ayiqaliswa kubasebenzisi be-Pro.",
             "Ukuze ibonise futhi ilinganise izikhangiso nokuvimbela ukukhwabanisa, i-Google AdMob iqoqa ikheli lakho le-IP (elingase lisetshenziselwe ukulinganisela indawo yakho ngokwesilinganiso), ukusebenzisana kwakho ne-app nezikhangiso (njengokuvulwa kwe-app, ukuthepha nokubukwa kwezikhangiso), ulwazi lokuxilonga mayelana ne-app ne-SDK, nezihlonzi zedivayisi ezifana ne-app set ID. I-app ayiyiniki i-AdMob iziteshi noma amavidiyo owabukayo, amanothi akho, noma ama-URL owafakayo.",
             "I-app ayisisebenzisi isihlonzi sezikhangiso: ku-iOS ayisebenzisi i-App Tracking Transparency noma i-IDFA, futhi ku-Android ayiyiceli imvume ye-AD_ID.",
             "E-European Economic Area, e-United Kingdom nase-Switzerland, i-app icela imvume yakho ngefomu lemvume le-Google ngaphambi kokucela izikhangiso. Ungashintsha ukukhetha kwakho noma nini kokuthi “Mayelana nale app” → “Izilungiselelo zobumfihlo bezikhangiso”.",

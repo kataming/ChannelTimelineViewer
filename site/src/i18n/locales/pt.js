@@ -133,7 +133,7 @@ export default {
       },
       {
         "q": "Tem anúncios ou assinaturas?",
-        "a": "A versão gratuita mostra anúncios (nunca na tela do player). Não há assinaturas. O app é gratuito e salva um canal, e dentro desse canal nada é limitado. O Pro é uma compra única opcional que remove os anúncios e permite manter vários canais, cada um com seu próprio progresso. Nada é cobrado de novo depois."
+        "a": "A versão gratuita mostra anúncios (nunca sobre o player de vídeo). Não há assinaturas. O app é gratuito e salva um canal, e dentro desse canal nada é limitado. O Pro é uma compra única opcional que remove os anúncios e permite manter vários canais, cada um com seu próprio progresso. Nada é cobrado de novo depois."
       },
       {
         "q": "Existe versão para Android?",
@@ -220,7 +220,7 @@ export default {
     "privacy": {
       "title": "Política de Privacidade",
       "description": "O que o Channel Timeline Viewer armazena e o que não armazena.",
-      "updated": "Última atualização: 6 de outubro de 2026",
+      "updated": "Última atualização: 9 de outubro de 2026",
       "sections": [
         {
           "title": "1. Resumo",
@@ -281,7 +281,7 @@ export default {
         {
           "title": "8. Publicidade (versão gratuita)",
           "body": [
-            "A versão gratuita mostra anúncios do Google AdMob (Google LLC): um banner na parte inferior da lista de vídeos e um anúncio abaixo da lista de canais salvos na primeira tela. Nunca são exibidos anúncios na tela do player. O Pro não mostra anúncios, e o SDK de anúncios não é iniciado para usuários do Pro.",
+            "A versão gratuita mostra anúncios do Google AdMob (Google LLC): um banner na parte inferior da lista de vídeos e um anúncio abaixo da lista de canais salvos na primeira tela. A tela do player também mostra um banner abaixo dos botões de reprodução; os anúncios nunca são colocados sobre o player de vídeo. O Pro não mostra anúncios, e o SDK de anúncios não é iniciado para usuários do Pro.",
             "Para exibir e medir anúncios e para evitar fraudes, o Google AdMob coleta o seu endereço IP (que pode ser usado para estimar sua localização aproximada), suas interações com o app e com os anúncios (como aberturas do app, toques e visualizações de anúncios), informações de diagnóstico sobre o app e o SDK e identificadores do aparelho, como o ID do conjunto de apps. O app não fornece ao AdMob os canais ou vídeos que você assiste, suas notas ou as URLs que você digita.",
             "O app não usa o identificador de publicidade: no iOS, ele não usa o App Tracking Transparency nem o IDFA, e no Android ele não solicita a permissão AD_ID.",
             "No Espaço Econômico Europeu, no Reino Unido e na Suíça, o app pede o seu consentimento com o formulário de consentimento do Google antes de solicitar anúncios. Você pode mudar sua escolha a qualquer momento em “Sobre este app” → “Configurações de privacidade de anúncios”.",

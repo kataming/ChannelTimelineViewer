@@ -133,7 +133,7 @@ export default {
       },
       {
         "q": "Finns det annonser eller prenumerationer?",
-        "a": "Gratisversionen visar annonser (aldrig på spelarskärmen). Det finns inga prenumerationer. Appen är gratis och sparar en kanal, och i den kanalen är ingenting begränsat. Pro är ett valfritt engångsköp som tar bort annonserna och låter dig spara flera kanaler, var och en med sitt eget förlopp. Inget debiteras igen efteråt."
+        "a": "Gratisversionen visar annonser (aldrig över videospelaren). Det finns inga prenumerationer. Appen är gratis och sparar en kanal, och i den kanalen är ingenting begränsat. Pro är ett valfritt engångsköp som tar bort annonserna och låter dig spara flera kanaler, var och en med sitt eget förlopp. Inget debiteras igen efteråt."
       },
       {
         "q": "Finns det en Android-version?",
@@ -220,7 +220,7 @@ export default {
     "privacy": {
       "title": "Integritetspolicy",
       "description": "Vad Channel Timeline Viewer sparar och vad den inte sparar.",
-      "updated": "Senast uppdaterad: 6 oktober 2026",
+      "updated": "Senast uppdaterad: 9 oktober 2026",
       "sections": [
         {
           "title": "1. Sammanfattning",
@@ -281,7 +281,7 @@ export default {
         {
           "title": "8. Annonser (gratisversionen)",
           "body": [
-            "Gratisversionen visar annonser från Google AdMob (Google LLC): en banner längst ned i videolistan och en annons under listan med sparade kanaler på första skärmen. Annonser visas aldrig på spelarskärmen. Pro visar inga annonser, och annons-SDK:n startas inte för Pro-användare.",
+            "Gratisversionen visar annonser från Google AdMob (Google LLC): en banner längst ned i videolistan och en annons under listan med sparade kanaler på första skärmen. Spelarskärmen visar också en banner under uppspelningsknapparna; annonser placeras aldrig över videospelaren. Pro visar inga annonser, och annons-SDK:n startas inte för Pro-användare.",
             "För att visa och mäta annonser och förhindra bedrägerier samlar Google AdMob in din IP-adress (som kan användas för att uppskatta din ungefärliga plats), dina interaktioner med appen och med annonser (till exempel appstarter, tryck och annonsvisningar), diagnostisk information om appen och SDK:n samt enhetsidentifierare som app set ID. Appen ger inte AdMob de kanaler eller videor du tittar på, dina anteckningar eller de URL:er du anger.",
             "Appen använder inte annons-ID:t: på iOS använder den inte App Tracking Transparency eller IDFA, och på Android begär den inte behörigheten AD_ID.",
             "I Europeiska ekonomiska samarbetsområdet, Storbritannien och Schweiz ber appen om ditt samtycke med Googles samtyckesformulär innan annonser begärs. Du kan när som helst ändra ditt val under ”Om den här appen” → ”Integritetsinställningar för annonser”.",

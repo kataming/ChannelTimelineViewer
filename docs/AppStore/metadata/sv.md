@@ -86,15 +86,10 @@ YouTube är ett varumärke som tillhör Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 556 / 4000 文字 -->
+<!-- 306 / 4000 文字 -->
 
 ```
-• Välj en populär video för att öppna kanalen direkt.
-• Lägg till en kanal genom att trycka på Dela → Kopiera länk i YouTube och komma tillbaka.
-• Nytt i listmenyn: ”Till toppen” och ”Till botten”.
-• Laddningen visar nu förloppet (%).
-• Antal visningar visas nu bredvid publiceringsdatumet i listan och på uppspelningsskärmen.
-• Ny sortering: Populäraste (mest visade först).
-• Gratisversionen visar nu annonser – bara längst ned i videolistan och under din sparade kanal på första skärmen. Aldrig på uppspelningsskärmen.
-• Pro (engångsköp) är reklamfritt.
+• Videor du väljer bland populära videor eller kopierar i YouTube startar nu direkt (kanallistan laddas medan du tittar).
+• Uppspelningsskärmen är lättare att läsa.
+• Gratisversionen visar nu även en annons under uppspelningsknapparna på spelarskärmen (aldrig över videon). Pro (engångsköp) är reklamfritt.
 ```

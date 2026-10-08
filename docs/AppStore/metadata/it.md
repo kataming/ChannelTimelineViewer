@@ -86,15 +86,10 @@ YouTube è un marchio di Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 640 / 4000 文字 -->
+<!-- 356 / 4000 文字 -->
 
 ```
-• Scegli un video popolare per aprire subito il suo canale.
-• Aggiungi un canale toccando Condividi → Copia link in YouTube e tornando qui.
-• Novità nel menu dell'elenco: “Vai all'inizio” e “Vai alla fine”.
-• Il caricamento ora mostra l'avanzamento (%).
-• Le visualizzazioni ora compaiono accanto alla data di pubblicazione nell'elenco e nella schermata di riproduzione.
-• Nuovo ordinamento: Più popolari (i più visti prima).
-• La versione gratuita ora mostra pubblicità, solo in fondo all'elenco dei video e sotto il canale salvato nella prima schermata. Mai nella schermata di riproduzione.
-• Pro (acquisto una tantum) è senza pubblicità.
+• I video scelti tra quelli popolari o copiati in YouTube ora partono subito (l’elenco del canale si carica durante la visione).
+• La schermata di riproduzione è più leggibile.
+• La versione gratuita ora mostra un annuncio anche sotto i pulsanti di riproduzione nella schermata del player (mai sopra il video). Pro (acquisto una tantum) è senza pubblicità.
 ```

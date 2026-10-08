@@ -86,15 +86,10 @@ YouTube ialah tanda dagangan Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 627 / 4000 文字 -->
+<!-- 333 / 4000 文字 -->
 
 ```
-• Pilih video popular untuk terus membuka salurannya.
-• Tambah saluran dengan mengetik Kongsi → Salin pautan dalam YouTube dan kembali.
-• Baharu dalam menu senarai: “Ke paling atas” dan “Ke paling bawah”.
-• Pemuatan kini menunjukkan kemajuan (%).
-• Jumlah tontonan kini dipaparkan di sebelah tarikh terbit dalam senarai dan pada skrin pemain.
-• Susunan baharu: Paling popular (paling banyak ditonton dahulu).
-• Versi percuma kini memaparkan iklan — hanya di bahagian bawah senarai video dan di bawah saluran tersimpan pada skrin pertama. Iklan tidak pernah muncul pada skrin pemain.
-• Pro (pembelian sekali sahaja) tanpa iklan.
+• Video yang anda pilih daripada video popular atau salin dalam YouTube kini dimainkan serta-merta (senarai saluran dimuatkan semasa menonton).
+• Skrin pemain lebih mudah dibaca.
+• Versi percuma kini turut memaparkan iklan di bawah butang main balik pada skrin pemain (tidak sekali-kali di atas video). Pro (beli sekali) tanpa iklan.
 ```

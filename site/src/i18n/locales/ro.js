@@ -133,7 +133,7 @@ export default {
       },
       {
         "q": "Există reclame sau abonamente?",
-        "a": "Versiunea gratuită afișează reclame (niciodată pe ecranul playerului). Nu există abonamente. Aplicația este gratuită și salvează un canal, iar în acel canal nimic nu este limitat. Pro este o achiziție unică opțională care elimină reclamele și vă permite să păstrați mai multe canale, fiecare cu propriul progres. Nu se mai percepe nimic ulterior."
+        "a": "Versiunea gratuită afișează reclame (niciodată peste playerul video). Nu există abonamente. Aplicația este gratuită și salvează un canal, iar în acel canal nimic nu este limitat. Pro este o achiziție unică opțională care elimină reclamele și vă permite să păstrați mai multe canale, fiecare cu propriul progres. Nu se mai percepe nimic ulterior."
       },
       {
         "q": "Există o versiune pentru Android?",
@@ -220,7 +220,7 @@ export default {
     "privacy": {
       "title": "Politica de confidențialitate",
       "description": "Ce stochează Channel Timeline Viewer și ce nu.",
-      "updated": "Ultima actualizare: 6 octombrie 2026",
+      "updated": "Ultima actualizare: 9 octombrie 2026",
       "sections": [
         {
           "title": "1. Rezumat",
@@ -281,7 +281,7 @@ export default {
         {
           "title": "8. Publicitate (versiunea gratuită)",
           "body": [
-            "Versiunea gratuită afișează reclame de la Google AdMob (Google LLC): un banner în partea de jos a listei de videoclipuri și o reclamă sub lista canalelor salvate pe primul ecran. Reclamele nu sunt afișate niciodată pe ecranul playerului. Pro nu afișează reclame, iar SDK-ul de reclame nu este pornit pentru utilizatorii Pro.",
+            "Versiunea gratuită afișează reclame de la Google AdMob (Google LLC): un banner în partea de jos a listei de videoclipuri și o reclamă sub lista canalelor salvate pe primul ecran. Ecranul playerului afișează și un banner sub butoanele de redare; reclamele nu sunt plasate niciodată peste playerul video. Pro nu afișează reclame, iar SDK-ul de reclame nu este pornit pentru utilizatorii Pro.",
             "Pentru a afișa și măsura reclamele și pentru a preveni frauda, Google AdMob colectează adresa dvs. IP (care poate fi folosită pentru a estima locația aproximativă), interacțiunile dvs. cu aplicația și cu reclamele (cum ar fi lansările aplicației, atingerile și vizualizările reclamelor), informații de diagnosticare despre aplicație și SDK, precum și identificatori ai dispozitivului, cum ar fi ID-ul setului de aplicații (app set ID). Aplicația nu îi transmite lui AdMob canalele sau videoclipurile pe care le vizionați, notițele dvs. sau adresele URL pe care le introduceți.",
             "Aplicația nu folosește identificatorul de publicitate: pe iOS nu folosește App Tracking Transparency sau IDFA, iar pe Android nu solicită permisiunea AD_ID.",
             "În Spațiul Economic European, Regatul Unit și Elveția, aplicația vă cere consimțământul prin formularul de consimțământ Google înainte de a solicita reclame. Vă puteți schimba alegerea oricând din „Despre această aplicație” → „Setări de confidențialitate pentru reclame”.",

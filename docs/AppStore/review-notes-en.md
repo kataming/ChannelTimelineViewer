@@ -41,8 +41,9 @@ ADD VIA SHARE IN YOUTUBE (CLIPBOARD READ)
 IN-APP PURCHASE AND ADS
 - One non-consumable IAP, "Pro" (pro_unlock), allows saving more than one channel. No subscriptions.
   Within the one free channel every feature works.
-- The free version shows Google AdMob ads: a banner at the bottom of the video list and one 300x250 ad below the
-  saved channel on the first screen. Never on the player screen, never over the player. Ads are labeled.
+- The free version shows Google AdMob ads: a banner at the bottom of the video list, one 300x250 ad below the
+  saved channel on the first screen, and one 320x50 banner in the scrolling content of the player screen, below the
+  navigation buttons. Never over or inside the YouTube player, and never covering any control.
 - Pro: no ads, the ad SDK is not initialized. Consent (EEA/UK/CH) via Google UMP before any ad request; it can be
   reviewed from "Ad privacy settings" on the "i" screen. No ATT, no IDFA.
 

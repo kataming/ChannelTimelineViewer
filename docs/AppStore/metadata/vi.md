@@ -86,15 +86,10 @@ YouTube là nhãn hiệu của Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 564 / 4000 文字 -->
+<!-- 303 / 4000 文字 -->
 
 ```
-• Chọn một video phổ biến để mở ngay kênh của video đó.
-• Thêm kênh bằng cách nhấn Chia sẻ → Sao chép đường liên kết trong YouTube rồi quay lại.
-• Menu danh sách có thêm “Lên đầu” và “Xuống cuối”.
-• Khi tải nay hiển thị tiến độ (%).
-• Lượt xem nay hiển thị cạnh ngày đăng trong danh sách và trên màn hình phát.
-• Thứ tự mới: Phổ biến nhất (xem nhiều nhất trước).
-• Phiên bản miễn phí giờ có hiển thị quảng cáo — chỉ ở cuối danh sách video và bên dưới kênh đã lưu ở màn hình đầu tiên. Không bao giờ xuất hiện ở màn hình phát.
-• Pro (mua một lần) không có quảng cáo.
+• Video bạn chọn từ video phổ biến hoặc sao chép trong YouTube giờ phát ngay (danh sách kênh được tải trong lúc xem).
+• Màn hình phát dễ đọc hơn.
+• Phiên bản miễn phí giờ cũng hiển thị quảng cáo bên dưới các nút phát trên màn hình phát (không bao giờ đè lên video). Pro (mua một lần) không có quảng cáo.
 ```

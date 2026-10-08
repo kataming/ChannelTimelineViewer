@@ -133,7 +133,7 @@ export default {
       },
       {
         "q": "Có quảng cáo hay gói đăng ký không?",
-        "a": "Phiên bản miễn phí có hiển thị quảng cáo (không bao giờ trên màn hình phát). Không có gói đăng ký nào. Ứng dụng miễn phí và lưu được một kênh, trong kênh đó không có gì bị giới hạn. Pro là giao dịch mua một lần không bắt buộc, giúp bỏ quảng cáo và cho phép bạn giữ nhiều kênh, mỗi kênh có tiến độ riêng. Sau đó không bị tính phí thêm lần nào."
+        "a": "Phiên bản miễn phí có hiển thị quảng cáo (không bao giờ đè lên trình phát video). Không có gói đăng ký nào. Ứng dụng miễn phí và lưu được một kênh, trong kênh đó không có gì bị giới hạn. Pro là giao dịch mua một lần không bắt buộc, giúp bỏ quảng cáo và cho phép bạn giữ nhiều kênh, mỗi kênh có tiến độ riêng. Sau đó không bị tính phí thêm lần nào."
       },
       {
         "q": "Có phiên bản Android không?",
@@ -220,7 +220,7 @@ export default {
     "privacy": {
       "title": "Chính sách quyền riêng tư",
       "description": "Những gì Channel Timeline Viewer lưu trữ và không lưu trữ.",
-      "updated": "Cập nhật lần cuối: ngày 6 tháng 10 năm 2026",
+      "updated": "Cập nhật lần cuối: ngày 9 tháng 10 năm 2026",
       "sections": [
         {
           "title": "1. Tóm tắt",
@@ -281,7 +281,7 @@ export default {
         {
           "title": "8. Quảng cáo (phiên bản miễn phí)",
           "body": [
-            "Phiên bản miễn phí hiển thị quảng cáo từ Google AdMob (Google LLC): một biểu ngữ ở cuối danh sách video và một quảng cáo bên dưới danh sách kênh đã lưu trên màn hình đầu tiên. Quảng cáo không bao giờ hiển thị trên màn hình phát. Pro không hiển thị quảng cáo, và SDK quảng cáo không được khởi động cho người dùng Pro.",
+            "Phiên bản miễn phí hiển thị quảng cáo từ Google AdMob (Google LLC): một biểu ngữ ở cuối danh sách video và một quảng cáo bên dưới danh sách kênh đã lưu trên màn hình đầu tiên. Màn hình phát cũng hiển thị một biểu ngữ bên dưới các nút phát; quảng cáo không bao giờ được đặt đè lên trình phát video. Pro không hiển thị quảng cáo, và SDK quảng cáo không được khởi động cho người dùng Pro.",
             "Để hiển thị và đo lường quảng cáo cũng như ngăn chặn gian lận, Google AdMob thu thập địa chỉ IP của bạn (có thể được dùng để ước tính vị trí gần đúng của bạn), các tương tác của bạn với ứng dụng và quảng cáo (chẳng hạn như lượt mở ứng dụng, lượt nhấn và lượt xem quảng cáo), thông tin chẩn đoán về ứng dụng và SDK, cùng các mã nhận dạng thiết bị như app set ID. Ứng dụng không cung cấp cho AdMob các kênh hay video bạn xem, ghi chú của bạn hoặc các URL bạn nhập.",
             "Ứng dụng không sử dụng mã nhận dạng quảng cáo: trên iOS, ứng dụng không dùng App Tracking Transparency hay IDFA, và trên Android, ứng dụng không yêu cầu quyền AD_ID.",
             "Tại Khu vực Kinh tế Châu Âu, Vương quốc Anh và Thụy Sĩ, ứng dụng sẽ xin sự đồng ý của bạn bằng biểu mẫu đồng ý của Google trước khi yêu cầu quảng cáo. Bạn có thể thay đổi lựa chọn bất cứ lúc nào tại “Giới thiệu ứng dụng” → “Cài đặt quyền riêng tư cho quảng cáo”.",

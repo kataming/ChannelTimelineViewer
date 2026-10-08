@@ -133,7 +133,7 @@ export default {
       },
       {
         "q": "Reklam veya abonelik var mı?",
-        "a": "Ücretsiz sürüm reklam gösterir (oynatıcı ekranında asla). Abonelik yoktur. Uygulama ücretsizdir ve bir kanal kaydeder; o kanalın içinde hiçbir şey sınırlı değildir. Pro, reklamları kaldıran ve her biri kendi ilerlemesine sahip birden fazla kanal saklamanızı sağlayan isteğe bağlı, tek seferlik bir satın almadır. Sonrasında tekrar ücret alınmaz."
+        "a": "Ücretsiz sürüm reklam gösterir (video oynatıcının üzerinde asla). Abonelik yoktur. Uygulama ücretsizdir ve bir kanal kaydeder; o kanalın içinde hiçbir şey sınırlı değildir. Pro, reklamları kaldıran ve her biri kendi ilerlemesine sahip birden fazla kanal saklamanızı sağlayan isteğe bağlı, tek seferlik bir satın almadır. Sonrasında tekrar ücret alınmaz."
       },
       {
         "q": "Android sürümü var mı?",
@@ -220,7 +220,7 @@ export default {
     "privacy": {
       "title": "Gizlilik Politikası",
       "description": "Channel Timeline Viewer neleri saklar, neleri saklamaz.",
-      "updated": "Son güncelleme: 6 Ekim 2026",
+      "updated": "Son güncelleme: 9 Ekim 2026",
       "sections": [
         {
           "title": "1. Özet",
@@ -281,7 +281,7 @@ export default {
         {
           "title": "8. Reklamlar (ücretsiz sürüm)",
           "body": [
-            "Ücretsiz sürüm Google AdMob (Google LLC) reklamları gösterir: video listesinin altında bir banner ve ilk ekranda kayıtlı kanal listesinin altında bir reklam. Oynatıcı ekranında asla reklam gösterilmez. Pro reklam göstermez ve Pro kullanıcıları için reklam SDK'sı başlatılmaz.",
+            "Ücretsiz sürüm Google AdMob (Google LLC) reklamları gösterir: video listesinin altında bir banner ve ilk ekranda kayıtlı kanal listesinin altında bir reklam. Oynatıcı ekranında da oynatma düğmelerinin altında bir banner gösterilir; reklamlar asla video oynatıcının üzerine yerleştirilmez. Pro reklam göstermez ve Pro kullanıcıları için reklam SDK'sı başlatılmaz.",
             "Reklamları göstermek ve ölçmek ve dolandırıcılığı önlemek için Google AdMob; IP adresinizi (yaklaşık konumunuzu tahmin etmek için kullanılabilir), uygulamayla ve reklamlarla etkileşimlerinizi (uygulama açılışları, dokunmalar ve reklam görüntülemeleri gibi), uygulama ve SDK hakkındaki tanılama bilgilerini ve uygulama grubu kimliği (app set ID) gibi cihaz tanımlayıcılarını toplar. Uygulama, izlediğiniz kanalları veya videoları, notlarınızı ya da girdiğiniz URL'leri AdMob'a vermez.",
             "Uygulama reklam kimliğini kullanmaz: iOS'ta App Tracking Transparency'yi veya IDFA'yı kullanmaz, Android'de ise AD_ID iznini istemez.",
             "Avrupa Ekonomik Alanı, Birleşik Krallık ve İsviçre'de uygulama, reklam istemeden önce Google'ın onay formuyla onayınızı ister. Seçiminizi istediğiniz zaman “Bu uygulama hakkında” → “Reklam gizlilik ayarları” bölümünden değiştirebilirsiniz.",

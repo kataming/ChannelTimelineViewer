@@ -133,7 +133,7 @@ export default {
       },
       {
         "q": "Czy są reklamy albo subskrypcje?",
-        "a": "Wersja bezpłatna wyświetla reklamy (nigdy na ekranie odtwarzacza). Nie ma subskrypcji. Aplikacja jest bezpłatna i zapisuje jeden kanał, a w tym kanale nic nie jest ograniczone. Pro to opcjonalny jednorazowy zakup, który usuwa reklamy i pozwala zachować kilka kanałów, każdy z własnym postępem. Później nic więcej nie jest pobierane."
+        "a": "Wersja bezpłatna wyświetla reklamy (nigdy na odtwarzaczu wideo). Nie ma subskrypcji. Aplikacja jest bezpłatna i zapisuje jeden kanał, a w tym kanale nic nie jest ograniczone. Pro to opcjonalny jednorazowy zakup, który usuwa reklamy i pozwala zachować kilka kanałów, każdy z własnym postępem. Później nic więcej nie jest pobierane."
       },
       {
         "q": "Czy jest wersja na Androida?",
@@ -220,7 +220,7 @@ export default {
     "privacy": {
       "title": "Polityka prywatności",
       "description": "Co Channel Timeline Viewer przechowuje, a czego nie.",
-      "updated": "Ostatnia aktualizacja: 6 października 2026",
+      "updated": "Ostatnia aktualizacja: 9 października 2026",
       "sections": [
         {
           "title": "1. Podsumowanie",
@@ -281,7 +281,7 @@ export default {
         {
           "title": "8. Reklamy (wersja bezpłatna)",
           "body": [
-            "Wersja bezpłatna wyświetla reklamy Google AdMob (Google LLC): baner na dole listy filmów i jedną reklamę pod listą zapisanych kanałów na pierwszym ekranie. Reklamy nigdy nie są wyświetlane na ekranie odtwarzacza. Pro nie wyświetla reklam, a dla użytkowników Pro pakiet SDK reklam nie jest uruchamiany.",
+            "Wersja bezpłatna wyświetla reklamy Google AdMob (Google LLC): baner na dole listy filmów i jedną reklamę pod listą zapisanych kanałów na pierwszym ekranie. Ekran odtwarzacza wyświetla też jeden baner pod przyciskami odtwarzania; reklamy nigdy nie są umieszczane na odtwarzaczu wideo. Pro nie wyświetla reklam, a dla użytkowników Pro pakiet SDK reklam nie jest uruchamiany.",
             "Aby wyświetlać i mierzyć reklamy oraz zapobiegać oszustwom, Google AdMob zbiera Twój adres IP (który może służyć do określenia przybliżonej lokalizacji), Twoje interakcje z aplikacją i reklamami (takie jak uruchomienia aplikacji, stuknięcia i wyświetlenia reklam), informacje diagnostyczne o aplikacji i SDK oraz identyfikatory urządzenia, takie jak identyfikator zestawu aplikacji (app set ID). Aplikacja nie przekazuje AdMob kanałów ani filmów, które oglądasz, Twoich notatek ani wpisywanych adresów URL.",
             "Aplikacja nie używa identyfikatora reklamowego: na iOS nie używa App Tracking Transparency ani IDFA, a na Androidzie nie prosi o uprawnienie AD_ID.",
             "W Europejskim Obszarze Gospodarczym, Wielkiej Brytanii i Szwajcarii aplikacja przed wysłaniem żądania reklam prosi o Twoją zgodę za pomocą formularza zgody Google. Swój wybór możesz w każdej chwili zmienić w „O aplikacji” → „Ustawienia prywatności reklam”.",

@@ -133,7 +133,7 @@ export default {
       },
       {
         "q": "Zijn er advertenties of abonnementen?",
-        "a": "De gratis versie toont advertenties (nooit op het spelerscherm). Er zijn geen abonnementen. De app is gratis en bewaart één kanaal, en binnen dat kanaal is niets beperkt. Pro is een optionele eenmalige aankoop die de advertenties verwijdert en waarmee je meerdere kanalen kunt bewaren, elk met een eigen voortgang. Daarna wordt er niets meer in rekening gebracht."
+        "a": "De gratis versie toont advertenties (nooit over de videospeler). Er zijn geen abonnementen. De app is gratis en bewaart één kanaal, en binnen dat kanaal is niets beperkt. Pro is een optionele eenmalige aankoop die de advertenties verwijdert en waarmee je meerdere kanalen kunt bewaren, elk met een eigen voortgang. Daarna wordt er niets meer in rekening gebracht."
       },
       {
         "q": "Is er een Android-versie?",
@@ -220,7 +220,7 @@ export default {
     "privacy": {
       "title": "Privacybeleid",
       "description": "Wat Channel Timeline Viewer bewaart en wat niet.",
-      "updated": "Laatst bijgewerkt: 6 oktober 2026",
+      "updated": "Laatst bijgewerkt: 9 oktober 2026",
       "sections": [
         {
           "title": "1. Samenvatting",
@@ -281,7 +281,7 @@ export default {
         {
           "title": "8. Advertenties (gratis versie)",
           "body": [
-            "De gratis versie toont advertenties van Google AdMob (Google LLC): een banner onderaan de videolijst en één advertentie onder de lijst met bewaarde kanalen op het eerste scherm. Op het spelerscherm worden nooit advertenties getoond. Pro toont geen advertenties, en de advertentie-SDK wordt voor Pro-gebruikers niet gestart.",
+            "De gratis versie toont advertenties van Google AdMob (Google LLC): een banner onderaan de videolijst en één advertentie onder de lijst met bewaarde kanalen op het eerste scherm. Het spelerscherm toont ook één banner onder de afspeelknoppen; advertenties worden nooit over de videospeler geplaatst. Pro toont geen advertenties, en de advertentie-SDK wordt voor Pro-gebruikers niet gestart.",
             "Om advertenties te tonen en te meten en om fraude te voorkomen, verzamelt Google AdMob je IP-adres (dat kan worden gebruikt om je globale locatie te schatten), je interacties met de app en met advertenties (zoals het starten van de app, tikken en advertentieweergaven), diagnostische informatie over de app en de SDK, en apparaat-ID’s zoals de app set ID. De app geeft AdMob niet de kanalen of video’s die je bekijkt, je notities of de URL’s die je invoert.",
             "De app gebruikt de advertentie-ID niet: op iOS gebruikt hij geen App Tracking Transparency of de IDFA, en op Android vraagt hij de machtiging AD_ID niet aan.",
             "In de Europese Economische Ruimte, het Verenigd Koninkrijk en Zwitserland vraagt de app met het toestemmingsformulier van Google om je toestemming voordat er advertenties worden opgevraagd. Je kunt je keuze altijd wijzigen via ‘Over deze app’ → ‘Privacyinstellingen voor advertenties’.",

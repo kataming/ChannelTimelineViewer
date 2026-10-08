@@ -133,7 +133,7 @@ export default {
       },
       {
         "q": "Adakah terdapat iklan atau langganan?",
-        "a": "Versi percuma memaparkan iklan (tidak sekali-kali pada skrin pemain). Tiada langganan. Apl ini percuma dan menyimpan satu saluran, dan dalam saluran itu tiada apa-apa yang dihadkan. Pro ialah pembelian sekali sahaja pilihan yang membuang iklan dan membolehkan anda menyimpan beberapa saluran, masing-masing dengan kemajuannya sendiri. Tiada caj lagi selepas itu."
+        "a": "Versi percuma memaparkan iklan (tidak sekali-kali di atas pemain video). Tiada langganan. Apl ini percuma dan menyimpan satu saluran, dan dalam saluran itu tiada apa-apa yang dihadkan. Pro ialah pembelian sekali sahaja pilihan yang membuang iklan dan membolehkan anda menyimpan beberapa saluran, masing-masing dengan kemajuannya sendiri. Tiada caj lagi selepas itu."
       },
       {
         "q": "Adakah terdapat versi Android?",
@@ -220,7 +220,7 @@ export default {
     "privacy": {
       "title": "Dasar Privasi",
       "description": "Apa yang disimpan dan apa yang tidak disimpan oleh Channel Timeline Viewer.",
-      "updated": "Kemas kini terakhir: 6 Oktober 2026",
+      "updated": "Kemas kini terakhir: 9 Oktober 2026",
       "sections": [
         {
           "title": "1. Ringkasan",
@@ -281,7 +281,7 @@ export default {
         {
           "title": "8. Pengiklanan (versi percuma)",
           "body": [
-            "Versi percuma memaparkan iklan daripada Google AdMob (Google LLC): sepanduk di bahagian bawah senarai video dan satu iklan di bawah senarai saluran yang disimpan pada skrin pertama. Iklan tidak sekali-kali dipaparkan pada skrin pemain. Pro tidak memaparkan iklan, dan SDK iklan tidak dimulakan untuk pengguna Pro.",
+            "Versi percuma memaparkan iklan daripada Google AdMob (Google LLC): sepanduk di bahagian bawah senarai video dan satu iklan di bawah senarai saluran yang disimpan pada skrin pertama. Skrin pemain juga memaparkan satu sepanduk di bawah butang main balik; iklan tidak sekali-kali diletakkan di atas pemain video. Pro tidak memaparkan iklan, dan SDK iklan tidak dimulakan untuk pengguna Pro.",
             "Untuk memaparkan dan mengukur iklan serta mencegah penipuan, Google AdMob mengumpul alamat IP anda (yang mungkin digunakan untuk menganggar lokasi anggaran anda), interaksi anda dengan apl dan dengan iklan (seperti pelancaran apl, ketikan dan tontonan iklan), maklumat diagnostik tentang apl dan SDK, serta pengecam peranti seperti ID set apl (app set ID). Apl tidak memberikan AdMob saluran atau video yang anda tonton, nota anda atau URL yang anda masukkan.",
             "Apl tidak menggunakan pengecam pengiklanan: pada iOS ia tidak menggunakan App Tracking Transparency atau IDFA, dan pada Android ia tidak meminta kebenaran AD_ID.",
             "Di Kawasan Ekonomi Eropah, United Kingdom dan Switzerland, apl meminta persetujuan anda melalui borang persetujuan Google sebelum meminta iklan. Anda boleh menukar pilihan anda pada bila-bila masa daripada “Perihal apl ini” → “Tetapan privasi iklan”.",

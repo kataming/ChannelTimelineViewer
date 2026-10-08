@@ -133,7 +133,7 @@ export default {
       },
       {
         "q": "May ads o subscription ba?",
-        "a": "May ads ang libreng bersyon (hindi kailanman sa screen ng player). Walang subscription. Libre ang app at nagse-save ng isang channel, at walang limitasyon sa loob ng channel na iyon. Ang Pro ay opsyonal na isang beses na bayad na nag-aalis ng ads at hinahayaan kang mag-save ng ilang channel, bawat isa may sariling progreso. Wala nang ibang sisingilin pagkatapos."
+        "a": "May ads ang libreng bersyon (hindi kailanman sa ibabaw ng video player). Walang subscription. Libre ang app at nagse-save ng isang channel, at walang limitasyon sa loob ng channel na iyon. Ang Pro ay opsyonal na isang beses na bayad na nag-aalis ng ads at hinahayaan kang mag-save ng ilang channel, bawat isa may sariling progreso. Wala nang ibang sisingilin pagkatapos."
       },
       {
         "q": "May Android version ba?",
@@ -220,7 +220,7 @@ export default {
     "privacy": {
       "title": "Patakaran sa Privacy",
       "description": "Kung ano ang iniimbak at hindi iniimbak ng Channel Timeline Viewer.",
-      "updated": "Huling na-update: Oktubre 6, 2026",
+      "updated": "Huling na-update: Oktubre 9, 2026",
       "sections": [
         {
           "title": "1. Buod",
@@ -281,7 +281,7 @@ export default {
         {
           "title": "8. Advertising (libreng bersyon)",
           "body": [
-            "Nagpapakita ang libreng bersyon ng ads mula sa Google AdMob (Google LLC): isang banner sa ibaba ng listahan ng video at isang ad sa ibaba ng listahan ng naka-save na channel sa unang screen. Hindi kailanman ipinapakita ang ads sa screen ng player. Walang ads ang Pro, at hindi sinisimulan ang ad SDK para sa mga user ng Pro.",
+            "Nagpapakita ang libreng bersyon ng ads mula sa Google AdMob (Google LLC): isang banner sa ibaba ng listahan ng video at isang ad sa ibaba ng listahan ng naka-save na channel sa unang screen. Nagpapakita rin ang screen ng player ng isang banner sa ibaba ng mga button sa pag-playback; hindi kailanman inilalagay ang ads sa ibabaw ng video player. Walang ads ang Pro, at hindi sinisimulan ang ad SDK para sa mga user ng Pro.",
             "Para magpakita at sumukat ng ads at para maiwasan ang panloloko, kinokolekta ng Google AdMob ang iyong IP address (na maaaring gamitin para tantiyahin ang humigit-kumulang na lokasyon mo), ang iyong mga interaksyon sa app at sa ads (gaya ng pagbukas ng app, mga tap at pagtingin sa ad), diagnostic na impormasyon tungkol sa app at sa SDK, at mga identifier ng device gaya ng app set ID. Hindi ibinibigay ng app sa AdMob ang mga channel o video na pinapanood mo, ang iyong mga tala, o ang mga URL na inilalagay mo.",
             "Hindi ginagamit ng app ang advertising identifier: sa iOS, hindi nito ginagamit ang App Tracking Transparency o ang IDFA, at sa Android, hindi nito hinihingi ang pahintulot na AD_ID.",
             "Sa European Economic Area, United Kingdom at Switzerland, hinihingi ng app ang iyong pahintulot gamit ang consent form ng Google bago humiling ng ads. Puwede mong baguhin ang pinili mo anumang oras mula sa “Tungkol sa app na ito” → “Mga setting ng privacy ng ad”.",

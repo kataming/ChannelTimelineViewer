@@ -86,15 +86,10 @@ YouTube is a trademark of Google LLC.
 ```
 
 ## このバージョンの新機能（What's New）
-<!-- 562 / 4000 文字 -->
+<!-- 314 / 4000 文字 -->
 
 ```
-• Pick a popular video to open its channel right away.
-• Add a channel by tapping Share → Copy link in YouTube and coming back.
-• New “Go to top” and “Go to bottom” in the video list menu.
-• Loading now shows progress (%).
-• View counts now appear next to the publish date in the list and on the player screen.
-• New sort option: Most popular (most viewed first).
-• The free version now shows ads — only at the bottom of the video list and below your saved channel on the first screen. Ads never appear on the player screen.
-• Pro (one-time purchase) has no ads.
+• Videos you pick from popular videos or copy in YouTube now start playing right away (the channel list loads while you watch).
+• The player screen is easier to read.
+• The free version now also shows an ad below the playback buttons on the player screen (never over the video). Pro (one-time purchase) has no ads.
 ```

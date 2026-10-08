@@ -133,7 +133,7 @@ export default {
       },
       {
         "q": "Vannak hirdetések vagy előfizetések?",
-        "a": "Az ingyenes verzió hirdetéseket jelenít meg (a lejátszó képernyőjén soha). Előfizetés nincs. Az alkalmazás ingyenes, és egy csatornát ment, azon a csatornán belül pedig semmi sincs korlátozva. A Pro egy nem kötelező, egyszeri vásárlás, amely eltávolítja a hirdetéseket, és lehetővé teszi több csatorna megtartását, mindegyiket saját haladással. Utána semmit nem számolunk fel újra."
+        "a": "Az ingyenes verzió hirdetéseket jelenít meg (a videólejátszóra soha). Előfizetés nincs. Az alkalmazás ingyenes, és egy csatornát ment, azon a csatornán belül pedig semmi sincs korlátozva. A Pro egy nem kötelező, egyszeri vásárlás, amely eltávolítja a hirdetéseket, és lehetővé teszi több csatorna megtartását, mindegyiket saját haladással. Utána semmit nem számolunk fel újra."
       },
       {
         "q": "Van Android-verzió?",
@@ -220,7 +220,7 @@ export default {
     "privacy": {
       "title": "Adatvédelmi irányelvek",
       "description": "Mit tárol és mit nem tárol a Channel Timeline Viewer.",
-      "updated": "Utolsó frissítés: 2026. október 6.",
+      "updated": "Utolsó frissítés: 2026. október 9.",
       "sections": [
         {
           "title": "1. Összefoglalás",
@@ -281,7 +281,7 @@ export default {
         {
           "title": "8. Hirdetések (ingyenes verzió)",
           "body": [
-            "Az ingyenes verzió a Google AdMob (Google LLC) hirdetéseit jeleníti meg: egy szalaghirdetést a videólista alján, és egy hirdetést az első képernyőn a mentett csatornák listája alatt. A lejátszó képernyőjén soha nem jelennek meg hirdetések. A Pro nem jelenít meg hirdetéseket, és a Pro-felhasználóknál a hirdetési SDK el sem indul.",
+            "Az ingyenes verzió a Google AdMob (Google LLC) hirdetéseit jeleníti meg: egy szalaghirdetést a videólista alján, és egy hirdetést az első képernyőn a mentett csatornák listája alatt. A lejátszó képernyőjén is megjelenik egy szalaghirdetés a lejátszási gombok alatt; magára a videólejátszóra soha nem kerül hirdetés. A Pro nem jelenít meg hirdetéseket, és a Pro-felhasználóknál a hirdetési SDK el sem indul.",
             "A hirdetések megjelenítéséhez és méréséhez, valamint a csalások megelőzéséhez a Google AdMob gyűjti az IP-címedet (amely a hozzávetőleges tartózkodási helyed becslésére használható), az alkalmazással és a hirdetésekkel kapcsolatos interakcióidat (például alkalmazásindítások, koppintások és hirdetésmegtekintések), az alkalmazásra és az SDK-ra vonatkozó diagnosztikai adatokat, valamint eszközazonosítókat, például az app set ID-t. Az alkalmazás nem adja át az AdMobnak a nézett csatornákat vagy videókat, a jegyzeteidet vagy a beírt URL-eket.",
             "Az alkalmazás nem használja a hirdetésazonosítót: iOS-en nem használja az App Tracking Transparency-t vagy az IDFA-t, Androidon pedig nem kéri az AD_ID engedélyt.",
             "Az Európai Gazdasági Térségben, az Egyesült Királyságban és Svájcban az alkalmazás a hirdetések lekérése előtt a Google hozzájárulási űrlapjával kéri a hozzájárulásodat. A döntésedet bármikor módosíthatod itt: „Az alkalmazásról” → „Hirdetési adatvédelmi beállítások”.",

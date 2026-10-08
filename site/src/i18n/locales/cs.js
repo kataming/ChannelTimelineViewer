@@ -133,7 +133,7 @@ export default {
       },
       {
         "q": "Jsou tu reklamy nebo předplatné?",
-        "a": "Bezplatná verze zobrazuje reklamy (nikdy na obrazovce přehrávače). Předplatné neexistuje. Aplikace je zdarma a uloží jeden kanál, v němž není nic omezeno. Pro je volitelný jednorázový nákup, který odstraní reklamy a umožní uchovat více kanálů, každý s vlastním průběhem. Později už se nic neúčtuje."
+        "a": "Bezplatná verze zobrazuje reklamy (nikdy přes videopřehrávač). Předplatné neexistuje. Aplikace je zdarma a uloží jeden kanál, v němž není nic omezeno. Pro je volitelný jednorázový nákup, který odstraní reklamy a umožní uchovat více kanálů, každý s vlastním průběhem. Později už se nic neúčtuje."
       },
       {
         "q": "Existuje verze pro Android?",
@@ -220,7 +220,7 @@ export default {
     "privacy": {
       "title": "Zásady ochrany osobních údajů",
       "description": "Co Channel Timeline Viewer ukládá a co ne.",
-      "updated": "Poslední aktualizace: 6. října 2026",
+      "updated": "Poslední aktualizace: 9. října 2026",
       "sections": [
         {
           "title": "1. Shrnutí",
@@ -281,7 +281,7 @@ export default {
         {
           "title": "8. Reklamy (bezplatná verze)",
           "body": [
-            "Bezplatná verze zobrazuje reklamy Google AdMob (Google LLC): banner v dolní části seznamu videí a jednu reklamu pod seznamem uložených kanálů na první obrazovce. Na obrazovce přehrávače se reklamy nikdy nezobrazují. Pro nezobrazuje žádné reklamy a u uživatelů Pro se reklamní SDK nespouští.",
+            "Bezplatná verze zobrazuje reklamy Google AdMob (Google LLC): banner v dolní části seznamu videí a jednu reklamu pod seznamem uložených kanálů na první obrazovce. Na obrazovce přehrávače se navíc zobrazuje jeden banner pod tlačítky přehrávání; přes samotný videopřehrávač se reklamy nikdy neumisťují. Pro nezobrazuje žádné reklamy a u uživatelů Pro se reklamní SDK nespouští.",
             "Za účelem zobrazování a měření reklam a prevence podvodů shromažďuje Google AdMob vaši IP adresu (kterou lze použít k odhadu přibližné polohy), vaše interakce s aplikací a s reklamami (například spuštění aplikace, klepnutí a zobrazení reklam), diagnostické informace o aplikaci a SDK a identifikátory zařízení, jako je app set ID. Aplikace AdMobu nepředává kanály ani videa, která sledujete, vaše poznámky ani adresy URL, které zadáte.",
             "Aplikace nepoužívá reklamní identifikátor: v iOS nepoužívá App Tracking Transparency ani IDFA a v Androidu nežádá o oprávnění AD_ID.",
             "V Evropském hospodářském prostoru, Spojeném království a Švýcarsku vás aplikace před vyžádáním reklam požádá o souhlas pomocí formuláře souhlasu Google. Svou volbu můžete kdykoli změnit v části „O této aplikaci“ → „Nastavení soukromí reklam“.",

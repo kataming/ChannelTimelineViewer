@@ -67,7 +67,7 @@ final class AdsPreviewUITests: XCTestCase {
         // なるので、画面上の位置で押す。
         Thread.sleep(forTimeInterval: 5)
         AdsTestSupport.capture("03-free-list-before-tap", in: self)
-        app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.27)).tap()
+        app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.225)).tap()
         XCTAssertTrue(AdsTestSupport.player(in: app).waitForExistence(timeout: 60), "再生画面のバナーが出ない")
         Thread.sleep(forTimeInterval: 5)
         AdsTestSupport.capture("03-free-player", in: self)

@@ -343,3 +343,13 @@ export function setAdmobSettings(doc, { publisherId, startDate }) {
   next.settings.admobSync = { ...(next.settings.admobSync ?? {}), ...values };
   return touch(next);
 }
+
+/** Version Performance の自動取得（GA4 / BigQuery）の設定。開始日の既定は 2026-09-01。 */
+export function setGa4Settings(doc, { startDate }) {
+  const errors = {};
+  const values = { startDate: readDate(startDate, 'startDate', errors) || '2026-09-01' };
+  if (Object.keys(errors).length) throw new ValidationError(errors);
+  const next = clone(doc);
+  next.settings.ga4Sync = { ...(next.settings.ga4Sync ?? {}), ...values };
+  return touch(next);
+}

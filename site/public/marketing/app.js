@@ -125,7 +125,7 @@ function playPriceSyncLine() {
 
 /** 「今すぐ取得」ボタン（為替 → Google 広告 → AdMob をまとめて実行。毎朝 6:00 の自動取得と同じ処理）。 */
 function syncNowButton() {
-  return `<div class="row" style="margin:6px 0"><button type="button" data-action="ads-sync" data-testid="sync-now">今すぐ取得（為替・Play 価格・Google 広告・AdMob）</button>
+  return `<div class="row" style="margin:6px 0"><button type="button" data-action="ads-sync" data-testid="sync-now">今すぐ取得（為替・Play 価格・Google 広告・AdMob・GA4・BigQuery）</button>
     <span class="muted small">毎朝 6:00（日本時間）にも自動で取得します。AdMob の数字は AdMob 側で約 4 時間遅れて反映されます。</span></div>`;
 }
 
@@ -151,6 +151,32 @@ function fxSyncLine() {
   return `<div class="small" data-testid="fx-sync">為替の自動取得: <span class="badge ${cls}">${label}</span>
     最終 ${esc(new Date(f.lastRunAt).toLocaleString())}${f.ratesAsOf ? `（レートの基準 ${esc(new Date(f.ratesAsOf).toLocaleString())}・${int(f.currencies)} 通貨）` : ''}
     ${f.message ? `<span class="${cls === 'positive' ? '' : 'negative'}">${esc(f.message)}</span>` : ''} ${source}</div>`;
+}
+
+// --- Version Performance の自動取得（GA4 / BigQuery） --------------------------------------
+
+function syncBadge(status) {
+  const cls = status === 'ok' ? 'positive' : status === 'warning' ? 'warning' : 'negative';
+  return { cls, label: `<span class="badge ${cls}">${{ ok: 'OK', warning: '要確認', error: '失敗' }[status] ?? esc(status)}</span>` };
+}
+
+function ga4SyncLine() {
+  const a = doc().ga4Sync;
+  if (!a?.lastRunAt) return '<div class="muted small" data-testid="ga4-sync">GA4 の自動取得: まだ取得していません（毎朝 6:00）</div>';
+  const { cls, label } = syncBadge(a.status);
+  return `<div class="small" data-testid="ga4-sync">GA4 の自動取得: ${label}
+    最終 ${esc(new Date(a.lastRunAt).toLocaleString())}${a.status !== 'error' && a.from ? `（${esc(a.from)}〜${esc(a.to)}・${int(a.rows)} 行・${int(a.versions)} バージョン・Android のみ）` : ''}
+    ${a.message ? `<span class="${cls === 'positive' ? '' : 'negative'}">${esc(a.message)}</span>` : ''}</div>`;
+}
+
+function cohortSyncLine() {
+  const a = doc().cohortSync;
+  if (!a?.lastRunAt) return '<div class="muted small" data-testid="cohort-sync">BigQuery のコホート: まだ取得していません（毎朝 6:00・書き出しは 2026-10-09 のデータから）</div>';
+  const { cls, label } = syncBadge(a.status);
+  const scanned = finite(a.bytesProcessed) !== null ? `・読んだ量 ${(a.bytesProcessed / 1e6).toFixed(1)} MB` : '';
+  return `<div class="small" data-testid="cohort-sync">BigQuery のコホート: ${label}
+    最終 ${esc(new Date(a.lastRunAt).toLocaleString())}${a.status === 'ok' ? `（データの最後の日 ${esc(a.asOf) || DASH}・${int(a.users)} 人・${int(a.rows)} 行${scanned}）` : ''}
+    ${a.message ? `<span class="${cls === 'positive' ? '' : 'negative'}">${esc(a.message)}</span>` : ''}</div>`;
 }
 
 // --- Dashboard ---------------------------------------------------------------------
@@ -700,10 +726,11 @@ const vpLabel = (s) => `${s.appVersion}${s.platform ? ` (${s.platform})` : ''}`;
 function vpLimits() {
   return `<div class="notice" data-testid="vp-limits"><strong>データの出典と限界</strong>
     <ul class="vp-list">
-      <li>出典は GA4 / Firebase Analytics の集計（CSV・JSON・手入力で取り込み。自動取得はしません）。<strong>Firebase は Android 版だけ</strong>に入っていて、iOS 版のバージョン別の数字は GA4 にありません。</li>
+      <li>出典は GA4 / Firebase Analytics の集計。<strong>毎朝 6:00 に GA4 Data API から自動取得</strong>します（入力元 <code>ga4</code>・毎回すべて入れ替え。CSV・JSON・手入力の行は残ります）。<strong>Firebase は Android 版だけ</strong>に入っていて、iOS 版の数字はありません。</li>
       <li>App Version は Android の versionName（例 1.19）。<strong>ビルド番号（versionCode）は GA4 の標準ディメンションに無い</strong>ため、Build Version は任意入力です。</li>
-      <li>数字は「その期間にそのイベントを起こした人数」で、同じ利用者を追ったものではありません。<strong>バージョン別のコホート Retention（D1 / D3 / D7）は既存のデータでは正確に出せません</strong>（ここでは出しません）。</li>
-      <li><code>app_remove</code> は Android だけ。「app_remove ÷ first_open」は同じ期間のイベントの単純な比（参考値）で、<strong>アンインストール率・コホート削除率ではありません</strong>（削除した人が同じ期間に入れた人とは限らない）。</li>
+      <li>「バージョン別」「旧版 vs 新版」「ファネル」「Country × Version」の数字は「その期間にそのイベントを起こした人数」で、同じ利用者を追ったものではありません。</li>
+      <li><strong>同じ利用者を追ったコホート（D1 / D3 / D7 Retention・7 日以内の削除率など）は「バージョン別コホート（BigQuery）」の表だけ</strong>です。BigQuery の毎日の書き出しは <strong>2026-10-09 のデータから</strong>なので、それより前に初めて開いた人は入りません。</li>
+      <li><code>app_remove</code> は Android だけ。「app_remove ÷ first_open」は同じ期間のイベントの単純な比（参考値）で、<strong>アンインストール率・コホート削除率ではありません</strong>（削除した人が同じ期間に入れた人とは限らない）。本物のコホート削除率はコホートの表の「7 日以内の削除率」です。</li>
       <li>Users は GA4 では期間の中で一意です。日別の行を 2 日以上足した値（<sup>Σ</sup>）は同じ人を重ねて数えうるので、期間の合計を 1 行で書き出した行（end_date あり）があればそちらを優先します。</li>
     </ul></div>`;
 }
@@ -739,7 +766,7 @@ function vpTable(list) {
     「—」は分母が 0 か、データが無い。<sup>Σ</sup> は日別 Users の合計（重複を含みうる）。</p>`;
 }
 
-function vpCompare(all) {
+function vpCompare(all, cohortList = []) {
   if (all.length < 2) return '<p class="muted">比べるには 2 つ以上のバージョンのデータが要ります。</p>';
   const pick = (key, fallback) => all.find((s) => s.key === key) ?? fallback;
   const b = pick(ui.vp.b, all[0]);
@@ -753,7 +780,8 @@ function vpCompare(all) {
       <td class="${r.key === 'removePerFirstOpen' ? '' : sign(r.kind === 'rate' ? r.diffPt : r.diff)}">${r.kind === 'rate' ? versions.formatPt(r.diffPt) : `${versions.formatDiff(r.diff)}${finite(r.relative) !== null ? `<span class="muted small">（${r.relative >= 0 ? '+' : '−'}${pct(Math.abs(r.relative), 1)}）</span>` : ''}`}</td></tr>`).join('')}
     </tbody></table></div>
     <p class="muted small">率の差は percentage point（例 22.0% → 27.5% は +5.5pt）。人数の差は絶対差（かっこ内は旧版に対する増減率）。
-      期間・Platform・Country のフィルターは両方に同じく掛かります。リリース日が違うので、同じ長さの期間で比べるときは Start / End Date を合わせてください。</p>`;
+      期間・Platform・Country のフィルターは両方に同じく掛かります。リリース日が違うので、同じ長さの期間で比べるときは Start / End Date を合わせてください。</p>
+    ${vpCohortCompare(cohortList, a, b)}`;
 }
 
 function vpFunnels(list) {
@@ -800,23 +828,85 @@ function vpRawRows(rows, filters) {
   <p class="muted small">${list.length > shown.length ? `新しい順に ${shown.length} 行だけ表示（全 ${int(list.length)} 行）。` : `${int(list.length)} 行。`}フィルターが掛かります。</p>`;
 }
 
+/** コホートの率の表示。分母が 0 / 不明なら「—」、Retention で N 日経っていなければ「測定前」。 */
+function cohortRate(cell, { retention = false } = {}) {
+  if (retention && !cell?.measured) return `${DASH}<br><span class="muted small">測定前</span>`;
+  return `${pct(cell?.rate, 1)}<br><span class="muted small">${int(retention ? cell?.returned : cell?.count)} / ${int(cell?.base)}</span>`;
+}
+
+function vpCohorts(cohorts, list) {
+  if (!cohorts.length) {
+    return '<p class="muted" data-testid="vp-cohort-empty">BigQuery の書き出しは 2026-10-09 から。データがたまると表示されます（毎朝 6:00 に取得）。</p>';
+  }
+  if (!list.length) return '<p class="muted" data-testid="vp-cohort-empty">この条件のコホートはありません。</p>';
+  const mark = (s) => (s.partial7 ? '<sup class="vp-mark" title="7 日経っていないコホートを含む（途中の値）">途中</sup>' : '');
+  return `<div class="table-wrap"><table data-testid="vp-cohorts"><thead>
+    <tr><th class="l">App Version</th><th class="l">Platform</th><th class="l">コホート日</th><th>コホート人数</th>
+      <th>D1 Retention</th><th>D3 Retention</th><th>D7 Retention</th>
+      <th>7 日以内の削除率<br><span class="muted">コホート（本物）</span></th><th>7 日以内の channel_open 率</th><th>7 日以内の video_open 率</th></tr></thead><tbody>
+    ${list.map((s) => `<tr data-cohort="${esc(s.key)}"><td class="l"><strong>${esc(s.appVersion)}</strong></td><td class="l">${esc(s.platform) || DASH}</td>
+      <td class="l">${esc(s.firstCohort) || DASH}〜${esc(s.lastCohort) || DASH}<br><span class="muted small">${int(s.cohorts)} 日分</span></td><td>${int(s.users)}</td>
+      <td>${cohortRate(s.d1, { retention: true })}</td><td>${cohortRate(s.d3, { retention: true })}</td><td>${cohortRate(s.d7, { retention: true })}</td>
+      <td>${cohortRate(s.removed7)}${mark(s)}</td><td>${cohortRate(s.channelOpen7)}${mark(s)}</td><td>${cohortRate(s.videoOpen7)}${mark(s)}</td></tr>`).join('')}
+  </tbody></table></div>
+  <p class="muted small">コホート = その日に初めてアプリを開いた（first_open）人。バージョン・国はそのときの値。
+    D1 / D3 / D7 = ちょうど 1 / 3 / 7 日目に開いた（user_engagement か session_start）人の割合で、N 日経ったコホートだけで計算します（まだなら「測定前」）。
+    7 日以内 = コホート日〜7 日目。<sup>途中</sup> は 7 日経っていないコホートを含む途中の値。
+    期間のフィルターは「コホート日」に掛かります（空 = すべて）。Platform / Country / App Version も反映。</p>`;
+}
+
+function vpCohortCompare(cohortList, a, b) {
+  if (!cohortList.length || !a || !b) return '';
+  const ca = cohortList.find((s) => s.key === a.key) ?? null;
+  const cb = cohortList.find((s) => s.key === b.key) ?? null;
+  if (!ca && !cb) return '<p class="muted small" data-testid="vp-cohort-compare">この 2 つのバージョンのコホートはまだありません（BigQuery の書き出しは 2026-10-09 から）。</p>';
+  const rows = versions.compareCohortSummaries(ca, cb);
+  // 削除率は下がるほど良いので、差の色を逆にする
+  const color = (r) => (r.kind === 'count' ? sign(r.diff) : sign(r.key === 'removed7' && r.diffPt !== null ? -r.diffPt : r.diffPt));
+  return `<h3>コホート（BigQuery・同じ利用者を追跡）</h3>
+    <div class="table-wrap"><table data-testid="vp-cohort-compare"><thead><tr><th class="l">項目</th><th>${esc(vpLabel(a))}</th><th>${esc(vpLabel(b))}</th><th>差</th></tr></thead><tbody>
+    ${rows.map((r) => `<tr><td class="l">${esc(r.label)}</td>
+      <td>${r.kind === 'rate' ? pct(r.a, 1) : int(r.a)}</td><td>${r.kind === 'rate' ? pct(r.b, 1) : int(r.b)}</td>
+      <td class="${color(r)}">${r.kind === 'rate' ? versions.formatPt(r.diffPt) : versions.formatDiff(r.diff)}</td></tr>`).join('')}
+    </tbody></table></div>
+    <p class="muted small">「—」はそのバージョンのコホートが無いか、まだ測れない（N 日経っていない）。削除率は下がるほど良いので、差の色を逆にしています。</p>`;
+}
+
 function renderVersions() {
   const rows = doc().versionMetrics ?? [];
+  const cohorts = doc().versionCohorts ?? [];
   const f = versions.versionMetricFacets(rows);
+  // フィルターの選択肢はコホートの値も合わせる（コホートにしか無い国・バージョンも選べるように）
+  const cf = versions.cohortFacets(cohorts);
+  f.platforms = [...new Set([...f.platforms, ...cf.platforms])].sort();
+  f.countries = [...new Set([...f.countries, ...cf.countries])].sort();
+  f.versions = [...new Set([...f.versions, ...cf.versions])].sort(versions.compareVersions);
   const filters = {
     start: ui.vp.start || f.minDate || '', end: ui.vp.end || f.maxDate || '',
     platform: ui.vp.platform, country: ui.vp.country, version: ui.vp.version,
   };
   const list = versions.summarizeVersions(rows, filters);
   const forCompare = ui.vp.version ? versions.summarizeVersions(rows, { ...filters, version: '' }) : list;
+  // コホートの期間は「コホート日」に掛ける。指定が無ければすべて（イベントのデータの範囲には合わせない）
+  const cohortFilters = { start: ui.vp.start, end: ui.vp.end, platform: ui.vp.platform, country: ui.vp.country };
+  const cohortList = versions.summarizeCohorts(cohorts, { ...cohortFilters, version: ui.vp.version });
+  const cohortAll = ui.vp.version ? versions.summarizeCohorts(cohorts, cohortFilters) : cohortList;
   return `<h1>Version Performance</h1>
+    <div class="panel" data-testid="vp-sync">
+      ${ga4SyncLine()}
+      ${cohortSyncLine()}
+      ${syncNowButton()}
+    </div>
     ${vpLimits()}
-    ${rows.length ? vpFilters(f, filters) : ''}
+    ${rows.length || cohorts.length ? vpFilters(f, filters) : ''}
     <h2>バージョン別</h2>
     ${rows.length ? vpTable(list) : '<p class="muted" data-testid="vp-empty">まだデータがありません。下の「取り込み」から GA4 の CSV / JSON を入れるか、1 行ずつ追加してください。</p>'}
 
+    <h2>バージョン別コホート（BigQuery・同じ利用者を追跡）</h2>
+    ${vpCohorts(cohorts, cohortList)}
+
     <h2>旧版 vs 新版</h2>
-    ${rows.length ? vpCompare(forCompare) : '<p class="muted">データが入ると表示されます。</p>'}
+    ${rows.length ? vpCompare(forCompare, cohortAll) : '<p class="muted">データが入ると表示されます。</p>'}
 
     <h2>ファネル（first_open → channel_tutorial_view → channel_open → video_open）</h2>
     ${vpFunnels(list) || '<p class="muted">データが入ると表示されます。</p>'}
@@ -897,7 +987,7 @@ function renderSettings() {
         ${field('集計の開始日', `<input type="date" name="startDate" value="${esc(settings.adsSync?.startDate ?? '2025-01-01')}">`)}
       </div>
       <div class="row"><button class="primary">保存</button>
-        <button type="button" data-action="ads-sync">今すぐ取得（為替・Play 価格・Google 広告・AdMob）</button>
+        <button type="button" data-action="ads-sync">今すぐ取得（為替・Play 価格・Google 広告・AdMob・GA4・BigQuery）</button>
         <span class="muted small">毎朝 6:00（日本時間）に為替 → 広告の順で自動取得します。広告は開始日〜当日の合計を取り込みます。</span></div>
       ${errorsFor('setAdsSettings')}
     </form>
@@ -910,9 +1000,23 @@ function renderSettings() {
         ${field('集計の開始日', `<input type="date" name="startDate" value="${esc(settings.admobSync?.startDate ?? '2026-10-01')}">`)}
       </div>
       <div class="row"><button class="primary">保存</button>
-        <button type="button" data-action="ads-sync">今すぐ取得（為替・Play 価格・Google 広告・AdMob）</button>
+        <button type="button" data-action="ads-sync">今すぐ取得（為替・Play 価格・Google 広告・AdMob・GA4・BigQuery）</button>
         <span class="muted small">毎朝 6:00（日本時間）に、開始日〜当日の国別の見積もり収益（円）と表示回数を取り込みます。</span></div>
       ${errorsFor('setAdmobSettings')}
+    </form>
+
+    <h2>Version Performance の自動取得（GA4 / BigQuery）</h2>
+    <form class="panel" data-op="setGa4Settings">
+      ${ga4SyncLine()}
+      ${cohortSyncLine()}
+      <div class="form-grid" style="margin-top:6px">
+        ${field('集計の開始日', `<input type="date" name="startDate" value="${esc(settings.ga4Sync?.startDate ?? '2026-09-01')}">`)}
+      </div>
+      <div class="row"><button class="primary">保存</button>
+        <button type="button" data-action="ads-sync">今すぐ取得（為替・Play 価格・Google 広告・AdMob・GA4・BigQuery）</button>
+        <span class="muted small">毎朝 6:00（日本時間）に、GA4 プロパティ 553416503（Android）の開始日〜当日のバージョン別イベントと、
+          BigQuery の書き出し（2026-10-09 以降）のバージョン別コホートを取り込みます。開始日を早くすると行が増え、画面が重くなります。</span></div>
+      ${errorsFor('setGa4Settings')}
     </form>
 
     <h2>為替</h2>
@@ -993,6 +1097,7 @@ const OPS = {
   setRate: (d, id) => (doc_) => model.setRate(doc_, id ?? d.currency, d.rate, d.updatedAt),
   setAdsSettings: (d) => (doc_) => model.setAdsSettings(doc_, d),
   setAdmobSettings: (d) => (doc_) => model.setAdmobSettings(doc_, d),
+  setGa4Settings: (d) => (doc_) => model.setGa4Settings(doc_, d),
   addVersionMetric: (d) => (doc_) => versions.addVersionMetric(doc_, d),
 };
 
@@ -1098,7 +1203,7 @@ view.addEventListener('click', async (event) => {
       const body = await res.json().catch(() => ({}));
       await store.init();
       const ok = res.ok && body.status !== 'error';
-      toast(ok ? '為替・Play 価格・Google 広告・AdMob を取り込みました' : `一部取得できませんでした: ${body.message || body.error || res.status}`);
+      toast(ok ? '為替・Play 価格・Google 広告・AdMob・GA4・BigQuery を取り込みました' : `一部取得できませんでした: ${body.message || body.error || res.status}`);
     } catch (e) {
       toast(`取得できませんでした: ${e.message}`);
     }

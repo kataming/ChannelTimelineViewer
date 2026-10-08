@@ -1,6 +1,7 @@
 // Version Performance（アプリのバージョン別の入口・離脱の確認）。画面とテストで共用。
 //
-// データは GA4 / Firebase（Android 版のみ）の「日別 × イベント別」の集計を、CSV / JSON / 手入力で取り込んだもの。
+// データは GA4 / Firebase（Android 版のみ）の「日別 × イベント別」の集計。毎朝の自動取得（source 'ga4'・worker/ga4-sync.js）と、
+// CSV / JSON / 手入力で取り込んだもの。
 // 1 行 = VersionMetric:
 //   { date, endDate, platform, appVersion, buildVersion, country, eventName, eventCount, users, source }
 //   - date: その行の日（YYYY-MM-DD）。endDate が無い（null）なら「日別の行」
@@ -11,6 +12,7 @@
 //
 // ⚠️ ここで出す数字は「同じ期間に起きたイベントの人数」であって、同じ利用者を追ったコホートではない。
 //    D1 / D3 / D7 Retention やアンインストール率は、このデータからは正確に出せない（画面にも明記する）。
+//    それらは下の「バージョン別コホート」（BigQuery の毎日の書き出し・2026-10-09 以降）で出す。
 import { div, finite, parseAmount, sub, sum } from './num.js';
 import { ValidationError } from './model.js';
 import { parseCsv, toCsv } from './csv.js';
@@ -427,4 +429,107 @@ export function formatPt(v, digits = 1) {
   const text = Math.abs(x).toFixed(digits);
   if (Number(text) === 0) return `±${text}pt`;
   return `${x > 0 ? '+' : '−'}${text}pt`;
+}
+
+// --- バージョン別コホート（BigQuery の毎日の書き出しから。worker/cohort-sync.js） -----------------
+// 1 行 = VersionCohort:
+//   { appVersion, platform, country, cohortDate, users, d1, d3, d7, removed7, channelOpen7, videoOpen7, observedDays }
+//   - users: その日に初めて first_open した人数（同じ利用者を追う）
+//   - d1 / d3 / d7: ちょうど N 日目に user_engagement か session_start があった人数。まだ N 日経っていなければ null（測定前）
+//   - removed7 / channelOpen7 / videoOpen7: コホート日〜7 日目にそのイベントがあった人数
+//   - observedDays: データの最後の日 − コホート日（7 未満なら 7 日以内の数字はまだ途中）
+// ⚠️ 上の versionMetrics（同じ期間のイベント人数）とは別物。こちらは本物のコホート。
+
+export const COHORT_RETENTION_DAYS = [1, 3, 7];
+
+/** コホートの日付の範囲と、選べる値の一覧。 */
+export function cohortFacets(cohorts = []) {
+  const dates = cohorts.map((r) => r.cohortDate).filter(Boolean).sort();
+  const uniq = (key) => [...new Set(cohorts.map((r) => r[key]).filter(Boolean))];
+  return {
+    minDate: dates[0] ?? null,
+    maxDate: dates[dates.length - 1] ?? null,
+    platforms: uniq('platform').sort(),
+    countries: uniq('country').sort(),
+    versions: uniq('appVersion').sort(compareVersions),
+  };
+}
+
+/**
+ * バージョン × プラットフォームごとのコホートの率。filters: { start, end, platform, country, version }
+ * （start / end はコホート日の範囲。空 = すべて）。率の分母が 0 や不明なら null。
+ * - D1 / D3 / D7: N 日経ったコホートの人数だけを分母にする（経っていないコホートは数えない）
+ * - 7 日以内の率: 全コホートの人数が分母。7 日経っていないコホートを含むときは partial = true（途中の値）
+ */
+export function summarizeCohorts(cohorts = [], filters = {}) {
+  const { start = '', end = '', platform = '', country = '', version = '' } = filters;
+  const rows = cohorts.filter((r) => r && r.cohortDate
+    && (!start || r.cohortDate >= start) && (!end || r.cohortDate <= end)
+    && (!platform || r.platform === platform) && (!country || r.country === country)
+    && (!version || r.appVersion === version));
+  const groups = new Map();
+  for (const r of rows) {
+    const key = `${r.appVersion}|${r.platform}`;
+    if (!groups.has(key)) groups.set(key, { key, appVersion: r.appVersion, platform: r.platform, rows: [] });
+    groups.get(key).rows.push(r);
+  }
+  const out = [];
+  for (const g of groups.values()) {
+    const users = sum(g.rows.map((r) => r.users)) ?? 0;
+    const retention = (n) => {
+      const measured = g.rows.filter((r) => finite(r[`d${n}`]) !== null);
+      const base = sum(measured.map((r) => r.users));
+      const returned = sum(measured.map((r) => r[`d${n}`]));
+      return { returned, base, rate: div(returned, base), measured: (base ?? 0) > 0 };
+    };
+    const within7 = (field) => {
+      const n = sum(g.rows.map((r) => r[field]));
+      return { count: n, base: users, rate: div(n, users) };
+    };
+    const dates = g.rows.map((r) => r.cohortDate).sort();
+    out.push({
+      key: g.key,
+      appVersion: g.appVersion,
+      platform: g.platform,
+      users,
+      cohorts: new Set(dates).size,
+      firstCohort: dates[0] ?? null,
+      lastCohort: dates[dates.length - 1] ?? null,
+      d1: retention(1),
+      d3: retention(3),
+      d7: retention(7),
+      removed7: within7('removed7'),
+      channelOpen7: within7('channelOpen7'),
+      videoOpen7: within7('videoOpen7'),
+      partial7: g.rows.some((r) => finite(r.observedDays) !== null && r.observedDays < 7),
+      countries: [...new Set(g.rows.map((r) => r.country).filter(Boolean))].sort(),
+    });
+  }
+  return out.sort((a, b) => compareVersions(b.appVersion, a.appVersion) || a.platform.localeCompare(b.platform));
+}
+
+/** コホートの比べる項目（すべて率・差は pt）。 */
+export const COHORT_COMPARE_ITEMS = [
+  ['users', 'コホート人数（first_open した人）', 'count'],
+  ['d1', 'D1 Retention', 'rate'],
+  ['d3', 'D3 Retention', 'rate'],
+  ['d7', 'D7 Retention', 'rate'],
+  ['removed7', '7 日以内の削除率（コホート）', 'rate'],
+  ['channelOpen7', '7 日以内の channel_open 率', 'rate'],
+  ['videoOpen7', '7 日以内の video_open 率', 'rate'],
+];
+
+/** 旧版（a）と新版（b）のコホートの比較。どちらかが無ければその値は null。 */
+export function compareCohortSummaries(a, b) {
+  const value = (s, key, kind) => (!s ? null : kind === 'count' ? finite(s[key]) : finite(s[key]?.rate));
+  return COHORT_COMPARE_ITEMS.map(([key, label, kind]) => {
+    const va = value(a, key, kind);
+    const vb = value(b, key, kind);
+    const diff = sub(vb, va);
+    return {
+      key, label, kind, a: va, b: vb,
+      diff: kind === 'count' ? diff : null,
+      diffPt: kind === 'rate' && diff !== null ? finite(Math.round(diff * 100 * 1000) / 1000) : null,
+    };
+  });
 }

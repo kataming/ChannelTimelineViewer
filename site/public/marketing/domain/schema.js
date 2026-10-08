@@ -93,6 +93,7 @@ export function emptyDocument(now = new Date().toISOString()) {
     campaigns: [],
     priceHistory: [],
     versionMetrics: [],
+    versionCohorts: [],
   };
 }
 
@@ -115,5 +116,7 @@ export function normalize(doc) {
     countries: doc.countries.map((c) => newCountry(c)),
     // Version Performance（GA4 の日別 × イベント別の集計。domain/versions.js）。古いデータには無いので空で補う
     versionMetrics: Array.isArray(doc.versionMetrics) ? doc.versionMetrics : [],
+    // バージョン別コホート（BigQuery の毎日の書き出しから。worker/cohort-sync.js）。古いデータには無いので空で補う
+    versionCohorts: Array.isArray(doc.versionCohorts) ? doc.versionCohorts : [],
   };
 }

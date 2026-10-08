@@ -24,6 +24,11 @@ enum AdsTestSupport {
         id: "UCHnyfMqiRRG1u-2MsSQLbXA", title: "Veritasium", thumbnailURL: nil,
         uploadsPlaylistId: "UUHnyfMqiRRG1u-2MsSQLbXA", lastOpenedAt: Date(timeIntervalSinceNow: -7200))
 
+    /// 本数の少ないチャンネル（約150本）。再生画面の撮影用（NASA の5000本だと一覧の操作が効かなかった）。
+    static let threeBlue = SeedChannel(
+        id: "UCYO_jab_esuFRV4b17AJtAw", title: "3Blue1Brown", thumbnailURL: nil,
+        uploadsPlaylistId: "UUYO_jab_esuFRV4b17AJtAw", lastOpenedAt: Date())
+
     static func seedArguments(channels: [SeedChannel], active: String, proCached: Bool) -> [String] {
         let data = (try? JSONEncoder().encode(channels)) ?? Data()
         let hex = data.map { String(format: "%02x", $0) }.joined()

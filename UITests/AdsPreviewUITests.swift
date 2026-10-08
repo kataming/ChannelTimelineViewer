@@ -56,18 +56,18 @@ final class AdsPreviewUITests: XCTestCase {
     /// 再生画面の本文の中のバナー（移動ボタンと「YouTubeでコメントする」の間・2026-10-09〜）。
     /// 1画面目に広告と「YouTubeでコメントする」まで収まるかを見る。
     func test3_無料_再生画面() throws {
+        let channel = AdsTestSupport.threeBlue
         app.launchArguments += AdsTestSupport.seedArguments(
-            channels: [AdsTestSupport.nasa], active: AdsTestSupport.nasa.id, proCached: false)
+            channels: [channel], active: channel.id, proCached: false)
         app.launch()
-        let title = app.staticTexts["NASA"]
+        let title = app.staticTexts[channel.title]
         XCTAssertTrue(title.waitForExistence(timeout: 60), "保存チャンネルが表示されない")
         title.tap()
-        XCTAssertTrue(AdsTestSupport.anchor(in: app).waitForExistence(timeout: 60), "アンカー型バナーが出ない")
-        // 「次に見る」の行（一覧の上のほう）を開く。本数の多いチャンネルでは要素の検索が時間切れに
-        // なるので、画面上の位置で押す。
-        Thread.sleep(forTimeInterval: 5)
-        AdsTestSupport.capture("03-free-list-before-tap", in: self)
-        app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.225)).tap()
+        XCTAssertTrue(AdsTestSupport.anchor(in: app).waitForExistence(timeout: 90), "アンカー型バナーが出ない")
+        // 「次に見る」の行を開く。
+        let next = app.staticTexts.matching(NSPredicate(format: "label CONTAINS %@", "本目")).firstMatch
+        XCTAssertTrue(next.waitForExistence(timeout: 30), "「次に見る」の行が無い")
+        next.tap()
         XCTAssertTrue(AdsTestSupport.player(in: app).waitForExistence(timeout: 60), "再生画面のバナーが出ない")
         Thread.sleep(forTimeInterval: 5)
         AdsTestSupport.capture("03-free-player", in: self)

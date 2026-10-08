@@ -126,3 +126,8 @@ a.kpi-link:hover { border-color: var(--accent); box-shadow: 0 0 0 1px var(--acce
 .chart .legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: 12px; color: var(--muted); margin-top: 6px; }
 .chart .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; }
 .chart .legend i.cum-swatch { height: 2px; width: 14px; background: var(--warning); vertical-align: 3px; }
+
+/* Version Performance */
+.vp-list { margin: 4px 0 0; padding-left: 18px; }
+.vp-list li { margin: 2px 0; }
+.vp-mark { color: var(--warning); font-size: 9px; margin-left: 1px; }

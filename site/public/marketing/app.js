@@ -15,12 +15,15 @@ import {
   exportCampaignsCsv, exportCountriesCsv, exportHistoryCsv, exportPriceTestsCsv, importCampaignsCsv,
   importCountriesCsv,
 } from './domain/csv.js';
+import * as versions from './domain/versions.js';
 
 const store = new Store(new HttpRepository());
 const view = document.getElementById('view');
 const ui = {
   search: '', sort: 'cpi_asc', historyCountry: '', adsCountry: '', testsCountry: '',
   editTest: null, editCampaign: null, errors: {}, lastImport: null,
+  // Version Performance のフィルター（空 = すべて／データの最初〜最後の日）
+  vp: { start: '', end: '', platform: '', country: '', version: '', a: '', b: '' }, vpImport: null,
 };
 
 // --- 小物 ------------------------------------------------------------------------
@@ -88,7 +91,7 @@ function render() {
   const views = {
     dashboard: renderDashboard, countries: renderCountries, country: () => renderCountry(r.id),
     tests: renderTests, ads: renderAds, localization: renderLocalization, history: renderHistory,
-    settings: renderSettings, admob: renderAdmob,
+    settings: renderSettings, admob: renderAdmob, versions: renderVersions,
   };
   view.innerHTML = (views[r.name] ?? renderDashboard)();
   document.getElementById('save-state').textContent = `保存: ${new Date(doc().updatedAt).toLocaleString()}`;
@@ -682,6 +685,180 @@ function renderHistory() {
     ${historyTable(list)}`;
 }
 
+// --- Version Performance（バージョン別の入口・離脱の確認） ----------------------------------
+// 計算は domain/versions.js。ここは表示だけ。
+
+/** Users の表示。日別の行を 2 日以上足した値には Σ を付ける（同じ人を重ねて数えうる）。 */
+function vpUsers(cell) {
+  if (!cell) return DASH;
+  const mark = cell.basis === 'daily-sum' ? '<sup class="vp-mark" title="日別 Users の合計（同じ人を重ねて数えうる）">Σ</sup>' : '';
+  return `${int(cell.users)}${mark}`;
+}
+
+const vpLabel = (s) => `${s.appVersion}${s.platform ? ` (${s.platform})` : ''}`;
+
+function vpLimits() {
+  return `<div class="notice" data-testid="vp-limits"><strong>データの出典と限界</strong>
+    <ul class="vp-list">
+      <li>出典は GA4 / Firebase Analytics の集計（CSV・JSON・手入力で取り込み。自動取得はしません）。<strong>Firebase は Android 版だけ</strong>に入っていて、iOS 版のバージョン別の数字は GA4 にありません。</li>
+      <li>App Version は Android の versionName（例 1.19）。<strong>ビルド番号（versionCode）は GA4 の標準ディメンションに無い</strong>ため、Build Version は任意入力です。</li>
+      <li>数字は「その期間にそのイベントを起こした人数」で、同じ利用者を追ったものではありません。<strong>バージョン別のコホート Retention（D1 / D3 / D7）は既存のデータでは正確に出せません</strong>（ここでは出しません）。</li>
+      <li><code>app_remove</code> は Android だけ。「app_remove ÷ first_open」は同じ期間のイベントの単純な比（参考値）で、<strong>アンインストール率・コホート削除率ではありません</strong>（削除した人が同じ期間に入れた人とは限らない）。</li>
+      <li>Users は GA4 では期間の中で一意です。日別の行を 2 日以上足した値（<sup>Σ</sup>）は同じ人を重ねて数えうるので、期間の合計を 1 行で書き出した行（end_date あり）があればそちらを優先します。</li>
+    </ul></div>`;
+}
+
+function vpFilters(f, filters) {
+  const sel = (key, list, label) => `<label class="small">${label} <select data-vp="${key}"><option value="">すべて</option>${list.map((v) => `<option value="${esc(v)}" ${ui.vp[key] === v ? 'selected' : ''}>${esc(v || '（空）')}</option>`).join('')}</select></label>`;
+  return `<div class="row" data-testid="vp-filters">
+    <label class="small">Start Date <input type="date" data-vp="start" value="${esc(filters.start)}"></label>
+    <label class="small">End Date <input type="date" data-vp="end" value="${esc(filters.end)}"></label>
+    ${sel('platform', f.platforms, 'Platform')}
+    ${sel('country', f.countries, 'Country')}
+    ${sel('version', f.versions.slice().reverse(), 'App Version')}
+    <button type="button" data-action="vp-reset">フィルターを戻す</button>
+    <span class="muted small">データの範囲 ${esc(f.minDate) || DASH} 〜 ${esc(f.maxDate) || DASH}</span></div>`;
+}
+
+function vpTable(list) {
+  if (!list.length) return '<p class="muted" data-testid="vp-empty">この条件のデータはありません。</p>';
+  return `<div class="table-wrap"><table data-testid="vp-table"><thead>
+    <tr><th class="group l" colspan="5">バージョン</th><th class="group" colspan="${versions.VERSION_EVENTS.length}">Users（イベントを起こした人数）</th><th class="group" colspan="4">率（同じ期間の人数の比）</th></tr>
+    <tr><th class="l">App Version</th><th class="l">Build Version</th><th class="l">First Seen Date</th><th class="l">Platform</th><th class="l">Country</th>
+      ${versions.VERSION_EVENTS.map((e) => `<th>${esc(e)}</th>`).join('')}
+      <th>first_open→channel_open</th><th>first_open→video_open</th><th>channel_open→video_open</th>
+      <th title="同日イベント単純比率・参考値・コホート削除率ではない">app_remove ÷ first_open<br><span class="muted">同じ期間の単純比・参考値</span></th></tr></thead><tbody>
+    ${list.map((s) => `<tr data-version="${esc(s.key)}"><td class="l"><strong>${esc(s.appVersion)}</strong></td><td class="l">${esc(s.buildVersions.join(', ')) || DASH}</td>
+      <td class="l">${esc(s.firstSeen) || DASH}</td><td class="l">${esc(s.platform) || DASH}</td>
+      <td class="l">${ui.vp.country ? esc(ui.vp.country) : s.hasWorldTotal ? '全世界（合計の行）' : `${int(s.countries.length)} か国の合計`}</td>
+      ${versions.VERSION_EVENTS.map((e) => `<td>${vpUsers(s.events[e])}</td>`).join('')}
+      <td>${pct(s.rates.firstOpenToChannelOpen, 1)}</td><td>${pct(s.rates.firstOpenToVideoOpen, 1)}</td><td>${pct(s.rates.channelOpenToVideoOpen, 1)}</td>
+      <td>${pct(s.rates.removePerFirstOpen, 1)}</td></tr>`).join('')}
+  </tbody></table></div>
+  <p class="muted small">First Seen Date = そのバージョンのデータの最初の日（期間のフィルターは無視・Platform / Country は反映）。
+    「—」は分母が 0 か、データが無い。<sup>Σ</sup> は日別 Users の合計（重複を含みうる）。</p>`;
+}
+
+function vpCompare(all) {
+  if (all.length < 2) return '<p class="muted">比べるには 2 つ以上のバージョンのデータが要ります。</p>';
+  const pick = (key, fallback) => all.find((s) => s.key === key) ?? fallback;
+  const b = pick(ui.vp.b, all[0]);
+  const a = pick(ui.vp.a, all.find((s) => s.key !== b.key));
+  const sel = (key, current) => `<select data-vp="${key}">${all.map((s) => `<option value="${esc(s.key)}" ${s.key === current.key ? 'selected' : ''}>${esc(vpLabel(s))}</option>`).join('')}</select>`;
+  const rows = versions.compareVersionSummaries(a, b);
+  return `<div class="row">旧版 ${sel('a', a)} → 新版 ${sel('b', b)}</div>
+    <div class="table-wrap"><table data-testid="vp-compare"><thead><tr><th class="l">項目</th><th>${esc(vpLabel(a))}</th><th>${esc(vpLabel(b))}</th><th>差</th></tr></thead><tbody>
+    ${rows.map((r) => `<tr><td class="l">${esc(r.label)}</td>
+      <td>${r.kind === 'rate' ? pct(r.a, 1) : vpUsers(a.events[r.key])}</td><td>${r.kind === 'rate' ? pct(r.b, 1) : vpUsers(b.events[r.key])}</td>
+      <td class="${r.key === 'removePerFirstOpen' ? '' : sign(r.kind === 'rate' ? r.diffPt : r.diff)}">${r.kind === 'rate' ? versions.formatPt(r.diffPt) : `${versions.formatDiff(r.diff)}${finite(r.relative) !== null ? `<span class="muted small">（${r.relative >= 0 ? '+' : '−'}${pct(Math.abs(r.relative), 1)}）</span>` : ''}`}</td></tr>`).join('')}
+    </tbody></table></div>
+    <p class="muted small">率の差は percentage point（例 22.0% → 27.5% は +5.5pt）。人数の差は絶対差（かっこ内は旧版に対する増減率）。
+      期間・Platform・Country のフィルターは両方に同じく掛かります。リリース日が違うので、同じ長さの期間で比べるときは Start / End Date を合わせてください。</p>`;
+}
+
+function vpFunnels(list) {
+  if (!list.length) return '';
+  return list.map((s) => {
+    const steps = versions.versionFunnel(s);
+    const base = finite(steps[0].users);
+    const width = (v) => (base && finite(v) !== null ? Math.min(100, (v / base) * 100) : 0);
+    return `<div class="panel" data-testid="vp-funnel"><strong>${esc(vpLabel(s))}</strong>
+      <div class="funnel">
+        <div class="muted small">イベント</div><div></div><div class="num muted small">Users</div><div class="num muted small hide-sm">÷ first_open</div><div class="num muted small hide-sm">÷ 前の段階</div>
+        ${steps.map((st) => `<div>${esc(st.eventName)}</div><div class="bar"><span style="width:${width(st.users)}%"></span></div>
+          <div class="num">${vpUsers(s.events[st.eventName])}</div><div class="num hide-sm">${pct(st.fromFirstOpen, 1)}</div><div class="num hide-sm">${pct(st.fromPrevious, 1)}</div>`).join('')}
+      </div></div>`;
+  }).join('');
+}
+
+function vpMatrix(rows, filters) {
+  const m = versions.countryVersionMatrix(rows, filters);
+  if (!m.rows.length) return '<p class="muted">国別の行（Country 列に国が入った行）があると表示されます。</p>';
+  return `<div class="table-wrap"><table data-testid="vp-matrix"><thead><tr><th class="l sticky-col">Country</th>
+    ${m.columns.map((k) => `<th>${esc(k.replace('|', ' / '))}<br><span class="muted">first_open · ch rate</span></th>`).join('')}</tr></thead><tbody>
+    ${m.rows.map((r) => `<tr><td class="l sticky-col">${esc(r.country)}</td>${m.columns.map((k) => {
+      const c = r.cells[k];
+      return `<td>${c ? `${int(c.firstOpen)}${c.usersMayDuplicate ? '<sup class="vp-mark">Σ</sup>' : ''} · ${pct(c.channelRate, 1)}` : DASH}</td>`;
+    }).join('')}</tr>`).join('')}
+  </tbody></table></div>`;
+}
+
+function vpRawRows(rows, filters) {
+  const list = rows.filter((r) => (!filters.platform || r.platform === filters.platform)
+    && (!filters.country || r.country === filters.country) && (!filters.version || r.appVersion === filters.version)
+    && (!filters.start || r.date >= filters.start) && (!filters.end || (r.endDate ?? r.date) <= filters.end))
+    .slice().sort((x, y) => y.date.localeCompare(x.date) || versions.compareVersions(y.appVersion, x.appVersion) || x.eventName.localeCompare(y.eventName));
+  const shown = list.slice(0, 300);
+  if (!list.length) return '<p class="muted">まだありません。</p>';
+  return `<div class="table-wrap" style="max-height:420px"><table data-testid="vp-rows"><thead><tr><th class="l">Date</th><th class="l">End Date</th><th class="l">Platform</th><th class="l">App Version</th><th class="l">Build</th>
+    <th class="l">Country</th><th class="l">Event Name</th><th>Event Count</th><th>Users</th><th class="l">入力元</th><th></th></tr></thead><tbody>
+    ${shown.map((r) => `<tr><td class="l">${esc(r.date)}</td><td class="l">${esc(r.endDate) || DASH}</td><td class="l">${esc(r.platform) || DASH}</td><td class="l">${esc(r.appVersion)}</td>
+      <td class="l">${esc(r.buildVersion) || DASH}</td><td class="l">${esc(r.country) || '全世界'}</td><td class="l">${esc(r.eventName)}</td>
+      <td>${int(r.eventCount)}</td><td>${int(r.users)}</td><td class="l">${esc(r.source)}</td>
+      <td><button type="button" data-action="vm-delete" data-key="${esc(versions.versionMetricKey(r))}">削除</button></td></tr>`).join('')}
+  </tbody></table></div>
+  <p class="muted small">${list.length > shown.length ? `新しい順に ${shown.length} 行だけ表示（全 ${int(list.length)} 行）。` : `${int(list.length)} 行。`}フィルターが掛かります。</p>`;
+}
+
+function renderVersions() {
+  const rows = doc().versionMetrics ?? [];
+  const f = versions.versionMetricFacets(rows);
+  const filters = {
+    start: ui.vp.start || f.minDate || '', end: ui.vp.end || f.maxDate || '',
+    platform: ui.vp.platform, country: ui.vp.country, version: ui.vp.version,
+  };
+  const list = versions.summarizeVersions(rows, filters);
+  const forCompare = ui.vp.version ? versions.summarizeVersions(rows, { ...filters, version: '' }) : list;
+  return `<h1>Version Performance</h1>
+    ${vpLimits()}
+    ${rows.length ? vpFilters(f, filters) : ''}
+    <h2>バージョン別</h2>
+    ${rows.length ? vpTable(list) : '<p class="muted" data-testid="vp-empty">まだデータがありません。下の「取り込み」から GA4 の CSV / JSON を入れるか、1 行ずつ追加してください。</p>'}
+
+    <h2>旧版 vs 新版</h2>
+    ${rows.length ? vpCompare(forCompare) : '<p class="muted">データが入ると表示されます。</p>'}
+
+    <h2>ファネル（first_open → channel_tutorial_view → channel_open → video_open）</h2>
+    ${vpFunnels(list) || '<p class="muted">データが入ると表示されます。</p>'}
+    <p class="muted small">各段の人数は同じ期間にそのイベントを起こした人数です。同じ人が順に進んだとは限りません（前段より多くなることもあります）。</p>
+
+    <h2>Country × Version</h2>
+    ${vpMatrix(rows, { ...filters, version: ui.vp.version })}
+
+    <h2>取り込み・書き出し</h2>
+    <div class="panel">
+      <div class="row"><strong>CSV 取り込み</strong><input type="file" accept=".csv,text/csv" data-action="vm-import" data-kind="csv">
+        <strong>JSON 取り込み</strong><input type="file" accept=".json,application/json" data-action="vm-import" data-kind="json">
+        <button type="button" data-action="vm-export">CSV 書き出し</button></div>
+      ${ui.vpImport ? `<div class="small" data-testid="vp-import-result">${esc(ui.vpImport)}</div>` : ''}
+      ${errorsFor('vmImport')}${errorsFor('vmDelete')}
+      <p class="muted small">CSV の列: <code>${versions.VERSION_COLUMNS.join(',')}</code>（<code>end_date</code> は期間の合計の行だけ・<code>buildVersion</code> は任意）。
+        GA4 の書き出しの列名（Date / App version / Country ID / Event name / Event count / Total users）と日付 20261007、先頭の # の行もそのまま読めます。
+        同じ日付・Platform・App Version・Build・Country・Event Name の行は上書き。Country が空の行は「全世界の合計」。
+        JSON は行の配列、<code>{ "versionMetrics": [...] }</code>、GA4 Data API の runReport の応答のどれでも可。</p>
+    </div>
+
+    <h2>1 行追加（手入力）</h2>
+    <form class="panel" data-op="addVersionMetric">
+      <div class="form-grid">
+        ${field('Date', `<input type="date" name="date" value="${today()}">`)}
+        ${field('End Date（期間の合計の行だけ）', '<input type="date" name="endDate">')}
+        ${field('Platform', `<select name="platform">${options(versions.VERSION_PLATFORMS, 'Android', { blank: false })}</select>`)}
+        ${field('App Version（例 1.19）', '<input name="appVersion">')}
+        ${field('Build Version（任意）', '<input name="buildVersion">')}
+        ${field('Country（2 文字・空 = 全世界）', '<input name="country" maxlength="40">')}
+        ${field('Event Name', `<input name="eventName" list="vp-events"><datalist id="vp-events">${versions.VERSION_EVENTS.map((e) => `<option value="${e}">`).join('')}</datalist>`)}
+        ${field('Event Count', numInput('eventCount', null))}
+        ${field('Users', numInput('users', null))}
+      </div>
+      <div class="row"><button class="primary">追加（同じキーは上書き）</button></div>
+      ${errorsFor('addVersionMetric')}
+    </form>
+
+    <h2>取り込んだ行</h2>
+    ${vpRawRows(rows, filters)}`;
+}
+
 // --- Settings -------------------------------------------------------------------------
 
 function renderSettings() {
@@ -816,6 +993,7 @@ const OPS = {
   setRate: (d, id) => (doc_) => model.setRate(doc_, id ?? d.currency, d.rate, d.updatedAt),
   setAdsSettings: (d) => (doc_) => model.setAdsSettings(doc_, d),
   setAdmobSettings: (d) => (doc_) => model.setAdmobSettings(doc_, d),
+  addVersionMetric: (d) => (doc_) => versions.addVersionMetric(doc_, d),
 };
 
 async function run(name, operation, message = '保存しました') {
@@ -859,6 +1037,15 @@ view.addEventListener('change', async (event) => {
   if (el.id === 'history-country') { ui.historyCountry = el.value; render(); }
   if (el.id === 'ads-country') { ui.adsCountry = el.value; render(); }
   if (el.id === 'tests-country') { ui.testsCountry = el.value; render(); }
+  if (el.dataset.vp) { ui.vp[el.dataset.vp] = el.value; render(); }
+  if (el.dataset.action === 'vm-import' && el.files[0]) {
+    const text = await el.files[0].text();
+    const fn = el.dataset.kind === 'json' ? versions.importVersionMetricsJson : versions.importVersionMetricsCsv;
+    const result = fn(doc(), text);
+    ui.vpImport = `追加 ${result.added} ／ 上書き ${result.updated}${result.errors.length ? ` ／ エラー ${result.errors.length} 行: ${result.errors.slice(0, 10).map((e) => `${e.line}行目 ${e.message}`).join('; ')}${result.errors.length > 10 ? ' …' : ''}` : ''}`;
+    if (result.added || result.updated) await run('vmImport', () => result.doc, '取り込みました');
+    render();
+  }
   if (el.dataset.action === 'annotate') await run('annotate', (d) => model.annotateHistory(d, el.dataset.id, el.value), 'メモを保存しました');
   if (el.dataset.action === 'import' && el.files[0]) {
     const text = await el.files[0].text();
@@ -917,6 +1104,9 @@ view.addEventListener('click', async (event) => {
     }
     return;
   }
+  if (action === 'vm-export') download(`ctv-version-metrics-${today()}.csv`, versions.exportVersionMetricsCsv(doc()));
+  if (action === 'vm-delete') await run('vmDelete', (d) => versions.deleteVersionMetric(d, el.dataset.key), '削除しました');
+  if (action === 'vp-reset') { ui.vp = { start: '', end: '', platform: '', country: '', version: '', a: '', b: '' }; render(); }
   if (action === 'backup') {
     download(`ctv-marketing-ops-backup-${today()}.json`, `${JSON.stringify(doc(), null, 2)}\n`, 'application/json');
   }

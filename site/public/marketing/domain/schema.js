@@ -92,6 +92,7 @@ export function emptyDocument(now = new Date().toISOString()) {
     priceTests: [],
     campaigns: [],
     priceHistory: [],
+    versionMetrics: [],
   };
 }
 
@@ -112,5 +113,7 @@ export function normalize(doc) {
     },
     currencies: { ...doc.currencies },
     countries: doc.countries.map((c) => newCountry(c)),
+    // Version Performance（GA4 の日別 × イベント別の集計。domain/versions.js）。古いデータには無いので空で補う
+    versionMetrics: Array.isArray(doc.versionMetrics) ? doc.versionMetrics : [],
   };
 }

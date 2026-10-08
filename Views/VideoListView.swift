@@ -16,15 +16,21 @@ struct VideoListView: View {
         let serial: Int
     }
 
-    init(channel: Channel) {
+    /// 動画から来たとき（人気動画・コピーした動画URL）に、開いた直後に再生する動画。
+    /// 一覧はこの画面の裏で読み込み、再生画面から戻るとそのまま一覧が出る。
+    @State private var quickStartVideo: VideoItem?
+    @State private var showsQuickStartPlayer = false
+
+    init(channel: Channel, quickStartVideo: VideoItem? = nil) {
         _viewModel = StateObject(wrappedValue: VideoListViewModel(channel: channel))
+        _quickStartVideo = State(initialValue: quickStartVideo)
     }
 
     var body: some View {
         content
             .navigationTitle(viewModel.channel.title)
             .navigationBarTitleDisplayMode(.inline)
-            // 動画一覧の下に固定するバナー。再生画面には置かない（プレイヤーや操作に重ねない）。
+            // 動画一覧の下に固定するバナー。再生画面のバナーは本文の中にだけ置く（PlayerView の PlayerBannerAdView）。
             .safeAreaInset(edge: .bottom, spacing: 0) {
                 AnchorAdaptiveBannerView()
             }
@@ -85,6 +91,28 @@ struct VideoListView: View {
                     }
                     .accessibilityLabel(String(localized: "list.menu.a11y"))
                 }
+            }
+            .navigationDestination(isPresented: $showsQuickStartPlayer) {
+                if let video = quickStartVideo {
+                    PlayerView(videos: [video], startIndex: 0,
+                               watchStore: watchStore,
+                               skipStore: skipStore,
+                               positionStore: positionStore,
+                               settings: playbackSettings,
+                               channel: viewModel.channel,
+                               backgroundList: viewModel)
+                }
+            }
+            .onAppear {
+                // 一覧を待たずに、選んだ動画の再生画面へすぐ進む（一度だけ）。
+                guard quickStartVideo != nil, !showsQuickStartPlayer else { return }
+                var transaction = Transaction()
+                transaction.disablesAnimations = true
+                withTransaction(transaction) { showsQuickStartPlayer = true }
+            }
+            .onChange(of: showsQuickStartPlayer) { _, shown in
+                // 再生画面から戻ったら、次からは普通の一覧として使う。
+                if !shown { quickStartVideo = nil }
             }
             .task {
                 await viewModel.loadIfNeeded()

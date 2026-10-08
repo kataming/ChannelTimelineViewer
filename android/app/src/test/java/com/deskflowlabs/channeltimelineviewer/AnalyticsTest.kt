@@ -122,7 +122,7 @@ class AnalyticsTest {
         items: List<VideoItem>,
         settings: PlaybackSettingsStore = PlaybackSettingsStore(prefs("settings")),
     ) = PlayerViewModel(
-        videos = items,
+        initialVideos = items,
         startIndex = 0,
         watchStore = WatchHistoryStore(prefs("watch")),
         skipStore = SkippedVideoStore(prefs("skip")),

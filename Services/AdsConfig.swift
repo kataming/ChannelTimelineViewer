@@ -10,6 +10,12 @@ struct AdsConfig: Equatable {
     let bannerUnitID: String
     let mrecUnitID: String
     let usesTestAds: Bool
+    /// 再生画面のバナー（本文の中・移動ボタンの下）。収益を一覧のバナーと分けて見るための別ユニット。
+    /// 空なら一覧のバナーと同じユニットを使う（Android の playerBannerUnitId と同じ）。
+    var playerBannerUnitID: String = ""
+
+    /// 再生画面のバナーに使うユニット。
+    var playerBannerUnit: String { playerBannerUnitID.isEmpty ? bannerUnitID : playerBannerUnitID }
 
     /// 広告ユニットが揃っているか。false なら広告まわりは何もしない。
     var isEnabled: Bool { !bannerUnitID.isEmpty && !mrecUnitID.isEmpty }
@@ -22,14 +28,17 @@ struct AdsConfig: Equatable {
     static let test = AdsConfig(
         bannerUnitID: testAdaptiveBannerUnitID,
         mrecUnitID: testBannerUnitID,
-        usesTestAds: true)
+        usesTestAds: true,
+        playerBannerUnitID: testBannerUnitID)
 
-    static func make(isDebug: Bool, bannerUnitID: String?, mrecUnitID: String?) -> AdsConfig {
+    static func make(isDebug: Bool, bannerUnitID: String?, mrecUnitID: String?,
+                     playerBannerUnitID: String? = nil) -> AdsConfig {
         if isDebug { return .test }
         return AdsConfig(
             bannerUnitID: (bannerUnitID ?? "").trimmingCharacters(in: .whitespaces),
             mrecUnitID: (mrecUnitID ?? "").trimmingCharacters(in: .whitespaces),
-            usesTestAds: false)
+            usesTestAds: false,
+            playerBannerUnitID: (playerBannerUnitID ?? "").trimmingCharacters(in: .whitespaces))
     }
 
     /// このビルドの設定（Info.plist の CTVAdMob*UnitID を読む）。
@@ -42,7 +51,8 @@ struct AdsConfig: Equatable {
         return make(
             isDebug: isDebug,
             bannerUnitID: Bundle.main.object(forInfoDictionaryKey: "CTVAdMobBannerUnitID") as? String,
-            mrecUnitID: Bundle.main.object(forInfoDictionaryKey: "CTVAdMobMRECUnitID") as? String)
+            mrecUnitID: Bundle.main.object(forInfoDictionaryKey: "CTVAdMobMRECUnitID") as? String,
+            playerBannerUnitID: Bundle.main.object(forInfoDictionaryKey: "CTVAdMobPlayerBannerUnitID") as? String)
     }
 }
 

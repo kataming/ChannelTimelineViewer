@@ -63,4 +63,24 @@ final class PopularVideosTests: XCTestCase {
         // 既存の解決処理でそのまま channelId として読める。
         XCTAssertEqual(try ChannelResolver.parse(url), .channelId("UC_x5XG1OV2P6uZZ5FSM9Ttw"))
     }
+
+    /// 人気動画を選んだら、その動画の URL で開く（動画URL → すぐ再生＋投稿チャンネルを特定）。
+    func testPickedVideoOpensItsVideoURL() throws {
+        let url = ChannelInputViewModel.videoURLString(forVideoId: "dQw4w9WgXcQ")
+        XCTAssertEqual(try ChannelResolver.parse(url), .video("dQw4w9WgXcQ"))
+    }
+
+    /// 動画URLから来たときにすぐ再生する1本（videos.list の snippet・statistics）。
+    func testReadsVideoForQuickStart() throws {
+        let json = """
+        {"items":[{"id":"abcdefghijk","snippet":{"title":"t","description":"d",
+          "publishedAt":"2024-01-02T03:04:05Z","channelId":"UC1"},"statistics":{"viewCount":"1234"}}]}
+        """
+        let video = try XCTUnwrap(YouTubeAPIClient.video(fromVideosListJSON: Data(json.utf8)))
+        XCTAssertEqual(video.id, "abcdefghijk")
+        XCTAssertEqual(video.channelId, "UC1")
+        XCTAssertEqual(video.viewCount, 1234)
+        XCTAssertEqual(video.publishedAt.timeIntervalSince1970, 1_704_164_645)
+        XCTAssertNil(YouTubeAPIClient.video(fromVideosListJSON: Data(#"{"items":[]}"#.utf8)))
+    }
 }

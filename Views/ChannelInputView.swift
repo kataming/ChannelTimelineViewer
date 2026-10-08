@@ -215,7 +215,8 @@ struct ChannelInputView: View {
             .navigationTitle("Channel Timeline")
             .navigationDestination(item: $viewModel.resolvedChannel) { channel in
                 // チャンネルごとに別の画面として作る（別チャンネルに替わったら、検索・並び替えの状態を持ち越さない）。
-                VideoListView(channel: channel)
+                // 動画から来たときは、一覧を開いた直後にその動画をすぐ再生する（一覧は裏で読み込む）。
+                VideoListView(channel: channel, quickStartVideo: viewModel.quickStartVideo)
                     .id(channel.id)
             }
             .toolbar {

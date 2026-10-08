@@ -35,10 +35,13 @@ import androidx.lifecycle.compose.currentStateAsState
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.deskflowlabs.channeltimelineviewer.ads.AnchorAdaptiveBanner
 import com.deskflowlabs.channeltimelineviewer.ads.MrecAdSlot
+import com.deskflowlabs.channeltimelineviewer.ads.PlayerBannerAd
 import com.deskflowlabs.channeltimelineviewer.ads.rememberMrecAd
 import com.deskflowlabs.channeltimelineviewer.analytics.Analytics
 import com.deskflowlabs.channeltimelineviewer.model.Channel
 import com.deskflowlabs.channeltimelineviewer.model.VideoItem
+import com.deskflowlabs.channeltimelineviewer.model.VideoSortOrder
+import com.deskflowlabs.channeltimelineviewer.model.sortedBy
 import com.deskflowlabs.channeltimelineviewer.network.SharedLinkParser
 import com.deskflowlabs.channeltimelineviewer.ui.AboutScreen
 import com.deskflowlabs.channeltimelineviewer.ui.BadgePreviewScreen
@@ -240,7 +243,18 @@ private sealed interface Screen {
      *   チャンネル内検索を消して全件で出す（別チャンネルの検索を持ち越さない・docs/channel-search.md）。
      */
     data class Videos(val channel: Channel, val keepSearch: Boolean = false) : Screen
-    data class Play(val channel: Channel, val videos: List<VideoItem>, val index: Int) : Screen
+    /**
+     * @param quickStart 人気動画・コピーした動画URLから来て、一覧を待たずに1本だけで再生を始めたとき。
+     *   一覧は再生画面の裏で読み込み、届いたら再生中の動画の位置に合わせて差し込む。
+     * @param source 1本目をどこから開いたか（記録用）
+     */
+    data class Play(
+        val channel: Channel,
+        val videos: List<VideoItem>,
+        val index: Int,
+        val quickStart: Boolean = false,
+        val source: String = Analytics.Source.LIST,
+    ) : Screen
 }
 
 @Composable
@@ -319,9 +333,12 @@ private fun AppRoot(
     }
 
     LaunchedEffect(resolved) {
-        val channel = resolved ?: return@LaunchedEffect
+        val target = resolved ?: return@LaunchedEffect
         inputViewModel.consumeResolvedChannel()
-        screen = Screen.Videos(channel)
+        // 動画から来たときは、一覧を待たずにその動画をすぐ再生する（一覧は再生画面の裏で読み込む）。
+        screen = target.startVideo?.let { video ->
+            Screen.Play(target.channel, listOf(video), 0, quickStart = true, source = target.source)
+        } ?: Screen.Videos(target.channel)
     }
 
     // 画面表示を記録する（名前だけ。開いているチャンネルや動画は送らない）。
@@ -379,7 +396,7 @@ private fun AppRoot(
     // 画面ごとの BackHandler（検索を閉じる・全画面を抜ける）はこれより後に登録されるので、そちらが先に効く。
     androidx.activity.compose.BackHandler(enabled = !tutorialShown && screen !is Screen.Input) {
         screen = when (val current = screen) {
-            is Screen.Play -> Screen.Videos(current.channel, keepSearch = true)
+            is Screen.Play -> Screen.Videos(current.channel, keepSearch = !current.quickStart)
             else -> Screen.Input
         }
     }
@@ -415,7 +432,7 @@ private fun AppRoot(
                 if (tutorialSource == Analytics.Source.FIRST_TIME) {
                     container.channelTutorial.markCompleted()
                 }
-                inputViewModel.openPopular(video.channelId)
+                inputViewModel.openPopular(video.videoId)
             },
         )
     }
@@ -481,20 +498,63 @@ private fun AppRoot(
 
         is Screen.Play -> {
             val playerViewModel: PlayerViewModel = viewModel(
-                key = "player-${current.channel.id}-${current.index}",
+                key = if (current.quickStart) {
+                    "player-quick-${current.channel.id}-${current.videos.firstOrNull()?.id}"
+                } else {
+                    "player-${current.channel.id}-${current.index}"
+                },
                 factory = simpleFactory {
                     PlayerViewModel(
-                        videos = current.videos,
+                        initialVideos = current.videos,
                         startIndex = current.index,
                         watchStore = container.watchStore,
                         skipStore = container.skipStore,
                         positionStore = container.positionStore,
                         settings = container.settings,
                         analytics = container.analytics,
+                        openSource = current.source,
+                        awaitingList = current.quickStart,
                     )
                 },
             )
             val index by playerViewModel.currentIndex.collectAsStateWithLifecycle()
+
+            // すぐ再生した動画の後ろで、チャンネルの一覧を読み込む（戻ったときの一覧と同じもの）。
+            // 読み込めたら古い順の一覧を差し込み、自動再生の「次」（1本新しい動画）が決まる。
+            val awaitingList by playerViewModel.isAwaitingList.collectAsStateWithLifecycle()
+            var listProgress by remember { mutableStateOf<Pair<Int, Int>?>(null) }
+            if (current.quickStart && awaitingList) {
+                val listViewModel: VideoListViewModel = viewModel(
+                    key = "list-${current.channel.id}",
+                    factory = simpleFactory {
+                        VideoListViewModel(current.channel, container.api, container.videoListCache)
+                    },
+                )
+                LaunchedEffect(current.channel.id) { listViewModel.loadIfNeeded() }
+                val listVideos by listViewModel.videos.collectAsStateWithLifecycle()
+                val listLoading by listViewModel.isLoading.collectAsStateWithLifecycle()
+                val progress by listViewModel.loadProgress.collectAsStateWithLifecycle()
+                val listError by listViewModel.errorRes.collectAsStateWithLifecycle()
+                val checkingNew by listViewModel.isCheckingForNew.collectAsStateWithLifecycle()
+                listProgress = progress
+                LaunchedEffect(listVideos, listLoading, listError, checkingNew) {
+                    val playingId = playerViewModel.currentVideo?.id
+                    // 保存済みの一覧に今の動画が無い（投稿されたばかり）ときは、新着の確認が終わるまで待つ。
+                    if (listVideos.none { it.id == playingId } && (listLoading || checkingNew)) return@LaunchedEffect
+                    if (listVideos.isNotEmpty()) {
+                        playerViewModel.attachList(listVideos.sortedBy(VideoSortOrder.Oldest))
+                        // 一覧画面を通らずに再生したので、ホームのチャンネル行の本数もここで入れる。
+                        container.progress.updateCounts(
+                            channelId = current.channel.id,
+                            totalCount = listVideos.size,
+                            watchedCount = listVideos.count { container.watchStore.isWatched(it.id) },
+                        )
+                    } else if (listError != null) {
+                        // 一覧が読めなかった。1本だけの再生のまま続ける（戻れば一覧画面で再試行できる）。
+                        playerViewModel.attachList(emptyList())
+                    }
+                }
+            }
 
             // 「続きから見る」のために、最後に開いた動画を記録する。
             LaunchedEffect(index) {
@@ -508,7 +568,9 @@ private fun AppRoot(
                 channel = current.channel,
                 settings = container.settings,
                 memoStore = container.memoStore,
-                onBack = { screen = Screen.Videos(current.channel, keepSearch = true) },
+                listLoadProgress = if (awaitingList) (listProgress ?: (0 to 0)) else null,
+                adSlot = { PlayerBannerAd(container.ads) },
+                onBack = { screen = Screen.Videos(current.channel, keepSearch = !current.quickStart) },
                 onOpenOptions = { showOptions = true },
             )
 
@@ -559,7 +621,7 @@ private fun VideoListRoute(
         skipStore = container.skipStore,
         onBack = onBack,
         onOpenVideo = onOpenVideo,
-        // 動画一覧の下に固定するバナー。再生画面には置かない（プレイヤーや操作に重ねない）。
+        // 動画一覧の下に固定するバナー。再生画面のバナーは本文の中にだけ置く（PlayerScreen の adSlot）。
         bottomBar = { AnchorAdaptiveBanner(container.ads) },
     )
 }

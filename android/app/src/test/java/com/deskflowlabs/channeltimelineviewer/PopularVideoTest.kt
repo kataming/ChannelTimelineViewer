@@ -43,4 +43,20 @@ class PopularVideoTest {
         )
         assertEquals(listOf("C1", "C2"), YouTubeApiClient.popularVideos(body).map { it.channelId })
     }
+
+    /** 動画URLから来たときにすぐ再生する1本（videos.list の snippet・statistics）。 */
+    @Test
+    fun readsVideoForQuickStart() {
+        val body = parse(
+            """{"items":[{"id":"abcdefghijk","snippet":{"title":"t","description":"d",
+              "publishedAt":"2024-01-02T03:04:05Z","channelId":"UC1"},"statistics":{"viewCount":"1234"}}]}""",
+        )
+        val video = YouTubeApiClient.videoFromVideosList(body)!!
+        assertEquals("abcdefghijk", video.id)
+        assertEquals("UC1", video.channelId)
+        assertEquals(1234L, video.viewCount)
+        assertEquals(1704164645L, video.publishedAtEpochSeconds)
+        assertNull(YouTubeApiClient.videoFromVideosList(parse("""{"items":[]}""")))
+    }
 }
+

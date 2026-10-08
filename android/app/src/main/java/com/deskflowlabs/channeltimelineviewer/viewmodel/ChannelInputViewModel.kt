@@ -9,6 +9,7 @@ import com.deskflowlabs.channeltimelineviewer.data.ChannelDataRemover
 import com.deskflowlabs.channeltimelineviewer.data.FavoriteChannelStore
 import com.deskflowlabs.channeltimelineviewer.model.Channel
 import com.deskflowlabs.channeltimelineviewer.model.FavoriteChannel
+import com.deskflowlabs.channeltimelineviewer.model.VideoItem
 import com.deskflowlabs.channeltimelineviewer.network.YouTubeApiClient
 import com.deskflowlabs.channeltimelineviewer.network.YouTubeApiError
 import com.deskflowlabs.channeltimelineviewer.network.YouTubeApiException
@@ -42,6 +43,17 @@ class ChannelInputViewModel(
         val channel: Channel,
         val savedChannelTitle: String,
         val source: String = Analytics.Source.URL,
+        val startVideo: VideoItem? = null,
+    )
+
+    /**
+     * 開くチャンネル。[startVideo] があるとき（人気動画・コピーした動画URLから来た）は、
+     * 一覧を待たずにその動画をすぐ再生し、一覧は再生画面の裏で読み込む。
+     */
+    data class Resolved(
+        val channel: Channel,
+        val startVideo: VideoItem? = null,
+        val source: String = Analytics.Source.URL,
     )
 
     private val _urlText = MutableStateFlow("")
@@ -54,8 +66,8 @@ class ChannelInputViewModel(
     val errorRes: StateFlow<Int?> = _errorRes.asStateFlow()
 
     /** 取得できたチャンネル。画面はこれを見て一覧へ遷移する。 */
-    private val _resolvedChannel = MutableStateFlow<Channel?>(null)
-    val resolvedChannel: StateFlow<Channel?> = _resolvedChannel.asStateFlow()
+    private val _resolvedChannel = MutableStateFlow<Resolved?>(null)
+    val resolvedChannel: StateFlow<Resolved?> = _resolvedChannel.asStateFlow()
 
     private val _pendingUpgrade = MutableStateFlow<PendingUpgrade?>(null)
     val pendingUpgrade: StateFlow<PendingUpgrade?> = _pendingUpgrade.asStateFlow()
@@ -139,9 +151,11 @@ class ChannelInputViewModel(
         resolve(url, Analytics.Source.SHARE)
     }
 
-    /** 最初の案内の「人気の動画」から選んだ動画の、投稿チャンネルを開く。 */
-    fun openPopular(channelId: String) {
-        resolve("https://www.youtube.com/channel/$channelId", Analytics.Source.POPULAR)
+    /**
+     * 最初の案内の「人気の動画」から選んだ動画をすぐ再生し、その投稿チャンネルを開く。
+     */
+    fun openPopular(videoId: String) {
+        resolve("https://www.youtube.com/watch?v=$videoId", Analytics.Source.POPULAR)
     }
 
     /** お気に入り（最近使った）から開く。ロック中なら開かずに案内を出す。 */
@@ -172,7 +186,7 @@ class ChannelInputViewModel(
         analytics.log(Analytics.Event.CHANNEL_REPLACE)
         // 先に新しいチャンネルを保存してから古い方を消す（保存が一瞬0件になると、
         // 初めての人向けの案内が出てしまうため）。
-        openResolved(pending.channel, pending.source)
+        openResolved(pending.channel, pending.source, pending.startVideo)
         leaving.filter { it != pending.channel.id }.forEach(dataRemover::removeChannel)
     }
 
@@ -181,23 +195,23 @@ class ChannelInputViewModel(
         val pending = _pendingUpgrade.value ?: return
         if (!isPro.value) return
         _pendingUpgrade.value = null
-        openResolved(pending.channel, pending.source)
+        openResolved(pending.channel, pending.source, pending.startVideo)
     }
 
-    private fun openResolved(channel: Channel, source: String) {
+    private fun openResolved(channel: Channel, source: String, startVideo: VideoItem? = null) {
         // 無料のときは「いま使うチャンネル」も更新する（1件だけなら常にこれ）。
         if (!isPro.value) activeChannel.set(channel.id)
         favorites.touch(channel)
         // 送るのは「どこから開いたか」だけ。チャンネルIDや名前は送らない。
         analytics.log(Analytics.Event.CHANNEL_OPEN, Analytics.Param.SOURCE to source)
-        _resolvedChannel.value = channel
+        _resolvedChannel.value = Resolved(channel, startVideo, source)
     }
 
     /** 保存上限に当たっていないか見て、開くか案内を出すか決める。 */
-    private fun openOrAskForPro(channel: Channel, source: String) {
+    private fun openOrAskForPro(channel: Channel, source: String, startVideo: VideoItem? = null) {
         val saved = favorites.favorites.value
         if (ChannelSlotPolicy.canOpen(saved.map { it.id }, channel.id, isPro.value)) {
-            openResolved(channel, source)
+            openResolved(channel, source, startVideo)
             return
         }
         analytics.log(Analytics.Event.CHANNEL_LIMIT_HIT, Analytics.Param.SOURCE to source)
@@ -210,6 +224,7 @@ class ChannelInputViewModel(
                 .joinToString("、") { it.title }
                 .ifEmpty { saved.firstOrNull()?.title.orEmpty() },
             source = source,
+            startVideo = startVideo,
         )
     }
 
@@ -219,7 +234,9 @@ class ChannelInputViewModel(
         _isLoading.value = true
         viewModelScope.launch {
             try {
-                openOrAskForPro(api.resolveChannel(input), source)
+                // 動画URLなら、その動画も受け取ってすぐ再生する（チャンネルURLなら従来どおり一覧へ）。
+                val (channel, video) = api.resolveChannelAndVideo(input)
+                openOrAskForPro(channel, source, video)
             } catch (e: YouTubeApiException) {
                 _errorRes.value = e.error.messageRes
             } catch (e: Exception) {

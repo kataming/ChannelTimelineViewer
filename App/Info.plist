@@ -29,6 +29,8 @@
 	<string>$(ADMOB_BANNER_UNIT_ID)</string>
 	<key>CTVAdMobMRECUnitID</key>
 	<string>$(ADMOB_MREC_UNIT_ID)</string>
+	<key>CTVAdMobPlayerBannerUnitID</key>
+	<string>$(ADMOB_PLAYER_BANNER_UNIT_ID)</string>
 	<!--
 	  SKAdNetwork（Apple の、個人を特定しない広告効果の計測）。Google が公開している一覧そのまま
 	  （https://developers.google.com/admob/ios/quick-start ・2026-10-03 取得・50件）。

@@ -16,6 +16,10 @@ struct PlayerView: View {
     @Environment(\.scenePhase) private var scenePhase
     /// いま再生しているチャンネル（画面上部に名前を出す）。
     private let channel: Channel
+    /// すぐ再生したときに、裏で読み込んでいる一覧（一覧画面と同じもの）。読み込めたら差し込む。
+    private let backgroundList: VideoListViewModel?
+    /// 裏で読み込み中の一覧の進み具合（読んだ本数, 全体の本数）。
+    @State private var listProgress: (loaded: Int, total: Int)?
 
     /// 動画ごとのメモを直接読み書きする Binding（入力即保存・日本語OK）。
     private func memoBinding(for videoId: String) -> Binding<String> {
@@ -31,15 +35,18 @@ struct PlayerView: View {
          skipStore: SkippedVideoStore,
          positionStore: PlaybackPositionStore,
          settings: PlaybackSettingsStore,
-         channel: Channel) {
+         channel: Channel,
+         backgroundList: VideoListViewModel? = nil) {
         self.channel = channel
+        self.backgroundList = backgroundList
         _viewModel = StateObject(
             wrappedValue: PlayerViewModel(videos: videos,
                                           startIndex: startIndex,
                                           watchStore: watchStore,
                                           skipStore: skipStore,
                                           positionStore: positionStore,
-                                          settings: settings)
+                                          settings: settings,
+                                          awaitingList: backgroundList != nil)
         )
     }
 
@@ -113,6 +120,34 @@ struct PlayerView: View {
         .onDisappear {
             ScreenSleepController.shared.setKeepScreenOn(false)
         }
+        .background {
+            // すぐ再生した動画の後ろで、チャンネルの一覧を読み込む。読み込めたら古い順の一覧を差し込み、
+            // 自動再生の「次」（1本新しい動画）が決まる。
+            if let backgroundList, viewModel.isAwaitingList {
+                BackgroundListFeed(list: backgroundList) { list in
+                    feed(from: list)
+                }
+            }
+        }
+    }
+
+    private func feed(from list: VideoListViewModel) {
+        listProgress = list.loadProgress
+        let playingId = viewModel.currentVideo?.id
+        let hasCurrent = list.videos.contains { $0.id == playingId }
+        // 保存済みの一覧に今の動画が無い（投稿されたばかり）ときは、新着の確認が終わるまで待つ。
+        if !hasCurrent && (list.isLoading || list.isCheckingForNew) { return }
+        if !list.videos.isEmpty {
+            viewModel.attachList(list.oldestFirst())
+            let ids = list.videos.map(\.id)
+            // 一覧画面を通らずに再生したので、保存チャンネルの行の本数もここで入れる。
+            progressStore.updateCounts(channelId: channel.id,
+                                       totalVideoCount: ids.count,
+                                       watchedVideoCount: watchStore.watchedVideoCount(in: ids))
+        } else if list.errorMessage != nil {
+            // 一覧が読めなかった。1本だけの再生のまま続ける（戻れば一覧画面で再試行できる）。
+            viewModel.attachList([])
+        }
     }
 
     private func recordOpened() {
@@ -151,11 +186,21 @@ struct PlayerView: View {
                 .foregroundStyle(.secondary)
                 .lineLimit(2)
             // 公開日・視聴回数と、一覧の中での位置（例: 2026年2月27日 · 10万回視聴（1,034 / 3,500））
-            Text(String(format: String(localized: "player.publishedWithPosition.format"),
-                        video.dateAndViews(.long),
-                        viewModel.positionText))
-                .font(.caption)
-                .foregroundStyle(.secondary)
+            if viewModel.isAwaitingList {
+                Text(video.dateAndViews(.long))
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                // すぐ再生した動画の裏で、チャンネルの一覧を読み込み中（読み込めると次へ・前へが使える）。
+                listLoadingText
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            } else {
+                Text(String(format: String(localized: "player.publishedWithPosition.format"),
+                            video.dateAndViews(.long),
+                            viewModel.positionText))
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
 
             if viewModel.didAutoAdvance {
                 Label("player.autoAdvanced", systemImage: "forward.end.alt.fill")
@@ -238,24 +283,33 @@ struct PlayerView: View {
         }
     }
 
+    /// 一覧を裏で読み込み中の表示（例: 動画を取得中… 45%（1,250 / 2,800本））。一覧画面と同じ文言。
+    @ViewBuilder
+    private var listLoadingText: some View {
+        if let progress = listProgress, progress.total > 0 {
+            let numbers = NumberFormatter.localizedString
+            Text(String(format: String(localized: "list.loading.progress"),
+                        numbers(NSNumber(value: min(100, progress.loaded * 100 / progress.total)), .none),
+                        numbers(NSNumber(value: progress.loaded), .decimal),
+                        numbers(NSNumber(value: progress.total), .decimal)))
+        } else {
+            Text("list.loading")
+        }
+    }
+
     /// 主操作：終了後に次へ進むかどうかを、**再生中に**選べるようにする（既定オン）。
     /// 進む先は一覧の次の動画だけで、いつでもオフにできる。
+    ///
+    /// 2つの見出しは同じ大きさにそろえ、小さい説明文は置かない（2026-10-09・ユーザー判断。
+    /// 再生画面の1画面目に広告まで収めるため。Android の PlaybackToggles と同じ）。
     private var autoPlayControl: some View {
         VStack(alignment: .leading, spacing: 10) {
+            // ⚠️ 見出しに状態（オン/オフ）を書かないこと。スイッチの入切と
+            //    二重否定になり、「『自動再生オフ』がオフ」＝自動再生オン？と
+            //    読めてしまう（2026-09-16・ユーザー指摘）。状態はスイッチ本体が表す。
             Toggle(isOn: $settings.autoPlayNext) {
-                VStack(alignment: .leading, spacing: 2) {
-                    // ⚠️ 見出しに状態（オン/オフ）を書かないこと。スイッチの入切と
-                    //    二重否定になり、「『自動再生オフ』がオフ」＝自動再生オン？と
-                    //    読めてしまう（2026-09-16・ユーザー指摘）。
-                    //    状態はスイッチ本体と下の説明文が担う。
-                    Text("player.autoPlay.title")
-                        .font(.subheadline.bold())
-                    Text(settings.autoPlayNext
-                         ? "player.autoPlay.on.detail"
-                         : "player.autoPlay.off.detail")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
+                Text("player.autoPlay.title")
+                    .font(.body)
             }
             .tint(.green)
             .accessibilityLabel(String(localized: "player.autoPlay.a11y"))
@@ -265,33 +319,13 @@ struct PlayerView: View {
             // リピートは画面右上のアイコンで切り替える（ここには置かない）。
             Toggle(isOn: $settings.playUnwatchedOnly) {
                 Text("player.unwatchedOnly")
-                    .font(.subheadline)
+                    .font(.body)
             }
             .tint(.green)
-
-            Text(playbackModeCaption)
-                .font(.caption2)
-                .foregroundStyle(.tertiary)
         }
         .padding(12)
         .background(Color(.secondarySystemBackground))
         .clipShape(RoundedRectangle(cornerRadius: 12))
-    }
-
-    private var playbackModeCaption: String {
-        var lines = [String(localized: "player.mode.skip")]
-        if settings.playUnwatchedOnly {
-            lines.append(String(localized: "player.mode.unwatchedOnly"))
-        }
-        switch settings.repeatMode {
-        case .off:
-            break
-        case .one:
-            lines.append(String(localized: "player.mode.repeatOne"))
-        case .all:
-            lines.append(String(localized: "player.mode.repeatAll"))
-        }
-        return lines.joined()
     }
 
     /// 補助操作（詳細メニュー）。視聴済みの手動切り替えや「続きから再生」の設定はここに置く。
@@ -397,6 +431,10 @@ struct PlayerView: View {
             .font(.caption)
             .frame(maxWidth: .infinity, alignment: .leading)
 
+            // 広告（無料版のみ）。移動ボタンと「YouTubeでコメントする」の間、本文の中にだけ置く。
+            // プレイヤーの上・中には置かない（YouTube API の規約 III.G.1.3）。
+            PlayerBannerAdView()
+
             // 再生設定（速度・字幕）は画面右上のアイコンから開く。
             // ここには置かない（上と重複してノイズになるため）。
             // 全幅のボタンは「YouTubeでコメントする」（埋め込みプレイヤーではコメントできないため）。
@@ -432,5 +470,22 @@ struct PlayerView: View {
         .buttonStyle(.bordered)
         .disabled(!enabled)
         .accessibilityLabel(title)
+    }
+}
+
+/// 裏で読み込み中の一覧を見張り、変わるたびに知らせる（すぐ再生したときだけ使う）。
+private struct BackgroundListFeed: View {
+    @ObservedObject var list: VideoListViewModel
+    let onChange: (VideoListViewModel) -> Void
+
+    var body: some View {
+        Color.clear
+            .task { await list.loadIfNeeded() }
+            .onAppear { onChange(list) }
+            .onChange(of: list.videos.count) { _, _ in onChange(list) }
+            .onChange(of: list.isLoading) { _, _ in onChange(list) }
+            .onChange(of: list.isCheckingForNew) { _, _ in onChange(list) }
+            .onChange(of: list.errorMessage) { _, _ in onChange(list) }
+            .onChange(of: list.loadProgress?.loaded) { _, _ in onChange(list) }
     }
 }

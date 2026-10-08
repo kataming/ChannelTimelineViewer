@@ -16,7 +16,15 @@ data class AdsConfig(
     val bannerUnitId: String,
     val mrecUnitId: String,
     val useTestAds: Boolean,
+    /**
+     * 再生画面のバナー（本文の中・移動ボタンの下）。収益を一覧のバナーと分けて見るための別ユニット。
+     * 未設定なら一覧のバナーと同じユニットを使う。
+     */
+    val playerBannerUnitId: String = "",
 ) {
+    /** 再生画面のバナーに使うユニット。 */
+    val playerBannerUnit: String get() = playerBannerUnitId.ifBlank { bannerUnitId }
+
     /** 広告ユニットが揃っているか。false なら広告まわりは何もしない。 */
     val isEnabled: Boolean get() = bannerUnitId.isNotBlank() && mrecUnitId.isNotBlank()
 
@@ -31,12 +39,14 @@ data class AdsConfig(
             bannerUnitId = TEST_ADAPTIVE_BANNER_UNIT_ID,
             mrecUnitId = TEST_BANNER_UNIT_ID,
             useTestAds = true,
+            playerBannerUnitId = TEST_BANNER_UNIT_ID,
         )
 
         fun from(
             isDebug: Boolean = BuildConfig.DEBUG,
             bannerUnitId: String = BuildConfig.ADMOB_BANNER_UNIT_ID,
             mrecUnitId: String = BuildConfig.ADMOB_MREC_UNIT_ID,
+            playerBannerUnitId: String = BuildConfig.ADMOB_PLAYER_BANNER_UNIT_ID,
         ): AdsConfig =
             if (isDebug) {
                 TEST
@@ -45,6 +55,7 @@ data class AdsConfig(
                     bannerUnitId = bannerUnitId.trim(),
                     mrecUnitId = mrecUnitId.trim(),
                     useTestAds = false,
+                    playerBannerUnitId = playerBannerUnitId.trim(),
                 )
             }
     }

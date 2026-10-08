@@ -47,8 +47,9 @@ import com.google.android.gms.ads.LoadAdError
  * どちらも**読み込みに成功してから**場所を取る。取得中・失敗・オフライン・Pro のときは
  * 何も描かない（空白の枠を残さない）。広告の読み込みは画面の表示を待たせない。
  *
- * ⚠️ YouTube の再生画面には置かない（プレイヤーや操作ボタンに重ねない）。
- * 置き場所は MainActivity で決めている。
+ * 再生画面には、本文の中（移動ボタンと「YouTubeでコメントする」の間）にだけ置く
+ * （[PlayerBannerAd]）。⚠️ プレイヤーの上・中・重なる位置には置かない（YouTube API 規約 III.G.1.3）。
+ * 置き場所は MainActivity・PlayerScreen で決めている。
  */
 
 /**
@@ -85,6 +86,26 @@ fun AnchorAdaptiveBanner(ads: AdsManager, modifier: Modifier = Modifier) {
                 modifier = Modifier.width(adSize.width.dp).height(adSize.height.dp),
             )
         }
+    }
+}
+
+/**
+ * 再生画面の本文の中に置くバナー（320×50）。スクロールと一緒に動く（画面に固定しない）。
+ *
+ * 1画面目に収まるよう、高さが一定の標準バナーにしている。「広告」の表示は、一覧のバナーと
+ * 同じく付けない（2026-10-09・ユーザー判断）。移動ボタンを押し間違えないように上下に余白を取る。
+ */
+@Composable
+fun PlayerBannerAd(ads: AdsManager, modifier: Modifier = Modifier) {
+    val canShow by ads.canShowAds.collectAsStateWithLifecycle()
+    if (!canShow) return
+    val adView = rememberLoadedAdView(ads.config.playerBannerUnit, AdSize.BANNER, placement = "player")
+        ?: return
+    Box(
+        modifier = modifier.fillMaxWidth().padding(vertical = 4.dp),
+        contentAlignment = Alignment.Center,
+    ) {
+        AdViewHost(adView = adView, modifier = Modifier.size(320.dp, 50.dp))
     }
 }
 

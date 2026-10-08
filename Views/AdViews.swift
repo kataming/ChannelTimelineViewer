@@ -7,7 +7,8 @@ import SwiftUI
 /// どちらも**読み込みに成功してから**場所を取る。取得中・失敗・オフライン・Pro のときは
 /// 何も描かない（空白の枠を残さない）。広告の読み込みは画面の表示を待たせない。
 ///
-/// ⚠️ YouTube の再生画面には置かない（プレイヤーや操作ボタンに重ねない）。
+/// 再生画面には、本文の中（移動ボタンと「YouTubeでコメントする」の間）にだけ置く（`PlayerBannerAdView`）。
+/// ⚠️ プレイヤーの上・中・重なる位置には置かない（YouTube API 規約 III.G.1.3）。
 
 /// 広告を1つ作って読み込み、成功したら `loadedView` に入れる。
 @MainActor
@@ -109,6 +110,35 @@ struct AnchorAdaptiveBannerView: View {
         .task(id: ads.canShowAds) {
             loader.sync(enabled: ads.canShowAds, unitID: ads.config.bannerUnitID,
                         size: adSize, placement: "anchor")
+        }
+        .onDisappear { loader.reset() }
+    }
+}
+
+/// 再生画面の本文の中に置くバナー（320×50）。スクロールと一緒に動く（画面に固定しない）。
+///
+/// 1画面目に収まるよう、高さが一定の標準バナーにしている。「広告」の表示は、一覧のバナーと
+/// 同じく付けない（2026-10-09・ユーザー判断）。移動ボタンを押し間違えないように上下に余白を取る。
+/// Android の `PlayerBannerAd` と同じ。
+struct PlayerBannerAdView: View {
+    @EnvironmentObject private var ads: AdsManager
+    @StateObject private var loader = BannerAdLoader()
+
+    var body: some View {
+        VStack(spacing: 0) {
+            // 広告が無いときも画面に残る高さ0の部品（読み込みの開始・中止をここで受ける）。
+            Color.clear.frame(height: 0)
+            if ads.canShowAds, let view = loader.loadedView {
+                BannerViewHost(bannerView: view)
+                    .frame(width: 320, height: 50)
+                    .padding(.vertical, 4)
+                    .accessibilityIdentifier("ad.player")
+            }
+        }
+        .frame(maxWidth: .infinity)
+        .task(id: ads.canShowAds) {
+            loader.sync(enabled: ads.canShowAds, unitID: ads.config.playerBannerUnit,
+                        size: AdSizeBanner, placement: "player")
         }
         .onDisappear { loader.reset() }
     }

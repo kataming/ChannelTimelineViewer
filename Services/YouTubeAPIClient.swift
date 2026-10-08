@@ -63,6 +63,33 @@ final class YouTubeAPIClient {
         }
     }
 
+    /// 入力URLからチャンネルを解決し、動画URLだったときはその動画も返す（Android の resolveChannelAndVideo と同じ）。
+    /// 人気動画・コピーした動画URLから戻ったときに、その動画をすぐ再生するために使う
+    /// （チャンネルの一覧はそのあと再生画面の裏で読み込む）。quota は従来と同じ（videos.list 1 + channels.list 1）。
+    func resolveChannelAndVideo(from inputURL: String) async throws -> (Channel, VideoItem?) {
+        guard case .video(let videoId) = try ChannelResolver.parse(inputURL) else {
+            return (try await resolveChannel(from: inputURL), nil)
+        }
+        guard ChannelResolver.isVideoId(videoId) else { throw YouTubeAPIError.invalidVideoURL }
+        let data = try await getData("videos", query: [("part", "snippet,statistics"), ("id", videoId)])
+        let channel = try await fetchChannel(query: [("id", try Self.channelId(fromVideosListJSON: data))])
+        return (channel, Self.video(fromVideosListJSON: data))
+    }
+
+    /// videos.list（snippet・statistics）のレスポンスから1本目の動画を作る。読めなければ nil（テスト可能）。
+    static func video(fromVideosListJSON data: Data) -> VideoItem? {
+        guard let response = try? JSONDecoder().decode(VideoListResponse.self, from: data),
+              let item = response.items.first, let id = item.id, let snippet = item.snippet else { return nil }
+        return VideoItem(
+            id: id,
+            title: snippet.title ?? String(localized: "video.untitled"),
+            description: snippet.description ?? "",
+            publishedAt: snippet.publishedAt.flatMap(ISO8601.date(from:)) ?? Date.distantPast,
+            thumbnailURL: snippet.thumbnails?.bestURL,
+            channelId: snippet.channelId ?? "",
+            viewCount: item.statistics?.viewCount.flatMap { Int($0) })
+    }
+
     /// 「人気動画から選ぶ」に並べる、その国でいま人気の動画。
     ///
     /// まず当方のサーバー（`popularURL`・Cloudflare）から読む。サーバーが国ごとに1時間だけ持っているので、
@@ -428,12 +455,18 @@ private struct VideoListResponse: Decodable {
     struct Item: Decodable {
         let id: String?
         let snippet: Snippet?
+        let statistics: Statistics?
     }
     struct Snippet: Decodable {
         let channelId: String?
         let channelTitle: String?
         let title: String?
+        let description: String?
+        let publishedAt: String?
         let thumbnails: Thumbnails?
+    }
+    struct Statistics: Decodable {
+        let viewCount: String?
     }
 }
 

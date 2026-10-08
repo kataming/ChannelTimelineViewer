@@ -54,7 +54,7 @@ class PlaybackModeTest {
         val skip = SkippedVideoStore(prefs("skip"))
         val settings = PlaybackSettingsStore(prefs("settings"))
         val vm = PlayerViewModel(
-            videos = items,
+            initialVideos = items,
             startIndex = startIndex,
             watchStore = watch,
             skipStore = skip,
@@ -405,5 +405,66 @@ class PlaybackModeTest {
         f.vm.handleNearEnd(f.videos[0].id)
 
         assertEquals(2, f.vm.currentIndex.value)
+    }
+
+    // MARK: - すぐ再生して、一覧はあとから（人気動画・コピーした動画URL）
+
+    private fun quickStart(list: List<VideoItem>, playing: VideoItem, settings: PlaybackSettingsStore) =
+        PlayerViewModel(
+            initialVideos = listOf(playing),
+            startIndex = 0,
+            watchStore = WatchHistoryStore(prefs("watch")),
+            skipStore = SkippedVideoStore(prefs("skip")),
+            positionStore = PlaybackPositionStore(prefs("pos")),
+            settings = settings,
+            awaitingList = true,
+        )
+
+    /** 一覧が届いたら、再生中の動画の位置に合わせ、自動再生で1本新しい動画へ進める。 */
+    @Test
+    fun attachedListContinuesToTheNextNewerVideo() {
+        val items = videos(5)
+        val settings = PlaybackSettingsStore(prefs("settings"))
+        val vm = quickStart(items, items[2], settings)
+        assertFalse("一覧が届く前は次へ進めない", vm.canGoNext)
+
+        vm.attachList(items)
+        assertFalse(vm.isAwaitingList.value)
+        assertEquals(2, vm.currentIndex.value)
+        assertEquals("video2", vm.currentVideo?.id)
+
+        playThrough(vm)
+        assertEquals(3, vm.currentIndex.value)
+    }
+
+    /** 一覧が届く前に動画が終わったら、勝手に進まず「次の動画を再生」を出して待つ。 */
+    @Test
+    fun endedBeforeListArrivesWaitsWithPlayNextButton() {
+        val items = videos(5)
+        val settings = PlaybackSettingsStore(prefs("settings"))
+        val vm = quickStart(items, items[1], settings)
+
+        playThrough(vm)
+        assertFalse(vm.showEndedSuggestion.value)
+
+        vm.attachList(items)
+        assertEquals(1, vm.currentIndex.value)
+        assertTrue(vm.showEndedSuggestion.value)
+        vm.goNext()
+        assertEquals(2, vm.currentIndex.value)
+    }
+
+    /** 一覧に無い動画（限定公開など）は、1本だけの再生のまま続ける。 */
+    @Test
+    fun videoMissingFromListKeepsSingleVideo() {
+        val items = videos(3)
+        val settings = PlaybackSettingsStore(prefs("settings"))
+        val other = VideoItem(id = "unlisted", title = "x", publishedAtEpochSeconds = 0, channelId = "UCtest")
+        val vm = quickStart(items, other, settings)
+
+        vm.attachList(items)
+        assertFalse(vm.isAwaitingList.value)
+        assertEquals("unlisted", vm.currentVideo?.id)
+        assertEquals(1, vm.totalCount)
     }
 }

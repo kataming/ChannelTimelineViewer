@@ -347,4 +347,60 @@ final class PlaybackModeTests: XCTestCase {
 
         XCTAssertEqual(f.vm.currentIndex, 2, "スキップ指定は飛ばす")
     }
+
+    // MARK: - すぐ再生して、一覧はあとから（人気動画・コピーした動画URL）
+
+    private func makeQuickStart(playing: VideoItem) -> (PlayerViewModel, PlaybackSettingsStore) {
+        let settings = PlaybackSettingsStore(defaults: makeDefaults("settings"))
+        let vm = PlayerViewModel(videos: [playing],
+                                 startIndex: 0,
+                                 watchStore: WatchHistoryStore(defaults: makeDefaults("watch")),
+                                 skipStore: SkippedVideoStore(defaults: makeDefaults("skip")),
+                                 positionStore: PlaybackPositionStore(defaults: makeDefaults("pos")),
+                                 settings: settings,
+                                 awaitingList: true)
+        return (vm, settings)
+    }
+
+    /// 一覧が届いたら、再生中の動画の位置に合わせ、自動再生で1本新しい動画へ進める（Android と同じ）。
+    func testAttachedListContinuesToTheNextNewerVideo() {
+        let videos = makeVideos(5)
+        let (vm, _) = makeQuickStart(playing: videos[2])
+        XCTAssertFalse(vm.canGoNext, "一覧が届く前は次へ進めない")
+
+        vm.attachList(videos)
+        XCTAssertFalse(vm.isAwaitingList)
+        XCTAssertEqual(vm.currentIndex, 2)
+
+        playThrough(vm)
+        XCTAssertEqual(vm.currentIndex, 3)
+    }
+
+    /// 一覧が届く前に動画が終わったら、勝手に進まず「次の動画を再生」を出して待つ。
+    func testEndedBeforeListArrivesWaitsWithPlayNextButton() {
+        let videos = makeVideos(5)
+        let (vm, _) = makeQuickStart(playing: videos[1])
+
+        playThrough(vm)
+        XCTAssertFalse(vm.showEndedSuggestion)
+
+        vm.attachList(videos)
+        XCTAssertEqual(vm.currentIndex, 1)
+        XCTAssertTrue(vm.showEndedSuggestion)
+        vm.goNext()
+        XCTAssertEqual(vm.currentIndex, 2)
+    }
+
+    /// 一覧に無い動画（限定公開など）は、1本だけの再生のまま続ける。
+    func testVideoMissingFromListKeepsSingleVideo() {
+        let videos = makeVideos(3)
+        let other = VideoItem(id: "unlisted", title: "x", description: "",
+                              publishedAt: Date(timeIntervalSince1970: 0), thumbnailURL: nil, channelId: "UCtest")
+        let (vm, _) = makeQuickStart(playing: other)
+
+        vm.attachList(videos)
+        XCTAssertFalse(vm.isAwaitingList)
+        XCTAssertEqual(vm.currentVideo?.id, "unlisted")
+        XCTAssertEqual(vm.totalCount, 1)
+    }
 }

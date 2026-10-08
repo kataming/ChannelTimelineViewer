@@ -17,7 +17,10 @@ final class PlayerViewModel: ObservableObject {
     /// 「戻る」（直前の移動を取り消す）が使えるか。
     @Published private(set) var canGoBack = false
 
-    let videos: [VideoItem]
+    /// 再生の順番。一覧を裏で読み込み中のあいだは、すぐ再生した1本だけ。
+    @Published private(set) var videos: [VideoItem]
+    /// 一覧を裏で読み込み中か（人気動画・コピーした動画URLから来て、1本だけで再生を始めたとき）。
+    @Published private(set) var isAwaitingList: Bool
     private let watchStore: WatchHistoryStore
     private let skipStore: SkippedVideoStore
     private let positionStore: PlaybackPositionStore
@@ -45,8 +48,10 @@ final class PlayerViewModel: ObservableObject {
          watchStore: WatchHistoryStore,
          skipStore: SkippedVideoStore,
          positionStore: PlaybackPositionStore,
-         settings: PlaybackSettingsStore) {
+         settings: PlaybackSettingsStore,
+         awaitingList: Bool = false) {
         self.videos = videos
+        self.isAwaitingList = awaitingList
         if videos.isEmpty {
             self.currentIndex = 0
         } else {
@@ -96,6 +101,29 @@ final class PlayerViewModel: ObservableObject {
 
     /// 「前回の続き」から再生を開始したか（画面に案内と「最初から」ボタンを出す判断に使う）。
     var isResumingFromSavedPosition: Bool { startSecondsForCurrent > 0 }
+
+    /// 裏で読み込んだチャンネルの一覧（古い順）を差し込む（Android の attachList と同じ）。
+    /// 再生中の動画はそのまま止めずに、一覧の中の位置だけを合わせる（動画が変わらないので読み込み直さない）。
+    ///
+    /// - 一覧に今の動画が無い（限定公開など）ときは、1本だけの再生のまま続ける
+    /// - 一覧が届く前に動画が終わっていたら、ここで「次の動画を再生」を出して待つ
+    ///   （勝手に次へは進めない。終わった時点では次が分からなかったため）
+    func attachList(_ list: [VideoItem]) {
+        guard let current = currentVideo else { return }
+        guard let index = list.firstIndex(where: { $0.id == current.id }) else {
+            isAwaitingList = false
+            return
+        }
+        // 一覧の側は視聴回数があとから埋まるので、すぐ再生した1本の分は引き継ぐ。
+        var merged = list
+        if merged[index].viewCount == nil { merged[index].viewCount = current.viewCount }
+        videos = merged
+        currentIndex = index
+        isAwaitingList = false
+        if endedHandledVideoId == current.id, settings.repeatMode != .one {
+            showEndedSuggestion = canGoNext
+        }
+    }
 
     // MARK: - 移動
 

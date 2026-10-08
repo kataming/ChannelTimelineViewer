@@ -43,17 +43,33 @@ data class PlayerOptions(
  * （進む先は開いている一覧の次の動画だけ。関連動画・おすすめには行かない）。
  */
 class PlayerViewModel(
-    val videos: List<VideoItem>,
+    initialVideos: List<VideoItem>,
     startIndex: Int,
     private val watchStore: WatchHistoryStore,
     private val skipStore: SkippedVideoStore,
     private val positionStore: PlaybackPositionStore,
     private val settings: PlaybackSettingsStore,
     private val analytics: Analytics = Analytics.Noop,
+    /** 1本目をどこから開いたか（一覧・人気動画・共有）。 */
+    openSource: String = Analytics.Source.LIST,
+    /**
+     * true のときは、一覧を待たずに1本だけで再生を始めている（人気動画・コピーした動画URLから来た）。
+     * 一覧は再生画面の裏で読み込み、届いたら [attachList] で差し込む。
+     */
+    awaitingList: Boolean = false,
 ) : ViewModel() {
 
+    private val _videos = MutableStateFlow(initialVideos)
+
+    /** 再生の順番。一覧を裏で読み込み中のあいだは、すぐ再生した1本だけ。 */
+    val videos: List<VideoItem> get() = _videos.value
+
+    /** 一覧を裏で読み込み中か（読み込み中は次へ・前へに進めない）。 */
+    private val _isAwaitingList = MutableStateFlow(awaitingList)
+    val isAwaitingList: StateFlow<Boolean> = _isAwaitingList.asStateFlow()
+
     private val _currentIndex = MutableStateFlow(
-        if (videos.isEmpty()) 0 else startIndex.coerceIn(0, videos.size - 1)
+        if (initialVideos.isEmpty()) 0 else startIndex.coerceIn(0, initialVideos.size - 1)
     )
     val currentIndex: StateFlow<Int> = _currentIndex.asStateFlow()
 
@@ -110,9 +126,36 @@ class PlayerViewModel(
         // 一覧から開いた1本目。本数だけ添える（動画IDやタイトルは送らない）。
         analytics.log(
             Analytics.Event.VIDEO_OPEN,
-            Analytics.Param.SOURCE to Analytics.Source.LIST,
+            Analytics.Param.SOURCE to openSource,
             Analytics.Param.VIDEO_COUNT to videos.size,
         )
+    }
+
+    /**
+     * 裏で読み込んだチャンネルの一覧（古い順）を差し込む。再生中の動画はそのまま止めずに、
+     * 一覧の中の位置だけを合わせる（動画が変わらないのでプレイヤーは読み込み直さない）。
+     *
+     * - 一覧に今の動画が無い（限定公開など）ときは、1本だけの再生のまま続ける
+     * - 一覧が届く前に動画が終わっていたら、ここで「次の動画を再生」を出して待つ
+     *   （勝手に次へは進めない。自動再生がオンでも、終わった時点では次が分からなかったため）
+     */
+    fun attachList(list: List<VideoItem>) {
+        val current = currentVideo ?: return
+        val index = list.indexOfFirst { it.id == current.id }
+        if (index < 0) {
+            _isAwaitingList.value = false
+            return
+        }
+        // 一覧の側は視聴回数があとから埋まるので、すぐ再生した1本の分は引き継ぐ。
+        _videos.value = list.mapIndexed { i, item ->
+            if (i == index && item.viewCount == null) item.copy(viewCount = current.viewCount) else item
+        }
+        _currentIndex.value = index
+        _isAwaitingList.value = false
+        _statusRevision.value += 1
+        if (endedHandledVideoId == current.id && settings.repeatMode.value != RepeatMode.One) {
+            _showEndedSuggestion.value = canGoNext
+        }
     }
 
     val currentVideo: VideoItem? get() = videos.getOrNull(_currentIndex.value)

@@ -106,6 +106,15 @@ class AdsPolicyTest {
 
     // ---- AdsManager ----
 
+    /** 再生画面のバナーは、専用のユニットが無ければ一覧のバナーと同じユニットを使う。 */
+    @Test
+    fun playerBannerFallsBackToListBanner() {
+        val shared = AdsConfig.from(isDebug = false, bannerUnitId = "ca-app-pub-1/2", mrecUnitId = "ca-app-pub-1/3", playerBannerUnitId = "")
+        assertEquals("ca-app-pub-1/2", shared.playerBannerUnit)
+        val own = AdsConfig.from(isDebug = false, bannerUnitId = "ca-app-pub-1/2", mrecUnitId = "ca-app-pub-1/3", playerBannerUnitId = "ca-app-pub-1/4")
+        assertEquals("ca-app-pub-1/4", own.playerBannerUnit)
+    }
+
     private fun manager(isPro: MutableStateFlow<Boolean>, config: AdsConfig = AdsConfig.TEST) =
         AdsManager(ApplicationProvider.getApplicationContext<Context>(), config, isPro)
 

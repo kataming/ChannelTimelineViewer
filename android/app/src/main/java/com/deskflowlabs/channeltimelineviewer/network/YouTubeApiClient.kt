@@ -66,6 +66,21 @@ class YouTubeApiClient(
         }
 
     /**
+     * 入力URLからチャンネルを解決し、動画URLだったときはその動画も返す。
+     * 人気動画・コピーした動画URLから戻ったときに、その動画をすぐ再生するために使う
+     * （チャンネルの一覧はそのあと再生画面の裏で読み込む）。
+     * 動画URLのときも quota は従来と同じ（videos.list 1 + channels.list 1）。
+     */
+    suspend fun resolveChannelAndVideo(inputUrl: String): Pair<Channel, VideoItem?> {
+        val identifier = ChannelResolver.parse(inputUrl)
+        if (identifier !is ChannelIdentifier.Video) return resolveChannel(inputUrl) to null
+        if (!ChannelResolver.isVideoId(identifier.videoId)) throw YouTubeApiException(YouTubeApiError.InvalidVideoUrl)
+        val body = getJson("videos", listOf("part" to "snippet,statistics", "id" to identifier.videoId))
+        val channel = fetchChannel(listOf("id" to channelIdFromVideosList(body)))
+        return channel to videoFromVideosList(body)
+    }
+
+    /**
      * 最初の案内に並べる、その国でいま人気の動画。
      *
      * まず当方のサーバー（[popularUrl]・Cloudflare）から読む。サーバーが国ごとに1時間だけ持っているので、
@@ -323,6 +338,21 @@ class YouTubeApiClient(
                 ?.get("snippet")?.jsonObject?.string("channelId")
             if (channelId.isNullOrEmpty()) throw YouTubeApiException(YouTubeApiError.VideoNotFound)
             return channelId
+        }
+
+        /** videos.list（snippet・statistics）のレスポンスから1本目の動画を作る。読めなければ null。 */
+        fun videoFromVideosList(body: JsonObject): VideoItem? {
+            val item = body["items"]?.jsonArray?.firstOrNull()?.jsonObject ?: return null
+            val snippet = item["snippet"]?.jsonObject ?: return null
+            return VideoItem(
+                id = item.string("id") ?: return null,
+                title = snippet.string("title") ?: UNTITLED_VIDEO,
+                description = snippet.string("description").orEmpty(),
+                publishedAtEpochSeconds = parseIso8601(snippet.string("publishedAt")),
+                thumbnailUrl = bestThumbnail(snippet),
+                channelId = snippet.string("channelId").orEmpty(),
+                viewCount = item["statistics"]?.jsonObject?.string("viewCount")?.toLongOrNull(),
+            )
         }
 
         /** videos.list（statistics）のレスポンスから {videoId: 視聴回数} を取り出す（テスト可能）。 */

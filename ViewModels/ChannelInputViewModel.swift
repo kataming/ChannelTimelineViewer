@@ -46,6 +46,11 @@ final class ChannelInputViewModel: ObservableObject {
     @Published var errorMessage: String?
     /// 解決できたチャンネル。View はこれを監視して一覧画面へ遷移する。
     @Published var resolvedChannel: Channel?
+    /// 動画から来たとき（人気動画・コピーした動画URL）に、一覧を待たずにすぐ再生する動画。
+    /// `resolvedChannel` と一緒に立ち、一覧画面はこれがあれば開いた直後に再生画面へ進む。
+    @Published var quickStartVideo: VideoItem?
+    /// 入れ替えの確認中に控えておく「すぐ再生する動画」（入れ替えたら再生する）。
+    private var pendingStartVideo: VideoItem?
     /// 出したい確認シート。
     @Published var prompt: Prompt?
 
@@ -76,11 +81,12 @@ final class ChannelInputViewModel: ObservableObject {
         defer { isLoading = false }
 
         do {
-            var channel = try await api.resolveChannel(from: trimmed)
+            // 動画URLなら、その動画も受け取ってすぐ再生する（チャンネルURLなら従来どおり一覧へ）。
+            var (channel, video) = try await api.resolveChannelAndVideo(from: trimmed)
             if channel.uploadsPlaylistId == nil {
                 channel.uploadsPlaylistId = try await api.fetchUploadsPlaylistId(channelId: channel.id)
             }
-            openOrAskForPro(channel, context: context)
+            openOrAskForPro(channel, startVideo: video, context: context)
         } catch let error as YouTubeAPIError {
             errorMessage = error.errorDescription
         } catch {
@@ -99,9 +105,14 @@ final class ChannelInputViewModel: ObservableObject {
         await fetch(context: context)
     }
 
-    /// 「人気動画から選ぶ」で選んだ動画の、投稿チャンネルを開く（Android の openPopular と同じ）。
+    /// 「人気動画から選ぶ」で選んだ動画をすぐ再生し、その投稿チャンネルを開く（Android の openPopular と同じ）。
     func openPopular(_ video: PopularVideo, context: ChannelAccessContext) async {
-        await openSharedLink(Self.channelURLString(forChannelId: video.channelId), context: context)
+        await openSharedLink(Self.videoURLString(forVideoId: video.videoId), context: context)
+    }
+
+    /// videoId から動画の URL を作る。
+    nonisolated static func videoURLString(forVideoId videoId: String) -> String {
+        "https://www.youtube.com/watch?v=\(videoId)"
     }
 
     /// channelId からチャンネルの URL を作る（解決は既存の resolveChannel に任せる）。
@@ -130,6 +141,7 @@ final class ChannelInputViewModel: ObservableObject {
 
     func dismissPrompt() {
         prompt = nil
+        pendingStartVideo = nil
     }
 
     /// 入れ替えを実行する。**外すチャンネルの視聴済み・進捗・メモ・再生位置は削除される。**
@@ -139,7 +151,7 @@ final class ChannelInputViewModel: ObservableObject {
         ChannelSlotPolicy
             .idsToRemoveForReplacement(savedChannelIdsNewestFirst: context.savedIdsNewestFirst)
             .forEach { context.remover.removeChannel($0) }
-        openResolved(candidate, context: context)
+        openResolved(candidate, startVideo: pendingStartVideo, context: context)
     }
 
     /// 削除を実行する。**そのチャンネルの記録も削除される。**
@@ -164,7 +176,7 @@ final class ChannelInputViewModel: ObservableObject {
 
     // MARK: - 内部
 
-    private func openOrAskForPro(_ channel: Channel, context: ChannelAccessContext) {
+    private func openOrAskForPro(_ channel: Channel, startVideo: VideoItem? = nil, context: ChannelAccessContext) {
         guard ChannelSlotPolicy.canOpen(savedChannelIds: context.savedIdsNewestFirst,
                                         channelId: channel.id,
                                         isPro: context.isPro) else {
@@ -175,16 +187,20 @@ final class ChannelInputViewModel: ObservableObject {
                 .filter { leaving.contains($0.id) }
                 .map(\.title)
                 .joined(separator: "、")
+            // 入れ替えの確認は再生より前に出す。入れ替えたら、控えておいた動画をすぐ再生する。
+            pendingStartVideo = startVideo
             prompt = .replace(candidate: channel, leavingTitles: titles)
             return
         }
-        openResolved(channel, context: context)
+        openResolved(channel, startVideo: startVideo, context: context)
     }
 
-    private func openResolved(_ channel: Channel, context: ChannelAccessContext) {
+    private func openResolved(_ channel: Channel, startVideo: VideoItem? = nil, context: ChannelAccessContext) {
         // 無料のときは「いま使うチャンネル」も更新する（1件だけなら常にこれ）。
         if !context.isPro { context.activeChannel.set(channel.id) }
         context.favorites.upsert(channel)
+        pendingStartVideo = nil
+        quickStartVideo = startVideo
         resolvedChannel = channel
     }
 }

@@ -80,4 +80,13 @@ final class AdsPolicyTests: XCTestCase {
         let ads = AdsManager(config: .test, isPro: false, isProPublisher: isPro.eraseToAnyPublisher())
         XCTAssertFalse(ads.canShowAds)
     }
+
+    /// 再生画面のバナーは、専用のユニットが無ければ一覧のバナーと同じユニットを使う（Android と同じ）。
+    func testPlayerBannerFallsBackToListBanner() {
+        let shared = AdsConfig.make(isDebug: false, bannerUnitID: "ca-app-pub-1/2", mrecUnitID: "ca-app-pub-1/3")
+        XCTAssertEqual(shared.playerBannerUnit, "ca-app-pub-1/2")
+        let own = AdsConfig.make(isDebug: false, bannerUnitID: "ca-app-pub-1/2", mrecUnitID: "ca-app-pub-1/3",
+                                 playerBannerUnitID: "ca-app-pub-1/4")
+        XCTAssertEqual(own.playerBannerUnit, "ca-app-pub-1/4")
+    }
 }

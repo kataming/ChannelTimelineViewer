@@ -88,6 +88,13 @@ fun PlayerScreen(
     channel: Channel,
     settings: PlaybackSettingsStore,
     memoStore: VideoMemoStore,
+    /**
+     * 一覧を再生画面の裏で読み込み中なら（読んだ本数, 全体の本数）。全体が分からなければ 0。
+     * 読み込み中でなければ null。
+     */
+    listLoadProgress: Pair<Int, Int>? = null,
+    /** 移動ボタンと「YouTubeでコメントする」の間に置く広告（Pro・広告なしのときは何も描かない）。 */
+    adSlot: @Composable () -> Unit = {},
     onBack: () -> Unit,
     onOpenOptions: () -> Unit,
 ) {
@@ -240,15 +247,37 @@ fun PlayerScreen(
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
                 Text(
-                    stringResource(
-                        R.string.player_publishedwithposition_format,
-                        // 公開日・視聴回数（例: 2026年2月27日 · 10万回視聴（1,034 / 3,500））
-                        formatDateAndViews(video.publishedAtEpochSeconds, video.viewCount, DateFormat.LONG),
-                        viewModel.positionText,
-                    ),
+                    if (listLoadProgress == null) {
+                        stringResource(
+                            R.string.player_publishedwithposition_format,
+                            // 公開日・視聴回数（例: 2026年2月27日 · 10万回視聴（1,034 / 3,500））
+                            formatDateAndViews(video.publishedAtEpochSeconds, video.viewCount, DateFormat.LONG),
+                            viewModel.positionText,
+                        )
+                    } else {
+                        formatDateAndViews(video.publishedAtEpochSeconds, video.viewCount, DateFormat.LONG)
+                    },
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
+
+                // すぐ再生した動画の裏で、チャンネルの一覧を読み込み中（読み込めると次へ・前へが使える）。
+                listLoadProgress?.let { (loaded, total) ->
+                    Text(
+                        if (total > 0) {
+                            stringResource(
+                                R.string.list_loading_progress,
+                                (loaded * 100 / total).coerceIn(0, 100).toString(),
+                                PlayerViewModel.grouped(loaded),
+                                PlayerViewModel.grouped(total),
+                            )
+                        } else {
+                            stringResource(R.string.list_loading)
+                        },
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
 
                 if (didAutoAdvance) {
                     Text(
@@ -296,7 +325,6 @@ fun PlayerScreen(
                 PlaybackToggles(
                     autoPlayNext = autoPlayNext,
                     unwatchedOnly = unwatchedOnly,
-                    repeatMode = repeatMode,
                     onAutoPlayChange = viewModel::setAutoPlayNext,
                     onUnwatchedOnlyChange = viewModel::setPlayUnwatchedOnly,
                 )
@@ -321,6 +349,10 @@ fun PlayerScreen(
                 if (skipped) {
                     StatusLine(stringResource(R.string.player_status_skipped), SkippedOrange)
                 }
+
+                // 広告（無料版のみ）。移動ボタンの押し間違いを防ぐため、上下に余白を足す。
+                // プレイヤーの上・中には置かない（YouTube API の規約 III.G.1.3）。
+                adSlot()
 
                 OutlinedButton(
                     onClick = {
@@ -376,57 +408,37 @@ private fun StatusLine(text: String, color: Color) {
 
 /**
  * 自動再生・未視聴のみ再生のトグル。自動再生は**既定オン**で、ここでいつでもオフにできる。
+ *
+ * 2つの見出しは同じ大きさにそろえ、小さい説明文は置かない（2026-10-09・ユーザー判断。
+ * 再生画面の1画面目に広告まで収めるため）。
  */
 @Composable
 private fun PlaybackToggles(
     autoPlayNext: Boolean,
     unwatchedOnly: Boolean,
-    repeatMode: RepeatMode,
     onAutoPlayChange: (Boolean) -> Unit,
     onUnwatchedOnlyChange: (Boolean) -> Unit,
 ) {
     Card(Modifier.fillMaxWidth()) {
-        Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Column(Modifier.weight(1f)) {
-                    // ⚠️ 見出しに状態（オン/オフ）を書かないこと。スイッチの入切と
-                    //    二重否定になり、「『自動再生オフ』がオフ」＝自動再生オン？と
-                    //    読めてしまう（2026-09-16・ユーザー指摘）。
-                    //    状態はスイッチ本体と下の説明文が担う。
-                    Text(
-                        stringResource(R.string.player_autoplay_title),
-                        style = MaterialTheme.typography.titleSmall,
-                    )
-                    Text(
-                        stringResource(
-                            if (autoPlayNext) R.string.player_autoplay_on_detail
-                            else R.string.player_autoplay_off_detail
-                        ),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                }
-                Switch(checked = autoPlayNext, onCheckedChange = onAutoPlayChange)
-            }
+        Column(Modifier.padding(horizontal = 12.dp, vertical = 4.dp)) {
+            // ⚠️ 見出しに状態（オン/オフ）を書かないこと。スイッチの入切と
+            //    二重否定になり、「『自動再生オフ』がオフ」＝自動再生オン？と
+            //    読めてしまう（2026-09-16・ユーザー指摘）。状態はスイッチ本体が表す。
+            ToggleRow(stringResource(R.string.player_autoplay_title), autoPlayNext, onAutoPlayChange)
             Divider()
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(stringResource(R.string.player_unwatchedonly), modifier = Modifier.weight(1f))
-                Switch(checked = unwatchedOnly, onCheckedChange = onUnwatchedOnlyChange)
-            }
-            Text(
-                buildString {
-                    append(stringResource(R.string.player_mode_skip))
-                    if (unwatchedOnly) append(stringResource(R.string.player_mode_unwatchedonly))
-                    when (repeatMode) {
-                        RepeatMode.One -> append(stringResource(R.string.player_mode_repeatone))
-                        RepeatMode.All -> append(stringResource(R.string.player_mode_repeatall))
-                        RepeatMode.Off -> Unit
-                    }
-                },
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
+            ToggleRow(stringResource(R.string.player_unwatchedonly), unwatchedOnly, onUnwatchedOnlyChange)
         }
+    }
+}
+
+@Composable
+private fun ToggleRow(title: String, checked: Boolean, onCheckedChange: (Boolean) -> Unit) {
+    Row(
+        modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Text(title, style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f))
+        Switch(checked = checked, onCheckedChange = onCheckedChange)
     }
 }
 

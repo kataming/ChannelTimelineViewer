@@ -147,6 +147,8 @@ android {
         // AdMob の本番広告ユニット。空ならリリースでも広告を出さない（ads/AdsConfig.kt）。
         buildConfigField("String", "ADMOB_BANNER_UNIT_ID", "\"${admobSetting("ADMOB_BANNER_UNIT_ID")}\"")
         buildConfigField("String", "ADMOB_MREC_UNIT_ID", "\"${admobSetting("ADMOB_MREC_UNIT_ID")}\"")
+        // 再生画面のバナー（任意。未設定なら一覧のバナーと同じユニット）
+        buildConfigField("String", "ADMOB_PLAYER_BANNER_UNIT_ID", "\"${admobSetting("ADMOB_PLAYER_BANNER_UNIT_ID")}\"")
         // AndroidManifest の APPLICATION_ID。SDK は起動時にこれが無いと落ちるので、
         // 本番 ID が無いときはテスト用の ID を置く（その場合は広告を読み込まないので表示もされない）。
         manifestPlaceholders["admobAppId"] = admobSetting("ADMOB_APP_ID").ifBlank { admobTestAppId }

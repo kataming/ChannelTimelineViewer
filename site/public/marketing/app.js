@@ -81,12 +81,13 @@ function render() {
   if (!doc()) return;
   const r = route();
   document.querySelectorAll('.nav a').forEach((a) => {
-    a.classList.toggle('active', a.dataset.route === (r.name === 'country' ? 'countries' : r.name));
+    const active = r.name === 'country' ? 'countries' : r.name === 'admob' ? 'dashboard' : r.name;
+    a.classList.toggle('active', a.dataset.route === active);
   });
   const views = {
     dashboard: renderDashboard, countries: renderCountries, country: () => renderCountry(r.id),
     tests: renderTests, ads: renderAds, localization: renderLocalization, history: renderHistory,
-    settings: renderSettings,
+    settings: renderSettings, admob: renderAdmob,
   };
   view.innerHTML = (views[r.name] ?? renderDashboard)();
   document.getElementById('save-state').textContent = `保存: ${new Date(doc().updatedAt).toLocaleString()}`;
@@ -150,8 +151,12 @@ function fxSyncLine() {
 
 // --- Dashboard ---------------------------------------------------------------------
 
-function kpi(label, value, { key = false, cls = '' } = {}) {
-  return `<div class="kpi ${key ? 'key' : ''}"><div class="label">${esc(label)}</div><div class="value ${cls}">${value}</div></div>`;
+function kpi(label, value, { key = false, cls = '', href = '' } = {}) {
+  const inner = `<div class="label">${esc(label)}${href ? ' <span class="kpi-more">›</span>' : ''}</div><div class="value ${cls}">${value}</div>`;
+  // href があるカードは押すと詳しい画面へ（例: Ad Revenue → 日ごとの推移）
+  return href
+    ? `<a class="kpi kpi-link ${key ? 'key' : ''}" href="${esc(href)}" data-testid="kpi-link">${inner}</a>`
+    : `<div class="kpi ${key ? 'key' : ''}">${inner}</div>`;
 }
 
 function renderDashboard() {
@@ -183,7 +188,7 @@ function renderDashboard() {
       ${kpi('Total Revenue', yen(t.gross))}
       ${kpi('Google Fee', yen(t.googleFee))}
       ${kpi('Net Revenue (Pro)', yen(t.net))}
-      ${kpi('Ad Revenue (AdMob)', yen(t.adRevenue))}
+      ${kpi('Ad Revenue (AdMob)', yen(t.adRevenue), { href: '#/admob' })}
       ${kpi('AdMob eCPM', yen(t.adEcpm))}
       ${kpi('Total Income', yen(t.income))}
       ${kpi('Profit / Loss', yen(t.profit), { cls: sign(t.profit) })}
@@ -208,6 +213,100 @@ function renderDashboard() {
     </tbody></table></div>
     <p class="muted small">価格が未登録の国（${rows.length - priced.length} か国）は <a href="#/countries">Countries</a> にあります。
       ${priced.some(({ c }) => !hasRate(c.currency, doc().currencies)) ? '為替レートが未入力の通貨があると、円換算・損益分岐は「—」になります（Settings で入力）。' : ''}</p>`;
+}
+
+// --- Ad Revenue（AdMob）の日ごとの推移 -------------------------------------------------
+
+const PLATFORM_COLORS = { IOS: 'var(--accent)', ANDROID: 'var(--positive)' };
+const platformKey = (p) => String(p).toUpperCase();
+const platformLabel = (k) => ({ IOS: 'iOS', ANDROID: 'Android' }[k] ?? k);
+/** その日の、あるプラットフォームの収益。 */
+const platformEarnings = (d, key) => Object.entries(d.byPlatform ?? {})
+  .filter(([k]) => platformKey(k) === key).reduce((sum, [, v]) => sum + v.earningsJPY, 0);
+
+/** 日ごとの収益の棒グラフ（iOS / Android の積み上げ）＋累計の折れ線。インラインの SVG。 */
+function admobChart(daily) {
+  const W = 760; const H = 260; const L = 64; const R = 64; const T = 16; const B = 40;
+  const iw = W - L - R; const ih = H - T - B;
+  const max = Math.max(...daily.map((d) => d.earningsJPY), 1);
+  let run = 0;
+  const cum = daily.map((d) => (run += d.earningsJPY));
+  const cmax = Math.max(run, 1);
+  const step = iw / daily.length;
+  const bw = Math.max(2, Math.min(28, step * 0.7));
+  const y = (v) => T + ih - (v / max) * ih;
+  const yc = (v) => T + ih - (v / cmax) * ih;
+  const platforms = [...new Set(daily.flatMap((d) => Object.keys(d.byPlatform ?? {}).map(platformKey)))];
+  const bars = daily.map((d, i) => {
+    const x = L + step * i + (step - bw) / 2;
+    let acc = 0;
+    return (platforms.length ? platforms : ['ALL']).map((pk) => {
+      const v = pk === 'ALL' ? d.earningsJPY : platformEarnings(d, pk);
+      const y0 = y(acc);
+      acc += v;
+      const y1 = y(acc);
+      return v > 0 ? `<rect x="${x.toFixed(1)}" y="${y1.toFixed(1)}" width="${bw.toFixed(1)}" height="${(y0 - y1).toFixed(1)}"
+        fill="${PLATFORM_COLORS[pk] ?? 'var(--muted)'}"><title>${esc(d.date)} ${esc(platformLabel(pk))} ${esc(yen(v))}</title></rect>` : '';
+    }).join('');
+  }).join('');
+  const line = cum.map((v, i) => `${(L + step * i + step / 2).toFixed(1)},${yc(v).toFixed(1)}`).join(' ');
+  const every = Math.ceil(daily.length / 10);
+  const labels = daily.map((d, i) => ((i % every === 0 || i === daily.length - 1)
+    ? `<text x="${(L + step * i + step / 2).toFixed(1)}" y="${H - B + 16}" text-anchor="middle">${esc(d.date.slice(5))}</text>` : '')).join('');
+  const ticks = [0, 0.5, 1].map((f) => `<line x1="${L}" x2="${W - R}" y1="${y(max * f).toFixed(1)}" y2="${y(max * f).toFixed(1)}" class="grid"/>
+    <text x="${L - 6}" y="${(y(max * f) + 4).toFixed(1)}" text-anchor="end">${esc(yen(max * f, { digits: 0 }))}</text>
+    <text x="${W - R + 6}" y="${(yc(cmax * f) + 4).toFixed(1)}" text-anchor="start" class="cum">${esc(yen(cmax * f, { digits: 0 }))}</text>`).join('');
+  const legend = [
+    ...platforms.map((pk) => `<span><i style="background:${PLATFORM_COLORS[pk] ?? 'var(--muted)'}"></i>${esc(platformLabel(pk))}（日ごとの収益・左の目盛り）</span>`),
+    '<span><i class="cum-swatch"></i>累計の収益（右の目盛り）</span>',
+  ].join('');
+  return `<div class="panel chart" data-testid="admob-chart">
+    <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="AdMob の日ごとの収益">
+      ${ticks}${bars}
+      <polyline points="${line}" class="cum-line" fill="none"/>
+      ${labels}
+    </svg>
+    <div class="legend">${legend}</div></div>`;
+}
+
+function renderAdmob() {
+  const daily = doc().admobSync?.daily ?? [];
+  const total = daily.reduce((sum, d) => ({
+    earningsJPY: sum.earningsJPY + d.earningsJPY,
+    impressions: sum.impressions + d.impressions,
+    clicks: sum.clicks + d.clicks,
+    adRequests: sum.adRequests + d.adRequests,
+    matchedRequests: sum.matchedRequests + d.matchedRequests,
+  }), { earningsJPY: 0, impressions: 0, clicks: 0, adRequests: 0, matchedRequests: 0 });
+  const ecpm = (e, i) => (i > 0 ? (e / i) * 1000 : null);
+  const matchRate = (d) => (d.adRequests > 0 ? d.matchedRequests / d.adRequests : null);
+  const last7 = daily.slice(-7);
+  const avg7 = last7.length ? last7.reduce((sum, d) => sum + d.earningsJPY, 0) / last7.length : null;
+  let run = 0;
+  const rows = daily.map((d) => ({ d, cum: (run += d.earningsJPY) })).reverse();
+  return `
+    <p class="small"><a href="#/dashboard">← Dashboard</a></p>
+    <h1>Ad Revenue (AdMob) · 日ごとの推移</h1>
+    ${admobSyncLine()}
+    ${syncNowButton()}
+    <div class="kpis" data-testid="admob-kpis">
+      ${kpi('収益（期間の合計）', yen(total.earningsJPY), { key: true })}
+      ${kpi('直近7日の1日平均', yen(avg7))}
+      ${kpi('表示回数', int(total.impressions))}
+      ${kpi('eCPM', yen(ecpm(total.earningsJPY, total.impressions)))}
+      ${kpi('クリック', int(total.clicks))}
+      ${kpi('マッチ率', pct(matchRate(total)))}
+    </div>
+    ${daily.length ? admobChart(daily) : `<div class="notice" data-testid="admob-empty">日ごとのデータはまだありません。毎朝 6:00 の自動取得（または「今すぐ取得」）のあとに表示されます。</div>`}
+    ${daily.length ? `<h2>日ごとの数字（新しい順）</h2>
+    <div class="table-wrap"><table data-testid="admob-daily"><thead><tr><th class="l">日付</th><th>収益</th><th>iOS</th><th>Android</th>
+      <th>表示回数</th><th>eCPM</th><th>クリック</th><th>リクエスト</th><th>マッチ率</th><th>累計の収益</th></tr></thead><tbody>
+      ${rows.map(({ d, cum }) => `<tr><td class="l">${esc(d.date)}</td><td>${yen(d.earningsJPY)}</td><td>${yen(platformEarnings(d, 'IOS'))}</td>
+        <td>${yen(platformEarnings(d, 'ANDROID'))}</td><td>${int(d.impressions)}</td><td>${yen(ecpm(d.earningsJPY, d.impressions))}</td>
+        <td>${int(d.clicks)}</td><td>${int(d.adRequests)}</td><td>${pct(matchRate(d))}</td><td>${yen(cum)}</td></tr>`).join('')}
+    </tbody></table></div>` : ''}
+    <p class="muted small">収益は AdMob の「見積もり収益」（円・パブリッシャーの取り分）。期間は Settings の「集計の開始日」から今日まで。
+      当日の数字は AdMob 側で約 4 時間遅れて反映され、数日は見積もりのため少し変わることがあります。国別の内訳は <a href="#/countries">Countries</a> の Ad Revenue。</p>`;
 }
 
 // --- Countries ---------------------------------------------------------------------

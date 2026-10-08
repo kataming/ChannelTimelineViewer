@@ -111,3 +111,18 @@ button.primary { background: var(--accent); border-color: var(--accent); color: 
 }
 .view:focus { outline: none; }
 .nav-logout { padding: 4px 14px 8px; font-size: 11px; }
+
+/* Dashboard の押せるカード（Ad Revenue → 日ごとの推移） */
+a.kpi-link { color: inherit; text-decoration: none; cursor: pointer; transition: box-shadow .15s, border-color .15s; }
+a.kpi-link:hover { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.kpi-more { color: var(--accent); font-weight: 700; }
+
+/* AdMob の日ごとのグラフ */
+.chart svg { width: 100%; height: auto; display: block; }
+.chart svg text { font-size: 11px; fill: var(--muted); }
+.chart svg text.cum { fill: var(--warning); }
+.chart svg line.grid { stroke: var(--line); stroke-width: 1; }
+.chart svg .cum-line { stroke: var(--warning); stroke-width: 2; }
+.chart .legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: 12px; color: var(--muted); margin-top: 6px; }
+.chart .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; }
+.chart .legend i.cum-swatch { height: 2px; width: 14px; background: var(--warning); vertical-align: 3px; }

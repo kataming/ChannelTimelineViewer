@@ -321,7 +321,10 @@ export function summarizeVersions(rows = [], filters = {}) {
   const out = [];
   for (const g of groups.values()) {
     const scoped = g.all.filter(byCountry);
-    const firstSeen = scoped.map((r) => r.date).sort()[0] ?? null;
+    // 期間の合計の行（endDate あり）の date は「期間の開始日」なので使わない。日別の行だけで最初の日を決める
+    // （GA4 の自動取得で全バージョンが開始日 2026-09-01 になっていた・2026-10-08）
+    const daily = scoped.filter((r) => !r.endDate);
+    const firstSeen = (daily.length ? daily : scoped).map((r) => r.date).sort()[0] ?? null;
     let rowsIn = scoped.filter((r) => inRange(r, start, end));
     if (!country) {
       const totalRows = rowsIn.filter((r) => !r.country);

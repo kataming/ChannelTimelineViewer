@@ -115,7 +115,28 @@ final class VideoListViewModel: ObservableObject {
         videos.sortedByPublishedDate(ascending: true)
     }
 
+    /// 最初の読み込み。呼んだ画面とは切り離して動かす（下の `loadIfNeeded` を参照）。
+    private var initialLoadTask: Task<Void, Never>?
+
+    /// まだ一覧が無ければ読み込む。
+    ///
+    /// ⚠️ 画面の `.task` から呼ばれるが、読み込みそのものは**画面に縛られない Task で動かす**。
+    /// 人気動画・コピーした動画から来たときは、一覧画面が開いた直後に再生画面が上に重なる。
+    /// `.task` のまま読み込むと、一覧が裏に回った瞬間に SwiftUI が取り消してしまい、
+    /// 戻るボタンを押してから読み込みが始まっていた（2026-10-09・ユーザー指摘）。
     func loadIfNeeded() async {
+        if let initialLoadTask {
+            await initialLoadTask.value
+            return
+        }
+        guard videos.isEmpty, !isLoading else { return }
+        let task = Task { await self.loadIfNeededNow() }
+        initialLoadTask = task
+        await task.value
+        initialLoadTask = nil
+    }
+
+    private func loadIfNeededNow() async {
         guard videos.isEmpty, !isLoading else { return }
 
         // 2回目以降は保存済みの一覧をすぐ表示し、新着だけを確認する。

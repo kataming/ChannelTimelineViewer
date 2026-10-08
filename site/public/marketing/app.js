@@ -5,6 +5,7 @@ import * as model from './domain/model.js';
 import { ValidationError } from './domain/model.js';
 import { campaignStats, countryStats, testStats, totals } from './domain/calc.js';
 import { hasRate } from './domain/fx.js';
+import { fillDailyGaps } from './domain/admob.js';
 import { finite, parseAmount } from './domain/num.js';
 import { DASH, esc, inputValue, int, money, pct, ratio, sign, yen } from './domain/format.js';
 import {
@@ -270,7 +271,8 @@ function admobChart(daily) {
 }
 
 function renderAdmob() {
-  const daily = doc().admobSync?.daily ?? [];
+  const a = doc().admobSync ?? {};
+  const daily = fillDailyGaps(a.daily ?? [], a.from, a.to);
   const total = daily.reduce((sum, d) => ({
     earningsJPY: sum.earningsJPY + d.earningsJPY,
     impressions: sum.impressions + d.impressions,

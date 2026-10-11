@@ -544,11 +544,14 @@ def submit_for_review(client: Client, bundle_id: str) -> int:
 
     # 2. このバージョンを提出物に加える（すでに入っていれば何もしない）。
     items = client.get(
-        f"/v1/reviewSubmissions/{submission_id}/items?limit=20").get("data", [])
+        f"/v1/reviewSubmissions/{submission_id}/items?include=appStoreVersion&limit=20"
+    ).get("data", [])
     already = any(
         (item.get("relationships", {}).get("appStoreVersion", {}).get("data") or {}).get("id")
         == version_id for item in items)
-    if already:
+    # 止められた提出には項目を足せない（409）。中身はそのまま送り直す。
+    resubmit = bool(pending) and pending["attributes"].get("state") == "UNRESOLVED_ISSUES"
+    if already or resubmit:
         print("  このバージョンは提出物に入っています")
     else:
         client.write("POST", "/v1/reviewSubmissionItems", {

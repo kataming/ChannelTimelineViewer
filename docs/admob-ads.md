@@ -199,6 +199,7 @@ YouTube API Services Developer Policies **III.G.1.d** は、「YouTube API の�
 | App Store の App のプライバシー（栄養ラベル） | データ収集なし | Google Mobile Ads が集めるもの（Google の案内に従う：おおよそ「位置情報（おおよそ・IP 由来）」「ID（デバイス ID）」「使用状況（製品の操作・広告データ）」「診断」を**第三者広告**目的で）。トラッキング「なし」 |
 | Google Play データセーフティ | 「広告SDKなし・広告ID収集なし」 | Google Mobile Ads の申告（Google の案内に従う）。広告IDは**収集しない**のまま（権限を外してあるため） |
 | Play Console「広告を含む」 | いいえ | **はい** |
+| App Store の年齢区分「広告（Advertising）」 | いいえ | **はい**（2026-10-11 に設定済み。未設定だと審査が自動で止まる。`appstore-metadata.yml -f mode=age-rating-ads` で設定できる） |
 | `docs/android-play-release-guide.md` | 「広告 SDK は不使用」「アプリ内購入・サブスク・広告なし」 | 広告ありに直す |
 | アプリ内「ⓘ このアプリについて」 | 広告の説明なし（`about.analytics.body` の「広告用の識別子も使いません」は引き続き正しい） | 「無料版には広告が出る・Pro は広告なし」の一文を足すかは判断 |
 | Pro の訴求（`pro.*`・ストア・サイト） | Pro の価値は「複数チャンネル保存」だけ | 「広告なし」を Pro の価値として書くかは**判断**（CLAUDE.md の収益化方針の更新が要る） |

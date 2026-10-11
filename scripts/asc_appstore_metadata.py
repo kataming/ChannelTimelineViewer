@@ -520,6 +520,8 @@ def submit_for_review(client: Client, bundle_id: str) -> int:
     #    「submitted が偽」だけで判断すると完了済みの枠を掴んでしまう。
     existing = client.get(f"/v1/apps/{app_id}/reviewSubmissions?limit=10").get("data", [])
     #    UNRESOLVED_ISSUES（審査で止められた提出）も、直したあと同じ枠で送り直す。
+    #    ただし 2026-10-11 はこれが「Version is not ready to be submitted yet」で通らず、
+    #    cancel → 少し待つ → submit（新しい枠）で通った。通らなければその手順にする。
     pending = next((s for s in existing
                     if s["attributes"].get("state") == "UNRESOLVED_ISSUES"), None)
     pending = pending or next((s for s in existing

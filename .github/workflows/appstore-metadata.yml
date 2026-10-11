@@ -10,15 +10,16 @@ name: App Store Metadata
 #   status … いまの登録状況を読むだけ（変更しない）
 #   push   … 原本を反映する。dry_run=true なら送信せず内容だけ表示する
 #   submit … 編集中のバージョンを審査へ提出する（画面の「審査へ提出」と同じ。dry_run で下見できる）
+#   age-rating-ads … 年齢区分の「広告（Advertising）」を「はい」にする（無料版の AdMob 広告のため）
 #   expire-build … TestFlight のビルド（build で指定）を取り下げる。元に戻せない。dry_run で下見できる
 
 on:
   workflow_dispatch:
     inputs:
       mode:
-        description: '動作（status=確認 / push=メタデータ / attach-build=ビルド / category=カテゴリ / review=審査情報 / submit=審査へ提出 / cancel=提出の取り下げ / expire-build=TestFlight のビルドを取り下げ・build 必須）'
+        description: '動作（status=確認 / push=メタデータ / attach-build=ビルド / category=カテゴリ / review=審査情報 / submit=審査へ提出 / cancel=提出の取り下げ / expire-build=TestFlight のビルドを取り下げ・build 必須 / age-rating-ads=年齢区分の広告を「はい」に）'
         type: choice
-        options: [status, diagnose, push, attach-build, category, review, submit, cancel, expire-build]
+        options: [status, diagnose, push, attach-build, category, review, submit, cancel, expire-build, age-rating-ads]
         default: status
       dry_run:
         description: 'push のとき、送信せず内容だけ表示する'

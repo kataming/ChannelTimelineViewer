@@ -1130,12 +1130,49 @@ def diagnose(client: Client, bundle_id: str) -> int:
     return 0
 
 
+def set_age_rating_ads(client: Client, bundle_id: str) -> int:
+    """年齢区分の「広告（Advertising）」を「はい」にする。
+
+    無料版に AdMob の広告を入れたため。未設定のまま提出すると、審査が
+    「広告があるのに年齢区分で Advertising を Yes にしていない」と自動で止める
+    （2026-10-11 に iOS 1.5.1 で実際に止まった）。
+    公開中の App 情報は編集できないので、編集中のものだけを直す。
+    """
+    app = find_app(client, bundle_id)
+    infos = client.get(f"/v1/apps/{app['id']}/appInfos?limit=10").get("data", [])
+    targets = [i for i in infos
+               if (i["attributes"].get("state") or i["attributes"].get("appStoreState"))
+               not in ("READY_FOR_DISTRIBUTION", "READY_FOR_SALE")]
+    if not targets:
+        raise SystemExit("編集できる App 情報がありません（新しいバージョンを作ってから実行してください）。")
+    for info in targets:
+        state = info["attributes"].get("state") or info["attributes"].get("appStoreState")
+        decl = client.get(f"/v1/appInfos/{info['id']}/ageRatingDeclaration").get("data")
+        if not decl:
+            print(f"App 情報 {info['id']}（{state}）: 年齢区分の申告が見つかりません")
+            continue
+        current = decl["attributes"].get("advertising")
+        print(f"App 情報 {info['id']}（{state}）: 広告 = {current}")
+        if current is True:
+            print("  すでに「はい」です")
+            continue
+        client.write("PATCH", f"/v1/ageRatingDeclarations/{decl['id']}", {
+            "data": {"type": "ageRatingDeclarations", "id": decl["id"],
+                     "attributes": {"advertising": True}}
+        })
+        if not client.dry_run:
+            after = client.get(f"/v1/appInfos/{info['id']}/ageRatingDeclaration")["data"]
+            print(f"  広告 = {after['attributes'].get('advertising')} にしました")
+    return 0
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--mode",
         choices=["status", "push", "attach-build", "category", "review", "screenshots",
-                 "fill-screenshots", "diagnose", "submit", "cancel", "expire-build"],
+                 "fill-screenshots", "diagnose", "submit", "cancel", "expire-build",
+                 "age-rating-ads"],
         default="status")
     parser.add_argument("--primary-category", default="EDUCATION")
     parser.add_argument("--screenshots-dir", default="screenshots",
@@ -1171,6 +1208,8 @@ def main() -> int:
             return submit_for_review(client, args.bundle_id)
         if args.mode == "expire-build":
             return expire_build(client, args.bundle_id, args.build)
+        if args.mode == "age-rating-ads":
+            return set_age_rating_ads(client, args.bundle_id)
         if args.mode == "diagnose":
             return diagnose(client, args.bundle_id)
         if args.mode == "screenshots":

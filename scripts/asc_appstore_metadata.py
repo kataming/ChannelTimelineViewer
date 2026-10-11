@@ -1159,6 +1159,8 @@ def set_age_rating_ads(client: Client, bundle_id: str) -> int:
             continue
         current = decl["attributes"].get("advertising")
         print(f"App 情報 {info['id']}（{state}）: 広告 = {current}")
+        unanswered = sorted(k for k, v in decl["attributes"].items() if v is None)
+        print(f"  未回答の項目: {', '.join(unanswered) if unanswered else 'なし'}")
         if current is True:
             print("  すでに「はい」です")
             continue

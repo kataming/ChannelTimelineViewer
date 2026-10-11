@@ -519,9 +519,12 @@ def submit_for_review(client: Client, bundle_id: str) -> int:
     #    過去の提出は COMPLETE などで残っており、submitted が返らないことがあるので
     #    「submitted が偽」だけで判断すると完了済みの枠を掴んでしまう。
     existing = client.get(f"/v1/apps/{app_id}/reviewSubmissions?limit=10").get("data", [])
+    #    UNRESOLVED_ISSUES（審査で止められた提出）も、直したあと同じ枠で送り直す。
     pending = next((s for s in existing
-                    if s["attributes"].get("state") == "READY_FOR_REVIEW"
-                    and not s["attributes"].get("submitted")), None)
+                    if s["attributes"].get("state") == "UNRESOLVED_ISSUES"), None)
+    pending = pending or next((s for s in existing
+                               if s["attributes"].get("state") == "READY_FOR_REVIEW"
+                               and not s["attributes"].get("submitted")), None)
     if pending:
         submission_id = pending["id"]
         print(f"  未提出の提出枠を使います（状態 {pending['attributes'].get('state')}）")
